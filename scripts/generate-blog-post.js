@@ -15,35 +15,42 @@ async function main() {
     }
 
     const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-    const allItems = [...(data.festivals || []), ...(data.benefits || [])];
+    // 최신순으로 정렬 (보통 unshift로 추가하므로 역순으로 확인)
+    const allItems = [...(data.festivals || []), ...(data.benefits || [])].reverse();
     
     if (allItems.length === 0) {
       console.log('가져올 데이터가 없습니다.');
       return;
     }
 
-    // "마지막 항목" - 사용자 요청대로 배열의 마지막 항목을 가져옴
-    // (보통 unshift로 추가했다면 첫 번째가 최신이지만, 명시적 요청에 따름)
-    const latestItem = allItems[allItems.length - 1];
-    const title = latestItem.title;
-
-    // 기존 파일 확인
+    // 기존 포스트 디렉토리 확인
     const postsDir = path.join(process.cwd(), 'src/content/posts');
     if (!fs.existsSync(postsDir)) {
       fs.mkdirSync(postsDir, { recursive: true });
     }
 
+    // 아직 글이 작성되지 않은 항목 찾기
+    let targetItem = null;
     const existingFiles = fs.readdirSync(postsDir);
-    const alreadyExists = existingFiles.some(file => {
-      if (!file.endsWith('.md')) return false;
+    const existingTitles = existingFiles.filter(f => f.endsWith('.md')).map(file => {
       const content = fs.readFileSync(path.join(postsDir, file), 'utf8');
-      return content.includes(`title: "${title}"`) || content.includes(`title: ${title}`);
+      const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\n/);
+      return titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
     });
 
-    if (alreadyExists) {
-      console.log('이미 작성된 글입니다');
+    for (const item of allItems) {
+      if (!existingTitles.includes(item.title)) {
+        targetItem = item;
+        break;
+      }
+    }
+
+    if (!targetItem) {
+      console.log('모든 데이터가 이미 블로그에 작성되었습니다.');
       return;
     }
+
+    console.log(`발행 대상 발견: ${targetItem.title}`);
 
     // 2. Gemini AI로 블로그 글 생성
     const today = new Date().toISOString().split('T')[0];
@@ -52,7 +59,7 @@ async function main() {
         parts: [{
           text: `아래 공공서비스 정보를 바탕으로 블로그 글을 작성해줘.
 
-정보: ${JSON.stringify(latestItem)}
+정보: ${JSON.stringify(targetItem)}
 
 아래 형식으로 출력해줘. 반드시 이 형식만 출력하고 다른 텍스트는 없이:
 ---
