@@ -121,9 +121,8 @@ async function main() {
       contents: [{
         parts: [{
           text: `아래 공공데이터 1건을 분석해서 JSON 객체로 변환해줘. 형식:
-{id: 랜덤숫자, region: '서울', '인천', '경기', '전국' 중 택1, type: 'festival' 또는 'benefit', title: 서비스명, date: 'YYYY.MM.DD~YYYY.MM.DD' 또는 마감일, target: 지원대상, summary: 한줄요약, link: 상세URL, tag: '추천/마감임박/상시 등 짧은태그'}
+{id: 랜덤숫자, region: '서울', '인천', '경기', '전국' 중 택1, type: 'festival' 또는 'benefit', title: 서비스명, date: 'YYYY.MM.DD~YYYY.MM.DD' 또는 마감일, target: 지원대상, summary: 한줄요약, link: 상세URL, tag: '추천/마감임박/상시 등 짧은태그', imagePrompt: '축제/행사라면 이 축제 분위기를 가장 잘 나타내는 화려하고 사실적인 영문 이미지 생성 프롬프트 1문장'}
 내용을 보고 행사/축제면 type을 'festival', 지원금/서비스면 'benefit'으로 판단해.
-date나 마감일이 명확하지 않으면 '상시'로 넣어.
 반드시 JSON 객체만 출력해. 다른 텍스트 없이.
 
 공공데이터:
@@ -132,7 +131,7 @@ ${JSON.stringify(selectedData)}`
       }]
     };
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`;
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`;
     const geminiRes = await fetch(geminiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -151,13 +150,15 @@ ${JSON.stringify(selectedData)}`
     const newId = String(parsedParams.id || Date.now());
 
     if (parsedParams.type === 'festival') {
+      const seed = Math.floor(Math.random() * 1000);
+      const encodedPrompt = encodeURIComponent(parsedParams.imagePrompt || parsedParams.title + ' festival, vibrant, high quality, realistic');
       existingData.festivals.unshift({
         id: newId,
         region: parsedParams.region || '전국',
         title: parsedParams.title || titleToCheck,
         date: parsedParams.date || '상시',
         tag: parsedParams.tag || '신규',
-        image: 'https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=640&auto=format&fit=crop'
+        image: `https://pollinations.ai/p/${encodedPrompt}?width=800&height=600&seed=${seed}&model=flux`
       });
     } else {
       existingData.benefits.unshift({
