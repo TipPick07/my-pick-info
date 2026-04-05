@@ -145,25 +145,18 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div className="space-y-1">
                 <p className="text-slate-400 text-xs font-black uppercase tracking-widest">Original Source</p>
-                {(() => {
-                  const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
-                  const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-                  const allItems = [...(data.festivals || []), ...(data.benefits || [])];
-                  const sourceItem = allItems.find(item => item.title === post.title);
-                  if (sourceItem?.link) {
-                    return (
-                      <a 
-                        href={sourceItem.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 font-black hover:underline underline-offset-4"
-                      >
-                        공공서비스 원문 바로가기 →
-                      </a>
-                    );
-                  }
-                  return <span className="text-slate-300 font-bold italic">출처 링크를 준비 중입니다.</span>;
-                })()}
+                {post.link ? (
+                  <a 
+                    href={post.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-indigo-600 font-black hover:underline underline-offset-4"
+                  >
+                    공공서비스 원문 바로가기 →
+                  </a>
+                ) : (
+                  <span className="text-slate-300 font-bold italic">출처 링크를 준비 중입니다.</span>
+                )}
               </div>
 
               <div className="text-right">

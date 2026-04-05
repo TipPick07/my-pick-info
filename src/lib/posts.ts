@@ -7,6 +7,8 @@ const postsDirectory = path.join(process.cwd(), 'src/content/posts');
 export interface PostData {
   slug: string;
   title: string;
+  originalTitle?: string;
+  link?: string;
   author: string;
   date: string;
   summary: string;
@@ -51,6 +53,8 @@ export function getSortedPostsData(): PostData[] {
       return {
         slug,
         title: matterResult.data.title || '',
+        originalTitle: matterResult.data.originalTitle || '',
+        link: matterResult.data.link || '',
         author: matterResult.data.author || '수도권N라이프',
         date: dateStr,
         summary: matterResult.data.summary || '',
@@ -85,6 +89,8 @@ export function getPostData(slug: string): PostData | null {
   return {
     slug,
     title: matterResult.data.title || '',
+    originalTitle: matterResult.data.originalTitle || '',
+    link: matterResult.data.link || '',
     author: matterResult.data.author || '수도권N라이프',
     date: dateStr,
     summary: matterResult.data.summary || '',
