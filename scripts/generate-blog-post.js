@@ -32,14 +32,18 @@ async function main() {
     // 아직 글이 작성되지 않은 항목 찾기
     let targetItem = null;
     const existingFiles = fs.readdirSync(postsDir);
-    const existingTitles = existingFiles.filter(f => f.endsWith('.md')).map(file => {
+    const alreadyPostedTitles = existingFiles.filter(f => f.endsWith('.md')).map(file => {
       const content = fs.readFileSync(path.join(postsDir, file), 'utf8');
+      const originalTitleMatch = content.match(/originalTitle:\s*"(.*)"/) || content.match(/originalTitle:\s*(.*)\n/);
+      if (originalTitleMatch) return originalTitleMatch[1].replace(/"/g, '').trim();
+      
+      // 구 버전 파일은 일반 제목으로 체크
       const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\n/);
       return titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
     });
 
     for (const item of allItems) {
-      if (!existingTitles.includes(item.title)) {
+      if (!alreadyPostedTitles.includes(item.title)) {
         targetItem = item;
         break;
       }
@@ -64,6 +68,7 @@ async function main() {
 아래 형식으로 출력해줘. 반드시 이 형식만 출력하고 다른 텍스트는 없이:
 ---
 title: (친근하고 흥미로운 제목)
+originalTitle: ${targetItem.title}
 date: ${today}
 summary: (한 줄 요약)
 category: 정보
