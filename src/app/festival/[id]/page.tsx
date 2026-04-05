@@ -45,10 +45,10 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
         {/* Back Button */}
         <div className="absolute top-8 left-8">
           <Link 
-            href="/" 
+            href="/festivals/" 
             className="flex items-center gap-2 px-4 py-2 bg-white/70 backdrop-blur-md rounded-full text-sm font-bold text-slate-900 shadow-lg border border-white/50 hover:bg-white hover:-translate-x-1 transition-all"
           >
-            ← 목록으로 돌아가기
+            ← 목록으로
           </Link>
         </div>
       </div>

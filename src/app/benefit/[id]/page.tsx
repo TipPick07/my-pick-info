@@ -35,10 +35,10 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
       <main className="container mx-auto px-6 max-w-5xl space-y-12">
         {/* Top Navigation */}
         <Link 
-          href="/" 
+          href="/benefits/" 
           className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-slate-600 hover:text-indigo-600 hover:border-indigo-200 transition-all shadow-sm active:scale-95"
         >
-          ← 전체 목록으로 돌아가기
+          ← 목록으로
         </Link>
 
         {/* Content Content Container */}
