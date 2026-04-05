@@ -1,14 +1,37 @@
-import Link from "next/link";
+import { Metadata } from 'next';
+import Link from 'next/link';
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getPostData, getSortedPostsData } from "@/lib/posts";
 import Header from "@/components/Header";
 import { notFound } from "next/navigation";
+import fs from "fs";
+import path from "path";
+import AdBanner from "@/components/AdBanner";
+import CoupangBanner from "@/components/CoupangBanner";
 
 interface PostPageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostData(slug);
+
+  return {
+    title: `${post?.title} | 수도권N라이프 Blog`,
+    description: post?.summary,
+    openGraph: {
+      title: post?.title,
+      description: post?.summary,
+      type: 'article',
+      publishedTime: post?.date,
+      authors: [post?.author || '수도권N라이프'],
+      tags: post?.tags,
+    },
+  };
 }
 
 // SSG를 위한 정적 경로 생성
@@ -29,6 +52,43 @@ export default async function BlogPostPage({ params }: PostPageProps) {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
+      {/* BlogPosting JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": post.title,
+            "datePublished": post.date,
+            "description": post.summary,
+            "author": {
+              "@type": "Organization",
+              "name": "수도권N라이프"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "수도권N라이프",
+              "url": "https://my-pick-info.pages.dev"
+            }
+          })
+        }}
+      />
+      {/* BreadcrumbList JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://my-pick-info.pages.dev" },
+              { "@type": "ListItem", "position": 2, "name": "블로그", "item": "https://my-pick-info.pages.dev/blog" },
+              { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://my-pick-info.pages.dev/blog/${post.slug}` }
+            ]
+          })
+        }}
+      />
       <Header />
 
       <main className="container mx-auto px-4 md:px-6 py-12 max-w-4xl">
@@ -72,8 +132,49 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             </ReactMarkdown>
           </div>
 
+          {/* AI Disclosure & Source Link */}
+          <div className="mt-16 pt-10 border-t-2 border-slate-50 space-y-8">
+            <div className="p-8 bg-indigo-50/50 rounded-[2rem] border border-indigo-100/50">
+              <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                💡 **AI 생성 정보 안내**<br />
+                이 글은 공공데이터포털([data.go.kr](http://data.go.kr/))의 정보를 바탕으로 AI가 작성하였습니다. 
+                정확한 내용은 아래 원문 링크를 통해 다시 한번 확인해주시기 바랍니다.
+              </p>
+            </div>
+
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="space-y-1">
+                <p className="text-slate-400 text-xs font-black uppercase tracking-widest">Original Source</p>
+                {(() => {
+                  const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
+                  const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+                  const allItems = [...(data.festivals || []), ...(data.benefits || [])];
+                  const sourceItem = allItems.find(item => item.title === post.title);
+                  if (sourceItem?.link) {
+                    return (
+                      <a 
+                        href={sourceItem.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-indigo-600 font-black hover:underline underline-offset-4"
+                      >
+                        공공서비스 원문 바로가기 →
+                      </a>
+                    );
+                  }
+                  return <span className="text-slate-300 font-bold italic">출처 링크를 준비 중입니다.</span>;
+                })()}
+              </div>
+
+              <div className="text-right">
+                <p className="text-slate-400 text-xs font-black uppercase tracking-widest leading-none mb-2">Last Updated</p>
+                <p className="text-slate-900 font-black">최종 업데이트: {post.date}</p>
+              </div>
+            </div>
+          </div>
+
           {/* Tags */}
-          <div className="mt-16 pt-8 border-t border-slate-100 flex flex-wrap gap-2">
+          <div className="mt-12 pt-8 border-t border-slate-50 flex flex-wrap gap-2">
             {post.tags.map(tag => (
               <span key={tag} className="bg-slate-50 text-slate-500 px-4 py-1.5 rounded-full text-xs font-bold">
                 #{tag}
@@ -81,6 +182,10 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             ))}
           </div>
         </article>
+
+        {/* Monetization Banners */}
+        <AdBanner />
+        <CoupangBanner />
       </main>
 
       <footer className="bg-slate-900 text-white py-12 px-6 mt-20">

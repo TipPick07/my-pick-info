@@ -1,4 +1,7 @@
-import Link from "next/link";
+import { Metadata } from 'next';
+import Link from 'next/link';
+import fs from 'fs';
+import path from 'path';
 
 interface Benefit {
   id: string;
@@ -11,16 +14,41 @@ interface Benefit {
   link: string;
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const benefit = await getBenefit(id);
+
+  if (!benefit) {
+    return {
+      title: '수도권N라이프 혜택 정보',
+      description: '서울, 인천, 경기 지역의 다양한 지원금 혜택을 확인하세요.',
+    };
+  }
+
+  const description = benefit.details ? benefit.details.slice(0, 160) : '지원금 혜택 상세 정보입니다.';
+
+  return {
+    title: `${benefit.title} | 수도권N라이프`,
+    description: description,
+    openGraph: {
+      title: benefit.title,
+      description: description,
+    },
+  };
+}
+
 // 정적 배포를 위해 미리 경로를 생성합니다.
 export async function generateStaticParams() {
-  const data = require("../../../../public/data/pick-info.json");
+  const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
+  const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
   return data.benefits.map((b: { id: string }) => ({
-    id: b.id,
+    id: b.id.toString(),
   }));
 }
 
 async function getBenefit(id: string) {
-  const data = require("../../../../public/data/pick-info.json");
+  const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
+  const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
   return data.benefits.find((b: Benefit) => b.id === id);
 }
 

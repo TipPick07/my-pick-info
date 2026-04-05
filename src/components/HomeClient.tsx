@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { PostData } from "@/lib/posts";
 import { getRealTimeWeather } from "@/lib/weather";
+import AdBanner from "@/components/AdBanner";
 
 interface Weather {
   region: string;
@@ -153,6 +154,11 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
               )}
             </div>
           </section>
+
+          {/* Ad Banner: between Festivals & Benefits */}
+          <div className="lg:col-span-3">
+            <AdBanner />
+          </div>
 
           {/* Benefits (1/3) */}
           <aside className="space-y-8">

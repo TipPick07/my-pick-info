@@ -12,5 +12,42 @@ export default function Home() {
   const posts = getSortedPostsData().slice(0, 3);
   const weatherApiKey = process.env.PUBLIC_DATA_API_KEY || "";
 
-  return <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} />;
+  const eventSchema = data.festivals.map((f: any) => ({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": f.title,
+    "startDate": f.date,
+    "location": {
+      "@type": "Place",
+      "name": f.location,
+      "address": f.region
+    },
+    "description": f.description,
+    "image": f.image
+  }));
+
+  const benefitSchema = data.benefits.map((b: any) => ({
+    "@context": "https://schema.org",
+    "@type": "GovernmentService",
+    "name": b.title,
+    "description": b.details,
+    "provider": {
+      "@type": "GovernmentOrganization",
+      "name": b.region
+    }
+  }));
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(benefitSchema) }}
+      />
+      <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} />
+    </>
+  );
 }

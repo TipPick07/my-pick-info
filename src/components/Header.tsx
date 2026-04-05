@@ -26,6 +26,7 @@ export default function Header() {
           <Link href="/festivals/" className="hover:text-indigo-600 transition-colors">축제/행사</Link>
           <Link href="/benefits/" className="hover:text-indigo-600 transition-colors">지원금 혜택</Link>
           <Link href="/blog/" className="hover:text-indigo-600 transition-colors">블로그</Link>
+          <Link href="/about/" className="hover:text-indigo-600 transition-colors">소개</Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -45,7 +46,8 @@ export default function Header() {
         <nav className="flex flex-col p-6 space-y-4 text-lg font-bold text-slate-800">
           <Link href="/festivals/" onClick={() => setIsMenuOpen(false)} className="hover:text-indigo-600 border-b border-slate-50 pb-2">축제/행사</Link>
           <Link href="/benefits/" onClick={() => setIsMenuOpen(false)} className="hover:text-indigo-600 border-b border-slate-50 pb-2">지원금 혜택</Link>
-          <Link href="/blog/" onClick={() => setIsMenuOpen(false)} className="hover:text-indigo-600 pb-2">블로그</Link>
+          <Link href="/blog/" onClick={() => setIsMenuOpen(false)} className="hover:text-indigo-600 border-b border-slate-50 pb-2">블로그</Link>
+          <Link href="/about/" onClick={() => setIsMenuOpen(false)} className="hover:text-indigo-600 pb-2">소개</Link>
         </nav>
       </div>
     </header>

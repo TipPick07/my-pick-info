@@ -1,4 +1,7 @@
-import Link from "next/link";
+import { Metadata } from 'next';
+import Link from 'next/link';
+import fs from 'fs';
+import path from 'path';
 
 interface Festival {
   id: string;
@@ -12,16 +15,42 @@ interface Festival {
   link: string;
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const festival = await getFestival(id);
+
+  if (!festival) {
+    return {
+      title: '수도권N라이프 축제 정보',
+      description: '서울, 인천, 경기 지역의 즐거운 축제와 행사를 확인하세요.',
+    };
+  }
+
+  const description = festival.description ? festival.description.slice(0, 160) : '축제 상세 정보입니다.';
+
+  return {
+    title: `${festival.title} | 수도권N라이프`,
+    description: description,
+    openGraph: {
+      title: festival.title,
+      description: description,
+      images: [festival.image || ""],
+    },
+  };
+}
+
 // 정적 배포를 위해 미리 경로를 생성합니다.
 export async function generateStaticParams() {
-  const data = require("../../../../public/data/pick-info.json");
+  const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
+  const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
   return data.festivals.map((f: { id: string }) => ({
-    id: f.id,
+    id: f.id.toString(),
   }));
 }
 
 async function getFestival(id: string) {
-  const data = require("../../../../public/data/pick-info.json");
+  const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
+  const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
   return data.festivals.find((f: Festival) => f.id === id);
 }
 
