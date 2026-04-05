@@ -9,6 +9,9 @@ export interface PostData {
   title: string;
   originalTitle?: string;
   link?: string;
+  officialTarget?: string;
+  officialDetails?: string;
+  officialDeadline?: string;
   author: string;
   date: string;
   summary: string;
@@ -55,6 +58,9 @@ export function getSortedPostsData(): PostData[] {
         title: matterResult.data.title || '',
         originalTitle: matterResult.data.originalTitle || '',
         link: matterResult.data.link || '',
+        officialTarget: matterResult.data.officialTarget || '',
+        officialDetails: matterResult.data.officialDetails || '',
+        officialDeadline: matterResult.data.officialDeadline || '',
         author: matterResult.data.author || '수도권N라이프',
         date: dateStr,
         summary: matterResult.data.summary || '',
@@ -91,6 +97,9 @@ export function getPostData(slug: string): PostData | null {
     title: matterResult.data.title || '',
     originalTitle: matterResult.data.originalTitle || '',
     link: matterResult.data.link || '',
+    officialTarget: matterResult.data.officialTarget || '',
+    officialDetails: matterResult.data.officialDetails || '',
+    officialDeadline: matterResult.data.officialDeadline || '',
     author: matterResult.data.author || '수도권N라이프',
     date: dateStr,
     summary: matterResult.data.summary || '',

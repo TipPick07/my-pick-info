@@ -135,11 +135,35 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           {/* AI Disclosure & Source Link */}
           <div className="mt-16 pt-10 border-t-2 border-slate-50 space-y-8">
             <div className="p-8 bg-indigo-50/50 rounded-[2rem] border border-indigo-100/50">
-              <p className="text-slate-600 text-sm leading-relaxed font-medium">
+              <p className="text-slate-600 text-sm leading-relaxed font-medium mb-6">
                 💡 **AI 생성 정보 안내**<br />
-                이 글은 공공데이터포털([data.go.kr](http://data.go.kr/))의 정보를 바탕으로 AI가 작성하였습니다. 
-                정확한 내용은 아래 원문 링크를 통해 다시 한번 확인해주시기 바랍니다.
+                이 글은 공공데이터포털 정보를 바탕으로 AI가 작성하였습니다. 
+                정확한 내용은 아래 **[공공서비스 공식 정보]**를 통해 다시 한번 확인해주시기 바랍니다.
               </p>
+
+              {/* Official Data Section */}
+              <div className="bg-white rounded-2xl p-6 border border-indigo-100 shadow-sm">
+                <h4 className="text-indigo-900 font-black text-sm mb-4 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-indigo-600 rounded-full"></span>
+                  공공서비스 공식 정보
+                </h4>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-[80px_1fr] gap-4 text-sm">
+                    <span className="text-slate-400 font-bold">지원 대상</span>
+                    <span className="text-slate-700 font-medium">{post.officialTarget || '포털 확인 필요'}</span>
+                  </div>
+                  <div className="grid grid-cols-[80px_1fr] gap-4 text-sm">
+                    <span className="text-slate-400 font-bold">신청 마감</span>
+                    <span className="text-slate-700 font-medium">{post.officialDeadline || '상시'}</span>
+                  </div>
+                  <div className="grid grid-cols-[80px_1fr] gap-4 text-sm pt-4 border-t border-slate-50">
+                    <span className="text-slate-400 font-bold">상세 내용</span>
+                    <p className="text-slate-600 leading-relaxed text-[13px]">
+                      {post.officialDetails || '공식 홈페이지를 통해 상세 내용을 확인해 주세요.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">

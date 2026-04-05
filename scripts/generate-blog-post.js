@@ -71,6 +71,9 @@ async function main() {
 title: (친근하고 흥미로운 제목)
 originalTitle: ${targetItem.title}
 link: ${targetItem.link || ''}
+officialTarget: ${targetItem.target || '정보 없음'}
+officialDetails: ${targetItem.details || targetItem.description || '정보 없음'}
+officialDeadline: ${targetItem.deadline || targetItem.date || '상시'}
 date: ${today}
 summary: (한 줄 요약)
 category: 정보
