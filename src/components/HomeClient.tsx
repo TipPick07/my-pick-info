@@ -155,11 +155,6 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
             </div>
           </section>
 
-          {/* Ad Banner: between Festivals & Benefits */}
-          <div className="lg:col-span-3">
-            <AdBanner />
-          </div>
-
           {/* Benefits (1/3) */}
           <aside className="space-y-8">
             <div className="flex items-center justify-between px-2">
@@ -187,6 +182,9 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
             </div>
           </aside>
         </div>
+
+        {/* Ad Banner: between grid and Blog section */}
+        <AdBanner />
 
         {/* Blog Section */}
         <section className="space-y-8 pt-10">
