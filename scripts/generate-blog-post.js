@@ -57,7 +57,8 @@ async function main() {
     console.log(`발행 대상 발견: ${targetItem.title}`);
 
     // 2. Gemini AI로 블로그 글 생성
-    const today = new Date().toISOString().split('T')[0];
+    // 한국 시간(KST) 기준으로 오늘 날짜 가져오기
+    const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
     const prompt = {
       contents: [{
         parts: [{
