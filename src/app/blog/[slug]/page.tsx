@@ -70,7 +70,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             "publisher": {
               "@type": "Organization",
               "name": "수도권 팁픽(Tip-Pick)",
-              "url": "https://my-pick-info.pages.dev"
+              "url": "https://tip-pick.com"
             }
           })
         }}
@@ -83,9 +83,9 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://my-pick-info.pages.dev" },
-              { "@type": "ListItem", "position": 2, "name": "블로그", "item": "https://my-pick-info.pages.dev/blog" },
-              { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://my-pick-info.pages.dev/blog/${post.slug}` }
+              { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://tip-pick.com" },
+              { "@type": "ListItem", "position": 2, "name": "블로그", "item": "https://tip-pick.com/blog" },
+              { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://tip-pick.com/blog/${post.slug}` }
             ]
           })
         }}

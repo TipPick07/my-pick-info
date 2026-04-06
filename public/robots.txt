@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://my-pick-info.pages.dev
+Host: https://tip-pick.com
 
 # Sitemaps
-Sitemap: https://my-pick-info.pages.dev/sitemap.xml
+Sitemap: https://tip-pick.com/sitemap.xml

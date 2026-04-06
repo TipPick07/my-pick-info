@@ -6,7 +6,7 @@ import fs from 'fs';
 import path from 'path';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://my-pick-info.pages.dev';
+  const baseUrl = 'https://tip-pick.com';
 
   // 1. 기본 정적 경로
   const staticRoutes = ['', '/festivals', '/benefits', '/blog'].map((route) => ({
