@@ -6,18 +6,43 @@ export default function BlogListPage() {
   const posts = getSortedPostsData();
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-cyan-100">
       <Header />
 
       <main className="container mx-auto px-6 py-12 space-y-12">
         {/* Page Hero */}
-        <section className="text-center space-y-4 max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900">
-            에디터의 <span className="text-indigo-600 font-serif italic font-medium">시선</span>
+        <section className="text-center space-y-6 max-w-3xl mx-auto py-10">
+          {/* 배지 */}
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest rounded-full border"
+            style={{ background: "rgba(0,204,255,0.08)", color: "#00AACC", borderColor: "rgba(0,204,255,0.25)" }}
+          >
+            💡 팁픽 인사이트
+          </div>
+
+          {/* 메인 타이틀 */}
+          <h2 className="text-5xl md:text-6xl tracking-tight leading-[1.15]">
+            <span className="font-black text-slate-900">팁픽</span>{" "}
+            <span
+              className="font-serif italic font-semibold text-transparent bg-clip-text"
+              style={{ backgroundImage: "linear-gradient(135deg, #00CCFF 0%, #33FF99 100%)" }}
+            >
+              인사이트
+            </span>
           </h2>
-          <p className="text-lg text-slate-500 leading-relaxed">
-            수도권의 숨은 매력과 꼭 필요한 정보를 에디터가 선별하여 전해드립니다.
+
+          {/* 서브 설명 */}
+          <p className="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto">
+            수도권 생활의 질을 높이는 한 끗 차이,{" "}
+            <span className="font-black text-slate-700">팁픽이 엄선한 진짜 정보들</span>만 모았습니다.
           </p>
+
+          {/* 네온 장식 선 */}
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-0.5 w-16 rounded-full" style={{ background: "linear-gradient(to right, transparent, #00CCFF)" }} />
+            <div className="w-2 h-2 rounded-full" style={{ background: "#00CCFF", boxShadow: "0 0 8px rgba(0,204,255,0.8)" }} />
+            <div className="h-0.5 w-16 rounded-full" style={{ background: "linear-gradient(to left, transparent, #33FF99)" }} />
+          </div>
         </section>
 
         {/* Blog Grid */}
@@ -26,7 +51,7 @@ export default function BlogListPage() {
             <Link 
               key={post.slug} 
               href={`/blog/${post.slug}`}
-              className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 flex flex-col"
+          className="group bg-white rounded-[2.5rem] overflow-hidden border-2 border-slate-100 shadow-sm hover:shadow-[0_8px_30px_rgba(0,204,255,0.15)] hover:border-[rgba(0,204,255,0.3)] transition-all duration-700 hover:-translate-y-2 flex flex-col"
             >
               {/* 이미지 영역 */}
               <div className="relative aspect-[16/11] overflow-hidden bg-slate-100">
@@ -35,7 +60,7 @@ export default function BlogListPage() {
                   alt={post.title}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-[1000ms]" 
                 />
-                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-2xl text-[10px] font-black text-indigo-600 shadow-lg border border-white/50 tracking-wider">
+                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-2xl text-[10px] font-black shadow-lg border border-white/50 tracking-wider" style={{ color: "#00CCFF" }}>
                   {post.category}
                 </div>
               </div>
@@ -43,11 +68,11 @@ export default function BlogListPage() {
               {/* 텍스트 영역 */}
               <div className="p-7 space-y-3 flex flex-col flex-1">
                 <div className="flex items-center justify-between text-[11px] font-bold text-slate-400">
-                  <span>에디터 큐레이션</span>
+                  <span className="flex items-center gap-1" style={{ color: "#00AACC" }}>💡 팁픽 큐레이션</span>
                   <span>{post.date}</span>
                 </div>
                 
-                <h3 className="text-lg font-black text-slate-800 group-hover:text-indigo-600 transition-colors line-clamp-2 leading-snug">
+                <h3 className="text-lg font-black text-slate-800 line-clamp-2 leading-snug transition-colors group-hover:text-[#00CCFF]">
                   {post.title}
                 </h3>
                 
@@ -57,7 +82,7 @@ export default function BlogListPage() {
 
                 <div className="pt-3 flex flex-wrap gap-1.5">
                   {post.tags.map(tag => (
-                    <span key={tag} className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-md">
+                    <span key={tag} className="text-[10px] px-2 py-0.5 rounded-md" style={{ background: "rgba(0,204,255,0.08)", color: "#00AACC" }}>
                       #{tag}
                     </span>
                   ))}
@@ -77,15 +102,15 @@ export default function BlogListPage() {
       <footer className="bg-slate-900 text-white py-12 px-6">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-slate-400 text-sm">
           <div className="space-y-4">
-            <h4 className="text-white font-bold">수도권N라이프</h4>
-            <p className="leading-relaxed">수도권의 로컬 문화와 생활 정보를 큐레이션하여 전해드리는 디지털 매거진입니다.</p>
+            <h4 className="text-white font-bold">팁픽(Tip-Pick)</h4>
+            <p className="leading-relaxed">데이터는 공공기관이, 꿀팁은 팁픽이. 수도권 생활의 질을 높이는 한 끗 차이를 전달합니다.</p>
           </div>
           <div className="space-y-4">
             <h4 className="text-white font-bold">바로가기</h4>
             <ul className="space-y-2">
-              <li><Link href="/festivals/" className="hover:text-white transition-colors">축제/행사</Link></li>
-              <li><Link href="/benefits/" className="hover:text-white transition-colors">지원금 혜택</Link></li>
-              <li><Link href="/blog/" className="hover:text-white transition-colors text-white">블로그</Link></li>
+              <li><Link href="/festivals/" className="hover:text-white transition-colors">이번 주말 어디 가?</Link></li>
+              <li><Link href="/benefits/" className="hover:text-white transition-colors">내 돈 찾는 지원금</Link></li>
+              <li><Link href="/blog/" className="transition-colors" style={{ color: "#00CCFF" }}>팁픽 인사이트</Link></li>
             </ul>
           </div>
           <div className="space-y-4">
