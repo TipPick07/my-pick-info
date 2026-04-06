@@ -138,7 +138,7 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
             <div className="bg-gradient-to-br from-indigo-50/50 to-white p-8 md:p-12 rounded-[2.5rem] border border-indigo-100/50 my-12 shadow-sm space-y-8">
               <div className="flex items-center gap-3 text-indigo-600">
                 <Sparkles className="w-6 h-6" />
-                <h4 className="text-xl font-black">에디터가 꼽은 추천 포인트</h4>
+                <h4 className="text-xl font-black">추천 포인트</h4>
               </div>
               <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <li className="space-y-2">
@@ -158,9 +158,9 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
           </section>
 
           {/* 하단 CTA 버튼 */}
-          <footer className="pt-8 pt-4">
+          <footer className="pt-4">
             <a 
-              href={festival.link} 
+              href={festival.link.startsWith('http') ? festival.link : `https://${festival.link}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="group flex items-center justify-center gap-3 w-full bg-slate-900 hover:bg-indigo-600 text-white font-black text-xl px-8 py-6 rounded-[1.5rem] shadow-xl shadow-slate-100 hover:shadow-indigo-100 transition-all active:scale-[0.98]"
