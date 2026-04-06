@@ -2,6 +2,17 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
+import { 
+  ArrowLeft, 
+  MapPin, 
+  Sparkles, 
+  ExternalLink, 
+  FileText, 
+  Info,
+  Clock,
+  ArrowRight,
+  CheckCircle2
+} from 'lucide-react';
 
 interface Benefit {
   id: string;
@@ -12,6 +23,9 @@ interface Benefit {
   isEmergency: boolean;
   details: string;
   link: string;
+  requirements?: string[];
+  howToApply?: string[];
+  tip?: string;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -37,7 +51,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-// 정적 배포를 위해 미리 경로를 생성합니다.
 export async function generateStaticParams() {
   const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
   const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
@@ -56,65 +69,167 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
   const { id } = await params;
   const benefit = await getBenefit(id);
 
-  if (!benefit) return <div className="flex items-center justify-center h-screen font-bold text-slate-400">혜택 정보를 찾는 중...</div>;
+  if (!benefit) return <div className="flex items-center justify-center h-screen font-bold text-slate-400 text-xl">혜택 정보를 불러오고 있습니다...</div>;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 py-12">
-      <main className="container mx-auto px-6 max-w-5xl space-y-12">
-        {/* Top Navigation */}
-        <Link 
-          href="/benefits/" 
-          className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-slate-600 hover:text-indigo-600 hover:border-indigo-200 transition-all shadow-sm active:scale-95"
-        >
-          ← 목록으로
-        </Link>
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
+      <main className="max-w-4xl mx-auto px-4 py-12 md:py-16">
+        
+        {/* 상단 네비게이션 */}
+        <nav className="mb-10">
+          <Link 
+            href="/benefits/" 
+            className="group inline-flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-bold transition-colors"
+          >
+            <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center group-hover:border-indigo-200 group-hover:bg-indigo-50 transition-all">
+              <ArrowLeft className="w-5 h-5" />
+            </div>
+            목록으로 돌아가기
+          </Link>
+        </nav>
 
-        {/* Content Content Container */}
-        <div className="bg-white/80 backdrop-blur-2xl rounded-[3rem] border border-white shadow-2xl p-10 md:p-20 space-y-12 overflow-hidden relative">
-          {/* subtle background decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full blur-3xl -mr-32 -mt-32 opacity-50" />
+        {/* 메인 프리미엄 카드 */}
+        <article className="bg-white rounded-[2.5rem] border-2 border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
           
-          <div className="space-y-4 relative">
-            <span className={`px-4 py-1.5 text-xs font-black text-white rounded-full ${benefit.isEmergency ? "bg-rose-500" : "bg-indigo-600"}`}>
-              {benefit.region}
-            </span>
-            <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight pt-2">
+          {/* 카드 내부 패딩 */}
+          <div className="p-8 md:p-14">
+            
+            {/* 지역 및 상태 태그 */}
+            <div className="flex flex-wrap gap-3 mb-8">
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full text-sm font-black">
+                <MapPin className="w-3.5 h-3.5" />
+                {benefit.region}
+              </span>
+              <span className={`px-4 py-2 rounded-full text-sm font-black ${
+                benefit.isEmergency 
+                  ? "bg-rose-50 text-rose-600" 
+                  : "bg-emerald-50 text-emerald-600"
+              }`}>
+                {benefit.deadline}
+              </span>
+            </div>
+
+            {/* 타이틀 */}
+            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-10 tracking-tight leading-[1.2]">
               {benefit.title}
-            </h2>
-          </div>
+            </h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8">
-            <div className="space-y-4">
-              <p className="text-slate-400 font-black text-sm uppercase tracking-widest leading-none">지원 대상</p>
-              <p className="text-2xl font-black text-slate-700">{benefit.target}</p>
-            </div>
-            <div className="space-y-4">
-              <p className="text-slate-400 font-black text-sm uppercase tracking-widest leading-none">신청 기한</p>
-              <p className={`text-2xl font-black ${benefit.isEmergency ? "text-rose-600" : "text-indigo-600"}`}>{benefit.deadline}</p>
-            </div>
-          </div>
+            {/* 핵심 요약 박스 (Gradient Box) */}
+            <section className="bg-gradient-to-br from-indigo-50 to-blue-50/50 rounded-[2rem] p-8 md:p-10 mb-12 border border-indigo-100/30">
+              <div className="flex items-center gap-2 mb-6 text-indigo-600">
+                <Sparkles className="w-6 h-6 fill-indigo-100" />
+                <h2 className="text-lg font-black uppercase tracking-wider">한눈에 보는 핵심 요약</h2>
+              </div>
+              
+              <div className="grid gap-6">
+                <div className="flex gap-4">
+                  <div className="mt-1 w-2 h-2 rounded-full bg-indigo-400 shrink-0" />
+                  <div className="space-y-1">
+                    <p className="text-sm font-bold text-slate-400">지원 대상</p>
+                    <p className="text-lg font-bold text-slate-800 leading-snug">{benefit.target}</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="mt-1 w-2 h-2 rounded-full bg-indigo-400 shrink-0" />
+                  <div className="space-y-1">
+                    <p className="text-sm font-bold text-slate-400">신청 기한</p>
+                    <p className="text-lg font-bold text-slate-800 leading-snug">{benefit.deadline}</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="mt-1 w-2 h-2 rounded-full bg-indigo-400 shrink-0" />
+                  <div className="space-y-1">
+                    <p className="text-sm font-bold text-slate-400">지원 내용</p>
+                    <p className="text-lg font-bold text-slate-800 leading-relaxed whitespace-pre-line">{benefit.details}</p>
+                  </div>
+                </div>
+              </div>
+            </section>
 
-          <div className="space-y-10 pt-10 border-t border-slate-100">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-black text-slate-900 border-l-8 border-indigo-600 pl-4">수혜 내용 및 신청 안내</h3>
-              <p className="text-slate-600 text-lg md:text-xl leading-relaxed font-medium">
-                {benefit.details}
+            {/* 상세 섹션: 제출 서류 및 방법 */}
+            <div className="space-y-12">
+              <section className="space-y-6">
+                <div className="flex items-center gap-3 text-slate-900">
+                  <FileText className="w-7 h-7 text-indigo-600" />
+                  <h3 className="text-2xl font-black">제출 서류 및 신청 방법</h3>
+                </div>
+                
+                <div className="bg-slate-50/50 rounded-[2rem] p-8 border border-slate-100 space-y-8">
+                  {benefit.requirements && (
+                    <div className="space-y-4">
+                      <p className="font-bold text-slate-900 flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                        필요한 서류
+                      </p>
+                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 pl-2">
+                        {benefit.requirements.map((req: string, idx: number) => (
+                          <li key={idx} className="flex gap-3 text-slate-600 items-start">
+                            <span className="text-indigo-500 font-bold">•</span>
+                            <span className="text-[15px] font-medium leading-relaxed">{req}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {benefit.howToApply && (
+                    <div className="space-y-4 pt-4 border-t border-slate-200/60">
+                      <p className="font-bold text-slate-900 flex items-center gap-2">
+                        <Clock className="w-5 h-5 text-indigo-500" />
+                        진행 순서
+                      </p>
+                      <ul className="space-y-4 pl-1">
+                        {benefit.howToApply.map((step: string, idx: number) => (
+                          <li key={idx} className="flex gap-4 group">
+                            <span className="w-7 h-7 rounded-full bg-white border-2 border-indigo-100 flex items-center justify-center text-xs font-black text-indigo-600 shrink-0 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all">
+                              {idx + 1}
+                            </span>
+                            <span className="text-slate-600 font-bold leading-7">{step}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </section>
+
+              {/* 꿀팁 섹션 */}
+              {benefit.tip && (
+                <section className="bg-rose-50/50 rounded-[2rem] p-8 border border-rose-100 relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <Info className="w-20 h-20 text-rose-500" />
+                  </div>
+                  <div className="relative space-y-4">
+                    <div className="flex items-center gap-2 text-rose-600 font-black text-lg">
+                      <Info className="w-5 h-5" />
+                      <h4>꿀팁</h4>
+                    </div>
+                    <p className="text-rose-900/80 font-bold leading-relaxed whitespace-pre-line text-lg">
+                      {benefit.tip}
+                    </p>
+                  </div>
+                </section>
+              )}
+            </div>
+
+            {/* 하단 CTA 버튼 */}
+            <footer className="mt-16">
+              <a 
+                href={(benefit.link || "").startsWith('http') ? benefit.link : `https://${benefit.link || ""}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group flex items-center justify-center gap-4 w-full bg-slate-900 hover:bg-indigo-600 text-white font-black text-xl px-8 py-6 rounded-2xl shadow-xl hover:shadow-indigo-200/50 transition-all active:scale-[0.98]"
+              >
+                공식 신청 사이트로 자세히 보기
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <p className="text-center text-slate-400 text-sm font-bold mt-4 italic">
+                해당 사이트로 이동하여 안전하게 신청하실 수 있습니다.
               </p>
-            </div>
-          </div>
+            </footer>
 
-          <div className="pt-10 flex flex-col md:row items-center justify-center gap-6">
-            <a 
-              href={(benefit.link || "").startsWith('http') ? benefit.link : `https://${benefit.link || ""}`} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-full md:w-auto px-16 py-6 bg-slate-900 text-white rounded-[2rem] text-xl font-black hover:bg-slate-800 transition-all shadow-2xl active:scale-95 text-center"
-            >
-              지금 바로 신청하기 →
-            </a>
-            <p className="text-slate-400 text-sm font-bold italic">신청 시 해당 기관의 홈페이지로 연결됩니다.</p>
           </div>
-        </div>
+        </article>
       </main>
     </div>
   );
