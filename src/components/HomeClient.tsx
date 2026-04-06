@@ -101,21 +101,27 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
               <Link
                 href="/benefits/"
-                className="group relative px-10 py-4 bg-slate-900 text-white font-black text-lg rounded-2xl overflow-hidden transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.0)] hover:shadow-[0_0_30px_rgba(6,182,212,0.4)]"
+                className="group relative px-10 py-4 bg-slate-900 text-white font-black text-lg rounded-2xl overflow-hidden transition-all duration-300"
+                style={{ boxShadow: "0 0 0 rgba(0,204,255,0)" }}
+                onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 30px rgba(0,204,255,0.45)")}
+                onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 0 rgba(0,204,255,0)")}
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  💡 지금 바로 Pick 하세요
-                  <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
-                </span>
-                <span className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="absolute inset-0 bg-slate-900" />
-                <span className="relative z-10 flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 group-hover:text-white transition-colors">
                   💡 지금 바로 Pick 하세요 →
                 </span>
               </Link>
               <Link
                 href="/festivals/"
-                className="px-10 py-4 border-2 border-slate-200 text-slate-600 font-bold text-lg rounded-2xl hover:border-cyan-400 hover:text-cyan-600 transition-all duration-300"
+                className="px-10 py-4 border-2 border-slate-200 text-slate-600 font-bold text-lg rounded-2xl transition-all duration-300"
+                style={{ border: "2px solid #e2e8f0" }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = "#00CCFF";
+                  e.currentTarget.style.color = "#00CCFF";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = "#e2e8f0";
+                  e.currentTarget.style.color = "";
+                }}
               >
                 이번 주말 어디 가?
               </Link>
@@ -128,11 +134,11 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
               <button
                 key={r}
                 onClick={() => setFilter(r)}
-                className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
-                  filter === r
-                    ? "bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-[0_4px_20px_rgba(6,182,212,0.4)]"
-                    : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/50"
-                }`}
+                className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${filter === r ? "text-white" : "bg-white text-slate-600 border border-slate-200/50 hover:bg-slate-50"}`}
+                style={filter === r ? {
+                  background: "linear-gradient(to right, #00CCFF, #33FF99)",
+                  boxShadow: "0 4px 20px rgba(0,204,255,0.35)"
+                } : {}}
               >
                 {r}
               </button>
@@ -143,13 +149,25 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
         {/* ── 날씨 위젯 ── */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {weatherData.map((w) => (
-            <div key={w.region} className="bg-white p-6 rounded-[2rem] border-2 border-cyan-100 hover:border-cyan-300 flex items-center justify-between shadow-sm hover:shadow-[0_4px_20px_rgba(6,182,212,0.15)] hover:-translate-y-1 transition-all duration-300 group">
+            <div
+              key={w.region}
+              className="bg-white p-6 rounded-[2.5rem] flex items-center justify-between shadow-sm hover:-translate-y-1 transition-all duration-300 group"
+              style={{ border: "2px solid rgba(0,204,255,0.2)" }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = "rgba(0,204,255,0.5)";
+                e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,204,255,0.15)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = "rgba(0,204,255,0.2)";
+                e.currentTarget.style.boxShadow = "";
+              }}
+            >
               <div className="space-y-1">
-                <p className="text-cyan-600 font-bold text-sm">{w.region}의 날씨</p>
+                <p className="font-bold text-sm" style={{ color: "#00CCFF" }}>{w.region}의 날씨</p>
                 <h3 className="text-3xl font-black text-slate-900">{w.temp}</h3>
                 <p className="text-slate-600 font-medium">{w.status}</p>
               </div>
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-50 to-emerald-50 rounded-2xl flex items-center justify-center text-4xl group-hover:scale-110 transition-transform border border-cyan-100">
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl group-hover:scale-110 transition-transform" style={{ background: "linear-gradient(135deg, rgba(0,204,255,0.08), rgba(51,255,153,0.08))", border: "1px solid rgba(0,204,255,0.15)" }}>
                 {w.icon}
               </div>
             </div>
@@ -161,30 +179,30 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
           {/* 축제/행사 (2/3) */}
           <section className="lg:col-span-2 space-y-8">
             <div className="flex items-center justify-between px-2">
-              <h3 className="text-2xl font-black text-slate-900 border-l-8 border-cyan-500 pl-4">
+              <h3 className="text-2xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #00CCFF" }}>
                 주목할 만한 축제/행사
               </h3>
-              <Link href="/festivals/" className="text-sm font-bold text-cyan-600 hover:text-cyan-700 transition-colors">
+              <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
                 전체 보기 →
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
               {filteredFestivals.map((f) => (
                 <Link key={f.id} href={`/festival/${f.id}`} className="group cursor-pointer">
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-3xl mb-4 bg-slate-200">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] mb-4 bg-slate-200">
                     <img
                       src={f.image}
                       alt={f.title}
                       className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-cyan-600 shadow-sm">
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black shadow-sm" style={{ color: "#00CCFF" }}>
                       {f.region}
                     </div>
-                    <div className="absolute bottom-4 right-4 bg-cyan-500/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-white shadow-sm">
+                    <div className="absolute bottom-4 right-4 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-white shadow-sm" style={{ background: "#00CCFF" }}>
                       {f.tag}
                     </div>
                   </div>
-                  <h4 className="text-xl font-black text-slate-900 group-hover:text-cyan-600 transition-colors mb-2">
+                  <h4 className="text-xl font-black text-slate-900 transition-colors mb-2 group-hover:text-[#00CCFF]">
                     {f.title}
                   </h4>
                   <p className="text-slate-500 font-bold text-sm flex items-center gap-1">
@@ -193,7 +211,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
                 </Link>
               ))}
               {filteredFestivals.length === 0 && (
-                <div className="md:col-span-2 py-20 text-center text-slate-400 font-medium bg-slate-100 rounded-3xl border-2 border-dashed border-slate-200">
+                <div className="md:col-span-2 py-20 text-center text-slate-400 font-medium bg-slate-100 rounded-[2.5rem] border-2 border-dashed border-slate-200">
                   해당 지역의 예정된 행사가 없습니다.
                 </div>
               )}
@@ -203,25 +221,41 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
           {/* 혜택/지원금 (1/3) */}
           <aside className="space-y-8">
             <div className="flex items-center justify-between px-2">
-              <h3 className="text-2xl font-black text-slate-900 border-l-8 border-emerald-500 pl-4">
+              <h3 className="text-2xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #33FF99" }}>
                 내 돈 찾는 지원금
               </h3>
-              <Link href="/benefits/" className="text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors">
+              <Link href="/benefits/" className="text-sm font-bold transition-colors" style={{ color: "#33FF99", filter: "brightness(0.75)" }}>
                 전체 보기 →
               </Link>
             </div>
             <div className="space-y-4">
               {filteredBenefits.map((b) => (
-                <Link key={b.id} href={`/benefit/${b.id}`} className={`block p-5 rounded-3xl border-2 transition-all hover:bg-white hover:shadow-lg group ${b.isEmergency ? "border-rose-100 bg-rose-50/50" : "border-slate-100 bg-white"}`}>
+                <Link
+                  key={b.id}
+                  href={`/benefit/${b.id}`}
+                  className={`block p-5 rounded-[2.5rem] border-2 transition-all group ${
+                    b.isEmergency ? "border-rose-100 bg-rose-50/50" : "border-slate-100 bg-white"
+                  }`}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.boxShadow = b.isEmergency ? "0 4px 16px rgba(244,63,94,0.15)" : "0 4px 16px rgba(0,204,255,0.15)";
+                    e.currentTarget.style.borderColor = b.isEmergency ? "#fecdd3" : "rgba(0,204,255,0.4)";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.boxShadow = "";
+                    e.currentTarget.style.borderColor = b.isEmergency ? "#ffe4e6" : "#f1f5f9";
+                  }}
+                >
                   <div className="flex justify-between items-start mb-2">
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${b.isEmergency ? "bg-rose-500 text-white" : "bg-emerald-50 text-emerald-700"}`}>
+                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                      b.isEmergency ? "bg-rose-500 text-white" : "text-white"
+                    }`} style={b.isEmergency ? {} : { background: "rgba(51,255,153,0.25)", color: "#059669" }}>
                       💡 {b.region}
                     </span>
                     <span className={`text-xs font-bold ${b.isEmergency ? "text-rose-600" : "text-slate-400"}`}>
                       {b.deadline}
                     </span>
                   </div>
-                  <h4 className="font-black text-slate-900 mb-1 leading-snug group-hover:text-cyan-600 transition-colors">
+                  <h4 className="font-black text-slate-900 mb-1 leading-snug group-hover:transition-colors" style={{}} onMouseEnter={e => (e.currentTarget.style.color = "#00CCFF")} onMouseLeave={e => (e.currentTarget.style.color = "")}>
                     {b.title}
                   </h4>
                   <p className="text-slate-500 text-xs font-bold">{b.target}</p>
@@ -237,7 +271,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
         {/* ── 팁픽 가이드 (블로그) 섹션 ── */}
         <section className="space-y-8 pt-10">
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-widest rounded-full border border-emerald-200">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest rounded-full border" style={{ backgroundColor: "rgba(51,255,153,0.1)", color: "#059669", borderColor: "rgba(51,255,153,0.3)" }}>
               💡 팁픽 가이드
             </div>
             <h3 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
@@ -250,7 +284,15 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:border-cyan-100 transition-all duration-700 hover:-translate-y-2 flex flex-col"
+                className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-sm hover:-translate-y-2 flex flex-col transition-all duration-700"
+                onMouseEnter={e => {
+                  e.currentTarget.style.boxShadow = "0 8px 30px rgba(0,204,255,0.12)";
+                  e.currentTarget.style.borderColor = "rgba(0,204,255,0.25)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.boxShadow = "";
+                  e.currentTarget.style.borderColor = "#f1f5f9";
+                }}
               >
                 <div className="relative aspect-[16/11] overflow-hidden bg-slate-100">
                   <img

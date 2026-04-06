@@ -4,6 +4,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* ── Tip-Pick Neon Color System ── */
+  --neon-blue: #00CCFF;
+  --neon-blue-dark: #00AADE;
+  --neon-green: #33FF99;
+  --neon-green-dark: #00E57A;
+
+  /* Glow shadows */
+  --glow-blue: 0 0 20px rgba(0, 204, 255, 0.45);
+  --glow-blue-sm: 0 0 12px rgba(0, 204, 255, 0.3);
+  --glow-green: 0 0 20px rgba(51, 255, 153, 0.45);
+  --glow-green-sm: 0 0 12px rgba(51, 255, 153, 0.3);
 }
 
 @theme inline {
@@ -11,17 +23,50 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Neon Blue */
+  --color-neon-blue: var(--neon-blue);
+  --color-neon-blue-dark: var(--neon-blue-dark);
+
+  /* Neon Green */
+  --color-neon-green: var(--neon-green);
+  --color-neon-green-dark: var(--neon-green-dark);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ── Neon Glow Utility Classes ── */
+.glow-blue {
+  box-shadow: var(--glow-blue);
+}
+.glow-blue-sm {
+  box-shadow: var(--glow-blue-sm);
+}
+.glow-green {
+  box-shadow: var(--glow-green);
+}
+.glow-green-sm {
+  box-shadow: var(--glow-green-sm);
+}
+.glow-blue-hover:hover {
+  box-shadow: var(--glow-blue);
+  transition: box-shadow 0.3s ease;
+}
+.glow-green-hover:hover {
+  box-shadow: var(--glow-green);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Neon text glow */
+.text-glow-blue {
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px rgba(0, 204, 255, 0.6);
+}
+.text-glow-green {
+  color: var(--neon-green);
+  text-shadow: 0 0 10px rgba(51, 255, 153, 0.6);
 }
