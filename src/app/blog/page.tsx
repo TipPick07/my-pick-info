@@ -26,23 +26,36 @@ export default function BlogListPage() {
             <Link 
               key={post.slug} 
               href={`/blog/${post.slug}`}
-              className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
+              className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 flex flex-col"
             >
-              <div className="p-8 space-y-4">
-                <div className="flex items-center justify-between text-xs font-bold tracking-widest uppercase text-indigo-600">
-                  <span className="bg-indigo-50 px-3 py-1 rounded-full">{post.category}</span>
-                  <span className="text-slate-400 font-medium">{post.date}</span>
+              {/* 이미지 영역 */}
+              <div className="relative aspect-[16/11] overflow-hidden bg-slate-100">
+                <img 
+                  src={post.image || '/images/blogs/default.png'} 
+                  alt={post.title}
+                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-[1000ms]" 
+                />
+                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-2xl text-[10px] font-black text-indigo-600 shadow-lg border border-white/50 tracking-wider">
+                  {post.category}
+                </div>
+              </div>
+
+              {/* 텍스트 영역 */}
+              <div className="p-7 space-y-3 flex flex-col flex-1">
+                <div className="flex items-center justify-between text-[11px] font-bold text-slate-400">
+                  <span>에디터 큐레이션</span>
+                  <span>{post.date}</span>
                 </div>
                 
-                <h3 className="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                <h3 className="text-lg font-black text-slate-800 group-hover:text-indigo-600 transition-colors line-clamp-2 leading-snug">
                   {post.title}
                 </h3>
                 
-                <p className="text-slate-500 text-sm leading-relaxed line-clamp-3">
+                <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 mb-auto">
                   {post.summary}
                 </p>
 
-                <div className="pt-4 flex flex-wrap gap-2">
+                <div className="pt-3 flex flex-wrap gap-1.5">
                   {post.tags.map(tag => (
                     <span key={tag} className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-md">
                       #{tag}
