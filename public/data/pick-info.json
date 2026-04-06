@@ -27,7 +27,7 @@
       "date": "2026.04.09 ~ 04.15",
       "location": "서울 영등포구 여의서로 (국회 뒤편)",
       "tag": "D-4",
-      "image": "https://pollinations.ai/p/Yeouido-Spring-Flower-Festival-in-Seoul-with-cherry-blossoms-and-Han-River-vibrant-photorealistic?width=800&height=600&seed=123&nologo=true",
+      "image": "/images/festivals/yeouido-spring-festival.png",
       "description": "여의도 국회의사당 뒤편 서강대교 남단에서 의원회관 앞까지 이어지는 벚꽃길에서 열리는 대표적인 봄꽃 축제입니다. 벚꽃뿐만 아니라 진달래, 개나리 등 다양한 봄꽃을 만끽하며 한강의 경치를 즐길 수 있습니다.",
       "link": "https://www.ydp.go.kr"
     },
@@ -38,7 +38,7 @@
       "date": "2026.04.25 ~ 05.10",
       "location": "경기도 고양시 일산호수공원",
       "tag": "예매중",
-      "image": "https://pollinations.ai/p/Goyang-International-Flower-Exhibition-vast-flower-garden-sunny-day-high-quality-realistic?width=800&height=600&seed=456&nologo=true",
+      "image": "/images/festivals/goyang-flower-expo.png",
       "description": "세계 각국에서 모인 아름다운 꽃들을 한자리에서 볼 수 있는 국내 최대 규모의 꽃박람회입니다. 꽃 전시뿐만 아니라 공연, 체험 행사 등 다채로운 프로그램이 마련되어 가족, 연인과 함께하기 좋습니다.",
       "link": "https://www.flower.or.kr"
     },
@@ -49,7 +49,7 @@
       "date": "2026.08.07 ~ 08.09",
       "location": "인천 송도달빛축제공원",
       "tag": "HOT",
-      "image": "https://pollinations.ai/p/Songdo-Pentaport-Rock-Festival-stage-with-crowd-and-lights-energetic-nightlife-realistic?width=800&height=600&seed=789&nologo=true",
+      "image": "/images/festivals/songdo-rock-festival.png",
       "description": "국내외 정상급 아티스트들이 참여하는 대한민국을 대표하는 락 페스티벌입니다. 뜨거운 열기 속에서 최고의 사운드와 퍼포먼스를 즐기며 일상에서 벗어난 해방감을 맛보세요.",
       "link": "https://pentaport.co.kr"
     },
@@ -60,7 +60,7 @@
       "date": "2026.05.01 ~ 05.31",
       "location": "서울특별시 종로구 경복궁 일원",
       "tag": "인기",
-      "image": "https://pollinations.ai/p/Gyeongbokgung-Palace-at-night-with-beautiful-traditional-lighting-serene-atmosphere-photorealistic?width=800&height=600&seed=101&nologo=true",
+      "image": "/images/festivals/gyeongbokgung-night.png",
       "description": "은은한 조명 아래 빛나는 고궁의 아름다운 야경을 감상할 수 있는 특별한 시간입니다. 고즈넉한 분위기 속에서 조선 시대 왕궁의 여유와 낭만을 즐겨보세요.",
       "link": "https://www.royalpalace.go.kr"
     }

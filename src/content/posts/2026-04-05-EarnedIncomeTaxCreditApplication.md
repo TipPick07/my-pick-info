@@ -1,7 +1,7 @@
 ---
 title: 🔥D-15! 열심히 일한 당신, 2026 근로장려금 꼭 챙기세요! (놓치면 후회!)
 originalTitle: 2026 근로장려금 정기 신청
-image: "https://pollinations.ai/p/Korean-government-support-fund-concept-smiling-family-money-icons-warm-and-trustworthy-feeling-photorealistic?width=800&height=600&seed=2&nologo=true"
+image: "/images/blogs/earned-income-tax.png"
 link: https://www.hometax.go.kr
 officialTarget: 가구별 소득 요건 충족자
 officialDetails: 열심히 일하지만 소득이 적어 생활이 어려운 가구에 실질적인 도움을 주는 환급 제도입니다. 정해진 기간 내에 신청하여 가계 경제에 보탬이 되는 혜택을 누리세요.

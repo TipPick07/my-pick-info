@@ -1,7 +1,7 @@
 ---
 title: 인천 예비맘 필수템! 건강한 태교, 친환경 농산물 꾸러미로 시작해요!
 originalTitle: 임산부 친환경 농산물 꾸러미 지원
-image: "https://pollinations.ai/p/Korean-pregnant-woman-holding-a-box-of-fresh-organic-vegetables-warm-and-bright-atmosphere-photorealistic?width=800&height=600&seed=1&nologo=true"
+image: "/images/blogs/incheon-moms-eco-food.png"
 link: https://www.incheon.go.kr
 officialTarget: 인천 지역 임산부
 officialDetails: 건강한 먹거리로 미래 세대의 건강을 챙깁니다. 인천 임산부들에게 신선한 친환경 농산물 꾸러미를 저렴한 가격에 제공하여 건강한 태교와 식습관 형성을 지원합니다.
