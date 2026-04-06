@@ -87,6 +87,7 @@ officialDeadline: ${targetItem.deadline || targetItem.date || '상시'}
 date: ${today}
 summary: (전체 내용을 관통하는 매력적인 한 줄 요약)
 category: 정보
+image: ${targetItem.image || ''}
 tags: [태그1, 태그2, 태그3]
 ---
 

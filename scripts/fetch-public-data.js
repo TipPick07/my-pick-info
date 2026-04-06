@@ -149,19 +149,20 @@ ${JSON.stringify(selectedData)}`
     const parsedParams = JSON.parse(textResult);
     const newId = String(parsedParams.id || Date.now());
 
+    const seed = Math.floor(Math.random() * 1000);
+    const safePrompt = (parsedParams.imagePrompt || parsedParams.title)
+      .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 제거
+      .replace(/\s+/g, '-'); // 공백을 대시로 치환
+    const imageUrl = `https://pollinations.ai/p/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`;
+
     if (parsedParams.type === 'festival') {
-      const seed = Math.floor(Math.random() * 1000);
-      const safePrompt = (parsedParams.imagePrompt || parsedParams.title)
-        .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 제거
-        .replace(/\s+/g, '-'); // 공백을 대시로 치환
-      
       existingData.festivals.unshift({
         id: newId,
         region: parsedParams.region || '전국',
         title: parsedParams.title || titleToCheck,
         date: parsedParams.date || '상시',
         tag: parsedParams.tag || '신규',
-        image: `https://pollinations.ai/p/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`
+        image: imageUrl
       });
     } else {
       existingData.benefits.unshift({
@@ -170,6 +171,7 @@ ${JSON.stringify(selectedData)}`
         title: parsedParams.title || titleToCheck,
         target: parsedParams.target || '누구나',
         deadline: parsedParams.date || '상시',
+        image: imageUrl,
         isEmergency: parsedParams.tag === '마감임박'
       });
     }
