@@ -2,6 +2,13 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
+import { 
+  ArrowLeft, 
+  Clock, 
+  MapPin, 
+  Sparkles, 
+  ExternalLink 
+} from 'lucide-react';
 
 interface Festival {
   id: string;
@@ -39,7 +46,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-// 정적 배포를 위해 미리 경로를 생성합니다.
 export async function generateStaticParams() {
   const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
   const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
@@ -60,82 +66,113 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
 
   if (!festival) return <div className="flex items-center justify-center h-screen font-bold text-slate-400">정보를 찾는 중...</div>;
 
+  // 본문 텍스트가 있을 경우 첫 문장이나 일부를 인용구로 처리하기 위해 분리
+  const firstSentence = festival.description.split('.')[0] + '.';
+  const restDescription = festival.description.replace(firstSentence, '').trim();
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 pb-20">
-      {/* Background Hero */}
-      <div className="relative h-[50vh] w-full overflow-hidden">
-        <img 
-          src={festival.image} 
-          alt={festival.title} 
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-slate-50/20 text-transparent" />
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
+      <div className="max-w-4xl mx-auto px-4 py-8 md:py-16">
         
-        {/* Back Button */}
-        <div className="absolute top-8 left-8">
-          <Link 
-            href="/festivals/" 
-            className="flex items-center gap-2 px-4 py-2 bg-white/70 backdrop-blur-md rounded-full text-sm font-bold text-slate-900 shadow-lg border border-white/50 hover:bg-white hover:-translate-x-1 transition-all"
-          >
-            ← 목록으로
-          </Link>
-        </div>
-      </div>
+        {/* 뒤로가기 버튼 */}
+        <Link 
+          href="/festivals/" 
+          className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-bold mb-8 transition-colors group"
+        >
+          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          <span>목록으로 돌아가기</span>
+        </Link>
 
-      <main className="container mx-auto px-6 -mt-32 relative z-10 space-y-12">
-        {/* Header Section */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-3">
-            <span className="px-4 py-1.5 bg-indigo-600 text-white text-sm font-black rounded-full shadow-lg shadow-indigo-200">
-              {festival.region}
-            </span>
-            <span className="px-4 py-1.5 bg-white text-indigo-600 text-sm font-black rounded-full shadow-md border border-slate-100">
-              {festival.tag}
-            </span>
-          </div>
-          <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-tight">
-            {festival.title}
-          </h2>
-        </div>
+        {/* 메인 콘텐츠 카드 */}
+        <article className="bg-white rounded-[2.5rem] border-2 border-slate-100 shadow-sm overflow-hidden p-8 md:p-14 space-y-12">
+          
+          {/* 상단 태그 및 타이틀 */}
+          <header className="space-y-6">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-slate-100 text-slate-600 text-xs font-black rounded-full">
+                <MapPin className="w-3 h-3" /> {festival.region}
+              </span>
+              <span className="px-4 py-1.5 bg-indigo-50 text-indigo-600 text-xs font-black rounded-full">
+                {festival.tag}
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
+              {festival.title}
+            </h1>
+          </header>
 
-        {/* Info Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Main Info Box */}
-          <div className="lg:col-span-2 space-y-10">
-            <div className="bg-white/80 backdrop-blur-xl p-10 rounded-[2.5rem] border border-white shadow-xl space-y-8">
-              <h3 className="text-2xl font-black text-slate-900 border-l-8 border-indigo-600 pl-4">상세 설명</h3>
-              <p className="text-slate-600 text-lg leading-relaxed font-medium">
-                {festival.description}
+          {/* 핵심 정보 박스 (가로형) */}
+          <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 md:p-10 flex flex-col md:flex-row gap-8 md:gap-16">
+            <div className="flex items-center gap-5">
+              <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                <Clock className="w-6 h-6 text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">행사 기간</p>
+                <p className="text-lg font-black text-slate-800">{festival.date}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-5">
+              <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                <MapPin className="w-6 h-6 text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">행사 장소</p>
+                <p className="text-lg font-black text-slate-800 leading-snug">{festival.location}</p>
+              </div>
+            </div>
+          </section>
+
+          {/* 본문 (상세 설명) */}
+          <section className="text-lg font-medium text-slate-700 leading-[1.8] space-y-10">
+            {/* 인용구 스타일 */}
+            <div className="border-l-4 border-indigo-500 pl-6 my-10">
+              <p className="text-2xl font-black text-slate-900 leading-snug">
+                {firstSentence}
               </p>
             </div>
-          </div>
 
-          {/* Sidebar Summary */}
-          <aside className="space-y-6">
-            <div className="p-8 bg-slate-900 text-white rounded-[2.5rem] shadow-2xl space-y-6">
-              <h3 className="text-xl font-black">핵심 요약</h3>
-              <div className="space-y-4 text-sm">
-                <div className="flex justify-between items-center py-3 border-b border-white/10">
-                  <span className="text-slate-400 font-bold">축제 기간</span>
-                  <span className="font-black">{festival.date}</span>
-                </div>
-                <div className="flex justify-between items-center py-3 border-b border-white/10">
-                  <span className="text-slate-400 font-bold">장소</span>
-                  <span className="font-black text-right max-w-[150px]">{festival.location}</span>
-                </div>
+            <p>{restDescription}</p>
+
+            {/* 추천 포인트 강조 박스 */}
+            <div className="bg-gradient-to-br from-indigo-50/50 to-white p-8 md:p-12 rounded-[2.5rem] border border-indigo-100/50 my-12 shadow-sm space-y-8">
+              <div className="flex items-center gap-3 text-indigo-600">
+                <Sparkles className="w-6 h-6" />
+                <h4 className="text-xl font-black">에디터가 꼽은 추천 포인트</h4>
               </div>
-              <a 
-                href={festival.link} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block w-full py-4 bg-indigo-600 text-white text-center rounded-2xl font-black hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 mt-4"
-              >
-                자세히 보기 →
-              </a>
+              <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <li className="space-y-2">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-indigo-600 text-sm shadow-sm">1</div>
+                  <p className="text-sm font-bold text-slate-600">지역 고유의 테마를 가장 생동감 있게 체험할 수 있는 기회</p>
+                </li>
+                <li className="space-y-2">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-indigo-600 text-sm shadow-sm">2</div>
+                  <p className="text-sm font-bold text-slate-600">가족, 연인, 친구와 함께 잊지 못할 추억을 남길 수 있는 최고의 포토존</p>
+                </li>
+                <li className="space-y-2">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-indigo-600 text-sm shadow-sm">3</div>
+                  <p className="text-sm font-bold text-slate-600">현지에서만 맛보고 즐길 수 있는 다채로운 문화 프로그램 구성</p>
+                </li>
+              </ul>
             </div>
-          </aside>
-        </div>
-      </main>
+          </section>
+
+          {/* 하단 CTA 버튼 */}
+          <footer className="pt-8 pt-4">
+            <a 
+              href={festival.link} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex items-center justify-center gap-3 w-full bg-slate-900 hover:bg-indigo-600 text-white font-black text-xl px-8 py-6 rounded-[1.5rem] shadow-xl shadow-slate-100 hover:shadow-indigo-100 transition-all active:scale-[0.98]"
+            >
+              공식 홈페이지 방문하기
+              <ExternalLink className="w-6 h-6" />
+            </a>
+          </footer>
+
+        </article>
+
+      </div>
     </div>
   );
 }
