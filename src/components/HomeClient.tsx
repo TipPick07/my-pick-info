@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { PostData } from "@/lib/posts";
 import { getRealTimeWeather } from "@/lib/weather";
 import AdBanner from "@/components/AdBanner";
@@ -339,47 +340,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
         </section>
       </main>
 
-      {/* ── Footer ── */}
-      <footer className="bg-slate-900 text-slate-400 py-16 mt-24">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-            <div className="md:col-span-2 space-y-4">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-[0_0_12px_rgba(6,182,212,0.5)]">
-                  <Image src="/images/logo-tippick.png" alt="팁픽" fill className="object-cover" />
-                </div>
-                <h1 className="text-xl font-black tracking-tighter text-white">팁픽<span className="text-cyan-400">.</span></h1>
-              </div>
-              <p className="text-sm leading-relaxed max-w-sm">
-                데이터는 공공기관이, 꿀팁은 팁픽이. 복잡한 공공데이터 속에서 오직 당신에게 필요한 &#39;진짜 이득&#39;만 골라내는 스마트한 전구입니다.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h5 className="text-white font-bold text-sm">바로가기</h5>
-              <ul className="text-sm space-y-2 font-medium">
-                <li><Link href="/festivals/" className="hover:text-cyan-400 transition-colors">이번 주말 어디 가?</Link></li>
-                <li><Link href="/benefits/" className="hover:text-emerald-400 transition-colors">내 돈 찾는 지원금</Link></li>
-                <li><Link href="/blog/" className="hover:text-white transition-colors">팁픽 인사이트</Link></li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h5 className="text-white font-bold text-sm">정보 안내</h5>
-              <ul className="text-sm space-y-2 font-medium">
-                <li>데이터 출처: 공공데이터포털</li>
-                <li>마지막 업데이트: 2026.04.06</li>
-              </ul>
-            </div>
-          </div>
-          <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs font-bold tracking-wider uppercase">© 2026 팁픽(Tip-Pick). All rights reserved.</p>
-            <div className="flex items-center gap-6">
-              <a href="#" className="text-slate-500 hover:text-cyan-400 transition-colors">Instagram</a>
-              <a href="#" className="text-slate-500 hover:text-white transition-colors">Facebook</a>
-              <a href="#" className="text-slate-500 hover:text-white transition-colors">YouTube</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

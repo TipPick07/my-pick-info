@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import fs from 'fs';
 import path from 'path';
 import { 
@@ -35,15 +37,15 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   if (!benefit) {
     return {
-      title: '수도권N라이프 혜택 정보',
-      description: '서울, 인천, 경기 지역의 다양한 지원금 혜택을 확인하세요.',
+      title: '지원금 혜택 정보 | 팁픽(Tip-Pick)',
+      description: '서울, 인천, 경기 지역의 꼭 필요한 지원금과 혜택 정보를 확인하세요.',
     };
   }
 
-  const description = benefit.details ? benefit.details.slice(0, 160) : '지원금 혜택 상세 정보입니다.';
+  const description = benefit.details ? benefit.details.slice(0, 160) : '지원금 상세 정보입니다.';
 
   return {
-    title: `${benefit.title} | 수도권N라이프`,
+    title: `${benefit.title} | 팁픽(Tip-Pick)`,
     description: description,
     openGraph: {
       title: benefit.title,
@@ -240,6 +242,8 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
           </div>
         </article>
       </main>
+
+      <Footer />
     </div>
   );
 }

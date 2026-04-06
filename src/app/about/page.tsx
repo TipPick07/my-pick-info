@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import Image from "next/image";
 import { CheckCircle2, Lightbulb } from "lucide-react";
 
@@ -102,11 +103,7 @@ export default function AboutPage() {
         </section>
       </main>
 
-      <footer className="bg-white border-t border-slate-100 py-12 px-6">
-        <div className="container mx-auto text-center text-slate-400 text-sm font-bold">
-          © 2026 팁픽(Tip-Pick). 데이터는 공공기관이, 꿀팁은 팁픽이.
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

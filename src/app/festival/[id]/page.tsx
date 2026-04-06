@@ -9,6 +9,8 @@ import {
   Sparkles, 
   ExternalLink 
 } from 'lucide-react';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 interface Festival {
   id: string;
@@ -28,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   if (!festival) {
     return {
-      title: '수도권N라이프 축제 정보',
+      title: '축제 정보 | 팁픽(Tip-Pick)',
       description: '서울, 인천, 경기 지역의 즐거운 축제와 행사를 확인하세요.',
     };
   }
@@ -36,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const description = festival.description ? festival.description.slice(0, 160) : '축제 상세 정보입니다.';
 
   return {
-    title: `${festival.title} | 수도권N라이프`,
+    title: `${festival.title} | 팁픽(Tip-Pick)`,
     description: description,
     openGraph: {
       title: festival.title,
@@ -171,8 +173,9 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
           </footer>
 
         </article>
-
       </div>
+
+      <Footer />
     </div>
   );
 }

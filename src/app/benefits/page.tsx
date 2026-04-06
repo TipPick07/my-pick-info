@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 interface Benefit {
   id: string;
@@ -130,13 +131,7 @@ export default function BenefitsPage() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-12 mt-24">
-        <div className="container mx-auto px-6 text-center text-sm font-bold">
-          <p>© 2026 팁픽(Tip-Pick). All rights reserved.</p>
-          <p className="mt-2 text-slate-600 text-xs">데이터는 공공기관이, 꿀팁은 팁픽이.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

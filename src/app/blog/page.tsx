@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { getSortedPostsData } from "@/lib/posts";
 
 export default function BlogListPage() {
@@ -99,27 +100,7 @@ export default function BlogListPage() {
         </div>
       </main>
 
-      <footer className="bg-slate-900 text-white py-12 px-6">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-slate-400 text-sm">
-          <div className="space-y-4">
-            <h4 className="text-white font-bold">팁픽(Tip-Pick)</h4>
-            <p className="leading-relaxed">데이터는 공공기관이, 꿀팁은 팁픽이. 수도권 생활의 질을 높이는 한 끗 차이를 전달합니다.</p>
-          </div>
-          <div className="space-y-4">
-            <h4 className="text-white font-bold">바로가기</h4>
-            <ul className="space-y-2">
-              <li><Link href="/festivals/" className="hover:text-white transition-colors">이번 주말 어디 가?</Link></li>
-              <li><Link href="/benefits/" className="hover:text-white transition-colors">내 돈 찾는 지원금</Link></li>
-              <li><Link href="/blog/" className="transition-colors" style={{ color: "#00CCFF" }}>팁픽 인사이트</Link></li>
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <h4 className="text-white font-bold">정보</h4>
-            <p>데이터 출처: 공공데이터포털</p>
-            <p>마지막 업데이트: 2026.04.05</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
