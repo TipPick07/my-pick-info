@@ -11,7 +11,8 @@ import {
   Info,
   Clock,
   ArrowRight,
-  CheckCircle2
+  CheckCircle2,
+  Lightbulb
 } from 'lucide-react';
 
 interface Benefit {
@@ -193,20 +194,24 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
                 </div>
               </section>
 
-              {/* 꿀팁 섹션 */}
+              {/* 팁픽 가이드 섹션 */}
               {benefit.tip && (
-                <section className="bg-rose-50/50 rounded-[2rem] p-8 border border-rose-100 relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <Info className="w-20 h-20 text-rose-500" />
-                  </div>
-                  <div className="relative space-y-4">
-                    <div className="flex items-center gap-2 text-rose-600 font-black text-lg">
-                      <Info className="w-5 h-5" />
-                      <h4>꿀팁</h4>
+                <section className="rounded-[2rem] overflow-hidden border border-emerald-100 relative group">
+                  <div className="border-t-4 border-emerald-400" />
+                  <div className="bg-rose-50/50 p-8 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                      <Info className="w-20 h-20 text-emerald-500" />
                     </div>
-                    <p className="text-rose-900/80 font-bold leading-relaxed whitespace-pre-line text-lg">
-                      {benefit.tip}
-                    </p>
+                    <div className="relative space-y-4">
+                      <div className="flex items-center gap-2 text-emerald-700 font-black text-lg">
+                        <Lightbulb className="w-5 h-5 fill-emerald-100" />
+                        <CheckCircle2 className="w-4 h-4" />
+                        <h4>팁픽 가이드</h4>
+                      </div>
+                      <p className="text-emerald-900/80 font-bold leading-relaxed whitespace-pre-line text-lg">
+                        {benefit.tip}
+                      </p>
+                    </div>
                   </div>
                 </section>
               )}
@@ -214,14 +219,18 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
 
             {/* 하단 CTA 버튼 */}
             <footer className="mt-16">
-              <a 
-                href={(benefit.link || "").startsWith('http') ? benefit.link : `https://${benefit.link || ""}`} 
-                target="_blank" 
+              <a
+                href={(benefit.link || "").startsWith('http') ? benefit.link : `https://${benefit.link || ""}`}
+                target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-center gap-4 w-full bg-slate-900 hover:bg-indigo-600 text-white font-black text-xl px-8 py-6 rounded-2xl shadow-xl hover:shadow-indigo-200/50 transition-all active:scale-[0.98]"
+                className="group flex items-center justify-center gap-4 w-full bg-slate-900 hover:bg-slate-800 text-white font-black text-xl px-8 py-6 rounded-2xl shadow-[0_0_20px_rgba(6,182,212,0.0)] hover:shadow-[0_0_30px_rgba(6,182,212,0.35)] transition-all active:scale-[0.98] relative overflow-hidden"
               >
-                공식 신청 사이트로 자세히 보기
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                <span className="relative z-10 flex items-center gap-3">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 group-hover:text-white transition-colors duration-300">
+                    공식 신청 사이트로 자세히 보기
+                  </span>
+                  <ArrowRight className="w-6 h-6 text-cyan-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                </span>
               </a>
               <p className="text-center text-slate-400 text-sm font-bold mt-4 italic">
                 해당 사이트로 이동하여 안전하게 신청하실 수 있습니다.
