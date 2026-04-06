@@ -40,7 +40,7 @@
       "tag": "예매중",
       "image": "/images/festivals/goyang-flower-expo.png",
       "description": "세계 각국에서 모인 아름다운 꽃들을 한자리에서 볼 수 있는 국내 최대 규모의 꽃박람회입니다. 꽃 전시뿐만 아니라 공연, 체험 행사 등 다채로운 프로그램이 마련되어 가족, 연인과 함께하기 좋습니다.",
-      "link": "https://www.flower.or.kr"
+      "link": "http://flower.or.kr"
     },
     {
       "id": "fest-003",
@@ -51,7 +51,7 @@
       "tag": "HOT",
       "image": "/images/festivals/songdo-rock-festival.png",
       "description": "국내외 정상급 아티스트들이 참여하는 대한민국을 대표하는 락 페스티벌입니다. 뜨거운 열기 속에서 최고의 사운드와 퍼포먼스를 즐기며 일상에서 벗어난 해방감을 맛보세요.",
-      "link": "https://pentaport.co.kr"
+      "link": "https://www.incheon.go.kr/main"
     },
     {
       "id": "fest-004",
@@ -62,7 +62,7 @@
       "tag": "인기",
       "image": "/images/festivals/gyeongbokgung-night.png",
       "description": "은은한 조명 아래 빛나는 고궁의 아름다운 야경을 감상할 수 있는 특별한 시간입니다. 고즈넉한 분위기 속에서 조선 시대 왕궁의 여유와 낭만을 즐겨보세요.",
-      "link": "https://www.royalpalace.go.kr"
+      "link": "https://www.kh.or.kr"
     }
   ],
   "benefits": [
