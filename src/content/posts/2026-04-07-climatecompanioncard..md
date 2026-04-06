@@ -8,7 +8,7 @@ officialDeadline: 상시
 date: 2026-04-07
 summary: 서울 지하철과 버스를 무제한으로! 월 6만 2천 원으로 스마트한 출퇴근과 여가 생활을 누리는 기후동행카드, 팁픽이 꼼꼼히 알려드립니다. 지갑은 가볍게, 발걸음은 쾌적하게 서울을 누비는 비법을 지금 확인하세요.
 category: 정보
-image: https://pollinations.ai/p/Climate-Companion-Card-Seoul-Transportation?width=800&height=600&seed=456&nologo=true
+image: /images/blogs/climate-companion-card-seoul-transportation-456.png
 tags: [기후동행카드, 서울대중교통, 무제한교통, 교통비절약, 따릉이, 서울시혜택, 수도권팁픽]
 ---
 

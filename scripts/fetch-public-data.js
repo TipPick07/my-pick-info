@@ -153,7 +153,28 @@ ${JSON.stringify(selectedData)}`
     const safePrompt = (parsedParams.imagePrompt || parsedParams.title)
       .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 제거
       .replace(/\s+/g, '-'); // 공백을 대시로 치환
-    const imageUrl = `https://pollinations.ai/p/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`;
+    const externalImageUrl = `https://pollinations.ai/p/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`;
+    
+    // 💡 이미지 다운로드 및 로컬 저장
+    const localImageName = `${safePrompt.substring(0, 30).toLowerCase()}-${seed}.png`;
+    const localImagePath = `/images/blogs/${localImageName}`;
+    const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
+    
+    console.log(`이미지 다운로드 시작: ${externalImageUrl}`);
+    let finalImageUrl = externalImageUrl;
+    try {
+      const imgRes = await fetch(externalImageUrl);
+      if (imgRes.ok) {
+        const arrayBuffer = await imgRes.arrayBuffer();
+        fs.writeFileSync(absoluteImagePath, Buffer.from(arrayBuffer));
+        console.log(`이미지 다운로드 성공: ${localImagePath}`);
+        finalImageUrl = localImagePath;
+      } else {
+        console.log('이미지 다운로드 에러, 외부 URL 사용');
+      }
+    } catch (e) {
+      console.error('이미지 로컬 저장 실패:', e.message);
+    }
 
     if (parsedParams.type === 'festival') {
       existingData.festivals.unshift({
@@ -162,7 +183,7 @@ ${JSON.stringify(selectedData)}`
         title: parsedParams.title || titleToCheck,
         date: parsedParams.date || '상시',
         tag: parsedParams.tag || '신규',
-        image: imageUrl
+        image: finalImageUrl
       });
     } else {
       existingData.benefits.unshift({
@@ -171,7 +192,7 @@ ${JSON.stringify(selectedData)}`
         title: parsedParams.title || titleToCheck,
         target: parsedParams.target || '누구나',
         deadline: parsedParams.date || '상시',
-        image: imageUrl,
+        image: finalImageUrl,
         isEmergency: parsedParams.tag === '마감임박'
       });
     }

@@ -123,6 +123,16 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           <p className="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto italic border-l-4 border-indigo-200 pl-4 py-2">
             "{post.summary}"
           </p>
+
+          {post.image && (
+            <div className="mt-12 rounded-3xl overflow-hidden shadow-2xl max-w-4xl mx-auto border-4 border-white aspect-[16/9] relative bg-slate-100">
+              <img 
+                src={post.image} 
+                alt={post.title} 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+              />
+            </div>
+          )}
         </header>
 
         {/* Post Content */}
