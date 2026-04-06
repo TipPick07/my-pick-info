@@ -9,6 +9,7 @@ export interface PostData {
   title: string;
   originalTitle?: string;
   link?: string;
+  image?: string;
   officialTarget?: string;
   officialDetails?: string;
   officialDeadline?: string;
@@ -58,6 +59,7 @@ export function getSortedPostsData(): PostData[] {
         title: matterResult.data.title || '',
         originalTitle: matterResult.data.originalTitle || '',
         link: matterResult.data.link || '',
+        image: matterResult.data.image || '',
         officialTarget: matterResult.data.officialTarget || '',
         officialDetails: matterResult.data.officialDetails || '',
         officialDeadline: matterResult.data.officialDeadline || '',
@@ -97,6 +99,7 @@ export function getPostData(slug: string): PostData | null {
     title: matterResult.data.title || '',
     originalTitle: matterResult.data.originalTitle || '',
     link: matterResult.data.link || '',
+    image: matterResult.data.image || '',
     officialTarget: matterResult.data.officialTarget || '',
     officialDetails: matterResult.data.officialDetails || '',
     officialDeadline: matterResult.data.officialDeadline || '',
