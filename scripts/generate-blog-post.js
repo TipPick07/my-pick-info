@@ -62,27 +62,37 @@ async function main() {
     const prompt = {
       contents: [{
         parts: [{
-          text: `아래 공공서비스 정보를 바탕으로 블로그 글을 작성해줘.
+          text: `당신은 수도권 생활 정보 큐레이션 서비스 '수도권 팁픽(Tip-Pick)'의 전문 에디터입니다. 
+아래 공공서비스 정보를 바탕으로 독자들에게 정말 도움이 되는 프리미엄 블로그 글을 작성해줘.
 
 정보: ${JSON.stringify(targetItem)}
 
-아래 형식으로 출력해줘. 반드시 이 형식만 출력하고 다른 텍스트는 없이:
+[작성 가이드라인]
+1. 서비스명: '수도권 팁픽' 또는 '팁픽(Tip-Pick)'을 자연스럽게 언급해줘.
+2. 톤앤매너: 친절하고 다정하지만, 전문성과 신뢰감이 느껴지는 '프리미엄 로컬 매거진' 스타일.
+3. 구성: 
+   - 도입부에 이 정보가 왜 중요한지 강조.
+   - 본문에 '팁픽이 꼽은 추천 포인트 3가지'를 포함.
+   - 신청 방법 및 대상자를 명확하게 안내.
+4. 길이: 공백 제외 800자 이상의 풍부한 내용.
+
+아래 형식으로 출력해줘. 반드시 이 형식(YAML Frontmatter 포함)만 출력하고 다른 설명 제발 없이:
 ---
-title: (친근하고 흥미로운 제목)
+title: (친근하고 호기심을 자극하는 제목)
 originalTitle: ${targetItem.title}
 link: ${targetItem.link || ''}
 officialTarget: ${targetItem.target || '정보 없음'}
 officialDetails: ${targetItem.details || targetItem.description || '정보 없음'}
 officialDeadline: ${targetItem.deadline || targetItem.date || '상시'}
 date: ${today}
-summary: (한 줄 요약)
+summary: (전체 내용을 관통하는 매력적인 한 줄 요약)
 category: 정보
 tags: [태그1, 태그2, 태그3]
 ---
 
-(본문: 800자 이상, 친근한 블로그 톤, 추천 이유 3가지 포함, 신청 방법 안내)
+(본문 내용 시작...)
 
-마지막 줄에 FILENAME: YYYY-MM-DD-keyword 형식으로 파일명도 출력해줘. 키워드는 영문으로.`
+FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘. 키워드는 영문으로.`
         }]
       }]
     };

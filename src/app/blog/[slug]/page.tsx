@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getPostData, getSortedPostsData } from "@/lib/posts";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
@@ -21,14 +22,14 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const post = getPostData(slug);
 
   return {
-    title: `${post?.title} | 수도권N라이프 Blog`,
+    title: `${post?.title} | 팁픽(Tip-Pick) 인사이트`,
     description: post?.summary,
     openGraph: {
       title: post?.title,
       description: post?.summary,
       type: 'article',
       publishedTime: post?.date,
-      authors: [post?.author || '수도권N라이프'],
+      authors: [post?.author || '팁픽(Tip-Pick)'],
       tags: post?.tags,
     },
   };
@@ -64,11 +65,11 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             "description": post.summary,
             "author": {
               "@type": "Organization",
-              "name": "수도권N라이프"
+              "name": "수도권 팁픽(Tip-Pick)"
             },
             "publisher": {
               "@type": "Organization",
-              "name": "수도권N라이프",
+              "name": "수도권 팁픽(Tip-Pick)",
               "url": "https://my-pick-info.pages.dev"
             }
           })
@@ -205,15 +206,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         <CoupangBanner />
       </main>
 
-      <footer className="bg-slate-900 text-white py-12 px-6 mt-20">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-slate-400 text-sm text-center md:text-left">
-          <div className="space-y-4">
-            <h4 className="text-white font-bold">수도권N라이프</h4>
-            <p>데이터 출처: 공공데이터포털</p>
-            <p>마지막 업데이트: 2026.04.05</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
