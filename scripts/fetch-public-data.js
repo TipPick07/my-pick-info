@@ -153,27 +153,32 @@ ${JSON.stringify(selectedData)}`
     const safePrompt = (parsedParams.imagePrompt || parsedParams.title)
       .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 제거
       .replace(/\s+/g, '-'); // 공백을 대시로 치환
-    const externalImageUrl = `https://pollinations.ai/p/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`;
     
-    // 💡 이미지 다운로드 및 로컬 저장
+    // 💡 더 안정적인 새로운 엔드포인트 사용
+    const externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`;
+    
     const localImageName = `${safePrompt.substring(0, 30).toLowerCase()}-${seed}.png`;
     const localImagePath = `/images/blogs/${localImageName}`;
     const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
     
-    console.log(`이미지 다운로드 시작: ${externalImageUrl}`);
-    let finalImageUrl = externalImageUrl;
+    console.log(`이미지 다운로드 시도: ${externalImageUrl}`);
+    let finalImageUrl = localImagePath; 
+
     try {
       const imgRes = await fetch(externalImageUrl);
-      if (imgRes.ok) {
+      const contentType = imgRes.headers.get('content-type');
+      
+      if (imgRes.ok && contentType && contentType.startsWith('image/')) {
         const arrayBuffer = await imgRes.arrayBuffer();
         fs.writeFileSync(absoluteImagePath, Buffer.from(arrayBuffer));
-        console.log(`이미지 다운로드 성공: ${localImagePath}`);
-        finalImageUrl = localImagePath;
+        console.log(`이미지 로컬 저장 성공: ${localImagePath}`);
       } else {
-        console.log('이미지 다운로드 에러, 외부 URL 사용');
+        console.log(`이미지 생성 실패(Type: ${contentType}), 기본 이미지 사용`);
+        finalImageUrl = '/images/blogs/default.png'; // 💡 실패 시 기본 이미지 사용
       }
     } catch (e) {
-      console.error('이미지 로컬 저장 실패:', e.message);
+      console.error('이미지 처리 중 오류 발생:', e.message);
+      finalImageUrl = '/images/blogs/default.png';
     }
 
     if (parsedParams.type === 'festival') {
