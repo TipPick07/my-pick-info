@@ -117,7 +117,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           <div className="flex items-center justify-center gap-4 text-sm font-medium text-slate-400">
             <span>{post.date}</span>
             <span className="w-1 h-1 bg-slate-200 rounded-full"></span>
-            <span className="text-indigo-600 font-bold">EDITORS PICK</span>
+            <span className="text-indigo-600 font-bold">TIP PICK</span>
           </div>
 
           <p className="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto italic border-l-4 border-indigo-200 pl-4 py-2">
