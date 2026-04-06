@@ -63,32 +63,12 @@ async function main() {
       return;
     }
 
-    const validRegions = ['서울', '인천', '경기'];
-    let selectedData = null;
-
-    for (const item of dataList) {
-      const textToSearch = [
-        item.서비스명,
-        item.서비스목적요약,
-        item.지원대상,
-        item.소관기관명
-      ].join(' ');
-
-      const hasRegion = validRegions.some(r => textToSearch?.includes(r));
-      if (hasRegion) {
-        selectedData = item;
-        break;
-      }
-    }
-
-    if (!selectedData) {
-      selectedData = dataList[0];
-    }
-
     const dataPath = path.join(__dirname, '../public/data/pick-info.json');
     let existingData;
     try {
       existingData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+      existingData.festivals = existingData.festivals || [];
+      existingData.benefits = existingData.benefits || [];
     } catch (err) {
       throw new Error('pick-info.json 파일을 읽을 수 없습니다.');
     }
@@ -102,14 +82,45 @@ async function main() {
       fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
     }
 
-    const titleToCheck = selectedData.서비스명;
-    const isDuplicate = 
-      existingData.festivals?.some(f => f.title === titleToCheck) ||
-      existingData.benefits?.some(b => b.title === titleToCheck);
+    const validRegions = ['서울', '인천', '경기'];
+    let newItems = [];
 
-    if (isDuplicate) {
+    // 중복 체크를 위한 기존 타이틀 셋 구성
+    const existingTitles = new Set([
+      ...existingData.festivals.map(f => f.title),
+      ...existingData.benefits.map(b => b.title)
+    ]);
+
+    // 기존에 없는 새로운 데이터만 추출
+    for (const item of dataList) {
+      if (!existingTitles.has(item.서비스명)) {
+        newItems.push(item);
+      }
+    }
+
+    if (newItems.length === 0) {
       console.log('새로운 공공데이터가 없습니다. (날씨만 업데이트 완료)');
       return;
+    }
+
+    // 최대 5개 선정 (수도권 지역 조건 맞는 것 우선)
+    let selectedDataItems = [];
+    for (const item of newItems) {
+      const textToSearch = [item.서비스명, item.서비스목적요약, item.지원대상, item.소관기관명].join(' ');
+      if (validRegions.some(r => textToSearch?.includes(r))) {
+        selectedDataItems.push(item);
+      }
+      if (selectedDataItems.length >= 5) break; 
+    }
+
+    // 5개가 안 찼다면 나머지 최신 데이터로 채움
+    if (selectedDataItems.length < 5) {
+      for (const item of newItems) {
+        if (!selectedDataItems.includes(item)) {
+          selectedDataItems.push(item);
+        }
+        if (selectedDataItems.length >= 5) break;
+      }
     }
 
     const geminiApiKey = process.env.GEMINI_API_KEY;
@@ -117,93 +128,121 @@ async function main() {
       throw new Error('GEMINI_API_KEY 환경변수가 설정되지 않았습니다.');
     }
 
-    const promptObj = {
-      contents: [{
-        parts: [{
-          text: `아래 공공데이터 1건을 분석해서 JSON 객체로 변환해줘. 형식:
+    // 💡 이미지 생성 시 너무 빠른 API 요청으로 인한 실패(Rate Limit) 방지 지연 함수
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    for (const [index, selectedData] of selectedDataItems.entries()) {
+      const titleToCheck = selectedData.서비스명;
+      console.log(`[${index + 1}/${selectedDataItems.length}] 데이터 처리 시작: ${titleToCheck}`);
+
+      // 지연 (첫번째는 제외) - 자동 배포 안정성 확보 (봇 의심 및 IP 차단 방지)
+      if (index > 0) {
+        console.log('안정적인 API 처리를 위해 1.5초 대기 중...');
+        await delay(1500);
+      }
+
+      const promptObj = {
+        contents: [{
+          parts: [{
+            text: `아래 공공데이터 1건을 분석해서 JSON 객체로 변환해줘. 형식:
 {id: 랜덤숫자, region: '서울', '인천', '경기', '전국' 중 택1, type: 'festival' 또는 'benefit', title: 서비스명, date: 'YYYY.MM.DD~YYYY.MM.DD' 또는 마감일, target: 지원대상, summary: 한줄요약, link: 상세URL, tag: '추천/마감임박/상시 등 짧은태그', imagePrompt: '축제/행사라면 이 축제 분위기를 가장 잘 나타내는 화려하고 사실적인 영문 이미지 생성 프롬프트 1문장'}
 내용을 보고 행사/축제면 type을 'festival', 지원금/서비스면 'benefit'으로 판단해.
 반드시 JSON 객체만 출력해. 다른 텍스트 없이.
 
 공공데이터:
 ${JSON.stringify(selectedData)}`
+          }]
         }]
-      }]
-    };
+      };
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`;
-    const geminiRes = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(promptObj)
-    });
-
-    if (!geminiRes.ok) {
-      throw new Error(`Gemini API 호출 실패: ${geminiRes.status}`);
-    }
-
-    const geminiJson = await geminiRes.json();
-    let textResult = geminiJson.candidates[0].content.parts[0].text;
-    textResult = textResult.replace(/```json/gi, '').replace(/```/g, '').trim();
-
-    const parsedParams = JSON.parse(textResult);
-    const newId = String(parsedParams.id || Date.now());
-
-    const seed = Math.floor(Math.random() * 1000);
-    const safePrompt = (parsedParams.imagePrompt || parsedParams.title)
-      .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 제거
-      .replace(/\s+/g, '-'); // 공백을 대시로 치환
-    
-    // 💡 더 안정적인 새로운 엔드포인트 사용
-    const externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`;
-    
-    const localImageName = `${safePrompt.substring(0, 30).toLowerCase()}-${seed}.png`;
-    const localImagePath = `/images/blogs/${localImageName}`;
-    const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
-    
-    console.log(`이미지 다운로드 시도: ${externalImageUrl}`);
-    let finalImageUrl = localImagePath; 
-
-    try {
-      const imgRes = await fetch(externalImageUrl);
-      const contentType = imgRes.headers.get('content-type');
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`;
+      let textResult;
       
-      if (imgRes.ok && contentType && contentType.startsWith('image/')) {
-        const arrayBuffer = await imgRes.arrayBuffer();
-        fs.writeFileSync(absoluteImagePath, Buffer.from(arrayBuffer));
-        console.log(`이미지 로컬 저장 성공: ${localImagePath}`);
-      } else {
-        console.log(`이미지 생성 실패(Type: ${contentType}), 기본 이미지 사용`);
-        finalImageUrl = '/images/blogs/default.png'; // 💡 실패 시 기본 이미지 사용
+      try {
+        const geminiRes = await fetch(geminiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(promptObj)
+        });
+
+        if (!geminiRes.ok) {
+          console.error(`Gemini API 호출 실패: ${geminiRes.status} - 다음 항목으로 건너뜁니다.`);
+          continue;
+        }
+
+        const geminiJson = await geminiRes.json();
+        textResult = geminiJson.candidates[0].content.parts[0].text;
+        textResult = textResult.replace(/```json/gi, '').replace(/```/g, '').trim();
+      } catch (err) {
+        console.error('Gemini 서버 통신 에러:', err.message);
+        continue;
       }
-    } catch (e) {
-      console.error('이미지 처리 중 오류 발생:', e.message);
-      finalImageUrl = '/images/blogs/default.png';
-    }
 
-    if (parsedParams.type === 'festival') {
-      existingData.festivals.unshift({
-        id: newId,
-        region: parsedParams.region || '전국',
-        title: parsedParams.title || titleToCheck,
-        date: parsedParams.date || '상시',
-        tag: parsedParams.tag || '신규',
-        image: finalImageUrl
-      });
-    } else {
-      existingData.benefits.unshift({
-        id: newId,
-        region: parsedParams.region || '전국',
-        title: parsedParams.title || titleToCheck,
-        target: parsedParams.target || '누구나',
-        deadline: parsedParams.date || '상시',
-        image: finalImageUrl,
-        isEmergency: parsedParams.tag === '마감임박'
-      });
-    }
+      let parsedParams;
+      try {
+        parsedParams = JSON.parse(textResult);
+      } catch(e) {
+        console.error('Gemini 응답 JSON 파싱 에러:', textResult);
+        continue; // 파싱 실패해도 다음 데이터 처리는 계속 진행
+      }
 
-    fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
-    console.log(`새로운 항목 추가 성공: ${titleToCheck}`);
+      const newId = String(parsedParams.id || Date.now() + index);
+      const seed = Math.floor(Math.random() * 1000) + index;
+      const safePrompt = (parsedParams.imagePrompt || parsedParams.title)
+        .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 제거
+        .replace(/\s+/g, '-'); // 공백을 대시로 치환
+      
+      const externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`;
+      
+      const localImageName = `${safePrompt.substring(0, 30).toLowerCase()}-${seed}.png`;
+      const localImagePath = `/images/blogs/${localImageName}`;
+      const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
+      
+      console.log(`이미지 다운로드 시도: ${externalImageUrl}`);
+      let finalImageUrl = localImagePath; 
+
+      try {
+        const imgRes = await fetch(externalImageUrl);
+        const contentType = imgRes.headers.get('content-type');
+        
+        if (imgRes.ok && contentType && contentType.startsWith('image/')) {
+          const arrayBuffer = await imgRes.arrayBuffer();
+          fs.writeFileSync(absoluteImagePath, Buffer.from(arrayBuffer));
+          console.log(`이미지 로컬 저장 성공: ${localImagePath}`);
+        } else {
+          console.log(`이미지 생성 실패(Type: ${contentType}), 기본 이미지 사용`);
+          finalImageUrl = '/images/blogs/default.png'; // 💡 실패 시 안전하게 기본 이미지 폴백
+        }
+      } catch (e) {
+        console.error('이미지 처리 중 간헐적 오류 발생:', e.message);
+        finalImageUrl = '/images/blogs/default.png';
+      }
+
+      if (parsedParams.type === 'festival') {
+        existingData.festivals.unshift({
+          id: newId,
+          region: parsedParams.region || '전국',
+          title: parsedParams.title || titleToCheck,
+          date: parsedParams.date || '상시',
+          tag: parsedParams.tag || '신규',
+          image: finalImageUrl
+        });
+      } else {
+        existingData.benefits.unshift({
+          id: newId,
+          region: parsedParams.region || '전국',
+          title: parsedParams.title || titleToCheck,
+          target: parsedParams.target || '누구나',
+          deadline: parsedParams.date || '상시',
+          image: finalImageUrl,
+          isEmergency: parsedParams.tag === '마감임박'
+        });
+      }
+
+      // 1건 처리될 때마다 파일에 동기화하여 중간에 다운되어도 데이터 유실 방지
+      fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+      console.log(`✓ 정상 추가됨: ${titleToCheck}`);
+    }
 
   } catch (error) {
     console.error('오류 발생:', error.message);
