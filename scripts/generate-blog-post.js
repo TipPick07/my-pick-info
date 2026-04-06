@@ -117,7 +117,7 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
     if (!filenameMatch) {
       throw new Error('FILENAME을 찾을 수 없습니다.');
     }
-    const filename = filenameMatch[1].trim().replace(/\.+$/, '') + '.md';
+    const filename = filenameMatch[1].trim().replace(/\.md$/i, '').replace(/\.+$/, '') + '.md';
     
     // FILENAME 라인 제거
     let mdContent = fullText.replace(/FILENAME:.*$/im, '').trim();
@@ -132,7 +132,8 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
     console.log(`생성 완료: ${filename}`);
 
   } catch (error) {
-    console.error('오류 발생:', error.message);
+    console.error('치명적 오류 발생(자동 배포 중단을 위해 exit 1 호출):', error);
+    process.exit(1);
   }
 }
 

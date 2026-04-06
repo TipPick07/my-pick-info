@@ -188,10 +188,17 @@ ${JSON.stringify(selectedData)}`
 
       const newId = String(parsedParams.id || Date.now() + index);
       const seed = Math.floor(Math.random() * 1000) + index;
-      const safePrompt = (parsedParams.imagePrompt || parsedParams.title)
-        .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 제거
+      let rawPrompt = (parsedParams.imagePrompt || parsedParams.title);
+      let safePrompt = rawPrompt
+        .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 및 한글 제거
         .replace(/\s+/g, '-'); // 공백을 대시로 치환
       
+      // 만약 정규식으로 인해 프롬프트가 다 날아갔다면(한글만 있었던 경우 등) 기본 영문 키워드로 폴백
+      if (!safePrompt || safePrompt.length < 2) {
+        safePrompt = parsedParams.type === 'festival' ? 'korea-festival-event' : 'korea-welfare-benefit';
+        console.log(`[안내] 프롬프트가 비어있어 기본 키워드로 변경되었습니다: ${safePrompt}`);
+      }
+
       const externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`;
       
       const localImageName = `${safePrompt.substring(0, 30).toLowerCase()}-${seed}.png`;
@@ -245,7 +252,8 @@ ${JSON.stringify(selectedData)}`
     }
 
   } catch (error) {
-    console.error('오류 발생:', error.message);
+    console.error('치명적 오류 발생(자동 배포 중단을 위해 exit 1 호출):', error);
+    process.exit(1);
   }
 }
 
