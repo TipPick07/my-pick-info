@@ -117,7 +117,7 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
     if (!filenameMatch) {
       throw new Error('FILENAME을 찾을 수 없습니다.');
     }
-    const filename = filenameMatch[1].trim() + '.md';
+    const filename = filenameMatch[1].trim().replace(/\.+$/, '') + '.md';
     
     // FILENAME 라인 제거
     let mdContent = fullText.replace(/FILENAME:.*$/im, '').trim();
