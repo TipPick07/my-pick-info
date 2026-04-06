@@ -151,14 +151,17 @@ ${JSON.stringify(selectedData)}`
 
     if (parsedParams.type === 'festival') {
       const seed = Math.floor(Math.random() * 1000);
-      const encodedPrompt = encodeURIComponent(parsedParams.imagePrompt || parsedParams.title + ' festival, vibrant, high quality, realistic');
+      const safePrompt = (parsedParams.imagePrompt || parsedParams.title)
+        .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 제거
+        .replace(/\s+/g, '-'); // 공백을 대시로 치환
+      
       existingData.festivals.unshift({
         id: newId,
         region: parsedParams.region || '전국',
         title: parsedParams.title || titleToCheck,
         date: parsedParams.date || '상시',
         tag: parsedParams.tag || '신규',
-        image: `https://pollinations.ai/p/${encodedPrompt}?width=800&height=600&seed=${seed}&model=flux`
+        image: `https://pollinations.ai/p/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`
       });
     } else {
       existingData.benefits.unshift({
