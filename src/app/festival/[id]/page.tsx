@@ -160,7 +160,7 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
           {/* 하단 CTA 버튼 */}
           <footer className="pt-4">
             <a 
-              href={festival.link.startsWith('http') ? festival.link : `https://${festival.link}`} 
+              href={(festival.link || "").startsWith('http') ? festival.link : `https://${festival.link || ""}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="group flex items-center justify-center gap-3 w-full bg-slate-900 hover:bg-indigo-600 text-white font-black text-xl px-8 py-6 rounded-[1.5rem] shadow-xl shadow-slate-100 hover:shadow-indigo-100 transition-all active:scale-[0.98]"

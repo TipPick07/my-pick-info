@@ -105,7 +105,7 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
 
           <div className="pt-10 flex flex-col md:row items-center justify-center gap-6">
             <a 
-              href={benefit.link.startsWith('http') ? benefit.link : `https://${benefit.link}`} 
+              href={(benefit.link || "").startsWith('http') ? benefit.link : `https://${benefit.link || ""}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-full md:w-auto px-16 py-6 bg-slate-900 text-white rounded-[2rem] text-xl font-black hover:bg-slate-800 transition-all shadow-2xl active:scale-95 text-center"
