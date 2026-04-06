@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { getRealTimeWeather } from "@/lib/weather";
+import WeatherWidget from "@/components/WeatherWidget";
 
 interface Weather {
   region: string;
@@ -29,18 +29,6 @@ interface Data {
 
 export default function FestivalsClient({ data, weatherApiKey }: { data: Data, weatherApiKey: string }) {
   const [filter, setFilter] = useState("전체");
-  const [weatherData, setWeatherData] = useState<Weather[]>(data.weather);
-
-  useEffect(() => {
-    if (weatherApiKey) {
-      getRealTimeWeather(weatherApiKey).then(res => {
-        if (res && res.length > 0 && res[0].temp !== '에러') {
-          setWeatherData(res);
-        }
-      });
-    }
-  }, [weatherApiKey]);
-
   const filteredFestivals = filter === "전체"
     ? data.festivals
     : data.festivals.filter(f => f.region === filter);
@@ -90,32 +78,9 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: Data, w
 
         {/* Weather Widgets */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {weatherData.map((w) => (
-            <div
-              key={w.region}
-              className="bg-white p-6 rounded-[2.5rem] flex items-center justify-between shadow-sm hover:-translate-y-1 transition-all duration-300 group"
-              style={{ border: "2px solid rgba(0,204,255,0.2)" }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = "rgba(0,204,255,0.5)";
-                e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,204,255,0.15)";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = "rgba(0,204,255,0.2)";
-                e.currentTarget.style.boxShadow = "";
-              }}
-            >
-              <div className="space-y-1">
-                <p className="font-bold text-sm" style={{ color: "#00CCFF" }}>{w.region}의 날씨</p>
-                <h3 className="text-3xl font-black text-slate-900">{w.temp}</h3>
-                <p className="text-slate-600 font-medium">{w.status}</p>
-              </div>
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl group-hover:scale-110 transition-transform"
-                style={{ background: "linear-gradient(135deg, rgba(0,204,255,0.08), rgba(51,255,153,0.08))", border: "1px solid rgba(0,204,255,0.15)" }}
-              >
-                {w.icon}
-              </div>
-            </div>
-          ))}
+          <WeatherWidget region="서울" />
+          <WeatherWidget region="인천" />
+          <WeatherWidget region="경기" />
         </section>
 
         {/* Festival Grid */}
