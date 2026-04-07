@@ -11,6 +11,27 @@ function parseWeather(code) {
   if ([95, 96, 99].includes(code)) return { status: '천둥번개', icon: '⚡' };
   return { status: '흐림', icon: '☁️' };
 }
+// 재시도 가능한 fetch 함수
+async function fetchWithRetry(url, options = {}, retries = 3, backoff = 2000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url, options);
+      if (response.ok) return response;
+      if (response.status === 429 || response.status >= 500) {
+        console.warn(`[재시도 ${i + 1}/${retries}] API 오류 (${response.status}). ${backoff}ms 후 다시 시도합니다.`);
+        await new Promise(resolve => setTimeout(resolve, backoff));
+        backoff *= 2;
+        continue;
+      }
+      return response;
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      console.warn(`[재시도 ${i + 1}/${retries}] 네트워크 오류: ${err.message}. ${backoff}ms 후 다시 시도합니다.`);
+      await new Promise(resolve => setTimeout(resolve, backoff));
+      backoff *= 2;
+    }
+  }
+}
 
 async function fetchWeatherData() {
   try {
@@ -50,7 +71,7 @@ async function main() {
     }
 
     const url = `https://api.odcloud.kr/api/gov24/v3/serviceList?page=1&perPage=20&returnType=JSON&serviceKey=${encodeURIComponent(govApiKey)}`;
-    const govRes = await fetch(url);
+    const govRes = await fetchWithRetry(url);
     if (!govRes.ok) {
       throw new Error(`공공데이터포털 API 호출 실패: ${govRes.status}`);
     }
@@ -159,7 +180,7 @@ ${JSON.stringify(selectedData)}`
       let textResult;
       
       try {
-        const geminiRes = await fetch(geminiUrl, {
+        const geminiRes = await fetchWithRetry(geminiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(promptObj)
@@ -252,7 +273,11 @@ ${JSON.stringify(selectedData)}`
     }
 
   } catch (error) {
-    console.error('치명적 오류 발생(자동 배포 중단을 위해 exit 1 호출):', error);
+    console.error('----------------------------------------------------');
+    console.error('치명적 오류 발생 (공공데이터 수집 중 중단)');
+    console.error('에러 메시지:', error.message);
+    if (error.stack) console.error('스택 트레이스:', error.stack);
+    console.error('----------------------------------------------------');
     process.exit(1);
   }
 }
