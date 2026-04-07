@@ -1,13 +1,22 @@
 "use client";
 
 import { useEffect } from "react";
-import { X } from "lucide-react";
+import { 
+  LucideIcon, 
+  X, 
+  Sun, 
+  Cloud, 
+  CloudRain, 
+  CloudDrizzle, 
+  CloudLightning, 
+  Snowflake 
+} from "lucide-react";
 
 interface DailyWeather {
   date: string; // YYYY-MM-DD
   maxTemp: number;
   minTemp: number;
-  icon: string;
+  weatherCode: number;
 }
 
 interface WeatherModalProps {
@@ -15,6 +24,18 @@ interface WeatherModalProps {
   dailyData: DailyWeather[];
   onClose: () => void;
 }
+
+const getWeatherIcon = (code: number): LucideIcon => {
+  if (code === 0) return Sun;
+  if (code === 1 || code === 2 || code === 3) return Cloud;
+  if (code === 45 || code === 48) return Cloud; 
+  if (code >= 51 && code <= 67) return CloudRain;
+  if (code >= 71 && code <= 77) return Snowflake;
+  if (code >= 80 && code <= 82) return CloudDrizzle;
+  if (code >= 85 && code <= 86) return Snowflake;
+  if (code >= 95 && code <= 99) return CloudLightning;
+  return Cloud;
+};
 
 export default function WeatherModal({ region, dailyData, onClose }: WeatherModalProps) {
   // ESC 키로 닫기
@@ -61,26 +82,33 @@ export default function WeatherModal({ region, dailyData, onClose }: WeatherModa
 
         <div className="p-6 pt-2 pb-8 overflow-y-auto max-h-[60vh]">
           <ul className="space-y-3">
-            {dailyData.map((day, idx) => (
-              <li 
-                key={day.date} 
-                className={`flex items-center justify-between p-4 rounded-2xl transition-all ${idx === 0 ? "bg-slate-50 border border-slate-200/60" : "hover:bg-slate-50 border border-transparent"}`}
-              >
-                <span className="text-sm font-bold text-slate-600 w-16">
-                  {idx === 0 ? "오늘" : formatDate(day.date)}
-                </span>
-                
-                <span className="text-3xl" title="날씨 아이콘">
-                  {day.icon}
-                </span>
-                
-                <div className="flex items-center gap-3 text-sm font-black w-24 justify-end">
-                  <span className="text-rose-500">{Math.round(day.maxTemp)}°</span>
-                  <span className="text-slate-300">/</span>
-                  <span className="text-cyan-500">{Math.round(day.minTemp)}°</span>
-                </div>
-              </li>
-            ))}
+            {dailyData.length > 0 ? dailyData.map((day: DailyWeather, idx: number) => {
+              const Icon = getWeatherIcon(day.weatherCode);
+              return (
+                <li 
+                  key={day.date} 
+                  className={`flex items-center justify-between p-4 rounded-2xl transition-all ${idx === 0 ? "bg-slate-50 border border-slate-200/60" : "hover:bg-slate-50 border border-transparent"}`}
+                >
+                  <span className="text-sm font-bold text-slate-600 w-16">
+                    {idx === 0 ? "오늘" : formatDate(day.date)}
+                  </span>
+                  
+                  <span className="text-slate-400" title="날씨 아이콘">
+                    <Icon size={28} strokeWidth={2.5} />
+                  </span>
+                  
+                  <div className="flex items-center gap-3 text-sm font-black w-24 justify-end">
+                    <span className="text-rose-500">{Math.round(day.maxTemp)}°</span>
+                    <span className="text-slate-300">/</span>
+                    <span className="text-cyan-500">{Math.round(day.minTemp)}°</span>
+                  </div>
+                </li>
+              );
+            }) : (
+              <div className="py-10 text-center text-slate-400 font-medium">
+                일기예보 정보를 불러올 수 없습니다.
+              </div>
+            )}
           </ul>
         </div>
       </div>

@@ -1,75 +1,63 @@
-"use client";
-
-import { useState, useEffect } from "react";
+import { 
+  LucideIcon, 
+  Sun, 
+  Cloud, 
+  CloudRain, 
+  CloudDrizzle, 
+  CloudLightning, 
+  Snowflake 
+} from "lucide-react";
 import WeatherModal from "./WeatherModal";
+import { useState } from "react";
 
-// 지역별 위경도 좌표 세팅
-const REGION_COORDS: Record<string, { lat: number, lon: number }> = {
-  "서울": { lat: 37.5665, lon: 126.9780 },
-  "인천": { lat: 37.4563, lon: 126.7052 },
-  "경기": { lat: 37.2636, lon: 127.0286 }, // 수원 기준
-};
-
-const getWeatherInfo = (code: number) => {
-  if (code === 0) return { status: "맑음", icon: "☀️" };
-  if (code === 1 || code === 2 || code === 3) return { status: "구름", icon: "⛅" };
-  if (code === 45 || code === 48) return { status: "안개", icon: "🌫️" };
-  if (code >= 51 && code <= 67) return { status: "비", icon: "🌧️" };
-  if (code >= 71 && code <= 77) return { status: "눈", icon: "❄️" };
-  if (code >= 80 && code <= 82) return { status: "소나기", icon: "🌧️" };
-  if (code >= 85 && code <= 86) return { status: "눈보라", icon: "❄️" };
-  if (code >= 95 && code <= 99) return { status: "번개", icon: "⛈️" };
-  return { status: "알 수 없음", icon: "☁️" };
-};
+interface WeatherData {
+  region: string;
+  temp: string;
+  status: string;
+  weatherCode: number;
+  lastUpdated: string;
+  daily: any[];
+}
 
 interface WeatherWidgetProps {
   region: string;
+  weatherData: WeatherData | null;
 }
 
-export default function WeatherWidget({ region }: WeatherWidgetProps) {
-  const [currentTemp, setCurrentTemp] = useState<string>("로딩중...");
-  const [currentStatus, setCurrentStatus] = useState<string>("");
-  const [currentIcon, setCurrentIcon] = useState<string>("⏳");
-  const [dailyData, setDailyData] = useState<any[]>([]);
+const getWeatherIcon = (code: number): LucideIcon => {
+  if (code === 0) return Sun;
+  if (code === 1 || code === 2 || code === 3) return Cloud;
+  if (code === 45 || code === 48) return Cloud; 
+  if (code >= 51 && code <= 67) return CloudRain;
+  if (code >= 71 && code <= 77) return Snowflake;
+  if (code >= 80 && code <= 82) return CloudDrizzle;
+  if (code >= 85 && code <= 86) return Snowflake;
+  if (code >= 95 && code <= 99) return CloudLightning;
+  return Cloud;
+};
+
+export default function WeatherWidget({ region, weatherData }: WeatherWidgetProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    const coords = REGION_COORDS[region];
-    if (!coords) return;
+  // 로딩 중 (Skeleton UI)
+  if (!weatherData) {
+    return (
+      <div
+        className="bg-white p-6 rounded-[2.5rem] flex items-center justify-between shadow-sm animate-pulse"
+        style={{ border: "2px solid rgba(0,204,255,0.1)" }}
+      >
+        <div className="space-y-3 flex-1">
+          <div className="h-3 w-16 bg-slate-100 rounded-full" />
+          <div className="h-8 w-24 bg-slate-100 rounded-xl" />
+          <div className="h-3 w-20 bg-slate-100 rounded-full" />
+        </div>
+        <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-50" />
+      </div>
+    );
+  }
 
-    const fetchWeather = async () => {
-      try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul`;
-        const res = await fetch(url);
-        const data = await res.json();
-
-        // 1. 실시간 날씨 데이터 설정
-        if (data.current) {
-          setCurrentTemp(`${Math.round(data.current.temperature_2m)}°`);
-          const info = getWeatherInfo(data.current.weather_code);
-          setCurrentStatus(info.status);
-          setCurrentIcon(info.icon);
-        }
-
-        // 2. 7일 예보 데이터 조립
-        if (data.daily) {
-          const formattedDaily = data.daily.time.map((dateStr: string, idx: number) => ({
-            date: dateStr,
-            maxTemp: data.daily.temperature_2m_max[idx],
-            minTemp: data.daily.temperature_2m_min[idx],
-            icon: getWeatherInfo(data.daily.weather_code[idx]).icon,
-          }));
-          setDailyData(formattedDaily);
-        }
-      } catch (error) {
-        console.error("날씨 정보 불러오기 실패:", error);
-        setCurrentTemp("종료");
-        setCurrentStatus("오류");
-      }
-    };
-
-    fetchWeather();
-  }, [region]);
+  const { temp, status, weatherCode, lastUpdated, daily } = weatherData;
+  const Icon = getWeatherIcon(weatherCode);
 
   return (
     <>
@@ -88,20 +76,23 @@ export default function WeatherWidget({ region }: WeatherWidgetProps) {
       >
         <div className="space-y-1">
           <p className="font-bold text-sm" style={{ color: "#00CCFF" }}>{region}의 날씨</p>
-          <h3 className="text-3xl font-black text-slate-900">{currentTemp}</h3>
-          <p className="text-slate-600 font-medium">{currentStatus}</p>
+          <div className="flex items-end gap-2">
+            <h3 className="text-3xl font-black text-slate-900">{temp}</h3>
+            <span className="text-[11px] text-slate-400 font-medium mb-1">{lastUpdated}</span>
+          </div>
+          <p className="text-slate-600 font-medium">{status}</p>
         </div>
-        <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl group-hover:scale-110 transition-transform"
+        <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-slate-900 group-hover:scale-110 transition-transform"
           style={{ background: "linear-gradient(135deg, rgba(0,204,255,0.08), rgba(51,255,153,0.08))", border: "1px solid rgba(0,204,255,0.15)" }}
         >
-          {currentIcon}
+          <Icon size={32} strokeWidth={2.5} className={(weatherCode === 0) ? "text-amber-500" : "text-slate-500"} />
         </div>
       </div>
 
       {isModalOpen && (
         <WeatherModal 
           region={region} 
-          dailyData={dailyData} 
+          dailyData={daily} 
           onClose={() => setIsModalOpen(false)} 
         />
       )}
