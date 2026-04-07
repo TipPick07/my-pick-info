@@ -62,12 +62,24 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any, we
   });
 
   useEffect(() => {
-    // 1. localStorage에서 기존 데이터 로드 시도
-    const saved = typeof window !== 'undefined' ? localStorage.getItem('tip-pick-weather') : null;
+    const CACHE_KEY = 'tip-pick-weather';
+    const CACHE_TTL = 30 * 60 * 1000; // 30분 (1,800,000ms)
+
+    // 1. localStorage에서 기존 데이터 및 타임스탬프 로드
+    const saved = typeof window !== 'undefined' ? localStorage.getItem(CACHE_KEY) : null;
     let initialResults: Record<string, WeatherData> | null = null;
+    let lastFetchTime = 0;
+
     if (saved) {
       try {
-        initialResults = JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // 새로운 구조 { results, fetchTime } 또는 기존 구조 대응
+        if (parsed.results && typeof parsed.fetchTime === 'number') {
+          initialResults = parsed.results;
+          lastFetchTime = parsed.fetchTime;
+        } else {
+          initialResults = parsed; // 레거시 데이터 지원
+        }
         setWeatherResults(initialResults!);
       } catch (e) {
         console.error("Failed to parse saved weather", e);
@@ -88,9 +100,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any, we
         if (!res.ok) throw new Error(`Fetch failed with status ${res.status}`);
         const dataArr = await res.json();
         
-        // Open-Meteo는 여러 좌표 요청 시 배열로 반환함
         const results: Record<string, WeatherData> = {};
-        
         const statusMap: Record<number, string> = {
           0: "맑음", 1: "구름조금", 2: "흐림", 3: "흐림",
           45: "안개", 48: "안개",
@@ -118,22 +128,28 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any, we
             lastUpdated: timeStr,
             daily: formattedDaily,
           };
-          console.log(`Weather fetch success for ${name}:`, d.current.temperature_2m);
         });
 
+        const storageData = { results, fetchTime: Date.now() };
         setWeatherResults(results);
-        localStorage.setItem('tip-pick-weather', JSON.stringify(results));
+        localStorage.setItem(CACHE_KEY, JSON.stringify(storageData));
+        console.log("Weather updated and cached for 30m:", storageData.fetchTime);
       } catch (err) {
         console.error("Batch weather fetch error:", err);
-        // 전체 실패 시 기존 데이터 유지 또는 FALLBACK 사용
         const newResults: Record<string, WeatherData> = {};
         regions.forEach(name => {
           const existing = initialResults ? initialResults[name] : null;
-          if (existing) console.log(`Using cached data for ${name} from localStorage (Batch failed)`);
           newResults[name] = existing || FALLBACK_WEATHER[name];
         });
         setWeatherResults(newResults);
       }
+    }
+
+    // 스마트 Fetch 판정: 30분 이내면 스킵
+    const currentTime = Date.now();
+    if (initialResults && (currentTime - lastFetchTime < CACHE_TTL)) {
+      console.log(`Using fresh cached weather data (Last update: ${new Date(lastFetchTime).toLocaleTimeString()})`);
+      return; 
     }
 
     fetchAllWeather();
