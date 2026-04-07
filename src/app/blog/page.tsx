@@ -1,7 +1,18 @@
+import { Metadata } from 'next';
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getSortedPostsData } from "@/lib/posts";
+
+export const metadata: Metadata = {
+  title: "팁픽 인사이트 | 스마트한 수도권 생활 가이드 - 팁픽(Tip-Pick)",
+  description: "데이터는 공공기관이, 꿀팁은 팁픽이. 팁픽 에디터가 전하는 생생한 혜택 정보와 생활 꿀팁을 확인하세요.",
+  openGraph: {
+    title: "팁픽 인사이트 | 스마트한 수도권 생활 가이드 - 팁픽(Tip-Pick)",
+    description: "팁픽 에디터가 엄선한 유용한 생활 정보와 인사이트를 만나보세요.",
+    url: "https://tip-pick.com/blog/",
+  }
+};
 
 export default function BlogListPage() {
   const posts = getSortedPostsData();

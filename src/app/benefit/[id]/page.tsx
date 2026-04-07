@@ -29,6 +29,7 @@ interface Benefit {
   link: string;
   requirements?: string[];
   howToApply?: string[];
+  eligibilityQuiz?: string[];
   tip?: string;
 }
 
@@ -51,7 +52,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     openGraph: {
       title: benefit.title,
       description: description,
+      url: `https://tip-pick.com/benefit/${id}/`,
     },
+    alternates: {
+      canonical: `https://tip-pick.com/benefit/${id}/`,
+    }
   };
 }
 
@@ -77,6 +82,22 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
+      {/* BreadcrumbList JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://tip-pick.com" },
+              { "@type": "ListItem", "position": 2, "name": "지원금/혜택", "item": "https://tip-pick.com/benefits" },
+              { "@type": "ListItem", "position": 3, "name": benefit.title, "item": `https://tip-pick.com/benefit/${benefit.id}/` }
+            ]
+          })
+        }}
+      />
+      <Header />
       <main className="max-w-4xl mx-auto px-4 py-12 md:py-16">
         
         {/* 상단 네비게이션 */}
@@ -151,7 +172,7 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
             </section>
 
             {/* 1분 자격 진단기 */}
-            <EligibilityChecker region={benefit.region} target={benefit.target} />
+            <EligibilityChecker quiz={benefit.eligibilityQuiz} />
 
             {/* 상세 섹션: 제출 서류 및 방법 */}
             <div className="space-y-12">

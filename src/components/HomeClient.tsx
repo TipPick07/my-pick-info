@@ -150,25 +150,25 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
             </div>
             
             <div className="flex flex-wrap gap-4 w-full md:w-auto">
-              <Link
-                href="/benefit/bene-001"
-                className="flex-1 md:flex-none group bg-white p-4 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-black">D-2</span>
-                  <span className="text-slate-800 font-bold group-hover:text-rose-600 transition-colors">경기도 청년 기본소득 2분기 신청</span>
-                </div>
-              </Link>
-              
-              <Link
-                href="/benefits/"
-                className="flex-1 md:flex-none group bg-white p-4 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-xs font-black">D-5</span>
-                  <span className="text-slate-800 font-bold group-hover:text-orange-600 transition-colors">서울시 임산부 교통비 지원</span>
-                </div>
-              </Link>
+              {data.benefits
+                .filter((b: any) => b.isEmergency)
+                .slice(0, 2)
+                .map((benefit: any) => (
+                  <Link
+                    key={benefit.id}
+                    href={`/benefit/${benefit.id}/`}
+                    className="flex-1 md:flex-none group bg-white p-4 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-black">
+                        {benefit.deadline.includes('마감') ? '마감임박' : benefit.deadline.includes('선착순') ? '선착순' : 'CHECK'}
+                      </span>
+                      <span className="text-slate-800 font-bold group-hover:text-rose-600 transition-colors">
+                        {benefit.title}
+                      </span>
+                    </div>
+                  </Link>
+                ))}
             </div>
           </div>
         </section>
