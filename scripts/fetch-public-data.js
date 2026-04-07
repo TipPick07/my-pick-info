@@ -176,7 +176,8 @@ ${JSON.stringify(selectedData)}`
         }]
       };
 
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`;
+      const geminiModel = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
       let textResult;
       
       try {
