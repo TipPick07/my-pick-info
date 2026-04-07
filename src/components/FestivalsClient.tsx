@@ -39,7 +39,7 @@ interface Data {
   festivals: Festival[];
 }
 
-const REGION_COORDS = {
+const REGION_COORDS: Record<string, { lat: number; lon: number }> = {
   "서울": { lat: 37.5665, lon: 126.9780 },
   "인천": { lat: 37.4563, lon: 126.7052 },
   "경기": { lat: 37.2636, lon: 127.0286 },
@@ -78,32 +78,39 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any, we
       const now = new Date();
       const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')} 기준`;
 
-      const fetchRegion = async (name: string, lat: number, lon: number): Promise<WeatherData> => {
-        try {
-          const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul`;
-          const res = await fetch(url);
-          if (!res.ok) throw new Error("Fetch failed");
-          const d = await res.json();
-          
-          const statusMap: Record<number, string> = {
-            0: "맑음", 1: "구름조금", 2: "흐림", 3: "흐림",
-            45: "안개", 48: "안개",
-            51: "약한 비", 53: "비", 55: "강한 비",
-            61: "비", 63: "비", 65: "강한 비",
-            71: "눈", 73: "눈", 75: "강한 눈",
-            80: "소나기", 81: "소나기", 82: "강한 소나기",
-            95: "천둥번개",
-          };
+      const regions = ["서울", "인천", "경기"];
+      const lats = regions.map(r => REGION_COORDS[r].lat).join(",");
+      const lons = regions.map(r => REGION_COORDS[r].lon).join(",");
+      
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Fetch failed with status ${res.status}`);
+        const dataArr = await res.json();
+        
+        // Open-Meteo는 여러 좌표 요청 시 배열로 반환함
+        const results: Record<string, WeatherData> = {};
+        
+        const statusMap: Record<number, string> = {
+          0: "맑음", 1: "구름조금", 2: "흐림", 3: "흐림",
+          45: "안개", 48: "안개",
+          51: "약한 비", 53: "비", 55: "강한 비",
+          61: "비", 63: "비", 65: "강한 비",
+          71: "눈", 73: "눈", 75: "강한 눈",
+          80: "소나기", 81: "소나기", 82: "강한 소나기",
+          95: "천둥번개",
+        };
 
-          const formattedDaily = d.daily.time.map((dateStr: string, idx: number) => ({
+        regions.forEach((name, idx) => {
+          const d = Array.isArray(dataArr) ? dataArr[idx] : dataArr;
+          const formattedDaily = d.daily.time.map((dateStr: string, dIdx: number) => ({
             date: dateStr,
-            maxTemp: d.daily.temperature_2m_max[idx],
-            minTemp: d.daily.temperature_2m_min[idx],
-            weatherCode: d.daily.weather_code[idx],
+            maxTemp: d.daily.temperature_2m_max[dIdx],
+            minTemp: d.daily.temperature_2m_min[dIdx],
+            weatherCode: d.daily.weather_code[dIdx],
           }));
 
-          console.log(`Weather fetch success for ${name}:`, d.current.temperature_2m);
-          return {
+          results[name] = {
             region: name,
             temp: `${Math.round(d.current.temperature_2m)}°`,
             status: statusMap[d.current.weather_code] || "구름",
@@ -111,29 +118,22 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any, we
             lastUpdated: timeStr,
             daily: formattedDaily,
           };
-        } catch (err) {
-          console.error(`Weather fetch error for ${name}:`, err);
-          // 실패 시 기존 데이터가 있으면 유지하고, 없으면 FALLBACK 반환
+          console.log(`Weather fetch success for ${name}:`, d.current.temperature_2m);
+        });
+
+        setWeatherResults(results);
+        localStorage.setItem('tip-pick-weather', JSON.stringify(results));
+      } catch (err) {
+        console.error("Batch weather fetch error:", err);
+        // 전체 실패 시 기존 데이터 유지 또는 FALLBACK 사용
+        const newResults: Record<string, WeatherData> = {};
+        regions.forEach(name => {
           const existing = initialResults ? initialResults[name] : null;
-          if (existing) console.log(`Using cached data for ${name} from localStorage`);
-          return existing || FALLBACK_WEATHER[name];
-        }
-      };
-
-      const results = await Promise.all([
-        fetchRegion("서울", REGION_COORDS["서울"].lat, REGION_COORDS["서울"].lon),
-        fetchRegion("인천", REGION_COORDS["인천"].lat, REGION_COORDS["인천"].lon),
-        fetchRegion("경기", REGION_COORDS["경기"].lat, REGION_COORDS["경기"].lon),
-      ]);
-
-      const newResults = {
-        "서울": results[0],
-        "인천": results[1],
-        "경기": results[2],
-      };
-
-      setWeatherResults(newResults);
-      localStorage.setItem('tip-pick-weather', JSON.stringify(newResults));
+          if (existing) console.log(`Using cached data for ${name} from localStorage (Batch failed)`);
+          newResults[name] = existing || FALLBACK_WEATHER[name];
+        });
+        setWeatherResults(newResults);
+      }
     }
 
     fetchAllWeather();
