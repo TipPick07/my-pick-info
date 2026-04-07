@@ -136,7 +136,42 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
           </div>
         </section>
 
-        {/* 메인 페이지 날씨 위젯 제거 완료 */}
+        {/* ── D-Day 위젯 Section ── */}
+        <section className="bg-gradient-to-r from-rose-50 to-orange-50 rounded-[2rem] p-6 shadow-sm border border-rose-100/50">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="bg-rose-500 text-white p-3 rounded-2xl shadow-lg animate-pulse">
+                <span className="text-2xl">🚨</span>
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-xl font-black text-slate-900">놓치면 0원! 이번 주 마감 혜택</h3>
+                <p className="text-slate-500 text-sm font-medium">서두르세요! 곧 신청이 마감되는 혜택들이에요.</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-wrap gap-4 w-full md:w-auto">
+              <Link
+                href="/benefit/bene-001"
+                className="flex-1 md:flex-none group bg-white p-4 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-black">D-2</span>
+                  <span className="text-slate-800 font-bold group-hover:text-rose-600 transition-colors">경기도 청년 기본소득 2분기 신청</span>
+                </div>
+              </Link>
+              
+              <Link
+                href="/benefits/"
+                className="flex-1 md:flex-none group bg-white p-4 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-xs font-black">D-5</span>
+                  <span className="text-slate-800 font-bold group-hover:text-orange-600 transition-colors">서울시 임산부 교통비 지원</span>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
 
         {/* ── 메인 컨텐츠 (2-Column) ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">

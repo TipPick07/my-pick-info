@@ -16,6 +16,7 @@ import {
   CheckCircle2,
   Lightbulb
 } from 'lucide-react';
+import EligibilityChecker from "@/components/EligibilityChecker";
 
 interface Benefit {
   id: string;
@@ -148,6 +149,9 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
                 </div>
               </div>
             </section>
+
+            {/* 1분 자격 진단기 */}
+            <EligibilityChecker region={benefit.region} target={benefit.target} />
 
             {/* 상세 섹션: 제출 서류 및 방법 */}
             <div className="space-y-12">
