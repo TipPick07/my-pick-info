@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const fallbacks = require('../src/lib/image-fallbacks.json');
 
 async function main() {
   try {
@@ -45,6 +46,12 @@ async function main() {
     for (const item of allItems) {
       if (!alreadyPostedTitles.includes(item.title)) {
         targetItem = item;
+        // 💡 만약 이미지 URL이 유효하지 않으면 여기서 즉시 폴백 적용 후 진행
+        if (!targetItem.image || targetItem.image.includes('default.png')) {
+          const guideFallbacks = fallbacks.GUIDE;
+          targetItem.image = guideFallbacks[Math.floor(Math.random() * guideFallbacks.length)];
+          console.log(`[보정] 이미지 누락 데이터에 스톡 이미지를 할당했습니다: ${targetItem.image}`);
+        }
         break;
       }
     }
@@ -89,6 +96,10 @@ summary: (전체 내용을 관통하는 매력적인 한 줄 요약)
 category: 정보
 image: ${targetItem.image || ''}
 tags: [태그1, 태그2, 태그3]
+officialRequirements: ${JSON.stringify(targetItem.requirements || [])}
+officialHowToApply: ${JSON.stringify(targetItem.howToApply || [])}
+officialEligibilityQuiz: ${JSON.stringify(targetItem.eligibilityQuiz || [])}
+officialTip: ${targetItem.tip || ''}
 ---
 
 (본문 내용 시작...)

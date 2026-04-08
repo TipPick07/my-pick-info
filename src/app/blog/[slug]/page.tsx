@@ -10,6 +10,8 @@ import fs from "fs";
 import path from "path";
 import AdBanner from "@/components/AdBanner";
 import CoupangBanner from "@/components/CoupangBanner";
+import EligibilityChecker from "@/components/EligibilityChecker";
+import { CheckCircle2, FileText, Clock, Lightbulb } from "lucide-react";
 
 interface PostPageProps {
   params: Promise<{
@@ -127,9 +129,12 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           {post.image && (
             <div className="mt-12 rounded-3xl overflow-hidden shadow-2xl max-w-4xl mx-auto border-4 border-white aspect-[16/9] relative bg-slate-100">
               <img 
-                src={post.image} 
+                src={post.image || 'https://tip-pick.com/images/branded_placeholder.png'} 
                 alt={post.title} 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = 'https://tip-pick.com/images/branded_placeholder.png';
+                }}
               />
             </div>
           )}
@@ -142,6 +147,13 @@ export default async function BlogPostPage({ params }: PostPageProps) {
               {post.content}
             </ReactMarkdown>
           </div>
+          
+          {/* 1분 자격 진단기 (블로그 통합) */}
+          {post.officialEligibilityQuiz && post.officialEligibilityQuiz.length > 0 && (
+            <div className="mt-12 px-2">
+              <EligibilityChecker quiz={post.officialEligibilityQuiz} />
+            </div>
+          )}
 
           {/* AI Disclosure & Source Link */}
           <div className="mt-16 pt-10 border-t-2 border-slate-50 space-y-8">
@@ -175,6 +187,54 @@ export default async function BlogPostPage({ params }: PostPageProps) {
                   </div>
                 </div>
               </div>
+
+              {/* 추가 정보 (구비서류, 신청방법) */}
+              {(post.officialRequirements.length > 0 || post.officialHowToApply.length > 0) && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                  {post.officialRequirements.length > 0 && (
+                    <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
+                      <h4 className="text-slate-900 font-black text-sm mb-4 flex items-center gap-2">
+                        <FileText className="w-4 h-4 text-indigo-500" />
+                        필요 서류
+                      </h4>
+                      <ul className="space-y-2">
+                        {post.officialRequirements.map((req, idx) => (
+                          <li key={idx} className="text-xs text-slate-600 flex items-start gap-2">
+                            <span className="text-indigo-400">•</span>
+                            <span>{req}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {post.officialHowToApply.length > 0 && (
+                    <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
+                      <h4 className="text-slate-900 font-black text-sm mb-4 flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-indigo-500" />
+                        신청 방법
+                      </h4>
+                      <ul className="space-y-2">
+                        {post.officialHowToApply.map((step, idx) => (
+                          <li key={idx} className="text-xs text-slate-600 flex items-start gap-2">
+                            <span className="text-indigo-400">{idx + 1}.</span>
+                            <span>{step}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* 팁픽 가이드 팁 */}
+              {post.officialTip && (
+                <div className="bg-emerald-50/50 rounded-2xl p-6 border border-emerald-100 mt-8 flex items-start gap-3">
+                  <Lightbulb className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                  <p className="text-emerald-900/80 text-sm font-bold leading-relaxed">
+                    {post.officialTip}
+                  </p>
+                </div>
+              )}
             </div>
 
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">

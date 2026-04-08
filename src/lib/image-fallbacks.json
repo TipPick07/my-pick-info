@@ -1,0 +1,20 @@
+{
+  "FESTIVAL": [
+    "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1514525253361-bee8d41df47a?q=80&w=800&auto=format&fit=crop"
+  ],
+  "SUBSIDY": [
+    "https://images.unsplash.com/photo-1579621970795-87faff2f9050?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=800&auto=format&fit=crop"
+  ],
+  "GUIDE": [
+    "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1454165833267-02bd991ff72e?q=80&w=800&auto=format&fit=crop"
+  ]
+}

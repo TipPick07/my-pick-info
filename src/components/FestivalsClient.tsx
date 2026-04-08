@@ -220,9 +220,12 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any, we
               >
                 <div className="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] mb-4 bg-slate-200">
                   <img
-                    src={f.image}
+                    src={f.image || 'https://tip-pick.com/images/branded_placeholder.png'}
                     alt={f.title}
                     className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = 'https://tip-pick.com/images/branded_placeholder.png';
+                    }}
                   />
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black shadow-sm" style={{ color: "#00CCFF" }}>
                     {f.region}

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const fallbacks = require('../src/lib/image-fallbacks.json');
 
 // 날씨 코드 변환 함수
 function parseWeather(code) {
@@ -11,6 +12,24 @@ function parseWeather(code) {
   if ([95, 96, 99].includes(code)) return { status: '천둥번개', icon: '⚡' };
   return { status: '흐림', icon: '☁️' };
 }
+// 문장을 질문형(~이신가요?)으로 변환하는 함수
+function asQuestion(text) {
+  if (!text) return "";
+  let q = text.trim();
+  if (q.endsWith('?')) return q;
+  // 동사 어미 처리 (단순화된 규칙)
+  q = q.replace(/자$/, '자이신가요?')
+       .replace(/자$/g, '자이신가요?')
+       .replace(/가구$/g, '가구에 속하시나요?')
+       .replace(/대상$/g, '대상에 해당하시나요?')
+       .replace(/충족$/g, '충족하시나요?');
+  
+  if (!q.endsWith('?') && !q.endsWith('요')) {
+    q += '이신가요?';
+  }
+  return q;
+}
+
 // 재시도 가능한 fetch 함수
 async function fetchWithRetry(url, options = {}, retries = 3, backoff = 2000) {
   for (let i = 0; i < retries; i++) {
@@ -166,8 +185,9 @@ async function main() {
         contents: [{
           parts: [{
             text: `아래 공공데이터 1건을 분석해서 JSON 객체로 변환해줘. 형식:
-{id: 랜덤숫자, region: '서울', '인천', '경기', '전국' 중 택1, type: 'festival' 또는 'benefit', title: 서비스명, date: 'YYYY.MM.DD~YYYY.MM.DD' 또는 마감일, target: 지원대상, summary: 한줄요약, link: 상세URL, tag: '추천/마감임박/상시 등 짧은태그', imagePrompt: '축제/행사라면 이 축제 분위기를 가장 잘 나타내는 화려하고 사실적인 영문 이미지 생성 프롬프트 1문장'}
+{id: 랜덤숫자, region: '서울', '인천', '경기', '전국' 중 택1, type: 'festival' 또는 'benefit', title: 서비스명, date: 'YYYY.MM.DD~YYYY.MM.DD' 또는 마감일, target: 지원대상, summary: 한줄요약, link: 상세URL, tag: '추천/마감임박/상시 등 짧은태그', imagePrompt: '축제/행사라면 이 축제 분위기를 가장 잘 나타내는 화려하고 사실적인 영문 이미지 생성 프롬프트 1문장', requirements: ['필요서류1', '필요서류2'], howToApply: ['신청방법1', '신청방법2'], eligibilityQuiz: ['자격 요건 질문1', '자격 요건 질문2'], tip: '사용자를 위한 한 줄 꿀팁'}
 내용을 보고 행사/축제면 type을 'festival', 지원금/서비스면 'benefit'으로 판단해.
+eligibilityQuiz는 지원 대상을 분석해서 "~이신가요?" 형태의 질문으로 최소 2개 만들어줘.
 반드시 JSON 객체만 출력해. 다른 텍스트 없이.
 
 공공데이터:
@@ -241,12 +261,16 @@ ${JSON.stringify(selectedData)}`
           fs.writeFileSync(absoluteImagePath, Buffer.from(arrayBuffer));
           console.log(`이미지 로컬 저장 성공: ${localImagePath}`);
         } else {
-          console.log(`이미지 생성 실패(Type: ${contentType}), 기본 이미지 사용`);
-          finalImageUrl = '/images/blogs/default.png'; // 💡 실패 시 안전하게 기본 이미지 폴백
+          console.log(`이미지 생성 실패(Type: ${contentType}), 스톡 이미지로 폴백`);
+          const category = parsedParams.type === 'festival' ? 'FESTIVAL' : 'SUBSIDY';
+          const stockImages = fallbacks[category] || fallbacks.GUIDE;
+          finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
         }
       } catch (e) {
-        console.error('이미지 처리 중 간헐적 오류 발생:', e.message);
-        finalImageUrl = '/images/blogs/default.png';
+        console.error('이미지 처리 중 간헐적 오류 발생, 스톡 이미지로 폴백:', e.message);
+        const category = parsedParams.type === 'festival' ? 'FESTIVAL' : 'SUBSIDY';
+        const stockImages = fallbacks[category] || fallbacks.GUIDE;
+        finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
       }
 
       if (parsedParams.type === 'festival') {
@@ -259,6 +283,18 @@ ${JSON.stringify(selectedData)}`
           image: finalImageUrl
         });
       } else {
+        // 혜택(Benefit) 데이터 보강 및 폴백 적용
+        const requirements = (parsedParams.requirements && parsedParams.requirements.length > 0) 
+          ? parsedParams.requirements 
+          : ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."];
+        
+        const howToApply = (parsedParams.howToApply && parsedParams.howToApply.length > 0 && parsedParams.howToApply[0] !== '-')
+          ? parsedParams.howToApply
+          : ["온라인 신청 또는 관할 주민센터 방문 신청 (상세 내용은 공식 사이트 참조)"];
+
+        const rawQuiz = parsedParams.eligibilityQuiz || [parsedParams.target || "해당 지원 사업의 대상자이신가요?"];
+        const eligibilityQuiz = rawQuiz.map(q => asQuestion(q));
+
         existingData.benefits.unshift({
           id: newId,
           region: parsedParams.region || '전국',
@@ -266,7 +302,13 @@ ${JSON.stringify(selectedData)}`
           target: parsedParams.target || '누구나',
           deadline: parsedParams.date || '상시',
           image: finalImageUrl,
-          isEmergency: parsedParams.tag === '마감임박'
+          isEmergency: parsedParams.tag === '마감임박',
+          details: parsedParams.summary || '상세 정보는 공식 홈페이지를 참조하세요.',
+          link: parsedParams.link || '',
+          requirements: requirements,
+          howToApply: howToApply,
+          eligibilityQuiz: eligibilityQuiz,
+          tip: parsedParams.tip || "신청 기간이 지나기 전에 미리 확인하고 혜택을 챙기세요!"
         });
       }
 

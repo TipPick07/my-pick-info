@@ -190,9 +190,12 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
                 <Link key={f.id} href={`/festival/${f.id}`} className="group cursor-pointer">
                   <div className="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] mb-4 bg-slate-200">
                     <img
-                      src={f.image}
+                      src={f.image || 'https://tip-pick.com/images/branded_placeholder.png'}
                       alt={f.title}
                       className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = 'https://tip-pick.com/images/branded_placeholder.png';
+                      }}
                     />
                     <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black shadow-sm" style={{ color: "#00CCFF" }}>
                       {f.region}
@@ -295,9 +298,12 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
               >
                 <div className="relative aspect-[16/11] overflow-hidden bg-slate-100">
                   <img
-                    src={post.image || 'https://images.unsplash.com/photo-1516414920216-7057aeb0217a?q=80&w=800&auto=format&fit=crop'}
+                    src={post.image || 'https://tip-pick.com/images/branded_placeholder.png'}
                     alt={post.title}
                     className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-[1000ms]"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = 'https://tip-pick.com/images/branded_placeholder.png';
+                    }}
                   />
                   <div className="absolute top-6 left-6 bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-2xl text-[10px] font-black text-cyan-600 shadow-xl border border-white/50 tracking-wider">
                     {post.category}

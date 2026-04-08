@@ -18,6 +18,10 @@ export interface PostData {
   summary: string;
   category: string;
   tags: string[];
+  officialRequirements: string[];
+  officialHowToApply: string[];
+  officialEligibilityQuiz: string[];
+  officialTip?: string;
   content: string;
 }
 
@@ -68,6 +72,10 @@ export function getSortedPostsData(): PostData[] {
         summary: matterResult.data.summary || '',
         category: matterResult.data.category || '',
         tags: matterResult.data.tags || [],
+        officialRequirements: matterResult.data.officialRequirements || [],
+        officialHowToApply: matterResult.data.officialHowToApply || [],
+        officialEligibilityQuiz: matterResult.data.officialEligibilityQuiz || [],
+        officialTip: matterResult.data.officialTip || '',
         content: matterResult.content,
       };
     });
@@ -108,6 +116,10 @@ export function getPostData(slug: string): PostData | null {
     summary: matterResult.data.summary || '',
     category: matterResult.data.category || '',
     tags: matterResult.data.tags || [],
+    officialRequirements: matterResult.data.officialRequirements || [],
+    officialHowToApply: matterResult.data.officialHowToApply || [],
+    officialEligibilityQuiz: matterResult.data.officialEligibilityQuiz || [],
+    officialTip: matterResult.data.officialTip || '',
     content: matterResult.content,
   };
 }
