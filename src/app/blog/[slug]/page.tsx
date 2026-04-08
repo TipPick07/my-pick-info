@@ -11,6 +11,7 @@ import path from "path";
 import AdBanner from "@/components/AdBanner";
 import CoupangBanner from "@/components/CoupangBanner";
 import EligibilityChecker from "@/components/EligibilityChecker";
+import SafeImage from "@/components/SafeImage";
 import { CheckCircle2, FileText, Clock, Lightbulb } from "lucide-react";
 
 interface PostPageProps {
@@ -128,13 +129,10 @@ export default async function BlogPostPage({ params }: PostPageProps) {
 
           {post.image && (
             <div className="mt-12 rounded-3xl overflow-hidden shadow-2xl max-w-4xl mx-auto border-4 border-white aspect-[16/9] relative bg-slate-100">
-              <img 
+              <SafeImage 
                 src={post.image || 'https://tip-pick.com/images/branded_placeholder.png'} 
                 alt={post.title} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = 'https://tip-pick.com/images/branded_placeholder.png';
-                }}
               />
             </div>
           )}
