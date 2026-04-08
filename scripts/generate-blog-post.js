@@ -100,7 +100,6 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
 
     const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
-    console.log(`[디버그] 블로그 생성 모델: ${geminiModel}`);
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -109,7 +108,6 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
 
     if (!response.ok) {
       const errorBody = await response.text();
-      console.error(`[디버그] Gemini API 응답 확인: ${errorBody}`);
       throw new Error(`Gemini API 호출 실패 (상태 코드: ${response.status}) [모델: ${geminiModel}]: ${errorBody}`);
     }
 
