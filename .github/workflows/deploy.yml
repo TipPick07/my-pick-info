@@ -31,6 +31,7 @@ jobs:
       - name: Fetch Public Data and Generate Blog Post
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
+          node scripts/list-models.js
           node scripts/fetch-public-data.js
           node scripts/generate-blog-post.js
         env:
