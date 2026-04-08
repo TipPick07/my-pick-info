@@ -98,8 +98,8 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
       }]
     };
 
-    const geminiModel = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
-    const url = `https://generativelanguage.googleapis.com/v1/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
+    const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
     console.log(`[디버그] 블로그 생성 모델: ${geminiModel}`);
     const response = await fetch(url, {
       method: 'POST',

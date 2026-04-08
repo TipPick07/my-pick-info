@@ -176,8 +176,8 @@ ${JSON.stringify(selectedData)}`
         }]
       };
 
-      const geminiModel = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
+      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
       console.log(`[디버그] 사용 중인 모델: ${geminiModel}`);
       console.log(`[디버그] API 호출 시도... (모델: ${geminiModel})`);
       let textResult;
