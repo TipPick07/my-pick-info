@@ -36,7 +36,7 @@ jobs:
         env:
           PUBLIC_DATA_API_KEY: ${{ secrets.PUBLIC_DATA_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: 'gemini-1.5-flash'
+          GEMINI_MODEL: gemini-1.5-flash
 
       - name: Commit and Push Changes
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'

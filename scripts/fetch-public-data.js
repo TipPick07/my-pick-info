@@ -178,6 +178,8 @@ ${JSON.stringify(selectedData)}`
 
       const geminiModel = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
       const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
+      console.log(`[디버그] 사용 중인 모델: ${geminiModel}`);
+      console.log(`[디버그] API 호출 시도... (모델: ${geminiModel})`);
       let textResult;
       
       try {
@@ -188,7 +190,9 @@ ${JSON.stringify(selectedData)}`
         });
 
         if (!geminiRes.ok) {
-          console.error(`Gemini API 호출 실패: ${geminiRes.status} - 다음 항목으로 건너뜁니다.`);
+          const errBody = await geminiRes.text();
+          console.error(`Gemini API 호출 실패 (상태: ${geminiRes.status}): ${errBody}`);
+          console.error(`실패한 모델: ${geminiModel}`);
           continue;
         }
 
