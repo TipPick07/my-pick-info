@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { PostData } from "@/lib/posts";
-import { getRealTimeWeather } from "@/lib/weather";
 import AdBanner from "@/components/AdBanner";
 
 interface Weather {
@@ -57,10 +56,10 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-cyan-100">
       <Header />
 
-      <main className="container mx-auto px-6 py-12 space-y-20">
+      <main className="container mx-auto px-6 py-8 space-y-14">
 
         {/* ── Hero Section ── */}
-        <section className="text-center space-y-10 py-10">
+        <section className="text-center space-y-8 py-6">
           {/* 로고 */}
           <div className="flex justify-center">
             <div className="relative w-28 h-28 rounded-[2rem] overflow-hidden shadow-[0_0_40px_rgba(6,182,212,0.35)] hover:shadow-[0_0_60px_rgba(6,182,212,0.5)] transition-all duration-500">
@@ -74,7 +73,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
             </div>
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-4">
             <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
               당신의 일상에{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-emerald-500">
@@ -137,19 +136,18 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
         </section>
 
         {/* ── D-Day 위젯 Section ── */}
-        <section className="bg-gradient-to-r from-rose-50 to-orange-50 rounded-[2rem] p-6 shadow-sm border border-rose-100/50">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <section className="bg-gradient-to-r from-rose-50 to-orange-50 rounded-[2rem] p-5 shadow-sm border border-rose-100/50">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="bg-rose-500 text-white p-3 rounded-2xl shadow-lg animate-pulse">
                 <span className="text-2xl">🚨</span>
               </div>
-              <div className="space-y-1">
-                <h3 className="text-xl font-black text-slate-900">놓치면 0원! 이번 주 마감 혜택</h3>
+              <div className="space-y-0.5">
+                <h3 className="text-lg font-black text-slate-900">놓치면 0원! 이번 주 마감 혜택</h3>
                 <p className="text-slate-500 text-sm font-medium">서두르세요! 곧 신청이 마감되는 혜택들이에요.</p>
               </div>
             </div>
-            
-            <div className="flex flex-wrap gap-4 w-full md:w-auto">
+            <div className="flex flex-wrap gap-3 w-full md:w-auto">
               {data.benefits
                 .filter((b: any) => b.isEmergency)
                 .slice(0, 2)
@@ -174,21 +172,23 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
         </section>
 
         {/* ── 메인 컨텐츠 (2-Column) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
           {/* 축제/행사 (2/3) */}
-          <section className="lg:col-span-2 space-y-8">
+          <section className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between px-2">
-              <h3 className="text-2xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #00CCFF" }}>
+              <h3 className="text-xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #00CCFF" }}>
                 주목할 만한 축제/행사
               </h3>
               <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
                 전체 보기 →
               </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
               {filteredFestivals.map((f) => (
                 <Link key={f.id} href={`/festival/${f.id}`} className="group cursor-pointer">
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] mb-4 bg-slate-200">
+                  {/* 이미지 높이 16:9 비율로 슬림하게 */}
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] mb-3 bg-slate-200">
                     <img
                       src={f.image || 'https://tip-pick.com/images/branded_placeholder.png'}
                       alt={f.title}
@@ -197,14 +197,14 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
                         (e.currentTarget as HTMLImageElement).src = 'https://tip-pick.com/images/branded_placeholder.png';
                       }}
                     />
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black shadow-sm" style={{ color: "#00CCFF" }}>
+                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black shadow-sm" style={{ color: "#00CCFF" }}>
                       {f.region}
                     </div>
-                    <div className="absolute bottom-4 right-4 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-white shadow-sm" style={{ background: "#00CCFF" }}>
+                    <div className="absolute bottom-3 right-3 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-white shadow-sm" style={{ background: "#00CCFF" }}>
                       {f.tag}
                     </div>
                   </div>
-                  <h4 className="text-xl font-black text-slate-900 transition-colors mb-2 group-hover:text-[#00CCFF]">
+                  <h4 className="text-lg font-black text-slate-900 transition-colors mb-1 group-hover:text-[#00CCFF]">
                     {f.title}
                   </h4>
                   <p className="text-slate-500 font-bold text-sm flex items-center gap-1">
@@ -213,7 +213,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
                 </Link>
               ))}
               {filteredFestivals.length === 0 && (
-                <div className="md:col-span-2 py-20 text-center text-slate-400 font-medium bg-slate-100 rounded-[2.5rem] border-2 border-dashed border-slate-200">
+                <div className="md:col-span-2 py-16 text-center text-slate-400 font-medium bg-slate-100 rounded-[2rem] border-2 border-dashed border-slate-200">
                   해당 지역의 예정된 행사가 없습니다.
                 </div>
               )}
@@ -221,21 +221,21 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
           </section>
 
           {/* 혜택/지원금 (1/3) */}
-          <aside className="space-y-8">
+          <aside className="space-y-6">
             <div className="flex items-center justify-between px-2">
-              <h3 className="text-2xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #33FF99" }}>
+              <h3 className="text-xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #33FF99" }}>
                 내 돈 찾는 지원금
               </h3>
               <Link href="/benefits/" className="text-sm font-bold transition-colors" style={{ color: "#33FF99", filter: "brightness(0.75)" }}>
                 전체 보기 →
               </Link>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {filteredBenefits.slice(0, 5).map((b) => (
                 <Link
                   key={b.id}
                   href={`/benefit/${b.id}`}
-                  className={`block p-5 rounded-[2.5rem] border-2 transition-all group ${
+                  className={`block p-4 rounded-[2rem] border-2 transition-all group ${
                     b.isEmergency ? "border-rose-100 bg-rose-50/50" : "border-slate-100 bg-white"
                   }`}
                   onMouseEnter={e => {
@@ -247,7 +247,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
                     e.currentTarget.style.borderColor = b.isEmergency ? "#ffe4e6" : "#f1f5f9";
                   }}
                 >
-                  <div className="flex justify-between items-start mb-2">
+                  <div className="flex justify-between items-start mb-1.5">
                     <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
                       b.isEmergency ? "bg-rose-500 text-white" : "text-white"
                     }`} style={b.isEmergency ? {} : { background: "rgba(51,255,153,0.25)", color: "#059669" }}>
@@ -257,38 +257,63 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
                       {b.deadline}
                     </span>
                   </div>
-                  <h4 className="font-black text-slate-900 mb-1 leading-snug group-hover:transition-colors" style={{}} onMouseEnter={e => (e.currentTarget.style.color = "#00CCFF")} onMouseLeave={e => (e.currentTarget.style.color = "")}>
+                  <h4
+                    className="font-black text-slate-900 text-sm mb-0.5 leading-snug"
+                    onMouseEnter={e => (e.currentTarget.style.color = "#00CCFF")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "")}
+                  >
                     {b.title}
                   </h4>
-                  <p className="text-slate-500 text-xs font-bold">{b.target}</p>
+                  <p className="text-slate-500 text-xs font-bold line-clamp-1">{b.target}</p>
                 </Link>
               ))}
             </div>
+            {/* 더보기 버튼 */}
+            <Link
+              href="/benefits/"
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-[2rem] border-2 border-dashed text-sm font-black transition-all duration-300"
+              style={{ borderColor: "rgba(51,255,153,0.5)", color: "#059669" }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "rgba(51,255,153,0.08)";
+                e.currentTarget.style.borderColor = "#33FF99";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = "";
+                e.currentTarget.style.borderColor = "rgba(51,255,153,0.5)";
+              }}
+            >
+              더보기 →
+            </Link>
           </aside>
         </div>
 
         {/* Ad Banner */}
         <AdBanner />
 
-        {/* ── 팁픽 가이드 (블로그) 섹션 ── */}
-        <section className="space-y-8 pt-10">
-          <div className="text-center space-y-2">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest rounded-full border" style={{ backgroundColor: "rgba(51,255,153,0.1)", color: "#059669", borderColor: "rgba(51,255,153,0.3)" }}>
-              💡 팁픽 가이드
+        {/* ── 팁픽 가이드 (블로그) 섹션 — 가로형 카드 ── */}
+        <section className="space-y-6 pt-4">
+          <div className="flex items-center justify-between px-2">
+            <div className="flex items-center gap-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 text-xs font-black uppercase tracking-widest rounded-full border" style={{ backgroundColor: "rgba(51,255,153,0.1)", color: "#059669", borderColor: "rgba(51,255,153,0.3)" }}>
+                💡 팁픽 가이드
+              </div>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">
+                팁픽(Tip-Pick) 가이드
+              </h3>
             </div>
-            <h3 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">
-              팁픽(Tip-Pick) 가이드
-            </h3>
-            <p className="text-slate-500 font-medium">데이터는 공공기관이, 꿀팁은 팁픽이.</p>
+            <Link href="/blog" className="text-sm font-bold transition-colors" style={{ color: "#059669" }}>
+              전체 보기 →
+            </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {posts.map((post) => (
+
+          <div className="space-y-3">
+            {posts.slice(0, 3).map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-sm hover:-translate-y-2 flex flex-col transition-all duration-700"
+                className="group flex items-stretch bg-white rounded-[1.75rem] overflow-hidden border border-slate-100 shadow-sm hover:-translate-y-0.5 transition-all duration-300"
                 onMouseEnter={e => {
-                  e.currentTarget.style.boxShadow = "0 8px 30px rgba(0,204,255,0.12)";
+                  e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,204,255,0.12)";
                   e.currentTarget.style.borderColor = "rgba(0,204,255,0.25)";
                 }}
                 onMouseLeave={e => {
@@ -296,37 +321,37 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
                   e.currentTarget.style.borderColor = "#f1f5f9";
                 }}
               >
-                <div className="relative aspect-[16/11] overflow-hidden bg-slate-100">
+                {/* 왼쪽 이미지 */}
+                <div className="relative w-32 shrink-0 overflow-hidden bg-slate-100">
                   <img
                     src={post.image || 'https://tip-pick.com/images/branded_placeholder.png'}
                     alt={post.title}
-                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-[1000ms]"
+                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).src = 'https://tip-pick.com/images/branded_placeholder.png';
                     }}
                   />
-                  <div className="absolute top-6 left-6 bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-2xl text-[10px] font-black text-cyan-600 shadow-xl border border-white/50 tracking-wider">
+                  <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black text-cyan-600 shadow border border-white/50 tracking-wider">
                     {post.category}
                   </div>
                 </div>
 
-                <div className="p-8 space-y-4 flex flex-col flex-1">
-                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-400">
-                    <span className="flex items-center gap-1">💡 팁픽 큐레이션</span>
+                {/* 오른쪽 텍스트 */}
+                <div className="flex-1 px-5 py-4 flex flex-col justify-center gap-1.5">
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400">
+                    <span>💡 팁픽 큐레이션</span>
+                    <span>·</span>
                     <span>{post.date}</span>
                   </div>
-
-                  <h3 className="text-xl font-black text-slate-800 group-hover:text-cyan-600 transition-colors line-clamp-2 leading-snug">
+                  <h3 className="text-sm font-black text-slate-800 group-hover:text-cyan-600 transition-colors line-clamp-2 leading-snug">
                     {post.title}
                   </h3>
-
-                  <p className="text-slate-500 text-sm leading-relaxed line-clamp-3 mb-auto">
+                  <p className="text-slate-500 text-xs leading-relaxed line-clamp-1">
                     {post.summary}
                   </p>
-
-                  <div className="pt-4 flex flex-wrap gap-2">
-                    {post.tags.map((tag: string) => (
-                      <span key={tag} className="text-[10px] bg-cyan-50 text-cyan-600 px-2 py-0.5 rounded-md">
+                  <div className="flex flex-wrap gap-1.5 pt-0.5">
+                    {post.tags.slice(0, 4).map((tag: string) => (
+                      <span key={tag} className="text-[9px] bg-cyan-50 text-cyan-600 px-2 py-0.5 rounded-md">
                         #{tag}
                       </span>
                     ))}
@@ -335,13 +360,14 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
               </Link>
             ))}
             {posts.length === 0 && (
-              <div className="col-span-full py-20 text-center space-y-4">
-                <div className="text-6xl text-slate-200">💡</div>
+              <div className="py-16 text-center space-y-4">
+                <div className="text-5xl text-slate-200">💡</div>
                 <p className="text-slate-400">아직 등록된 팁픽 가이드가 없습니다.</p>
               </div>
             )}
           </div>
         </section>
+
       </main>
 
       <Footer />

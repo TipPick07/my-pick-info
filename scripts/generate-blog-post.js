@@ -138,12 +138,18 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
     // 마크다운 코드 블록 제거
     mdContent = mdContent.replace(/^```markdown\n/i, '').replace(/```$/g, '').trim();
 
-    // 3. 파일 저장 (image 비어있으면 폴백 강제 주입)
+    // 3. 파일 저장 (image 비어있으면 로컬 폴백 강제 주입)
     if (/^image:\s*$/m.test(mdContent)) {
-      const subsidyFallbacks = fallbacks.SUBSIDY;
-      const fallbackImage = subsidyFallbacks[Math.floor(Math.random() * subsidyFallbacks.length)];
+      const localFallbacks = [
+        '/images/blogs/korea-welfare-benefit-210.png',
+        '/images/blogs/korea-welfare-benefit-212.png',
+        '/images/blogs/korea-welfare-benefit-279.png',
+        '/images/blogs/korea-welfare-benefit-533.png',
+        '/images/blogs/korea-welfare-benefit-843.png',
+      ];
+      const fallbackImage = localFallbacks[Math.floor(Math.random() * localFallbacks.length)];
       mdContent = mdContent.replace(/^(image:)\s*$/m, `$1 ${fallbackImage}`);
-      console.log(`[보정] Gemini가 이미지를 비워 폴백 이미지를 주입했습니다: ${fallbackImage}`);
+      console.log(`[보정] Gemini가 이미지를 비워 로컬 폴백 이미지를 주입했습니다: ${fallbackImage}`);
     }
 
     const finalPath = path.join(postsDir, filename);

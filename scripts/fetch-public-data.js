@@ -2,6 +2,18 @@ const fs = require('fs');
 const path = require('path');
 const fallbacks = require('../src/lib/image-fallbacks.json');
 
+// 마감일 만료 여부 확인 (날짜 범위의 마지막 날짜 기준)
+function isDeadlineExpired(deadline) {
+  if (!deadline) return false;
+  const matches = [...String(deadline).matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)];
+  if (matches.length === 0) return false;
+  const last = matches[matches.length - 1];
+  const endDate = new Date(parseInt(last[1]), parseInt(last[2]) - 1, parseInt(last[3]));
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return endDate < today;
+}
+
 // 날씨 코드 변환 함수
 function parseWeather(code) {
   if (code === 0) return { status: '맑음', icon: '☀️' };
@@ -283,8 +295,14 @@ ${JSON.stringify(selectedData)}`
           image: finalImageUrl
         });
       } else {
+        // 만료된 공고 스킵
+        if (isDeadlineExpired(parsedParams.date)) {
+          console.log(`[스킵] 만료된 공고 건너뜀: ${titleToCheck} (마감: ${parsedParams.date})`);
+          continue;
+        }
+
         // 혜택(Benefit) 데이터 보강 및 폴백 적용
-        const requirements = (parsedParams.requirements && parsedParams.requirements.length > 0) 
+        const requirements = (parsedParams.requirements && parsedParams.requirements.length > 0)
           ? parsedParams.requirements 
           : ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."];
         
@@ -302,7 +320,7 @@ ${JSON.stringify(selectedData)}`
           target: parsedParams.target || '누구나',
           deadline: parsedParams.date || '상시',
           image: finalImageUrl,
-          isEmergency: parsedParams.tag === '마감임박',
+          isEmergency: parsedParams.tag === '마감임박' && !isDeadlineExpired(parsedParams.date),
           details: parsedParams.summary || '상세 정보는 공식 홈페이지를 참조하세요.',
           link: parsedParams.link || '',
           requirements: requirements,
