@@ -69,9 +69,6 @@ export default function BlogListPage() {
                   alt={post.title}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                   style={{ filter: "saturate(1.05) brightness(0.96)" }}
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
-                  }}
                 />
                 {/* 민트 브랜드 톤 오버레이 */}
                 <div
