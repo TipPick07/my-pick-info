@@ -197,7 +197,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
           className="bg-white rounded-2xl border shadow-sm overflow-hidden"
           style={{ borderColor: "rgba(0,204,255,0.15)" }}
         >
-          <div className="flex items-stretch divide-x" style={{ divideColor: "rgba(0,204,255,0.1)" }}>
+          <div className="flex items-stretch divide-x divide-cyan-100/50">
 
             {/* 레이블 */}
             <div className="flex flex-col items-center justify-center px-4 py-3 shrink-0 bg-gradient-to-b from-cyan-50/60 to-white">
