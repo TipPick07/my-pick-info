@@ -76,16 +76,16 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
 
           <div className="space-y-5">
             <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-              오늘 당신이 놓칠 뻔한 <br />
+              당신의 일상에{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-emerald-500">
-                현금 혜택
+                혜택과 즐거움
               </span>
-              , 팁픽이 대신 골라드립니다!
+              을 픽(Pick)하세요!
             </h2>
             <p className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl mx-auto">
-              복잡한 공공데이터 속에서 오직 당신에게 필요한{" "}
-              <span className="font-black text-slate-700">&apos;진짜 이득&apos;</span>만 골라내는
-              스마트한 전구, 팁픽입니다.
+              꼭 챙겨야 할 쏠쏠한 현금 혜택부터 우리 동네 숨은 축제까지.{" "}
+              수많은 공공데이터 속에서 오직 당신에게 필요한{" "}
+              <span className="font-black text-slate-700">진짜 정보</span>만 큐레이션 합니다.
             </p>
             {/* CTA 배너 */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
@@ -231,7 +231,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
               </Link>
             </div>
             <div className="space-y-4">
-              {filteredBenefits.map((b) => (
+              {filteredBenefits.slice(0, 5).map((b) => (
                 <Link
                   key={b.id}
                   href={`/benefit/${b.id}`}

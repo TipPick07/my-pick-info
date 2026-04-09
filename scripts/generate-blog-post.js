@@ -35,11 +35,11 @@ async function main() {
     const existingFiles = fs.readdirSync(postsDir);
     const alreadyPostedTitles = existingFiles.filter(f => f.endsWith('.md')).map(file => {
       const content = fs.readFileSync(path.join(postsDir, file), 'utf8');
-      const originalTitleMatch = content.match(/originalTitle:\s*"(.*)"/) || content.match(/originalTitle:\s*(.*)\n/);
+      const originalTitleMatch = content.match(/originalTitle:\s*"(.*)"/) || content.match(/originalTitle:\s*(.*)\r?\n/);
       if (originalTitleMatch) return originalTitleMatch[1].replace(/"/g, '').trim();
-      
+
       // 구 버전 파일은 일반 제목으로 체크
-      const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\n/);
+      const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\r?\n/);
       return titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
     });
 
@@ -138,7 +138,14 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
     // 마크다운 코드 블록 제거
     mdContent = mdContent.replace(/^```markdown\n/i, '').replace(/```$/g, '').trim();
 
-    // 3. 파일 저장
+    // 3. 파일 저장 (image 비어있으면 폴백 강제 주입)
+    if (/^image:\s*$/m.test(mdContent)) {
+      const subsidyFallbacks = fallbacks.SUBSIDY;
+      const fallbackImage = subsidyFallbacks[Math.floor(Math.random() * subsidyFallbacks.length)];
+      mdContent = mdContent.replace(/^(image:)\s*$/m, `$1 ${fallbackImage}`);
+      console.log(`[보정] Gemini가 이미지를 비워 폴백 이미지를 주입했습니다: ${fallbackImage}`);
+    }
+
     const finalPath = path.join(postsDir, filename);
     fs.writeFileSync(finalPath, mdContent, 'utf8');
 

@@ -1,7 +1,7 @@
 ---
 title: 놓치면 후회! 수도권 가구에 힘이 되는 근로·자녀장려금, 팁픽이 꼼꼼히 짚어드려요!
 originalTitle: 근로·자녀장려금
-link:
+link: https://www.hometax.go.kr
 officialTarget: 신청요건을 모두 충족하는 근로소득, 사업소득 또는 종교인소득이 있는 가구
 officialDetails: 정보 없음
 officialDeadline: 매년 정기 및 반기 신청

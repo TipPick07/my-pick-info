@@ -246,22 +246,31 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
 
             {/* 하단 CTA 버튼 */}
             <footer className="mt-16">
-              <a
-                href={(benefit.link || "").startsWith('http') ? benefit.link : `https://${benefit.link || ""}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-center gap-4 w-full bg-slate-900 hover:bg-slate-800 text-white font-black text-xl px-8 py-6 rounded-2xl shadow-[0_0_20px_rgba(6,182,212,0.0)] hover:shadow-[0_0_30px_rgba(6,182,212,0.35)] transition-all active:scale-[0.98] relative overflow-hidden"
-              >
-                <span className="relative z-10 flex items-center gap-3">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 group-hover:text-white transition-colors duration-300">
-                    공식 신청 사이트로 자세히 보기
-                  </span>
-                  <ArrowRight className="w-6 h-6 text-cyan-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
-                </span>
-              </a>
-              <p className="text-center text-slate-400 text-sm font-bold mt-4 italic">
-                해당 사이트로 이동하여 안전하게 신청하실 수 있습니다.
-              </p>
+              {benefit.link ? (
+                <>
+                  <a
+                    href={benefit.link.startsWith('http') ? benefit.link : `https://${benefit.link}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-center gap-4 w-full bg-slate-900 hover:bg-slate-800 text-white font-black text-xl px-8 py-6 rounded-2xl shadow-[0_0_20px_rgba(6,182,212,0.0)] hover:shadow-[0_0_30px_rgba(6,182,212,0.35)] transition-all active:scale-[0.98] relative overflow-hidden"
+                  >
+                    <span className="relative z-10 flex items-center gap-3">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 group-hover:text-white transition-colors duration-300">
+                        공식 신청 사이트로 자세히 보기
+                      </span>
+                      <ArrowRight className="w-6 h-6 text-cyan-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                    </span>
+                  </a>
+                  <p className="text-center text-slate-400 text-sm font-bold mt-4 italic">
+                    해당 사이트로 이동하여 안전하게 신청하실 수 있습니다.
+                  </p>
+                </>
+              ) : (
+                <div className="flex items-center justify-center gap-3 w-full bg-slate-100 text-slate-400 font-black text-xl px-8 py-6 rounded-2xl cursor-not-allowed">
+                  <ExternalLink className="w-6 h-6" />
+                  공식 사이트 준비 중
+                </div>
+              )}
             </footer>
 
           </div>
