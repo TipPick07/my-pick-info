@@ -149,7 +149,8 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
             if ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
                 (trimmed.startsWith("'") && trimmed.endsWith("'"))) return line;
             if (trimmed.startsWith('[') || trimmed.startsWith('{')) return line;
-            if (trimmed.includes(':')) {
+            // ': ' (콜론+공백)만 YAML 파싱 위험 — URL의 '://' 패턴은 안전하므로 제외
+            if (trimmed.includes(': ')) {
               return `${key}: "${trimmed.replace(/"/g, '\\"')}"`;
             }
             return line;
@@ -179,8 +180,9 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
     console.log(`생성 완료: ${filename}`);
 
   } catch (error) {
-    console.error('치명적 오류 발생(자동 배포 중단을 위해 exit 1 호출):', error);
-    process.exit(1);
+    // 블로그 생성 실패는 배포를 막지 않음 — 기존 콘텐츠로 사이트는 계속 배포
+    console.warn('[경고] 블로그 자동 생성 실패, 배포는 계속 진행됩니다:', error.message);
+    process.exit(0);
   }
 }
 

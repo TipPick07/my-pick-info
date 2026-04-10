@@ -8,7 +8,7 @@ officialDeadline: 상시
 date: 2026-04-08
 summary: 만 3~5세 자녀를 둔 학부모님이라면 주목! 국공립/사립유치원 학비 부담을 덜어주는 유아학비(누리과정) 지원으로 우리 아이의 행복한 성장을 응원하세요.
 category: 정보
-image: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop
+image: /images/blogs/korea-welfare-benefit-279.png
 tags: [유아학비, 누리과정, 유치원비지원, 육아지원, 교육비, 보육료, 아이행복카드, 복지로, 수도권팁픽, 자녀교육]
 officialRequirements: ["사회보장급여 신청(변경)서","신청인 신분증","유아학비 지원 대상 아동 명의의 아이행복카드"]
 officialHowToApply: ["복지로 홈페이지 또는 거주지 읍면동 주민센터 방문","서비스 신청 및 아이행복카드 발급","유치원 입학 후 카드로 결제"]

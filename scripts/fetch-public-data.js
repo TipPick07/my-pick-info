@@ -44,12 +44,14 @@ function asQuestion(text) {
 
 // 재시도 가능한 fetch 함수
 async function fetchWithRetry(url, options = {}, retries = 3, backoff = 2000) {
+  let lastResponse;
   for (let i = 0; i < retries; i++) {
     try {
       const response = await fetch(url, options);
       if (response.ok) return response;
       if (response.status === 429 || response.status >= 500) {
         console.warn(`[재시도 ${i + 1}/${retries}] API 오류 (${response.status}). ${backoff}ms 후 다시 시도합니다.`);
+        lastResponse = response;
         await new Promise(resolve => setTimeout(resolve, backoff));
         backoff *= 2;
         continue;
@@ -62,6 +64,9 @@ async function fetchWithRetry(url, options = {}, retries = 3, backoff = 2000) {
       backoff *= 2;
     }
   }
+  // 모든 재시도 실패 시 마지막 응답 반환 (undefined 반환 버그 수정)
+  if (lastResponse) return lastResponse;
+  throw new Error(`최대 재시도 횟수(${retries})를 초과했습니다.`);
 }
 
 async function fetchWeatherData() {
