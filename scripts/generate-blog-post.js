@@ -138,7 +138,28 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
     // 마크다운 코드 블록 제거
     mdContent = mdContent.replace(/^```markdown\n/i, '').replace(/```$/g, '').trim();
 
-    // 3. 파일 저장 (image 비어있으면 로컬 폴백 강제 주입)
+    // 3-a. YAML frontmatter 값에 콜론이 포함된 경우 자동으로 따옴표 처리
+    mdContent = mdContent.replace(
+      /^(---\r?\n)([\s\S]*?)(---)/,
+      (_, open, frontmatter, close) => {
+        const fixed = frontmatter.replace(
+          /^([a-zA-Z][a-zA-Z0-9_]*):\s+(.+)$/gm,
+          (line, key, value) => {
+            const trimmed = value.trim();
+            if ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+                (trimmed.startsWith("'") && trimmed.endsWith("'"))) return line;
+            if (trimmed.startsWith('[') || trimmed.startsWith('{')) return line;
+            if (trimmed.includes(':')) {
+              return `${key}: "${trimmed.replace(/"/g, '\\"')}"`;
+            }
+            return line;
+          }
+        );
+        return open + fixed + close;
+      }
+    );
+
+    // 3-b. 파일 저장 (image 비어있으면 로컬 폴백 강제 주입)
     if (/^image:\s*$/m.test(mdContent)) {
       const localFallbacks = [
         '/images/blogs/korea-welfare-benefit-210.png',
