@@ -115,11 +115,14 @@ async function fetchFestivalData(apiKey) {
   const festivals = [];
 
   for (const area of areaCodes) {
-    const url = `https://apis.data.go.kr/B551011/KorService1/searchFestival1?serviceKey=${encodeURIComponent(apiKey)}&numOfRows=10&pageNo=1&MobileApp=TipPick&MobileOS=ETC&eventStartDate=${eventStartDate}&areaCode=${area.code}&_type=json`;
+    // TourAPI는 인코딩키를 그대로 사용 (encodeURIComponent 적용 시 이중 인코딩으로 HTTP 500 발생)
+    const url = `https://apis.data.go.kr/B551011/KorService1/searchFestival1?serviceKey=${apiKey}&numOfRows=10&pageNo=1&MobileApp=TipPick&MobileOS=ETC&eventStartDate=${eventStartDate}&areaCode=${area.code}&_type=json`;
     try {
       const res = await fetchWithRetry(url);
       if (!res.ok) {
+        const errBody = await res.text();
         console.warn(`[축제] ${area.name} 데이터 수집 실패: HTTP ${res.status}`);
+        console.warn(`[축제] 오류 상세:`, errBody.substring(0, 300));
         continue;
       }
       const json = await res.json();
