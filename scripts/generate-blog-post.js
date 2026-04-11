@@ -130,7 +130,10 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
     if (!filenameMatch) {
       throw new Error('FILENAME을 찾을 수 없습니다.');
     }
-    const filename = filenameMatch[1].trim().replace(/\.md$/i, '').replace(/\.+$/, '') + '.md';
+    // Gemini가 날짜를 잘못 생성할 수 있으므로 날짜 부분을 오늘 날짜로 강제 교체
+    const rawFilename = filenameMatch[1].trim().replace(/\.md$/i, '').replace(/\.+$/, '');
+    const keyword = rawFilename.replace(/^\d{4}-\d{2}-\d{2}-?/, '');
+    const filename = `${today}-${keyword}.md`;
     
     // FILENAME 라인 제거
     let mdContent = fullText.replace(/FILENAME:.*$/im, '').trim();
