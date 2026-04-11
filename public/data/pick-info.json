@@ -2,21 +2,21 @@
   "weather": [
     {
       "region": "서울",
-      "temp": "4°",
-      "status": "구름 조금",
-      "icon": "⛅"
+      "temp": "6°",
+      "status": "맑음",
+      "icon": "☀️"
     },
     {
       "region": "인천",
-      "temp": "4°",
-      "status": "구름 조금",
-      "icon": "⛅"
+      "temp": "6°",
+      "status": "맑음",
+      "icon": "☀️"
     },
     {
       "region": "경기",
-      "temp": "5°",
-      "status": "맑음",
-      "icon": "☀️"
+      "temp": "7°",
+      "status": "구름 조금",
+      "icon": "⛅"
     }
   ],
   "festivals": [
