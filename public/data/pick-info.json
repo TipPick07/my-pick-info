@@ -2,19 +2,19 @@
   "weather": [
     {
       "region": "서울",
-      "temp": "9°",
-      "status": "구름 조금",
-      "icon": "⛅"
+      "temp": "14°",
+      "status": "맑음",
+      "icon": "☀️"
     },
     {
       "region": "인천",
-      "temp": "8°",
+      "temp": "11°",
       "status": "구름 조금",
       "icon": "⛅"
     },
     {
       "region": "경기",
-      "temp": "9°",
+      "temp": "12°",
       "status": "구름 조금",
       "icon": "⛅"
     }
