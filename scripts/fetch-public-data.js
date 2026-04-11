@@ -99,6 +99,53 @@ async function fetchWeatherData() {
   }
 }
 
+// 수도권 축제/행사 데이터 수집 (한국관광공사 TourAPI)
+async function fetchFestivalData(apiKey) {
+  const areaCodes = [
+    { code: '1', name: '서울' },
+    { code: '2', name: '인천' },
+    { code: '31', name: '경기' }
+  ];
+
+  // 진행 중인 축제도 포함하기 위해 1개월 전부터 조회
+  const from = new Date();
+  from.setMonth(from.getMonth() - 1);
+  const eventStartDate = from.toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }).replace(/-/g, '');
+
+  const festivals = [];
+
+  for (const area of areaCodes) {
+    const url = `https://apis.data.go.kr/B551011/KorService1/searchFestival1?serviceKey=${encodeURIComponent(apiKey)}&numOfRows=10&pageNo=1&MobileApp=TipPick&MobileOS=ETC&eventStartDate=${eventStartDate}&areaCode=${area.code}&_type=json`;
+    try {
+      const res = await fetchWithRetry(url);
+      if (!res.ok) {
+        console.warn(`[축제] ${area.name} 데이터 수집 실패: HTTP ${res.status}`);
+        continue;
+      }
+      const json = await res.json();
+      const raw = json?.response?.body?.items?.item;
+      if (!raw) { console.log(`[축제] ${area.name} 결과 없음`); continue; }
+      const items = Array.isArray(raw) ? raw : [raw];
+      for (const item of items) {
+        festivals.push({ ...item, _region: area.name });
+      }
+      console.log(`[축제] ${area.name} ${items.length}건 수집`);
+    } catch (err) {
+      console.warn(`[축제] ${area.name} 수집 오류:`, err.message);
+    }
+  }
+  return festivals;
+}
+
+// 축제 날짜 포맷 변환 (YYYYMMDD → YYYY.MM.DD)
+function formatFestivalDate(startDate, endDate) {
+  const fmt = (d) => d ? `${d.slice(0,4)}.${d.slice(4,6)}.${d.slice(6,8)}` : '';
+  const s = fmt(String(startDate || ''));
+  const e = fmt(String(endDate || ''));
+  if (!s) return '상시';
+  return e && e !== s ? `${s}~${e}` : s;
+}
+
 async function main() {
   try {
     const govApiKey = process.env.PUBLIC_DATA_API_KEY;
@@ -339,6 +386,72 @@ ${JSON.stringify(selectedData)}`
       fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
       console.log(`✓ 정상 추가됨: ${titleToCheck}`);
     }
+
+    // ─── 수도권 축제/행사 수집 (한국관광공사 TourAPI) ───────────────────
+    console.log('\n[축제] 수도권 축제/행사 데이터 수집 시작...');
+    const festivalItems = await fetchFestivalData(govApiKey);
+    console.log(`[축제] 총 ${festivalItems.length}건 수집 완료`);
+
+    const existingFestTitles = new Set(existingData.festivals.map(f => f.title));
+
+    for (const fest of festivalItems) {
+      const title = fest.title || fest.contenttitle;
+      if (!title || existingFestTitles.has(title)) continue;
+
+      // 만료된 축제 스킵 (종료일 기준)
+      const endDateFormatted = fest.eventenddate ? `${fest.eventenddate.slice(0,4)}.${fest.eventenddate.slice(4,6)}.${fest.eventenddate.slice(6,8)}` : null;
+      if (endDateFormatted && isDeadlineExpired(endDateFormatted)) {
+        console.log(`[축제 스킵] 종료된 행사: ${title}`);
+        continue;
+      }
+
+      const dateStr = formatFestivalDate(fest.eventstartdate, fest.eventenddate);
+      const region = fest._region || '전국';
+
+      // 이미지: TourAPI 제공 이미지 우선, 없으면 폴백
+      let finalImageUrl;
+      if (fest.firstimage) {
+        // 외부 이미지를 로컬에 다운로드
+        const seed = Math.floor(Math.random() * 1000);
+        const localImageName = `festival-${String(fest.contentid || Date.now()).slice(-6)}-${seed}.png`;
+        const localImagePath = `/images/blogs/${localImageName}`;
+        const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
+        try {
+          const imgRes = await fetch(fest.firstimage);
+          const contentType = imgRes.headers.get('content-type');
+          if (imgRes.ok && contentType && contentType.startsWith('image/')) {
+            const buf = await imgRes.arrayBuffer();
+            fs.writeFileSync(absoluteImagePath, Buffer.from(buf));
+            finalImageUrl = localImagePath;
+            console.log(`[축제] 이미지 저장: ${localImagePath}`);
+          } else {
+            throw new Error(`이미지 타입 불일치: ${contentType}`);
+          }
+        } catch (e) {
+          console.warn(`[축제] 이미지 다운로드 실패, 폴백 사용: ${e.message}`);
+          const stockImages = fallbacks['FESTIVAL'] || fallbacks['GUIDE'];
+          finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
+        }
+      } else {
+        const stockImages = fallbacks['FESTIVAL'] || fallbacks['GUIDE'];
+        finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
+      }
+
+      const newFest = {
+        id: `fest-${fest.contentid || Date.now()}`,
+        region,
+        title,
+        date: dateStr,
+        tag: '신규',
+        image: finalImageUrl
+      };
+
+      existingData.festivals.unshift(newFest);
+      existingFestTitles.add(title);
+      fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+      console.log(`✓ [축제] 추가됨: ${title} (${region}, ${dateStr})`);
+    }
+    // ──────────────────────────────────────────────────────────────────────
 
   } catch (error) {
     console.error('----------------------------------------------------');
