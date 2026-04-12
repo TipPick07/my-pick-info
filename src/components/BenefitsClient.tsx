@@ -56,8 +56,21 @@ function getDDayLabel(deadline: string): string | null {
   return null;
 }
 
+const ITEMS_PER_PAGE = 20;
+
+function getPaginationRange(current: number, total: number): (number | '...')[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const range: (number | '...')[] = [1];
+  if (current > 3) range.push('...');
+  for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) range.push(i);
+  if (current < total - 2) range.push('...');
+  range.push(total);
+  return range;
+}
+
 export default function BenefitsClient({ data }: { data: Data }) {
   const [filter, setFilter] = useState("전체");
+  const [currentPage, setCurrentPage] = useState(1);
   const regions = ["전체", "서울", "인천", "경기"];
 
   // 필터링
@@ -80,7 +93,14 @@ export default function BenefitsClient({ data }: { data: Data }) {
     return 0;
   });
 
+  const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
+  const paginated = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
   const urgentCount = sorted.filter((b) => getStatus(b) === "urgent").length;
+
+  const handleFilterChange = (r: string) => {
+    setFilter(r);
+    setCurrentPage(1);
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-cyan-100">
@@ -122,7 +142,7 @@ export default function BenefitsClient({ data }: { data: Data }) {
             {regions.map((r) => (
               <button
                 key={r}
-                onClick={() => setFilter(r)}
+                onClick={() => handleFilterChange(r)}
                 className={`px-7 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
                   filter === r
                     ? "text-white shadow-[0_4px_20px_rgba(6,182,212,0.4)]"
@@ -142,13 +162,13 @@ export default function BenefitsClient({ data }: { data: Data }) {
 
         {/* ── 리스트 ── */}
         <section className="space-y-2.5">
-          {sorted.length === 0 && (
+          {paginated.length === 0 && sorted.length === 0 && (
             <div className="py-20 text-center text-slate-400 font-medium bg-white rounded-3xl border-2 border-dashed border-slate-200">
               해당 지역의 예정된 혜택이 없습니다.
             </div>
           )}
 
-          {sorted.map((b) => {
+          {paginated.map((b) => {
             const status = getStatus(b);
             const ddayLabel = getDDayLabel(b.deadline);
             const isUrgent = status === "urgent";
@@ -245,6 +265,40 @@ export default function BenefitsClient({ data }: { data: Data }) {
               </Link>
             );
           })}
+
+          {/* 페이지네이션 */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 pt-6">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-full text-sm font-bold border border-slate-200 bg-white disabled:opacity-30 hover:border-cyan-300 transition-colors"
+              >
+                ← 이전
+              </button>
+              {getPaginationRange(currentPage, totalPages).map((p, idx) =>
+                p === '...'
+                  ? <span key={`e${idx}`} className="text-slate-400 px-1">···</span>
+                  : <button
+                      key={p}
+                      onClick={() => setCurrentPage(p as number)}
+                      className={`w-9 h-9 rounded-full text-sm font-bold transition-colors ${
+                        currentPage === p ? "text-white" : "bg-white border border-slate-200 text-slate-600 hover:border-cyan-300"
+                      }`}
+                      style={currentPage === p ? { background: "linear-gradient(to right, #00CCFF, #33FF99)" } : {}}
+                    >
+                      {p}
+                    </button>
+              )}
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-full text-sm font-bold border border-slate-200 bg-white disabled:opacity-30 hover:border-cyan-300 transition-colors"
+              >
+                다음 →
+              </button>
+            </div>
+          )}
         </section>
 
       </main>

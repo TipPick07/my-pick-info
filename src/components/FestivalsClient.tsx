@@ -61,8 +61,21 @@ function getWeatherIcon(code: number): LucideIcon {
   return Cloud;
 }
 
+const ITEMS_PER_PAGE = 20;
+
+function getPaginationRange(current: number, total: number): (number | '...')[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const range: (number | '...')[] = [1];
+  if (current > 3) range.push('...');
+  for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) range.push(i);
+  if (current < total - 2) range.push('...');
+  range.push(total);
+  return range;
+}
+
 export default function FestivalsClient({ data, weatherApiKey }: { data: any; weatherApiKey: string }) {
   const [filter, setFilter] = useState("전체");
+  const [currentPage, setCurrentPage] = useState(1);
   const [weatherResults, setWeatherResults] = useState<Record<string, WeatherData | null>>({
     "서울": null, "인천": null, "경기": null,
   });
@@ -140,6 +153,17 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
       ? data.festivals
       : data.festivals.filter((f: Festival) => f.region === filter);
 
+  const totalPages = Math.ceil(filteredFestivals.length / ITEMS_PER_PAGE);
+  const paginatedFestivals = filteredFestivals.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const handleFilterChange = (r: string) => {
+    setFilter(r);
+    setCurrentPage(1);
+  };
+
   const regions = ["전체", "서울", "인천", "경기"];
   const WEATHER_REGIONS = ["서울", "인천", "경기"];
 
@@ -174,7 +198,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
             {regions.map((r) => (
               <button
                 key={r}
-                onClick={() => setFilter(r)}
+                onClick={() => handleFilterChange(r)}
                 className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
                   filter === r
                     ? "text-white"
@@ -251,7 +275,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
         {/* ── 축제 4열 그리드 ── */}
         <section>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-sans">
-            {filteredFestivals.map((f: Festival) => (
+            {paginatedFestivals.map((f: Festival) => (
               <Link key={f.id} href={`/festival/${f.id}`} className="group cursor-pointer">
                 {/* 이미지 — 21:9 슬림 비율 */}
                 <div className="relative overflow-hidden rounded-2xl mb-2.5 bg-slate-200" style={{ aspectRatio: "21/9" }}>
@@ -296,6 +320,40 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
               </div>
             )}
           </div>
+
+          {/* 페이지네이션 */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 pt-8">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-full text-sm font-bold border border-slate-200 bg-white disabled:opacity-30 hover:border-cyan-300 transition-colors"
+              >
+                ← 이전
+              </button>
+              {getPaginationRange(currentPage, totalPages).map((p, idx) =>
+                p === '...'
+                  ? <span key={`e${idx}`} className="text-slate-400 px-1">···</span>
+                  : <button
+                      key={p}
+                      onClick={() => setCurrentPage(p as number)}
+                      className={`w-9 h-9 rounded-full text-sm font-bold transition-colors ${
+                        currentPage === p ? "text-white" : "bg-white border border-slate-200 text-slate-600 hover:border-cyan-300"
+                      }`}
+                      style={currentPage === p ? { background: "linear-gradient(to right, #00CCFF, #33FF99)" } : {}}
+                    >
+                      {p}
+                    </button>
+              )}
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-full text-sm font-bold border border-slate-200 bg-white disabled:opacity-30 hover:border-cyan-300 transition-colors"
+              >
+                다음 →
+              </button>
+            </div>
+          )}
         </section>
 
       </main>

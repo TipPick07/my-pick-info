@@ -185,7 +185,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
-              {filteredFestivals.map((f) => (
+              {filteredFestivals.slice(0, 4).map((f) => (
                 <Link key={f.id} href={`/festival/${f.id}`} className="group cursor-pointer">
                   {/* 이미지 높이 16:9 비율로 슬림하게 */}
                   <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] mb-3 bg-slate-200">
