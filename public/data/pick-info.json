@@ -2,24 +2,224 @@
   "weather": [
     {
       "region": "서울",
-      "temp": "6°",
-      "status": "맑음",
-      "icon": "☀️"
+      "temp": "7°",
+      "status": "구름 조금",
+      "icon": "⛅"
     },
     {
       "region": "인천",
-      "temp": "6°",
-      "status": "맑음",
-      "icon": "☀️"
+      "temp": "8°",
+      "status": "구름 조금",
+      "icon": "⛅"
     },
     {
       "region": "경기",
-      "temp": "7°",
+      "temp": "9°",
       "status": "구름 조금",
       "icon": "⛅"
     }
   ],
   "festivals": [
+    {
+      "id": "fest-2508126",
+      "region": "경기",
+      "title": "양주 회암사지 왕실축제",
+      "date": "2026.04.17~2026.04.19",
+      "tag": "신규",
+      "image": "/images/blogs/festival-508126-333.png"
+    },
+    {
+      "id": "fest-142197",
+      "region": "경기",
+      "title": "시흥갯골축제",
+      "date": "2026.09.18~2026.09.20",
+      "tag": "신규",
+      "image": "/images/blogs/festival-142197-243.png"
+    },
+    {
+      "id": "fest-2541370",
+      "region": "경기",
+      "title": "여주흥천남한강 벚꽃축제",
+      "date": "2026.04.10~2026.04.12",
+      "tag": "신규",
+      "image": "/images/blogs/festival-541370-833.png"
+    },
+    {
+      "id": "fest-293030",
+      "region": "경기",
+      "title": "안성 남사당바우덕이 풍물단 상설 공연 ‘곰뱅이텄다’",
+      "date": "2026.04.04~2026.11.29",
+      "tag": "신규",
+      "image": "/images/blogs/festival-293030-499.png"
+    },
+    {
+      "id": "fest-513326",
+      "region": "경기",
+      "title": "안산국제거리극축제",
+      "date": "2026.05.01~2026.05.03",
+      "tag": "신규",
+      "image": "/images/blogs/festival-513326-800.png"
+    },
+    {
+      "id": "fest-527710",
+      "region": "경기",
+      "title": "이천도자기축제",
+      "date": "2026.04.24~2026.05.05",
+      "tag": "신규",
+      "image": "/images/blogs/festival-527710-622.png"
+    },
+    {
+      "id": "fest-4056606",
+      "region": "경기",
+      "title": "청백리의 집, 오늘을 비추다",
+      "date": "2026.04.18~2026.06.06",
+      "tag": "신규",
+      "image": "/images/blogs/festival-056606-979.png"
+    },
+    {
+      "id": "fest-3480383",
+      "region": "경기",
+      "title": "김포 벚꽃축제",
+      "date": "2026.04.11~2026.04.12",
+      "tag": "신규",
+      "image": "/images/blogs/festival-480383-191.png"
+    },
+    {
+      "id": "fest-2484272",
+      "region": "경기",
+      "title": "에덴벚꽃길 벚꽃축제",
+      "date": "2026.04.11~2026.04.19",
+      "tag": "신규",
+      "image": "/images/blogs/festival-484272-65.png"
+    },
+    {
+      "id": "fest-530450",
+      "region": "경기",
+      "title": "고양행주문화제",
+      "date": "2026.06.13~2026.06.14",
+      "tag": "신규",
+      "image": "/images/blogs/festival-530450-36.png"
+    },
+    {
+      "id": "fest-3522322",
+      "region": "인천",
+      "title": "오슬로우 빈티지 마켓",
+      "date": "2026.05.30~2026.05.31",
+      "tag": "신규",
+      "image": "/images/blogs/festival-522322-891.png"
+    },
+    {
+      "id": "fest-3485078",
+      "region": "인천",
+      "title": "국가유산 미디어아트",
+      "date": "2026.08.14~2026.10.18",
+      "tag": "신규",
+      "image": "/images/blogs/festival-485078-363.png"
+    },
+    {
+      "id": "fest-3492276",
+      "region": "인천",
+      "title": "2026 문화가 있는 날",
+      "date": "2026.04.01~2026.11.29",
+      "tag": "신규",
+      "image": "/images/blogs/festival-492276-687.png"
+    },
+    {
+      "id": "fest-561027",
+      "region": "인천",
+      "title": "인천펜타포트 락 페스티벌",
+      "date": "2026.07.31~2026.08.02",
+      "tag": "신규",
+      "image": "/images/blogs/festival-561027-521.png"
+    },
+    {
+      "id": "fest-3113152",
+      "region": "인천",
+      "title": "인천어린이과학관 놀다보니 과학!",
+      "date": "2026.04.18",
+      "tag": "신규",
+      "image": "/images/blogs/festival-113152-431.png"
+    },
+    {
+      "id": "fest-1266642",
+      "region": "인천",
+      "title": "부평풍물대축제",
+      "date": "2026.10.02~2026.10.04",
+      "tag": "신규",
+      "image": "/images/blogs/festival-266642-228.png"
+    },
+    {
+      "id": "fest-1806117",
+      "region": "인천",
+      "title": "인천어린이과학관 과학으로 자라는 어린이",
+      "date": "2026.05.05",
+      "tag": "신규",
+      "image": "/images/blogs/festival-806117-91.png"
+    },
+    {
+      "id": "fest-1800991",
+      "region": "서울",
+      "title": "4·19혁명국민문화제",
+      "date": "2026.04.10~2026.04.19",
+      "tag": "신규",
+      "image": "/images/blogs/festival-800991-333.png"
+    },
+    {
+      "id": "fest-2828328",
+      "region": "서울",
+      "title": "서울스프링페스티벌",
+      "date": "2026.04.10~2026.05.05",
+      "tag": "신규",
+      "image": "/images/blogs/festival-828328-227.png"
+    },
+    {
+      "id": "fest-4055101",
+      "region": "서울",
+      "title": "DDP 루프탑투어",
+      "date": "2026.03.21~2026.05.31",
+      "tag": "신규",
+      "image": "/images/blogs/festival-055101-19.png"
+    },
+    {
+      "id": "fest-3497454",
+      "region": "서울",
+      "title": "의정부지 상설 전통문화행사",
+      "date": "2026.04.11~2026.10.31",
+      "tag": "신규",
+      "image": "/images/blogs/festival-497454-479.png"
+    },
+    {
+      "id": "fest-3484594",
+      "region": "서울",
+      "title": "선농대제",
+      "date": "2026.04.18",
+      "tag": "신규",
+      "image": "/images/blogs/festival-484594-323.png"
+    },
+    {
+      "id": "fest-3107440",
+      "region": "서울",
+      "title": "무브살롱 : 살롱그라운드",
+      "date": "2026.04.03~2026.05.17",
+      "tag": "신규",
+      "image": "/images/blogs/festival-107440-814.png"
+    },
+    {
+      "id": "fest-2410727",
+      "region": "서울",
+      "title": "2026 보드게임페스타 (시즌1)",
+      "date": "2026.04.11~2026.04.12",
+      "tag": "신규",
+      "image": "/images/blogs/festival-410727-673.png"
+    },
+    {
+      "id": "fest-2001015",
+      "region": "서울",
+      "title": "성북세계음식축제 누리마실",
+      "date": "2026.06.07",
+      "tag": "신규",
+      "image": "/images/blogs/festival-001015-89.png"
+    },
     {
       "id": "fest-001",
       "region": "서울",
