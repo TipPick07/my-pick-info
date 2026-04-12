@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CoupangBanner from "./CoupangBanner";
 
 interface Benefit {
   id: string;
@@ -143,11 +144,10 @@ export default function BenefitsClient({ data }: { data: Data }) {
               <button
                 key={r}
                 onClick={() => handleFilterChange(r)}
-                className={`px-7 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-                  filter === r
+                className={`px-7 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${filter === r
                     ? "text-white shadow-[0_4px_20px_rgba(6,182,212,0.4)]"
                     : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/50"
-                }`}
+                  }`}
                 style={
                   filter === r
                     ? { background: "linear-gradient(to right, #00CCFF, #33FF99)" }
@@ -180,23 +180,21 @@ export default function BenefitsClient({ data }: { data: Data }) {
               <Link
                 key={b.id}
                 href={`/benefit/${b.id}`}
-                className={`group flex items-stretch bg-white rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-0.5 ${
-                  isUrgent
+                className={`group flex items-stretch bg-white rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-0.5 ${isUrgent
                     ? "border-rose-200 hover:shadow-[0_4px_20px_rgba(244,63,94,0.15)] hover:border-rose-300"
                     : isLocalMatch
-                    ? "border-cyan-200 hover:shadow-[0_4px_20px_rgba(0,204,255,0.12)] hover:border-cyan-300"
-                    : "border-slate-100 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:border-slate-200"
-                }`}
+                      ? "border-cyan-200 hover:shadow-[0_4px_20px_rgba(0,204,255,0.12)] hover:border-cyan-300"
+                      : "border-slate-100 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:border-slate-200"
+                  }`}
               >
                 {/* 왼쪽 강조 선 */}
                 <div
-                  className={`w-1 shrink-0 ${
-                    isUrgent
+                  className={`w-1 shrink-0 ${isUrgent
                       ? "bg-rose-500"
                       : isAlways
-                      ? "bg-cyan-400"
-                      : "bg-emerald-400"
-                  }`}
+                        ? "bg-cyan-400"
+                        : "bg-emerald-400"
+                    }`}
                 />
 
                 {/* 카드 본문 */}
@@ -205,13 +203,12 @@ export default function BenefitsClient({ data }: { data: Data }) {
                   {/* 좌: 상태 배지 */}
                   <div className="shrink-0 w-20 flex flex-col items-center gap-1.5">
                     <span
-                      className={`text-[10px] font-black px-2.5 py-1 rounded-full text-center w-full ${
-                        isUrgent
+                      className={`text-[10px] font-black px-2.5 py-1 rounded-full text-center w-full ${isUrgent
                           ? "bg-rose-500 text-white"
                           : isAlways
-                          ? "bg-cyan-100 text-cyan-700"
-                          : "bg-emerald-100 text-emerald-700"
-                      }`}
+                            ? "bg-cyan-100 text-cyan-700"
+                            : "bg-emerald-100 text-emerald-700"
+                        }`}
                     >
                       {isUrgent ? "마감임박" : isAlways ? "상시" : "모집중"}
                     </span>
@@ -226,9 +223,8 @@ export default function BenefitsClient({ data }: { data: Data }) {
 
                   {/* 중: 제목 + 요약 */}
                   <div className="flex-1 min-w-0 space-y-0.5">
-                    <h4 className={`font-black leading-snug line-clamp-2 text-sm md:text-base transition-colors ${
-                      isUrgent ? "text-slate-900 group-hover:text-rose-600" : "text-slate-900 group-hover:text-cyan-600"
-                    }`}>
+                    <h4 className={`font-black leading-snug line-clamp-2 text-sm md:text-base transition-colors ${isUrgent ? "text-slate-900 group-hover:text-rose-600" : "text-slate-900 group-hover:text-cyan-600"
+                      }`}>
                       {b.title}
                     </h4>
                     <p className="text-slate-500 text-xs line-clamp-1 font-medium">
@@ -239,19 +235,17 @@ export default function BenefitsClient({ data }: { data: Data }) {
                   {/* 우: 지역 + 마감일 */}
                   <div className="shrink-0 text-right space-y-1 min-w-[72px]">
                     <span
-                      className={`block text-[10px] font-black px-2 py-0.5 rounded-full text-center ${
-                        isLocalMatch
+                      className={`block text-[10px] font-black px-2 py-0.5 rounded-full text-center ${isLocalMatch
                           ? "bg-cyan-100 text-cyan-700"
                           : "bg-slate-100 text-slate-500"
-                      }`}
+                        }`}
                     >
                       {isLocalMatch && "📍 "}
                       {b.region}
                     </span>
                     <span
-                      className={`block text-[10px] font-bold ${
-                        isUrgent ? "text-rose-600" : "text-slate-400"
-                      }`}
+                      className={`block text-[10px] font-bold ${isUrgent ? "text-rose-600" : "text-slate-400"
+                        }`}
                     >
                       {b.deadline}
                     </span>
@@ -280,15 +274,14 @@ export default function BenefitsClient({ data }: { data: Data }) {
                 p === '...'
                   ? <span key={`e${idx}`} className="text-slate-400 px-1">···</span>
                   : <button
-                      key={p}
-                      onClick={() => setCurrentPage(p as number)}
-                      className={`w-9 h-9 rounded-full text-sm font-bold transition-colors ${
-                        currentPage === p ? "text-white" : "bg-white border border-slate-200 text-slate-600 hover:border-cyan-300"
+                    key={p}
+                    onClick={() => setCurrentPage(p as number)}
+                    className={`w-9 h-9 rounded-full text-sm font-bold transition-colors ${currentPage === p ? "text-white" : "bg-white border border-slate-200 text-slate-600 hover:border-cyan-300"
                       }`}
-                      style={currentPage === p ? { background: "linear-gradient(to right, #00CCFF, #33FF99)" } : {}}
-                    >
-                      {p}
-                    </button>
+                    style={currentPage === p ? { background: "linear-gradient(to right, #00CCFF, #33FF99)" } : {}}
+                  >
+                    {p}
+                  </button>
               )}
               <button
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
@@ -300,6 +293,7 @@ export default function BenefitsClient({ data }: { data: Data }) {
             </div>
           )}
         </section>
+        <CoupangBanner />
 
       </main>
 

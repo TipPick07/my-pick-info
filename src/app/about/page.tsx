@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import { CheckCircle2, Lightbulb } from "lucide-react";
+import CoupangBanner from "@/components/CoupangBanner";
 
 export const metadata = {
   title: "팁픽은 왜 만들었나 | 팁픽(Tip-Pick)",
@@ -101,6 +102,7 @@ export default function AboutPage() {
             </ul>
           </div>
         </section>
+        <CoupangBanner />
       </main>
 
       <Footer />

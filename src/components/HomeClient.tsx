@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { PostData } from "@/lib/posts";
 import AdBanner from "@/components/AdBanner";
+import CoupangBanner from "./CoupangBanner";
 
 interface Weather {
   region: string;
@@ -235,9 +236,8 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
                 <Link
                   key={b.id}
                   href={`/benefit/${b.id}`}
-                  className={`block p-4 rounded-[2rem] border-2 transition-all group ${
-                    b.isEmergency ? "border-rose-100 bg-rose-50/50" : "border-slate-100 bg-white"
-                  }`}
+                  className={`block p-4 rounded-[2rem] border-2 transition-all group ${b.isEmergency ? "border-rose-100 bg-rose-50/50" : "border-slate-100 bg-white"
+                    }`}
                   onMouseEnter={e => {
                     e.currentTarget.style.boxShadow = b.isEmergency ? "0 4px 16px rgba(244,63,94,0.15)" : "0 4px 16px rgba(0,204,255,0.15)";
                     e.currentTarget.style.borderColor = b.isEmergency ? "#fecdd3" : "rgba(0,204,255,0.4)";
@@ -248,9 +248,8 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
                   }}
                 >
                   <div className="flex justify-between items-start mb-1.5">
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
-                      b.isEmergency ? "bg-rose-500 text-white" : "text-white"
-                    }`} style={b.isEmergency ? {} : { background: "rgba(51,255,153,0.25)", color: "#059669" }}>
+                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${b.isEmergency ? "bg-rose-500 text-white" : "text-white"
+                      }`} style={b.isEmergency ? {} : { background: "rgba(51,255,153,0.25)", color: "#059669" }}>
                       💡 {b.region}
                     </span>
                     <span className={`text-xs font-bold ${b.isEmergency ? "text-rose-600" : "text-slate-400"}`}>
@@ -289,6 +288,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
 
         {/* Ad Banner */}
         <AdBanner />
+
 
         {/* ── 팁픽 가이드 (블로그) 섹션 — 가로형 카드 ── */}
         <section className="space-y-6 pt-4">
@@ -367,7 +367,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
             )}
           </div>
         </section>
-
+        <CoupangBanner />
       </main>
 
       <Footer />

@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getSortedPostsData } from "@/lib/posts";
 import BlogListClient from "@/components/BlogListClient";
+import CoupangBanner from '@/components/CoupangBanner';
 
 export const metadata: Metadata = {
   title: "팁픽 인사이트 | 스마트한 수도권 생활 가이드 - 팁픽(Tip-Pick)",
@@ -56,7 +57,7 @@ export default function BlogListPage() {
 
         {/* Blog List — 가로형 1열 리스트 (10개씩 페이징) */}
         <BlogListClient posts={posts} />
-
+        <CoupangBanner />
       </main>
 
       <Footer />

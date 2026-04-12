@@ -8,6 +8,7 @@ import WeatherModal from "@/components/WeatherModal";
 import {
   Sun, Cloud, CloudRain, CloudDrizzle, CloudLightning, Snowflake, LucideIcon
 } from "lucide-react";
+import CoupangBanner from "./CoupangBanner";
 
 interface WeatherData {
   region: string;
@@ -99,7 +100,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
           initialResults = parsed;
         }
         setWeatherResults(initialResults!);
-      } catch (e) {}
+      } catch (e) { }
     }
 
     async function fetchAllWeather() {
@@ -199,11 +200,10 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
               <button
                 key={r}
                 onClick={() => handleFilterChange(r)}
-                className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
-                  filter === r
-                    ? "text-white"
-                    : "bg-white text-slate-600 border border-slate-200/50 hover:bg-slate-50"
-                }`}
+                className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${filter === r
+                  ? "text-white"
+                  : "bg-white text-slate-600 border border-slate-200/50 hover:bg-slate-50"
+                  }`}
                 style={
                   filter === r
                     ? { background: "linear-gradient(to right, #00CCFF, #33FF99)", boxShadow: "0 4px 20px rgba(0,204,255,0.35)" }
@@ -335,15 +335,14 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
                 p === '...'
                   ? <span key={`e${idx}`} className="text-slate-400 px-1">···</span>
                   : <button
-                      key={p}
-                      onClick={() => setCurrentPage(p as number)}
-                      className={`w-9 h-9 rounded-full text-sm font-bold transition-colors ${
-                        currentPage === p ? "text-white" : "bg-white border border-slate-200 text-slate-600 hover:border-cyan-300"
+                    key={p}
+                    onClick={() => setCurrentPage(p as number)}
+                    className={`w-9 h-9 rounded-full text-sm font-bold transition-colors ${currentPage === p ? "text-white" : "bg-white border border-slate-200 text-slate-600 hover:border-cyan-300"
                       }`}
-                      style={currentPage === p ? { background: "linear-gradient(to right, #00CCFF, #33FF99)" } : {}}
-                    >
-                      {p}
-                    </button>
+                    style={currentPage === p ? { background: "linear-gradient(to right, #00CCFF, #33FF99)" } : {}}
+                  >
+                    {p}
+                  </button>
               )}
               <button
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
@@ -355,7 +354,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
             </div>
           )}
         </section>
-
+        <CoupangBanner />
       </main>
 
       {/* 날씨 상세 모달 */}

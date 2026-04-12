@@ -2,15 +2,16 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
-import { 
-  ArrowLeft, 
-  Clock, 
-  MapPin, 
-  Sparkles, 
-  ExternalLink 
+import {
+  ArrowLeft,
+  Clock,
+  MapPin,
+  Sparkles,
+  ExternalLink
 } from 'lucide-react';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CoupangBanner from '@/components/CoupangBanner';
 
 interface Festival {
   id: string;
@@ -77,10 +78,10 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
       <Header />
       <div className="max-w-4xl mx-auto px-4 py-8 md:py-16">
-        
+
         {/* 뒤로가기 버튼 */}
-        <Link 
-          href="/festivals/" 
+        <Link
+          href="/festivals/"
           className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-bold mb-8 transition-colors group"
         >
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
@@ -89,7 +90,7 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
 
         {/* 메인 콘텐츠 카드 */}
         <article className="bg-white rounded-[2.5rem] border-2 border-slate-100 shadow-sm overflow-hidden p-8 md:p-14 space-y-12">
-          
+
           {/* 상단 태그 및 타이틀 */}
           <header className="space-y-6">
             <div className="flex flex-wrap items-center gap-3">
@@ -160,12 +161,12 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
               </ul>
             </div>
           </section>
-
+          <CoupangBanner />
           {/* 하단 CTA 버튼 */}
           <footer className="pt-4">
-            <a 
-              href={(festival.link || "").startsWith('http') ? festival.link : `https://${festival.link || ""}`} 
-              target="_blank" 
+            <a
+              href={(festival.link || "").startsWith('http') ? festival.link : `https://${festival.link || ""}`}
+              target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center justify-center gap-3 w-full bg-slate-900 hover:bg-indigo-600 text-white font-black text-xl px-8 py-6 rounded-[1.5rem] shadow-xl shadow-slate-100 hover:shadow-indigo-100 transition-all active:scale-[0.98]"
             >
