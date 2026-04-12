@@ -101,10 +101,11 @@ async function fetchWeatherData() {
 
 // 수도권 축제/행사 데이터 수집 (한국관광공사 TourAPI)
 async function fetchFestivalData(apiKey) {
+  // KorService2 기준 수도권 행정구역 코드
   const areaCodes = [
-    { code: '1', name: '서울' },
-    { code: '2', name: '인천' },
-    { code: '31', name: '경기' }
+    { code: '11', name: '서울' },
+    { code: '28', name: '인천' },
+    { code: '41', name: '경기' }
   ];
 
   // 진행 중인 축제도 포함하기 위해 1개월 전부터 조회
@@ -115,8 +116,8 @@ async function fetchFestivalData(apiKey) {
   const festivals = [];
 
   for (const area of areaCodes) {
-    // TourAPI는 인코딩키를 그대로 사용 (encodeURIComponent 적용 시 이중 인코딩으로 HTTP 500 발생)
-    const url = `https://apis.data.go.kr/B551011/KorService1/searchFestival1?serviceKey=${apiKey}&numOfRows=10&pageNo=1&MobileApp=TipPick&MobileOS=ETC&eventStartDate=${eventStartDate}&areaCode=${area.code}&_type=json`;
+    // KorService2/searchFestival2 사용 (인코딩키 그대로 사용, encodeURIComponent 금지)
+    const url = `https://apis.data.go.kr/B551011/KorService2/searchFestival2?serviceKey=${apiKey}&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=TipPick&_type=json&arrange=C&eventStartDate=${eventStartDate}&lDongRegnCd=${area.code}&lclsSystm1=EV`;
     try {
       const res = await fetchWithRetry(url);
       if (!res.ok) {
