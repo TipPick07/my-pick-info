@@ -69,8 +69,9 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
   if (!festival) return <div className="flex items-center justify-center h-screen font-bold text-slate-400">정보를 찾는 중...</div>;
 
   // 본문 텍스트가 있을 경우 첫 문장이나 일부를 인용구로 처리하기 위해 분리
-  const firstSentence = festival.description.split('.')[0] + '.';
-  const restDescription = festival.description.replace(firstSentence, '').trim();
+  const description = festival.description || '';
+  const firstSentence = description ? description.split('.')[0] + '.' : '';
+  const restDescription = description ? description.replace(firstSentence, '').trim() : '';
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">

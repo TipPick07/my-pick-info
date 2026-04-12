@@ -447,7 +447,8 @@ ${JSON.stringify(selectedData)}`
         title,
         date: dateStr,
         tag: '신규',
-        image: finalImageUrl
+        image: finalImageUrl,
+        description: fest.addr1 ? `${title} - ${fest.addr1}` : title
       };
 
       existingData.festivals.unshift(newFest);
