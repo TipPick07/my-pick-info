@@ -108,13 +108,13 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
 
           {/* 핵심 정보 박스 (가로형) */}
           <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 md:p-10 flex flex-col md:flex-row gap-8 md:gap-16">
-            <div className="flex items-center gap-5">
-              <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+            <div className="flex items-start gap-5">
+              <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 shrink-0">
                 <Clock className="w-6 h-6 text-indigo-600" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">행사 기간</p>
-                <p className="text-lg font-black text-slate-800">{festival.date}</p>
+                <p className="text-base font-black text-slate-800 break-keep leading-snug">{festival.date}</p>
               </div>
             </div>
             <div className="flex items-center gap-5">
