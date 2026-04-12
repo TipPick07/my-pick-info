@@ -45,13 +45,11 @@ export default function RootLayout({
     >
       <head>
         {/* Google AdSense */}
-        {process.env.NEXT_PUBLIC_ADSENSE_ID && process.env.NEXT_PUBLIC_ADSENSE_ID !== "나중에_입력" && (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
-            crossOrigin="anonymous"
-          />
-        )}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8471539268153543"
+          crossOrigin="anonymous"
+        />
         {/* Structured Data: WebSite */}
         <script
           type="application/ld+json"
