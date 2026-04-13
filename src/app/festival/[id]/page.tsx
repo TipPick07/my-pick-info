@@ -63,6 +63,11 @@ async function getFestival(id: string) {
   return data.festivals.find((f: Festival) => f.id === id);
 }
 
+function isValidUrl(url: string | undefined | null): boolean {
+  if (!url || typeof url !== 'string') return false;
+  return url.startsWith('http://') || url.startsWith('https://');
+}
+
 export default async function FestivalDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const festival = await getFestival(id);
@@ -162,18 +167,20 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
             </div>
           </section>
           <CoupangBanner />
-          {/* 하단 CTA 버튼 */}
-          <footer className="pt-4">
-            <a
-              href={(festival.link || "").startsWith('http') ? festival.link : `https://${festival.link || ""}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center justify-center gap-3 w-full bg-slate-900 hover:bg-indigo-600 text-white font-black text-xl px-8 py-6 rounded-[1.5rem] shadow-xl shadow-slate-100 hover:shadow-indigo-100 transition-all active:scale-[0.98]"
-            >
-              공식 홈페이지 방문하기
-              <ExternalLink className="w-6 h-6" />
-            </a>
-          </footer>
+          {/* 하단 CTA 버튼 — 유효한 URL이 있을 때만 렌더링 */}
+          {isValidUrl(festival.link) && (
+            <footer className="pt-4">
+              <a
+                href={festival.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-center gap-3 w-full bg-slate-900 hover:bg-indigo-600 text-white font-black text-xl px-8 py-6 rounded-[1.5rem] shadow-xl shadow-slate-100 hover:shadow-indigo-100 transition-all active:scale-[0.98]"
+              >
+                공식 홈페이지 방문하기
+                <ExternalLink className="w-6 h-6" />
+              </a>
+            </footer>
+          )}
 
         </article>
       </div>
