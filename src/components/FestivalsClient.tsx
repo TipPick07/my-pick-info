@@ -184,10 +184,10 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
   const todayKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
   todayKST.setHours(0, 0, 0, 0);
 
-  const filteredFestivals = sortFestivals(
+  const filteredFestivals = sortFestivals<Festival>(
     filter === "전체"
-      ? data.festivals
-      : data.festivals.filter((f: Festival) => f.region === filter)
+      ? (data.festivals as Festival[])
+      : (data.festivals as Festival[]).filter((f) => f.region === filter)
   );
 
   const totalPages = Math.ceil(filteredFestivals.length / ITEMS_PER_PAGE);
