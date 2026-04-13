@@ -105,8 +105,19 @@ function getPaginationRange(current: number, total: number): (number | '...')[] 
   return range;
 }
 
+type StatusFilter = "전체" | "진행중" | "예정" | "완료";
+
+function getFestivalStatus(dateStr: string, today: Date): "진행중" | "예정" | "완료" {
+  const { start, end } = parseFestivalDates(dateStr);
+  if (!start && !end) return "진행중"; // 상시
+  if (end && end < today) return "완료";
+  if (start && start > today) return "예정";
+  return "진행중";
+}
+
 export default function FestivalsClient({ data, weatherApiKey }: { data: any; weatherApiKey: string }) {
   const [filter, setFilter] = useState("전체");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("전체");
   const [currentPage, setCurrentPage] = useState(1);
   const [weatherResults, setWeatherResults] = useState<Record<string, WeatherData | null>>({
     "서울": null, "인천": null, "경기": null,
@@ -185,9 +196,11 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
   todayKST.setHours(0, 0, 0, 0);
 
   const filteredFestivals = sortFestivals<Festival>(
-    filter === "전체"
-      ? (data.festivals as Festival[])
-      : (data.festivals as Festival[]).filter((f) => f.region === filter)
+    (data.festivals as Festival[]).filter((f) => {
+      const regionOk = filter === "전체" || f.region === filter;
+      const statusOk = statusFilter === "전체" || getFestivalStatus(f.date, todayKST) === statusFilter;
+      return regionOk && statusOk;
+    })
   );
 
   const totalPages = Math.ceil(filteredFestivals.length / ITEMS_PER_PAGE);
@@ -201,7 +214,13 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
     setCurrentPage(1);
   };
 
+  const handleStatusChange = (s: StatusFilter) => {
+    setStatusFilter(s);
+    setCurrentPage(1);
+  };
+
   const regions = ["전체", "서울", "인천", "경기"];
+  const STATUS_OPTIONS: StatusFilter[] = ["전체", "진행중", "예정", "완료"];
   const WEATHER_REGIONS = ["서울", "인천", "경기"];
 
   return (
@@ -249,6 +268,21 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
                 {r}
               </button>
             ))}
+
+            {/* 진행 상태 드롭다운 */}
+            <div className="relative">
+              <select
+                value={statusFilter}
+                onChange={(e) => handleStatusChange(e.target.value as StatusFilter)}
+                className="appearance-none pl-4 pr-8 py-3 rounded-full text-sm font-bold bg-white text-slate-600 border border-slate-200/50 hover:bg-slate-50 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-200"
+                style={statusFilter !== "전체" ? { borderColor: "#00CCFF", color: "#00AACC" } : {}}
+              >
+                {STATUS_OPTIONS.map((s) => (
+                  <option key={s} value={s}>{s === "전체" ? "진행 상태" : s}</option>
+                ))}
+              </select>
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">▾</span>
+            </div>
           </div>
         </section>
 
@@ -368,7 +402,9 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
 
             {filteredFestivals.length === 0 && (
               <div className="col-span-full py-16 text-center text-slate-400 font-medium bg-slate-100 rounded-2xl border-2 border-dashed border-slate-200">
-                해당 지역의 예정된 행사가 없습니다.
+                {statusFilter !== "전체"
+                  ? `${filter === "전체" ? "수도권" : filter} 지역의 '${statusFilter}' 행사가 없습니다.`
+                  : "해당 지역의 예정된 행사가 없습니다."}
               </div>
             )}
           </div>

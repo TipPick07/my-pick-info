@@ -19,8 +19,16 @@ interface Data {
   benefits: Benefit[];
 }
 
-// deadline 문자열에서 마지막 날짜 파싱
-function parseDeadlineDate(deadline: string): Date | null {
+// ── 날짜 파싱 유틸 ────────────────────────────────────────────────────────────
+function parseStartDate(deadline: string): Date | null {
+  if (!deadline) return null;
+  const matches = [...deadline.matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)];
+  if (matches.length === 0) return null;
+  const first = matches[0];
+  return new Date(parseInt(first[1]), parseInt(first[2]) - 1, parseInt(first[3]));
+}
+
+function parseEndDate(deadline: string): Date | null {
   if (!deadline) return null;
   const matches = [...deadline.matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)];
   if (matches.length === 0) return null;
@@ -28,34 +36,55 @@ function parseDeadlineDate(deadline: string): Date | null {
   return new Date(parseInt(last[1]), parseInt(last[2]) - 1, parseInt(last[3]));
 }
 
-// D-Day 숫자 계산 (오늘 기준, 음수=만료)
-function calcDDay(deadline: string): number | null {
-  const date = parseDeadlineDate(deadline);
-  if (!date) return null;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return Math.ceil((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+function isBenefitAlways(deadline: string): boolean {
+  if (!deadline) return true;
+  return !/\d{4}[.\-\/]\d{1,2}[.\-\/]\d{1,2}/.test(deadline);
 }
 
-// 항목 상태 결정
-type Status = "urgent" | "active" | "always";
-function getStatus(b: Benefit): Status {
-  if (b.isEmergency) return "urgent";
-  const d = calcDDay(b.deadline);
-  if (d !== null && d >= 0 && d <= 7) return "urgent";
-  if (!b.deadline || b.deadline.includes("상시") || b.deadline.includes("매년") || b.deadline.includes("별도")) return "always";
-  return "active";
+type BenefitStatus = "상시" | "모집중" | "마감";
+
+function getBenefitStatus(deadline: string, today: Date): BenefitStatus {
+  if (isBenefitAlways(deadline)) return "상시";
+  const end = parseEndDate(deadline);
+  if (end && end < today) return "마감";
+  return "모집중";
 }
 
-// D-Day 라벨 텍스트
-function getDDayLabel(deadline: string): string | null {
-  const d = calcDDay(deadline);
-  if (d === null) return null;
-  if (d < 0) return "마감";
-  if (d === 0) return "D-DAY";
-  if (d <= 7) return `D-${d}`;
-  return null;
+// D-Day 숫자 계산
+function calcDDay(deadline: string, today: Date): number | null {
+  const end = parseEndDate(deadline);
+  if (!end) return null;
+  return Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 }
+
+// 정렬: 시작일 오름차순 → 종료일 오름차순 → 상시 마지막
+function sortBenefits(list: Benefit[]): Benefit[] {
+  return [...list].sort((a, b) => {
+    const aAlways = isBenefitAlways(a.deadline);
+    const bAlways = isBenefitAlways(b.deadline);
+    if (aAlways && !bAlways) return 1;
+    if (!aAlways && bAlways) return -1;
+    if (aAlways && bAlways) return 0;
+
+    const aStart = parseStartDate(a.deadline);
+    const bStart = parseStartDate(b.deadline);
+    if (aStart && bStart) {
+      const diff = aStart.getTime() - bStart.getTime();
+      if (diff !== 0) return diff;
+    } else if (aStart) return -1;
+    else if (bStart) return 1;
+
+    const aEnd = parseEndDate(a.deadline);
+    const bEnd = parseEndDate(b.deadline);
+    if (aEnd && bEnd) return aEnd.getTime() - bEnd.getTime();
+    if (aEnd) return -1;
+    if (bEnd) return 1;
+    return 0;
+  });
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
+type StatusFilter = "전체" | "상시" | "모집중" | "마감";
 
 const ITEMS_PER_PAGE = 20;
 
@@ -71,35 +100,42 @@ function getPaginationRange(current: number, total: number): (number | '...')[] 
 
 export default function BenefitsClient({ data }: { data: Data }) {
   const [filter, setFilter] = useState("전체");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("전체");
   const [currentPage, setCurrentPage] = useState(1);
   const regions = ["전체", "서울", "인천", "경기"];
+  const STATUS_OPTIONS: StatusFilter[] = ["전체", "상시", "모집중", "마감"];
 
-  // 필터링
-  const filtered =
-    filter === "전체"
-      ? data.benefits
-      : data.benefits.filter((b) => b.region === filter || b.region === "전국");
+  // KST 기준 오늘 날짜
+  const todayKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+  todayKST.setHours(0, 0, 0, 0);
 
-  // 정렬: urgent 먼저 → 날짜 빠른 순 → 나머지
-  const sorted = [...filtered].sort((a, b) => {
-    const as = getStatus(a);
-    const bs = getStatus(b);
-    if (as === "urgent" && bs !== "urgent") return -1;
-    if (as !== "urgent" && bs === "urgent") return 1;
-    const ad = parseDeadlineDate(a.deadline);
-    const bd = parseDeadlineDate(b.deadline);
-    if (ad && bd) return ad.getTime() - bd.getTime();
-    if (ad) return -1;
-    if (bd) return 1;
-    return 0;
+  // 지역 + 진행 상태 AND 필터
+  const filtered = data.benefits.filter((b) => {
+    const regionOk = filter === "전체" || b.region === filter || b.region === "전국";
+    const statusOk = statusFilter === "전체" || getBenefitStatus(b.deadline, todayKST) === statusFilter;
+    return regionOk && statusOk;
   });
+
+  const sorted = sortBenefits(filtered);
 
   const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
   const paginated = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-  const urgentCount = sorted.filter((b) => getStatus(b) === "urgent").length;
+
+  // 마감 임박 카운트 (모집중 + D-Day 7일 이내 또는 isEmergency)
+  const urgentCount = data.benefits.filter((b) => {
+    if (getBenefitStatus(b.deadline, todayKST) === "마감") return false;
+    if (b.isEmergency) return true;
+    const d = calcDDay(b.deadline, todayKST);
+    return d !== null && d >= 0 && d <= 7;
+  }).length;
 
   const handleFilterChange = (r: string) => {
     setFilter(r);
+    setCurrentPage(1);
+  };
+
+  const handleStatusChange = (s: StatusFilter) => {
+    setStatusFilter(s);
     setCurrentPage(1);
   };
 
@@ -138,7 +174,7 @@ export default function BenefitsClient({ data }: { data: Data }) {
             </div>
           )}
 
-          {/* 지역 필터 */}
+          {/* 지역 필터 + 진행 상태 드롭다운 */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
             {regions.map((r) => (
               <button
@@ -157,39 +193,49 @@ export default function BenefitsClient({ data }: { data: Data }) {
                 {r}
               </button>
             ))}
+
+            {/* 진행 상태 드롭다운 */}
+            <div className="relative">
+              <select
+                value={statusFilter}
+                onChange={(e) => handleStatusChange(e.target.value as StatusFilter)}
+                className="appearance-none pl-4 pr-8 py-2.5 rounded-full text-sm font-bold bg-white text-slate-600 border border-slate-200/50 hover:bg-slate-100 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-200"
+                style={statusFilter !== "전체" ? { borderColor: "#00CCFF", color: "#00AACC" } : {}}
+              >
+                {STATUS_OPTIONS.map((s) => (
+                  <option key={s} value={s}>{s === "전체" ? "진행 상태" : s}</option>
+                ))}
+              </select>
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">▾</span>
+            </div>
           </div>
         </section>
 
         {/* ── 리스트 ── */}
         <section className="space-y-2.5">
-          {paginated.length === 0 && sorted.length === 0 && (
+          {sorted.length === 0 && (
             <div className="py-20 text-center text-slate-400 font-medium bg-white rounded-3xl border-2 border-dashed border-slate-200">
-              해당 지역의 예정된 혜택이 없습니다.
+              {statusFilter !== "전체"
+                ? `${filter === "전체" ? "수도권" : filter} 지역의 '${statusFilter}' 지원금이 없습니다.`
+                : "해당 지역의 예정된 혜택이 없습니다."}
             </div>
           )}
 
           {paginated.map((b) => {
-            const status = getStatus(b);
-            const ddayLabel = getDDayLabel(b.deadline);
-            const isUrgent = status === "urgent";
-            const isAlways = status === "always";
-            // 필터 지역과 정확히 일치하는 항목 (전국 제외) 하이라이트
+            const benefitStatus = getBenefitStatus(b.deadline, todayKST);
+            const isExpired = benefitStatus === "마감";
+            const isAlways = benefitStatus === "상시";
+            const dday = calcDDay(b.deadline, todayKST);
+            const isUrgent = !isExpired && (b.isEmergency || (dday !== null && dday >= 0 && dday <= 7));
             const isLocalMatch = filter !== "전체" && b.region === filter;
 
-            return (
-              <Link
-                key={b.id}
-                href={`/benefit/${b.id}`}
-                className={`group flex items-stretch bg-white rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-0.5 ${isUrgent
-                    ? "border-rose-200 hover:shadow-[0_4px_20px_rgba(244,63,94,0.15)] hover:border-rose-300"
-                    : isLocalMatch
-                      ? "border-cyan-200 hover:shadow-[0_4px_20px_rgba(0,204,255,0.12)] hover:border-cyan-300"
-                      : "border-slate-100 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:border-slate-200"
-                  }`}
-              >
+            const cardContent = (
+              <>
                 {/* 왼쪽 강조 선 */}
                 <div
-                  className={`w-1 shrink-0 ${isUrgent
+                  className={`w-1 shrink-0 ${isExpired
+                    ? "bg-slate-300"
+                    : isUrgent
                       ? "bg-rose-500"
                       : isAlways
                         ? "bg-cyan-400"
@@ -198,32 +244,43 @@ export default function BenefitsClient({ data }: { data: Data }) {
                 />
 
                 {/* 카드 본문 */}
-                <div className={`flex items-center gap-4 flex-1 px-5 py-4 ${isUrgent ? "bg-rose-50/20" : isLocalMatch ? "bg-cyan-50/20" : ""}`}>
+                <div className={`flex items-center gap-4 flex-1 px-5 py-4 ${isUrgent && !isExpired ? "bg-rose-50/20" : isLocalMatch && !isExpired ? "bg-cyan-50/20" : ""}`}>
 
                   {/* 좌: 상태 배지 */}
                   <div className="shrink-0 w-20 flex flex-col items-center gap-1.5">
-                    <span
-                      className={`text-[10px] font-black px-2.5 py-1 rounded-full text-center w-full ${isUrgent
-                          ? "bg-rose-500 text-white"
-                          : isAlways
-                            ? "bg-cyan-100 text-cyan-700"
-                            : "bg-emerald-100 text-emerald-700"
-                        }`}
-                    >
-                      {isUrgent ? "마감임박" : isAlways ? "상시" : "모집중"}
-                    </span>
-
-                    {/* D-Day 배지 (7일 이내만) */}
-                    {ddayLabel && (
-                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-rose-600 text-white animate-pulse w-full text-center">
-                        {ddayLabel}
+                    {isExpired ? (
+                      <span className="text-[10px] font-black px-2.5 py-1 rounded-full text-center w-full bg-slate-500 text-white">
+                        종료
                       </span>
+                    ) : (
+                      <>
+                        <span
+                          className={`text-[10px] font-black px-2.5 py-1 rounded-full text-center w-full ${isUrgent
+                              ? "bg-rose-500 text-white"
+                              : isAlways
+                                ? "bg-cyan-100 text-cyan-700"
+                                : "bg-emerald-100 text-emerald-700"
+                            }`}
+                        >
+                          {isUrgent ? "마감임박" : isAlways ? "상시" : "모집중"}
+                        </span>
+                        {/* D-Day 배지 (7일 이내만) */}
+                        {dday !== null && dday >= 0 && dday <= 7 && (
+                          <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-rose-600 text-white animate-pulse w-full text-center">
+                            {dday === 0 ? "D-DAY" : `D-${dday}`}
+                          </span>
+                        )}
+                      </>
                     )}
                   </div>
 
                   {/* 중: 제목 + 요약 */}
                   <div className="flex-1 min-w-0 space-y-0.5">
-                    <h4 className={`font-black leading-snug line-clamp-2 text-sm md:text-base transition-colors ${isUrgent ? "text-slate-900 group-hover:text-rose-600" : "text-slate-900 group-hover:text-cyan-600"
+                    <h4 className={`font-black leading-snug line-clamp-2 text-sm md:text-base transition-colors ${isExpired
+                        ? "text-slate-400"
+                        : isUrgent
+                          ? "text-slate-900 group-hover:text-rose-600"
+                          : "text-slate-900 group-hover:text-cyan-600"
                       }`}>
                       {b.title}
                     </h4>
@@ -244,18 +301,43 @@ export default function BenefitsClient({ data }: { data: Data }) {
                       {b.region}
                     </span>
                     <span
-                      className={`block text-[10px] font-bold ${isUrgent ? "text-rose-600" : "text-slate-400"
-                        }`}
+                      className={`block text-[10px] font-bold ${isExpired ? "text-slate-400" : isUrgent ? "text-rose-600" : "text-slate-400"}`}
                     >
                       {b.deadline}
                     </span>
                   </div>
 
                   {/* 화살표 */}
-                  <div className="shrink-0 text-slate-300 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all text-sm">
+                  <div className={`shrink-0 text-sm transition-all ${isExpired ? "text-slate-200" : "text-slate-300 group-hover:text-cyan-400 group-hover:translate-x-0.5"}`}>
                     →
                   </div>
                 </div>
+              </>
+            );
+
+            if (isExpired) {
+              return (
+                <div
+                  key={b.id}
+                  className="flex items-stretch bg-white rounded-2xl overflow-hidden border border-slate-100 opacity-50 cursor-not-allowed select-none"
+                >
+                  {cardContent}
+                </div>
+              );
+            }
+
+            return (
+              <Link
+                key={b.id}
+                href={`/benefit/${b.id}`}
+                className={`group flex items-stretch bg-white rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-0.5 ${isUrgent
+                    ? "border-rose-200 hover:shadow-[0_4px_20px_rgba(244,63,94,0.15)] hover:border-rose-300"
+                    : isLocalMatch
+                      ? "border-cyan-200 hover:shadow-[0_4px_20px_rgba(0,204,255,0.12)] hover:border-cyan-300"
+                      : "border-slate-100 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:border-slate-200"
+                  }`}
+              >
+                {cardContent}
               </Link>
             );
           })}

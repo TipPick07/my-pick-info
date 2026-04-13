@@ -19,15 +19,15 @@ export default function CoupangBanner() {
   ].join('');
 
   return (
-    <div className="my-4 w-full">
+    <div className="my-6 bg-white rounded-[40px] shadow-sm border border-slate-100 overflow-hidden p-6">
       <iframe
         srcDoc={html}
         width="100%"
         height="160"
-        style={{ border: 'none', display: 'block', overflow: 'hidden' }}
+        style={{ border: 'none', display: 'block', overflow: 'hidden', borderRadius: '16px' }}
         title="쿠팡 파트너스 배너"
       />
-      <p className="mt-2 text-center text-[10px] text-gray-400">
+      <p className="mt-3 text-center text-[10px] text-gray-400">
         이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
       </p>
     </div>

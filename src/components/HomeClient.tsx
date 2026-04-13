@@ -40,6 +40,22 @@ interface Data {
   benefits: Benefit[];
 }
 
+// ── 지원금 만료 체크 ─────────────────────────────────────────────────────────
+function parseBenefitEndDate(deadline: string): Date | null {
+  if (!deadline) return null;
+  const matches = [...deadline.matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)];
+  if (matches.length === 0) return null;
+  const last = matches[matches.length - 1];
+  return new Date(parseInt(last[1]), parseInt(last[2]) - 1, parseInt(last[3]));
+}
+
+function isBenefitExpired(deadline: string, today: Date): boolean {
+  const end = parseBenefitEndDate(deadline);
+  if (!end) return false; // 상시 등 날짜 없으면 미만료
+  return end < today;
+}
+// ────────────────────────────────────────────────────────────────────────────
+
 // ── 축제 날짜 유틸 ──────────────────────────────────────────────────────────
 function parseFestivalDates(dateStr: string): { start: Date | null; end: Date | null } {
   if (!dateStr || dateStr === '상시') return { start: null, end: null };
@@ -83,9 +99,12 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
       .filter((f: Festival) => !isFestivalExpired(f.date, todayKST))
   );
 
-  const filteredBenefits = filter === "전체"
+  // 마감된 지원금 제외 후 최신 5개 (배열 뒤쪽 = 최근 등록)
+  const filteredBenefits = (filter === "전체"
     ? data.benefits
-    : data.benefits.filter(b => b.region === filter || b.region === "전국");
+    : data.benefits.filter(b => b.region === filter || b.region === "전국"))
+    .filter(b => !isBenefitExpired(b.deadline, todayKST))
+    .slice(-5);
 
   const regions = ["전체", "서울", "인천", "경기"];
 
@@ -268,7 +287,7 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
               </Link>
             </div>
             <div className="space-y-3">
-              {filteredBenefits.slice(0, 5).map((b) => (
+              {filteredBenefits.map((b) => (
                 <Link
                   key={b.id}
                   href={`/benefit/${b.id}`}
