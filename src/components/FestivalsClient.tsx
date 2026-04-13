@@ -79,10 +79,26 @@ function isFestivalExpired(dateStr: string, today: Date): boolean {
   return end < today;
 }
 
-function sortFestivals<T extends { date: string }>(list: T[]): T[] {
+function sortFestivals<T extends { date: string }>(list: T[], today: Date): T[] {
   return [...list].sort((a, b) => {
+    const aExpired = isFestivalExpired(a.date, today);
+    const bExpired = isFestivalExpired(b.date, today);
+
+    // 1순위: 완료 그룹은 맨 뒤로
+    if (aExpired && !bExpired) return 1;
+    if (!aExpired && bExpired) return -1;
+
     const { start: aS, end: aE } = parseFestivalDates(a.date);
     const { start: bS, end: bE } = parseFestivalDates(b.date);
+
+    if (aExpired && bExpired) {
+      // 3순위: 완료 그룹 내에서는 종료일 최신순(내림차순)
+      const aEnd = aE ? aE.getTime() : 0;
+      const bEnd = bE ? bE.getTime() : 0;
+      return bEnd - aEnd;
+    }
+
+    // 2순위: 진행중/예정 그룹 내에서 시작일 오름차순 → 종료일 오름차순
     const aStart = aS ? aS.getTime() : Infinity;
     const bStart = bS ? bS.getTime() : Infinity;
     if (aStart !== bStart) return aStart - bStart;
@@ -93,7 +109,7 @@ function sortFestivals<T extends { date: string }>(list: T[]): T[] {
 }
 // ────────────────────────────────────────────────────────────────────────────
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 10;
 
 function getPaginationRange(current: number, total: number): (number | '...')[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
@@ -200,7 +216,8 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
       const regionOk = filter === "전체" || f.region === filter;
       const statusOk = statusFilter === "전체" || getFestivalStatus(f.date, todayKST) === statusFilter;
       return regionOk && statusOk;
-    })
+    }),
+    todayKST
   );
 
   const totalPages = Math.ceil(filteredFestivals.length / ITEMS_PER_PAGE);
