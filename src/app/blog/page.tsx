@@ -57,7 +57,9 @@ export default function BlogListPage() {
 
         {/* Blog List — 가로형 1열 리스트 (10개씩 페이징) */}
         <BlogListClient posts={posts} />
-        <CoupangBanner />
+        <div className="max-w-3xl mx-auto">
+          <CoupangBanner />
+        </div>
       </main>
 
       <Footer />
