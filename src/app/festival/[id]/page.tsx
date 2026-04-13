@@ -74,10 +74,11 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
 
   if (!festival) return <div className="flex items-center justify-center h-screen font-bold text-slate-400">정보를 찾는 중...</div>;
 
-  // 본문 텍스트가 있을 경우 첫 문장이나 일부를 인용구로 처리하기 위해 분리
+  // 본문 텍스트 분리 (설명 유무와 버튼 로직은 완전히 독립)
   const description = festival.description || '';
-  const firstSentence = description ? description.split('.')[0] + '.' : '';
-  const restDescription = description ? description.replace(firstSentence, '').trim() : '';
+  const hasDescription = description.trim().length > 0;
+  const firstSentence = hasDescription ? description.split('.')[0] + '.' : '';
+  const restDescription = hasDescription ? description.replace(firstSentence, '').trim() : '';
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
@@ -133,16 +134,21 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
             </div>
           </section>
 
-          {/* 본문 (상세 설명) */}
+          {/* 본문 (상세 설명) — 버튼 로직과 완전 독립 렌더링 */}
           <section className="text-lg font-medium text-slate-700 leading-[1.8] space-y-10">
-            {/* 인용구 스타일 */}
-            <div className="border-l-4 border-indigo-500 pl-6 my-10">
-              <p className="text-2xl font-black text-slate-900 leading-snug">
-                {firstSentence}
-              </p>
-            </div>
-
-            <p>{restDescription}</p>
+            {hasDescription ? (
+              <>
+                {/* 인용구 스타일 */}
+                <div className="border-l-4 border-indigo-500 pl-6 my-10">
+                  <p className="text-2xl font-black text-slate-900 leading-snug">
+                    {firstSentence}
+                  </p>
+                </div>
+                {restDescription && <p>{restDescription}</p>}
+              </>
+            ) : (
+              <p className="text-slate-400 italic">주최 측에서 제공한 상세 설명이 없습니다.</p>
+            )}
 
             {/* 추천 포인트 강조 박스 */}
             <div className="bg-gradient-to-br from-indigo-50/50 to-white p-8 md:p-12 rounded-[2.5rem] border border-indigo-100/50 my-12 shadow-sm space-y-8">
@@ -167,9 +173,9 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
             </div>
           </section>
           <CoupangBanner />
-          {/* 하단 CTA 버튼 — 유효한 URL이 있을 때만 렌더링 */}
-          {isValidUrl(festival.link) && (
-            <footer className="pt-4">
+          {/* 하단 CTA 버튼 — 항상 렌더링 (URL 유효 시 공식 링크, 아니면 네이버 검색) */}
+          <footer className="pt-4">
+            {isValidUrl(festival.link) ? (
               <a
                 href={festival.link}
                 target="_blank"
@@ -179,8 +185,18 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
                 공식 홈페이지 방문하기
                 <ExternalLink className="w-6 h-6" />
               </a>
-            </footer>
-          )}
+            ) : (
+              <a
+                href={`https://search.naver.com/search.naver?query=${encodeURIComponent(festival.title)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-center gap-3 w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-black text-xl px-8 py-6 rounded-[1.5rem] transition-all active:scale-[0.98]"
+              >
+                🔍 네이버에서 상세 정보 검색하기
+                <ExternalLink className="w-6 h-6" />
+              </a>
+            )}
+          </footer>
 
         </article>
       </div>
