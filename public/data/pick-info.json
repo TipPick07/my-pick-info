@@ -2,21 +2,21 @@
   "weather": [
     {
       "region": "서울",
-      "temp": "11°",
+      "temp": "25°",
       "status": "맑음",
       "icon": "☀️"
     },
     {
       "region": "인천",
-      "temp": "11°",
-      "status": "맑음",
-      "icon": "☀️"
+      "temp": "21°",
+      "status": "구름 조금",
+      "icon": "⛅"
     },
     {
       "region": "경기",
-      "temp": "10°",
-      "status": "맑음",
-      "icon": "☀️"
+      "temp": "24°",
+      "status": "구름 조금",
+      "icon": "⛅"
     }
   ],
   "festivals": [
@@ -266,6 +266,74 @@
     }
   ],
   "benefits": [
+    {
+      "id": "876543210",
+      "region": "전국",
+      "title": "중장년 경력지원제",
+      "target": "퇴직 후 경력전환을 위해 자격을 취득했거나 직업훈련을 이수한 50세 이상 중장년 및 고용보험 피보험자수 5인 이상 기업",
+      "deadline": "상시신청",
+      "image": "/images/blogs/korea-welfare-benefit-537.png",
+      "isEmergency": false,
+      "details": "퇴직한 중장년이 경력전환형 일경험, 직무교육, 멘토링 등을 지원받아 새로운 경력을 쌓을 수 있도록 돕는 프로그램입니다.",
+      "link": "https://www.gov.kr/portal/rcvfvrSvc/dtlEx/149200005029",
+      "requirements": [
+        "지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."
+      ],
+      "howToApply": [
+        "방문신청",
+        "직접입력"
+      ],
+      "eligibilityQuiz": [
+        "만 50세 이상 중장년이신가요?",
+        "퇴직 후 경력전환을 위해 자격을 취득했거나 직업훈련을 이수하셨나요?"
+      ],
+      "tip": "경력전환을 희망하는 중장년층이라면 이 프로그램을 통해 실무 경험과 멘토링을 받아보세요!"
+    },
+    {
+      "id": "78912345",
+      "region": "전국",
+      "title": "중장년내일센터",
+      "target": "40대 이상 중장년 구직자, 재직자(퇴직예정자) 및 중장년 고용예정 사업주",
+      "deadline": "상시",
+      "image": "/images/blogs/korea-welfare-benefit-93.png",
+      "isEmergency": false,
+      "details": "40대 이상 중장년에게 생애경력설계 프로그램, 재취업 및 전직지원서비스 등을 제공하여 성공적인 제2의 근로생애를 지원합니다.",
+      "link": "https://www.gov.kr/portal/rcvfvrSvc/dtlEx/149200000041",
+      "requirements": [
+        "지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."
+      ],
+      "howToApply": [
+        "온라인 신청",
+        "방문 신청"
+      ],
+      "eligibilityQuiz": [
+        "현재 40대 이상 중장년이신가요?",
+        "구직자, 재직자 또는 퇴직예정자에 해당하시나요?"
+      ],
+      "tip": "생애 경력 설계와 재취업 지원이 필요하다면 중장년내일센터에 문의하여 맞춤형 서비스를 받아보세요!"
+    },
+    {
+      "id": "876543210",
+      "region": "전국",
+      "title": "전남형 신중년 희망 일자리장려금 지원",
+      "target": "도내 중소기업(시군별 공고를 통해 선정)에 취직한 만 46세 이상 65세 미만 중장년취업자",
+      "deadline": "접수기관 별 상이",
+      "image": "/images/blogs/korea-welfare-benefit-261.png",
+      "isEmergency": false,
+      "details": "전라남도 내 중소기업에 취업한 만 46세 이상 65세 미만 중장년에게 일자리장려금 지급",
+      "link": "https://www.gov.kr/portal/rcvfvrSvc/dtlEx/646000000148",
+      "requirements": [
+        "지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."
+      ],
+      "howToApply": [
+        "방문신청"
+      ],
+      "eligibilityQuiz": [
+        "현재 만 46세 이상 65세 미만이신가요?",
+        "전라남도 내 중소기업에 취업하셨나요?"
+      ],
+      "tip": "신청 전 거주지 시/군 공고를 확인하고, 궁금한 점은 해당 시/군 담당 부서에 문의해 보세요."
+    },
     {
       "id": "169283745678",
       "region": "전국",
