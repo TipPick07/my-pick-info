@@ -26,6 +26,8 @@ interface Festival {
   date: string;
   tag: string;
   image: string;
+  location?: string;
+  description?: string;
 }
 
 const REGION_COORDS: Record<string, { lat: number; lon: number }> = {
@@ -359,16 +361,23 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
           </div>
         </section>
 
-        {/* ── 축제 4열 그리드 ── */}
+        {/* ── 축제 가로형 리스트 ── */}
         <section>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-sans">
+          <div className="flex flex-col gap-4 font-sans">
             {paginatedFestivals.map((f: Festival) => {
               const expired = isFestivalExpired(f.date, todayKST);
+              const status = getFestivalStatus(f.date, todayKST);
+              const statusColor: Record<string, string> = {
+                "진행중": "#22c55e",
+                "예정": "#00AACC",
+                "완료": "#94a3b8",
+              };
 
               if (expired) {
                 return (
-                  <div key={f.id} className="cursor-not-allowed opacity-50 select-none">
-                    <div className="relative overflow-hidden rounded-2xl mb-2.5 bg-slate-200" style={{ aspectRatio: "21/9" }}>
+                  <div key={f.id} className="cursor-not-allowed opacity-50 select-none bg-white rounded-2xl border border-slate-100 overflow-hidden flex flex-col md:flex-row">
+                    {/* 이미지 */}
+                    <div className="relative w-full md:w-64 md:shrink-0 bg-slate-200 overflow-hidden" style={{ aspectRatio: "16/9" }}>
                       <img
                         src={f.image || "https://tip-pick.com/images/branded_placeholder.png"}
                         alt={f.title}
@@ -378,47 +387,61 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
                         }}
                       />
                       <div className="absolute inset-0 bg-slate-900/30" />
-                      <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-full text-[9px] font-black shadow-sm" style={{ color: "#00CCFF" }}>
-                        {f.region}
-                      </div>
                       <div className="absolute top-2 right-2 bg-slate-700/90 px-2 py-0.5 rounded-full text-[9px] font-black text-white shadow-sm">
                         종료
                       </div>
                     </div>
-                    <h4 className="text-sm font-black text-slate-400 line-clamp-2 leading-snug mb-1">{f.title}</h4>
-                    <p className="text-slate-300 text-xs font-medium flex items-center gap-1">📅 {f.date}</p>
+                    {/* 텍스트 */}
+                    <div className="flex-1 p-5 flex flex-col justify-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-slate-100 text-slate-400">{f.region}</span>
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-slate-100 text-slate-400">{f.tag}</span>
+                      </div>
+                      <h4 className="text-base font-black text-slate-400 leading-snug">{f.title}</h4>
+                      <p className="text-slate-300 text-xs font-medium flex items-center gap-1">📅 {f.date}</p>
+                      <p className="text-slate-300 text-xs font-medium flex items-center gap-1">📍 {f.location || f.region}</p>
+                    </div>
                   </div>
                 );
               }
 
               return (
-                <Link key={f.id} href={`/festival/${f.id}`} className="group cursor-pointer">
-                  <div className="relative overflow-hidden rounded-2xl mb-2.5 bg-slate-200" style={{ aspectRatio: "21/9" }}>
+                <Link key={f.id} href={`/festival/${f.id}`} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden flex flex-col md:flex-row hover:border-cyan-200 hover:shadow-md transition-all duration-300">
+                  {/* 이미지 */}
+                  <div className="relative w-full md:w-64 md:shrink-0 bg-slate-200 overflow-hidden" style={{ aspectRatio: "16/9" }}>
                     <img
                       src={f.image || "https://tip-pick.com/images/branded_placeholder.png"}
                       alt={f.title}
-                      className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).src = "https://tip-pick.com/images/branded_placeholder.png";
                       }}
                     />
-                    <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-full text-[9px] font-black shadow-sm" style={{ color: "#00CCFF" }}>
-                      {f.region}
-                    </div>
-                    <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded-full text-[9px] font-black text-white shadow-sm" style={{ background: "#00CCFF" }}>
-                      {f.tag}
+                    <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-black text-white shadow-sm" style={{ background: statusColor[status] }}>
+                      {status}
                     </div>
                   </div>
-                  <h4 className="text-sm font-black text-slate-900 line-clamp-2 leading-snug mb-1 group-hover:text-[#00CCFF] transition-colors">
-                    {f.title}
-                  </h4>
-                  <p className="text-slate-400 text-xs font-medium flex items-center gap-1">📅 {f.date}</p>
+                  {/* 텍스트 */}
+                  <div className="flex-1 p-5 flex flex-col justify-center gap-2.5">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-slate-100 text-slate-600">{f.region}</span>
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black text-white shadow-sm" style={{ background: "#00CCFF" }}>{f.tag}</span>
+                    </div>
+                    <h4 className="text-base md:text-lg font-black text-slate-900 leading-snug group-hover:text-[#00CCFF] transition-colors">
+                      {f.title}
+                    </h4>
+                    {f.description && (
+                      <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">{f.description}</p>
+                    )}
+                    <p className="text-slate-500 text-sm font-medium flex items-center gap-1">📅 {f.date}</p>
+                    <p className="text-slate-500 text-sm font-medium flex items-center gap-1">📍 {f.location || f.region}</p>
+                  </div>
                 </Link>
               );
             })}
 
             {filteredFestivals.length === 0 && (
-              <div className="col-span-full py-16 text-center text-slate-400 font-medium bg-slate-100 rounded-2xl border-2 border-dashed border-slate-200">
+              <div className="py-16 text-center text-slate-400 font-medium bg-slate-100 rounded-2xl border-2 border-dashed border-slate-200">
                 {statusFilter !== "전체"
                   ? `${filter === "전체" ? "수도권" : filter} 지역의 '${statusFilter}' 행사가 없습니다.`
                   : "해당 지역의 예정된 행사가 없습니다."}
