@@ -183,7 +183,7 @@ async function fetchBokjiroCentral(apiKey) {
     const url = `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${apiKey}&callTp=L&pageNo=1&numOfRows=5&lifeArray=${code}&_type=json`;
     try {
       const res = await fetchWithRetry(url);
-      if (!res.ok) { console.warn(`[복지로중앙:${code}] HTTP ${res.status}`); continue; }
+      if (!res.ok) { const errBody = await res.text(); console.warn(`[복지로중앙:${code}] HTTP ${res.status} - ${errBody.substring(0, 300)}`); continue; }
       const json = await res.json();
       const items = extractItems(json);
       for (const item of items) {
@@ -212,7 +212,7 @@ async function fetchBokjiroLocal(apiKey) {
       const url = `https://apis.data.go.kr/B554287/LocalWelfareService2/getLocalWelfareSrvList?serviceKey=${apiKey}&pageNo=1&numOfRows=5&lifeArray=${lc}&ctpvNm=${encodeURIComponent(region)}&_type=json`;
       try {
         const res = await fetchWithRetry(url);
-        if (!res.ok) { console.warn(`[복지로지자체:${lc}/${region}] HTTP ${res.status}`); continue; }
+        if (!res.ok) { const errBody = await res.text(); console.warn(`[복지로지자체:${lc}/${region}] HTTP ${res.status} - ${errBody.substring(0, 300)}`); continue; }
         const json = await res.json();
         const items = extractItems(json);
         for (const item of items) {
@@ -238,7 +238,7 @@ async function fetchBizinfo(apiKey) {
   const url = `https://apis.data.go.kr/1421000/mssBizService_v2/getbizList_v2?serviceKey=${apiKey}&pageNo=1&numOfRows=10&returnType=JSON`;
   try {
     const res = await fetchWithRetry(url);
-    if (!res.ok) { console.warn(`[기업마당] HTTP ${res.status}`); return results; }
+    if (!res.ok) { const errBody = await res.text(); console.warn(`[기업마당] HTTP ${res.status} - ${errBody.substring(0, 300)}`); return results; }
     const json = await res.json();
     const items = extractItems(json);
     for (const item of items) {
