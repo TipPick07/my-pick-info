@@ -3,7 +3,7 @@ const path = require('path');
 const fallbacks = require('../src/lib/image-fallbacks.json');
 
 // 블로그 주제 우선 선정 키워드
-const TARGET_KEYWORDS = ['중장년', '노후', '연금', '소상공인', '정부지원금', '건강보험', '세액공제'];
+const TARGET_KEYWORDS = ['중장년', '노후준비', '노후대비', '노후설계', '연금', '소상공인', '정부지원금', '건강보험', '세액공제'];
 
 async function main() {
   try {

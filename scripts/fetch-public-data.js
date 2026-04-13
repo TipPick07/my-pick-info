@@ -142,7 +142,7 @@ async function fetchFestivalData(apiKey) {
 }
 
 // 지원금 우선 수집 키워드
-const TARGET_KEYWORDS = ['중장년', '노후', '연금', '소상공인', '정부지원금', '건강보험', '세액공제'];
+const TARGET_KEYWORDS = ['중장년', '노후준비', '노후대비', '노후설계', '연금', '소상공인', '정부지원금', '건강보험', '세액공제'];
 
 // 키워드 기반 gov24 지원금 검색
 async function fetchBenefitsByKeyword(apiKey, keyword) {
