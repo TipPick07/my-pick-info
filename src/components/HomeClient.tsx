@@ -40,12 +40,48 @@ interface Data {
   benefits: Benefit[];
 }
 
+// ── 축제 날짜 유틸 ──────────────────────────────────────────────────────────
+function parseFestivalDates(dateStr: string): { start: Date | null; end: Date | null } {
+  if (!dateStr || dateStr === '상시') return { start: null, end: null };
+  const parts = dateStr.split('~');
+  const parse = (s: string) => {
+    const m = s.trim().match(/(\d{4})\.(\d{1,2})\.(\d{1,2})/);
+    return m ? new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3])) : null;
+  };
+  return { start: parse(parts[0]), end: parse(parts[parts.length - 1]) };
+}
+
+function isFestivalExpired(dateStr: string, today: Date): boolean {
+  const { end } = parseFestivalDates(dateStr);
+  if (!end) return false;
+  return end < today;
+}
+
+function sortFestivals<T extends { date: string }>(list: T[]): T[] {
+  return [...list].sort((a, b) => {
+    const { start: aS, end: aE } = parseFestivalDates(a.date);
+    const { start: bS, end: bE } = parseFestivalDates(b.date);
+    const aStart = aS ? aS.getTime() : Infinity;
+    const bStart = bS ? bS.getTime() : Infinity;
+    if (aStart !== bStart) return aStart - bStart;
+    const aEnd = aE ? aE.getTime() : Infinity;
+    const bEnd = bE ? bE.getTime() : Infinity;
+    return aEnd - bEnd;
+  });
+}
+// ────────────────────────────────────────────────────────────────────────────
+
 export default function HomeClient({ data, posts, weatherApiKey }: { data: Data, posts: PostData[], weatherApiKey: string }) {
   const [filter, setFilter] = useState("전체");
 
-  const filteredFestivals = filter === "전체"
-    ? data.festivals
-    : data.festivals.filter(f => f.region === filter);
+  // KST 기준 오늘 날짜
+  const todayKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+  todayKST.setHours(0, 0, 0, 0);
+
+  const filteredFestivals = sortFestivals(
+    (filter === "전체" ? data.festivals : data.festivals.filter(f => f.region === filter))
+      .filter((f: Festival) => !isFestivalExpired(f.date, todayKST))
+  );
 
   const filteredBenefits = filter === "전체"
     ? data.benefits

@@ -62,6 +62,37 @@ function getWeatherIcon(code: number): LucideIcon {
   return Cloud;
 }
 
+// ── 축제 날짜 유틸 ──────────────────────────────────────────────────────────
+function parseFestivalDates(dateStr: string): { start: Date | null; end: Date | null } {
+  if (!dateStr || dateStr === '상시') return { start: null, end: null };
+  const parts = dateStr.split('~');
+  const parse = (s: string) => {
+    const m = s.trim().match(/(\d{4})\.(\d{1,2})\.(\d{1,2})/);
+    return m ? new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3])) : null;
+  };
+  return { start: parse(parts[0]), end: parse(parts[parts.length - 1]) };
+}
+
+function isFestivalExpired(dateStr: string, today: Date): boolean {
+  const { end } = parseFestivalDates(dateStr);
+  if (!end) return false;
+  return end < today;
+}
+
+function sortFestivals<T extends { date: string }>(list: T[]): T[] {
+  return [...list].sort((a, b) => {
+    const { start: aS, end: aE } = parseFestivalDates(a.date);
+    const { start: bS, end: bE } = parseFestivalDates(b.date);
+    const aStart = aS ? aS.getTime() : Infinity;
+    const bStart = bS ? bS.getTime() : Infinity;
+    if (aStart !== bStart) return aStart - bStart;
+    const aEnd = aE ? aE.getTime() : Infinity;
+    const bEnd = bE ? bE.getTime() : Infinity;
+    return aEnd - bEnd;
+  });
+}
+// ────────────────────────────────────────────────────────────────────────────
+
 const ITEMS_PER_PAGE = 20;
 
 function getPaginationRange(current: number, total: number): (number | '...')[] {
@@ -149,10 +180,15 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
     fetchAllWeather();
   }, []);
 
-  const filteredFestivals =
+  // KST 기준 오늘 날짜
+  const todayKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+  todayKST.setHours(0, 0, 0, 0);
+
+  const filteredFestivals = sortFestivals(
     filter === "전체"
       ? data.festivals
-      : data.festivals.filter((f: Festival) => f.region === filter);
+      : data.festivals.filter((f: Festival) => f.region === filter)
+  );
 
   const totalPages = Math.ceil(filteredFestivals.length / ITEMS_PER_PAGE);
   const paginatedFestivals = filteredFestivals.slice(
@@ -275,44 +311,60 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
         {/* ── 축제 4열 그리드 ── */}
         <section>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-sans">
-            {paginatedFestivals.map((f: Festival) => (
-              <Link key={f.id} href={`/festival/${f.id}`} className="group cursor-pointer">
-                {/* 이미지 — 21:9 슬림 비율 */}
-                <div className="relative overflow-hidden rounded-2xl mb-2.5 bg-slate-200" style={{ aspectRatio: "21/9" }}>
-                  <img
-                    src={f.image || "https://tip-pick.com/images/branded_placeholder.png"}
-                    alt={f.title}
-                    className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src =
-                        "https://tip-pick.com/images/branded_placeholder.png";
-                    }}
-                  />
-                  <div
-                    className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-full text-[9px] font-black shadow-sm"
-                    style={{ color: "#00CCFF" }}
-                  >
-                    {f.region}
-                  </div>
-                  <div
-                    className="absolute bottom-2 right-2 px-2 py-0.5 rounded-full text-[9px] font-black text-white shadow-sm"
-                    style={{ background: "#00CCFF" }}
-                  >
-                    {f.tag}
-                  </div>
-                </div>
+            {paginatedFestivals.map((f: Festival) => {
+              const expired = isFestivalExpired(f.date, todayKST);
 
-                {/* 텍스트 */}
-                <h4
-                  className="text-sm font-black text-slate-900 line-clamp-2 leading-snug mb-1 group-hover:text-[#00CCFF] transition-colors"
-                >
-                  {f.title}
-                </h4>
-                <p className="text-slate-400 text-xs font-medium flex items-center gap-1">
-                  📅 {f.date}
-                </p>
-              </Link>
-            ))}
+              if (expired) {
+                return (
+                  <div key={f.id} className="cursor-not-allowed opacity-50 select-none">
+                    <div className="relative overflow-hidden rounded-2xl mb-2.5 bg-slate-200" style={{ aspectRatio: "21/9" }}>
+                      <img
+                        src={f.image || "https://tip-pick.com/images/branded_placeholder.png"}
+                        alt={f.title}
+                        className="object-cover w-full h-full grayscale"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = "https://tip-pick.com/images/branded_placeholder.png";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-slate-900/30" />
+                      <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-full text-[9px] font-black shadow-sm" style={{ color: "#00CCFF" }}>
+                        {f.region}
+                      </div>
+                      <div className="absolute top-2 right-2 bg-slate-700/90 px-2 py-0.5 rounded-full text-[9px] font-black text-white shadow-sm">
+                        종료
+                      </div>
+                    </div>
+                    <h4 className="text-sm font-black text-slate-400 line-clamp-2 leading-snug mb-1">{f.title}</h4>
+                    <p className="text-slate-300 text-xs font-medium flex items-center gap-1">📅 {f.date}</p>
+                  </div>
+                );
+              }
+
+              return (
+                <Link key={f.id} href={`/festival/${f.id}`} className="group cursor-pointer">
+                  <div className="relative overflow-hidden rounded-2xl mb-2.5 bg-slate-200" style={{ aspectRatio: "21/9" }}>
+                    <img
+                      src={f.image || "https://tip-pick.com/images/branded_placeholder.png"}
+                      alt={f.title}
+                      className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = "https://tip-pick.com/images/branded_placeholder.png";
+                      }}
+                    />
+                    <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-full text-[9px] font-black shadow-sm" style={{ color: "#00CCFF" }}>
+                      {f.region}
+                    </div>
+                    <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded-full text-[9px] font-black text-white shadow-sm" style={{ background: "#00CCFF" }}>
+                      {f.tag}
+                    </div>
+                  </div>
+                  <h4 className="text-sm font-black text-slate-900 line-clamp-2 leading-snug mb-1 group-hover:text-[#00CCFF] transition-colors">
+                    {f.title}
+                  </h4>
+                  <p className="text-slate-400 text-xs font-medium flex items-center gap-1">📅 {f.date}</p>
+                </Link>
+              );
+            })}
 
             {filteredFestivals.length === 0 && (
               <div className="col-span-full py-16 text-center text-slate-400 font-medium bg-slate-100 rounded-2xl border-2 border-dashed border-slate-200">

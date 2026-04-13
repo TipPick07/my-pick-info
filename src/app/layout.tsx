@@ -26,6 +26,11 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     type: "website",
   },
+  icons: {
+    icon: '/images/logo-tippick.png',
+    shortcut: '/images/logo-tippick.png',
+    apple: '/images/logo-tippick.png',
+  },
   verification: {
     google: "saxx0TmyMt0GPQutygmlIFVX649KYJY1Db3lAbfBx9c",
     other: {
