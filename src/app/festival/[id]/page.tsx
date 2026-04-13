@@ -172,7 +172,6 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
               </ul>
             </div>
           </section>
-          <CoupangBanner />
           {/* 하단 CTA 버튼 — 항상 렌더링 (URL 유효 시 공식 링크, 아니면 네이버 검색) */}
           <footer className="pt-4">
             {isValidUrl(festival.link) ? (
@@ -199,6 +198,7 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
           </footer>
 
         </article>
+        <CoupangBanner />
       </div>
 
       <Footer />
