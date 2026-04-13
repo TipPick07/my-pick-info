@@ -141,22 +141,130 @@ async function fetchFestivalData(apiKey) {
   return festivals;
 }
 
-// 지원금 우선 수집 키워드
-const TARGET_KEYWORDS = ['중장년', '노후준비', '노후대비', '노후설계', '연금', '소상공인', '정부지원금', '건강보험', '세액공제'];
+// ─── API 연동 설정 ────────────────────────────────────────────────────────────
 
-// 키워드 기반 gov24 지원금 검색
+// gov24 fallback 검색 키워드 (2순위)
+const GOV24_FALLBACK_KEYWORDS = ['신중년', '중장년', '시니어', '고령자', '퇴직', '은퇴', '재취업', '연금', '건강보험', '세액공제'];
+
+// 응답 아이템을 공통 구조로 정규화 (서비스명 필드 보장)
+function normalizeItem(item, source) {
+  return {
+    서비스명: item.서비스명 || item.svcNm || item.servNm || item.pbanc_nm || item.pbancNm || item.지원사업명 || '',
+    서비스목적요약: item.서비스목적요약 || item.svcPurposSumry || item.svcPurps || item.jiwon_cntnt || item.지원내용 || '',
+    지원대상: item.지원대상 || item.trgter || item.aply_trgt || item.aplyTrgt || '',
+    소관기관명: item.소관부처명 || item.소관기관명 || item.blnfcInsttNm || item.excl_instt_nm || item.exclInsttNm || item.기관명 || '',
+    지원내용: item.지원내용 || item.givBnfCn || item.jiwon_cntnt || '',
+    신청URL: item.신청URL || item.aplyUrl || item.dtl_url || item.dtlUrl || '',
+    신청기한: item.신청기한 || item.aplyEndDt || item.pbanc_rcept_end_dt || item.pbancRceptEndDt || '',
+    _source: source,
+  };
+}
+
+// 표준 data.go.kr JSON 응답에서 아이템 배열 추출
+function extractItems(json) {
+  const raw = json?.response?.body?.items?.item
+    || json?.data
+    || json?.items
+    || json?.response?.body?.items
+    || [];
+  return Array.isArray(raw) ? raw : (raw && typeof raw === 'object' ? [raw] : []);
+}
+
+// ─── 1순위: 복지로 중앙부처 복지서비스 (한국사회보장정보원) ──────────────────
+// API 문서: https://www.data.go.kr → 한국사회보장정보원_중앙부처복지서비스목록조회서비스
+// ENV: BOKJIRO_CENTRAL_API_KEY
+async function fetchBokjiroCentral(apiKey) {
+  // 생애주기 코드: 중장년(40~64세)=06, 노년(65세+)=07
+  const lifecycleCodes = ['06', '07'];
+  const results = [];
+  for (const code of lifecycleCodes) {
+    if (results.length >= 10) break;
+    const url = `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${apiKey}&pageNo=1&numOfRows=5&srchKeyCode=${code}&_type=json`;
+    try {
+      const res = await fetchWithRetry(url);
+      if (!res.ok) { console.warn(`[복지로중앙:${code}] HTTP ${res.status}`); continue; }
+      const json = await res.json();
+      const items = extractItems(json);
+      for (const item of items) {
+        const norm = normalizeItem(item, '복지로중앙');
+        if (norm.서비스명) results.push(norm);
+      }
+      console.log(`[복지로중앙:${code}] ${items.length}건 수집`);
+    } catch (err) {
+      console.warn(`[복지로중앙:${code}] 오류: ${err.message}`);
+    }
+  }
+  return results;
+}
+
+// ─── 1순위: 복지로 지자체 복지서비스 (한국사회보장정보원) ────────────────────
+// API 문서: https://www.data.go.kr → 한국사회보장정보원_지자체복지서비스목록조회서비스
+// ENV: BOKJIRO_LOCAL_API_KEY
+// 시도코드: 서울=11, 인천=28, 경기=41
+async function fetchBokjiroLocal(apiKey) {
+  const lifecycleCodes = ['06', '07'];
+  const regionCodes = [{ code: '11', name: '서울' }, { code: '28', name: '인천' }, { code: '41', name: '경기' }];
+  const results = [];
+  for (const lc of lifecycleCodes) {
+    for (const region of regionCodes) {
+      if (results.length >= 10) break;
+      const url = `https://apis.data.go.kr/B554287/LocalWelfareService2/getLocalWelfareSrvList?serviceKey=${apiKey}&pageNo=1&numOfRows=5&srchKeyCode=${lc}&ctpvCd=${region.code}&_type=json`;
+      try {
+        const res = await fetchWithRetry(url);
+        if (!res.ok) { console.warn(`[복지로지자체:${lc}/${region.name}] HTTP ${res.status}`); continue; }
+        const json = await res.json();
+        const items = extractItems(json);
+        for (const item of items) {
+          const norm = normalizeItem(item, '복지로지자체');
+          if (norm.서비스명) results.push(norm);
+        }
+        console.log(`[복지로지자체:${lc}/${region.name}] ${items.length}건 수집`);
+      } catch (err) {
+        console.warn(`[복지로지자체:${lc}/${region.name}] 오류: ${err.message}`);
+      }
+    }
+    if (results.length >= 10) break;
+  }
+  return results;
+}
+
+// ─── 1순위: 기업마당 중소기업 지원사업 공고 (중소벤처기업부) ────────────────
+// API 문서: https://www.data.go.kr → 중소벤처기업부_중소기업지원사업공고조회서비스
+// ENV: BIZINFO_API_KEY
+async function fetchBizinfo(apiKey) {
+  const keywords = ['소상공인', '자영업자', '경영안정', '폐업', '재창업', '환급', '세액공제', '정책자금'];
+  const results = [];
+  for (const kw of keywords) {
+    if (results.length >= 10) break;
+    const url = `https://apis.data.go.kr/1130000/PbancInfoService2/getPbancSj?serviceKey=${encodeURIComponent(apiKey)}&pageNo=1&numOfRows=5&keyword=${encodeURIComponent(kw)}&returnType=JSON`;
+    try {
+      const res = await fetchWithRetry(url);
+      if (!res.ok) { console.warn(`[기업마당:${kw}] HTTP ${res.status}`); continue; }
+      const json = await res.json();
+      const items = extractItems(json);
+      for (const item of items) {
+        const norm = normalizeItem(item, '기업마당');
+        if (norm.서비스명) results.push(norm);
+      }
+      if (items.length > 0) console.log(`[기업마당:${kw}] ${items.length}건 수집`);
+    } catch (err) {
+      console.warn(`[기업마당:${kw}] 오류: ${err.message}`);
+    }
+  }
+  return results;
+}
+
+// ─── 2순위 Fallback: gov24 키워드 검색 (행정안전부) ─────────────────────────
+// ENV: PUBLIC_DATA_API_KEY (기존)
 async function fetchBenefitsByKeyword(apiKey, keyword) {
   const url = `https://api.odcloud.kr/api/gov24/v3/serviceList?page=1&perPage=10&returnType=JSON&serviceKey=${encodeURIComponent(apiKey)}&cond[서비스명::LIKE]=${encodeURIComponent(keyword)}`;
   try {
     const res = await fetchWithRetry(url);
-    if (!res.ok) {
-      console.warn(`[키워드:${keyword}] API 오류: ${res.status}`);
-      return [];
-    }
+    if (!res.ok) { console.warn(`[gov24:${keyword}] HTTP ${res.status}`); return []; }
     const json = await res.json();
     return json.data || [];
   } catch (err) {
-    console.warn(`[키워드:${keyword}] 수집 실패: ${err.message}`);
+    console.warn(`[gov24:${keyword}] 오류: ${err.message}`);
     return [];
   }
 }
@@ -205,52 +313,67 @@ async function main() {
       ...existingData.benefits.map(b => b.title)
     ]);
 
-    // 수집된 신규 항목 추적용 셋 (키워드/Fallback 간 중복 방지)
+    // 수집된 신규 항목 추적용 셋 (API 간 중복 방지)
     const collectedTitles = new Set();
     let newItems = [];
 
-    // ① 최우선: 키워드 기반 수집
-    console.log('\n[지원금] 키워드 우선 수집 시작...');
-    for (const keyword of TARGET_KEYWORDS) {
-      if (newItems.length >= DAILY_LIMIT) break;
-      console.log(`[키워드] "${keyword}" 검색 중...`);
-      const results = await fetchBenefitsByKeyword(govApiKey, keyword);
+    // 4개 API 모두 PUBLIC_DATA_API_KEY(공공데이터포털 공통 인증키) 사용
+    const addItems = (results) => {
       for (const item of results) {
         if (newItems.length >= DAILY_LIMIT) break;
         const title = item.서비스명;
-        if (!existingTitles.has(title) && !collectedTitles.has(title)) {
+        if (title && !existingTitles.has(title) && !collectedTitles.has(title)) {
           newItems.push(item);
           collectedTitles.add(title);
-          console.log(`[키워드:${keyword}] 신규 추가: ${title}`);
+          console.log(`  ✓ 신규: ${title} [${item._source}]`);
         }
       }
-    }
-    console.log(`[지원금] 키워드 수집 결과: ${newItems.length}건`);
+    };
 
-    // ② Fallback: 부족분은 일반 최신순 API로 채움
+    // ① 1순위: 복지로 중앙부처 (중장년·노년 생애주기)
+    console.log('\n[지원금] 1순위 수집 - 복지로 중앙부처...');
+    addItems(await fetchBokjiroCentral(govApiKey));
+    console.log(`  소계: ${newItems.length}건`);
+
+    // ① 1순위: 복지로 지자체 (서울·인천·경기, 중장년·노년)
     if (newItems.length < DAILY_LIMIT) {
-      const needed = DAILY_LIMIT - newItems.length;
-      console.log(`\n[지원금] Fallback 수집 시작 (부족분: ${needed}건)...`);
-      const fallbackUrl = `https://api.odcloud.kr/api/gov24/v3/serviceList?page=1&perPage=30&returnType=JSON&serviceKey=${encodeURIComponent(govApiKey)}`;
+      console.log('\n[지원금] 1순위 수집 - 복지로 지자체...');
+      addItems(await fetchBokjiroLocal(govApiKey));
+      console.log(`  소계: ${newItems.length}건`);
+    }
+
+    // ① 1순위: 기업마당 (소상공인·자영업자 등)
+    if (newItems.length < DAILY_LIMIT) {
+      console.log('\n[지원금] 1순위 수집 - 기업마당...');
+      addItems(await fetchBizinfo(govApiKey));
+      console.log(`  소계: ${newItems.length}건`);
+    }
+
+    // ② 2순위 Fallback: gov24 타겟 키워드 검색
+    if (newItems.length < DAILY_LIMIT) {
+      console.log('\n[지원금] 2순위 Fallback - gov24 키워드 검색...');
+      for (const keyword of GOV24_FALLBACK_KEYWORDS) {
+        if (newItems.length >= DAILY_LIMIT) break;
+        addItems(await fetchBenefitsByKeyword(govApiKey, keyword));
+      }
+      console.log(`  소계: ${newItems.length}건`);
+    }
+
+    // ③ 3순위 Fallback: gov24 일반 최신순
+    if (newItems.length < DAILY_LIMIT) {
+      console.log('\n[지원금] 3순위 Fallback - gov24 일반 최신순...');
       try {
+        const fallbackUrl = `https://api.odcloud.kr/api/gov24/v3/serviceList?page=1&perPage=30&returnType=JSON&serviceKey=${encodeURIComponent(govApiKey)}`;
         const fallbackRes = await fetchWithRetry(fallbackUrl);
         if (!fallbackRes.ok) throw new Error(`HTTP ${fallbackRes.status}`);
-        const fallbackJson = await fallbackRes.json();
-        const fallbackList = fallbackJson.data || [];
-        for (const item of fallbackList) {
-          if (newItems.length >= DAILY_LIMIT) break;
-          const title = item.서비스명;
-          if (!existingTitles.has(title) && !collectedTitles.has(title)) {
-            newItems.push(item);
-            collectedTitles.add(title);
-            console.log(`[Fallback] 신규 추가: ${title}`);
-          }
-        }
+        addItems((await fallbackRes.json()).data || []);
       } catch (err) {
-        console.warn(`[Fallback] 일반 API 수집 실패: ${err.message}`);
+        console.warn(`[gov24 일반] 오류: ${err.message}`);
       }
-      console.log(`[지원금] Fallback 수집 후 총: ${newItems.length}건`);
+      console.log(`  소계: ${newItems.length}건`);
     }
+
+    console.log(`\n[지원금] 최종 수집: ${newItems.length}건`);
 
     if (newItems.length === 0) {
       console.log('새로운 공공데이터가 없습니다. (날씨만 업데이트 완료)');
