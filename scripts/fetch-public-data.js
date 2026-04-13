@@ -141,6 +141,26 @@ async function fetchFestivalData(apiKey) {
   return festivals;
 }
 
+// 지원금 우선 수집 키워드
+const TARGET_KEYWORDS = ['중장년', '노후', '연금', '소상공인', '정부지원금', '건강보험', '세액공제'];
+
+// 키워드 기반 gov24 지원금 검색
+async function fetchBenefitsByKeyword(apiKey, keyword) {
+  const url = `https://api.odcloud.kr/api/gov24/v3/serviceList?page=1&perPage=10&returnType=JSON&serviceKey=${encodeURIComponent(apiKey)}&cond[서비스명::LIKE]=${encodeURIComponent(keyword)}`;
+  try {
+    const res = await fetchWithRetry(url);
+    if (!res.ok) {
+      console.warn(`[키워드:${keyword}] API 오류: ${res.status}`);
+      return [];
+    }
+    const json = await res.json();
+    return json.data || [];
+  } catch (err) {
+    console.warn(`[키워드:${keyword}] 수집 실패: ${err.message}`);
+    return [];
+  }
+}
+
 // 축제 날짜 포맷 변환 (YYYYMMDD → YYYY.MM.DD)
 function formatFestivalDate(startDate, endDate) {
   const fmt = (d) => d ? `${d.slice(0,4)}.${d.slice(4,6)}.${d.slice(6,8)}` : '';
@@ -155,20 +175,6 @@ async function main() {
     const govApiKey = process.env.PUBLIC_DATA_API_KEY;
     if (!govApiKey) {
       throw new Error('PUBLIC_DATA_API_KEY 환경변수가 설정되지 않았습니다.');
-    }
-
-    const url = `https://api.odcloud.kr/api/gov24/v3/serviceList?page=1&perPage=20&returnType=JSON&serviceKey=${encodeURIComponent(govApiKey)}`;
-    const govRes = await fetchWithRetry(url);
-    if (!govRes.ok) {
-      throw new Error(`공공데이터포털 API 호출 실패: ${govRes.status}`);
-    }
-
-    const govJson = await govRes.json();
-    const dataList = govJson.data || [];
-    
-    if (dataList.length === 0) {
-      console.log('새로운 데이터가 없습니다');
-      return;
     }
 
     const dataPath = path.join(__dirname, '../public/data/pick-info.json');
@@ -190,8 +196,8 @@ async function main() {
       fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
     }
 
+    const DAILY_LIMIT = 5;
     const validRegions = ['서울', '인천', '경기'];
-    let newItems = [];
 
     // 중복 체크를 위한 기존 타이틀 셋 구성
     const existingTitles = new Set([
@@ -199,11 +205,51 @@ async function main() {
       ...existingData.benefits.map(b => b.title)
     ]);
 
-    // 기존에 없는 새로운 데이터만 추출
-    for (const item of dataList) {
-      if (!existingTitles.has(item.서비스명)) {
-        newItems.push(item);
+    // 수집된 신규 항목 추적용 셋 (키워드/Fallback 간 중복 방지)
+    const collectedTitles = new Set();
+    let newItems = [];
+
+    // ① 최우선: 키워드 기반 수집
+    console.log('\n[지원금] 키워드 우선 수집 시작...');
+    for (const keyword of TARGET_KEYWORDS) {
+      if (newItems.length >= DAILY_LIMIT) break;
+      console.log(`[키워드] "${keyword}" 검색 중...`);
+      const results = await fetchBenefitsByKeyword(govApiKey, keyword);
+      for (const item of results) {
+        if (newItems.length >= DAILY_LIMIT) break;
+        const title = item.서비스명;
+        if (!existingTitles.has(title) && !collectedTitles.has(title)) {
+          newItems.push(item);
+          collectedTitles.add(title);
+          console.log(`[키워드:${keyword}] 신규 추가: ${title}`);
+        }
       }
+    }
+    console.log(`[지원금] 키워드 수집 결과: ${newItems.length}건`);
+
+    // ② Fallback: 부족분은 일반 최신순 API로 채움
+    if (newItems.length < DAILY_LIMIT) {
+      const needed = DAILY_LIMIT - newItems.length;
+      console.log(`\n[지원금] Fallback 수집 시작 (부족분: ${needed}건)...`);
+      const fallbackUrl = `https://api.odcloud.kr/api/gov24/v3/serviceList?page=1&perPage=30&returnType=JSON&serviceKey=${encodeURIComponent(govApiKey)}`;
+      try {
+        const fallbackRes = await fetchWithRetry(fallbackUrl);
+        if (!fallbackRes.ok) throw new Error(`HTTP ${fallbackRes.status}`);
+        const fallbackJson = await fallbackRes.json();
+        const fallbackList = fallbackJson.data || [];
+        for (const item of fallbackList) {
+          if (newItems.length >= DAILY_LIMIT) break;
+          const title = item.서비스명;
+          if (!existingTitles.has(title) && !collectedTitles.has(title)) {
+            newItems.push(item);
+            collectedTitles.add(title);
+            console.log(`[Fallback] 신규 추가: ${title}`);
+          }
+        }
+      } catch (err) {
+        console.warn(`[Fallback] 일반 API 수집 실패: ${err.message}`);
+      }
+      console.log(`[지원금] Fallback 수집 후 총: ${newItems.length}건`);
     }
 
     if (newItems.length === 0) {
@@ -211,23 +257,23 @@ async function main() {
       return;
     }
 
-    // 최대 5개 선정 (수도권 지역 조건 맞는 것 우선)
+    // 수도권 지역 조건 맞는 것 우선 선정
     let selectedDataItems = [];
     for (const item of newItems) {
       const textToSearch = [item.서비스명, item.서비스목적요약, item.지원대상, item.소관기관명].join(' ');
       if (validRegions.some(r => textToSearch?.includes(r))) {
         selectedDataItems.push(item);
       }
-      if (selectedDataItems.length >= 5) break; 
+      if (selectedDataItems.length >= DAILY_LIMIT) break;
     }
 
-    // 5개가 안 찼다면 나머지 최신 데이터로 채움
-    if (selectedDataItems.length < 5) {
+    // 수도권 조건 미충족 항목으로 나머지 채움
+    if (selectedDataItems.length < DAILY_LIMIT) {
       for (const item of newItems) {
         if (!selectedDataItems.includes(item)) {
           selectedDataItems.push(item);
         }
-        if (selectedDataItems.length >= 5) break;
+        if (selectedDataItems.length >= DAILY_LIMIT) break;
       }
     }
 

@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const fallbacks = require('../src/lib/image-fallbacks.json');
 
+// 블로그 주제 우선 선정 키워드
+const TARGET_KEYWORDS = ['중장년', '노후', '연금', '소상공인', '정부지원금', '건강보험', '세액공제'];
+
 async function main() {
   try {
     const geminiApiKey = process.env.GEMINI_API_KEY;
@@ -30,8 +33,7 @@ async function main() {
       fs.mkdirSync(postsDir, { recursive: true });
     }
 
-    // 아직 글이 작성되지 않은 항목 찾기
-    let targetItem = null;
+    // 아직 글이 작성되지 않은 항목 수집
     const existingFiles = fs.readdirSync(postsDir);
     const alreadyPostedTitles = existingFiles.filter(f => f.endsWith('.md')).map(file => {
       const content = fs.readFileSync(path.join(postsDir, file), 'utf8');
@@ -43,22 +45,34 @@ async function main() {
       return titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
     });
 
-    for (const item of allItems) {
-      if (!alreadyPostedTitles.includes(item.title)) {
-        targetItem = item;
-        // 💡 만약 이미지 URL이 유효하지 않으면 여기서 즉시 폴백 적용 후 진행
-        if (!targetItem.image || targetItem.image.includes('default.png')) {
-          const guideFallbacks = fallbacks.GUIDE;
-          targetItem.image = guideFallbacks[Math.floor(Math.random() * guideFallbacks.length)];
-          console.log(`[보정] 이미지 누락 데이터에 스톡 이미지를 할당했습니다: ${targetItem.image}`);
-        }
-        break;
-      }
-    }
+    const unpostedItems = allItems.filter(item => !alreadyPostedTitles.includes(item.title));
 
-    if (!targetItem) {
+    if (unpostedItems.length === 0) {
       console.log('모든 데이터가 이미 블로그에 작성되었습니다.');
       return;
+    }
+
+    // ① 키워드 매칭 항목 우선 선정
+    const keywordMatched = unpostedItems.filter(item => {
+      const text = [item.title, item.details, item.description, item.target, item.summary].join(' ');
+      return TARGET_KEYWORDS.some(kw => text.includes(kw));
+    });
+
+    let targetItem;
+    if (keywordMatched.length > 0) {
+      targetItem = keywordMatched[Math.floor(Math.random() * keywordMatched.length)];
+      console.log(`[블로그] 키워드 우선 선정: ${targetItem.title}`);
+    } else {
+      // ② Fallback: 전체 미발행 항목 중 무작위 선택
+      targetItem = unpostedItems[Math.floor(Math.random() * unpostedItems.length)];
+      console.log(`[블로그] Fallback 무작위 선정: ${targetItem.title}`);
+    }
+
+    // 이미지 보정
+    if (!targetItem.image || targetItem.image.includes('default.png')) {
+      const guideFallbacks = fallbacks.GUIDE;
+      targetItem.image = guideFallbacks[Math.floor(Math.random() * guideFallbacks.length)];
+      console.log(`[보정] 이미지 누락 데이터에 스톡 이미지를 할당했습니다: ${targetItem.image}`);
     }
 
     console.log(`발행 대상 발견: ${targetItem.title}`);
