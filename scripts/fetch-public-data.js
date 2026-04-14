@@ -231,12 +231,11 @@ async function fetchBokjiroLocal(apiKey) {
 }
 
 // ─── 1순위: 기업마당 중소기업 지원사업 공고 (중소벤처기업부) ────────────────
-// API: data.go.kr → 중소벤처기업부_중소기업지원사업 (서비스ID: 1421000)
-// 수정: 잘못된 엔드포인트(1130000/PbancInfoService2) → 올바른 엔드포인트(1421000/mssBizService_v2)
+// API: data.go.kr → 중소벤처기업부_중소기업지원사업 공고 조회 서비스 (1421000/bizinfo)
 // data.go.kr API는 serviceKey를 encodeURIComponent 없이 그대로 사용
 async function fetchBizinfo(apiKey) {
   const results = [];
-  const url = `https://apis.data.go.kr/1421000/mssBizService_v2/getbizList_v2?serviceKey=${apiKey}&pageNo=1&numOfRows=10&returnType=JSON`;
+  const url = `https://apis.data.go.kr/1421000/bizinfo/getBizList?serviceKey=${apiKey}&pageNo=1&numOfRows=10&returnType=JSON`;
   try {
     const res = await fetchWithRetry(url);
     if (!res.ok) { const errBody = await res.text(); console.warn(`[기업마당] HTTP ${res.status} - ${errBody.substring(0, 300)}`); return results; }
