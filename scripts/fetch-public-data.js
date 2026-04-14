@@ -121,7 +121,7 @@ async function fetchSeoulEvents(apiKey) {
       const dateStr = startDate && endDate && startDate !== endDate ? `${startDate}~${endDate}` : startDate || '상시';
       results.push({
         _source: '서울',
-        id: `fest-seoul-${Buffer.from(item.TITLE).toString('base64').slice(0, 8)}-${Date.now()}`,
+        id: `fest-seoul-${Buffer.from(item.TITLE).toString('base64url').slice(0, 8)}-${Date.now()}`,
         region: '서울',
         title: item.TITLE,
         date: dateStr,
