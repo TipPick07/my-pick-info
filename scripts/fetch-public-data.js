@@ -140,42 +140,52 @@ async function fetchSeoulEvents(apiKey) {
   return results;
 }
 
-// ─── 1순위: 경기데이터드림 관광축제 ─────────────────────────────────────────
+// ─── 1순위: 경기데이터드림 문화축제 (CultureFestival) ───────────────────────
+// 서비스명: CultureFestival (openapi.gg.go.kr/CultureFestival)
+// 필드: FASTVL_NM, FASTVL_BEGIN_DE, FASTVL_END_DE, FASTVL_CONT, OPENMEET_PLC,
+//       REFINE_ROADNM_ADDR, HMPG_ADDR, REFINE_WGS84_LOGT, REFINE_WGS84_LAT
 async function fetchGyeonggiEvents(apiKey) {
   const results = [];
   if (!apiKey) { console.warn('[경기] GYEONGGI_API_KEY 없음, 건너뜀'); return results; }
   try {
-    const url = `https://openapi.gg.go.kr/TOURFESTIVALNM?KEY=${apiKey}&Type=json&pIndex=1&pSize=50`;
+    const url = `https://openapi.gg.go.kr/CultureFestival?KEY=${apiKey}&Type=json&pIndex=1&pSize=100`;
     const res = await fetchWithRetry(url);
     if (!res.ok) { console.warn(`[경기] HTTP ${res.status}`); return results; }
     const json = await res.json();
-    const rows = json?.TOURFESTIVALNM?.[1]?.row || [];
+    const rows = json?.CultureFestival?.[1]?.row || [];
     const today = new Date(); today.setHours(0, 0, 0, 0);
     for (const item of rows) {
-      if (item.END_DE && new Date(item.END_DE) < today) continue;
-      const description = [item.FESTIVAL_DC, item.PROGRM_DC].filter(Boolean).join(' ').trim();
-      const image = item.IMG_URL || '';
-      if (description.length < 50 || !image) continue;
-      const startDate = item.BEGIN_DE ? String(item.BEGIN_DE).replace(/-/g, '.') : '';
-      const endDate = item.END_DE ? String(item.END_DE).replace(/-/g, '.') : '';
+      // 종료일 기준 만료 필터
+      if (item.FASTVL_END_DE && new Date(item.FASTVL_END_DE) < today) continue;
+      const title = (item.FASTVL_NM || '').trim();
+      if (!title) continue;
+      // 설명: FASTVL_CONT (내용) + 장소 조합
+      const place = item.OPENMEET_PLC || item.REFINE_ROADNM_ADDR || '';
+      const rawDesc = (item.FASTVL_CONT || '').replace(/\+/g, ' ');
+      const description = [rawDesc, place ? `장소: ${place}` : ''].filter(Boolean).join(' | ').trim();
+      // 경기데이터드림은 이미지 URL을 제공하지 않음 → 폴백 처리(수집 후 이미지 처리 단계에서)
+      // 품질 필터: 설명 50자 미만은 제외하되, 이미지는 폴백 허용
+      if (description.length < 50) continue;
+      const startDate = item.FASTVL_BEGIN_DE ? String(item.FASTVL_BEGIN_DE).replace(/-/g, '.') : '';
+      const endDate = item.FASTVL_END_DE ? String(item.FASTVL_END_DE).replace(/-/g, '.') : '';
       const dateStr = startDate && endDate && startDate !== endDate ? `${startDate}~${endDate}` : startDate || '상시';
       results.push({
         _source: '경기',
         id: `fest-gg-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
         region: '경기',
-        title: item.FESTIVAL_NM || item.PROGRM_NM || '',
+        title,
         date: dateStr,
-        _dateKey: item.BEGIN_DE || '',
+        _dateKey: item.FASTVL_BEGIN_DE || '',
         tag: '신규',
-        image,
-        location: item.ADDR || item.FSTVL_PLCE || '경기',
+        image: '',   // 이미지 없음 → 폴백 처리
+        location: place || item.REFINE_LOTNO_ADDR || '경기',
         description,
-        link: item.HMPG_URL || '',
-        mapx: item.FSTVL_LO || '',
-        mapy: item.FSTVL_LA || '',
+        link: item.HMPG_ADDR || '',
+        mapx: item.REFINE_WGS84_LOGT || '',
+        mapy: item.REFINE_WGS84_LAT || '',
       });
     }
-    console.log(`[경기] ${results.length}건 수집 (품질필터 후)`);
+    console.log(`[경기] ${results.length}건 수집 (만료 필터 후, 이미지 폴백 포함)`);
   } catch (err) { console.warn(`[경기] 오류: ${err.message}`); }
   return results;
 }
@@ -723,11 +733,14 @@ ${JSON.stringify(selectedData)}`
         ? `${fest.eventenddate.slice(0,4)}.${fest.eventenddate.slice(4,6)}.${fest.eventenddate.slice(6,8)}`
         : null;
       if (endDateFormatted && isDeadlineExpired(endDateFormatted)) return null;
-      const description = fest._overview || '';
-      const image = fest.firstimage || '';
-      // KTO도 품질 필터 적용
-      if (description.length < 50 || !image) return null;
       const festLocation = [fest.addr1, fest.addr2].filter(Boolean).join(' ').trim();
+      // overview 없으면 addr+title 조합으로 대체
+      const description = fest._overview && fest._overview.length >= 50
+        ? fest._overview
+        : festLocation ? `${title}이(가) ${festLocation}에서 열리는 행사입니다.` : '';
+      const image = fest.firstimage || '';
+      // 설명 50자 미만이면 제외 (이미지는 폴백 허용)
+      if (description.length < 50) return null;
       const link = fest._homepage
         ? fest._homepage.replace(/<[^>]*>/g, '').trim()  // HTML 태그 제거
         : '';
