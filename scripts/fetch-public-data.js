@@ -175,25 +175,21 @@ function extractItems(json) {
 // 수정: srchKeyCode → lifeArray, callTp=L 필수 파라미터 추가
 // data.go.kr API는 serviceKey를 encodeURIComponent 없이 그대로 사용
 async function fetchBokjiroCentral(apiKey) {
-  // 생애주기 코드: 중장년(40~64세)=05, 노년(65세+)=06
-  const lifecycleCodes = ['05', '06'];
   const results = [];
-  for (const code of lifecycleCodes) {
-    if (results.length >= 10) break;
-    const url = `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${apiKey}&pageNo=1&numOfRows=5&lifeArray=${code}&_type=json`;
-    try {
-      const res = await fetchWithRetry(url);
-      if (!res.ok) { const errBody = await res.text(); console.warn(`[복지로중앙:${code}] HTTP ${res.status} - ${errBody.substring(0, 300)}`); continue; }
-      const json = await res.json();
-      const items = extractItems(json);
-      for (const item of items) {
-        const norm = normalizeItem(item, '복지로중앙');
-        if (norm.서비스명) results.push(norm);
-      }
-      console.log(`[복지로중앙:${code}] ${items.length}건 수집`);
-    } catch (err) {
-      console.warn(`[복지로중앙:${code}] 오류: ${err.message}`);
+  // 생애주기 필터 없이 기본 목록 조회 (필터 적용 시 Unexpected errors 발생)
+  const url = `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${apiKey}&pageNo=1&numOfRows=10&_type=json`;
+  try {
+    const res = await fetchWithRetry(url);
+    if (!res.ok) { const errBody = await res.text(); console.warn(`[복지로중앙] HTTP ${res.status} - ${errBody.substring(0, 300)}`); return results; }
+    const json = await res.json();
+    const items = extractItems(json);
+    for (const item of items) {
+      const norm = normalizeItem(item, '복지로중앙');
+      if (norm.서비스명) results.push(norm);
     }
+    console.log(`[복지로중앙] ${items.length}건 수집`);
+  } catch (err) {
+    console.warn(`[복지로중앙] 오류: ${err.message}`);
   }
   return results;
 }
@@ -203,29 +199,25 @@ async function fetchBokjiroCentral(apiKey) {
 // 수정: srchKeyCode → lifeArray, ctpvCd(코드) → ctpvNm(시도명)
 // data.go.kr API는 serviceKey를 encodeURIComponent 없이 그대로 사용
 async function fetchBokjiroLocal(apiKey) {
-  // 생애주기 코드: 중장년(40~64세)=05, 노년(65세+)=06
-  const lifecycleCodes = ['05', '06'];
   const regionNames = ['서울', '인천', '경기'];
   const results = [];
-  for (const lc of lifecycleCodes) {
-    for (const region of regionNames) {
-      if (results.length >= 10) break;
-      const url = `https://apis.data.go.kr/B554287/LocalWelfareService2/getLocalWelfareSrvList?serviceKey=${apiKey}&pageNo=1&numOfRows=5&lifeArray=${lc}&ctpvNm=${encodeURIComponent(region)}&_type=json`;
-      try {
-        const res = await fetchWithRetry(url);
-        if (!res.ok) { const errBody = await res.text(); console.warn(`[복지로지자체:${lc}/${region}] HTTP ${res.status} - ${errBody.substring(0, 300)}`); continue; }
-        const json = await res.json();
-        const items = extractItems(json);
-        for (const item of items) {
-          const norm = normalizeItem(item, '복지로지자체');
-          if (norm.서비스명) results.push(norm);
-        }
-        console.log(`[복지로지자체:${lc}/${region}] ${items.length}건 수집`);
-      } catch (err) {
-        console.warn(`[복지로지자체:${lc}/${region}] 오류: ${err.message}`);
-      }
-    }
+  // 생애주기 필터 없이 시도명만으로 조회 (필터 적용 시 Unexpected errors 발생)
+  for (const region of regionNames) {
     if (results.length >= 10) break;
+    const url = `https://apis.data.go.kr/B554287/LocalWelfareService2/getLocalWelfareSrvList?serviceKey=${apiKey}&pageNo=1&numOfRows=5&ctpvNm=${encodeURIComponent(region)}&_type=json`;
+    try {
+      const res = await fetchWithRetry(url);
+      if (!res.ok) { const errBody = await res.text(); console.warn(`[복지로지자체:${region}] HTTP ${res.status} - ${errBody.substring(0, 300)}`); continue; }
+      const json = await res.json();
+      const items = extractItems(json);
+      for (const item of items) {
+        const norm = normalizeItem(item, '복지로지자체');
+        if (norm.서비스명) results.push(norm);
+      }
+      console.log(`[복지로지자체:${region}] ${items.length}건 수집`);
+    } catch (err) {
+      console.warn(`[복지로지자체:${region}] 오류: ${err.message}`);
+    }
   }
   return results;
 }
@@ -235,7 +227,7 @@ async function fetchBokjiroLocal(apiKey) {
 // data.go.kr API는 serviceKey를 encodeURIComponent 없이 그대로 사용
 async function fetchBizinfo(apiKey) {
   const results = [];
-  const url = `https://apis.data.go.kr/1421000/bizinfo/getBizList?serviceKey=${apiKey}&pageNo=1&numOfRows=10&returnType=JSON`;
+  const url = `https://apis.data.go.kr/1421000/bizinfo?serviceKey=${apiKey}&dataType=json&pageNo=1&numOfRows=10`;
   try {
     const res = await fetchWithRetry(url);
     if (!res.ok) { const errBody = await res.text(); console.warn(`[기업마당] HTTP ${res.status} - ${errBody.substring(0, 300)}`); return results; }
