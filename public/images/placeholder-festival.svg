@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#f1f5f9"/>
+  <rect x="340" y="170" width="120" height="90" rx="8" fill="#e2e8f0"/>
+  <circle cx="370" cy="195" r="12" fill="#cbd5e1"/>
+  <polygon points="348,248 392,200 416,228 432,212 452,248" fill="#cbd5e1"/>
+  <text x="400" y="290" text-anchor="middle" fill="#94a3b8" font-size="16" font-family="sans-serif">이미지 준비 중</text>
+</svg>

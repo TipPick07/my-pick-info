@@ -379,11 +379,12 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
                     {/* 이미지 */}
                     <div className="relative w-full md:w-64 md:shrink-0 bg-slate-200 overflow-hidden" style={{ aspectRatio: "16/9" }}>
                       <img
-                        src={f.image || "https://tip-pick.com/images/branded_placeholder.png"}
+                        src={f.image || "/images/placeholder-festival.svg"}
                         alt={f.title}
                         className="object-cover w-full h-full grayscale"
                         onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src = "https://tip-pick.com/images/branded_placeholder.png";
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = "/images/placeholder-festival.svg";
                         }}
                       />
                       <div className="absolute inset-0 bg-slate-900/30" />
@@ -410,11 +411,12 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
                   {/* 이미지 */}
                   <div className="relative w-full md:w-64 md:shrink-0 bg-slate-200 overflow-hidden" style={{ aspectRatio: "16/9" }}>
                     <img
-                      src={f.image || "https://tip-pick.com/images/branded_placeholder.png"}
+                      src={f.image || "/images/placeholder-festival.svg"}
                       alt={f.title}
                       className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                       onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = "https://tip-pick.com/images/branded_placeholder.png";
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = "/images/placeholder-festival.svg";
                       }}
                     />
                     <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-black text-white shadow-sm" style={{ background: statusColor[status] }}>
