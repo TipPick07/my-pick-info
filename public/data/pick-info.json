@@ -2,24 +2,102 @@
   "weather": [
     {
       "region": "서울",
-      "temp": "22°",
-      "status": "구름 조금",
-      "icon": "⛅"
+      "temp": "10°",
+      "status": "맑음",
+      "icon": "☀️"
     },
     {
       "region": "인천",
-      "temp": "22°",
-      "status": "구름 조금",
-      "icon": "⛅"
+      "temp": "10°",
+      "status": "맑음",
+      "icon": "☀️"
     },
     {
       "region": "경기",
-      "temp": "22°",
+      "temp": "10°",
       "status": "구름 조금",
       "icon": "⛅"
     }
   ],
   "festivals": [
+    {
+      "id": "fest-3310483",
+      "region": "서울",
+      "title": "어린이·가족 예술축제",
+      "date": "2026.05.02~2026.05.03",
+      "tag": "신규",
+      "image": "/images/blogs/festival-어린이가족예술축제-59.png",
+      "location": "서울특별시 양천구 남부순환로64길 2 (신월동) 서울문화예술교육센터 양천",
+      "description": "어린이·가족 예술축제이(가) 서울특별시 양천구 남부순환로64길 2 (신월동) 서울문화예술교육센터 양천에서 열리는 행사입니다.",
+      "link": "",
+      "mapx": "126.83214572562274",
+      "mapy": "37.52822008764788"
+    },
+    {
+      "id": "fest-2656070",
+      "region": "서울",
+      "title": "RAPBEAT",
+      "date": "2026.06.20~2026.06.21",
+      "tag": "신규",
+      "image": "/images/blogs/festival-RAPBEAT-37.png",
+      "location": "서울특별시 마포구 증산로 87 (성산동) 문화비축기지",
+      "description": "RAPBEAT이(가) 서울특별시 마포구 증산로 87 (성산동) 문화비축기지에서 열리는 행사입니다.",
+      "link": "",
+      "mapx": "126.895031420115",
+      "mapy": "37.5703466887615"
+    },
+    {
+      "id": "fest-seoul-SUFOIEtJ-1776207587391",
+      "region": "서울",
+      "title": "IAN KIM 피아노 리사이틀 - 절망에서 기쁨으로",
+      "date": "2026.04.25~2026.05.30",
+      "tag": "신규",
+      "image": "/images/blogs/festival-IANKIM피아노리-717.png",
+      "location": "서울숲 STUDIO301",
+      "description": "절망에서 기쁨으로 From Despair to Joy  “여호와여, 내가 깊은 곳에서 주께 부르짖나이다.” ― 시편 130편 1절 “저녁에는 울음이 깃들일지라도, 아침에는 기쁨이 오리로다.” ― 시편 30편 5절  절망의 심연에서 기쁨의 빛으로. 이 프로그램은 음악이 그려낼 수 있는 가장 깊은 여정 중 하나를 따라갑니다. 쇼팽의 녹턴, 소나타, 발라드는 애도와 불안, 풀리지 않는 질문 속으로 함께 내려갑니다. 그리고 침묵을 건너, 라흐마니노프는 더욱 치열한 언어로 다시 길을 찾기 시작합니다. 간절함은 추진력이 되고, 어둠은 마침내 환희로 넘어갑니다. 두 작곡가, 하나의 호. 깊은 곳에서 빛을 향한 여정입니다. Performance Schedule | 일정  2026.4.25(Sat) 4PM ― Preview 2026.5.2(Sat) 4PM ― Series I 2026.5.16(Sat) 4PM ― Series II 2026.5.23(Sat) 4PM ― Series III 2026.5.30(Sat) 4PM ― Finale  ※ 각 회차는 동일한 주제를 바탕으로 하되, 세부 구성과 연출은 달라질 수 있습니다.  ※ 2026.5.9(토) 공연 없음 (ArtistLive 건축과 음악편 진행)  ？？ Concert Location | 공연장 Studio301 성수 (서울 성동구 서울숲길 36, 3f)  ？？ 관람안내  ？ 공연 시작: 오후 4시 ？ 입장 가능: 오후 3시 40분부터 ？ 공연 시작 후 인터미션 전까지 입장이 불가합니다. ？ 10세 이상 관람 가능합니다. ？ 공연 시간은 약 70~75분입니다. ？ 공연 중 휴대전화 전원은 반드시 종료해주시기 바랍니다.",
+      "link": "https://m.booking.naver.com/booking/5/bizes/601161/items/4290255",
+      "mapx": "127.041318800252",
+      "mapy": "37.5478626400492"
+    },
+    {
+      "id": "fest-seoul-W1BMQVRG-1776207587391",
+      "region": "서울",
+      "title": "[PLATFORM P 교육 프로그램] 변화하는 독자층을 위한 출판 전략 - 큰글자책 이지페이지의 모색",
+      "date": "2026.04.29",
+      "tag": "무료",
+      "image": "/images/blogs/festival-PLATFORMP교-47.png",
+      "location": "플랫폼 P 2층 다목적실",
+      "description": "본 강연에서는 교보문고 '이지페이지' 시리즈가 기획, 디자인, 편집이 긴밀하게 결합한 출판 프로젝트로서 어떻게 구성되었는지를 살펴봅니다.",
+      "link": "https://www.platform-p.org/2021/item.php?section=4&category=1&idx=531",
+      "mapx": "126.927412756979",
+      "mapy": "37.5570869317695"
+    },
+    {
+      "id": "fest-seoul-MjAyNiDs-1776207587391",
+      "region": "서울",
+      "title": "2026 자문밖문화포럼 예술강좌 프로그램 [자하크리에이티브 워크(JAHA CREATIVE WORK)]",
+      "date": "2026.05.02",
+      "tag": "무료",
+      "image": "/images/blogs/festival-2026자문밖문화포-534.png",
+      "location": "서울시립미술아카이브 배움동 2층 (서울특별시 종로구 평창문화로 101)",
+      "description": "건축가와 AI의 도움을 받아, 나만의 꿈의 집 을 직접 기획하고 시각화하는 체험형 워크숍 입니다.",
+      "link": "https://www.instagram.com/p/DW5zidcCWjn/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+      "mapx": "126.97190179486",
+      "mapy": "37.6078008399411"
+    },
+    {
+      "id": "fest-seoul-W-q0gOyV-1776207587391",
+      "region": "서울",
+      "title": "[관악문화재단] 2026 관악 책빵축제",
+      "date": "2026.05.09~2026.05.10",
+      "tag": "무료",
+      "image": "/images/blogs/festival-관악문화재단2026-318.png",
+      "location": "별빛내린천 서원보도교 일대",
+      "description": "개막 퍼레이드&버스킹, 관악 제빵왕 선발대회, 북토크(이금희아나운서), 우리집 빵 레시피 공모 시상, 빵도둑을 잡아라, 서울야외도서관&책멍, 어린이 제빵 스쿨, 예술놀이터&정크아트",
+      "link": "https://lib.gwanak.go.kr/galib/menu/10048/bbs/20001/bbsPostDetail.do?currentPageNo=1&postIdx=55306&manageCd=",
+      "mapx": "126.9257607601464",
+      "mapy": "37.48444219724656"
+    },
     {
       "id": "fest-2976568",
       "region": "경기",
@@ -594,6 +672,98 @@
     }
   ],
   "benefits": [
+    {
+      "id": "857392641",
+      "region": "전국",
+      "title": "사립학교 교직원 퇴직연금일시금",
+      "target": "재직기간 10년 이상 사립학교 퇴직 교직원",
+      "deadline": "상시신청",
+      "image": "/images/blogs/korea-welfare-benefit-554.png",
+      "isEmergency": false,
+      "details": "10년 이상 재직한 사립학교 퇴직 교직원을 위한 서비스로, 퇴직연금 대신 일시금으로 급여를 지급합니다. 이는 사립학교 교직원의 퇴직 후 생활 안정에 기여하는 것을 목적으로 합니다.",
+      "link": "https://www.gov.kr/portal/rcvfvrSvc/dtlEx/B55263500006",
+      "requirements": [
+        "지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."
+      ],
+      "howToApply": [
+        "온라인 신청",
+        "방문 신청",
+        "직접 입력"
+      ],
+      "eligibilityQuiz": [
+        "사립학교 퇴직 교직원이신가요?",
+        "총 재직 기간이 10년 이상이셨나요?"
+      ],
+      "tip": "본인의 재직 기간을 정확히 확인하시고, 신청 전에 필요한 서류나 절차에 대해 문의처(퇴직자관리팀/061-338-0184)로 미리 확인해 보세요."
+    },
+    {
+      "id": "894723",
+      "region": "전국",
+      "title": "사립학교 교직원 퇴직연금",
+      "target": "재직기간 10년 이상 사립학교 퇴직 교직원",
+      "deadline": "상시",
+      "image": "/images/blogs/a-conceptual-illustration-of-f-347.png",
+      "isEmergency": false,
+      "details": "사립학교 교직원의 퇴직 후 생활 안정을 위한 연금 제도로, 10년 이상 재직하고 퇴직한 교직원에게 매월 연금이 지급됩니다. 교직원들의 안정적인 노후를 돕는 핵심적인 복지 서비스입니다.",
+      "link": "https://www.gov.kr/portal/rcvfvrSvc/dtlEx/B55263500002",
+      "requirements": [
+        "지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."
+      ],
+      "howToApply": [
+        "온라인 신청 (해당 기관 문의)",
+        "방문 신청",
+        "직접 입력"
+      ],
+      "eligibilityQuiz": [
+        "사립학교에서 퇴직하신 교직원이신가요?",
+        "총 재직 기간이 10년 이상이신가요?"
+      ],
+      "tip": "퇴직 전 연금 수급 요건을 미리 확인하여 안정적인 노후를 준비하세요."
+    },
+    {
+      "id": "839274",
+      "region": "전국",
+      "title": "퇴직예정 교직원 퇴임대비 연수",
+      "target": "사립학교 퇴직예정 교직원",
+      "deadline": "상시",
+      "image": "/images/blogs/korea-welfare-benefit-483.png",
+      "isEmergency": false,
+      "details": "사립학교 퇴직예정 교직원분들을 위한 퇴직대비 연수입니다. 퇴직 대비 교육 강좌와 동료 퇴직 예정자 간 상호 교류 기회를 제공하여 성공적인 제2의 인생 설계를 지원합니다.",
+      "link": "https://www.gov.kr/portal/rcvfvrSvc/dtlEx/B55263500001",
+      "requirements": [
+        "지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."
+      ],
+      "howToApply": [
+        "기타 온라인 신청 (상세 URL 참조)"
+      ],
+      "eligibilityQuiz": [
+        "사립학교 교직원이신가요?",
+        "퇴직을 앞두고 계신가요?"
+      ],
+      "tip": "퇴직 전 체계적인 준비를 통해 안정적이고 활기찬 노후를 계획해 보세요."
+    },
+    {
+      "id": "1692837405",
+      "region": "전국",
+      "title": "중소기업퇴직연금기금제도(푸른씨앗) 사업주 및 근로자 지원",
+      "target": "중소기업퇴직연금기금제도에 가입한 상시근로자수 30명 이하 사업주 및 근로자",
+      "deadline": "상시",
+      "image": "/images/blogs/korea-welfare-benefit-983.png",
+      "isEmergency": false,
+      "details": "상시근로자 30명 이하 중소기업 사업주와 근로자를 위한 퇴직연금기금제도 지원 사업입니다. 기금제도 가입 시 3년간 수수료가 면제되며, 월평균보수액 273만원 미만 근로자에게는 1인당 최대 27만 3천원의 지원금을 3년간 지급합니다.",
+      "link": "https://www.gov.kr/portal/rcvfvrSvc/dtlEx/B49000100215",
+      "requirements": [
+        "지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."
+      ],
+      "howToApply": [
+        "온라인 신청"
+      ],
+      "eligibilityQuiz": [
+        "귀사의 상시근로자 수가 30명 이하인가요?",
+        "중소기업퇴직연금기금제도에 가입하셨거나 가입 예정이신가요?"
+      ],
+      "tip": "자세한 지원 내용과 온라인 신청 방법은 근로복지공단 퇴직연금 고객센터(1661-0075)로 문의하여 확인해 보세요."
+    },
     {
       "id": "5829371047285918",
       "region": "전국",
