@@ -254,7 +254,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
             className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest rounded-full border"
             style={{ background: "rgba(0,204,255,0.08)", color: "#00AACC", borderColor: "rgba(0,204,255,0.25)" }}
           >
-            📅 이번 주말 어디 가?
+            🎪 수도권 문화행사 & 축제
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
             팁픽이 고른{" "}
@@ -262,12 +262,12 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
               className="text-transparent bg-clip-text"
               style={{ backgroundImage: "linear-gradient(135deg, #00CCFF, #33FF99)" }}
             >
-              이번 주말 행사
+              수도권 문화행사
             </span>
           </h2>
           <p className="text-slate-500 text-lg font-medium max-w-2xl mx-auto">
             복잡하게 검색할 필요 없어요.{" "}
-            <span className="font-black text-slate-700">수도권 핫한 축제와 행사</span>를 팁픽이 대신 골라드립니다.
+            <span className="font-black text-slate-700">서울·인천·경기 콘서트·전시·축제</span>를 팁픽이 대신 골라드립니다.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {regions.map((r) => (

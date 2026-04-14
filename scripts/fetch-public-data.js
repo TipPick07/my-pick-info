@@ -776,7 +776,7 @@ ${JSON.stringify(selectedData)}`
       const imageUrl = fest.image || '';
       if (imageUrl.startsWith('http')) {
         const seed = Math.floor(Math.random() * 1000);
-        const localImageName = `festival-${String(title).replace(/\s/g,'').slice(0,10)}-${seed}.png`;
+        const localImageName = `festival-${String(title).replace(/[^\w\uAC00-\uD7A3]/g,'').slice(0,10)}-${seed}.png`;
         const localImagePath = `/images/blogs/${localImageName}`;
         const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
         try {
