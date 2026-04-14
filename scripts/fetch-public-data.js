@@ -115,8 +115,9 @@ async function fetchSeoulEvents(apiKey) {
       const description = [item.PROGRAM, item.ETC_DESC].filter(Boolean).join(' ').trim();
       const image = item.MAIN_IMG || '';
       if (description.length < 50 || !image) continue;
-      const startDate = item.STRTDATE ? item.STRTDATE.replace(/-/g, '.') : '';
-      const endDate = item.END_DATE ? item.END_DATE.replace(/-/g, '.') : '';
+      const fmtSeoulDate = (d) => d ? d.split(' ')[0].replace(/-/g, '.') : '';
+      const startDate = fmtSeoulDate(item.STRTDATE);
+      const endDate = fmtSeoulDate(item.END_DATE);
       const dateStr = startDate && endDate && startDate !== endDate ? `${startDate}~${endDate}` : startDate || '상시';
       results.push({
         _source: '서울',
