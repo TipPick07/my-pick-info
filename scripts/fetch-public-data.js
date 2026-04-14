@@ -99,46 +99,189 @@ async function fetchWeatherData() {
   }
 }
 
-// 수도권 축제/행사 데이터 수집 (한국관광공사 TourAPI)
-async function fetchFestivalData(apiKey) {
-  // KorService2 기준 수도권 행정구역 코드
+// ─── 1순위: 서울열린데이터광장 문화행사 ─────────────────────────────────────
+async function fetchSeoulEvents(apiKey) {
+  const results = [];
+  if (!apiKey) { console.warn('[서울] SEOUL_API_KEY 없음, 건너뜀'); return results; }
+  try {
+    const url = `http://openapi.seoul.go.kr:8088/${apiKey}/json/culturalEventInfo/1/100/`;
+    const res = await fetchWithRetry(url);
+    if (!res.ok) { console.warn(`[서울] HTTP ${res.status}`); return results; }
+    const json = await res.json();
+    const items = json?.culturalEventInfo?.row || [];
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    for (const item of items) {
+      if (item.END_DATE && new Date(item.END_DATE) < today) continue;
+      const description = [item.PROGRAM, item.ETC_DESC].filter(Boolean).join(' ').trim();
+      const image = item.MAIN_IMG || '';
+      if (description.length < 50 || !image) continue;
+      const startDate = item.STRTDATE ? item.STRTDATE.replace(/-/g, '.') : '';
+      const endDate = item.END_DATE ? item.END_DATE.replace(/-/g, '.') : '';
+      const dateStr = startDate && endDate && startDate !== endDate ? `${startDate}~${endDate}` : startDate || '상시';
+      results.push({
+        _source: '서울',
+        id: `fest-seoul-${Buffer.from(item.TITLE).toString('base64').slice(0, 8)}-${Date.now()}`,
+        region: '서울',
+        title: item.TITLE,
+        date: dateStr,
+        _dateKey: item.STRTDATE || '',
+        tag: item.IS_FREE === '무료' ? '무료' : '신규',
+        image,
+        location: item.PLACE || item.GUNAME || '서울',
+        description,
+        link: item.ORG_LINK || item.HMPG_ADDR || '',
+        mapx: item.LOT || '',
+        mapy: item.LAT || '',
+      });
+    }
+    console.log(`[서울] ${results.length}건 수집 (품질필터 후)`);
+  } catch (err) { console.warn(`[서울] 오류: ${err.message}`); }
+  return results;
+}
+
+// ─── 1순위: 경기데이터드림 관광축제 ─────────────────────────────────────────
+async function fetchGyeonggiEvents(apiKey) {
+  const results = [];
+  if (!apiKey) { console.warn('[경기] GYEONGGI_API_KEY 없음, 건너뜀'); return results; }
+  try {
+    const url = `https://openapi.gg.go.kr/TOURFESTIVALNM?KEY=${apiKey}&Type=json&pIndex=1&pSize=50`;
+    const res = await fetchWithRetry(url);
+    if (!res.ok) { console.warn(`[경기] HTTP ${res.status}`); return results; }
+    const json = await res.json();
+    const rows = json?.TOURFESTIVALNM?.[1]?.row || [];
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    for (const item of rows) {
+      if (item.END_DE && new Date(item.END_DE) < today) continue;
+      const description = [item.FESTIVAL_DC, item.PROGRM_DC].filter(Boolean).join(' ').trim();
+      const image = item.IMG_URL || '';
+      if (description.length < 50 || !image) continue;
+      const startDate = item.BEGIN_DE ? String(item.BEGIN_DE).replace(/-/g, '.') : '';
+      const endDate = item.END_DE ? String(item.END_DE).replace(/-/g, '.') : '';
+      const dateStr = startDate && endDate && startDate !== endDate ? `${startDate}~${endDate}` : startDate || '상시';
+      results.push({
+        _source: '경기',
+        id: `fest-gg-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+        region: '경기',
+        title: item.FESTIVAL_NM || item.PROGRM_NM || '',
+        date: dateStr,
+        _dateKey: item.BEGIN_DE || '',
+        tag: '신규',
+        image,
+        location: item.ADDR || item.FSTVL_PLCE || '경기',
+        description,
+        link: item.HMPG_URL || '',
+        mapx: item.FSTVL_LO || '',
+        mapy: item.FSTVL_LA || '',
+      });
+    }
+    console.log(`[경기] ${results.length}건 수집 (품질필터 후)`);
+  } catch (err) { console.warn(`[경기] 오류: ${err.message}`); }
+  return results;
+}
+
+// ─── 1순위: 인천 문화행사 (공공데이터포털) ──────────────────────────────────
+async function fetchIncheonEvents(apiKey) {
+  const results = [];
+  if (!apiKey) { console.warn('[인천] INCHEON_API_KEY 없음, 건너뜀'); return results; }
+  try {
+    const url = `https://apis.data.go.kr/6280000/icfCulturalEvent/getCulturalEventList?serviceKey=${apiKey}&numOfRows=50&pageNo=1&_type=json`;
+    const res = await fetchWithRetry(url);
+    if (!res.ok) { console.warn(`[인천] HTTP ${res.status}`); return results; }
+    const json = await res.json();
+    const raw = json?.response?.body?.items?.item || [];
+    const items = Array.isArray(raw) ? raw : [raw];
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    for (const item of items) {
+      if (item.endDt && new Date(item.endDt) < today) continue;
+      const description = (item.eventDc || '').trim();
+      const image = item.firstimage || item.thumbnail || '';
+      if (description.length < 50 || !image) continue;
+      const startDate = item.startDt ? String(item.startDt).replace(/-/g, '.') : '';
+      const endDate = item.endDt ? String(item.endDt).replace(/-/g, '.') : '';
+      const dateStr = startDate && endDate && startDate !== endDate ? `${startDate}~${endDate}` : startDate || '상시';
+      results.push({
+        _source: '인천',
+        id: `fest-ic-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+        region: '인천',
+        title: item.eventNm || item.title || '',
+        date: dateStr,
+        _dateKey: item.startDt || '',
+        tag: '신규',
+        image,
+        location: item.eventPlce || item.addr || '인천',
+        description,
+        link: item.hmpgAddr || '',
+        mapx: item.mapx || '',
+        mapy: item.mapy || '',
+      });
+    }
+    console.log(`[인천] ${results.length}건 수집 (품질필터 후)`);
+  } catch (err) { console.warn(`[인천] 오류: ${err.message}`); }
+  return results;
+}
+
+// ─── 2순위: 한국관광공사 TourAPI (searchFestival2 + detailCommon) ─────────
+async function fetchKTOEvents(apiKey) {
   const areaCodes = [
     { code: '11', name: '서울' },
     { code: '28', name: '인천' },
     { code: '41', name: '경기' }
   ];
-
-  // 진행 중인 축제도 포함하기 위해 1개월 전부터 조회
   const from = new Date();
   from.setMonth(from.getMonth() - 1);
   const eventStartDate = from.toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }).replace(/-/g, '');
-
   const festivals = [];
-
   for (const area of areaCodes) {
-    // KorService2/searchFestival2 사용 (인코딩키 그대로 사용, encodeURIComponent 금지)
-    const url = `https://apis.data.go.kr/B551011/KorService2/searchFestival2?serviceKey=${apiKey}&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=TipPick&_type=json&arrange=C&eventStartDate=${eventStartDate}&lDongRegnCd=${area.code}&lclsSystm1=EV`;
+    const url = `https://apis.data.go.kr/B551011/KorService2/searchFestival2?serviceKey=${apiKey}&pageNo=1&numOfRows=20&MobileOS=ETC&MobileApp=TipPick&_type=json&arrange=C&eventStartDate=${eventStartDate}&lDongRegnCd=${area.code}&lclsSystm1=EV`;
     try {
       const res = await fetchWithRetry(url);
-      if (!res.ok) {
-        const errBody = await res.text();
-        console.warn(`[축제] ${area.name} 데이터 수집 실패: HTTP ${res.status}`);
-        console.warn(`[축제] 오류 상세:`, errBody.substring(0, 300));
-        continue;
-      }
+      if (!res.ok) { console.warn(`[KTO] ${area.name} HTTP ${res.status}`); continue; }
       const json = await res.json();
       const raw = json?.response?.body?.items?.item;
-      if (!raw) { console.log(`[축제] ${area.name} 결과 없음`); continue; }
+      if (!raw) { console.log(`[KTO] ${area.name} 결과 없음`); continue; }
       const items = Array.isArray(raw) ? raw : [raw];
-      for (const item of items) {
-        festivals.push({ ...item, _region: area.name });
+      for (const item of items) festivals.push({ ...item, _region: area.name });
+      console.log(`[KTO] ${area.name} ${items.length}건 수집`);
+    } catch (err) { console.warn(`[KTO] ${area.name} 오류: ${err.message}`); }
+  }
+
+  // detailCommon2 호출로 overview + 좌표 보강
+  const enriched = [];
+  for (const fest of festivals) {
+    if (!fest.contentid) { enriched.push(fest); continue; }
+    try {
+      const detailUrl = `https://apis.data.go.kr/B551011/KorService2/detailCommon2?serviceKey=${apiKey}&contentId=${fest.contentid}&MobileOS=ETC&MobileApp=TipPick&_type=json&defaultYN=Y&firstImageYN=Y&addrinfoYN=Y&overviewYN=Y`;
+      const dr = await fetchWithRetry(detailUrl);
+      if (dr.ok) {
+        const dj = await dr.json();
+        const raw = dj?.response?.body?.items?.item;
+        const d = Array.isArray(raw) ? raw[0] : raw;
+        if (d?.overview) fest._overview = d.overview;
+        if (d?.mapx) fest.mapx = d.mapx;
+        if (d?.mapy) fest.mapy = d.mapy;
+        if (d?.homepage) fest._homepage = d.homepage;
       }
-      console.log(`[축제] ${area.name} ${items.length}건 수집`);
-    } catch (err) {
-      console.warn(`[축제] ${area.name} 수집 오류:`, err.message);
+    } catch (e) { console.warn(`[KTO detailCommon] ${fest.contentid} 오류: ${e.message}`); }
+    enriched.push(fest);
+  }
+  return enriched;
+}
+
+// 중복 제거: title+날짜 동일 시 설명이 더 긴 쪽 유지
+function deduplicateFestivals(festivals) {
+  const seen = new Map();
+  for (const fest of festivals) {
+    const key = `${(fest.title || '').trim()}__${fest._dateKey || fest.date || ''}`;
+    if (!seen.has(key)) {
+      seen.set(key, fest);
+    } else {
+      const existing = seen.get(key);
+      if ((fest.description || '').length > (existing.description || '').length) {
+        seen.set(key, fest);
+      }
     }
   }
-  return festivals;
+  return Array.from(seen.values());
 }
 
 // ─── API 연동 설정 ────────────────────────────────────────────────────────────
@@ -552,37 +695,78 @@ ${JSON.stringify(selectedData)}`
       console.log(`✓ 정상 추가됨: ${titleToCheck}`);
     }
 
-    // ─── 수도권 축제/행사 수집 (한국관광공사 TourAPI) ───────────────────
+    // ─── 수도권 축제/행사 수집 (지자체 1순위 + KTO 2순위) ────────────────
     console.log('\n[축제] 수도권 축제/행사 데이터 수집 시작...');
-    const festivalItems = await fetchFestivalData(govApiKey);
-    console.log(`[축제] 총 ${festivalItems.length}건 수집 완료`);
+
+    const seoulApiKey = process.env.SEOUL_API_KEY || '';
+    const gyeonggiApiKey = process.env.GYEONGGI_API_KEY || '';
+    const incheonApiKey = process.env.INCHEON_API_KEY || '';
+
+    // 1순위: 지자체 API
+    const [seoulRaw, gyeonggiRaw, incheonRaw] = await Promise.all([
+      fetchSeoulEvents(seoulApiKey),
+      fetchGyeonggiEvents(gyeonggiApiKey),
+      fetchIncheonEvents(incheonApiKey),
+    ]);
+    const primaryItems = [...seoulRaw, ...gyeonggiRaw, ...incheonRaw];
+    console.log(`[축제] 1순위 지자체 합계: ${primaryItems.length}건`);
+
+    // 2순위: KTO TourAPI (보조) — 지자체로 이미 커버된 지역 보완
+    const ktoItems = await fetchKTOEvents(govApiKey);
+    console.log(`[축제] 2순위 KTO: ${ktoItems.length}건`);
+
+    // KTO 아이템을 공통 포맷으로 변환
+    const ktoFormatted = ktoItems.map(fest => {
+      const title = fest.title || fest.contenttitle || '';
+      const endDateFormatted = fest.eventenddate
+        ? `${fest.eventenddate.slice(0,4)}.${fest.eventenddate.slice(4,6)}.${fest.eventenddate.slice(6,8)}`
+        : null;
+      if (endDateFormatted && isDeadlineExpired(endDateFormatted)) return null;
+      const description = fest._overview || '';
+      const image = fest.firstimage || '';
+      // KTO도 품질 필터 적용
+      if (description.length < 50 || !image) return null;
+      const festLocation = [fest.addr1, fest.addr2].filter(Boolean).join(' ').trim();
+      const link = fest._homepage
+        ? fest._homepage.replace(/<[^>]*>/g, '').trim()  // HTML 태그 제거
+        : '';
+      return {
+        _source: 'KTO',
+        id: `fest-${fest.contentid || Date.now()}`,
+        region: fest._region || '전국',
+        title,
+        date: formatFestivalDate(fest.eventstartdate, fest.eventenddate),
+        _dateKey: fest.eventstartdate || '',
+        tag: '신규',
+        image,
+        location: festLocation || fest._region || '',
+        description,
+        link,
+        mapx: fest.mapx || '',
+        mapy: fest.mapy || '',
+      };
+    }).filter(Boolean);
+
+    // 합산 후 중복 제거 (지자체 우선 — 먼저 들어온 게 우선순위 높음)
+    const allFestItems = deduplicateFestivals([...primaryItems, ...ktoFormatted]);
+    console.log(`[축제] 중복 제거 후: ${allFestItems.length}건`);
 
     const existingFestTitles = new Set(existingData.festivals.map(f => f.title));
 
-    for (const fest of festivalItems) {
-      const title = fest.title || fest.contenttitle;
+    for (const fest of allFestItems) {
+      const title = (fest.title || '').trim();
       if (!title || existingFestTitles.has(title)) continue;
 
-      // 만료된 축제 스킵 (종료일 기준)
-      const endDateFormatted = fest.eventenddate ? `${fest.eventenddate.slice(0,4)}.${fest.eventenddate.slice(4,6)}.${fest.eventenddate.slice(6,8)}` : null;
-      if (endDateFormatted && isDeadlineExpired(endDateFormatted)) {
-        console.log(`[축제 스킵] 종료된 행사: ${title}`);
-        continue;
-      }
-
-      const dateStr = formatFestivalDate(fest.eventstartdate, fest.eventenddate);
-      const region = fest._region || '전국';
-
-      // 이미지: TourAPI 제공 이미지 우선, 없으면 폴백
+      // 이미지 다운로드 (외부 URL → 로컬 저장)
       let finalImageUrl;
-      if (fest.firstimage) {
-        // 외부 이미지를 로컬에 다운로드
+      const imageUrl = fest.image || '';
+      if (imageUrl.startsWith('http')) {
         const seed = Math.floor(Math.random() * 1000);
-        const localImageName = `festival-${String(fest.contentid || Date.now()).slice(-6)}-${seed}.png`;
+        const localImageName = `festival-${String(title).replace(/\s/g,'').slice(0,10)}-${seed}.png`;
         const localImagePath = `/images/blogs/${localImageName}`;
         const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
         try {
-          const imgRes = await fetch(fest.firstimage);
+          const imgRes = await fetch(imageUrl);
           const contentType = imgRes.headers.get('content-type');
           if (imgRes.ok && contentType && contentType.startsWith('image/')) {
             const buf = await imgRes.arrayBuffer();
@@ -597,27 +781,31 @@ ${JSON.stringify(selectedData)}`
           const stockImages = fallbacks['FESTIVAL'] || fallbacks['GUIDE'];
           finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
         }
+      } else if (imageUrl) {
+        finalImageUrl = imageUrl; // 이미 로컬 경로인 경우
       } else {
         const stockImages = fallbacks['FESTIVAL'] || fallbacks['GUIDE'];
         finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
       }
 
-      const festLocation = [fest.addr1, fest.addr2].filter(Boolean).join(' ').trim();
       const newFest = {
-        id: `fest-${fest.contentid || Date.now()}`,
-        region,
+        id: fest.id || `fest-${Date.now()}`,
+        region: fest.region || '전국',
         title,
-        date: dateStr,
-        tag: '신규',
+        date: fest.date || '상시',
+        tag: fest.tag || '신규',
         image: finalImageUrl,
-        location: festLocation || region,
-        description: festLocation ? `${title}이(가) ${festLocation}에서 열립니다.` : ''
+        location: fest.location || fest.region || '',
+        description: fest.description || '',
+        link: fest.link || '',
+        mapx: fest.mapx || '',
+        mapy: fest.mapy || '',
       };
 
       existingData.festivals.unshift(newFest);
       existingFestTitles.add(title);
       fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
-      console.log(`✓ [축제] 추가됨: ${title} (${region}, ${dateStr})`);
+      console.log(`✓ [축제] 추가됨: ${title} (${newFest.region}, ${newFest.date}) [${fest._source}]`);
     }
     // ──────────────────────────────────────────────────────────────────────
 

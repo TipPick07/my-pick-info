@@ -23,6 +23,8 @@ interface Festival {
   image: string;
   description: string;
   link: string;
+  mapx?: string;
+  mapy?: string;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -52,9 +54,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export async function generateStaticParams() {
   const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
   const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-  return data.festivals.map((f: { id: string }) => ({
-    id: f.id.toString(),
-  }));
+  const params = data.festivals.map((f: { id: string }) => ({ id: f.id.toString() }));
+  // output: export 모드에서 빈 배열이면 빌드 오류 — placeholder 보장
+  return params.length > 0 ? params : [{ id: 'placeholder' }];
 }
 
 async function getFestival(id: string) {
@@ -172,6 +174,36 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
               </ul>
             </div>
           </section>
+          {/* 지도 위젯 */}
+          {(festival.mapx && festival.mapy) ? (
+            <section className="rounded-[2rem] overflow-hidden border border-slate-200 shadow-sm">
+              <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest px-6 pt-5 pb-3">행사 위치</p>
+              <iframe
+                src={`https://www.openstreetmap.org/export/embed.html?bbox=${parseFloat(festival.mapx) - 0.008},${parseFloat(festival.mapy) - 0.005},${parseFloat(festival.mapx) + 0.008},${parseFloat(festival.mapy) + 0.005}&layer=mapnik&marker=${festival.mapy},${festival.mapx}`}
+                width="100%"
+                height="360"
+                style={{ border: 0 }}
+                loading="lazy"
+                title={`${festival.title} 위치 지도`}
+              />
+            </section>
+          ) : festival.location ? (
+            <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-6 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 text-slate-600">
+                <MapPin className="w-5 h-5 text-indigo-500 shrink-0" />
+                <span className="font-bold text-sm">{festival.location}</span>
+              </div>
+              <a
+                href={`https://map.naver.com/p/search/${encodeURIComponent(festival.location)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-black text-indigo-600 hover:underline whitespace-nowrap"
+              >
+                지도에서 보기 →
+              </a>
+            </section>
+          ) : null}
+
           {/* 하단 CTA 버튼 — 항상 렌더링 (URL 유효 시 공식 링크, 아니면 네이버 검색) */}
           <footer className="pt-4">
             {isValidUrl(festival.link) ? (

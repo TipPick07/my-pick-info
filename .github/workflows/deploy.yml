@@ -37,6 +37,9 @@ jobs:
           PUBLIC_DATA_API_KEY: ${{ secrets.PUBLIC_DATA_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-2.5-flash
+          SEOUL_API_KEY: ${{ secrets.SEOUL_API_KEY }}
+          GYEONGGI_API_KEY: ${{ secrets.GYEONGGI_API_KEY }}
+          INCHEON_API_KEY: ${{ secrets.INCHEON_API_KEY }}
 
       - name: Commit and Push Changes
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
