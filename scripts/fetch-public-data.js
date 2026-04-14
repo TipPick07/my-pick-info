@@ -175,12 +175,12 @@ function extractItems(json) {
 // 수정: srchKeyCode → lifeArray, callTp=L 필수 파라미터 추가
 // data.go.kr API는 serviceKey를 encodeURIComponent 없이 그대로 사용
 async function fetchBokjiroCentral(apiKey) {
-  // 생애주기 코드: 중장년(40~64세)=06, 노년(65세+)=07
-  const lifecycleCodes = ['06', '07'];
+  // 생애주기 코드: 중장년(40~64세)=05, 노년(65세+)=06
+  const lifecycleCodes = ['05', '06'];
   const results = [];
   for (const code of lifecycleCodes) {
     if (results.length >= 10) break;
-    const url = `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${apiKey}&callTp=L&pageNo=1&numOfRows=5&lifeArray=${code}&_type=json`;
+    const url = `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${apiKey}&pageNo=1&numOfRows=5&lifeArray=${code}&_type=json`;
     try {
       const res = await fetchWithRetry(url);
       if (!res.ok) { const errBody = await res.text(); console.warn(`[복지로중앙:${code}] HTTP ${res.status} - ${errBody.substring(0, 300)}`); continue; }
@@ -203,7 +203,8 @@ async function fetchBokjiroCentral(apiKey) {
 // 수정: srchKeyCode → lifeArray, ctpvCd(코드) → ctpvNm(시도명)
 // data.go.kr API는 serviceKey를 encodeURIComponent 없이 그대로 사용
 async function fetchBokjiroLocal(apiKey) {
-  const lifecycleCodes = ['06', '07'];
+  // 생애주기 코드: 중장년(40~64세)=05, 노년(65세+)=06
+  const lifecycleCodes = ['05', '06'];
   const regionNames = ['서울', '인천', '경기'];
   const results = [];
   for (const lc of lifecycleCodes) {
