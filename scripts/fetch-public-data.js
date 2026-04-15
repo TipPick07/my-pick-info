@@ -416,35 +416,28 @@ function buildDataGoKrUrl(base, serviceKey, params) {
 }
 
 // ─── 1순위: 복지로 중앙부처 복지서비스 (한국사회보장정보원) ──────────────────
-// API: data.go.kr B554287/NationalWelfareInformations/getNationalWelfarelist
+// Full URL: https://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist
 // 기본 포맷 XML — JSON 응답이면 extractItems, XML 응답이면 parseXmlItems 사용
 async function fetchBokjiroCentral(apiKey) {
   const results = [];
   const reqOptions = { headers: { 'Accept': 'application/json' } };
+  const safeKey = /%[0-9A-Fa-f]{2}/.test(apiKey) ? apiKey : encodeURIComponent(apiKey);
+
   const endpoints = [
-    // V1(정식명칭) http 우선 — 포털 명세 기준
     {
-      name: 'V1-http',
-      base: 'http://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist',
-      params: { pageNo: '1', numOfRows: '10', callTp: 'L', _type: 'json' },
+      name: 'V1',
+      url: `https://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist?serviceKey=${safeKey}&pageNo=1&numOfRows=10&callTp=L&_type=json`,
     },
-    // V2 http 폴백
     {
-      name: 'V2-http',
-      base: 'http://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2',
-      params: { pageNo: '1', numOfRows: '10', _type: 'json' },
-    },
-    // V1 https 폴백
-    {
-      name: 'V1-https',
-      base: 'https://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist',
-      params: { pageNo: '1', numOfRows: '10', callTp: 'L', _type: 'json' },
+      name: 'V2',
+      url: `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${safeKey}&pageNo=1&numOfRows=10&_type=json`,
     },
   ];
+
   for (const ep of endpoints) {
-    const url = buildDataGoKrUrl(ep.base, apiKey, ep.params);
+    console.log(`[URL] 복지로중앙:${ep.name} ${ep.url.replace(safeKey, safeKey.substring(0, 6) + '***')}`);
     try {
-      const res = await fetchWithRetry(url, reqOptions);
+      const res = await fetchWithRetry(ep.url, reqOptions);
       const { raw, json, xmlItems } = await readAndParse(`복지로중앙:${ep.name}`, res);
       if (!res.ok) {
         console.log(`[복지로중앙:${ep.name}] HTTP ${res.status} — 위 RAW 참조`);
@@ -466,19 +459,19 @@ async function fetchBokjiroCentral(apiKey) {
 }
 
 // ─── 1순위: 복지로 지자체 복지서비스 (한국사회보장정보원) ────────────────────
-// API: data.go.kr B554287/LocalWelfareService2/LcgvWelfarelist (포털 공식 경로)
+// Full URL: https://apis.data.go.kr/B554287/LocalGovernmentWelfareInformations/LcgvWelfarelist
 // 기본 포맷 XML — JSON 응답이면 extractItems, XML 응답이면 parseXmlItems 사용
 async function fetchBokjiroLocal(apiKey) {
   const regionNames = ['서울', '인천', '경기'];
   const results = [];
   const reqOptions = { headers: { 'Accept': 'application/json' } };
+  const safeKey = /%[0-9A-Fa-f]{2}/.test(apiKey) ? apiKey : encodeURIComponent(apiKey);
+
   for (const region of regionNames) {
     if (results.length >= 10) break;
-    const url = buildDataGoKrUrl(
-      'http://apis.data.go.kr/B554287/LocalWelfareService2/LcgvWelfarelist',
-      apiKey,
-      { pageNo: '1', numOfRows: '5', ctpvNm: region, _type: 'json' }
-    );
+    const ctpv = encodeURIComponent(region);
+    const url = `https://apis.data.go.kr/B554287/LocalGovernmentWelfareInformations/LcgvWelfarelist?serviceKey=${safeKey}&pageNo=1&numOfRows=5&ctpvNm=${ctpv}&_type=json`;
+    console.log(`[URL] 복지로지자체:${region} ${url.replace(safeKey, safeKey.substring(0, 6) + '***')}`);
     try {
       const res = await fetchWithRetry(url, reqOptions);
       const { raw, json, xmlItems } = await readAndParse(`복지로지자체:${region}`, res);
