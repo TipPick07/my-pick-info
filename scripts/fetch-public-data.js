@@ -323,15 +323,39 @@ function extractItems(json) {
   return Array.isArray(raw) ? raw : (raw && typeof raw === 'object' ? [raw] : []);
 }
 
-// ─── 공통: raw text 추출 → 타입 감지 → 조건부 JSON 파싱 ─────────────────────
-// 반환값: { raw, json } — json은 파싱 성공 시 객체, 실패/XML 시 null
+// ─── 복지로 XML 응답 파싱 (정규식, 외부 라이브러리 불필요) ──────────────────
+// B554287 API 기본 반환 포맷이 XML — <item> 블록에서 모든 필드를 추출
+function parseXmlItems(xml) {
+  const items = [];
+  const itemRx = /<item>([\s\S]*?)<\/item>/g;
+  let m;
+  while ((m = itemRx.exec(xml)) !== null) {
+    const block = m[1];
+    const obj = {};
+    const fieldRx = /<([^/>\s]+?)>([^<]*)<\/\1>/g;
+    let f;
+    while ((f = fieldRx.exec(block)) !== null) {
+      obj[f[1]] = f[2]
+        .replace(/&amp;/g, '&').replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+        .trim();
+    }
+    if (Object.keys(obj).length > 0) items.push(obj);
+  }
+  return items;
+}
+
+// ─── 공통: raw text 추출 → 타입 감지 → 조건부 파싱 ──────────────────────────
+// 반환값: { raw, json, xmlItems }
+//   json: JSON 파싱 성공 시 객체, 아니면 null
+//   xmlItems: XML <item> 파싱 성공 시 배열, 아니면 null
 async function readAndParse(label, res) {
   let raw = '';
   try {
     raw = await res.text();
   } catch (e) {
     console.log(`[${label}] 응답 바디 읽기 실패: ${e.message}`);
-    return { raw: '', json: null };
+    return { raw: '', json: null, xmlItems: null };
   }
 
   // ① 즉시 raw 출력 (항상 최우선)
@@ -339,9 +363,8 @@ async function readAndParse(label, res) {
 
   const trimmed = raw.trim();
 
-  // ② 응답 타입 감지
+  // ② XML 감지
   if (trimmed.startsWith('<')) {
-    // XML/HTML 응답 — JSON 파싱 시도하지 않음
     const codeMatch = raw.match(/<returnReasonCode>(\d+)<\/returnReasonCode>/);
     const msgMatch  = raw.match(/<returnAuthMsg>([^<]+)<\/returnAuthMsg>/);
     const codeMap = {
@@ -350,23 +373,33 @@ async function readAndParse(label, res) {
       '30': '등록되지않은서비스키', '31': '기한만료된서비스키',
       '32': '등록되지않은IP', '99': '서버오류',
     };
-    const code = codeMatch ? codeMatch[1] : '?';
+    const code = codeMatch ? codeMatch[1] : null;
     const msg  = msgMatch  ? msgMatch[1]  : '(메시지 없음)';
-    console.log(`[${label}] XML 응답 — 에러코드: ${code} (${codeMap[code] || '알수없음'}) | ${msg}`);
-    return { raw, json: null };
+
+    // 에러 코드가 있고 00이 아니면 → 실패
+    if (code && code !== '00') {
+      console.log(`[${label}] XML 에러 — 코드: ${code} (${codeMap[code] || '알수없음'}) | ${msg}`);
+      return { raw, json: null, xmlItems: null };
+    }
+
+    // 에러 없음 → <item> 블록 파싱 시도
+    const xmlItems = parseXmlItems(raw);
+    console.log(`[${label}] XML 파싱 — ${xmlItems.length}건 추출 | 코드: ${code || '없음'} | ${msg}`);
+    return { raw, json: null, xmlItems };
   }
 
+  // ③ 비JSON/비XML
   if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) {
     console.log(`[${label}] 비JSON/비XML 응답 (첫글자: '${trimmed[0] || '없음'}')`);
-    return { raw, json: null };
+    return { raw, json: null, xmlItems: null };
   }
 
-  // ③ JSON 파싱
+  // ④ JSON 파싱
   try {
-    return { raw, json: JSON.parse(trimmed) };
+    return { raw, json: JSON.parse(trimmed), xmlItems: null };
   } catch (e) {
     console.log(`[${label}] JSON 파싱 실패: ${e.message}`);
-    return { raw, json: null };
+    return { raw, json: null, xmlItems: null };
   }
 }
 
@@ -383,40 +416,42 @@ function buildDataGoKrUrl(base, serviceKey, params) {
 }
 
 // ─── 1순위: 복지로 중앙부처 복지서비스 (한국사회보장정보원) ──────────────────
-// API: data.go.kr B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2
-// serviceKey: URL 직접 삽입 (이중 인코딩 방지)
-// Accept: application/json 헤더 + _type=json 파라미터 동시 적용
+// API: data.go.kr B554287/NationalWelfareInformations/getNationalWelfarelist
+// 기본 포맷 XML — JSON 응답이면 extractItems, XML 응답이면 parseXmlItems 사용
 async function fetchBokjiroCentral(apiKey) {
   const results = [];
   const reqOptions = { headers: { 'Accept': 'application/json' } };
   const endpoints = [
-    {
-      name: 'V2-http',
-      base: 'http://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2',
-      params: { pageNo: '1', numOfRows: '10', _type: 'json' },
-    },
+    // V1(정식명칭) http 우선 — 포털 명세 기준
     {
       name: 'V1-http',
       base: 'http://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist',
       params: { pageNo: '1', numOfRows: '10', callTp: 'L', _type: 'json' },
     },
+    // V2 http 폴백
     {
-      name: 'V2-https',
-      base: 'https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2',
+      name: 'V2-http',
+      base: 'http://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2',
       params: { pageNo: '1', numOfRows: '10', _type: 'json' },
+    },
+    // V1 https 폴백
+    {
+      name: 'V1-https',
+      base: 'https://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist',
+      params: { pageNo: '1', numOfRows: '10', callTp: 'L', _type: 'json' },
     },
   ];
   for (const ep of endpoints) {
     const url = buildDataGoKrUrl(ep.base, apiKey, ep.params);
     try {
       const res = await fetchWithRetry(url, reqOptions);
-      const { raw, json } = await readAndParse(`복지로중앙:${ep.name}`, res);
+      const { raw, json, xmlItems } = await readAndParse(`복지로중앙:${ep.name}`, res);
       if (!res.ok) {
         console.log(`[복지로중앙:${ep.name}] HTTP ${res.status} — 위 RAW 참조`);
         continue;
       }
-      if (!json) continue;
-      const items = extractItems(json);
+      const items = json ? extractItems(json) : (xmlItems || []);
+      if (items.length === 0) continue;
       for (const item of items) {
         const norm = normalizeItem(item, '복지로중앙');
         if (norm.서비스명) results.push(norm);
@@ -431,9 +466,8 @@ async function fetchBokjiroCentral(apiKey) {
 }
 
 // ─── 1순위: 복지로 지자체 복지서비스 (한국사회보장정보원) ────────────────────
-// API: data.go.kr B554287/LocalWelfareService2/getLocalWelfareSrvList
-// serviceKey: URL 직접 삽입 (이중 인코딩 방지)
-// Accept: application/json 헤더 + _type=json 파라미터 동시 적용
+// API: data.go.kr B554287/LocalWelfareService2/LcgvWelfarelist (포털 공식 경로)
+// 기본 포맷 XML — JSON 응답이면 extractItems, XML 응답이면 parseXmlItems 사용
 async function fetchBokjiroLocal(apiKey) {
   const regionNames = ['서울', '인천', '경기'];
   const results = [];
@@ -441,19 +475,19 @@ async function fetchBokjiroLocal(apiKey) {
   for (const region of regionNames) {
     if (results.length >= 10) break;
     const url = buildDataGoKrUrl(
-      'http://apis.data.go.kr/B554287/LocalWelfareService2/getLocalWelfareSrvList',
+      'http://apis.data.go.kr/B554287/LocalWelfareService2/LcgvWelfarelist',
       apiKey,
       { pageNo: '1', numOfRows: '5', ctpvNm: region, _type: 'json' }
     );
     try {
       const res = await fetchWithRetry(url, reqOptions);
-      const { raw, json } = await readAndParse(`복지로지자체:${region}`, res);
+      const { raw, json, xmlItems } = await readAndParse(`복지로지자체:${region}`, res);
       if (!res.ok) {
         console.log(`[복지로지자체:${region}] HTTP ${res.status} — 위 RAW 참조`);
         continue;
       }
-      if (!json) continue;
-      const items = extractItems(json);
+      const items = json ? extractItems(json) : (xmlItems || []);
+      if (items.length === 0) continue;
       for (const item of items) {
         const norm = normalizeItem(item, '복지로지자체');
         if (norm.서비스명) results.push(norm);
