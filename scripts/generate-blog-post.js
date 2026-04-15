@@ -83,40 +83,41 @@ async function main() {
     const prompt = {
       contents: [{
         parts: [{
-          text: `당신은 수도권 생활 정보 큐레이션 서비스 '수도권 팁픽(Tip-Pick)'의 전문 에디터입니다. 
-아래 공공서비스 정보를 바탕으로 독자들에게 정말 도움이 되는 프리미엄 블로그 글을 작성해줘.
+          text: `당신은 수도권 생활 정보 큐레이션 서비스 '수도권 팁픽(Tip-Pick)'의 전문 에디터이자 검색 엔진 최적화(SEO) 전문가입니다.
+아래 공공서비스 정보를 바탕으로 독자들에게 도움이 되며, 네이버와 구글 검색에서 상위 노출될 수 있는 프리미엄 블로그 글을 작성해줘.
 
 정보: ${JSON.stringify(targetItem)}
 
-[작성 가이드라인]
-1. 서비스명: '수도권 팁픽' 또는 '팁픽(Tip-Pick)'을 자연스럽게 언급해줘.
-2. 톤앤매너: 친절하고 다정하지만, 전문성과 신뢰감이 느껴지는 '프리미엄 로컬 매거진' 스타일.
-3. 구성: 
-   - 도입부에 이 정보가 왜 중요한지 강조.
+[SEO 및 작성 가이드라인]
+1. 제목 (title): 원문 제목을 그대로 쓰지 말고, 검색자들이 포털에 입력할 법한 세부 키워드(지역명, 타겟 연령층, 핵심 혜택, 신청방법 등)를 조합하여 구체적이고 클릭을 유도하는 제목으로 가공해줘. (예: "[인천 중장년] 2026 정부지원 기술창업센터 입주 자격 및 신청방법 총정리")
+2. 요약 (summary): 구글 검색 결과의 '메타 디스크립션(Meta Description)'으로 사용될 핵심 영역입니다. 핵심 타겟과 혜택을 모두 포함하여 150자 이내의 자연스러운 문장으로 작성해줘.
+3. 독창적 콘텐츠(유사 문서 회피): 본문 최상단 도입부에 원문 데이터에는 없는 '팁픽 에디터의 인사이트(주의사항이나 꿀팁)' 2~3문장을 독창적으로 창작하여 배치해줘.
+4. 구성:
    - 본문에 '팁픽이 꼽은 추천 포인트 3가지'를 포함.
+   - 공공기관 특유의 딱딱한 문체를 친근하고 전문적인 블로그 톤으로 윤문.
    - 신청 방법 및 대상자를 명확하게 안내.
-4. 길이: 공백 제외 800자 이상의 풍부한 내용.
+5. 길이: 공백 제외 800자 이상의 풍부한 내용.
 
-아래 형식으로 출력해줘. 반드시 이 형식(YAML Frontmatter 포함)만 출력하고 다른 설명 제발 없이:
+아래 형식으로 출력해줘. 반드시 이 형식(YAML Frontmatter 포함)만 출력하고 다른 설명은 제외해:
 ---
-title: (친근하고 호기심을 자극하는 제목)
+title: (SEO가 적용된 구체적인 제목)
 originalTitle: ${targetItem.title}
 link: ${targetItem.link || ''}
 officialTarget: ${targetItem.target || '정보 없음'}
 officialDetails: ${targetItem.details || targetItem.description || '정보 없음'}
 officialDeadline: ${targetItem.deadline || targetItem.date || '상시'}
 date: ${today}
-summary: (전체 내용을 관통하는 매력적인 한 줄 요약)
+summary: (검색 노출용 150자 이내 요약문)
 category: 정보
 image: ${targetItem.image || ''}
-tags: [태그1, 태그2, 태그3]
+tags: [세부키워드1, 세부키워드2, 세부키워드3]
 officialRequirements: ${JSON.stringify(targetItem.requirements || [])}
 officialHowToApply: ${JSON.stringify(targetItem.howToApply || [])}
 officialEligibilityQuiz: ${JSON.stringify(targetItem.eligibilityQuiz || [])}
 officialTip: ${targetItem.tip || ''}
 ---
 
-(본문 내용 시작...)
+(본문 내용 시작. 최상단에 에디터 인사이트 반드시 포함...)
 
 FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘. 키워드는 영문으로.`
         }]

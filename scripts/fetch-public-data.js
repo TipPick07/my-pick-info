@@ -697,12 +697,31 @@ async function main() {
       const promptObj = {
         contents: [{
           parts: [{
-            text: `아래 공공데이터 1건을 분석해서 JSON 객체로 변환해줘. 형식:
-{id: 랜덤숫자, region: '서울', '인천', '경기', '전국' 중 택1, type: 'festival' 또는 'benefit', title: 서비스명, date: 'YYYY.MM.DD~YYYY.MM.DD' 또는 마감일, target: 지원대상, summary: 2~3문장 요약 (행사라면 행사 특징·볼거리·즐길거리 중심, 지원금이라면 핵심 혜택 중심), location: '행사 장소명 또는 주소 (festival일 때만. benefit이면 빈 문자열)', link: 상세URL, tag: '추천/마감임박/상시 등 짧은태그', imagePrompt: '축제/행사라면 이 축제의 분위기를 파스텔톤 3D 일러스트 스타일로 표현하는 영문 프롬프트 1문장 (pastel 3D illustration, soft mint and warm colors, clean white background, flat perspective, professional)', requirements: ['필요서류1', '필요서류2'], howToApply: ['신청방법1', '신청방법2'], eligibilityQuiz: ['자격 요건 질문1', '자격 요건 질문2'], tip: '사용자를 위한 한 줄 꿀팁'}
+            text: `아래 공공데이터 1건을 분석해서 JSON 객체로 변환해줘.
+이 데이터는 웹사이트에 상세 페이지로 자동 배포되므로, 구글/네이버 검색 노출(SEO)을 위해 '유사 문서'로 분류되지 않는 독창적인 가공이 매우 중요해.
+
+형식:
+{
+  id: 랜덤숫자,
+  region: '서울', '인천', '경기', '전국' 중 택1,
+  type: 'festival' 또는 'benefit',
+  title: '[지역명 명시] + 원문 제목에 직관적인 혜택이나 목적 키워드를 결합한 검색 친화적 제목 (예: [서울] 청년 대중교통비 10만원 지원금 신청)',
+  date: 'YYYY.MM.DD~YYYY.MM.DD' 또는 마감일,
+  target: 지원대상,
+  summary: 원문 텍스트를 단순 복사하지 말고, 대상자·혜택(행사면 즐길거리)을 에디터의 시각에서 재해석한 3~4문장의 독창적인 설명문 (유사 문서 패널티 회피용 필수 항목),
+  location: '행사 장소명 또는 주소 (festival일 때만. benefit이면 빈 문자열)',
+  link: 상세URL,
+  tag: '추천/마감임박/상시 등 짧은태그',
+  imagePrompt: '축제/행사라면 이 축제의 분위기를 파스텔톤 3D 일러스트 스타일로 표현하는 영문 프롬프트 1문장 (pastel 3D illustration, soft mint and warm colors, clean white background, flat perspective, professional)',
+  requirements: ['필요서류1', '필요서류2'],
+  howToApply: ['신청방법1', '신청방법2'],
+  eligibilityQuiz: ['자격 요건 질문1', '자격 요건 질문2'],
+  tip: '사용자를 위한 한 줄 꿀팁'
+}
+
 내용을 보고 행사/축제면 type을 'festival', 지원금/서비스면 'benefit'으로 판단해.
 eligibilityQuiz는 지원 대상을 분석해서 "~이신가요?" 형태의 질문으로 최소 2개 만들어줘.
 반드시 JSON 객체만 출력해. 다른 텍스트 없이.
-
 공공데이터:
 ${JSON.stringify(selectedData)}`
           }]
