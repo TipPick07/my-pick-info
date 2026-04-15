@@ -325,16 +325,16 @@ function extractItems(json) {
 }
 
 // ─── 디버그: API 에러 응답 전체 출력 헬퍼 ────────────────────────────────────
+// console.log 사용 (GitHub Actions stdout/stderr 혼재로 인한 순서 역전 방지)
 async function logApiError(label, status, res) {
   let body = '';
   try { body = await res.text(); } catch (_) { body = '(응답 바디 읽기 실패)'; }
-  // XML returnReasonCode 추출 시도
+  // XML returnReasonCode 추출 시도 (data.go.kr 표준 에러 포맷)
   const codeMatch = body.match(/<returnReasonCode>(\d+)<\/returnReasonCode>/);
   const msgMatch  = body.match(/<returnAuthMsg>([^<]+)<\/returnAuthMsg>/);
   const code = codeMatch ? codeMatch[1] : '';
   const msg  = msgMatch  ? msgMatch[1]  : '';
   if (code) {
-    // data.go.kr 에러 코드 해석
     const codeMap = {
       '00': '정상', '01': '어플리케이션 에러', '02': 'DB에러',
       '03': '데이터없음', '04': 'HTTP에러', '05': '서비스연결실패',
@@ -343,9 +343,10 @@ async function logApiError(label, status, res) {
       '22': '서비스요청제한횟수초과', '30': '등록되지않은서비스키',
       '31': '기한만료된서비스키', '32': '등록되지않은IP', '99': '서버오류',
     };
-    console.error(`[${label}] HTTP ${status} | 에러코드: ${code} (${codeMap[code] || '알수없음'}) | ${msg}`);
+    console.log(`[${label}] HTTP ${status} | 에러코드: ${code} (${codeMap[code] || '알수없음'}) | ${msg}`);
   } else {
-    console.error(`[${label}] HTTP ${status} | 응답 전문:\n${body}`);
+    // plain text 또는 비표준 응답 → 전문 그대로 출력
+    console.log(`[${label}] HTTP ${status} | raw 응답: ${body}`);
   }
 }
 
@@ -355,42 +356,60 @@ async function safeJsonParse(label, res) {
   try {
     return JSON.parse(text);
   } catch (_) {
-    console.error(`[${label}] JSON 파싱 실패 (서버가 XML로 응답했을 수 있음). 응답 전문:\n${text}`);
+    console.log(`[${label}] JSON 파싱 실패 (XML 응답 추정). raw: ${text.substring(0, 300)}`);
     return null;
   }
 }
 
+// ─── serviceKey URL 삽입 헬퍼 ─────────────────────────────────────────────────
+// data.go.kr 포털에서 발급받은 키는 인코딩 키(% 포함) 형태이므로
+// encodeURIComponent 재적용 시 이중 인코딩(%25...) 발생 → 게이트웨이 500 오류
+// 해결: serviceKey만 URL 문자열에 직접 삽입, 나머지 파라미터는 URLSearchParams 사용
+function buildDataGoKrUrl(base, serviceKey, params) {
+  const qs = new URLSearchParams(params).toString();
+  const sanitizedKeyLog = serviceKey.substring(0, 6) + '***';
+  console.log(`[URL] ${base.split('/').slice(-1)[0]} ?serviceKey=${sanitizedKeyLog}&${qs}`);
+  return `${base}?serviceKey=${serviceKey}&${qs}`;
+}
+
 // ─── 1순위: 복지로 중앙부처 복지서비스 (한국사회보장정보원) ──────────────────
 // API: data.go.kr B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2
-// ※ 주의: 인증키가 해당 서비스에 등록(활용신청)되지 않았을 경우 returnReasonCode=30
-// serviceKey: 일반 인증키 → encodeURIComponent 적용
+// serviceKey: URL에 직접 삽입 (이중 인코딩 방지)
+// 필수 파라미터: pageNo, numOfRows, _type=json
 async function fetchBokjiroCentral(apiKey) {
   const results = [];
-  const encodedKey = encodeURIComponent(apiKey);
-  // V2 → V1 순서로 폴백 시도
   const endpoints = [
-    `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${encodedKey}&pageNo=1&numOfRows=10&_type=json`,
-    `https://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist?serviceKey=${encodedKey}&pageNo=1&numOfRows=10&_type=json`,
+    {
+      name: 'V2',
+      base: 'https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2',
+      params: { pageNo: '1', numOfRows: '10', _type: 'json' },
+    },
+    {
+      name: 'V1',
+      base: 'https://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist',
+      // V1: callTp=L(목록조회) 필수, type 파라미터 언더스코어 없는 형태도 시도
+      params: { pageNo: '1', numOfRows: '10', callTp: 'L', _type: 'json' },
+    },
   ];
-  for (const url of endpoints) {
-    const endpointName = url.includes('V2') ? 'V2' : 'V1';
+  for (const ep of endpoints) {
+    const url = buildDataGoKrUrl(ep.base, apiKey, ep.params);
     try {
       const res = await fetchWithRetry(url);
       if (!res.ok) {
-        await logApiError(`복지로중앙:${endpointName}`, res.status, res);
+        await logApiError(`복지로중앙:${ep.name}`, res.status, res);
         continue;
       }
-      const json = await safeJsonParse('복지로중앙', res);
+      const json = await safeJsonParse(`복지로중앙:${ep.name}`, res);
       if (!json) continue;
       const items = extractItems(json);
       for (const item of items) {
         const norm = normalizeItem(item, '복지로중앙');
         if (norm.서비스명) results.push(norm);
       }
-      console.log(`[복지로중앙:${endpointName}] ${items.length}건 수집`);
+      console.log(`[복지로중앙:${ep.name}] ${items.length}건 수집`);
       break;
     } catch (err) {
-      console.error(`[복지로중앙:${endpointName}] 네트워크 오류: ${err.message}`);
+      console.log(`[복지로중앙:${ep.name}] 네트워크 오류: ${err.message}`);
     }
   }
   return results;
@@ -398,15 +417,18 @@ async function fetchBokjiroCentral(apiKey) {
 
 // ─── 1순위: 복지로 지자체 복지서비스 (한국사회보장정보원) ────────────────────
 // API: data.go.kr B554287/LocalWelfareService2/getLocalWelfareSrvList
-// ctpvNm: URL 인코딩된 시도명 (서울/인천/경기)
-// serviceKey: 일반 인증키 → encodeURIComponent 적용
+// serviceKey: URL에 직접 삽입 (이중 인코딩 방지)
+// 필수 파라미터: pageNo, numOfRows, ctpvNm(시도명), _type=json
 async function fetchBokjiroLocal(apiKey) {
   const regionNames = ['서울', '인천', '경기'];
   const results = [];
-  const encodedKey = encodeURIComponent(apiKey);
   for (const region of regionNames) {
     if (results.length >= 10) break;
-    const url = `https://apis.data.go.kr/B554287/LocalWelfareService2/getLocalWelfareSrvList?serviceKey=${encodedKey}&pageNo=1&numOfRows=5&ctpvNm=${encodeURIComponent(region)}&_type=json`;
+    const url = buildDataGoKrUrl(
+      'https://apis.data.go.kr/B554287/LocalWelfareService2/getLocalWelfareSrvList',
+      apiKey,
+      { pageNo: '1', numOfRows: '5', ctpvNm: region, _type: 'json' }
+    );
     try {
       const res = await fetchWithRetry(url);
       if (!res.ok) {
@@ -422,7 +444,7 @@ async function fetchBokjiroLocal(apiKey) {
       }
       console.log(`[복지로지자체:${region}] ${items.length}건 수집`);
     } catch (err) {
-      console.error(`[복지로지자체:${region}] 네트워크 오류: ${err.message}`);
+      console.log(`[복지로지자체:${region}] 네트워크 오류: ${err.message}`);
     }
   }
   return results;
