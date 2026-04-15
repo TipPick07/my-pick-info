@@ -42,7 +42,7 @@ function asQuestion(text) {
   return q;
 }
 
-// 재시도 가능한 fetch 함수
+// 재시도 가능한 fetch 함수 (console.log 통일 — stderr/stdout 혼재 방지)
 async function fetchWithRetry(url, options = {}, retries = 3, backoff = 2000) {
   let lastResponse;
   for (let i = 0; i < retries; i++) {
@@ -50,7 +50,7 @@ async function fetchWithRetry(url, options = {}, retries = 3, backoff = 2000) {
       const response = await fetch(url, options);
       if (response.ok) return response;
       if (response.status === 429 || response.status >= 500) {
-        console.warn(`[재시도 ${i + 1}/${retries}] API 오류 (${response.status}). ${backoff}ms 후 다시 시도합니다.`);
+        console.log(`[재시도 ${i + 1}/${retries}] API 오류 (${response.status}). ${backoff}ms 후 다시 시도합니다.`);
         lastResponse = response;
         await new Promise(resolve => setTimeout(resolve, backoff));
         backoff *= 2;
@@ -59,12 +59,11 @@ async function fetchWithRetry(url, options = {}, retries = 3, backoff = 2000) {
       return response;
     } catch (err) {
       if (i === retries - 1) throw err;
-      console.warn(`[재시도 ${i + 1}/${retries}] 네트워크 오류: ${err.message}. ${backoff}ms 후 다시 시도합니다.`);
+      console.log(`[재시도 ${i + 1}/${retries}] 네트워크 오류: ${err.message}. ${backoff}ms 후 다시 시도합니다.`);
       await new Promise(resolve => setTimeout(resolve, backoff));
       backoff *= 2;
     }
   }
-  // 모든 재시도 실패 시 마지막 응답 반환 (undefined 반환 버그 수정)
   if (lastResponse) return lastResponse;
   throw new Error(`최대 재시도 횟수(${retries})를 초과했습니다.`);
 }
@@ -324,47 +323,56 @@ function extractItems(json) {
   return Array.isArray(raw) ? raw : (raw && typeof raw === 'object' ? [raw] : []);
 }
 
-// ─── 디버그: API 에러 응답 전체 출력 헬퍼 ────────────────────────────────────
-// console.log 사용 (GitHub Actions stdout/stderr 혼재로 인한 순서 역전 방지)
-async function logApiError(label, status, res) {
-  let body = '';
-  try { body = await res.text(); } catch (_) { body = '(응답 바디 읽기 실패)'; }
-  // XML returnReasonCode 추출 시도 (data.go.kr 표준 에러 포맷)
-  const codeMatch = body.match(/<returnReasonCode>(\d+)<\/returnReasonCode>/);
-  const msgMatch  = body.match(/<returnAuthMsg>([^<]+)<\/returnAuthMsg>/);
-  const code = codeMatch ? codeMatch[1] : '';
-  const msg  = msgMatch  ? msgMatch[1]  : '';
-  if (code) {
+// ─── 공통: raw text 추출 → 타입 감지 → 조건부 JSON 파싱 ─────────────────────
+// 반환값: { raw, json } — json은 파싱 성공 시 객체, 실패/XML 시 null
+async function readAndParse(label, res) {
+  let raw = '';
+  try {
+    raw = await res.text();
+  } catch (e) {
+    console.log(`[${label}] 응답 바디 읽기 실패: ${e.message}`);
+    return { raw: '', json: null };
+  }
+
+  // ① 즉시 raw 출력 (항상 최우선)
+  console.log(`[디버깅 RAW:${label}] ${raw.substring(0, 500)}`);
+
+  const trimmed = raw.trim();
+
+  // ② 응답 타입 감지
+  if (trimmed.startsWith('<')) {
+    // XML/HTML 응답 — JSON 파싱 시도하지 않음
+    const codeMatch = raw.match(/<returnReasonCode>(\d+)<\/returnReasonCode>/);
+    const msgMatch  = raw.match(/<returnAuthMsg>([^<]+)<\/returnAuthMsg>/);
     const codeMap = {
-      '00': '정상', '01': '어플리케이션 에러', '02': 'DB에러',
-      '03': '데이터없음', '04': 'HTTP에러', '05': '서비스연결실패',
       '10': '잘못된요청파라미터', '11': '필수요청파라미터없음',
       '12': '해당OpenAPI서비스없음', '20': '서비스접근거부',
-      '22': '서비스요청제한횟수초과', '30': '등록되지않은서비스키',
-      '31': '기한만료된서비스키', '32': '등록되지않은IP', '99': '서버오류',
+      '30': '등록되지않은서비스키', '31': '기한만료된서비스키',
+      '32': '등록되지않은IP', '99': '서버오류',
     };
-    console.log(`[${label}] HTTP ${status} | 에러코드: ${code} (${codeMap[code] || '알수없음'}) | ${msg}`);
-  } else {
-    // plain text 또는 비표준 응답 → 전문 그대로 출력
-    console.log(`[${label}] HTTP ${status} | raw 응답: ${body}`);
+    const code = codeMatch ? codeMatch[1] : '?';
+    const msg  = msgMatch  ? msgMatch[1]  : '(메시지 없음)';
+    console.log(`[${label}] XML 응답 — 에러코드: ${code} (${codeMap[code] || '알수없음'}) | ${msg}`);
+    return { raw, json: null };
   }
-}
 
-// ─── 안전한 JSON 파싱 헬퍼 (200 OK + XML 응답 대비) ─────────────────────────
-async function safeJsonParse(label, res) {
-  const text = await res.text();
+  if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) {
+    console.log(`[${label}] 비JSON/비XML 응답 (첫글자: '${trimmed[0] || '없음'}')`);
+    return { raw, json: null };
+  }
+
+  // ③ JSON 파싱
   try {
-    return JSON.parse(text);
-  } catch (_) {
-    console.log(`[${label}] JSON 파싱 실패 (XML 응답 추정). raw: ${text.substring(0, 300)}`);
-    return null;
+    return { raw, json: JSON.parse(trimmed) };
+  } catch (e) {
+    console.log(`[${label}] JSON 파싱 실패: ${e.message}`);
+    return { raw, json: null };
   }
 }
 
 // ─── serviceKey URL 삽입 헬퍼 ─────────────────────────────────────────────────
-// data.go.kr 포털에서 발급받은 키는 인코딩 키(% 포함) 형태이므로
-// encodeURIComponent 재적용 시 이중 인코딩(%25...) 발생 → 게이트웨이 500 오류
-// 해결: serviceKey만 URL 문자열에 직접 삽입, 나머지 파라미터는 URLSearchParams 사용
+// data.go.kr 포털에서 발급받은 인코딩 키(% 포함)는 encodeURIComponent 재적용 금지
+// serviceKey만 URL 문자열 직접 삽입, 나머지 파라미터는 URLSearchParams 자동 처리
 function buildDataGoKrUrl(base, serviceKey, params) {
   const qs = new URLSearchParams(params).toString();
   const sanitizedKeyLog = serviceKey.substring(0, 6) + '***';
@@ -374,10 +382,11 @@ function buildDataGoKrUrl(base, serviceKey, params) {
 
 // ─── 1순위: 복지로 중앙부처 복지서비스 (한국사회보장정보원) ──────────────────
 // API: data.go.kr B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2
-// serviceKey: URL에 직접 삽입 (이중 인코딩 방지)
-// 필수 파라미터: pageNo, numOfRows, _type=json
+// serviceKey: URL 직접 삽입 (이중 인코딩 방지)
+// Accept: application/json 헤더 + _type=json 파라미터 동시 적용
 async function fetchBokjiroCentral(apiKey) {
   const results = [];
+  const reqOptions = { headers: { 'Accept': 'application/json' } };
   const endpoints = [
     {
       name: 'V2',
@@ -387,19 +396,18 @@ async function fetchBokjiroCentral(apiKey) {
     {
       name: 'V1',
       base: 'https://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist',
-      // V1: callTp=L(목록조회) 필수, type 파라미터 언더스코어 없는 형태도 시도
       params: { pageNo: '1', numOfRows: '10', callTp: 'L', _type: 'json' },
     },
   ];
   for (const ep of endpoints) {
     const url = buildDataGoKrUrl(ep.base, apiKey, ep.params);
     try {
-      const res = await fetchWithRetry(url);
+      const res = await fetchWithRetry(url, reqOptions);
+      const { raw, json } = await readAndParse(`복지로중앙:${ep.name}`, res);
       if (!res.ok) {
-        await logApiError(`복지로중앙:${ep.name}`, res.status, res);
+        console.log(`[복지로중앙:${ep.name}] HTTP ${res.status} — 위 RAW 참조`);
         continue;
       }
-      const json = await safeJsonParse(`복지로중앙:${ep.name}`, res);
       if (!json) continue;
       const items = extractItems(json);
       for (const item of items) {
@@ -417,11 +425,12 @@ async function fetchBokjiroCentral(apiKey) {
 
 // ─── 1순위: 복지로 지자체 복지서비스 (한국사회보장정보원) ────────────────────
 // API: data.go.kr B554287/LocalWelfareService2/getLocalWelfareSrvList
-// serviceKey: URL에 직접 삽입 (이중 인코딩 방지)
-// 필수 파라미터: pageNo, numOfRows, ctpvNm(시도명), _type=json
+// serviceKey: URL 직접 삽입 (이중 인코딩 방지)
+// Accept: application/json 헤더 + _type=json 파라미터 동시 적용
 async function fetchBokjiroLocal(apiKey) {
   const regionNames = ['서울', '인천', '경기'];
   const results = [];
+  const reqOptions = { headers: { 'Accept': 'application/json' } };
   for (const region of regionNames) {
     if (results.length >= 10) break;
     const url = buildDataGoKrUrl(
@@ -430,12 +439,12 @@ async function fetchBokjiroLocal(apiKey) {
       { pageNo: '1', numOfRows: '5', ctpvNm: region, _type: 'json' }
     );
     try {
-      const res = await fetchWithRetry(url);
+      const res = await fetchWithRetry(url, reqOptions);
+      const { raw, json } = await readAndParse(`복지로지자체:${region}`, res);
       if (!res.ok) {
-        await logApiError(`복지로지자체:${region}`, res.status, res);
+        console.log(`[복지로지자체:${region}] HTTP ${res.status} — 위 RAW 참조`);
         continue;
       }
-      const json = await safeJsonParse(`복지로지자체:${region}`, res);
       if (!json) continue;
       const items = extractItems(json);
       for (const item of items) {
