@@ -301,13 +301,17 @@ const GOV24_FALLBACK_KEYWORDS = ['신중년', '중장년', '시니어', '고령�
 
 // 응답 아이템을 공통 구조로 정규화 (서비스명 필드 보장)
 function normalizeItem(item, source) {
+  // 복지로 지자체 trgterIndvdlNmArray는 배열일 수 있음
+  const trgter = Array.isArray(item.trgterIndvdlNmArray)
+    ? item.trgterIndvdlNmArray.join(', ')
+    : (item.trgterIndvdlNmArray || '');
   return {
     서비스명: item.서비스명 || item.svcNm || item.servNm || item.pbanc_nm || item.pbancNm || item.지원사업명 || item.biz_nm || '',
-    서비스목적요약: item.서비스목적요약 || item.svcPurposSumry || item.svcPurps || item.jiwon_cntnt || item.지원내용 || item.biz_cn || '',
-    지원대상: item.지원대상 || item.trgter || item.aply_trgt || item.aplyTrgt || item.trgt_nm || '',
-    소관기관명: item.소관부처명 || item.소관기관명 || item.blnfcInsttNm || item.excl_instt_nm || item.exclInsttNm || item.기관명 || item.sprt_instt_nm || '',
-    지원내용: item.지원내용 || item.givBnfCn || item.jiwon_cntnt || item.biz_cn || '',
-    신청URL: item.신청URL || item.aplyUrl || item.dtl_url || item.dtlUrl || item.pbanc_url || '',
+    서비스목적요약: item.서비스목적요약 || item.svcPurposSumry || item.svcPurps || item.servDgst || item.srvPvsnM || item.jiwon_cntnt || item.지원내용 || item.biz_cn || '',
+    지원대상: item.지원대상 || item.trgter || trgter || item.aply_trgt || item.aplyTrgt || item.trgt_nm || '',
+    소관기관명: item.소관부처명 || item.소관기관명 || item.bizChrDeptNm || item.blnfcInsttNm || item.excl_instt_nm || item.exclInsttNm || item.기관명 || item.sprt_instt_nm || '',
+    지원내용: item.지원내용 || item.givBnfCn || item.servDgst || item.jiwon_cntnt || item.biz_cn || '',
+    신청URL: item.신청URL || item.aplyUrl || item.servDtlLink || item.dtl_url || item.dtlUrl || item.pbanc_url || '',
     신청기한: item.신청기한 || item.aplyEndDt || item.pbanc_rcept_end_dt || item.pbancRceptEndDt || item.rcept_end_de || '',
     _source: source,
   };
@@ -316,6 +320,7 @@ function normalizeItem(item, source) {
 // 표준 data.go.kr JSON 응답에서 아이템 배열 추출
 function extractItems(json) {
   const raw = json?.response?.body?.items?.item
+    || json?.servList          // 복지로 지자체 LcgvWelfarelist
     || json?.data
     || json?.items
     || json?.response?.body?.items
@@ -603,10 +608,8 @@ async function main() {
       }
     };
 
-    // ① 1순위: 복지로 중앙부처 (중장년·노년 생애주기)
-    console.log('\n[지원금] 1순위 수집 - 복지로 중앙부처...');
-    addItems(await fetchBokjiroCentral(govApiKey));
-    console.log(`  소계: ${newItems.length}건`);
+    // ① 1순위: 복지로 중앙부처 — 현재 500 에러로 비활성화, 지자체로 대체
+    // addItems(await fetchBokjiroCentral(govApiKey));
 
     // ① 1순위: 복지로 지자체 (서울·인천·경기, 중장년·노년)
     if (newItems.length < DAILY_LIMIT) {
@@ -709,28 +712,43 @@ ${JSON.stringify(selectedData)}`
       const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
       const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
       let textResult;
-      
-      try {
-        const geminiRes = await fetchWithRetry(geminiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(promptObj)
-        });
 
-        if (!geminiRes.ok) {
-          const errBody = await geminiRes.text();
-          console.error(`Gemini API 호출 실패 (상태: ${geminiRes.status}): ${errBody}`);
-          console.error(`실패한 모델: ${geminiModel}`);
-          continue;
+      // Gemini 503/429 지수 백오프 재시도 (최대 3회, 초기 10초)
+      let geminiOk = false;
+      let geminiBackoff = 10000;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          const geminiRes = await fetch(geminiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(promptObj)
+          });
+
+          if (geminiRes.status === 503 || geminiRes.status === 429) {
+            console.log(`Gemini API 과부하 (${geminiRes.status}) — ${geminiBackoff / 1000}초 후 재시도 (${attempt + 1}/3)`);
+            await delay(geminiBackoff);
+            geminiBackoff *= 2;
+            continue;
+          }
+
+          if (!geminiRes.ok) {
+            const errBody = await geminiRes.text();
+            console.log(`Gemini API 호출 실패 (상태: ${geminiRes.status}): ${errBody.substring(0, 200)}`);
+            break;
+          }
+
+          const geminiJson = await geminiRes.json();
+          textResult = geminiJson.candidates[0].content.parts[0].text;
+          textResult = textResult.replace(/```json/gi, '').replace(/```/g, '').trim();
+          geminiOk = true;
+          break;
+        } catch (err) {
+          console.log(`Gemini 서버 통신 에러 (${attempt + 1}/3): ${err.message}`);
+          if (attempt < 2) await delay(geminiBackoff);
+          geminiBackoff *= 2;
         }
-
-        const geminiJson = await geminiRes.json();
-        textResult = geminiJson.candidates[0].content.parts[0].text;
-        textResult = textResult.replace(/```json/gi, '').replace(/```/g, '').trim();
-      } catch (err) {
-        console.error('Gemini 서버 통신 에러:', err.message);
-        continue;
       }
+      if (!geminiOk) { continue; }
 
       let parsedParams;
       try {
@@ -777,7 +795,7 @@ ${JSON.stringify(selectedData)}`
           finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
         }
       } catch (e) {
-        console.error('이미지 처리 중 간헐적 오류 발생, 스톡 이미지로 폴백:', e.message);
+        console.log('이미지 처리 중 간헐적 오류 발생, 스톡 이미지로 폴백:', e.message);
         const category = parsedParams.type === 'festival' ? 'FESTIVAL' : 'SUBSIDY';
         const stockImages = fallbacks[category] || fallbacks.GUIDE;
         finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
