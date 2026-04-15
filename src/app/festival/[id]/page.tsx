@@ -43,6 +43,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return {
     title: `${festival.title} | 팁픽(Tip-Pick)`,
     description: description,
+    alternates: {
+      canonical: `https://tip-pick.com/festival/${id}/`,
+    },
     openGraph: {
       title: festival.title,
       description: description,
@@ -82,8 +85,63 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
   const firstSentence = hasDescription ? description.split('.')[0] + '.' : '';
   const restDescription = hasDescription ? description.replace(firstSentence, '').trim() : '';
 
+  // Event JSON-LD 날짜 파싱 (YYYY.MM.DD~YYYY.MM.DD 또는 YYYY.MM.DD)
+  const dateParts = (festival.date || '').split('~');
+  const toIsoDate = (d: string) => d.trim().replace(/\./g, '-');
+  const eventStartDate = dateParts[0] ? toIsoDate(dateParts[0]) : '';
+  const eventEndDate = dateParts[1] ? toIsoDate(dateParts[1]) : eventStartDate;
+
+  const eventJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": festival.title,
+    "description": festival.description || '',
+    "image": festival.image
+      ? (festival.image.startsWith('http') ? festival.image : `https://tip-pick.com${festival.image}`)
+      : '',
+    "url": `https://tip-pick.com/festival/${festival.id}/`,
+    ...(eventStartDate && { "startDate": eventStartDate }),
+    ...(eventEndDate && { "endDate": eventEndDate }),
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": festival.location || festival.region || '수도권',
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": festival.location || festival.region || '',
+        "addressCountry": "KR"
+      }
+    },
+    "organizer": {
+      "@type": "Organization",
+      "name": "수도권 팁픽(Tip-Pick)",
+      "url": "https://tip-pick.com"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
+      {/* Event JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
+      />
+      {/* BreadcrumbList JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://tip-pick.com" },
+              { "@type": "ListItem", "position": 2, "name": "축제/행사", "item": "https://tip-pick.com/festivals" },
+              { "@type": "ListItem", "position": 3, "name": festival.title, "item": `https://tip-pick.com/festival/${festival.id}/` }
+            ]
+          })
+        }}
+      />
       <Header />
       <div className="max-w-4xl mx-auto px-4 py-8 md:py-16">
 
