@@ -156,6 +156,9 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
     // 마크다운 코드 블록 제거
     mdContent = mdContent.replace(/^```markdown\n/i, '').replace(/```$/g, '').trim();
 
+    // Gemini가 date 필드를 훈련 데이터 기반으로 잘못 출력할 수 있으므로 강제 교체
+    mdContent = mdContent.replace(/^date:.*$/m, `date: ${today}`);
+
     // 3-a. YAML frontmatter 값에 콜론이 포함된 경우 자동으로 따옴표 처리
     mdContent = mdContent.replace(
       /^(---\r?\n)([\s\S]*?)(---)/,

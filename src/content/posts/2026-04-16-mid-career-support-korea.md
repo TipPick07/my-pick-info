@@ -5,7 +5,7 @@ link: https://www.gov.kr/portal/rcvfvrSvc/dtlEx/149200005029
 officialTarget: 퇴직 후 경력전환을 위해 자격을 취득했거나 직업훈련을 이수한 50세 이상 중장년 및 고용보험 피보험자수 5인 이상 기업
 officialDetails: 퇴직한 중장년이 경력전환형 일경험, 직무교육, 멘토링 등을 지원받아 새로운 경력을 쌓을 수 있도록 돕는 프로그램입니다.
 officialDeadline: 상시신청
-date: 2024-04-16
+date: 2026-04-16
 summary: 50대 이상 중장년이 퇴직 후 새로운 경력으로 전환할 수 있도록 정부가 적극 지원합니다. 일경험, 맞춤형 직무교육, 전문 멘토링을 통해 제2의 커리어를 성공적으로 시작할 기회! 지금 바로 상시신청하세요!
 category: 정보
 image: /images/blogs/korea-welfare-benefit-537.png
