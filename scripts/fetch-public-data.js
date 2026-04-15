@@ -326,15 +326,18 @@ function extractItems(json) {
 
 // ─── 1순위: 복지로 중앙부처 복지서비스 (한국사회보장정보원) ──────────────────
 // API: data.go.kr → 한국사회보장정보원_중앙부처복지서비스목록조회서비스 (B554287)
-// 수정: srchKeyCode → lifeArray, callTp=L 필수 파라미터 추가
-// data.go.kr API는 serviceKey를 encodeURIComponent 없이 그대로 사용
+// serviceKey: encodeURIComponent 적용 (일반 인증키 기준, +/= 문자 처리)
 async function fetchBokjiroCentral(apiKey) {
   const results = [];
-  // 생애주기 필터 없이 기본 목록 조회 (필터 적용 시 Unexpected errors 발생)
-  const url = `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${apiKey}&pageNo=1&numOfRows=10&_type=json`;
+  const encodedKey = encodeURIComponent(apiKey);
+  const url = `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${encodedKey}&pageNo=1&numOfRows=10&_type=json`;
   try {
     const res = await fetchWithRetry(url);
-    if (!res.ok) { const errBody = await res.text(); console.warn(`[복지로중앙] HTTP ${res.status} - ${errBody.substring(0, 300)}`); return results; }
+    if (!res.ok) {
+      const errBody = await res.text();
+      console.warn(`[복지로중앙] HTTP ${res.status} - ${errBody.substring(0, 500)}`);
+      return results;
+    }
     const json = await res.json();
     const items = extractItems(json);
     for (const item of items) {
@@ -350,18 +353,21 @@ async function fetchBokjiroCentral(apiKey) {
 
 // ─── 1순위: 복지로 지자체 복지서비스 (한국사회보장정보원) ────────────────────
 // API: data.go.kr → 한국사회보장정보원_지자체복지서비스목록조회서비스 (B554287)
-// 수정: srchKeyCode → lifeArray, ctpvCd(코드) → ctpvNm(시도명)
-// data.go.kr API는 serviceKey를 encodeURIComponent 없이 그대로 사용
+// serviceKey: encodeURIComponent 적용 (일반 인증키 기준, +/= 문자 처리)
 async function fetchBokjiroLocal(apiKey) {
   const regionNames = ['서울', '인천', '경기'];
   const results = [];
-  // 생애주기 필터 없이 시도명만으로 조회 (필터 적용 시 Unexpected errors 발생)
+  const encodedKey = encodeURIComponent(apiKey);
   for (const region of regionNames) {
     if (results.length >= 10) break;
-    const url = `https://apis.data.go.kr/B554287/LocalWelfareService2/getLocalWelfareSrvList?serviceKey=${apiKey}&pageNo=1&numOfRows=5&ctpvNm=${encodeURIComponent(region)}&_type=json`;
+    const url = `https://apis.data.go.kr/B554287/LocalWelfareService2/getLocalWelfareSrvList?serviceKey=${encodedKey}&pageNo=1&numOfRows=5&ctpvNm=${encodeURIComponent(region)}&_type=json`;
     try {
       const res = await fetchWithRetry(url);
-      if (!res.ok) { const errBody = await res.text(); console.warn(`[복지로지자체:${region}] HTTP ${res.status} - ${errBody.substring(0, 300)}`); continue; }
+      if (!res.ok) {
+        const errBody = await res.text();
+        console.warn(`[복지로지자체:${region}] HTTP ${res.status} - ${errBody.substring(0, 500)}`);
+        continue;
+      }
       const json = await res.json();
       const items = extractItems(json);
       for (const item of items) {
@@ -377,23 +383,38 @@ async function fetchBokjiroLocal(apiKey) {
 }
 
 // ─── 1순위: 기업마당 중소기업 지원사업 공고 (중소벤처기업부) ────────────────
-// API: data.go.kr → 중소벤처기업부_중소기업지원사업 공고 조회 서비스 (1421000/bizinfo)
-// data.go.kr API는 serviceKey를 encodeURIComponent 없이 그대로 사용
+// API: data.go.kr → 중소벤처기업부_중소기업지원사업 공고 조회 서비스 (1421000/kisedOpenAPI)
+// serviceKey: encodeURIComponent 적용 (일반 인증키 기준, +/= 문자 처리)
+// 엔드포인트: /kisedOpenAPI/getAnnouncementList (공식 명세 기준)
 async function fetchBizinfo(apiKey) {
   const results = [];
-  const url = `https://apis.data.go.kr/1421000/bizinfo?serviceKey=${apiKey}&dataType=json&pageNo=1&numOfRows=10`;
-  try {
-    const res = await fetchWithRetry(url);
-    if (!res.ok) { const errBody = await res.text(); console.warn(`[기업마당] HTTP ${res.status} - ${errBody.substring(0, 300)}`); return results; }
-    const json = await res.json();
-    const items = extractItems(json);
-    for (const item of items) {
-      const norm = normalizeItem(item, '기업마당');
-      if (norm.서비스명) results.push(norm);
+  const encodedKey = encodeURIComponent(apiKey);
+  // 1차 시도: 공식 명세 엔드포인트
+  const urls = [
+    `https://apis.data.go.kr/1421000/kisedOpenAPI/getAnnouncementList?serviceKey=${encodedKey}&pageNo=1&numOfRows=10&returnType=json`,
+    `https://apis.data.go.kr/1421000/bizinfo/getBizinfoList?serviceKey=${encodedKey}&pageNo=1&numOfRows=10&returnType=json`,
+  ];
+  for (const url of urls) {
+    try {
+      const res = await fetchWithRetry(url);
+      if (!res.ok) {
+        const errBody = await res.text();
+        console.warn(`[기업마당] HTTP ${res.status} (${url.split('?')[0].split('/').pop()}) - ${errBody.substring(0, 500)}`);
+        continue;
+      }
+      const json = await res.json();
+      const items = extractItems(json);
+      for (const item of items) {
+        const norm = normalizeItem(item, '기업마당');
+        if (norm.서비스명) results.push(norm);
+      }
+      if (items.length > 0) {
+        console.log(`[기업마당] ${items.length}건 수집`);
+        break;
+      }
+    } catch (err) {
+      console.warn(`[기업마당] 오류: ${err.message}`);
     }
-    if (items.length > 0) console.log(`[기업마당] ${items.length}건 수집`);
-  } catch (err) {
-    console.warn(`[기업마당] 오류: ${err.message}`);
   }
   return results;
 }
