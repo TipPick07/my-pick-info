@@ -197,6 +197,58 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
 
     console.log(`생성 완료: ${filename}`);
 
+    // ─── 네이버 블로그 티저 원고 생성 (실패해도 배포에 영향 없음) ────────────
+    try {
+      const naverPromptObj = {
+        contents: [{
+          parts: [{
+            text: `당신은 수도권 생활 정보 큐레이션 서비스 '팁픽(Tip-Pick)'의 네이버 블로그 전담 에디터입니다.
+아래 공공데이터를 활용해 네이버 블로그 방문자를 팁픽(tip-pick.com) 웹사이트로 강력하게 유도하기 위한 '티저(Teaser)' 원고를 작성해 줘.
+
+데이터: ${JSON.stringify(targetItem)}
+
+[작성 규칙]
+1. 제목: 네이버 검색 노출에 유리한 형태 ([지역/대상] + 직관적 혜택/행사명 중심)
+2. 도입부(Hook): 데이터가 '지원금(benefit)'인 경우 40~60대의 관심사(노후 준비, 생활비 방어 등)를 건드리고, '축제/행사(festival)'인 경우 전 연령층이 공감할 수 있는 주말 나들이, 데이트, 가족 여행 등의 키워드로 시작할 것.
+3. 본문(Teaser): 정보의 핵심(지원 대상, 행사 기간 등)만 간략히 요약하고, 상세 자격 요건이나 구체적인 팁, 예매 방법 등은 의도적으로 감출 것.
+4. 행동 유도(CTA): 글 하단에 '👉 상세 정보 및 온라인 신청(예매) 바로가기: https://tip-pick.com/${targetItem.type === 'festival' ? 'festival' : 'benefit'}/${targetItem.id || ''}' 문구를 반드시 추가하여 백링크를 유도할 것.
+5. 이미지 안내: 글 최상단과 최하단에 '[여기에 팁픽 고유 마스터 캐릭터 썸네일 삽입]'이라는 안내 문구를 텍스트로 적어줄 것.
+
+다른 부연 설명 없이, 바로 복사해서 붙여넣을 수 있는 순수 텍스트로만 출력해 줘.`
+          }]
+        }]
+      };
+
+      const naverGeminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
+      const naverRes = await fetch(naverGeminiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(naverPromptObj)
+      });
+
+      if (!naverRes.ok) {
+        const errBody = await naverRes.text();
+        throw new Error(`Gemini 응답 오류 (${naverRes.status}): ${errBody.substring(0, 200)}`);
+      }
+
+      const naverResult = await naverRes.json();
+      const naverText = naverResult.candidates[0].content.parts[0].text.trim();
+
+      const naverDraftsDir = path.join(process.cwd(), 'src/content/naver_drafts');
+      if (!fs.existsSync(naverDraftsDir)) {
+        fs.mkdirSync(naverDraftsDir, { recursive: true });
+      }
+
+      const naverFilename = `${filename.replace('.md', '')}-naver.txt`;
+      const naverFilePath = path.join(naverDraftsDir, naverFilename);
+      fs.writeFileSync(naverFilePath, naverText, 'utf8');
+      console.log(`[네이버 티저] 생성 완료: ${naverFilename}`);
+
+    } catch (error) {
+      console.warn('[경고] 네이버 블로그 원고 생성 실패:', error.message);
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
   } catch (error) {
     // 블로그 생성 실패는 배포를 막지 않음 — 기존 콘텐츠로 사이트는 계속 배포
     console.warn('[경고] 블로그 자동 생성 실패, 배포는 계속 진행됩니다:', error.message);
