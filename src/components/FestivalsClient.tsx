@@ -246,7 +246,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-cyan-100">
       <Header />
 
-      <main className="container mx-auto px-6 py-10 space-y-8">
+      <main className="max-w-3xl mx-auto px-6 py-10 space-y-8">
 
         {/* ── Hero ── */}
         <section className="text-center space-y-5 py-6">
