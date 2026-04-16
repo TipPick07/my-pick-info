@@ -189,40 +189,42 @@ async function fetchGyeonggiEvents(apiKey) {
   return results;
 }
 
-// ─── 1순위: 인천 문화행사 (공공데이터포털) ──────────────────────────────────
+// ─── 1순위: 인천 문화행사 (인천문화재단 OpenAPI) ──────────────────────────────
 async function fetchIncheonEvents(apiKey) {
   const results = [];
   if (!apiKey) { console.warn('[인천] INCHEON_API_KEY 없음, 건너뜀'); return results; }
   try {
-    const url = `https://apis.data.go.kr/6280000/icfCulturalEvent/getCulturalEventList?serviceKey=${apiKey}&numOfRows=50&pageNo=1&_type=json`;
+    const url = `https://ifac.or.kr/infoDisclosure/openApi/apiApp/localFestivalsApi.do?apiKey=${apiKey}&svID=festival&resultType=json&pSize=50&cPage=1`;
     const res = await fetchWithRetry(url);
     if (!res.ok) { console.warn(`[인천] HTTP ${res.status}`); return results; }
     const json = await res.json();
-    const raw = json?.response?.body?.items?.item || [];
+    // 응답 구조: { resultCode, resultMsg, totalCnt, item: [...] }
+    const resultCode = json?.resultCode || json?.response?.resultCode;
+    if (resultCode && resultCode !== '0000') {
+      console.warn(`[인천] API 오류코드 ${resultCode}: ${json?.resultMsg || json?.errorMsg || ''}`);
+      return results;
+    }
+    const raw = json?.item || json?.response?.body?.items?.item || [];
     const items = Array.isArray(raw) ? raw : [raw];
-    const today = new Date(); today.setHours(0, 0, 0, 0);
     for (const item of items) {
-      if (item.endDt && new Date(item.endDt) < today) continue;
-      const description = (item.eventDc || '').trim();
-      const image = item.firstimage || item.thumbnail || '';
-      if (description.length < 50 || !image) continue;
-      const startDate = item.startDt ? String(item.startDt).replace(/-/g, '.') : '';
-      const endDate = item.endDt ? String(item.endDt).replace(/-/g, '.') : '';
-      const dateStr = startDate && endDate && startDate !== endDate ? `${startDate}~${endDate}` : startDate || '상시';
+      const description = (item.description || '').trim();
+      if (description.length < 30) continue;
+      // period는 "매년 12월 중" 같은 텍스트 — 날짜 필터 불가, 그대로 사용
+      const dateStr = item.period || '상시';
       results.push({
         _source: '인천',
-        id: `fest-ic-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+        id: `fest-ic-${item.idx || Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
         region: '인천',
-        title: item.eventNm || item.title || '',
+        title: item.title || '',
         date: dateStr,
-        _dateKey: item.startDt || '',
+        _dateKey: '',
         tag: '신규',
-        image,
-        location: item.eventPlce || item.addr || '인천',
+        image: '',
+        location: item.organ || '인천',
         description,
-        link: item.hmpgAddr || '',
-        mapx: item.mapx || '',
-        mapy: item.mapy || '',
+        link: item.link || '',
+        mapx: '',
+        mapy: '',
       });
     }
     console.log(`[인천] ${results.length}건 수집 (품질필터 후)`);
