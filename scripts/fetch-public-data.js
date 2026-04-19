@@ -194,17 +194,28 @@ async function fetchIncheonEvents(apiKey) {
   const results = [];
   if (!apiKey) { console.warn('[인천] INCHEON_API_KEY 없음, 건너뜀'); return results; }
   try {
-    const url = `https://ifac.or.kr/infoDisclosure/openApi/apiApp/localFestivalsApi.do?apiKey=${apiKey}&svID=festival&resultType=json&pSize=50&cPage=1`;
+    // 실제 엔드포인트: https://ifac.or.kr/openAPI/real/search.do
+    const url = `https://ifac.or.kr/openAPI/real/search.do?apiKey=${apiKey}&svID=festival&resultType=json&pSize=50&cPage=1`;
     const res = await fetchWithRetry(url);
     if (!res.ok) { console.warn(`[인천] HTTP ${res.status}`); return results; }
-    const json = await res.json();
+    const text = await res.text();
+    // XML 응답이면 JSON 파싱 불가 — 오류 없이 건너뜀
+    if (text.trim().startsWith('<?xml') || text.trim().startsWith('<q>')) {
+      console.warn(`[인천] XML 응답 수신 — resultType=json 미지원. 응답 앞부분: ${text.slice(0, 100)}`);
+      return results;
+    }
+    if (text.trim().startsWith('<')) {
+      console.warn(`[인천] HTML 오류 페이지 수신. 응답 앞부분: ${text.slice(0, 200)}`);
+      return results;
+    }
+    const json = JSON.parse(text);
     // 응답 구조: { resultCode, resultMsg, totalCnt, item: [...] }
     const resultCode = json?.resultCode || json?.response?.resultCode;
     if (resultCode && resultCode !== '0000') {
       console.warn(`[인천] API 오류코드 ${resultCode}: ${json?.resultMsg || json?.errorMsg || ''}`);
       return results;
     }
-    const raw = json?.item || json?.response?.body?.items?.item || [];
+    const raw = json?.item || [];
     const items = Array.isArray(raw) ? raw : [raw];
     for (const item of items) {
       const description = (item.description || '').trim();

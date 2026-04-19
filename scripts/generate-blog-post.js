@@ -169,7 +169,13 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력해줘
             const trimmed = value.trim();
             if ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
                 (trimmed.startsWith("'") && trimmed.endsWith("'"))) return line;
-            if (trimmed.startsWith('[') || trimmed.startsWith('{')) return line;
+            // [ 또는 { 로 시작하고 동시에 ] 또는 } 로 끝나면 배열/객체 (tags 등) — 건너뜀
+            if ((trimmed.startsWith('[') && trimmed.endsWith(']')) ||
+                (trimmed.startsWith('{') && trimmed.endsWith('}'))) return line;
+            // [ 로 시작하지만 ] 로 끝나지 않으면 문자열 — 따옴표 처리
+            if (trimmed.startsWith('[') || trimmed.startsWith('{')) {
+              return `${key}: "${trimmed.replace(/"/g, '\\"')}"`;
+            }
             // ': ' (콜론+공백)만 YAML 파싱 위험 — URL의 '://' 패턴은 안전하므로 제외
             if (trimmed.includes(': ')) {
               return `${key}: "${trimmed.replace(/"/g, '\\"')}"`;

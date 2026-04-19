@@ -1,5 +1,5 @@
 ---
-title: [긴급 복지정보] 중증 장애인 연금 추가 지원금, 생계·의료급여 수급자는 '자동 지급'! 놓치지 마세요!
+title: "[긴급 복지정보] 중증 장애인 연금 추가 지원금, 생계·의료급여 수급자는 '자동 지급'! 놓치지 마세요!"
 originalTitle: 장애인연금지원(추가)
 link: https://www.gov.kr/portal/rcvfvrSvc/dtlEx/630000000149
 officialTarget: 생계, 의료 수급자 중 중증 장애인
