@@ -33,6 +33,7 @@ jobs:
         run: |
           node scripts/fetch-public-data.js
           node scripts/generate-blog-post.js
+          POST_TYPE=festival node scripts/generate-blog-post.js
         env:
           PUBLIC_DATA_API_KEY: ${{ secrets.PUBLIC_DATA_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

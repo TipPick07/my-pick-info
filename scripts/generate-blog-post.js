@@ -20,7 +20,12 @@ async function main() {
 
     const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
     // 최신순으로 정렬 (보통 unshift로 추가하므로 역순으로 확인)
-    const allItems = [...(data.festivals || []), ...(data.benefits || [])].reverse();
+    const postType = process.env.POST_TYPE || 'benefit';
+    const allItems = (postType === 'festival'
+      ? (data.festivals || [])
+      : (data.benefits || [])
+    ).reverse();
+    console.log(`[블로그] 발행 타입: ${postType} (총 ${allItems.length}건)`);
     
     if (allItems.length === 0) {
       console.log('가져올 데이터가 없습니다.');
@@ -83,7 +88,7 @@ async function main() {
     const prompt = {
       contents: [{
         parts: [{
-          text: `당신은 수도권 생활 정보 큐레이션 서비스 '수도권 팁픽(Tip-Pick)'의 전문 에디터이자 검색 엔진 최적화(SEO) 전문가입니다.
+          text: `이 글은 ${postType === 'festival' ? '축제/행사 정보' : '지원금/혜택 정보'} 블로그 포스트입니다.\n당신은 수도권 생활 정보 큐레이션 서비스 '수도권 팁픽(Tip-Pick)'의 전문 에디터이자 검색 엔진 최적화(SEO) 전문가입니다.
 아래 공공서비스 정보를 바탕으로 독자들에게 도움이 되며, 네이버와 구글 검색에서 상위 노출될 수 있는 프리미엄 블로그 글을 작성해줘.
 
 정보: ${JSON.stringify(targetItem)}
