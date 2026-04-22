@@ -9,11 +9,11 @@ export default function Header() {
 
   const navLinks = [
     { href: "/festivals/", label: "이번 주말 어디 가?" },
+    { href: "/weekly/", label: "이번 주 행사" },
     { href: "/benefits/", label: "내 돈 찾는 지원금" },
+    { href: "/deadline/", label: "마감 임박" },
     { href: "/blog/", label: "팁픽 인사이트" },
     { href: "/about/", label: "팁픽은 왜 만들었나" },
-    { href: "/deadline/", label: "마감 임박" },
-    { href: "/weekly/", label: "이번 주 행사" },
   ];
 
   return (
