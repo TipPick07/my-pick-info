@@ -14,6 +14,7 @@ export default function Header() {
     { href: "/deadline/", label: "마감 임박" },
     { href: "/blog/", label: "팁픽 인사이트" },
     { href: "/about/", label: "팁픽은 왜 만들었나" },
+    { href: "/contact/", label: "광고 문의" },
   ];
 
   return (

@@ -15,6 +15,8 @@ export default function Footer() {
           <Link href="/privacy" className="text-slate-900 font-semibold hover:text-cyan-600 transition-colors">개인정보처리방침</Link>
           <span className="text-slate-300">|</span>
           <Link href="/disclaimer" className="hover:text-slate-900 transition-colors">면책공고</Link>
+          <span className="text-slate-300">|</span>
+          <Link href="/contact" className="hover:text-slate-900 transition-colors">광고 문의</Link>
         </nav>
 
         {/* Middle Row: Operation & Data Source */}
