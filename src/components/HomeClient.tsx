@@ -236,9 +236,14 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
               <h3 className="text-xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #00CCFF" }}>
                 주목할 만한 축제/행사
               </h3>
-              <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
-                전체 보기 →
-              </Link>
+              <div className="flex items-center gap-4">
+                <Link href="/weekly/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
+                  📅 이번 주 행사 보기 →
+                </Link>
+                <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
+                  전체 보기 →
+                </Link>
+              </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
               {filteredFestivals.slice(0, 4).map((f) => (
@@ -282,9 +287,14 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
               <h3 className="text-xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #33FF99" }}>
                 내 돈 찾는 지원금
               </h3>
-              <Link href="/benefits/" className="text-sm font-bold transition-colors" style={{ color: "#33FF99", filter: "brightness(0.75)" }}>
-                전체 보기 →
-              </Link>
+              <div className="flex items-center gap-4">
+                <Link href="/deadline/" className="text-sm font-bold text-rose-500 transition-colors hover:text-rose-600">
+                  🚨 마감 임박 지원금 보기 →
+                </Link>
+                <Link href="/benefits/" className="text-sm font-bold transition-colors" style={{ color: "#33FF99", filter: "brightness(0.75)" }}>
+                  전체 보기 →
+                </Link>
+              </div>
             </div>
             <div className="space-y-3">
               {filteredBenefits.map((b) => (
