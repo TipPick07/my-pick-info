@@ -132,23 +132,43 @@ officialTip: ${targetItem.tip || ''}
 
 FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력. 키워드는 영문으로.`
         }]
-      }]
+      }],
+      tools: [{ googleSearch: {} }],
+      generationConfig: {
+        temperature: 0.9
+      }
     };
 
     const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(prompt)
-    });
+    let result;
+    let geminiBackoff = 30000;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(prompt)
+      });
 
-    if (!response.ok) {
-      const errorBody = await response.text();
-      throw new Error(`Gemini API 호출 실패 (상태 코드: ${response.status}) [모델: ${geminiModel}]: ${errorBody}`);
+      if (response.status === 503 || response.status === 429) {
+        console.warn(`Gemini 과부하 (${response.status}) — ${geminiBackoff / 1000}초 후 재시도 (${attempt + 1}/3)`);
+        await new Promise(resolve => setTimeout(resolve, geminiBackoff));
+        geminiBackoff *= 2;
+        continue;
+      }
+
+      if (!response.ok) {
+        const errorBody = await response.text();
+        throw new Error(`Gemini API 호출 실패 (상태 코드: ${response.status}) [모델: ${geminiModel}]: ${errorBody}`);
+      }
+
+      result = await response.json();
+      break;
     }
 
-    const result = await response.json();
+    if (!result) {
+      throw new Error('Gemini API 최대 재시도 횟수 초과');
+    }
     let fullText = result.candidates[0].content.parts[0].text;
 
     // FILENAME 추출
@@ -236,7 +256,8 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력. 키�
 
 다른 부연 설명 없이, 바로 복사해서 붙여넣을 수 있는 순수 텍스트로만 출력해 줘.`
           }]
-        }]
+        }],
+        tools: [{ googleSearch: {} }]
       };
 
       const naverGeminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;

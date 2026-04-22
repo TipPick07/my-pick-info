@@ -33,6 +33,8 @@ jobs:
         run: |
           node scripts/fetch-public-data.js
           node scripts/generate-blog-post.js
+          echo "Gemini 과부하 방지를 위해 3분 대기 중..."
+          sleep 180
           POST_TYPE=festival node scripts/generate-blog-post.js
         env:
           PUBLIC_DATA_API_KEY: ${{ secrets.PUBLIC_DATA_API_KEY }}
