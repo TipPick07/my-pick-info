@@ -53,12 +53,9 @@ officialTip: 별도의 신청 없이 자동 선정되는 지원금이므로, 지
 위 세 가지 질문에 모두 '예'라고 답할 수 있다면, 당신은 이 혜택의 대상자일 가능성이 높습니다. 별도의 신청 없이도 지원받을 수 있는 소중한 기회를 놓치지 마세요!
 
 **복잡한 경제 상식, 더 쉽게 풀어서 듣고 싶다면?**
-유튜브 '짠한경제학'에서 확인하세요!
-[👉 짠한경제학 유튜브 바로가기](https://www.youtube.com/@zzaneconomy)
-
 ### 🔗 함께 보시면 도움되는 추천 정보
 
-*   [저소득층 국민건강보험료 지원](/posts/2026-04-23-seongbuk-health-insurance-support)
-*   [저소득주민 국민건강보험료 지원](/posts/2026-04-21-jongno-health-insurance-support)
+*   [저소득층 국민건강보험료 지원](/blog/2026-04-23-seongbuk-health-insurance-support)
+*   [저소득주민 국민건강보험료 지원](/blog/2026-04-21-jongno-health-insurance-support)
 
 매일 아침, 일상을 풍요롭게 만드는 정보를 엄선하여 배달합니다.

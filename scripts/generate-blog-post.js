@@ -57,7 +57,7 @@ async function main() {
 
     // 내부 링크 추천용 후보 리스트 (최신 30개)
     existingPostsList.sort((a, b) => b.filename.localeCompare(a.filename));
-    const recentPostsForLinking = existingPostsList.slice(0, 30).map(p => `- [${p.title}](/posts/${p.filename})`).join('\n');
+    const recentPostsForLinking = existingPostsList.slice(0, 30).map(p => `- [${p.title}](/blog/${p.filename})`).join('\n');
 
     const unpostedItems = allItems.filter(item => !alreadyPostedTitles.includes(item.title));
 
@@ -131,10 +131,10 @@ ${postType === 'festival'
 본문 맨 마지막에 다음 내용을 반드시 포함할 것:
 ${postType === 'festival'
               ? '### 🚀 이번 주말 또 다른 가볼만한 곳\n이번 주말, 여기 말고도 재밌는 축제가 더 궁금하다면 팁픽의 다른 글도 확인해보세요!'
-              : '> **복잡한 경제 상식, 더 쉽게 풀어서 듣고 싶다면?**\n> 유튜브 \\\'짠한경제학\\\'에서 확인하세요!\n> [👉 짠한경제학 유튜브 바로가기](https://www.youtube.com/@zzaneconomy)'}
+              : ''}
 
 ### 🔗 함께 보시면 도움되는 추천 정보
-현재 작성 중인 글과 '지역'이나 '주제'가 가장 유사한 기존 포스팅을 아래 목록에서 2개 선별하여 자연스러운 추천 텍스트와 함께 연결해줄 것. 연결 방식은 [포스트 제목](/posts/파일명)과 같은 마크다운 링크를 유지할 것.
+현재 작성 중인 글과 '지역'이나 '주제'가 가장 유사한 기존 포스팅을 아래 목록에서 2개 선별하여 자연스러운 추천 텍스트와 함께 연결해줄 것. 연결 방식은 [포스트 제목](/blog/파일명)과 같은 마크다운 링크를 유지할 것.
 (후보 목록:
 ${recentPostsForLinking}
 )
