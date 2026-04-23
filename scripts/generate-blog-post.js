@@ -5,12 +5,6 @@ const fallbacks = require('../src/lib/image-fallbacks.json');
 // 블로그 주제 우선 선정 키워드
 const TARGET_KEYWORDS = ['중장년', '노후준비', '노후대비', '노후설계', '연금', '소상공인', '정부지원금', '건강보험', '세액공제'];
 
-// 포스트 유형별 추천 상품 키워드 매핑
-const AFFILIATE_CONFIG = {
-  festival: ['피크닉 돗자리', '휴대용 접이식 의자', '보조배터리', '휴대용 선풍기'],
-  benefit: ['재테크 도서', '사무용품/플래너', '멀티비타민', '노트북 거치대'],
-};
-
 async function main() {
   try {
     const geminiApiKey = process.env.GEMINI_API_KEY;
@@ -132,43 +126,6 @@ ${postType === 'festival'
    - 정보의 핵심이 되는 수치(금액, 날짜, 자격요건)는 반드시 **굵게(Bold)** 표시할 것.
    - 검색 엔진이 선호하는 '개조식(불렛 포인트)'과 '표(Table)'를 적절히 섞어서 가독성과 체류 시간을 늘릴 것.
 6. 길이: 공백 제외 800자 이상.
-
-[카카오톡 채널 유입 박스 - 반드시 포함]
-본문 내용이 끝나고 '추천 아이템 섹션'이 시작되기 바로 직전에 아래 형태의 카카오톡 채널 유도 박스를 HTML 코드로 작성하여 시각적으로 강조된 박스(테두리 및 연한 배경색)가 렌더링되게 할 것:
-
-<div style="border: 2px solid #FEE500; background-color: #FFFAEA; padding: 20px; border-radius: 8px; text-align: center; margin: 30px 0;">
-  <p style="font-size: 1.1em; font-weight: bold; color: #333; margin-bottom: 10px;">📢 매일 아침 가장 빠르게, 유용한 혜택 정보를 카톡으로 확인하세요!</p>
-  <p style="color: #666; margin-bottom: 20px;">${postType === 'festival' ? '이번 주말 어디 갈지 고민 끝! 유용한 나들이 정보를 매주 카톡으로 보내드립니다.' : '나만 몰랐던 정부 지원금 소식, 이제 카톡 알림으로 편하게 받아보세요.'}</p>
-  <a href="http://pf.kakao.com/_wwSjX" style="display: inline-block; background-color: #FEE500; color: #111; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 6px;">👉 채널 추가하고 알림 받기</a>
-</div>
-
-[추천 아이템 섹션 - 반드시 포함]
-본문 후반부에 아래 형식으로 '### 💡 팁픽 에디터의 추천 아이템' 섹션을 추가할 것.
-- 글의 분위기(말투)에 맞게 텍스트 톤앤매너를 조절해서 상품을 추천해줘.
-- 이 글의 독자에게 실제로 도움될 상품 2개를 다음 키워드 중에서 선정: ${(AFFILIATE_CONFIG[postType] || AFFILIATE_CONFIG.benefit).join(', ')}
-- 각 상품마다 '에디터의 한마디'(왜 이 글의 독자에게 필요한지 1문장)를 작성할 것.
-- 각 상품 하단에 [👉 최저가 확인하기](https://link.coupang.com/a/AF6155387) 링크를 반드시 포함할 것.
-- 단순 광고가 아닌 '추천 정보'처럼 보이도록 아래 마크다운 형식을 따를 것:
-
----
-### 💡 팁픽 에디터의 추천 아이템
-
-> 이 글을 읽는 분들께 도움이 될 만한 아이템을 엄선했습니다.
-
-#### 1. [상품명]
-> 에디터의 한마디: (이 글의 독자에게 왜 필요한지 1문장)
-
-[👉 최저가 확인하기](https://link.coupang.com/a/AF6155387)
-
----
-
-#### 2. [상품명]
-> 에디터의 한마디: (이 글의 독자에게 왜 필요한지 1문장)
-
-[👉 최저가 확인하기](https://link.coupang.com/a/AF6155387)
-
----
-※ 이 링크는 쿠팡 파트너스 활동의 일환으로, 구매 시 일정액의 수수료를 제공받을 수 있습니다.
 
 [하단 연결 섹션 - 반드시 포함]
 본문 맨 마지막에 다음 내용을 반드시 포함할 것:

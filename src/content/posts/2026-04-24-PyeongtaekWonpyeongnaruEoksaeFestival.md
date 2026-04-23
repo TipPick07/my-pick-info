@@ -57,12 +57,6 @@ officialTip: 평택 원평나루 억새축제는 특히 해질녘 노을과 억�
 
 평택 원평나루 억새축제는 바쁜 일상 속에서 잠시 멈춰 서 가을의 아름다움을 온전히 느낄 수 있는 소중한 기회가 될 거예요. 사랑하는 가족, 친구, 연인과 함께 황금빛 억새 물결 속에서 잊지 못할 추억을 만들어보세요. 수도권 팁픽 에디터는 여러분의 즐거운 나들이를 응원합니다!
 
-<div style="border: 2px solid #FEE500; background-color: #FFFAEA; padding: 20px; border-radius: 8px; text-align: center; margin: 30px 0;">
-  <p style="font-size: 1.1em; font-weight: bold; color: #333; margin-bottom: 10px;">📢 매일 아침 가장 빠르게, 유용한 혜택 정보를 카톡으로 확인하세요!</p>
-  <p style="color: #666; margin-bottom: 20px;">이번 주말 어디 갈지 고민 끝! 유용한 나들이 정보를 매주 카톡으로 보내드립니다.</p>
-  <a href="http://pf.kakao.com/_wwSjX" style="display: inline-block; background-color: #FEE500; color: #111; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 6px;">👉 채널 추가하고 알림 받기</a>
-</div>
-
 ### 🚀 이번 주말 또 다른 가볼만한 곳
 이번 주말, 여기 말고도 재밌는 축제가 더 궁금하다면 팁픽의 다른 글도 확인해보세요!
 

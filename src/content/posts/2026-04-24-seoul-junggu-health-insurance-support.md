@@ -52,12 +52,6 @@ officialTip: 별도의 신청 없이 자동 선정되는 지원금이므로, 지
 
 위 세 가지 질문에 모두 '예'라고 답할 수 있다면, 당신은 이 혜택의 대상자일 가능성이 높습니다. 별도의 신청 없이도 지원받을 수 있는 소중한 기회를 놓치지 마세요!
 
-<div style="border: 2px solid #FEE500; background-color: #FFFAEA; padding: 20px; border-radius: 8px; text-align: center; margin: 30px 0;">
-  <p style="font-size: 1.1em; font-weight: bold; color: #333; margin-bottom: 10px;">📢 매일 아침 가장 빠르게, 유용한 혜택 정보를 카톡으로 확인하세요!</p>
-  <p style="color: #666; margin-bottom: 20px;">나만 몰랐던 정부 지원금 소식, 이제 카톡 알림으로 편하게 받아보세요.</p>
-  <a href="http://pf.kakao.com/_wwSjX" style="display: inline-block; background-color: #FEE500; color: #111; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 6px;">👉 채널 추가하고 알림 받기</a>
-</div>
-
 **복잡한 경제 상식, 더 쉽게 풀어서 듣고 싶다면?**
 유튜브 '짠한경제학'에서 확인하세요!
 [👉 짠한경제학 유튜브 바로가기](https://www.youtube.com/@zzaneconomy)
