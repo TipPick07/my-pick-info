@@ -134,14 +134,13 @@ ${postType === 'festival'
 6. 길이: 공백 제외 800자 이상.
 
 [카카오톡 채널 유입 박스 - 반드시 포함]
-본문 내용이 끝나고 '추천 아이템 섹션'이 시작되기 바로 직전에 아래 형태의 카카오톡 채널 유도 박스를 시각적으로 강조하여 추가할 것:
+본문 내용이 끝나고 '추천 아이템 섹션'이 시작되기 바로 직전에 아래 형태의 카카오톡 채널 유도 박스를 HTML 코드로 작성하여 시각적으로 강조된 박스(테두리 및 연한 배경색)가 렌더링되게 할 것:
 
----
-> 📢 **매일 아침 가장 빠르게, 수도권 혜택 정보를 카톡으로 확인하세요!**
-> ${postType === 'festival' ? '이번 주말 어디 갈지 고민 끝! 수도권 나들이 정보를 매주 카톡으로 보내드립니다.' : '나만 몰랐던 정부 지원금 소식, 이제 카톡 알림으로 편하게 받아보세요.'}
-> 
-> [👉 수도권 팁픽 채널 추가하고 알림 받기](http://pf.kakao.com/_nxjSjX)
----
+<div style="border: 2px solid #FEE500; background-color: #FFFAEA; padding: 20px; border-radius: 8px; text-align: center; margin: 30px 0;">
+  <p style="font-size: 1.1em; font-weight: bold; color: #333; margin-bottom: 10px;">📢 매일 아침 가장 빠르게, 유용한 혜택 정보를 카톡으로 확인하세요!</p>
+  <p style="color: #666; margin-bottom: 20px;">${postType === 'festival' ? '이번 주말 어디 갈지 고민 끝! 유용한 나들이 정보를 매주 카톡으로 보내드립니다.' : '나만 몰랐던 정부 지원금 소식, 이제 카톡 알림으로 편하게 받아보세요.'}</p>
+  <a href="http://pf.kakao.com/_wwSjX" style="display: inline-block; background-color: #FEE500; color: #111; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 6px;">👉 채널 추가하고 알림 받기</a>
+</div>
 
 [추천 아이템 섹션 - 반드시 포함]
 본문 후반부에 아래 형식으로 '### 💡 팁픽 에디터의 추천 아이템' 섹션을 추가할 것.
@@ -185,7 +184,7 @@ ${recentPostsForLinking}
 
 [하단의 마무리 브랜드 문구 - 반드시 포함]
 모든 본문, 링크, 섹션이 다 끝난 글의 맨 마지막 줄에 아래 브랜드 문구를 반드시 포함할 것:
-"팁픽은 매일 아침, 당신의 일상을 풍요롭게 만드는 정보를 엄선하여 배달합니다."
+"매일 아침, 일상을 풍요롭게 만드는 정보를 엄선하여 배달합니다."
 
 아래 형식으로 출력. 반드시 이 형식(YAML Frontmatter 포함)만 출력하고 다른 설명 제외:
 ---
