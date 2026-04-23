@@ -113,7 +113,7 @@ async function fetchSeoulEvents(apiKey) {
       if (item.END_DATE && new Date(item.END_DATE) < today) continue;
       const description = [item.PROGRAM, item.ETC_DESC].filter(Boolean).join(' ').trim();
       const image = item.MAIN_IMG || '';
-      if (description.length < 50 || !image) continue;
+      if (description.length < 10) continue;
       const fmtSeoulDate = (d) => d ? d.split(' ')[0].replace(/-/g, '.') : '';
       const startDate = fmtSeoulDate(item.STRTDATE);
       const endDate = fmtSeoulDate(item.END_DATE);
@@ -163,8 +163,8 @@ async function fetchGyeonggiEvents(apiKey) {
       const rawDesc = (item.FASTVL_CONT || '').replace(/\+/g, ' ');
       const description = [rawDesc, place ? `장소: ${place}` : ''].filter(Boolean).join(' | ').trim();
       // 경기데이터드림은 이미지 URL을 제공하지 않음 → 폴백 처리(수집 후 이미지 처리 단계에서)
-      // 품질 필터: 설명 50자 미만은 제외하되, 이미지는 폴백 허용
-      if (description.length < 50) continue;
+      // 품질 필터: Gemini Google Search grounding으로 내용 보완 가능하므로 기준 완화
+      if (description.length < 10) continue;
       const startDate = item.FASTVL_BEGIN_DE ? String(item.FASTVL_BEGIN_DE).replace(/-/g, '.') : '';
       const endDate = item.FASTVL_END_DE ? String(item.FASTVL_END_DE).replace(/-/g, '.') : '';
       const dateStr = startDate && endDate && startDate !== endDate ? `${startDate}~${endDate}` : startDate || '상시';
@@ -219,7 +219,7 @@ async function fetchIncheonEvents(apiKey) {
     const items = Array.isArray(raw) ? raw : [raw];
     for (const item of items) {
       const description = (item.description || '').trim();
-      if (description.length < 30) continue;
+      if (description.length < 10) continue;
       // period는 "매년 12월 중" 같은 텍스트 — 날짜 필터 불가, 그대로 사용
       const dateStr = item.period || '상시';
       results.push({
@@ -918,8 +918,8 @@ ${JSON.stringify(selectedData)}`
         ? fest._overview
         : festLocation ? `${title}이(가) ${festLocation}에서 열리는 행사입니다.` : '';
       const image = fest.firstimage || '';
-      // 설명 50자 미만이면 제외 (이미지는 폴백 허용)
-      if (description.length < 50) return null;
+      // Gemini Google Search grounding으로 내용 보완 가능하므로 기준 완화
+      if (description.length < 10) return null;
       const link = fest._homepage
         ? fest._homepage.replace(/<[^>]*>/g, '').trim()  // HTML 태그 제거
         : '';
