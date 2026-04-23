@@ -2,24 +2,518 @@
   "weather": [
     {
       "region": "서울",
-      "temp": "11°",
-      "status": "구름 조금",
-      "icon": "⛅"
+      "temp": "9°",
+      "status": "맑음",
+      "icon": "☀️"
     },
     {
       "region": "인천",
-      "temp": "10°",
-      "status": "구름 조금",
-      "icon": "⛅"
+      "temp": "9°",
+      "status": "맑음",
+      "icon": "☀️"
     },
     {
       "region": "경기",
-      "temp": "11°",
-      "status": "구름 조금",
-      "icon": "⛅"
+      "temp": "8°",
+      "status": "맑음",
+      "icon": "☀️"
     }
   ],
   "festivals": [
+    {
+      "id": "fest-2961451",
+      "region": "경기",
+      "title": "파주슈필 2026",
+      "date": "2026.05.09~2026.05.10",
+      "tag": "신규",
+      "image": "/images/blogs/festival-파주슈필2026-122.png",
+      "location": "경기도 파주시 탄현면 얼음실로 40",
+      "description": "파주슈필 2026이(가) 경기도 파주시 탄현면 얼음실로 40에서 열리는 행사입니다.",
+      "link": "",
+      "mapx": "126.702630367866",
+      "mapy": "37.7844495672426"
+    },
+    {
+      "id": "fest-1811380",
+      "region": "경기",
+      "title": "화성 뱃놀이 축제",
+      "date": "2026.05.22~2026.05.25",
+      "tag": "신규",
+      "image": "/images/blogs/festival-화성뱃놀이축제-63.png",
+      "location": "경기도 화성시 서신면 전곡항로 5",
+      "description": "화성 뱃놀이 축제이(가) 경기도 화성시 서신면 전곡항로 5에서 열리는 행사입니다.",
+      "link": "",
+      "mapx": "126.651019592317",
+      "mapy": "37.1855346822948"
+    },
+    {
+      "id": "fest-1266642",
+      "region": "인천",
+      "title": "부평풍물대축제",
+      "date": "2026.10.02~2026.10.04",
+      "tag": "신규",
+      "image": "/images/blogs/festival-부평풍물대축제-919.png",
+      "location": "인천광역시 부평구 부평대로 168 (부평동)",
+      "description": "부평풍물대축제이(가) 인천광역시 부평구 부평대로 168 (부평동)에서 열리는 행사입니다.",
+      "link": "",
+      "mapx": "126.72127712950058",
+      "mapy": "37.50654936604297"
+    },
+    {
+      "id": "fest-3492276",
+      "region": "인천",
+      "title": "2026 문화가 있는 날",
+      "date": "2026.04.01~2026.11.29",
+      "tag": "신규",
+      "image": "/images/blogs/festival-2026문화가있는날-282.png",
+      "location": "인천광역시 동구 송현동",
+      "description": "2026 문화가 있는 날이(가) 인천광역시 동구 송현동에서 열리는 행사입니다.",
+      "link": "",
+      "mapx": "126.632619",
+      "mapy": "37.476334"
+    },
+    {
+      "id": "fest-2818837",
+      "region": "서울",
+      "title": "종묘 묘현례",
+      "date": "2026.04.25~2026.04.27",
+      "tag": "신규",
+      "image": "/images/blogs/festival-종묘묘현례-726.png",
+      "location": "서울특별시 종로구 종로 157 (훈정동)",
+      "description": "종묘 묘현례이(가) 서울특별시 종로구 종로 157 (훈정동)에서 열리는 행사입니다.",
+      "link": "",
+      "mapx": "126.99513110232297",
+      "mapy": "37.57098021727393"
+    },
+    {
+      "id": "fest-2818138",
+      "region": "서울",
+      "title": "창경궁 야연",
+      "date": "2026.05.07~2026.05.17",
+      "tag": "신규",
+      "image": "/images/blogs/festival-창경궁야연-50.png",
+      "location": "서울특별시 종로구 창경궁로 185 (와룡동)",
+      "description": "창경궁 야연이(가) 서울특별시 종로구 창경궁로 185 (와룡동)에서 열리는 행사입니다.",
+      "link": "",
+      "mapx": "126.99644883554714",
+      "mapy": "37.57888092158742"
+    },
+    {
+      "id": "fest-gg-1776985198049-yh09",
+      "region": "경기",
+      "title": "제18회 DMZ 국제다큐멘터리 영화제",
+      "date": "2026.09.10~2026.09.16",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop",
+      "location": "임진각 평화누리 야외공연장",
+      "description": "다큐멘터리 상영 및 시상   포럼   다큐강연 등 | 장소: 임진각 평화누리 야외공연장",
+      "link": "https://dmzdocs.com",
+      "mapx": "126.7401858799",
+      "mapy": "37.8895387556"
+    },
+    {
+      "id": "fest-gg-1776985198049-9gsy",
+      "region": "경기",
+      "title": "2026 과천공연예술축제",
+      "date": "2026.09.18~2026.09.20",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800&auto=format&fit=crop",
+      "location": "과천시민회관 옆 잔디마당",
+      "description": "광장집중형 예술축제 | 장소: 과천시민회관 옆 잔디마당",
+      "link": "http://www.gcfest.or.kr",
+      "mapx": "126.9891538",
+      "mapy": "37.42819137"
+    },
+    {
+      "id": "fest-gg-1776985198049-anz4",
+      "region": "경기",
+      "title": "제13회 노을동요제",
+      "date": "2026.09.12",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop",
+      "location": "평택남부문예회관(대공연장)",
+      "description": "공연 경연대회 | 장소: 평택남부문예회관(대공연장)",
+      "link": "http://www.noel.or.kr/",
+      "mapx": "127.114086",
+      "mapy": "36.991134"
+    },
+    {
+      "id": "fest-gg-1776985198049-rpdr",
+      "region": "경기",
+      "title": "평택호 물빛축제",
+      "date": "2026.09.12",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
+      "location": "평택호 관광단지 일원(한국소리터+모래톱공원)",
+      "description": "공연 상설공연 체험 먹거리 | 장소: 평택호 관광단지 일원(한국소리터+모래톱공원)",
+      "link": "https://www.pccf.or.kr/",
+      "mapx": "126.920858",
+      "mapy": "36.921209"
+    },
+    {
+      "id": "fest-gg-1776985198049-f0ia",
+      "region": "경기",
+      "title": "제16회 평택뮤직페스티벌&amp;전국밴드경연대회",
+      "date": "2026.07.25",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
+      "location": "평택남부문예회관(대공연장)",
+      "description": "밴드경연대회 및 가수 축하공연 등 | 장소: 평택남부문예회관(대공연장)",
+      "link": "https://www.pccf.or.kr/",
+      "mapx": "127.1140857",
+      "mapy": "36.99113416"
+    },
+    {
+      "id": "fest-gg-1776985198049-a5hl",
+      "region": "경기",
+      "title": "6월 마토예술제",
+      "date": "2026.06.27",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop",
+      "location": "안정리예술인광장",
+      "description": "썸머 크리스마스 주제 행사(물놀이 공연 체험 등) | 장소: 안정리예술인광장",
+      "link": "https://www.pccf.or.kr/",
+      "mapx": "127.043959",
+      "mapy": "36.959560"
+    },
+    {
+      "id": "fest-gg-1776985198049-xtro",
+      "region": "경기",
+      "title": "평택 원평나루 억새축제",
+      "date": "2026.10.31",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
+      "location": "군문교 아래 억새밭(노을생태문화공원)",
+      "description": "공연 상설공연 체험 먹거리 | 장소: 군문교 아래 억새밭(노을생태문화공원)",
+      "link": "https://www.pccf.or.kr/",
+      "mapx": "127.081452",
+      "mapy": "36.984436"
+    },
+    {
+      "id": "fest-gg-1776985198049-8kud",
+      "region": "경기",
+      "title": "제26회 복사골청소년예술제",
+      "date": "2026.10.09",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800&auto=format&fit=crop",
+      "location": "잔디광장",
+      "description": "dodo경연대회 | 장소: 잔디광장",
+      "link": "artbucheon.com",
+      "mapx": "126.7665645738",
+      "mapy": "37.4825054606"
+    },
+    {
+      "id": "fest-gg-1776985198049-jkuk",
+      "region": "경기",
+      "title": "제41회 부천복사골예술제",
+      "date": "2026.05.02~2026.05.05",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800&auto=format&fit=crop",
+      "location": "잔디광장+차 없는 거리",
+      "description": "공연 전시 경연 시민참여 프로그램 | 장소: 잔디광장+차 없는 거리",
+      "link": "artbucheon.com",
+      "mapx": "126.7665645738",
+      "mapy": "37.4825054606"
+    },
+    {
+      "id": "fest-gg-1776985198049-eh13",
+      "region": "경기",
+      "title": "제18회 시민어울림한마당",
+      "date": "2026.10.08",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800&auto=format&fit=crop",
+      "location": "잔디광장",
+      "description": "퍼레이드 콘테스트 | 장소: 잔디광장",
+      "link": "artbucheon.com",
+      "mapx": "126.7665645738",
+      "mapy": "37.4825054606"
+    },
+    {
+      "id": "fest-gg-1776985198049-wv8x",
+      "region": "경기",
+      "title": "안성맞춤 남사당바우덕이축제",
+      "date": "2026.10.02~2026.10.05",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
+      "location": "안성맞춤랜드 및 안성천 일원",
+      "description": "추모제 전야제 개장식 개폐막식 | 장소: 안성맞춤랜드 및 안성천 일원",
+      "link": "https://www.anseong.go.kr/festival",
+      "mapx": "127.3078003",
+      "mapy": "37.03283615"
+    },
+    {
+      "id": "fest-gg-1776985198049-184b",
+      "region": "경기",
+      "title": "하남이성산성문화축제",
+      "date": "2026.09.19~2026.09.20",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800&auto=format&fit=crop",
+      "location": "하남이성산성",
+      "description": "이성산성 퍼포먼스, 역사해설프로그램, 이성산성 주제 음식경연 등 | 장소: 하남이성산성",
+      "link": "",
+      "mapx": "127.1868648490",
+      "mapy": "37.5237340215"
+    },
+    {
+      "id": "fest-gg-1776985198049-01va",
+      "region": "경기",
+      "title": "반려동물 문화행사(페스티벌)",
+      "date": "2026.10.24",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
+      "location": "성남시청 광장",
+      "description": "행동학 강의 포토존 유기견 입양 홍보 등 | 장소: 성남시청 광장",
+      "link": "",
+      "mapx": "127.126280",
+      "mapy": "37.420173"
+    },
+    {
+      "id": "fest-gg-1776985198049-ei1j",
+      "region": "경기",
+      "title": "튼튼쑥쑥 걷기대회",
+      "date": "2026.10.01~2026.10.31",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800&auto=format&fit=crop",
+      "location": "율동공원",
+      "description": "어린이 걷기대회 | 장소: 율동공원",
+      "link": "",
+      "mapx": "127.152416",
+      "mapy": "37.376552"
+    },
+    {
+      "id": "fest-gg-1776985198049-cpxr",
+      "region": "경기",
+      "title": "2026 모두모여모란",
+      "date": "2026.10.01~2026.10.31",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop",
+      "location": "모란 민속 5일장",
+      "description": "의식행사 무대 공연 및 유관기관 참여 | 장소: 모란 민속 5일장",
+      "link": "",
+      "mapx": "127.126660",
+      "mapy": "37.429339"
+    },
+    {
+      "id": "fest-gg-1776985198049-5cys",
+      "region": "경기",
+      "title": "제5회 정자동 놀터축제 및 작품발표회",
+      "date": "2026.10.01~2026.10.31",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800&auto=format&fit=crop",
+      "location": "정자동 봉우재어린이공원 일대",
+      "description": "공연 체험부스 전시 등 | 장소: 정자동 봉우재어린이공원 일대",
+      "link": "",
+      "mapx": "127.112755",
+      "mapy": "37.360862"
+    },
+    {
+      "id": "fest-gg-1776985198049-a68i",
+      "region": "경기",
+      "title": "2026 파크콘서트",
+      "date": "2026.09.01~2026.09.30",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop",
+      "location": "중앙공원 야외공연장",
+      "description": "기간 중 공연 3회 예정 / 1일 1회 | 장소: 중앙공원 야외공연장",
+      "link": "",
+      "mapx": "127.121175",
+      "mapy": "37.380307"
+    },
+    {
+      "id": "fest-gg-1776985198049-h91e",
+      "region": "경기",
+      "title": "식품안전의 날 행사",
+      "date": "2026.05.14",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop",
+      "location": "성남시청",
+      "description": "기념식 특별관 식품관 운영 | 장소: 성남시청",
+      "link": "",
+      "mapx": "127.126280",
+      "mapy": "37.420173"
+    },
+    {
+      "id": "fest-gg-1776985198049-fw1a",
+      "region": "경기",
+      "title": "성남 어린이날 행사",
+      "date": "2026.05.05",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop",
+      "location": "성남시청",
+      "description": "어린이날 기념식 축하 공연 등 | 장소: 성남시청",
+      "link": "",
+      "mapx": "127.126280",
+      "mapy": "37.420173"
+    },
+    {
+      "id": "fest-gg-1776985198049-a3ak",
+      "region": "경기",
+      "title": "제20회 수진공원 벌터산한마당축제",
+      "date": "2026.04.01~2026.04.30",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop",
+      "location": "수진공원",
+      "description": "작품발표회 및 전시 공연 체험부스 등 | 장소: 수진공원",
+      "link": "",
+      "mapx": "127.125396",
+      "mapy": "37.435953"
+    },
+    {
+      "id": "fest-gg-1776985198049-gxo9",
+      "region": "경기",
+      "title": "우리가족 꼬마영웅 올림픽",
+      "date": "2026.11.01~2026.11.30",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop",
+      "location": "탄천종합운동장",
+      "description": "어린이 미니올림픽 | 장소: 탄천종합운동장",
+      "link": "",
+      "mapx": "127.120514",
+      "mapy": "37.411795"
+    },
+    {
+      "id": "fest-gg-1776985198049-yisy",
+      "region": "경기",
+      "title": "2026 김포 라베니체축제",
+      "date": "2026.10.17",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
+      "location": "장기동 라베니체 일원",
+      "description": "불꽃쇼   콘서트   수상 버스킹   체험프로그램 등 | 장소: 장기동 라베니체 일원",
+      "link": "",
+      "mapx": "126.674778",
+      "mapy": "37.643079"
+    },
+    {
+      "id": "fest-gg-1776985198049-ixyg",
+      "region": "경기",
+      "title": "2026 김포 아라마린페스티벌",
+      "date": "2026.06.19~2026.06.21",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800&auto=format&fit=crop",
+      "location": "아라마리나 일원",
+      "description": "수상레저체험   포리레이스   문화콘서트 등 | 장소: 아라마리나 일원",
+      "link": "https://aramarinefestival.com",
+      "mapx": "126.787338",
+      "mapy": "37.598696"
+    },
+    {
+      "id": "fest-gg-1776985198049-pcde",
+      "region": "경기",
+      "title": "포은문화제",
+      "date": "2026.10.10~2026.10.11",
+      "tag": "신규",
+      "image": "https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=800&auto=format&fit=crop",
+      "location": "정몽주 묘역",
+      "description": "천장행렬 경연대회 어린이 포은스쿨 체험부스 기념식 공연 등 | 장소: 정몽주 묘역",
+      "link": "http://www.ycc50.org/",
+      "mapx": "127.1779684",
+      "mapy": "37.24086733"
+    },
+    {
+      "id": "fest-seoul-W-qwleu2-1776985198689",
+      "region": "서울",
+      "title": "[강북문화재단] 2026 [419연극제] 극단 76 [기국서의 햄릿]",
+      "date": "2026.05.08~2026.05.09",
+      "tag": "신규",
+      "image": "/images/blogs/festival-강북문화재단2026-358.png",
+      "location": "강북문화예술회관 강북소나무홀",
+      "description": "강북구 예술인들이 '4·19 혁명'을 기념하기 위해 준비한 2026 [419연극제]",
+      "link": "https://www.gbcf.or.kr/load.asp?subPage=110.View&page=1&idx=408",
+      "mapx": "127.013878144422",
+      "mapy": "37.6409897866256"
+    },
+    {
+      "id": "fest-seoul-W-yLnOuv-1776985198689",
+      "region": "서울",
+      "title": "[시민정원학교 공개특강] 조경가 김봉찬의 자연주의정원",
+      "date": "2026.05.09",
+      "tag": "신규",
+      "image": "/images/blogs/festival-시민정원학교공개특강-269.png",
+      "location": "사람사는세상 노무현시민센터 다목적홀 가치하다",
+      "description": "2026 노무현시민학교 정기강좌 '시민정원학교' 공개특강",
+      "link": "https://www.knowhow.or.kr/center/program_detail.php?seq=564",
+      "mapx": "126.98884828992",
+      "mapy": "37.5809050917445"
+    },
+    {
+      "id": "fest-seoul-W-uPmeye-1776985198689",
+      "region": "서울",
+      "title": "[동작문화재단] 상도어울마당 아트홀 '아트 박스 콘서트' [책 읽는 마법사]",
+      "date": "2026.05.16",
+      "tag": "무료",
+      "image": "/images/blogs/festival-동작문화재단상도어울-90.png",
+      "location": "상도어울마당 아트홀",
+      "description": "책 속으로 떠나는 마법, 상상을 현실로 만드는 마법의 세계로 당신을 초대합니다!",
+      "link": "https://www.idfac.or.kr/bbs/board.php?bo_table=gallery_info&wr_id=261",
+      "mapx": "126.940372169449",
+      "mapy": "37.4992554654409"
+    },
+    {
+      "id": "fest-seoul-W-uPmeye-1776985198688",
+      "region": "서울",
+      "title": "[동작문화재단] 본동어울마당 아트홀 '본동 세레나데' 5회차 [여우락예술단의 독보적인 국악 한마당]",
+      "date": "2026.05.22",
+      "tag": "무료",
+      "image": "/images/blogs/festival-동작문화재단본동어울-540.png",
+      "location": "본동어울마당 아트홀",
+      "description": "전통과 현대가 어우러진 우리 소리의 매력",
+      "link": "https://www.idfac.or.kr/bbs/board.php?bo_table=gallery_info&wr_id=264",
+      "mapx": "126.956894813525",
+      "mapy": "37.5105308023837"
+    },
+    {
+      "id": "fest-seoul-W-uniO2P-1776985198688",
+      "region": "서울",
+      "title": "[마포문화재단] M 마티네 [2026 MAC 모닝 콘서트 ＃3]",
+      "date": "2026.05.27",
+      "tag": "신규",
+      "image": "/images/blogs/festival-마포문화재단M마티네-952.png",
+      "location": "마포아트센터 아트홀맥",
+      "description": "품격 있는 하루를 여는 클래식, MAC 모닝 콘서트",
+      "link": "https://www.mfac.or.kr/performance/whole_view.jsp?sc_b_category=17&sc_b_code=BOARD_1207683401&pk_seq=2601&page=1",
+      "mapx": "126.945533810385",
+      "mapy": "37.5499060881738"
+    },
+    {
+      "id": "fest-seoul-W-q1reum-1776985198688",
+      "region": "서울",
+      "title": "[국립박물관문화재단] 뮤지엄 모먼트 [인문학 클래식 콘서트]",
+      "date": "2026.06.10~2026.06.11",
+      "tag": "신규",
+      "image": "/images/blogs/festival-국립박물관문화재단뮤-153.png",
+      "location": "국립중앙박물관 극장 용",
+      "description": "공연명: <뮤지엄 모먼트> '유물로 만나는 흑역사' 공연일자: 6.10(수)&11(목) 10:30 관람연령: 초등학생 이상 러닝타임: 약 70분 (인터미션 없음) 문의사항: 1544-5955 주최 및 주관 : 국립박물관문화재단 오시는 길: 서울시 용산구 서빙고로 137",
+      "link": "https://www.ticketlink.co.kr/product/62769",
+      "mapx": "126.977740246542",
+      "mapy": "37.5247022357875"
+    },
+    {
+      "id": "fest-seoul-W-q1reum-1776985198688",
+      "region": "서울",
+      "title": "[국립박물관문화재단] 인문학콘서트 [유물로 읽는 삶]",
+      "date": "2026.06.17~2026.06.18",
+      "tag": "신규",
+      "image": "/images/blogs/festival-국립박물관문화재단인-521.png",
+      "location": "국립중앙박물관 극장 용",
+      "description": "21세기, 어른으로 살아가는 법 / 나를 돌보고, 관계를 이어가며, 가족의 시간을 만들어가는 이야기. 유물과 함께 풀어보는 인문학 콘서트 공연명: <뮤지엄 모먼트> '유물로 만나는 흑역사' 공연일자: 6.10(수)&11(목) 10:30 관람연령: 초등학생 이상 러닝타임: 약 70분 (인터미션 없음) 문의사항: 1544-5955 주최 및 주관 : 국립박물관문화재단 오시는 길: 서울시 용산구 서빙고로 137",
+      "link": "https://www.ticketlink.co.kr/product/62768",
+      "mapx": "126.977740246542",
+      "mapy": "37.5247022357875"
+    },
+    {
+      "id": "fest-seoul-W-uniO2P-1776985198688",
+      "region": "서울",
+      "title": "[마포문화재단] 2026 MAC 모닝 콘서트 ＃4",
+      "date": "2026.06.24",
+      "tag": "신규",
+      "image": "/images/blogs/festival-마포문화재단2026-790.png",
+      "location": "마포아트센터 아트홀맥",
+      "description": "품격 있는 하루를 여는 클래식, MAC 모닝 콘서트",
+      "link": "https://www.mfac.or.kr/performance/whole_view.jsp?sc_b_category=17&sc_b_code=BOARD_1207683401&pk_seq=2634&page=1",
+      "mapx": "126.945533810385",
+      "mapy": "37.5499060881738"
+    },
     {
       "id": "fest-2598331",
       "region": "서울",
@@ -1166,6 +1660,130 @@
     }
   ],
   "benefits": [
+    {
+      "id": "1698754321",
+      "region": "인천",
+      "title": "[인천] 출산·입양 가정을 위한 장려금 지원금 신청하고 육아 부담 덜어요!",
+      "target": "신생아를 출산했거나 국내 입양을 한 인천광역시 계양구 거주 가정",
+      "deadline": "상시",
+      "image": "/images/blogs/korea-welfare-benefit-483.png",
+      "isEmergency": false,
+      "details": "인천광역시 계양구에서는 저출산 문제 극복과 입양 활성화를 위해 소중한 새 생명을 맞이한 가정을 대상으로 장려금을 지원합니다. 새로 태어난 아기를 환영하거나 따뜻한 보금자리를 제공한 입양 가정에 경제적 부담을 덜어주고 행복한 시작을 응원하는 특별한 혜택입니다. 자녀 양육의 기쁨과 함께 소중한 지원금을 받아보세요.",
+      "link": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004257&wlfareInfoReldBztpCd=02",
+      "requirements": [
+        "출생신고서 또는 입양관계증명서",
+        "신분증",
+        "주민등록등본",
+        "통장사본"
+      ],
+      "howToApply": [
+        "복지로 웹사이트를 통한 온라인 신청",
+        "관할 주민센터 방문 신청"
+      ],
+      "eligibilityQuiz": [
+        "인천광역시 계양구에 거주하고 계신가요?",
+        "최근 신생아를 출산했거나 국내 입양을 하셨나요?"
+      ],
+      "tip": "신청 전, 인천광역시 계양구 여성보육과에 문의하여 정확한 자격 요건 및 필요 서류를 한 번 더 확인하시면 더욱 원활하게 신청할 수 있습니다."
+    },
+    {
+      "id": "5873921045",
+      "region": "인천",
+      "title": "[인천] 아빠 육아휴직 장려금 지원금 신청으로 육아 부담 덜어요",
+      "target": "인천 계양구에 거주하며 육아휴직 중인 남성 부모",
+      "deadline": "상시",
+      "image": "/images/blogs/korea-welfare-benefit-907.png",
+      "isEmergency": false,
+      "details": "인천 계양구 아빠들을 위한 특별한 육아휴직 장려금 지원 소식입니다. 육아휴직을 사용하며 자녀와 소중한 시간을 보내고 계신 남성 부모님들의 경제적 부담을 덜어드리고, 가정 내 육아 분담을 적극 장려하기 위해 마련되었습니다. 이 제도를 통해 육아 참여를 독려하고, 더 나아가 지역사회 출산율 제고에도 기여하고자 합니다. 신청 자격을 확인하시고, 소중한 자녀와의 시간에 집중할 수 있는 기회를 놓치지 마세요.",
+      "link": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001516&wlfareInfoReldBztpCd=02",
+      "requirements": [
+        "육아휴직 확인 서류 (예: 휴직확인서)",
+        "주민등록등본 (계양구 거주 확인용)",
+        "신청서 (온라인 양식)"
+      ],
+      "howToApply": [
+        "복지로 홈페이지를 통한 온라인 신청"
+      ],
+      "eligibilityQuiz": [
+        "인천 계양구에 거주하고 계신가요?",
+        "현재 육아휴직을 사용 중인 남성 부모이신가요?"
+      ],
+      "tip": "육아휴직 기간 동안 경제적 걱정을 덜고 자녀와 더 많은 시간을 보낼 수 있는 좋은 기회이니 꼭 신청 자격을 확인해 보세요!"
+    },
+    {
+      "id": "1234567890",
+      "region": "서울",
+      "title": "[서울] 1인 자영업자 배우자 출산휴가급여 지원금 신청",
+      "target": "서울시 거주 1인 자영업자 (출산한 배우자를 둔 경우)",
+      "deadline": "상시",
+      "image": "/images/blogs/-1--962.png",
+      "isEmergency": false,
+      "details": "서울시가 홀로 사업을 운영하며 출산으로 인한 경제적 부담을 겪는 1인 자영업자들을 위해 배우자 출산휴가급여를 지원합니다. 이 혜택은 모성 보호를 강화하고, 출산 전후로 안정적인 가정 생활을 유지할 수 있도록 실질적인 도움을 제공합니다. 소득 감소 걱정 없이 배우자와 아이에게 온전히 집중할 수 있는 귀한 시간을 가질 수 있도록 서울시가 함께합니다.",
+      "link": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005866&wlfareInfoReldBztpCd=02",
+      "requirements": [
+        "신청서 (온라인 양식)",
+        "사업자등록증 사본 (1인 자영업자 증명)",
+        "출생증명서 또는 가족관계증명서 (배우자 출산 증명)",
+        "신청인 신분증 사본"
+      ],
+      "howToApply": [
+        "복지로 웹사이트 접속 후 온라인 신청",
+        "필요 서류를 준비하여 소관기관 (서울특별시 여성가족실 저출생담당관) 문의 및 방문 신청"
+      ],
+      "eligibilityQuiz": [
+        "현재 서울시에 거주하며 1인 자영업을 운영하고 계신가요?",
+        "최근 배우자가 출산하여 배우자 출산휴가급여 지원이 필요하신가요?"
+      ],
+      "tip": "자세한 신청 자격 및 구비 서류는 반드시 복지로 웹사이트를 통해 확인하시고, 출산 전후로 미리 준비하여 안정적인 휴가를 계획하세요!"
+    },
+    {
+      "id": "509712",
+      "region": "서울",
+      "title": "[서울] 아이돌봄비 지원금: 양육공백 가정을 위한 든든한 돌봄 지원",
+      "target": "양육 공백으로 인해 아이 돌봄에 어려움을 겪는 서울시 거주 가정",
+      "deadline": "상시",
+      "image": "/images/blogs/korea-welfare-benefit-699.png",
+      "isEmergency": false,
+      "details": "서울시가 바쁜 부모님들의 양육 부담을 덜어주기 위해 '서울형 아이돌봄비 지원사업'을 운영합니다. 이 사업은 돌봄 공백이 발생한 가정에 실질적인 조력자를 지원하여, 아이들이 안정적인 환경에서 건강하게 성장할 수 있도록 돕는 데 중점을 둡니다. 복지로를 통해 간편하게 신청할 수 있으며, 서울에 거주하는 양육 공백 가정이라면 이 지원을 통해 더욱 행복한 육아 환경을 조성할 수 있을 것입니다.",
+      "link": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005097&wlfareInfoReldBztpCd=02",
+      "requirements": [
+        "신청서",
+        "주민등록등본",
+        "가족관계증명서",
+        "소득 및 재산 관련 증빙 서류 (해당 시)"
+      ],
+      "howToApply": [
+        "복지로 웹사이트를 통한 온라인 신청",
+        "관할 주민센터 방문 신청 (세부 내용은 복지로 확인)"
+      ],
+      "eligibilityQuiz": [
+        "서울시에 거주하는 가정의 구성원이신가요?",
+        "양육으로 인해 돌봄 공백을 겪고 있으며, 아이 돌봄 조력자의 도움이 필요하신가요?"
+      ],
+      "tip": "신청 전 반드시 복지로 웹사이트에서 상세 자격 요건과 소득 기준, 필요 서류를 정확히 확인하여 불이익이 없도록 준비하세요."
+    },
+    {
+      "id": "9876543210",
+      "region": "서울",
+      "title": "[서울] 모바일 뇌건강 프로그램 브레인핏45: 치매 예방 및 뇌 건강 관리 서비스",
+      "target": "만 45세 이상 서울 시민",
+      "deadline": "상시 신청 가능",
+      "image": "/images/blogs/-45--399.png",
+      "isEmergency": false,
+      "details": "서울특별시에서 제공하는 '브레인핏45'는 만 45세 이상 시민을 위한 모바일 기반 뇌 건강 관리 프로그램입니다. 일상생활 속에서 스마트폰을 활용해 손쉽게 치매를 예방하고 인지 기능을 관리할 수 있도록 돕습니다. 이 서비스는 치매 유병률을 낮추고 사회적 비용을 경감하는 데 기여하며, 서울 시민의 건강한 노년 생활을 지원합니다.",
+      "link": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006262&wlfareInfoReldBztpCd=02",
+      "requirements": [
+        "지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."
+      ],
+      "howToApply": [
+        "복지로 웹사이트를 통해 온라인 신청"
+      ],
+      "eligibilityQuiz": [
+        "만 45세 이상 서울 시민이신가요?",
+        "일상 속 치매 예방 및 뇌 건강 관리에 관심이 있으신가요?"
+      ],
+      "tip": "모바일 앱을 활용하여 언제 어디서든 간편하게 뇌 건강을 챙겨보세요!"
+    },
     {
       "id": "481750293",
       "region": "인천",
