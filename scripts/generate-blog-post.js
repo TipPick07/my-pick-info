@@ -8,7 +8,7 @@ const TARGET_KEYWORDS = ['중장년', '노후준비', '노후대비', '노후설
 // 포스트 유형별 추천 상품 키워드 매핑
 const AFFILIATE_CONFIG = {
   festival: ['피크닉 돗자리', '휴대용 접이식 의자', '보조배터리', '휴대용 선풍기'],
-  benefit:  ['재테크 도서', '사무용품/플래너', '멀티비타민', '노트북 거치대'],
+  benefit: ['재테크 도서', '사무용품/플래너', '멀티비타민', '노트북 거치대'],
 };
 
 async function main() {
@@ -32,7 +32,7 @@ async function main() {
       : (data.benefits || [])
     ).reverse();
     console.log(`[블로그] 발행 타입: ${postType} (총 ${allItems.length}건)`);
-    
+
     if (allItems.length === 0) {
       console.log('가져올 데이터가 없습니다.');
       return;
@@ -46,15 +46,24 @@ async function main() {
 
     // 아직 글이 작성되지 않은 항목 수집
     const existingFiles = fs.readdirSync(postsDir);
-    const alreadyPostedTitles = existingFiles.filter(f => f.endsWith('.md')).map(file => {
+    const existingPostsList = existingFiles.filter(f => f.endsWith('.md')).map(file => {
       const content = fs.readFileSync(path.join(postsDir, file), 'utf8');
       const originalTitleMatch = content.match(/originalTitle:\s*"(.*)"/) || content.match(/originalTitle:\s*(.*)\r?\n/);
-      if (originalTitleMatch) return originalTitleMatch[1].replace(/"/g, '').trim();
+      let title = originalTitleMatch ? originalTitleMatch[1].replace(/"/g, '').trim() : null;
 
       // 구 버전 파일은 일반 제목으로 체크
-      const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\r?\n/);
-      return titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
-    });
+      if (!title) {
+        const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\r?\n/);
+        title = titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
+      }
+      return { title, filename: file.replace('.md', '') };
+    }).filter(p => p.title);
+
+    const alreadyPostedTitles = existingPostsList.map(p => p.title);
+
+    // 내부 링크 추천용 후보 리스트 (최신 30개)
+    existingPostsList.sort((a, b) => b.filename.localeCompare(a.filename));
+    const recentPostsForLinking = existingPostsList.slice(0, 30).map(p => `- [${p.title}](/posts/${p.filename})`).join('\n');
 
     const unpostedItems = allItems.filter(item => !alreadyPostedTitles.includes(item.title));
 
@@ -100,6 +109,11 @@ async function main() {
 
 정보: ${JSON.stringify(targetItem)}
 
+[타겟 및 톤앤매너]
+${postType === 'festival'
+              ? '- 타겟: 전 연령층\n- 말투: 밝고 경쾌하게\n- 주제: 나들이, 즐거움'
+              : '- 타겟: 40~60대 중장년층\n- 말투: 신뢰감 있게\n- 주제: 경제적 이득, 생활 안정\n- AI 자율 키워드 삽입: 본문의 주제를 분석해서 4060 세대의 관심사인 금융, 보험, 세금, 연금, 재테크 관련 고단가(CPC) 키워드를 스스로 추출할 것. 추출된 키워드를 독자가 거부감을 느끼지 않도록 문맥 속에 자연스럽게 3~5회 녹여내어 작성할 것.'}
+
 [핵심 금지 사항 - 반드시 지킬 것]
 1. 도입부에 "안녕하세요, 수도권 팁픽 에디터입니다" 같은 고정 인사말 금지. 매번 다른 방식으로 시작할 것.
 2. 마무리 문단에 "팁픽은 앞으로도 여러분의 생활에..." 같은 고정 문구 금지. 해당 글의 주제와 연결된 자연스러운 마무리로 작성할 것.
@@ -107,16 +121,31 @@ async function main() {
 4. "직접 입력" 같은 공공데이터 raw 값을 신청방법으로 그대로 사용 금지. 의미없는 값은 제외하고 실제 신청 방법만 안내할 것.
 5. 추천 포인트 3가지 섹션의 구조가 매번 똑같이 반복되는 것 금지. 때로는 표, 때로는 체크리스트, 때로는 스토리텔링 방식 등 다양하게 변형할 것.
 
-[SEO 및 작성 가이드라인]
+[SEO 가독성 및 작성 가이드라인]
 1. 제목(title): 검색자들이 포털에 입력할 법한 세부 키워드(지역명, 타겟 연령층, 핵심 혜택, 신청방법 등)를 조합한 구체적 제목.
 2. 요약(summary): 구글 메타 디스크립션용. 핵심 타겟과 혜택 포함, 150자 이내.
-3. 에디터 인사이트: 원문 데이터에 없는 실제 꿀팁이나 주의사항을 독창적으로 2~3문장 작성. 공식 데이터 재탕 금지.
-4. postType이 'festival'이면: 교통/주차/소요시간/추천 관람 포인트 등 실용 정보 포함.
-   postType이 'benefit'이면: 신청 자격/방법/주의사항/놓치기 쉬운 포인트 중심.
-5. 길이: 공백 제외 800자 이상.
+3. 에디터 인사이트: 원문 데이터에 없는 실제 꿀팁이나 주의사항을 독창적으로 2~3문장 작성. ${postType === 'festival' ? '"주차장 꿀팁"이나 "인생샷 포인트"를 강조할 것.' : '"이 혜택 놓치면 손해인 이유"를 강조할 것.'} 공식 데이터 재탕 금지.
+4. 필수 포함 정보:
+   - 전 연령층 대상이므로 교통/주차/소요시간/추천 관람 포인트 등 실용 정보 포함 (축제/행사일 경우)
+   - 4060 대상이므로 신청 자격/방법/주의사항/놓치기 쉬운 포인트 중심 (지원금일 경우)
+5. 디자인 및 구조 강조 (필수):
+   - 정보의 핵심이 되는 수치(금액, 날짜, 자격요건)는 반드시 **굵게(Bold)** 표시할 것.
+   - 검색 엔진이 선호하는 '개조식(불렛 포인트)'과 '표(Table)'를 적절히 섞어서 가독성과 체류 시간을 늘릴 것.
+6. 길이: 공백 제외 800자 이상.
+
+[카카오톡 채널 유입 박스 - 반드시 포함]
+본문 내용이 끝나고 '추천 아이템 섹션'이 시작되기 바로 직전에 아래 형태의 카카오톡 채널 유도 박스를 시각적으로 강조하여 추가할 것:
+
+---
+> 📢 **매일 아침 가장 빠르게, 수도권 혜택 정보를 카톡으로 확인하세요!**
+> ${postType === 'festival' ? '이번 주말 어디 갈지 고민 끝! 수도권 나들이 정보를 매주 카톡으로 보내드립니다.' : '나만 몰랐던 정부 지원금 소식, 이제 카톡 알림으로 편하게 받아보세요.'}
+> 
+> [👉 수도권 팁픽 채널 추가하고 알림 받기](http://pf.kakao.com/_nxjSjX)
+---
 
 [추천 아이템 섹션 - 반드시 포함]
-본문 맨 마지막에 아래 형식으로 '### 💡 팁픽 에디터의 추천 아이템' 섹션을 추가할 것.
+본문 후반부에 아래 형식으로 '### 💡 팁픽 에디터의 추천 아이템' 섹션을 추가할 것.
+- 글의 분위기(말투)에 맞게 텍스트 톤앤매너를 조절해서 상품을 추천해줘.
 - 이 글의 독자에게 실제로 도움될 상품 2개를 다음 키워드 중에서 선정: ${(AFFILIATE_CONFIG[postType] || AFFILIATE_CONFIG.benefit).join(', ')}
 - 각 상품마다 '에디터의 한마디'(왜 이 글의 독자에게 필요한지 1문장)를 작성할 것.
 - 각 상품 하단에 [👉 최저가 확인하기](https://link.coupang.com/a/AF6155387) 링크를 반드시 포함할 것.
@@ -141,6 +170,22 @@ async function main() {
 
 ---
 ※ 이 링크는 쿠팡 파트너스 활동의 일환으로, 구매 시 일정액의 수수료를 제공받을 수 있습니다.
+
+[하단 연결 섹션 - 반드시 포함]
+본문 맨 마지막에 다음 내용을 반드시 포함할 것:
+${postType === 'festival'
+              ? '### 🚀 이번 주말 또 다른 가볼만한 곳\n이번 주말, 여기 말고도 재밌는 축제가 더 궁금하다면 팁픽의 다른 글도 확인해보세요!'
+              : '> **복잡한 경제 상식, 더 쉽게 풀어서 듣고 싶다면?**\n> 유튜브 \\\'짠한경제학\\\'에서 확인하세요!\n> [👉 짠한경제학 유튜브 바로가기](https://www.youtube.com/@zzaneconomy)'}
+
+### 🔗 함께 보시면 도움되는 추천 정보
+현재 작성 중인 글과 '지역'이나 '주제'가 가장 유사한 기존 포스팅을 아래 목록에서 2개 선별하여 자연스러운 추천 텍스트와 함께 연결해줄 것. 연결 방식은 [포스트 제목](/posts/파일명)과 같은 마크다운 링크를 유지할 것.
+(후보 목록:
+${recentPostsForLinking}
+)
+
+[하단의 마무리 브랜드 문구 - 반드시 포함]
+모든 본문, 링크, 섹션이 다 끝난 글의 맨 마지막 줄에 아래 브랜드 문구를 반드시 포함할 것:
+"팁픽은 매일 아침, 당신의 일상을 풍요롭게 만드는 정보를 엄선하여 배달합니다."
 
 아래 형식으로 출력. 반드시 이 형식(YAML Frontmatter 포함)만 출력하고 다른 설명 제외:
 ---
@@ -213,10 +258,10 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력. 키�
     const rawFilename = filenameMatch[1].trim().replace(/\.md$/i, '').replace(/\.+$/, '');
     const keyword = rawFilename.replace(/^\d{4}-\d{2}-\d{2}-?/, '');
     const filename = `${today}-${keyword}.md`;
-    
+
     // FILENAME 라인 제거
     let mdContent = fullText.replace(/FILENAME:.*$/im, '').trim();
-    
+
     // 마크다운 코드 블록 제거
     mdContent = mdContent.replace(/^```[a-z]*\n/i, '').replace(/```$/g, '').trim();
 
@@ -232,10 +277,10 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력. 키�
           (line, key, value) => {
             const trimmed = value.trim();
             if ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
-                (trimmed.startsWith("'") && trimmed.endsWith("'"))) return line;
+              (trimmed.startsWith("'") && trimmed.endsWith("'"))) return line;
             // [ 또는 { 로 시작하고 동시에 ] 또는 } 로 끝나면 배열/객체 (tags 등) — 건너뜀
             if ((trimmed.startsWith('[') && trimmed.endsWith(']')) ||
-                (trimmed.startsWith('{') && trimmed.endsWith('}'))) return line;
+              (trimmed.startsWith('{') && trimmed.endsWith('}'))) return line;
             // [ 로 시작하지만 ] 로 끝나지 않으면 문자열 — 따옴표 처리
             if (trimmed.startsWith('[') || trimmed.startsWith('{')) {
               return `${key}: "${trimmed.replace(/"/g, '\\"')}"`;
