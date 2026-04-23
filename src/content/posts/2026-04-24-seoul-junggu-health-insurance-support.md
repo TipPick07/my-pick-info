@@ -58,25 +58,6 @@ officialTip: 별도의 신청 없이 자동 선정되는 지원금이므로, 지
   <a href="http://pf.kakao.com/_wwSjX" style="display: inline-block; background-color: #FEE500; color: #111; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 6px;">👉 채널 추가하고 알림 받기</a>
 </div>
 
-### 💡 팁픽 에디터의 추천 아이템
-
-> 이 글을 읽는 분들께 도움이 될 만한 아이템을 엄선했습니다.
-
-#### 1. 에센셜 재테크 가이드북
-> 에디터의 한마디: 자동 지원금으로 절약한 건강보험료, 이제 체계적인 재테크 지식으로 더 큰 자산 증식을 시작해 보세요.
-
-[👉 최저가 확인하기](https://link.coupang.com/a/AF6155387)
-
----
-
-#### 2. 활력 멀티비타민
-> 에디터의 한마디: 건강은 재산이라는 말이 있듯이, 경제적 지원과 함께 건강 관리도 놓치지 않고 활기찬 일상을 유지하는 데 도움을 줄 수 있습니다.
-
-[👉 최저가 확인하기](https://link.coupang.com/a/AF6155387)
-
----
-※ 이 링크는 쿠팡 파트너스 활동의 일환으로, 구매 시 일정액의 수수료를 제공받을 수 있습니다.
-
 **복잡한 경제 상식, 더 쉽게 풀어서 듣고 싶다면?**
 유튜브 '짠한경제학'에서 확인하세요!
 [👉 짠한경제학 유튜브 바로가기](https://www.youtube.com/@zzaneconomy)
