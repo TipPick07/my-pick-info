@@ -40,6 +40,12 @@ interface Data {
   benefits: Benefit[];
 }
 
+interface TodayUpdates {
+  festivals: PostData[];
+  benefits: PostData[];
+  totalCount: number;
+}
+
 // ── 지원금 만료 체크 ─────────────────────────────────────────────────────────
 function parseBenefitEndDate(deadline: string): Date | null {
   if (!deadline) return null;
@@ -87,7 +93,7 @@ function sortFestivals<T extends { date: string }>(list: T[]): T[] {
 }
 // ────────────────────────────────────────────────────────────────────────────
 
-export default function HomeClient({ data, posts, weatherApiKey }: { data: Data, posts: PostData[], weatherApiKey: string }) {
+export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }: { data: Data, posts: PostData[], weatherApiKey: string, todayUpdates?: TodayUpdates }) {
   const [filter, setFilter] = useState("전체");
 
   // KST 기준 오늘 날짜
@@ -226,6 +232,71 @@ export default function HomeClient({ data, posts, weatherApiKey }: { data: Data,
             </div>
           </div>
         </section>
+
+        {/* ── 오늘자 업데이트 요약 위젯 ── */}
+        {todayUpdates && todayUpdates.totalCount > 0 && (
+          <section className="bg-gradient-to-r from-cyan-50 to-emerald-50 rounded-[2rem] p-5 shadow-sm border border-cyan-100/50">
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <span className="bg-cyan-500 text-white px-3 py-1 rounded-full text-xs font-black animate-pulse">
+                  오늘의 신규 Pick
+                </span>
+                <h3 className="text-slate-800 font-bold text-base md:text-lg">
+                  오늘 아침, <span className="text-cyan-600 font-black">{todayUpdates.totalCount}건</span>의 새로운 정보가 추가되었어요!
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                {/* 축제/행사 요약 박스 */}
+                <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-100">
+                  <h4 className="font-black text-slate-800 mb-2 flex items-center gap-1">
+                    🎉 축제/행사 <span className="text-cyan-600">({todayUpdates.festivals.length}건)</span>
+                  </h4>
+                  {todayUpdates.festivals.length > 0 ? (
+                    <ul className="space-y-1.5">
+                      {todayUpdates.festivals.slice(0, 3).map((f) => (
+                        <li key={f.slug} className="text-sm text-slate-600 truncate font-medium">
+                          <Link href={`/blog/${f.slug}`} className="hover:text-cyan-600 transition-colors">
+                            · {f.title}
+                          </Link>
+                        </li>
+                      ))}
+                      {todayUpdates.festivals.length > 3 && (
+                        <li className="text-xs text-slate-400 pt-1">외 {todayUpdates.festivals.length - 3}건 더보기...</li>
+                      )}
+                    </ul>
+                  ) : (
+                    <p className="text-sm text-slate-400 mt-1">오늘 추가된 축제/행사는 없습니다.</p>
+                  )}
+                </div>
+
+                {/* 혜택/지원금 요약 박스 */}
+                <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-100">
+                  <h4 className="font-black text-slate-800 mb-2 flex items-center gap-1">
+                    💰 혜택/지원금 <span className="text-emerald-600">({todayUpdates.benefits.length}건)</span>
+                  </h4>
+                  {todayUpdates.benefits.length > 0 ? (
+                    <ul className="space-y-1.5">
+                      {todayUpdates.benefits.slice(0, 3).map((b) => (
+                        <li key={b.slug} className="text-sm text-slate-600 truncate font-medium">
+                          <Link href={`/blog/${b.slug}`} className="hover:text-emerald-600 transition-colors">
+                            · {b.title}
+                          </Link>
+                        </li>
+                      ))}
+                      {todayUpdates.benefits.length > 3 && (
+                        <li className="text-xs text-slate-400 pt-1">외 {todayUpdates.benefits.length - 3}건 더보기...</li>
+                      )}
+                    </ul>
+                  ) : (
+                    <p className="text-sm text-slate-400 mt-1">오늘 추가된 지원금은 없습니다.</p>
+                  )}
+                </div>
+
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ── 메인 컨텐츠 (2-Column) ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

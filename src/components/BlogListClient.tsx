@@ -37,6 +37,9 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
               alt={post.title}
               className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
               style={{ filter: "saturate(1.05) brightness(0.96)" }}
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
+              }}
             />
             <div
               className="absolute inset-0 pointer-events-none"

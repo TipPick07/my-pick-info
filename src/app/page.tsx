@@ -13,10 +13,29 @@ export default function Home() {
   const dataPath = path.join(process.cwd(), 'public', 'data', 'pick-info.json');
   const fileContents = fs.readFileSync(dataPath, 'utf8');
   const data = JSON.parse(fileContents);
-  
-  // 최근 3개의 게시글만 가져오기
-  const posts = getSortedPostsData().slice(0, 3);
+
+  const allPosts = getSortedPostsData();
+  const posts = allPosts.slice(0, 3);
   const weatherApiKey = process.env.PUBLIC_DATA_API_KEY || "";
+
+  const kstNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+  const kstYear = kstNow.getFullYear();
+  const kstMonth = String(kstNow.getMonth() + 1).padStart(2, '0');
+  const kstDay = String(kstNow.getDate()).padStart(2, '0');
+  const todayStr = `${kstYear}-${kstMonth}-${kstDay}`;
+
+  const todayPosts = allPosts.filter(post => post.date === todayStr);
+  const todayFestivals = todayPosts.filter(post =>
+    post.tags.some(tag => tag.includes('축제') || tag.includes('페스티벌') || tag.includes('행사')) ||
+    post.title.includes('축제') || post.title.includes('페스티벌') || post.title.includes('행사')
+  );
+  const todayBenefits = todayPosts.filter(post => !todayFestivals.includes(post));
+
+  const todayUpdates = {
+    festivals: todayFestivals,
+    benefits: todayBenefits,
+    totalCount: todayPosts.length,
+  };
 
   const eventSchema = data.festivals.map((f: any) => ({
     "@context": "https://schema.org",
@@ -53,7 +72,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(benefitSchema) }}
       />
-      <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} />
+      <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} todayUpdates={todayUpdates} />
     </>
   );
 }
