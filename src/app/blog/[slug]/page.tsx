@@ -133,7 +133,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           {post.image && (
             <div className="mt-12 rounded-3xl overflow-hidden shadow-2xl max-w-4xl mx-auto border-4 border-white aspect-[16/9] relative bg-slate-100">
               <SafeImage 
-                src={post.image || 'https://tip-pick.com/images/branded_placeholder.png'} 
+                src={post.image || '/images/blogs/korea-welfare-benefit-322.png'}
                 alt={post.title} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />

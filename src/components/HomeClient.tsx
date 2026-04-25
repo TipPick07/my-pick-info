@@ -322,11 +322,11 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
                   {/* 이미지 높이 16:9 비율로 슬림하게 */}
                   <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] mb-3 bg-slate-200">
                     <img
-                      src={f.image || 'https://tip-pick.com/images/branded_placeholder.png'}
+                      src={f.image || '/images/blogs/korea-welfare-benefit-322.png'}
                       alt={f.title}
                       className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
                       onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = 'https://tip-pick.com/images/branded_placeholder.png';
+                        (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
                       }}
                     />
                     <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black shadow-sm" style={{ color: "#00CCFF" }}>
@@ -460,11 +460,11 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
                 {/* 왼쪽 이미지 */}
                 <div className="relative w-32 shrink-0 overflow-hidden bg-slate-100">
                   <img
-                    src={post.image || 'https://tip-pick.com/images/branded_placeholder.png'}
+                    src={post.image || '/images/blogs/korea-welfare-benefit-322.png'}
                     alt={post.title}
                     className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = 'https://tip-pick.com/images/branded_placeholder.png';
+                      (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
                     }}
                   />
                   <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black text-cyan-600 shadow border border-white/50 tracking-wider">

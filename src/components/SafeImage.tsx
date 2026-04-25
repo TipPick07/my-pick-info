@@ -8,7 +8,7 @@ interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 
 export default function SafeImage({ 
   src, 
-  fallbackSrc = 'https://tip-pick.com/images/branded_placeholder.png', 
+  fallbackSrc = '/images/blogs/korea-welfare-benefit-322.png',
   alt, 
   className,
   ...props 
