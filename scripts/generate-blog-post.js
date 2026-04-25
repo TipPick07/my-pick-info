@@ -144,7 +144,8 @@ ${recentPostsForLinking}
 모든 본문, 링크, 섹션이 다 끝난 글의 맨 마지막 줄에 아래 브랜드 문구를 반드시 포함할 것:
 "매일 아침, 일상을 풍요롭게 만드는 정보를 엄선하여 배달합니다."
 
-아래 형식으로 출력. 반드시 이 형식(YAML Frontmatter 포함)만 출력하고 다른 설명 제외:
+아래 형식으로 출력. 반드시 이 형식(YAML Frontmatter 포함)만 출력하고 다른 설명 제외.
+반드시 응답 맨 마지막 줄에 'FILENAME: YYYY-MM-DD-영문키워드' 형식으로 파일명을 출력할 것. 이 줄이 없으면 파일 저장이 불가능함.
 ---
 title: (SEO가 적용된 구체적인 제목)
 originalTitle: ${targetItem.title}
@@ -165,7 +166,10 @@ officialTip: ${targetItem.tip || ''}
 
 (본문 시작. 도입부는 매번 다른 방식으로. 에디터 인사이트 반드시 포함.)
 
-FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력. 키워드는 영문으로.`
+---
+[필수] 위 마크다운 블록이 완전히 끝난 뒤, 반드시 아래 형식으로 파일명을 출력할 것:
+FILENAME: YYYY-MM-DD-영문키워드
+(키워드는 영문만 사용, 날짜는 오늘 날짜 ${today} 사용, 이 줄이 없으면 저장 불가)`
         }]
       }],
       tools: [{ googleSearch: {} }],
@@ -208,13 +212,18 @@ FILENAME: YYYY-MM-DD-keyword 형식으로 마지막에 파일명도 출력. 키�
 
     // FILENAME 추출
     const filenameMatch = fullText.match(/FILENAME:\s*([^\s\n]+)/i);
+    let filename;
     if (!filenameMatch) {
-      throw new Error('FILENAME을 찾을 수 없습니다.');
+      // Gemini가 FILENAME을 누락한 경우 아이템 ID 기반 폴백 파일명 사용
+      const fallbackId = targetItem.id || `${postType}-${Date.now()}`;
+      filename = `${today}-${postType}-${fallbackId}.md`;
+      console.warn(`[경고] Gemini가 FILENAME을 누락 — 폴백 파일명 사용: ${filename}`);
+    } else {
+      // Gemini가 날짜를 잘못 생성할 수 있으므로 날짜 부분을 오늘 날짜로 강제 교체
+      const rawFilename = filenameMatch[1].trim().replace(/\.md$/i, '').replace(/\.+$/, '');
+      const keyword = rawFilename.replace(/^\d{4}-\d{2}-\d{2}-?/, '');
+      filename = `${today}-${keyword}.md`;
     }
-    // Gemini가 날짜를 잘못 생성할 수 있으므로 날짜 부분을 오늘 날짜로 강제 교체
-    const rawFilename = filenameMatch[1].trim().replace(/\.md$/i, '').replace(/\.+$/, '');
-    const keyword = rawFilename.replace(/^\d{4}-\d{2}-\d{2}-?/, '');
-    const filename = `${today}-${keyword}.md`;
 
     // FILENAME 라인 제거
     let mdContent = fullText.replace(/FILENAME:.*$/im, '').trim();
