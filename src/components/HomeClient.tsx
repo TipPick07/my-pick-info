@@ -79,13 +79,24 @@ function isFestivalExpired(dateStr: string, today: Date): boolean {
   return end < today;
 }
 
-function sortFestivals<T extends { date: string }>(list: T[]): T[] {
+function isFestivalOngoing(dateStr: string, today: Date): boolean {
+  const { start, end } = parseFestivalDates(dateStr);
+  if (!start && !end) return true; // 상시
+  const startOk = !start || start <= today;
+  const endOk = !end || end >= today;
+  return startOk && endOk;
+}
+
+function sortFestivals<T extends { date: string }>(list: T[], today: Date): T[] {
   return [...list].sort((a, b) => {
-    const { start: aS, end: aE } = parseFestivalDates(a.date);
-    const { start: bS, end: bE } = parseFestivalDates(b.date);
-    const aStart = aS ? aS.getTime() : Infinity;
-    const bStart = bS ? bS.getTime() : Infinity;
-    if (aStart !== bStart) return aStart - bStart;
+    const aOngoing = isFestivalOngoing(a.date, today);
+    const bOngoing = isFestivalOngoing(b.date, today);
+    // 1순위: 진행중 먼저
+    if (aOngoing && !bOngoing) return -1;
+    if (!aOngoing && bOngoing) return 1;
+    // 2순위: 종료일 오름차순
+    const { end: aE } = parseFestivalDates(a.date);
+    const { end: bE } = parseFestivalDates(b.date);
     const aEnd = aE ? aE.getTime() : Infinity;
     const bEnd = bE ? bE.getTime() : Infinity;
     return aEnd - bEnd;
@@ -102,7 +113,8 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
 
   const filteredFestivals = sortFestivals(
     (filter === "전체" ? data.festivals : data.festivals.filter(f => f.region === filter))
-      .filter((f: Festival) => !isFestivalExpired(f.date, todayKST))
+      .filter((f: Festival) => !isFestivalExpired(f.date, todayKST)),
+    todayKST
   );
 
   // 마감된 지원금 제외 후 최신 5개 (배열 뒤쪽 = 최근 등록)
