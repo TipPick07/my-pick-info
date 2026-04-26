@@ -35,16 +35,21 @@ function getFestivalStatus(dateStr: string, today: Date): "진행중" | "예정"
   return "진행중";
 }
 
+function isFestivalOngoing(dateStr: string, today: Date): boolean {
+  const { start, end } = parseFestivalDates(dateStr);
+  if (!start && !end) return true;
+  return (!start || start <= today) && (!end || end >= today);
+}
+
 function sortFestivals(list: Festival[], today: Date): Festival[] {
   return [...list].sort((a, b) => {
-    const { start: aS, end: aE } = parseFestivalDates(a.date);
-    const { start: bS, end: bE } = parseFestivalDates(b.date);
-    const aStart = aS ? aS.getTime() : Infinity;
-    const bStart = bS ? bS.getTime() : Infinity;
-    if (aStart !== bStart) return aStart - bStart;
-    const aEnd = aE ? aE.getTime() : Infinity;
-    const bEnd = bE ? bE.getTime() : Infinity;
-    return aEnd - bEnd;
+    const aOngoing = isFestivalOngoing(a.date, today);
+    const bOngoing = isFestivalOngoing(b.date, today);
+    if (aOngoing && !bOngoing) return -1;
+    if (!aOngoing && bOngoing) return 1;
+    const { end: aE } = parseFestivalDates(a.date);
+    const { end: bE } = parseFestivalDates(b.date);
+    return (aE ? aE.getTime() : Infinity) - (bE ? bE.getTime() : Infinity);
   });
 }
 

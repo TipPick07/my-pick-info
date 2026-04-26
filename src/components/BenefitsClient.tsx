@@ -57,29 +57,26 @@ function calcDDay(deadline: string, today: Date): number | null {
   return Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 }
 
-// 정렬: 시작일 오름차순 → 종료일 오름차순 → 상시 마지막
-function sortBenefits(list: Benefit[]): Benefit[] {
+function isBenefitOngoing(deadline: string, today: Date): boolean {
+  if (isBenefitAlways(deadline)) return true;
+  const start = parseStartDate(deadline);
+  const end = parseEndDate(deadline);
+  return (!start || start <= today) && (!end || end >= today);
+}
+
+function sortBenefits(list: Benefit[], today: Date): Benefit[] {
+  const getOrder = (deadline: string) => {
+    if (getBenefitStatus(deadline, today) === "마감") return 2;
+    if (isBenefitOngoing(deadline, today)) return 0;
+    return 1;
+  };
   return [...list].sort((a, b) => {
-    const aAlways = isBenefitAlways(a.deadline);
-    const bAlways = isBenefitAlways(b.deadline);
-    if (aAlways && !bAlways) return 1;
-    if (!aAlways && bAlways) return -1;
-    if (aAlways && bAlways) return 0;
-
-    const aStart = parseStartDate(a.deadline);
-    const bStart = parseStartDate(b.deadline);
-    if (aStart && bStart) {
-      const diff = aStart.getTime() - bStart.getTime();
-      if (diff !== 0) return diff;
-    } else if (aStart) return -1;
-    else if (bStart) return 1;
-
+    const aOrder = getOrder(a.deadline);
+    const bOrder = getOrder(b.deadline);
+    if (aOrder !== bOrder) return aOrder - bOrder;
     const aEnd = parseEndDate(a.deadline);
     const bEnd = parseEndDate(b.deadline);
-    if (aEnd && bEnd) return aEnd.getTime() - bEnd.getTime();
-    if (aEnd) return -1;
-    if (bEnd) return 1;
-    return 0;
+    return (aEnd ? aEnd.getTime() : Infinity) - (bEnd ? bEnd.getTime() : Infinity);
   });
 }
 // ─────────────────────────────────────────────────────────────────────────────
@@ -116,7 +113,7 @@ export default function BenefitsClient({ data }: { data: Data }) {
     return regionOk && statusOk;
   });
 
-  const sorted = sortBenefits(filtered);
+  const sorted = sortBenefits(filtered, todayKST);
 
   const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
   const paginated = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);

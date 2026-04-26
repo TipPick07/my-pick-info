@@ -15,6 +15,14 @@ interface Benefit {
   isEmergency: boolean;
 }
 
+function parseStartDate(deadline: string): Date | null {
+  if (!deadline) return null;
+  const matches = [...deadline.matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)];
+  if (matches.length === 0) return null;
+  const first = matches[0];
+  return new Date(parseInt(first[1]), parseInt(first[2]) - 1, parseInt(first[3]));
+}
+
 function parseEndDate(deadline: string): Date | null {
   if (!deadline) return null;
   const matches = [...deadline.matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)];
@@ -29,14 +37,23 @@ function calcDDay(deadline: string, today: Date): number | null {
   return Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 }
 
-function sortByDDay(list: Benefit[], today: Date): Benefit[] {
+function isBenefitOngoing(deadline: string, today: Date): boolean {
+  const matches = deadline ? [...deadline.matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)] : [];
+  if (matches.length === 0) return true; // 상시
+  const start = parseStartDate(deadline);
+  const end = parseEndDate(deadline);
+  return (!start || start <= today) && (!end || end >= today);
+}
+
+function sortByDeadline(list: Benefit[], today: Date): Benefit[] {
   return [...list].sort((a, b) => {
-    const aD = calcDDay(a.deadline, today);
-    const bD = calcDDay(b.deadline, today);
-    if (aD === null && bD === null) return 0;
-    if (aD === null) return 1;
-    if (bD === null) return -1;
-    return aD - bD;
+    const aOngoing = isBenefitOngoing(a.deadline, today);
+    const bOngoing = isBenefitOngoing(b.deadline, today);
+    if (aOngoing && !bOngoing) return -1;
+    if (!aOngoing && bOngoing) return 1;
+    const aEnd = parseEndDate(a.deadline);
+    const bEnd = parseEndDate(b.deadline);
+    return (aEnd ? aEnd.getTime() : Infinity) - (bEnd ? bEnd.getTime() : Infinity);
   });
 }
 
@@ -64,7 +81,7 @@ export default function DeadlineClient({ items }: { items: Benefit[] }) {
     filter === "전체" || b.region === filter || b.region === "전국"
   );
 
-  const sorted = sortByDDay(filtered, todayKST);
+  const sorted = sortByDeadline(filtered, todayKST);
   const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
   const paginated = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 

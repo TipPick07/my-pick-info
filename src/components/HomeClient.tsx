@@ -55,10 +55,38 @@ function parseBenefitEndDate(deadline: string): Date | null {
   return new Date(parseInt(last[1]), parseInt(last[2]) - 1, parseInt(last[3]));
 }
 
+function parseBenefitStartDate(deadline: string): Date | null {
+  if (!deadline) return null;
+  const matches = [...deadline.matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)];
+  if (matches.length === 0) return null;
+  const first = matches[0];
+  return new Date(parseInt(first[1]), parseInt(first[2]) - 1, parseInt(first[3]));
+}
+
 function isBenefitExpired(deadline: string, today: Date): boolean {
   const end = parseBenefitEndDate(deadline);
   if (!end) return false; // 상시 등 날짜 없으면 미만료
   return end < today;
+}
+
+function isBenefitOngoing(deadline: string, today: Date): boolean {
+  const matches = deadline ? [...deadline.matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)] : [];
+  if (matches.length === 0) return true; // 상시
+  const start = parseBenefitStartDate(deadline);
+  const end = parseBenefitEndDate(deadline);
+  return (!start || start <= today) && (!end || end >= today);
+}
+
+function sortBenefitsHome(list: Benefit[], today: Date): Benefit[] {
+  return [...list].sort((a, b) => {
+    const aOngoing = isBenefitOngoing(a.deadline, today);
+    const bOngoing = isBenefitOngoing(b.deadline, today);
+    if (aOngoing && !bOngoing) return -1;
+    if (!aOngoing && bOngoing) return 1;
+    const aEnd = parseBenefitEndDate(a.deadline);
+    const bEnd = parseBenefitEndDate(b.deadline);
+    return (aEnd ? aEnd.getTime() : Infinity) - (bEnd ? bEnd.getTime() : Infinity);
+  });
 }
 // ────────────────────────────────────────────────────────────────────────────
 
@@ -117,12 +145,13 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
     todayKST
   );
 
-  // 마감된 지원금 제외 후 최신 5개 (배열 뒤쪽 = 최근 등록)
-  const filteredBenefits = (filter === "전체"
-    ? data.benefits
-    : data.benefits.filter(b => b.region === filter || b.region === "전국"))
-    .filter(b => !isBenefitExpired(b.deadline, todayKST))
-    .slice(-5);
+  const filteredBenefits = sortBenefitsHome(
+    (filter === "전체"
+      ? data.benefits
+      : data.benefits.filter(b => b.region === filter || b.region === "전국"))
+      .filter(b => !isBenefitExpired(b.deadline, todayKST)),
+    todayKST
+  ).slice(0, 5);
 
   const regions = ["전체", "서울", "인천", "경기"];
 
