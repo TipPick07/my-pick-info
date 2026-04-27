@@ -2,7 +2,8 @@
 title: "고유가 피해지원금 2차 신청 완전 정리 | 수도권 대상·금액·신청방법"
 date: 2026-04-28
 summary: "5월 18일부터 시작되는 고유가 피해지원금 2차 신청. 수도권 거주자 대상 여부, 받을 수 있는 금액, 신청 방법까지 한눈에 정리했습니다."
-category: "benefits"
+category: 정보
+image: /images/blogs/korea-welfare-benefit-156.png
 tags: ["고유가피해지원금", "민생지원금", "2차신청", "수도권지원금", "서울지원금", "경기도지원금", "2026지원금", "정부지원금신청"]
 officialLink: "http://www.mois.go.kr"
 officialDeadline: "2026.07.03"
