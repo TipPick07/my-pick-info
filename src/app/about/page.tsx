@@ -102,6 +102,58 @@ export default function AboutPage() {
             </ul>
           </div>
         </section>
+        {/* 운영자 소개 */}
+        <section className="bg-white rounded-[2.5rem] border-2 border-slate-100 p-10 md:p-14 space-y-6 shadow-sm">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-50 text-cyan-700 text-xs font-black uppercase tracking-widest rounded-full border border-cyan-200">
+              운영자 소개
+            </div>
+          </div>
+          <div className="flex items-start gap-5">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center text-white text-2xl font-black shrink-0 shadow-md">
+              염
+            </div>
+            <div className="space-y-4">
+              <div>
+                <p className="text-xl font-black text-slate-900">염경록</p>
+                <p className="text-sm text-slate-400 font-medium">인천 서구 거주 · 팁픽 운영자</p>
+              </div>
+              <div className="text-slate-600 leading-relaxed space-y-3 font-medium">
+                <p>
+                  안녕하세요, 팁픽 운영자 <strong className="text-slate-900">염경록</strong>입니다.
+                  인천 서구에 거주하는 평범한 직장인입니다.
+                </p>
+                <p>
+                  팁픽을 만들게 된 계기는 단순했어요. 제가 사는 동네 근처 축제나 행사, 지원금 정보를
+                  찾으려고 할 때마다 너무 불편했거든요. 여러 사이트를 돌아다니고, 공공기관 공고문을
+                  뒤지고, 그러다 마감을 놓치기도 했습니다.
+                </p>
+                <p>
+                  &quot;내가 직접 만들면 되겠다&quot; 싶어서 처음엔 인천 서구만 다루는 사이트를 구상했는데,
+                  막상 시작하니 정보가 너무 적었어요. 그래서 서울·인천·경기 수도권 전체로 범위를
+                  넓혀 지금의 팁픽이 됐습니다.
+                </p>
+                <p>
+                  저처럼 바쁜 일상 속에서 꼭 필요한 정보를 놓치는 분들이 없었으면 하는 마음으로,
+                  오늘도 팁픽을 운영하고 있습니다.
+                </p>
+              </div>
+              <div className="pt-2 flex flex-wrap gap-3 text-sm">
+                <span className="bg-slate-50 border border-slate-200 text-slate-600 px-4 py-1.5 rounded-full font-bold">
+                  📍 인천 서구
+                </span>
+                <a
+                  href="mailto:jeepno1ykr1@gmail.com"
+                  className="bg-cyan-50 border border-cyan-200 px-4 py-1.5 rounded-full font-bold transition-colors hover:bg-cyan-100"
+                  style={{ color: "#00AACC" }}
+                >
+                  📧 jeepno1ykr1@gmail.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <CoupangBanner />
       </main>
 
