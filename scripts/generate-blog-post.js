@@ -73,30 +73,32 @@ async function getNaverDataLabKeywords(postType) {
   }
 
   try {
-    const today = new Date();
-    const endDate = today.toISOString().slice(0, 10);
-    const startDate = new Date(today - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    const now = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    const endDate = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+    const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+    const startDate = `${weekAgo.getFullYear()}-${pad(weekAgo.getMonth()+1)}-${pad(weekAgo.getDate())}`;
 
     // 포스트 타입별 조회할 키워드 그룹
     const keywordGroups = postType === 'festival'
       ? [
-          { groupName: '축제',   keywords: [{ name: '축제' }] },
-          { groupName: '행사',   keywords: [{ name: '행사' }] },
-          { groupName: '나들이', keywords: [{ name: '나들이' }] },
-          { groupName: '공연',   keywords: [{ name: '공연' }] }
+          { groupName: '축제',   keywords: ['축제'] },
+          { groupName: '행사',   keywords: ['행사'] },
+          { groupName: '나들이', keywords: ['나들이'] },
+          { groupName: '공연',   keywords: ['공연'] }
         ]
       : [
-          { groupName: '지원금',   keywords: [{ name: '지원금' }] },
-          { groupName: '혜택',     keywords: [{ name: '혜택' }] },
-          { groupName: '복지',     keywords: [{ name: '복지' }] },
-          { groupName: '보조금',   keywords: [{ name: '보조금' }] }
+          { groupName: '지원금', keywords: ['지원금'] },
+          { groupName: '혜택',   keywords: ['혜택'] },
+          { groupName: '복지',   keywords: ['복지'] },
+          { groupName: '보조금', keywords: ['보조금'] }
         ];
 
     const body = {
       startDate,
       endDate,
       timeUnit: 'date',
-      keywordGroups
+      keywordGroups: keywordGroups
     };
 
     const response = await fetch('https://openapi.naver.com/v1/datalab/search', {
@@ -209,6 +211,10 @@ function calcScore(item, postType, hotKeywords = []) {
 }
 
 async function main() {
+  const DRY_RUN = process.env.DRY_RUN === 'true';
+  if (DRY_RUN) {
+    console.log('[DRY RUN] 테스트 모드 — 글 생성 없이 키워드/스코어만 확인합니다.');
+  }
   try {
     const geminiApiKey = process.env.GEMINI_API_KEY;
     if (!geminiApiKey) {
@@ -466,6 +472,10 @@ FILENAME: YYYY-MM-DD-영문키워드
     }
 
     const finalPath = path.join(postsDir, filename);
+    if (DRY_RUN) {
+      console.log(`[DRY RUN] 파일 저장 건너뜀: ${filename}`);
+      return;
+    }
     fs.writeFileSync(finalPath, mdContent, 'utf8');
     console.log(`생성 완료: ${filename}`);
 
