@@ -1,7 +1,7 @@
 ---
 title: 2026 김포 라베니체축제, 가을밤 불꽃쇼와 낭만 콘서트! 놓치지 마세요!
 originalTitle: 2026 김포 라베니체축제
-link: "officialTarget: 정보 없음"
+link: ""
 officialDetails: "불꽃쇼   콘서트   수상 버스킹   체험프로그램 등 | 장소: 장기동 라베니체 일원"
 officialDeadline: 2026.10.17
 date: 2026-04-27

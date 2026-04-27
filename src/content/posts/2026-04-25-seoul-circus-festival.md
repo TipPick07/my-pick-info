@@ -1,7 +1,7 @@
 ---
 title: 2026 서울서커스페스티벌, 노들섬에서 펼쳐지는 환상의 세계! 가족 나들이 완벽 가이드
 originalTitle: 서울서커스페스티벌
-link: "officialTarget: 정보 없음"
+link: ""
 officialDetails: 서울서커스페스티벌이(가) 서울특별시 용산구 양녕로 445 (이촌동) 노들섬에서 열리는 행사입니다.
 officialDeadline: 2026.05.04~2026.05.05
 date: 2026-04-25

@@ -14,6 +14,11 @@ import EligibilityChecker from "@/components/EligibilityChecker";
 import SafeImage from "@/components/SafeImage";
 import { CheckCircle2, FileText, Clock, Lightbulb } from "lucide-react";
 
+function isValidUrl(url: string | undefined | null): boolean {
+  if (!url || typeof url !== 'string') return false;
+  return url.startsWith('http://') || url.startsWith('https://');
+}
+
 interface PostPageProps {
   params: Promise<{
     slug: string;
@@ -241,10 +246,10 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div className="space-y-1">
                 <p className="text-slate-400 text-xs font-black uppercase tracking-widest">Original Source</p>
-                {post.link ? (
-                  <a 
-                    href={post.link} 
-                    target="_blank" 
+                {isValidUrl(post.link) ? (
+                  <a
+                    href={post.link}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-indigo-600 font-black hover:underline underline-offset-4"
                   >

@@ -1,7 +1,7 @@
 ---
 title: "2026 서울 연등회 완벽 가이드: 등불 대행진·드론쇼·인생샷 명당까지 총정리!"
 originalTitle: 2026 서울 연등회 (부처님오신날 기념)
-link: "https://www.llf.or.kr"
+link: "http://www.llf.or.kr"
 officialDetails: "등불 대행진 | 화합 대잔치 | 전통 문화 놀이마당 | 종합 예술 공연 | 연등 게임 | 장소: 종로 일대 (동대문~조계사), 조계사 앞 거리"
 officialDeadline: "2026.05.17"
 date: 2026-04-27

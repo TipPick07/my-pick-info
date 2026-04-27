@@ -1,7 +1,7 @@
 ---
 title: 2026년 11월 경기 성남 탄천종합운동장 '우리가족 꼬마영웅 올림픽'에서 신나는 어린이 미니올림픽 즐겨요!
 originalTitle: 우리가족 꼬마영웅 올림픽
-link: "officialTarget: 정보 없음"
+link: ""
 officialDetails: "어린이 미니올림픽 | 장소: 탄천종합운동장"
 officialDeadline: 2026.11.01~2026.11.30
 date: 2026-04-26
