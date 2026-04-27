@@ -39,6 +39,8 @@ export const metadata: Metadata = {
   },
 };
 
+import ChatBot from "@/components/ChatBot";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -72,6 +74,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         {children}
+        <ChatBot />
         {/* Google Analytics GA4 */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-5N4Y71B3ZQ"
