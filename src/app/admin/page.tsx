@@ -9,6 +9,7 @@ export default function AdminPage() {
   const [messages, setMessages] = useState<any[]>([]);
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [lastPollTimestamp, setLastPollTimestamp] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -21,7 +22,7 @@ export default function AdminPage() {
     }
   }, [messages, isAuthenticated]);
 
-  // 실시간 메시지 폴링 (방문자와 동일한 /api/chat-poll 사용)
+  // 실시간 메시지 폴링 (모든 메시지 조회 - user + admin)
   useEffect(() => {
     let interval: any;
     if (isAuthenticated) {
@@ -30,15 +31,13 @@ export default function AdminPage() {
           const response = await fetch("/api/chat-poll");
           if (response.ok) {
             const data = await response.json();
-            if (data.sender && data.content) {
-              setMessages((prev) => {
-                // 중복 방지: 마지막 메시지와 비교
-                const lastMsg = prev[prev.length - 1];
-                if (lastMsg && lastMsg.content === data.content && lastMsg.sender === data.sender) {
-                  return prev;
-                }
-                return [...prev, data];
-              });
+            const newMsgs = (data.messages || []).filter(
+              (m: any) => m.timestamp > lastPollTimestamp
+            );
+            if (newMsgs.length > 0) {
+              const newTs = newMsgs[newMsgs.length - 1].timestamp;
+              setLastPollTimestamp(newTs);
+              setMessages((prev) => [...prev, ...newMsgs]);
             }
           }
         } catch (error) {
@@ -47,7 +46,7 @@ export default function AdminPage() {
       }, 2000);
     }
     return () => clearInterval(interval);
-  }, [isAuthenticated]);
+  }, [isAuthenticated, lastPollTimestamp]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,12 +71,12 @@ export default function AdminPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sender: "admin",
-          content: adminMessage
+          message: adminMessage
         }),
       });
 
       if (response.ok) {
-        setMessages((prev) => [...prev, { sender: "admin", content: adminMessage }]);
+        setMessages((prev) => [...prev, { sender: "admin", message: adminMessage, timestamp: Date.now() }]);
       }
     } catch (error) {
       console.error("Send Error:", error);
@@ -165,7 +164,7 @@ export default function AdminPage() {
                         : "bg-white text-gray-800 rounded-tl-none border border-gray-100"
                     }`}
                   >
-                    {msg.content}
+                    {msg.message || msg.content}
                   </div>
                 </div>
               </div>

@@ -31,6 +31,7 @@ export default function ChatBot() {
   ]);
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [lastPollTimestamp, setLastPollTimestamp] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -49,19 +50,19 @@ export default function ChatBot() {
     if (isHumanMode && isOpen) {
       interval = setInterval(async () => {
         try {
-          const response = await fetch("/api/chat-poll");
+          const response = await fetch("/api/chat-poll?sender=admin");
           if (response.ok) {
             const data = await response.json();
-            // sender가 admin이고 내용이 있는 경우 말풍선 추가
-            if (data.sender === "admin" && data.content) {
-              setMessages((prev) => {
-                // 마지막 메시지가 동일하면 추가하지 않음 (단순 중복 방지)
-                const lastMsg = prev[prev.length - 1];
-                if (lastMsg.content === data.content && lastMsg.role === "bot") {
-                  return prev;
-                }
-                return [...prev, { role: "bot", content: data.content }];
-              });
+            const adminMessages = (data.messages || []).filter(
+              (m: any) => m.timestamp > lastPollTimestamp
+            );
+            if (adminMessages.length > 0) {
+              const newTs = adminMessages[adminMessages.length - 1].timestamp;
+              setLastPollTimestamp(newTs);
+              setMessages((prev) => [
+                ...prev,
+                ...adminMessages.map((m: any) => ({ role: "bot", content: m.message }))
+              ]);
             }
           }
         } catch (error) {
@@ -70,7 +71,7 @@ export default function ChatBot() {
       }, 2000);
     }
     return () => clearInterval(interval);
-  }, [isHumanMode, isOpen]);
+  }, [isHumanMode, isOpen, lastPollTimestamp]);
 
   const handleQuestionClick = (q: string, a: string) => {
     setMessages((prev) => [...prev, { role: "user", content: q }]);
@@ -105,7 +106,7 @@ export default function ChatBot() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             sender: "user",
-            content: userMessage
+            message: userMessage
           }),
         });
         // 상담원 모드에서는 즉각적인 AI 답변이 없으므로 로딩 종료
