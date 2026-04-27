@@ -14,6 +14,47 @@ function isDeadlineExpired(deadline) {
   return endDate < today;
 }
 
+function isBenefitQuality(item) {
+  // 1. 제목(서비스명) 없거나 너무 짧으면 탈락
+  const title = (item.서비스명 || '').trim();
+  if (!title || title.length < 5) return false;
+
+  // 2. 설명이 전혀 없으면 탈락
+  const desc = (item.서비스목적요약 || item.지원내용 || item.서비스목적 || '').trim();
+  if (!desc || desc.length < 10) return false;
+
+  // 3. 마감일이 이미 지난 공고는 탈락
+  const deadline = item.신청기한 || '';
+  if (deadline && isDeadlineExpired(deadline)) return false;
+
+  // 4. 의미없는 값만 있는 경우 탈락 ('-', '해당없음', '직접입력' 등)
+  const meaningless = ['-', '해당없음', '직접입력', 'N/A', '없음', '미정'];
+  if (meaningless.includes(title)) return false;
+
+  return true;
+}
+
+function isFestivalQuality(item) {
+  // 1. 제목 없거나 너무 짧으면 탈락
+  const title = (item.title || '').trim();
+  if (!title || title.length < 4) return false;
+
+  // 2. 설명이 전혀 없으면 탈락
+  const desc = (item.description || '').trim();
+  if (!desc || desc.length < 10) return false;
+
+  // 3. 이미 종료된 행사 탈락 (date 필드 기준 마지막 날짜)
+  if (item.date && item.date !== '상시') {
+    if (isDeadlineExpired(item.date)) return false;
+  }
+
+  // 4. 지역 정보가 아예 없으면 탈락
+  const location = (item.location || item.region || '').trim();
+  if (!location) return false;
+
+  return true;
+}
+
 // 날씨 코드 변환 함수
 function parseWeather(code) {
   if (code === 0) return { status: '맑음', icon: '☀️' };
@@ -613,11 +654,18 @@ async function main() {
       for (const item of results) {
         if (newItems.length >= DAILY_LIMIT) break;
         const title = item.서비스명;
-        if (title && !existingTitles.has(title) && !collectedTitles.has(title)) {
-          newItems.push(item);
-          collectedTitles.add(title);
-          console.log(`  ✓ 신규: ${title} [${item._source}]`);
+        if (!title) continue;
+        if (existingTitles.has(title) || collectedTitles.has(title)) continue;
+
+        // 품질 필터
+        if (!isBenefitQuality(item)) {
+          console.log(`  ✗ 품질 미달 스킵: ${title}`);
+          continue;
         }
+
+        newItems.push(item);
+        collectedTitles.add(title);
+        console.log(`  ✓ 신규: ${title} [${item._source}]`);
       }
     };
 
@@ -949,6 +997,12 @@ ${JSON.stringify(selectedData)}`
     for (const fest of allFestItems) {
       const title = (fest.title || '').trim();
       if (!title || existingFestTitles.has(title)) continue;
+
+      // 품질 필터
+      if (!isFestivalQuality(fest)) {
+        console.log(`  ✗ [축제] 품질 미달 스킵: ${title}`);
+        continue;
+      }
 
       // 이미지 다운로드 (외부 URL → 로컬 저장)
       let finalImageUrl;
