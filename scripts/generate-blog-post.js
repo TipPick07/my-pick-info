@@ -5,6 +5,61 @@ const fallbacks = require('../src/lib/image-fallbacks.json');
 // 블로그 주제 우선 선정 키워드
 const TARGET_KEYWORDS = ['중장년', '노후준비', '노후대비', '노후설계', '연금', '소상공인', '정부지원금', '건강보험', '세액공제'];
 
+function calcScore(item, postType) {
+  let score = 0;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const text = [item.title, item.details, item.description, item.target, item.summary, item.deadline, item.date].join(' ');
+
+  if (postType === 'festival') {
+    const dateMatches = [...String(item.date || '').matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
+    if (dateMatches.length > 0) {
+      const first = dateMatches[0];
+      const startDate = new Date(parseInt(first[1]), parseInt(first[2]) - 1, parseInt(first[3]));
+      const diffDays = Math.ceil((startDate - today) / (1000 * 60 * 60 * 24));
+
+      if (diffDays >= 0 && diffDays <= 3)        score += 60;
+      else if (diffDays >= 0 && diffDays <= 7)   score += 50;
+      else if (diffDays < 0 && diffDays >= -14)  score += 40;
+      else if (diffDays > 7 && diffDays <= 14)   score += 20;
+
+      const tempDate = new Date(startDate);
+      for (let i = 0; i < 7; i++) {
+        const day = tempDate.getDay();
+        if (day === 0 || day === 6) { score += 20; break; }
+        tempDate.setDate(tempDate.getDate() + 1);
+      }
+    } else {
+      score += 5;
+    }
+
+    if (text.includes('무료'))           score += 15;
+    if (text.includes('서울'))           score += 10;
+    if (text.includes('인천') || text.includes('경기')) score += 5;
+
+  } else {
+    const deadlineMatches = [...String(item.deadline || item.date || '').matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
+    if (deadlineMatches.length > 0) {
+      const last = deadlineMatches[deadlineMatches.length - 1];
+      const deadlineDate = new Date(parseInt(last[1]), parseInt(last[2]) - 1, parseInt(last[3]));
+      const diffDays = Math.ceil((deadlineDate - today) / (1000 * 60 * 60 * 24));
+
+      if (diffDays >= 0 && diffDays <= 7)        score += 60;
+      else if (diffDays >= 0 && diffDays <= 30)  score += 30;
+      else if (diffDays > 30)                    score += 10;
+    } else {
+      score += 5;
+    }
+
+    TARGET_KEYWORDS.forEach(kw => { if (text.includes(kw)) score += 8; });
+    if (text.includes('서울'))           score += 10;
+    if (text.includes('인천') || text.includes('경기')) score += 5;
+    if (item.isEmergency)                score += 20;
+  }
+
+  return score;
+}
+
 async function main() {
   try {
     const geminiApiKey = process.env.GEMINI_API_KEY;
@@ -66,21 +121,18 @@ async function main() {
       return;
     }
 
-    // ① 키워드 매칭 항목 우선 선정
-    const keywordMatched = unpostedItems.filter(item => {
-      const text = [item.title, item.details, item.description, item.target, item.summary].join(' ');
-      return TARGET_KEYWORDS.some(kw => text.includes(kw));
-    });
+    // ① 시의성 스코어링으로 핫한 항목 우선 선정
+    const scoredItems = unpostedItems
+      .map(item => ({ item, score: calcScore(item, postType) }))
+      .sort((a, b) => b.score - a.score);
 
-    let targetItem;
-    if (keywordMatched.length > 0) {
-      targetItem = keywordMatched[Math.floor(Math.random() * keywordMatched.length)];
-      console.log(`[블로그] 키워드 우선 선정: ${targetItem.title}`);
-    } else {
-      // ② Fallback: 전체 미발행 항목 중 무작위 선택
-      targetItem = unpostedItems[Math.floor(Math.random() * unpostedItems.length)];
-      console.log(`[블로그] Fallback 무작위 선정: ${targetItem.title}`);
-    }
+    const topCandidates = scoredItems.slice(0, 3);
+    const selected = topCandidates[Math.floor(Math.random() * topCandidates.length)];
+    const targetItem = selected.item;
+
+    console.log(`[블로그] 시의성 선정 TOP3:`);
+    topCandidates.forEach((c, i) => console.log(`  ${i+1}위 (${c.score}점): ${c.item.title}`));
+    console.log(`[블로그] 최종 선정 (${selected.score}점): ${targetItem.title}`);
 
     // 이미지 보정
     if (!targetItem.image || targetItem.image.includes('default.png')) {
