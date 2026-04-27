@@ -24,7 +24,7 @@ Google AdSense + 쿠팡 파트너스로 수익화하는 웹사이트
 - 쿠팡 파트너스: 블로그 글 하단에 배너
 
 ## 자동화 (GitHub Actions)
-매일 아침 7시 5분(한국시간) 자동 실행:
+매일 아침 5시 5분(한국시간) 자동 실행:
 1. 공공데이터 API에서 최신 정보 **다중 수집 (최대 5개)** 
    - API 안정성을 위해 수집 항목 간 1.5초 지연(Delay) 처리
 2. Gemini AI로 블로그 글 자동 작성 (데이터 중 미작성분 1건 선정)
@@ -34,5 +34,11 @@ Google AdSense + 쿠팡 파트너스로 수익화하는 웹사이트
 ## 환경변수 (나중에 .env.local에 저장)
 - GEMINI_API_KEY
 - PUBLIC_DATA_API_KEY
+- SEOUL_API_KEY
+- GYEONGGI_API_KEY
+- INCHEON_API_KEY
 - NEXT_PUBLIC_ADSENSE_ID
 - NEXT_PUBLIC_GA_ID
+- NEXT_PUBLIC_COUPANG_PARTNER_ID
+- NAVER_CLIENT_ID
+- NAVER_CLIENT_SECRET
