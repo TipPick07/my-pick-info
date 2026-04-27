@@ -2,14 +2,163 @@ const fs = require('fs');
 const path = require('path');
 const fallbacks = require('../src/lib/image-fallbacks.json');
 
-// 블로그 주제 우선 선정 키워드
-const TARGET_KEYWORDS = ['중장년', '노후준비', '노후대비', '노후설계', '연금', '소상공인', '정부지원금', '건강보험', '세액공제'];
+// ─── 방법3: 월별 계절 키워드 자동 주입 ────────────────────────────────────
+const SEASONAL_KEYWORDS = {
+  1:  {
+    festival: ['설날행사', '겨울축제', '눈꽃축제', '얼음축제', '신년행사'],
+    benefit:  ['난방비지원', '에너지바우처', '설맞이지원금', '취업지원금', '청년수당']
+  },
+  2:  {
+    festival: ['봄맞이축제', '매화축제', '겨울끝자락', '실내전시'],
+    benefit:  ['청년취업지원', '설연휴혜택', '복지급여', '근로장려금신청준비']
+  },
+  3:  {
+    festival: ['벚꽃축제', '봄꽃축제', '개나리축제', '봄나들이'],
+    benefit:  ['청년창업지원', '소상공인지원', '봄학기장학금', '취업성공패키지']
+  },
+  4:  {
+    festival: ['벚꽃축제', '봄축제', '튤립축제', '어린이날준비행사'],
+    benefit:  ['근로장려금', '자녀장려금', '봄맞이지원금', '청년주거지원']
+  },
+  5:  {
+    festival: ['어린이날행사', '장미축제', '가정의달축제', '봄꽃축제', '연등회'],
+    benefit:  ['근로장려금신청', '자녀장려금신청', '어린이날혜택', '가정의달지원금']
+  },
+  6:  {
+    festival: ['여름축제', '물축제', '한강축제', '야외공연'],
+    benefit:  ['청년지원금', '에너지바우처', '여름방학프로그램', '취업지원']
+  },
+  7:  {
+    festival: ['여름축제', '물놀이행사', '워터페스티벌', '야외영화제'],
+    benefit:  ['에너지취약계층지원', '여름방학지원', '청년주거지원', '소상공인여름지원']
+  },
+  8:  {
+    festival: ['여름축제', '해변축제', '피서지행사', '별빛축제'],
+    benefit:  ['개학맞이지원', '청년지원금', '주거급여', '저소득층지원']
+  },
+  9:  {
+    festival: ['추석행사', '가을축제', '단풍축제', '한가위문화행사'],
+    benefit:  ['추석명절지원금', '복지급여', '가을학기장학금', '노인복지혜택']
+  },
+  10: {
+    festival: ['단풍축제', '핼러윈행사', '가을꽃축제', '문화행사'],
+    benefit:  ['난방비지원신청', '에너지바우처신청', '복지급여', '노후준비지원']
+  },
+  11: {
+    festival: ['겨울준비행사', '김장축제', '빛축제', '크리스마스마켓'],
+    benefit:  ['에너지바우처', '난방비지원', '연말정산준비', '겨울복지지원']
+  },
+  12: {
+    festival: ['크리스마스행사', '연말축제', '겨울빛축제', '새해맞이행사'],
+    benefit:  ['연말정산', '연말지원금', '겨울난방지원', '신년복지혜택']
+  }
+};
 
-function calcScore(item, postType) {
+// 현재 월 기준 계절 키워드 반환
+function getSeasonalKeywords(postType) {
+  const month = new Date().getMonth() + 1;
+  const keywords = SEASONAL_KEYWORDS[month] || SEASONAL_KEYWORDS[5];
+  return postType === 'festival' ? keywords.festival : keywords.benefit;
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
+// ─── 방법1: 네이버 DataLab 연동 ──────────────────────────────────────────────
+async function getNaverDataLabKeywords(postType) {
+  const clientId     = process.env.NAVER_CLIENT_ID;
+  const clientSecret = process.env.NAVER_CLIENT_SECRET;
+
+  if (!clientId || !clientSecret) {
+    console.log('[DataLab] 네이버 API 키 없음 → 계절 키워드만 사용');
+    return [];
+  }
+
+  try {
+    const today = new Date();
+    const endDate = today.toISOString().slice(0, 10);
+    const startDate = new Date(today - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+
+    // 포스트 타입별 조회할 키워드 그룹
+    const keywordGroups = postType === 'festival'
+      ? [
+          { groupName: '축제',   keywords: [{ name: '축제' }] },
+          { groupName: '행사',   keywords: [{ name: '행사' }] },
+          { groupName: '나들이', keywords: [{ name: '나들이' }] },
+          { groupName: '공연',   keywords: [{ name: '공연' }] }
+        ]
+      : [
+          { groupName: '지원금',   keywords: [{ name: '지원금' }] },
+          { groupName: '혜택',     keywords: [{ name: '혜택' }] },
+          { groupName: '복지',     keywords: [{ name: '복지' }] },
+          { groupName: '보조금',   keywords: [{ name: '보조금' }] }
+        ];
+
+    const body = {
+      startDate,
+      endDate,
+      timeUnit: 'date',
+      keywordGroups
+    };
+
+    const response = await fetch('https://openapi.naver.com/v1/datalab/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type':         'application/json',
+        'X-Naver-Client-Id':     clientId,
+        'X-Naver-Client-Secret': clientSecret
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      console.warn(`[DataLab] API 응답 오류 (${response.status}) → 계절 키워드만 사용`);
+      return [];
+    }
+
+    const result = await response.json();
+
+    // 최근 3일 평균 ratio 기준으로 그룹 정렬
+    const scored = result.results.map(group => {
+      const recent = group.data.slice(-3);
+      const avg = recent.reduce((sum, d) => sum + d.ratio, 0) / recent.length;
+      return { name: group.title, score: avg };
+    });
+
+    scored.sort((a, b) => b.score - a.score);
+    const hotKeywords = scored.slice(0, 2).map(g => g.name);
+    console.log(`[DataLab] 핫 키워드 TOP2: ${hotKeywords.join(', ')}`);
+    return hotKeywords;
+
+  } catch (err) {
+    console.warn('[DataLab] 호출 실패 → 계절 키워드만 사용:', err.message);
+    return [];
+  }
+}
+
+// 계절 키워드 + DataLab 키워드 합산
+async function getTodayHotKeywords(postType) {
+  const seasonal  = getSeasonalKeywords(postType);
+  const datalab   = await getNaverDataLabKeywords(postType);
+
+  // DataLab 키워드를 앞에 배치 (우선순위 높음)
+  const merged = [...new Set([...datalab, ...seasonal])];
+  console.log(`[핫 키워드] 오늘의 키워드 (${postType}): ${merged.slice(0, 5).join(', ')}`);
+  return merged;
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
+function calcScore(item, postType, hotKeywords = []) {
   let score = 0;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const text = [item.title, item.details, item.description, item.target, item.summary, item.deadline, item.date].join(' ');
+
+  // ─── 핫 키워드 매칭 점수 (신규) ───────────────────────────────────────────
+  hotKeywords.forEach((kw, idx) => {
+    const weight = idx < 2 ? 30 : 15; // DataLab 상위 2개는 가중치 2배
+    if (item.title?.includes(kw))       score += weight;
+    if (text.includes(kw))              score += Math.floor(weight / 2);
+  });
+  // ──────────────────────────────────────────────────────────────────────────
 
   if (postType === 'festival') {
     const dateMatches = [...String(item.date || '').matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
@@ -51,7 +200,6 @@ function calcScore(item, postType) {
       score += 5;
     }
 
-    TARGET_KEYWORDS.forEach(kw => { if (text.includes(kw)) score += 8; });
     if (text.includes('서울'))           score += 10;
     if (text.includes('인천') || text.includes('경기')) score += 5;
     if (item.isEmergency)                score += 20;
@@ -74,7 +222,6 @@ async function main() {
     }
 
     const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-    // 최신순으로 정렬 (보통 unshift로 추가하므로 역순으로 확인)
     const postType = process.env.POST_TYPE || 'benefit';
     const allItems = (postType === 'festival'
       ? (data.festivals || [])
@@ -87,20 +234,22 @@ async function main() {
       return;
     }
 
+    // ─── 오늘의 핫 키워드 수집 (방법1 + 방법3) ───────────────────────────
+    const hotKeywords = await getTodayHotKeywords(postType);
+    // ──────────────────────────────────────────────────────────────────────
+
     // 기존 포스트 디렉토리 확인
     const postsDir = path.join(process.cwd(), 'src/content/posts');
     if (!fs.existsSync(postsDir)) {
       fs.mkdirSync(postsDir, { recursive: true });
     }
 
-    // 아직 글이 작성되지 않은 항목 수집
     const existingFiles = fs.readdirSync(postsDir);
     const existingPostsList = existingFiles.filter(f => f.endsWith('.md')).map(file => {
       const content = fs.readFileSync(path.join(postsDir, file), 'utf8');
       const originalTitleMatch = content.match(/originalTitle:\s*"(.*)"/) || content.match(/originalTitle:\s*(.*)\r?\n/);
       let title = originalTitleMatch ? originalTitleMatch[1].replace(/"/g, '').trim() : null;
 
-      // 구 버전 파일은 일반 제목으로 체크
       if (!title) {
         const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\r?\n/);
         title = titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
@@ -110,7 +259,6 @@ async function main() {
 
     const alreadyPostedTitles = existingPostsList.map(p => p.title);
 
-    // 내부 링크 추천용 후보 리스트 (최신 30개)
     existingPostsList.sort((a, b) => b.filename.localeCompare(a.filename));
     const recentPostsForLinking = existingPostsList.slice(0, 30).map(p => `- [${p.title}](/blog/${p.filename})`).join('\n');
 
@@ -121,20 +269,20 @@ async function main() {
       return;
     }
 
-    // ① 시의성 스코어링으로 핫한 항목 우선 선정
+    // ─── 핫 키워드 반영 스코어링으로 최종 선정 ────────────────────────────
     const scoredItems = unpostedItems
-      .map(item => ({ item, score: calcScore(item, postType) }))
+      .map(item => ({ item, score: calcScore(item, postType, hotKeywords) }))
       .sort((a, b) => b.score - a.score);
 
     const topCandidates = scoredItems.slice(0, 3);
     const selected = topCandidates[Math.floor(Math.random() * topCandidates.length)];
     const targetItem = selected.item;
 
-    console.log(`[블로그] 시의성 선정 TOP3:`);
+    console.log(`[블로그] 핫 키워드 반영 TOP3:`);
     topCandidates.forEach((c, i) => console.log(`  ${i+1}위 (${c.score}점): ${c.item.title}`));
     console.log(`[블로그] 최종 선정 (${selected.score}점): ${targetItem.title}`);
+    // ──────────────────────────────────────────────────────────────────────
 
-    // 이미지 보정
     if (!targetItem.image || targetItem.image.includes('default.png')) {
       const guideFallbacks = fallbacks.GUIDE;
       targetItem.image = guideFallbacks[Math.floor(Math.random() * guideFallbacks.length)];
@@ -144,7 +292,6 @@ async function main() {
     console.log(`발행 대상 발견: ${targetItem.title}`);
 
     // 2. Gemini AI로 블로그 글 생성
-    // 한국 시간(KST) 기준으로 오늘 날짜 가져오기
     const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
     const prompt = {
       contents: [{
@@ -154,6 +301,9 @@ async function main() {
 아래 공공서비스 정보를 바탕으로 구글/네이버 검색 상위 노출이 가능한 프리미엄 블로그 글을 작성해줘.
 
 정보: ${JSON.stringify(targetItem)}
+
+오늘의 핫 키워드: ${hotKeywords.slice(0, 5).join(', ')}
+(위 키워드를 제목과 본문에 자연스럽게 녹여서 검색 노출 극대화)
 
 [타겟 및 톤앤매너]
 ${postType === 'festival'
@@ -262,31 +412,22 @@ FILENAME: YYYY-MM-DD-영문키워드
     }
     let fullText = result.candidates[0].content.parts[0].text;
 
-    // FILENAME 추출
     const filenameMatch = fullText.match(/FILENAME:\s*([^\s\n]+)/i);
     let filename;
     if (!filenameMatch) {
-      // Gemini가 FILENAME을 누락한 경우 아이템 ID 기반 폴백 파일명 사용
       const fallbackId = targetItem.id || `${postType}-${Date.now()}`;
       filename = `${today}-${postType}-${fallbackId}.md`;
       console.warn(`[경고] Gemini가 FILENAME을 누락 — 폴백 파일명 사용: ${filename}`);
     } else {
-      // Gemini가 날짜를 잘못 생성할 수 있으므로 날짜 부분을 오늘 날짜로 강제 교체
       const rawFilename = filenameMatch[1].trim().replace(/\.md$/i, '').replace(/\.+$/, '');
       const keyword = rawFilename.replace(/^\d{4}-\d{2}-\d{2}-?/, '');
       filename = `${today}-${keyword}.md`;
     }
 
-    // FILENAME 라인 제거
     let mdContent = fullText.replace(/FILENAME:.*$/im, '').trim();
-
-    // 마크다운 코드 블록 제거
     mdContent = mdContent.replace(/^```[a-z]*\n/i, '').replace(/```$/g, '').trim();
-
-    // Gemini가 date 필드를 훈련 데이터 기반으로 잘못 출력할 수 있으므로 강제 교체
     mdContent = mdContent.replace(/^date:.*$/m, `date: ${today}`);
 
-    // 3-a. YAML frontmatter 값에 콜론이 포함된 경우 자동으로 따옴표 처리
     mdContent = mdContent.replace(
       /^(---\r?\n)([\s\S]*?)(---)/,
       (_, open, frontmatter, close) => {
@@ -296,14 +437,11 @@ FILENAME: YYYY-MM-DD-영문키워드
             const trimmed = value.trim();
             if ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
               (trimmed.startsWith("'") && trimmed.endsWith("'"))) return line;
-            // [ 또는 { 로 시작하고 동시에 ] 또는 } 로 끝나면 배열/객체 (tags 등) — 건너뜀
             if ((trimmed.startsWith('[') && trimmed.endsWith(']')) ||
               (trimmed.startsWith('{') && trimmed.endsWith('}'))) return line;
-            // [ 로 시작하지만 ] 로 끝나지 않으면 문자열 — 따옴표 처리
             if (trimmed.startsWith('[') || trimmed.startsWith('{')) {
               return `${key}: "${trimmed.replace(/"/g, '\\"')}"`;
             }
-            // ': ' (콜론+공백)만 YAML 파싱 위험 — URL의 '://' 패턴은 안전하므로 제외
             if (trimmed.includes(': ')) {
               return `${key}: "${trimmed.replace(/"/g, '\\"')}"`;
             }
@@ -314,7 +452,6 @@ FILENAME: YYYY-MM-DD-영문키워드
       }
     );
 
-    // 3-b. 파일 저장 (image 비어있으면 로컬 폴백 강제 주입)
     if (/^image:\s*$/m.test(mdContent)) {
       const localFallbacks = [
         '/images/blogs/korea-welfare-benefit-210.png',
@@ -330,10 +467,9 @@ FILENAME: YYYY-MM-DD-영문키워드
 
     const finalPath = path.join(postsDir, filename);
     fs.writeFileSync(finalPath, mdContent, 'utf8');
-
     console.log(`생성 완료: ${filename}`);
 
-    // ─── 네이버 블로그 티저 원고 생성 (실패해도 배포에 영향 없음) ────────────
+    // ─── 네이버 블로그 티저 원고 생성 ────────────────────────────────────────
     try {
       const naverPromptObj = {
         contents: [{
@@ -384,11 +520,10 @@ FILENAME: YYYY-MM-DD-영문키워드
     } catch (error) {
       console.warn('[경고] 네이버 블로그 원고 생성 실패:', error.message);
     }
-    // ────────────────────────────────────────────────────────────────────────
+    // ──────────────────────────────────────────────────────────────────────────
 
   } catch (error) {
-    // 블로그 생성 실패는 배포를 막지 않음 — 기존 콘텐츠로 사이트는 계속 배포
-    console.warn('[경고] 블로그 자동 생성 실패, 배포는 계속 진행됩니다:', error.message);
+    console.warn('[블로그 자동 생성 실패, 배포는 계속 진행됩니다:', error.message);
     process.exit(0);
   }
 }
