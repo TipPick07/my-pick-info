@@ -52,6 +52,16 @@ export default function Footer() {
           </p>
         </div>
 
+        {/* Business Info */}
+        <div className="space-y-1 text-[11px] text-slate-400">
+          <p className="font-semibold text-slate-500">사업자 정보</p>
+          <p>상호: 야미야미 &nbsp;|&nbsp; 대표자: 염경록</p>
+          <p>사업자등록번호: 258-02-03600</p>
+          <p>통신판매업 신고번호: 2025-인천서구-4579</p>
+          <p>사업장 소재지: 인천광역시 서구 검암로 53, 110동 903호 (검암동, 풍림아이원2차)</p>
+          <p>이메일: jeepno1ykr1@gmail.com</p>
+        </div>
+
         {/* Bottom Row: Disclaimer & Copyright */}
         <div className="pt-8 border-t border-slate-200/60 space-y-4">
           <p className="text-[11px] text-slate-400 max-w-2xl mx-auto leading-relaxed">
