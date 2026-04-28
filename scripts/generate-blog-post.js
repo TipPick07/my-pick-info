@@ -402,7 +402,8 @@ FILENAME: YYYY-MM-DD-영문키워드`
       }],
       tools: [{ googleSearch: {} }],
       generationConfig: {
-        temperature: 0.9
+        temperature: 0.9,
+        maxOutputTokens: 8192
       }
     };
 
