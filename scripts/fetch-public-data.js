@@ -90,6 +90,91 @@ function calcHotScore(item, hotKeywords) {
 }
 // ──────────────────────────────────────────────────────────────────────────────
 
+// ─── 핫 키워드 공공데이터 매칭 여부 확인 + Gemini 보완 ──────────────────────
+async function supplementWithGemini(hotKeywords, type, existingTitles, geminiApiKey) {
+  const results = [];
+  if (!geminiApiKey) return results;
+
+  // 핫 키워드 중 현재 데이터에 없는 것만 추출
+  const missingKeywords = hotKeywords.slice(0, 3).filter(kw => {
+    const allTitles = [...existingTitles].join(' ');
+    return !allTitles.includes(kw);
+  });
+
+  if (missingKeywords.length === 0) {
+    console.log('[Gemini 보완] 핫 키워드 모두 데이터 있음 → 보완 불필요');
+    return results;
+  }
+
+  console.log(`[Gemini 보완] 공공데이터 없는 핫 키워드: ${missingKeywords.join(', ')} → Gemini 구글검색으로 보완`);
+
+  for (const keyword of missingKeywords) {
+    try {
+      const promptText = type === 'festival'
+        ? `구글 검색으로 "${keyword}" 관련 2026년 수도권(서울·인천·경기) 축제/행사 정보를 찾아서 아래 JSON 형식으로 1건만 출력해줘. 반드시 JSON만 출력.
+{
+  "id": "gemini-${Date.now()}",
+  "region": "서울 또는 인천 또는 경기",
+  "type": "festival",
+  "title": "[지역명] 행사명",
+  "date": "YYYY.MM.DD~YYYY.MM.DD",
+  "location": "장소명",
+  "description": "행사 설명 3~4문장",
+  "link": "공식 URL",
+  "tag": "신규",
+  "image": ""
+}`
+        : `구글 검색으로 "${keyword}" 관련 2026년 수도권(서울·인천·경기) 지원금/혜택 정보를 찾아서 아래 JSON 형식으로 1건만 출력해줘. 반드시 JSON만 출력.
+{
+  "id": "gemini-${Date.now()}",
+  "region": "서울 또는 인천 또는 경기 또는 전국",
+  "type": "benefit",
+  "title": "[지역명] 혜택명",
+  "deadline": "YYYY.MM.DD 또는 상시",
+  "target": "지원대상",
+  "details": "지원내용 3~4문장",
+  "link": "공식 URL",
+  "tag": "신규",
+  "image": "",
+  "requirements": ["필요서류1", "필요서류2"],
+  "howToApply": ["신청방법1", "신청방법2"],
+  "eligibilityQuiz": ["자격요건 질문1?", "자격요건 질문2?"],
+  "tip": "한 줄 꿀팁"
+}`;
+
+      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
+
+      const res = await fetch(geminiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: promptText }] }],
+          tools: [{ googleSearch: {} }],
+          generationConfig: { temperature: 0.7 }
+        })
+      });
+
+      if (!res.ok) { console.warn(`[Gemini 보완] ${keyword} 실패 (${res.status})`); continue; }
+
+      const json = await res.json();
+      let text = json.candidates[0].content.parts[0].text;
+      text = text.replace(/```json/gi, '').replace(/```/g, '').trim();
+
+      const parsed = JSON.parse(text);
+      if (!parsed.title) continue;
+
+      results.push(parsed);
+      console.log(`[Gemini 보완] ✓ "${keyword}" → ${parsed.title}`);
+
+    } catch (err) {
+      console.warn(`[Gemini 보완] "${keyword}" 처리 실패:`, err.message);
+    }
+  }
+  return results;
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
 // 마감일 만료 여부 확인 (날짜 범위의 마지막 날짜 기준)
 function isDeadlineExpired(deadline) {
   if (!deadline) return false;
@@ -743,6 +828,11 @@ async function main() {
     }
     // ──────────────────────────────────────────────────────────────────────────────
 
+    const geminiApiKey = process.env.GEMINI_API_KEY;
+    if (!geminiApiKey) {
+      throw new Error('GEMINI_API_KEY 환경변수가 설정되지 않았습니다.');
+    }
+
     // 날씨 정보 업데이트 (항상 실행)
     console.log('날씨 정보 수집 중...');
     const weatherData = await fetchWeatherData();
@@ -841,6 +931,38 @@ async function main() {
     newItems.sort((a, b) => calcHotScore(b, benefitHotKeywords) - calcHotScore(a, benefitHotKeywords));
     // ──────────────────────────────────────────────────────────────────────────────
 
+    // ─── Gemini 구글검색 보완 (지원금) ───────────────────────────────────────
+    const benefitSupplements = await supplementWithGemini(
+      benefitHotKeywords,
+      'benefit',
+      new Set(existingData.benefits.map(b => b.title)),
+      geminiApiKey
+    );
+    for (const item of benefitSupplements) {
+      if (!existingTitles.has(item.title)) {
+        const stockImages = fallbacks['SUBSIDY'] || fallbacks['GUIDE'];
+        existingData.benefits.unshift({
+          id: item.id || `gemini-benefit-${Date.now()}`,
+          region: item.region || '전국',
+          title: item.title,
+          target: item.target || '누구나',
+          deadline: item.deadline || '상시',
+          image: stockImages[Math.floor(Math.random() * stockImages.length)],
+          isEmergency: false,
+          details: item.details || '',
+          link: item.link || '',
+          requirements: item.requirements || [],
+          howToApply: item.howToApply || [],
+          eligibilityQuiz: item.eligibilityQuiz || [],
+          tip: item.tip || ''
+        });
+        existingTitles.add(item.title);
+        if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+        console.log(`✓ [Gemini 보완 지원금] 추가됨: ${item.title}`);
+      }
+    }
+    // ──────────────────────────────────────────────────────────────────────────────
+
     // 수도권 지역 조건 맞는 것 우선 선정
     let selectedDataItems = [];
     for (const item of newItems) {
@@ -859,11 +981,6 @@ async function main() {
         }
         if (selectedDataItems.length >= DAILY_LIMIT) break;
       }
-    }
-
-    const geminiApiKey = process.env.GEMINI_API_KEY;
-    if (!geminiApiKey) {
-      throw new Error('GEMINI_API_KEY 환경변수가 설정되지 않았습니다.');
     }
 
     // 💡 이미지 생성 시 너무 빠른 API 요청으로 인한 실패(Rate Limit) 방지 지연 함수
@@ -1125,6 +1242,34 @@ ${JSON.stringify(selectedData)}`
     // ──────────────────────────────────────────────────────────────────────────────
 
     const existingFestTitles = new Set(existingData.festivals.map(f => f.title));
+
+    // ─── Gemini 구글검색 보완 (축제) ─────────────────────────────────────────
+    const festSupplements = await supplementWithGemini(
+      festHotKeywords,
+      'festival',
+      new Set(existingData.festivals.map(f => f.title)),
+      geminiApiKey
+    );
+    for (const item of festSupplements) {
+      if (!existingFestTitles.has(item.title)) {
+        const stockImages = fallbacks['FESTIVAL'] || fallbacks['GUIDE'];
+        existingData.festivals.unshift({
+          id: item.id || `gemini-fest-${Date.now()}`,
+          region: item.region || '전국',
+          title: item.title,
+          date: item.date || '상시',
+          tag: item.tag || '신규',
+          image: stockImages[Math.floor(Math.random() * stockImages.length)],
+          location: item.location || '',
+          description: item.description || '',
+          link: item.link || '',
+        });
+        existingFestTitles.add(item.title);
+        if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+        console.log(`✓ [Gemini 보완 축제] 추가됨: ${item.title}`);
+      }
+    }
+    // ──────────────────────────────────────────────────────────────────────────────
 
     for (const fest of allFestItems) {
       const title = (fest.title || '').trim();
