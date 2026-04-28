@@ -1107,8 +1107,12 @@ ${JSON.stringify(selectedData)}`
         
         if (imgRes.ok && contentType && contentType.startsWith('image/')) {
           const arrayBuffer = await imgRes.arrayBuffer();
-          fs.writeFileSync(absoluteImagePath, Buffer.from(arrayBuffer));
-          console.log(`이미지 로컬 저장 성공: ${localImagePath}`);
+          if (!DRY_RUN) {
+            fs.writeFileSync(absoluteImagePath, Buffer.from(arrayBuffer));
+            console.log(`이미지 로컬 저장 성공: ${localImagePath}`);
+          } else {
+            console.log(`[DRY RUN] 이미지 저장 건너뜀: ${localImagePath}`);
+          }
         } else {
           console.log(`이미지 생성 실패(Type: ${contentType}), 스톡 이미지로 폴백`);
           const category = parsedParams.type === 'festival' ? 'FESTIVAL' : 'SUBSIDY';
@@ -1294,9 +1298,13 @@ ${JSON.stringify(selectedData)}`
           const contentType = imgRes.headers.get('content-type');
           if (imgRes.ok && contentType && contentType.startsWith('image/')) {
             const buf = await imgRes.arrayBuffer();
-            fs.writeFileSync(absoluteImagePath, Buffer.from(buf));
+            if (!DRY_RUN) {
+              fs.writeFileSync(absoluteImagePath, Buffer.from(buf));
+              console.log(`[축제] 이미지 저장: ${localImagePath}`);
+            } else {
+              console.log(`[DRY RUN] 이미지 저장 건너뜀: ${localImagePath}`);
+            }
             finalImageUrl = localImagePath;
-            console.log(`[축제] 이미지 저장: ${localImagePath}`);
           } else {
             throw new Error(`이미지 타입 불일치: ${contentType}`);
           }
