@@ -90,6 +90,11 @@ function calcHotScore(item, hotKeywords) {
 }
 // ──────────────────────────────────────────────────────────────────────────────
 
+// 제목 정규화: [지역] prefix 제거 + 공백·특수문자 제거 → 중복 감지용
+function normTitle(title) {
+  return (title || '').replace(/^\[[^\]]+\]\s*/, '').replace(/\s+/g, '').toLowerCase();
+}
+
 // ─── 핫 키워드 공공데이터 매칭 여부 확인 + Gemini 보완 ──────────────────────
 async function supplementWithGemini(hotKeywords, type, existingTitles, geminiApiKey) {
   const results = [];
@@ -852,6 +857,7 @@ async function main() {
       ...existingData.festivals.map(f => f.title),
       ...existingData.benefits.map(b => b.title)
     ]);
+    const existingBenefitNorm = new Set(existingData.benefits.map(b => normTitle(b.title)));
 
     // 수집된 신규 항목 추적용 셋 (API 간 중복 방지)
     const collectedTitles = new Set();
@@ -951,7 +957,8 @@ async function main() {
       geminiApiKey
     );
     for (const item of benefitSupplements) {
-      if (!existingTitles.has(item.title)) {
+      const norm = normTitle(item.title);
+      if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm)) {
         const stockImages = fallbacks['SUBSIDY'] || fallbacks['GUIDE'];
         existingData.benefits.unshift({
           id: item.id || `gemini-benefit-${Date.now()}`,
@@ -969,8 +976,11 @@ async function main() {
           tip: item.tip || ''
         });
         existingTitles.add(item.title);
+        existingBenefitNorm.add(norm);
         if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
         console.log(`✓ [Gemini 보완 지원금] 추가됨: ${item.title}`);
+      } else {
+        console.log(`  ✗ [Gemini 보완 지원금] 중복 스킵: ${item.title}`);
       }
     }
     // ──────────────────────────────────────────────────────────────────────────────
@@ -1258,6 +1268,7 @@ ${JSON.stringify(selectedData)}`
     // ──────────────────────────────────────────────────────────────────────────────
 
     const existingFestTitles = new Set(existingData.festivals.map(f => f.title));
+    const existingFestNorm = new Set(existingData.festivals.map(f => normTitle(f.title)));
 
     // ─── Gemini 구글검색 보완 (축제) ─────────────────────────────────────────
     const festSupplements = await supplementWithGemini(
@@ -1267,7 +1278,8 @@ ${JSON.stringify(selectedData)}`
       geminiApiKey
     );
     for (const item of festSupplements) {
-      if (!existingFestTitles.has(item.title)) {
+      const norm = normTitle(item.title);
+      if (!existingFestTitles.has(item.title) && !existingFestNorm.has(norm)) {
         const stockImages = fallbacks['FESTIVAL'] || fallbacks['GUIDE'];
         existingData.festivals.unshift({
           id: item.id || `gemini-fest-${Date.now()}`,
@@ -1281,8 +1293,11 @@ ${JSON.stringify(selectedData)}`
           link: item.link || '',
         });
         existingFestTitles.add(item.title);
+        existingFestNorm.add(norm);
         if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
         console.log(`✓ [Gemini 보완 축제] 추가됨: ${item.title}`);
+      } else {
+        console.log(`  ✗ [Gemini 보완 축제] 중복 스킵: ${item.title}`);
       }
     }
     // ──────────────────────────────────────────────────────────────────────────────
