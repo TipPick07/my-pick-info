@@ -959,14 +959,16 @@ async function main() {
     for (const item of benefitSupplements) {
       const norm = normTitle(item.title);
       if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm)) {
-        const stockImages = fallbacks['SUBSIDY'] || fallbacks['GUIDE'];
+        const _benefitId = item.id || `gemini-benefit-${Date.now()}`;
+        const _benefitHash = String(_benefitId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+        const _benefitFallbackNum = (_benefitHash % 5) + 1;
         existingData.benefits.unshift({
-          id: item.id || `gemini-benefit-${Date.now()}`,
+          id: _benefitId,
           region: item.region || '전국',
           title: item.title,
           target: item.target || '누구나',
           deadline: item.deadline || '상시',
-          image: stockImages[Math.floor(Math.random() * stockImages.length)],
+          image: `/images/blogs/fallback-benefit-${_benefitFallbackNum}.png`,
           isEmergency: false,
           details: item.details || '',
           link: item.link || '',
@@ -1148,16 +1150,20 @@ ${JSON.stringify(selectedData)}`
             console.log(`[DRY RUN] 이미지 저장 건너뜀: ${localImagePath}`);
           }
         } else {
-          console.log(`이미지 생성 실패(Type: ${contentType}), 스톡 이미지로 폴백`);
-          const category = parsedParams.type === 'festival' ? 'FESTIVAL' : 'SUBSIDY';
-          const stockImages = fallbacks[category] || fallbacks.GUIDE;
-          finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
+          console.log(`이미지 생성 실패(Type: ${contentType}), 폴백 이미지로 대체`);
+          const _idHash1 = String(newId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+          const _fallbackNum1 = (_idHash1 % 5) + 1;
+          finalImageUrl = parsedParams.type === 'festival'
+            ? `/images/blogs/fallback-festival-${_fallbackNum1}.png`
+            : `/images/blogs/fallback-benefit-${_fallbackNum1}.png`;
         }
       } catch (e) {
-        console.log('이미지 처리 중 간헐적 오류 발생, 스톡 이미지로 폴백:', e.message);
-        const category = parsedParams.type === 'festival' ? 'FESTIVAL' : 'SUBSIDY';
-        const stockImages = fallbacks[category] || fallbacks.GUIDE;
-        finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
+        console.log('이미지 처리 중 간헐적 오류 발생, 폴백 이미지로 대체:', e.message);
+        const _idHash2 = String(newId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+        const _fallbackNum2 = (_idHash2 % 5) + 1;
+        finalImageUrl = parsedParams.type === 'festival'
+          ? `/images/blogs/fallback-festival-${_fallbackNum2}.png`
+          : `/images/blogs/fallback-benefit-${_fallbackNum2}.png`;
       }
 
       if (parsedParams.type === 'festival') {
@@ -1292,14 +1298,16 @@ ${JSON.stringify(selectedData)}`
     for (const item of festSupplements) {
       const norm = normTitle(item.title);
       if (!existingFestTitles.has(item.title) && !existingFestNorm.has(norm)) {
-        const stockImages = fallbacks['FESTIVAL'] || fallbacks['GUIDE'];
+        const _festId = item.id || `gemini-fest-${Date.now()}`;
+        const _festHash = String(_festId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+        const _festFallbackNum = (_festHash % 5) + 1;
         existingData.festivals.unshift({
-          id: item.id || `gemini-fest-${Date.now()}`,
+          id: _festId,
           region: item.region || '전국',
           title: item.title,
           date: item.date || '상시',
           tag: item.tag || '신규',
-          image: stockImages[Math.floor(Math.random() * stockImages.length)],
+          image: `/images/blogs/fallback-festival-${_festFallbackNum}.png`,
           location: item.location || '',
           description: item.description || '',
           link: item.link || '',
@@ -1361,14 +1369,16 @@ ${JSON.stringify(selectedData)}`
           }
         } catch (e) {
           console.warn(`[축제] 이미지 다운로드 실패, 폴백 사용: ${e.message}`);
-          const stockImages = fallbacks['FESTIVAL'] || fallbacks['GUIDE'];
-          finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
+          const _festImgId = fest.id || fest.servId || title;
+          const _festImgHash = String(_festImgId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+          finalImageUrl = `/images/blogs/fallback-festival-${(_festImgHash % 5) + 1}.png`;
         }
       } else if (imageUrl) {
         finalImageUrl = imageUrl; // 이미 로컬 경로인 경우
       } else {
-        const stockImages = fallbacks['FESTIVAL'] || fallbacks['GUIDE'];
-        finalImageUrl = stockImages[Math.floor(Math.random() * stockImages.length)];
+        const _festNoImgId = fest.id || fest.servId || title;
+        const _festNoImgHash = String(_festNoImgId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+        finalImageUrl = `/images/blogs/fallback-festival-${(_festNoImgHash % 5) + 1}.png`;
       }
 
       const newFest = {
