@@ -454,13 +454,16 @@ FILENAME: YYYY-MM-DD-영문키워드`
     mdContent = mdContent.replace(/^```[a-z]*\n/i, '').replace(/```$/g, '').trim();
     mdContent = mdContent.replace(/^date:.*$/m, `date: ${today}`);
 
-    // Gemini 내부 reasoning 텍스트 제거 (표 안에 들어간 경우 포함)
-    mdContent = mdContent.replace(/The user wants.*?(?=\n#|\n---|\Z)/gs, '').trim();
-    mdContent = mdContent.replace(/Let me break down.*?(?=\n#|\n---)/gs, '').trim();
-    mdContent = mdContent.replace(/\*\*1\. YAML.*?(?=따뜻한|새로운|봄|이번|서울)/gs, '').trim();
+    // Gemini 내부 reasoning 텍스트 제거 (멀티라인 포함)
+    mdContent = mdContent.replace(/The user wants[\s\S]*?(?=따뜻한|새로운|봄|이번|서울|경기|인천)/g, '');
+    mdContent = mdContent.replace(/Let me break down[\s\S]*?(?=따뜻한|새로운|봄|이번|서울|경기|인천)/g, '');
+    mdContent = mdContent.replace(/\*\*1\. YAML[\s\S]*?(?=따뜻한|새로운|봄|이번|서울|경기|인천)/g, '');
 
-    // 표 안의 비정상적으로 긴 셀 내용 제거 (1000자 이상인 셀)
-    mdContent = mdContent.replace(/\|[^|\n]{1000,}\|/g, '| 정보 없음 |');
+    // 표 행에서 셀 내용이 500자 이상인 행 전체 제거
+    mdContent = mdContent.replace(/^\|[^\n]{500,}\|$/gm, '');
+
+    // 연속된 빈 줄 정리 (3줄 이상 → 2줄로)
+    mdContent = mdContent.replace(/\n{3,}/g, '\n\n');
 
     mdContent = mdContent.replace(
       /^(---\r?\n)([\s\S]*?)(---)/,
