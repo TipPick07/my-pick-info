@@ -4,53 +4,53 @@ const fallbacks = require('../src/lib/image-fallbacks.json');
 
 // ─── 방법3: 월별 계절 키워드 자동 주입 ────────────────────────────────────
 const SEASONAL_KEYWORDS = {
-  1:  {
+  1: {
     festival: ['설날행사', '겨울축제', '눈꽃축제', '얼음축제', '신년행사'],
-    benefit:  ['난방비지원', '에너지바우처', '설맞이지원금', '취업지원금', '청년수당']
+    benefit: ['난방비지원', '에너지바우처', '설맞이지원금', '취업지원금', '청년수당']
   },
-  2:  {
+  2: {
     festival: ['봄맞이축제', '매화축제', '겨울끝자락', '실내전시'],
-    benefit:  ['청년취업지원', '설연휴혜택', '복지급여', '근로장려금신청준비']
+    benefit: ['청년취업지원', '설연휴혜택', '복지급여', '근로장려금신청준비']
   },
-  3:  {
+  3: {
     festival: ['벚꽃축제', '봄꽃축제', '개나리축제', '봄나들이'],
-    benefit:  ['청년창업지원', '소상공인지원', '봄학기장학금', '취업성공패키지']
+    benefit: ['청년창업지원', '소상공인지원', '봄학기장학금', '취업성공패키지']
   },
-  4:  {
+  4: {
     festival: ['벚꽃축제', '봄축제', '튤립축제', '어린이날준비행사'],
-    benefit:  ['근로장려금', '자녀장려금', '봄맞이지원금', '청년주거지원']
+    benefit: ['근로장려금', '자녀장려금', '봄맞이지원금', '청년주거지원']
   },
-  5:  {
+  5: {
     festival: ['어린이날행사', '장미축제', '가정의달축제', '봄꽃축제', '연등회'],
-    benefit:  ['근로장려금신청', '자녀장려금신청', '어린이날혜택', '가정의달지원금']
+    benefit: ['근로장려금신청', '자녀장려금신청', '어린이날혜택', '가정의달지원금']
   },
-  6:  {
+  6: {
     festival: ['여름축제', '물축제', '한강축제', '야외공연'],
-    benefit:  ['청년지원금', '에너지바우처', '여름방학프로그램', '취업지원']
+    benefit: ['청년지원금', '에너지바우처', '여름방학프로그램', '취업지원']
   },
-  7:  {
+  7: {
     festival: ['여름축제', '물놀이행사', '워터페스티벌', '야외영화제'],
-    benefit:  ['에너지취약계층지원', '여름방학지원', '청년주거지원', '소상공인여름지원']
+    benefit: ['에너지취약계층지원', '여름방학지원', '청년주거지원', '소상공인여름지원']
   },
-  8:  {
+  8: {
     festival: ['여름축제', '해변축제', '피서지행사', '별빛축제'],
-    benefit:  ['개학맞이지원', '청년지원금', '주거급여', '저소득층지원']
+    benefit: ['개학맞이지원', '청년지원금', '주거급여', '저소득층지원']
   },
-  9:  {
+  9: {
     festival: ['추석행사', '가을축제', '단풍축제', '한가위문화행사'],
-    benefit:  ['추석명절지원금', '복지급여', '가을학기장학금', '노인복지혜택']
+    benefit: ['추석명절지원금', '복지급여', '가을학기장학금', '노인복지혜택']
   },
   10: {
     festival: ['단풍축제', '핼러윈행사', '가을꽃축제', '문화행사'],
-    benefit:  ['난방비지원신청', '에너지바우처신청', '복지급여', '노후준비지원']
+    benefit: ['난방비지원신청', '에너지바우처신청', '복지급여', '노후준비지원']
   },
   11: {
     festival: ['겨울준비행사', '김장축제', '빛축제', '크리스마스마켓'],
-    benefit:  ['에너지바우처', '난방비지원', '연말정산준비', '겨울복지지원']
+    benefit: ['에너지바우처', '난방비지원', '연말정산준비', '겨울복지지원']
   },
   12: {
     festival: ['크리스마스행사', '연말축제', '겨울빛축제', '새해맞이행사'],
-    benefit:  ['연말정산', '연말지원금', '겨울난방지원', '신년복지혜택']
+    benefit: ['연말정산', '연말지원금', '겨울난방지원', '신년복지혜택']
   }
 };
 
@@ -64,7 +64,7 @@ function getSeasonalKeywords(postType) {
 
 // ─── 방법1: 네이버 DataLab 연동 ──────────────────────────────────────────────
 async function getNaverDataLabKeywords(postType) {
-  const clientId     = process.env.NAVER_CLIENT_ID;
+  const clientId = process.env.NAVER_CLIENT_ID;
   const clientSecret = process.env.NAVER_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
@@ -75,24 +75,24 @@ async function getNaverDataLabKeywords(postType) {
   try {
     const now = new Date();
     const pad = n => String(n).padStart(2, '0');
-    const endDate = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+    const endDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
     const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
-    const startDate = `${weekAgo.getFullYear()}-${pad(weekAgo.getMonth()+1)}-${pad(weekAgo.getDate())}`;
+    const startDate = `${weekAgo.getFullYear()}-${pad(weekAgo.getMonth() + 1)}-${pad(weekAgo.getDate())}`;
 
     // 포스트 타입별 조회할 키워드 그룹
     const keywordGroups = postType === 'festival'
       ? [
-          { groupName: '축제',   keywords: ['축제'] },
-          { groupName: '행사',   keywords: ['행사'] },
-          { groupName: '나들이', keywords: ['나들이'] },
-          { groupName: '공연',   keywords: ['공연'] }
-        ]
+        { groupName: '축제', keywords: ['축제'] },
+        { groupName: '행사', keywords: ['행사'] },
+        { groupName: '나들이', keywords: ['나들이'] },
+        { groupName: '공연', keywords: ['공연'] }
+      ]
       : [
-          { groupName: '지원금', keywords: ['지원금'] },
-          { groupName: '혜택',   keywords: ['혜택'] },
-          { groupName: '복지',   keywords: ['복지'] },
-          { groupName: '보조금', keywords: ['보조금'] }
-        ];
+        { groupName: '지원금', keywords: ['지원금'] },
+        { groupName: '혜택', keywords: ['혜택'] },
+        { groupName: '복지', keywords: ['복지'] },
+        { groupName: '보조금', keywords: ['보조금'] }
+      ];
 
     const body = {
       startDate,
@@ -104,8 +104,8 @@ async function getNaverDataLabKeywords(postType) {
     const response = await fetch('https://openapi.naver.com/v1/datalab/search', {
       method: 'POST',
       headers: {
-        'Content-Type':         'application/json',
-        'X-Naver-Client-Id':     clientId,
+        'Content-Type': 'application/json',
+        'X-Naver-Client-Id': clientId,
         'X-Naver-Client-Secret': clientSecret
       },
       body: JSON.stringify(body)
@@ -138,8 +138,8 @@ async function getNaverDataLabKeywords(postType) {
 
 // 계절 키워드 + DataLab 키워드 합산
 async function getTodayHotKeywords(postType) {
-  const seasonal  = getSeasonalKeywords(postType);
-  const datalab   = await getNaverDataLabKeywords(postType);
+  const seasonal = getSeasonalKeywords(postType);
+  const datalab = await getNaverDataLabKeywords(postType);
 
   // DataLab 키워드를 앞에 배치 (우선순위 높음)
   const merged = [...new Set([...datalab, ...seasonal])];
@@ -157,8 +157,8 @@ function calcScore(item, postType, hotKeywords = []) {
   // ─── 핫 키워드 매칭 점수 (신규) ───────────────────────────────────────────
   hotKeywords.forEach((kw, idx) => {
     const weight = idx < 2 ? 30 : 15; // DataLab 상위 2개는 가중치 2배
-    if (item.title?.includes(kw))       score += weight;
-    if (text.includes(kw))              score += Math.floor(weight / 2);
+    if (item.title?.includes(kw)) score += weight;
+    if (text.includes(kw)) score += Math.floor(weight / 2);
   });
   // ──────────────────────────────────────────────────────────────────────────
 
@@ -169,10 +169,10 @@ function calcScore(item, postType, hotKeywords = []) {
       const startDate = new Date(parseInt(first[1]), parseInt(first[2]) - 1, parseInt(first[3]));
       const diffDays = Math.ceil((startDate - today) / (1000 * 60 * 60 * 24));
 
-      if (diffDays >= 0 && diffDays <= 3)        score += 60;
-      else if (diffDays >= 0 && diffDays <= 7)   score += 50;
-      else if (diffDays < 0 && diffDays >= -14)  score += 40;
-      else if (diffDays > 7 && diffDays <= 14)   score += 20;
+      if (diffDays >= 0 && diffDays <= 3) score += 60;
+      else if (diffDays >= 0 && diffDays <= 7) score += 50;
+      else if (diffDays < 0 && diffDays >= -14) score += 40;
+      else if (diffDays > 7 && diffDays <= 14) score += 20;
 
       const tempDate = new Date(startDate);
       for (let i = 0; i < 7; i++) {
@@ -184,8 +184,8 @@ function calcScore(item, postType, hotKeywords = []) {
       score += 5;
     }
 
-    if (text.includes('무료'))           score += 15;
-    if (text.includes('서울'))           score += 10;
+    if (text.includes('무료')) score += 15;
+    if (text.includes('서울')) score += 10;
     if (text.includes('인천') || text.includes('경기')) score += 5;
 
   } else {
@@ -195,16 +195,16 @@ function calcScore(item, postType, hotKeywords = []) {
       const deadlineDate = new Date(parseInt(last[1]), parseInt(last[2]) - 1, parseInt(last[3]));
       const diffDays = Math.ceil((deadlineDate - today) / (1000 * 60 * 60 * 24));
 
-      if (diffDays >= 0 && diffDays <= 7)        score += 60;
-      else if (diffDays >= 0 && diffDays <= 30)  score += 30;
-      else if (diffDays > 30)                    score += 10;
+      if (diffDays >= 0 && diffDays <= 7) score += 60;
+      else if (diffDays >= 0 && diffDays <= 30) score += 30;
+      else if (diffDays > 30) score += 10;
     } else {
       score += 5;
     }
 
-    if (text.includes('서울'))           score += 10;
+    if (text.includes('서울')) score += 10;
     if (text.includes('인천') || text.includes('경기')) score += 5;
-    if (item.isEmergency)                score += 20;
+    if (item.isEmergency) score += 20;
   }
 
   return score;
@@ -285,7 +285,7 @@ async function main() {
     const targetItem = selected.item;
 
     console.log(`[블로그] 핫 키워드 반영 TOP3:`);
-    topCandidates.forEach((c, i) => console.log(`  ${i+1}위 (${c.score}점): ${c.item.title}`));
+    topCandidates.forEach((c, i) => console.log(`  ${i + 1}위 (${c.score}점): ${c.item.title}`));
     console.log(`[블로그] 최종 선정 (${selected.score}점): ${targetItem.title}`);
     // ──────────────────────────────────────────────────────────────────────
 
@@ -312,8 +312,8 @@ async function main() {
 
 [타겟 및 톤앤매너]
 ${postType === 'festival'
-  ? '- 타겟: 전 연령층\n- 말투: 밝고 경쾌하게\n- 주제: 나들이, 즐거움'
-  : '- 타겟: 40~60대 중장년층\n- 말투: 신뢰감 있고 따뜻하게\n- 주제: 경제적 이득, 생활 안정'}
+              ? '- 타겟: 전 연령층\n- 말투: 밝고 경쾌하게\n- 주제: 나들이, 즐거움'
+              : '- 타겟: 40~60대 중장년층\n- 말투: 신뢰감 있고 따뜻하게\n- 주제: 경제적 이득, 생활 안정'}
 
 [SEO 핵심 원칙 - 반드시 지킬 것]
 1. 핵심 키워드는 제목 1회, 본문 첫 문단 1회, 소제목 1회 이내로만 사용. 절대 반복 금지.
@@ -351,8 +351,8 @@ ${postType === 'festival'
 [필수 포함 요소]
 - 에디터 인사이트: 공식 데이터에 없는 독창적 꿀팁 2~3문장 (재탕 금지)
   ${postType === 'festival'
-    ? '축제: 인생샷 스팟, 최적 방문 시간대, 주차 현실, 준비물'
-    : '지원금: 이 혜택만의 특이점, 놓치기 쉬운 함정, 실제 수령 팁'}
+              ? '축제: 인생샷 스팟, 최적 방문 시간대, 주차 현실, 준비물'
+              : '지원금: 이 혜택만의 특이점, 놓치기 쉬운 함정, 실제 수령 팁'}
 - 핵심 수치(금액, 날짜, 조건)는 **굵게** 강조
 - 표(Table) 1개 이상 필수 포함
 - 불렛포인트와 표를 적절히 혼합 (한 가지만 쓰지 말 것)
@@ -360,8 +360,8 @@ ${postType === 'festival'
 
 [하단 연결 섹션 - 반드시 포함]
 ${postType === 'festival'
-  ? '### 🚀 이번 주말 또 다른 가볼만한 곳\n이번 주말, 여기 말고도 재밌는 축제가 더 궁금하다면 팁픽의 다른 글도 확인해보세요!'
-  : ''}
+              ? '### 🚀 이번 주말 또 다른 가볼만한 곳\n이번 주말, 여기 말고도 재밌는 축제가 더 궁금하다면 팁픽의 다른 글도 확인해보세요!'
+              : ''}
 
 ### 🔗 함께 보시면 도움되는 추천 정보
 현재 작성 중인 글과 지역이나 주제가 가장 유사한 기존 포스팅을 아래 목록에서 2개 선별하여 자연스러운 추천 텍스트와 함께 연결할 것.
@@ -453,6 +453,14 @@ FILENAME: YYYY-MM-DD-영문키워드`
     let mdContent = fullText.replace(/FILENAME:.*$/im, '').trim();
     mdContent = mdContent.replace(/^```[a-z]*\n/i, '').replace(/```$/g, '').trim();
     mdContent = mdContent.replace(/^date:.*$/m, `date: ${today}`);
+
+    // Gemini 내부 reasoning 텍스트 제거 (표 안에 들어간 경우 포함)
+    mdContent = mdContent.replace(/The user wants.*?(?=\n#|\n---|\Z)/gs, '').trim();
+    mdContent = mdContent.replace(/Let me break down.*?(?=\n#|\n---)/gs, '').trim();
+    mdContent = mdContent.replace(/\*\*1\. YAML.*?(?=따뜻한|새로운|봄|이번|서울)/gs, '').trim();
+
+    // 표 안의 비정상적으로 긴 셀 내용 제거 (1000자 이상인 셀)
+    mdContent = mdContent.replace(/\|[^|\n]{1000,}\|/g, '| 정보 없음 |');
 
     mdContent = mdContent.replace(
       /^(---\r?\n)([\s\S]*?)(---)/,

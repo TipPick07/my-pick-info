@@ -11,10 +11,10 @@ async function getMatches(origin, query) {
   try {
     const res = await fetch(origin + "/data/search-index.json");
     if (!res.ok) return [];
-    
+
     const index = await res.json();
     const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 1);
-    
+
     if (queryWords.length === 0) return [];
 
     const scored = index.map(item => {
@@ -47,16 +47,16 @@ export async function onRequestPost({ request, env }) {
 
     // 1. RAG 로직: 관련 블로그 데이터 검색
     const matches = await getMatches(origin, searchContext);
-    
-    const blogDataContext = matches.length > 0 
+
+    const blogDataContext = matches.length > 0
       ? matches.map(m => `- 제목: ${m.title}\n  요약: ${m.summary}\n  내용: ${m.content}`).join("\n\n")
       : "관련 데이터 없음";
 
     // 2. Cloudflare Workers AI 호출
     const response = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
       messages: [
-        { 
-          role: "system", 
+        {
+          role: "system",
           content: `You are a friendly and helpful AI assistant for 'Tip-Pick' (팁픽), a website curating regional festivals and government subsidies in the Seoul metropolitan area (Seoul, Incheon, Gyeonggi).
 Follow these instructions strictly:
 1. Tone: 반드시 이웃처럼 친근하고 자연스러운 한국어 구어체(~해요, ~입니다, ~할까요?)로 답변하세요. 딱딱한 기계나 로봇처럼 말하지 마세요.
