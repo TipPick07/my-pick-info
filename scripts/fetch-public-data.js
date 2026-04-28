@@ -865,6 +865,18 @@ async function main() {
         if (!title) continue;
         if (existingTitles.has(title) || collectedTitles.has(title)) continue;
 
+        // ─── 수도권 외 지역 필터링 ───────────────────────────────────────────────
+        const itemText = [item.서비스명, item.서비스목적요약, item.지원대상, item.소관기관명].filter(Boolean).join(' ');
+        const nonMetroRegions = ['부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주', '사천', '창원', '진주', '통영', '거제', '포항', '경주', '안동', '구미', '여수', '순천', '목포', '전주', '청주', '천안', '아산'];
+        const hasNonMetro = nonMetroRegions.some(r => item.소관기관명?.includes(r) || item.서비스명?.includes(r));
+        const hasMetro = ['서울', '인천', '경기', '수도권', '전국'].some(r => itemText.includes(r));
+
+        if (hasNonMetro && !hasMetro) {
+          console.log(`  ✗ 수도권 외 지역 스킵: ${item.서비스명} [${item.소관기관명 || ''}]`);
+          continue;
+        }
+        // ──────────────────────────────────────────────────────────────────────────
+
         // 품질 필터
         if (!isBenefitQuality(item)) {
           console.log(`  ✗ 품질 미달 스킵: ${title}`);
@@ -1278,6 +1290,18 @@ ${JSON.stringify(selectedData)}`
     for (const fest of allFestItems) {
       const title = (fest.title || '').trim();
       if (!title || existingFestTitles.has(title)) continue;
+
+      // ─── 수도권 외 지역 축제 필터링 ─────────────────────────────────────────
+      const festText = [fest.title, fest.description, fest.location, fest.region].filter(Boolean).join(' ');
+      const festNonMetro = ['부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주', '사천', '창원', '진주', '통영', '거제', '포항', '경주', '안동', '구미', '여수', '순천', '목포', '전주', '청주', '천안', '아산'];
+      const isFestNonMetro = festNonMetro.some(r => fest.region?.includes(r) || fest.location?.includes(r));
+      const isFestMetro = ['서울', '인천', '경기', '수도권'].some(r => festText.includes(r));
+
+      if (isFestNonMetro && !isFestMetro) {
+        console.log(`  ✗ [축제] 수도권 외 지역 스킵: ${title}`);
+        continue;
+      }
+      // ──────────────────────────────────────────────────────────────────────────
 
       // 품질 필터
       if (!isFestivalQuality(fest)) {
