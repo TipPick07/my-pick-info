@@ -1104,15 +1104,27 @@ ${JSON.stringify(selectedData)}`
       const newId = String(parsedParams.id || Date.now() + index);
       const seed = Math.floor(Math.random() * 1000) + index;
       let rawPrompt = (parsedParams.imagePrompt || parsedParams.title);
+
+      // 한글 포함 여부 확인 후 기본값으로 교체
+      const hasKorean = /[가-힣]/.test(rawPrompt);
+      if (hasKorean) {
+        rawPrompt = parsedParams.type === 'festival' ? 'korea festival event landscape scenery' : 'korea lifestyle welfare benefit infographic';
+        console.log(`[안내] 프롬프트에 한글 포함 → 기본 영문으로 교체: ${rawPrompt}`);
+      }
+
       let safePrompt = rawPrompt
         .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 및 한글 제거
         .replace(/\s+/g, '-'); // 공백을 대시로 치환
-      
+
       // 만약 정규식으로 인해 프롬프트가 다 날아갔다면(한글만 있었던 경우 등) 기본 영문 키워드로 폴백
       if (!safePrompt || safePrompt.length < 2) {
-        safePrompt = parsedParams.type === 'festival' ? 'korea-festival-event' : 'korea-welfare-benefit';
+        safePrompt = parsedParams.type === 'festival' ? 'korea-festival-event-landscape' : 'korea-lifestyle-benefit';
         console.log(`[안내] 프롬프트가 비어있어 기본 키워드로 변경되었습니다: ${safePrompt}`);
       }
+
+      // 인물/얼굴 방지 + 인포그래픽 스타일 강제
+      const noPersonSuffix = '-no-people-no-face-no-character-infographic-style-flat-illustration';
+      safePrompt = safePrompt + noPersonSuffix;
 
       const externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`;
       
