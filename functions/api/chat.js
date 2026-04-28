@@ -41,11 +41,12 @@ async function getMatches(origin, query) {
 export async function onRequestPost({ request, env }) {
   try {
     const { messages } = await request.json();
-    const userQuestion = messages[messages.length - 1].content;
+    // 문맥 유지를 위해 이전 메시지들의 내용도 검색 키워드에 포함합니다.
+    const searchContext = messages.map(m => m.content).join(" ");
     const origin = new URL(request.url).origin;
 
     // 1. RAG 로직: 관련 블로그 데이터 검색
-    const matches = await getMatches(origin, userQuestion);
+    const matches = await getMatches(origin, searchContext);
     
     const blogDataContext = matches.length > 0 
       ? matches.map(m => `- 제목: ${m.title}\n  요약: ${m.summary}\n  내용: ${m.content}`).join("\n\n")
