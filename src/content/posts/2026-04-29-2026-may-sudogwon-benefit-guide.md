@@ -99,7 +99,7 @@ tags: [수도권지원금, 고유가피해지원금, 청년내일저축계좌, �
 
 ## 🔗 함께 보시면 도움되는 추천 정보
 
-[고유가 피해지원금 2차 신청 완전 정리 | 수도권 대상·금액·신청방법](/blog/2026-04-27-high-oil-price-subsidy-support-benefit)
+[고유가 피해지원금 2차 신청 완전 정리 | 수도권 대상·금액·신청방법](/blog/2026-04-28-oil-subsidy-2nd)
 
 [서울 1인 자영업자 배우자 출산지원금 상세 안내](/blog/2026-04-29-seoul-selfemployed-paternity-leave-support)
 
