@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Mail } from "lucide-react";
 import { usePathname } from "next/navigation";
+import KakaoChannelBanner from "@/components/KakaoChannelBanner";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -51,6 +52,8 @@ export default function Footer() {
             본 서비스는 <span className="font-bold text-slate-700">공공데이터포털(data.go.kr)</span>의 API를 활용하여 실시간 정보를 제공합니다.
           </p>
         </div>
+
+        <KakaoChannelBanner />
 
         {/* Business Info */}
         <div className="space-y-1 text-[11px] text-slate-400">

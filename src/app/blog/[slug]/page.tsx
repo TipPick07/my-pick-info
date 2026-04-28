@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
 import AdBanner from "@/components/AdBanner";
+import KakaoChannelBanner from "@/components/KakaoChannelBanner";
 import CoupangBanner from "@/components/CoupangBanner";
 import EligibilityChecker from "@/components/EligibilityChecker";
 import SafeImage from "@/components/SafeImage";
@@ -278,6 +279,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         </article>
 
         {/* Monetization Banners */}
+        <KakaoChannelBanner />
         <AdBanner />
         <CoupangBanner />
       </main>
