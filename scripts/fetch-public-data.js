@@ -2,6 +2,94 @@ const fs = require('fs');
 const path = require('path');
 const fallbacks = require('../src/lib/image-fallbacks.json');
 
+// ─── 네이버 DataLab + 계절 키워드 ─────────────────────────────────────────
+const SEASONAL_KEYWORDS = {
+  1:  { festival: ['설날행사','겨울축제','눈꽃축제'], benefit: ['난방비지원','에너지바우처','설맞이지원금'] },
+  2:  { festival: ['봄맞이축제','매화축제','실내전시'], benefit: ['청년취업지원','복지급여','근로장려금신청준비'] },
+  3:  { festival: ['벚꽃축제','봄꽃축제','봄나들이'], benefit: ['청년창업지원','소상공인지원','취업성공패키지'] },
+  4:  { festival: ['벚꽃축제','튤립축제','봄축제'], benefit: ['근로장려금','자녀장려금','청년주거지원'] },
+  5:  { festival: ['어린이날행사','장미축제','연등회'], benefit: ['근로장려금신청','자녀장려금신청','가정의달지원금'] },
+  6:  { festival: ['여름축제','물축제','한강축제'], benefit: ['청년지원금','에너지바우처','취업지원'] },
+  7:  { festival: ['여름축제','물놀이행사','워터페스티벌'], benefit: ['에너지취약계층지원','청년주거지원','여름방학지원'] },
+  8:  { festival: ['여름축제','해변축제','별빛축제'], benefit: ['개학맞이지원','주거급여','저소득층지원'] },
+  9:  { festival: ['추석행사','가을축제','단풍축제'], benefit: ['추석명절지원금','복지급여','노인복지혜택'] },
+  10: { festival: ['단풍축제','핼러윈행사','문화행사'], benefit: ['난방비지원신청','에너지바우처신청','노후준비지원'] },
+  11: { festival: ['빛축제','크리스마스마켓','겨울준비행사'], benefit: ['에너지바우처','난방비지원','연말정산준비'] },
+  12: { festival: ['크리스마스행사','연말축제','겨울빛축제'], benefit: ['연말정산','겨울난방지원','신년복지혜택'] }
+};
+
+async function getTodayHotKeywords(type) {
+  const month = new Date().getMonth() + 1;
+  const seasonal = (SEASONAL_KEYWORDS[month] || SEASONAL_KEYWORDS[5])[type] || [];
+
+  const clientId = process.env.NAVER_CLIENT_ID;
+  const clientSecret = process.env.NAVER_CLIENT_SECRET;
+  if (!clientId || !clientSecret) {
+    console.log('[DataLab] API 키 없음 → 계절 키워드만 사용');
+    return seasonal;
+  }
+
+  try {
+    const now = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    const endDate = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+    const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+    const startDate = `${weekAgo.getFullYear()}-${pad(weekAgo.getMonth()+1)}-${pad(weekAgo.getDate())}`;
+
+    const keywordGroups = type === 'festival'
+      ? [
+          { groupName: '축제', keywords: ['축제'] },
+          { groupName: '행사', keywords: ['행사'] },
+          { groupName: '나들이', keywords: ['나들이'] },
+          { groupName: '공연', keywords: ['공연'] }
+        ]
+      : [
+          { groupName: '지원금', keywords: ['지원금'] },
+          { groupName: '혜택', keywords: ['혜택'] },
+          { groupName: '복지', keywords: ['복지'] },
+          { groupName: '보조금', keywords: ['보조금'] }
+        ];
+
+    const res = await fetch('https://openapi.naver.com/v1/datalab/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Naver-Client-Id': clientId,
+        'X-Naver-Client-Secret': clientSecret
+      },
+      body: JSON.stringify({ startDate, endDate, timeUnit: 'date', keywordGroups })
+    });
+
+    if (!res.ok) { console.warn(`[DataLab] 오류 (${res.status}) → 계절 키워드만 사용`); return seasonal; }
+
+    const json = await res.json();
+    const scored = json.results.map(g => {
+      const recent = g.data.slice(-3);
+      const avg = recent.reduce((s, d) => s + d.ratio, 0) / recent.length;
+      return { name: g.title, score: avg };
+    }).sort((a, b) => b.score - a.score);
+
+    const hotKeywords = scored.slice(0, 2).map(g => g.name);
+    console.log(`[DataLab] 핫 키워드 TOP2 (${type}): ${hotKeywords.join(', ')}`);
+    return [...new Set([...hotKeywords, ...seasonal])];
+  } catch (err) {
+    console.warn('[DataLab] 호출 실패 → 계절 키워드만 사용:', err.message);
+    return seasonal;
+  }
+}
+
+function calcHotScore(item, hotKeywords) {
+  let score = 0;
+  const text = [item.title, item.description, item.서비스명, item.서비스목적요약].filter(Boolean).join(' ');
+  hotKeywords.forEach((kw, idx) => {
+    const weight = idx < 2 ? 30 : 15;
+    if ((item.title || item.서비스명 || '').includes(kw)) score += weight;
+    if (text.includes(kw)) score += Math.floor(weight / 2);
+  });
+  return score;
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
 // 마감일 만료 여부 확인 (날짜 범위의 마지막 날짜 기준)
 function isDeadlineExpired(deadline) {
   if (!deadline) return false;
@@ -611,6 +699,8 @@ function formatFestivalDate(startDate, endDate) {
 }
 
 async function main() {
+  const DRY_RUN = process.env.DRY_RUN === 'true';
+  if (DRY_RUN) console.log('[DRY RUN] 테스트 모드 — pick-info.json에 데이터를 저장하지 않습니다.');
   try {
     const govApiKey = process.env.PUBLIC_DATA_API_KEY;
     if (!govApiKey) {
@@ -633,7 +723,9 @@ async function main() {
     if (weatherData) {
       existingData.weather = weatherData;
       console.log('날씨 정보 업데이트 성공');
+      if (DRY_RUN) { console.log('[DRY RUN] 파일 저장 건너뜀'); } else {
       fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+      }
     }
 
     const DAILY_LIMIT = 5;
@@ -716,6 +808,12 @@ async function main() {
       console.log('새로운 공공데이터가 없습니다. (날씨만 업데이트 완료)');
       return;
     }
+
+    // ─── 핫 키워드 기준으로 지원금 데이터 정렬 ──────────────────────────────────
+    const benefitHotKeywords = await getTodayHotKeywords('benefit');
+    console.log(`[지원금] 핫 키워드 반영 정렬 시작 (키워드: ${benefitHotKeywords.slice(0,3).join(', ')})`);
+    newItems.sort((a, b) => calcHotScore(b, benefitHotKeywords) - calcHotScore(a, benefitHotKeywords));
+    // ──────────────────────────────────────────────────────────────────────────────
 
     // 수도권 지역 조건 맞는 것 우선 선정
     let selectedDataItems = [];
@@ -929,7 +1027,9 @@ ${JSON.stringify(selectedData)}`
       }
 
       // 1건 처리될 때마다 파일에 동기화하여 중간에 다운되어도 데이터 유실 방지
+      if (DRY_RUN) { console.log('[DRY RUN] 파일 저장 건너뜀'); } else {
       fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+      }
       console.log(`✓ 정상 추가됨: ${titleToCheck}`);
     }
 
@@ -992,6 +1092,12 @@ ${JSON.stringify(selectedData)}`
     const allFestItems = deduplicateFestivals([...primaryItems, ...ktoFormatted]);
     console.log(`[축제] 중복 제거 후: ${allFestItems.length}건`);
 
+    // ─── 핫 키워드 기준으로 축제 데이터 정렬 ────────────────────────────────────
+    const festHotKeywords = await getTodayHotKeywords('festival');
+    console.log(`[축제] 핫 키워드 반영 정렬 시작 (키워드: ${festHotKeywords.slice(0,3).join(', ')})`);
+    allFestItems.sort((a, b) => calcHotScore(b, festHotKeywords) - calcHotScore(a, festHotKeywords));
+    // ──────────────────────────────────────────────────────────────────────────────
+
     const existingFestTitles = new Set(existingData.festivals.map(f => f.title));
 
     for (const fest of allFestItems) {
@@ -1051,7 +1157,9 @@ ${JSON.stringify(selectedData)}`
 
       existingData.festivals.unshift(newFest);
       existingFestTitles.add(title);
+      if (DRY_RUN) { console.log('[DRY RUN] 파일 저장 건너뜀'); } else {
       fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+      }
       console.log(`✓ [축제] 추가됨: ${title} (${newFest.region}, ${newFest.date}) [${fest._source}]`);
     }
     // ──────────────────────────────────────────────────────────────────────
