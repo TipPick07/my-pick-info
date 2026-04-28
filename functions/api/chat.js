@@ -48,7 +48,7 @@ export async function onRequestPost({ request, env }) {
     const matches = await getMatches(origin, userQuestion);
     
     const blogDataContext = matches.length > 0 
-      ? matches.map(m => `- 제목: ${m.title}\n  요약: ${m.summary}`).join("\n")
+      ? matches.map(m => `- 제목: ${m.title}\n  요약: ${m.summary}\n  내용: ${m.content}`).join("\n\n")
       : "관련 데이터 없음";
 
     // 2. Cloudflare Workers AI 호출
@@ -56,10 +56,12 @@ export async function onRequestPost({ request, env }) {
       messages: [
         { 
           role: "system", 
-          content: `You are an AI assistant for a Korean local information blog.
-Answer ONLY in Korean. Keep answers to 2-3 sentences maximum.
-Do NOT use any markdown symbols (**, *, #, -). Plain text only.
-Base your answer ONLY on the following blog data. If not relevant, reply: 해당 내용은 블로그에서 확인이 어렵습니다. 다른 질문을 해주세요.
+          content: `You are a friendly and helpful AI assistant for 'Tip-Pick' (팁픽), a website curating regional festivals and government subsidies in the Seoul metropolitan area (Seoul, Incheon, Gyeonggi).
+Follow these instructions strictly:
+1. Tone: 반드시 이웃처럼 친근하고 자연스러운 한국어 구어체(~해요, ~입니다, ~할까요?)로 답변하세요. 딱딱한 기계나 로봇처럼 말하지 마세요.
+2. Length: 답변은 핵심만 파악하여 최대 3문장 이내로 간결하게 작성하세요.
+3. No Markdown: 답변에 어떠한 마크다운 기호(**, *, #, - 등)도 사용하지 마세요. 오직 일반 텍스트만 출력하세요.
+4. Strict Information Boundary (Crucial): 반드시 아래 제공된 [블로그 데이터]에 있는 내용만 바탕으로 답변하세요. 사용자의 질문에 대한 답이 데이터에 없다면, 절대 지어내거나 추측하지 말고 무조건 다음 문장만 똑같이 출력하세요: '앗, 죄송해요. 문의하신 내용은 아직 팁픽에 등록되지 않은 정보 같아요. 다른 궁금한 점이 있으시면 언제든 다시 말씀해 주세요!'
 
 [블로그 데이터]
 ${blogDataContext}`

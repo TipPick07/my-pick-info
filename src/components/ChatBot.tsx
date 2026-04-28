@@ -143,10 +143,20 @@ export default function ChatBot() {
       {/* 챗봇 플로팅 버튼 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-[#00E5FF] text-white shadow-xl transition-all hover:bg-[#00CCE6] hover:scale-110 active:scale-95"
+        className={`flex items-center justify-center rounded-full shadow-xl transition-all hover:scale-110 active:scale-95 ${
+          isOpen ? "h-14 w-14 bg-[#00E5FF] text-white hover:bg-[#00CCE6]" : "h-[60px] w-[60px] bg-transparent"
+        }`}
         aria-label="챗봇 열기"
       >
-        {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
+        {isOpen ? (
+          <X size={28} />
+        ) : (
+          <img 
+            src="/image_11.png_result.png" 
+            alt="챗봇 아이콘" 
+            style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }} 
+          />
+        )}
       </button>
 
       {/* 채팅창 */}
