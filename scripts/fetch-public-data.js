@@ -1302,7 +1302,7 @@ ${JSON.stringify(selectedData)}`
               fs.writeFileSync(absoluteImagePath, Buffer.from(buf));
               console.log(`[축제] 이미지 저장: ${localImagePath}`);
             } else {
-              console.log(`[DRY RUN] 이미지 저장 건너뜀: ${localImagePath}`);
+              console.log(`[DRY RUN] 축제 이미지 저장 건너뜀: ${localImagePath}`);
             }
             finalImageUrl = localImagePath;
           } else {
