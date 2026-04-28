@@ -717,6 +717,32 @@ async function main() {
       throw new Error('pick-info.json 파일을 읽을 수 없습니다.');
     }
 
+    // ─── 만료 데이터 자동 정리 ────────────────────────────────────────────────
+    const beforeFestCount = existingData.festivals.length;
+    const beforeBenefitCount = existingData.benefits.length;
+
+    // 축제: 종료일이 지난 것 제거 (date 필드 기준 마지막 날짜)
+    existingData.festivals = existingData.festivals.filter(f => {
+      if (!f.date || f.date === '상시') return true;
+      return !isDeadlineExpired(f.date);
+    });
+
+    // 지원금: 마감일이 지난 것 제거
+    existingData.benefits = existingData.benefits.filter(b => {
+      if (!b.deadline || b.deadline === '상시') return true;
+      return !isDeadlineExpired(b.deadline);
+    });
+
+    const removedFest = beforeFestCount - existingData.festivals.length;
+    const removedBenefit = beforeBenefitCount - existingData.benefits.length;
+    console.log(`[정리] 만료 축제 ${removedFest}건, 만료 지원금 ${removedBenefit}건 제거됨`);
+
+    if (!DRY_RUN && (removedFest > 0 || removedBenefit > 0)) {
+      fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+      console.log('[정리] pick-info.json 저장 완료');
+    }
+    // ──────────────────────────────────────────────────────────────────────────────
+
     // 날씨 정보 업데이트 (항상 실행)
     console.log('날씨 정보 수집 중...');
     const weatherData = await fetchWeatherData();
