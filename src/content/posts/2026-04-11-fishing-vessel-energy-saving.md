@@ -7,8 +7,10 @@ officialDetails: 정보 없음
 officialDeadline: 별도 공고 확인
 date: 2026-04-11
 summary: 어업인 여러분의 지속 가능한 미래를 위한 필수 선택! '수도권 팁픽'이 친환경 어선 전환을 돕는 에너지 절감 장비 보급 사업을 소개하며, 연료비 절감부터 환경 보호, 미래 경쟁력 강화까지 3가지 핵심 포인트를 짚어드립니다.
+description: 어업인 여러분의 지속 가능한 미래를 위한 필수 선택! '수도권 팁픽'이 친환경 어선 전환을 돕는 에너지 절감 장비 보급 사업을 소개하며, 연료비 절감부터 환경 보호, 미래 경쟁력 강화까지 3가지 핵심 포인트를 짚어드립니다.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-893.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-893.png"
 tags: [어업인, 친환경에너지, 에너지절감, 어선지원, 수협, 지속가능어업, 정부지원]
 officialRequirements: []
 officialHowToApply: []

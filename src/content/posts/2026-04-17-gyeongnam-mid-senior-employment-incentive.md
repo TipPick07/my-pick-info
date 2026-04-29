@@ -7,8 +7,10 @@ officialDetails: 신중년 구직자를 고용하는 경상남도 내 중소·�
 officialDeadline: 상시
 date: 2026-04-17
 summary: 경상남도 내 중소·중견 기업이라면 주목! 신중년 구직자를 고용하고 5개월 이상 유지 시, 근로자 1인당 월 50만원, 최대 250만원의 중장년 고용장려금을 받을 수 있습니다. 기업의 신중년 채용 부담을 덜어주는 핵심 지원금을 지금 바로 확인하세요.
+description: 경상남도 내 중소·중견 기업이라면 주목! 신중년 구직자를 고용하고 5개월 이상 유지 시, 근로자 1인당 월 50만원, 최대 250만원의 중장년 고용장려금을 받을 수 있습니다. 기업의 신중년 채용 부담을 덜어주는 핵심 지원금을 지금 바로 확인하세요.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-656.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-656.png"
 tags: [경상남도 고용지원, 신중년 채용장려금, 중장년 고용, 기업 지원금, 중소기업 혜택, 고용유지지원금, 경남 산업인력과, 250만원 지원, 팁픽]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["관련 기관 방문 및 신청서 제출 (접수기관 별 상이)"]

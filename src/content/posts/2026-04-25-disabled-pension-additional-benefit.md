@@ -7,8 +7,10 @@ officialDetails: 중증장애인의 생활 안정을 지원하기 위한 서비�
 officialDeadline: 상시
 date: 2026-04-25
 summary: 4060 중장년층 중 중증장애인 기초생활수급자 및 차상위계층이라면 주목하세요! 매월 2만원의 장애인연금 추가 급여로 생활 안정에 기여할 수 있습니다. 신청 자격과 방법을 한눈에 확인하세요.
+description: 4060 중장년층 중 중증장애인 기초생활수급자 및 차상위계층이라면 주목하세요! 매월 2만원의 장애인연금 추가 급여로 생활 안정에 기여할 수 있습니다. 신청 자격과 방법을 한눈에 확인하세요.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-885.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-885.png"
 tags: [장애인연금, 기초생활수급자혜택, 차상위계층지원, 중증장애인복지, 생활안정자금, 정부지원금, 복지혜택, 연금]
 officialRequirements: ["신분증","장애인 등록증 또는 복지카드","소득 및 재산 관련 서류 (담당자와 상담 필요)"]
 officialHowToApply: ["방문신청"]

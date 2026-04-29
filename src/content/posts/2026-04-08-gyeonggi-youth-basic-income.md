@@ -7,8 +7,10 @@ officialDetails: 행복한 미래를 꿈꾸는 경기도 청년들을 위해 분
 officialDeadline: 오늘 마감
 date: 2026-04-08
 summary: 오늘 마감되는 경기도 만 24세 청년 기본소득 신청, 팁픽이 자세한 신청 방법과 놓치면 아쉬울 핵심 포인트를 안내합니다.
+description: 오늘 마감되는 경기도 만 24세 청년 기본소득 신청, 팁픽이 자세한 신청 방법과 놓치면 아쉬울 핵심 포인트를 안내합니다.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-322.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-322.png"
 tags: [경기도, 청년, 기본소득, 지역화폐, 잡아바, 오늘마감, 생활지원, 청년정책]
 ---
 

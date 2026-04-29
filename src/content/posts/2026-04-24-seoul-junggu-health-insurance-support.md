@@ -7,8 +7,10 @@ officialDetails: 서울특별시 중구에서는 저소득 주민의 경제적 �
 officialDeadline: 상시
 date: 2026-04-24
 summary: 서울 중구에 거주하는 만 65세 이상 노인, 장애인 연금 수급자, 한부모 세대 중 저소득 주민이라면 국민건강보험료를 자동으로 지원받을 수 있습니다. 별도 신청 없이 경제적 부담을 덜고 생활 안정을 도모할 수 있는 기회를 놓치지 마세요.
+description: 서울 중구에 거주하는 만 65세 이상 노인, 장애인 연금 수급자, 한부모 세대 중 저소득 주민이라면 국민건강보험료를 자동으로 지원받을 수 있습니다. 별도 신청 없이 경제적 부담을 덜고 생활 안정을 도모할 수 있는 기회를 놓치지 마세요.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-103.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-103.png"
 tags: [국민건강보험료, 서울중구, 저소득층지원, 노인복지, 한부모가족]
 officialRequirements: ["별도 서류 없음"]
 officialHowToApply: ["별도 신청 불필요 (자동 선정 및 지원)"]

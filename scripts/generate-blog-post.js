@@ -388,8 +388,10 @@ officialDetails: ${targetItem.details || targetItem.description || '정보 없�
 officialDeadline: ${targetItem.deadline || targetItem.date || '상시'}
 date: ${today}
 summary: (메타 디스크립션용 — 핵심키워드 1회, 클릭 유도 문장, 150자 이내)
+description: (summary와 동일한 내용으로 작성)
 category: 정보
 image: ${targetItem.image || ''}
+ogImage:
 tags: [연관키워드1, 연관키워드2, 연관키워드3, 연관키워드4, 연관키워드5]
 officialRequirements: ${JSON.stringify(targetItem.requirements || [])}
 officialHowToApply: ${JSON.stringify(targetItem.howToApply || [])}
@@ -504,6 +506,18 @@ FILENAME: YYYY-MM-DD-영문키워드`
       const fallbackImage = localFallbacks[Math.floor(Math.random() * localFallbacks.length)];
       mdContent = mdContent.replace(/^(image:)\s*$/m, `$1 ${fallbackImage}`);
       console.log(`[보정] Gemini가 이미지를 비워 로컬 폴백 이미지를 주입했습니다: ${fallbackImage}`);
+    }
+
+    // ogImage 자동 주입: image 필드 기반으로 절대 URL 구성
+    const imageLineMatch = mdContent.match(/^image:\s*(.+)$/m);
+    const imageVal = imageLineMatch ? imageLineMatch[1].trim().replace(/^['"]|['"]$/g, '') : '';
+    const computedOgImage = imageVal.startsWith('http')
+      ? imageVal
+      : imageVal ? `https://tip-pick.com${imageVal}` : 'https://tip-pick.com/images/og-default.png';
+    if (/^ogImage:\s*$/m.test(mdContent)) {
+      mdContent = mdContent.replace(/^(ogImage:)\s*$/m, `$1 "${computedOgImage}"`);
+    } else if (!/^ogImage:/m.test(mdContent)) {
+      mdContent = mdContent.replace(/^(image:.+)$/m, `$1\nogImage: "${computedOgImage}"`);
     }
 
     const finalPath = path.join(postsDir, filename);

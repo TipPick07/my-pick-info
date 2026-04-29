@@ -6,8 +6,10 @@ officialDetails: 한강페스티벌이(가) 서울특별시 용산구 이촌로7
 officialDeadline: 2026.05.02~2026.05.10
 date: 2026-04-30
 summary: 2026 이촌 한강페스티벌에서 따뜻한 봄날을 만끽하세요! 다채로운 프로그램과 아름다운 한강 풍경이 어우러진 서울 대표 봄 축제로, 온 가족이 즐거운 추억을 만들 수 있습니다. 5월 황금연휴, 한강에서 잊지 못할 경험을 선사합니다.
+description: 2026 이촌 한강페스티벌에서 따뜻한 봄날을 만끽하세요! 다채로운 프로그램과 아름다운 한강 풍경이 어우러진 서울 대표 봄 축제로, 온 가족이 즐거운 추억을 만들 수 있습니다. 5월 황금연휴, 한강에서 잊지 못할 경험을 선사합니다.
 category: 정보
 image: /images/blogs/festival-한강페스티벌-817.png
+ogImage: "https://tip-pick.com/images/blogs/festival-한강페스티벌-817.png"
 tags: [서울 축제, 이촌한강공원, 가족 나들이, 5월 축제, 봄 나들이, 어린이날 행사, 주말 나들이, 무료 행사, 한강공원, 용산구]
 officialRequirements: []
 officialHowToApply: []

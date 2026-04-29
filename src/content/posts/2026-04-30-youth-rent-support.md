@@ -7,8 +7,10 @@ officialDetails: 경제적으로 어려움을 겪는 청년층의 주거비 부�
 officialDeadline: 2026.05.29
 date: 2026-04-30
 summary: 2026년 청년월세 지원사업, 부모님과 떨어져 사는 수도권 청년이라면 월 20만원 주거비 지원! 소득 기준, 신청 방법 등 부모님도 알아두면 좋은 혜택을 팁픽에서 자세히 알려드립니다.
+description: 2026년 청년월세 지원사업, 부모님과 떨어져 사는 수도권 청년이라면 월 20만원 주거비 지원! 소득 기준, 신청 방법 등 부모님도 알아두면 좋은 혜택을 팁픽에서 자세히 알려드립니다.
 category: 정보
 image: https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop
+ogImage: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop"
 tags: [청년주거비, 월세지원, 청년혜택, 주거안정, 복지로, 청년주거지원]
 officialRequirements: ["월세지원 신청서 및 소득·재산 신고서","임대차계약서 사본 (확정일자 날인)","최근 3개월간 월세 이체 증빙 서류 (최근 계약 시 최소 1개월 이상)","월세 지급 통장 사본","신청인 및 배우자의 가족관계증명서 (상세)","부모 및 배우자 부모의 가족관계증명서 (상세)","서약서"]
 officialHowToApply: ["복지로(www.bokjiro.go.kr) 누리집을 통한 온라인 신청","거주지 관할 행정복지센터 방문 신청"]

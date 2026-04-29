@@ -6,8 +6,10 @@ officialDetails: "등불 대행진 | 화합 대잔치 | 전통 문화 놀이마�
 officialDeadline: "2026.05.17"
 date: 2026-04-27
 summary: 유네스코 인류무형문화유산 연등회가 2026년 5월 16~17일 서울 종로에서 펼쳐집니다! 수만 개의 등불이 밤하늘을 수놓는 **등불 대행진**, 신나는 **전통 문화 놀이마당**까지 — 올봄 서울 최고의 야간 축제 완벽 가이드를 팁픽이 정리했습니다.
+description: 유네스코 인류무형문화유산 연등회가 2026년 5월 16~17일 서울 종로에서 펼쳐집니다! 수만 개의 등불이 밤하늘을 수놓는 **등불 대행진**, 신나는 **전통 문화 놀이마당**까지 — 올봄 서울 최고의 야간 축제 완벽 가이드를 팁픽이 정리했습니다.
 category: 정보
 image: https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?q=80&w=800&auto=format&fit=crop
+ogImage: "https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?q=80&w=800&auto=format&fit=crop"
 tags: [연등회, 부처님오신날, 서울축제, 종로축제, 등불축제, 수도권나들이, 5월축제, 가족나들이, 야간축제, 유네스코무형문화유산]
 officialRequirements: []
 officialHowToApply: []

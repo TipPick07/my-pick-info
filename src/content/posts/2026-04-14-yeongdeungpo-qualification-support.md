@@ -7,8 +7,10 @@ officialDetails: 영등포구에 거주하는 40세 이상 중장년 및 어르�
 officialDeadline: 매년 01.01~12.10
 date: 2026-04-14
 summary: 영등포구에 거주하는 만 40세 이상 중장년 및 어르신이라면 국가자격시험 응시료의 90%를 연간 최대 10만원까지 지원받을 수 있습니다. 새로운 도전을 위한 든든한 지원, 지금 바로 확인하세요!
+description: 영등포구에 거주하는 만 40세 이상 중장년 및 어르신이라면 국가자격시험 응시료의 90%를 연간 최대 10만원까지 지원받을 수 있습니다. 새로운 도전을 위한 든든한 지원, 지금 바로 확인하세요!
 category: 정보
 image: /images/blogs/korea-welfare-benefit-582.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-582.png"
 tags: [영등포구, 중장년, 어르신, 국가자격증, 응시료지원, 취업지원, 역량강화, 수도권팁픽]
 officialRequirements: ["신청서","주민등록표 등본 (영등포구 거주기간 확인)","건강보험자격득실확인서 (미취업 및 사업자등록 사실 없음 확인)","국가자격시험 응시 확인 서류 및 결제 영수증"]
 officialHowToApply: ["온라인 신청 (정부24 웹사이트 또는 영등포구청 홈페이지 예상)","방문 신청 (영등포구청 일자리경제과)","직접 입력"]

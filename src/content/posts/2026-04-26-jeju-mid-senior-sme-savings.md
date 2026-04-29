@@ -7,8 +7,10 @@ officialDetails: 제주도 내 중소기업에 장기 재직하는 40세~64세 �
 officialDeadline: "마감일: 공고 시 별도 안내"
 date: 2026-04-26
 summary: 제주도 내 중소기업에 장기 재직 중인 40세~64세 중장년 근로자라면 주목하세요. 매월 본인, 기업, 제주도가 함께 적립하여 5년 만기 시 총 2,040만원과 이자를 수령할 수 있는 재형저축 지원으로 안정적인 노후 자산 형성을 도모할 수 있습니다.
+description: 제주도 내 중소기업에 장기 재직 중인 40세~64세 중장년 근로자라면 주목하세요. 매월 본인, 기업, 제주도가 함께 적립하여 5년 만기 시 총 2,040만원과 이자를 수령할 수 있는 재형저축 지원으로 안정적인 노후 자산 형성을 도모할 수 있습니다.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-72.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-72.png"
 tags: [제주도, 중장년, 중소기업, 재형저축, 노후자금, 자산형성, 은퇴설계, 금융상품]
 officialRequirements: ["재직증명서","신분증","사업참여 신청서 (공고 시 양식 확인)"]
 officialHowToApply: ["제주도청 홈페이지 모집 공고 확인","구비서류 준비 후 방문 신청 (중소벤처기업진흥공단 제주지역본부)"]

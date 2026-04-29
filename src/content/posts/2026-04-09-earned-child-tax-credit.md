@@ -7,8 +7,10 @@ officialDetails: 정보 없음
 officialDeadline: 매년 정기 및 반기 신청
 date: 2026-04-09
 summary: 수도권 생활의 든든한 동반자, 근로·자녀장려금을 통해 숨겨진 정부 지원금을 찾아가세요! 팁픽이 쉽고 명확하게 신청 요건부터 핵심 포인트까지 모두 알려드립니다.
+description: 수도권 생활의 든든한 동반자, 근로·자녀장려금을 통해 숨겨진 정부 지원금을 찾아가세요! 팁픽이 쉽고 명확하게 신청 요건부터 핵심 포인트까지 모두 알려드립니다.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-910.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-910.png"
 tags: [근로장려금, 자녀장려금, 정부지원, 세제혜택, 소득지원, 가계부채, 수도권혜택, 복지정보, 홈택스]
 officialRequirements: []
 officialHowToApply: []

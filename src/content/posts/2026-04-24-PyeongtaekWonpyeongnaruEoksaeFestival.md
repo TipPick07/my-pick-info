@@ -7,8 +7,10 @@ officialDetails: "공연 상설공연 체험 먹거리 | 장소: 군문교 아�
 officialDeadline: 2026.10.31
 date: 2026-04-24
 summary: 2026년 가을, 평택 원평나루 억새축제에서 아름다운 억새밭을 만끽하세요! 다채로운 공연과 체험, 먹거리가 가득한 군문교 노을생태문화공원에서 온 가족이 즐거운 추억을 만들 수 있습니다. 인생샷 명소와 주차 꿀팁까지, 수도권 팁픽에서 자세히 알려드려요!
+description: 2026년 가을, 평택 원평나루 억새축제에서 아름다운 억새밭을 만끽하세요! 다채로운 공연과 체험, 먹거리가 가득한 군문교 노을생태문화공원에서 온 가족이 즐거운 추억을 만들 수 있습니다. 인생샷 명소와 주차 꿀팁까지, 수도권 팁픽에서 자세히 알려드려요!
 category: 정보
 image: https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop
+ogImage: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop"
 tags: [평택축제, 억새축제, 가을축제, 평택가볼만한곳, 주말나들이, 노을생태문화공원, 군문교, 수도권축제, 인생샷명소, 가족나들이, 경기축제]
 officialRequirements: []
 officialHowToApply: []

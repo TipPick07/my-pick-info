@@ -4,8 +4,10 @@ originalTitle: PLATFORM P 교육프로그램 - 변화하는 독자층을 위한 
 link: "https://www.platform-p.org/2021/item.php?section=4&category=1&idx=531"
 date: 2026-04-28
 summary: "4월 29일 서울 플랫폼 P에서 열리는 무료 출판 강연! 교보문고 '이지페이지' 시리즈의 기획·디자인·편집 과정을 심층 분석합니다. 봄날 지식을 충전하고 싶은 분들께 강력 추천."
+description: "4월 29일 서울 플랫폼 P에서 열리는 무료 출판 강연! 교보문고 '이지페이지' 시리즈의 기획·디자인·편집 과정을 심층 분석합니다. 봄날 지식을 충전하고 싶은 분들께 강력 추천."
 category: 정보
 image: /images/blogs/festival-PLATFORMP교-47.png
+ogImage: "https://tip-pick.com/images/blogs/festival-PLATFORMP교-47.png"
 tags: [플랫폼P, 서울강연, 무료강연, 출판강연, 독서트렌드, 마포구, 봄나들이]
 officialRequirements: []
 officialHowToApply: []

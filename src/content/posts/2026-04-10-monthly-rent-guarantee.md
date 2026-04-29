@@ -7,8 +7,10 @@ officialDetails: 정보 없음
 officialDeadline: 상시
 date: 2026-04-10
 summary: 수도권 생활의 큰 부분을 차지하는 월세 부담! 주택도시기금 월세대출을 이용하는 분들을 위해 주택금융공사 월세자금보증이 어떤 혜택을 주는지, 팁픽(Tip-Pick)이 친절하고 전문적으로 안내해드립니다. 불안한 월세 생활에 든든한 버팀목이 되어줄 이 제도를 놓치지 마세요!
+description: 수도권 생활의 큰 부분을 차지하는 월세 부담! 주택도시기금 월세대출을 이용하는 분들을 위해 주택금융공사 월세자금보증이 어떤 혜택을 주는지, 팁픽(Tip-Pick)이 친절하고 전문적으로 안내해드립니다. 불안한 월세 생활에 든든한 버팀목이 되어줄 이 제도를 놓치지 마세요!
 category: 정보
 image: /images/blogs/korea-welfare-benefit-519.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-519.png"
 tags: [월세보증, 주택금융공사, 주거안정, 사회초년생, 청년월세]
 officialRequirements:
   - "주택도시기금 주거안정 월세대출 대상자"

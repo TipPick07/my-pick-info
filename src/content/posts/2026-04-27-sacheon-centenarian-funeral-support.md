@@ -7,8 +7,10 @@ officialDetails: 경상남도 사천시에 1년 이상 주민등록을 둔 100�
 officialDeadline: 상시신청
 date: 2026-04-27
 summary: 경남 사천시에 거주하는 만 100세 이상 기초연금 수급자 및 저소득층 어르신 가정을 위한 장제비 지원 정보를 안내합니다. 최대 **150만원**까지 받을 수 있는 이 혜택으로 어르신의 마지막까지 존엄을 지키고, **가계 재정 안정**에 도움을 받으세요.
+description: 경남 사천시에 거주하는 만 100세 이상 기초연금 수급자 및 저소득층 어르신 가정을 위한 장제비 지원 정보를 안내합니다. 최대 **150만원**까지 받을 수 있는 이 혜택으로 어르신의 마지막까지 존엄을 지키고, **가계 재정 안정**에 도움을 받으세요.
 category: 정보
 image: /images/blogs/pastel-3d-illustration-soft-mi-977.png
+ogImage: "https://tip-pick.com/images/blogs/pastel-3d-illustration-soft-mi-977.png"
 tags: [사천시장제비,100세어르신,기초연금수급자,장례비지원,노후설계,정부지원금]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["방문신청"]

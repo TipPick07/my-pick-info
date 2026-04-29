@@ -30,20 +30,36 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const { slug } = await params;
   const post = getPostData(slug);
 
+  const description = post?.description || post?.summary || '';
+  const ogImage = post?.ogImage || 'https://tip-pick.com/images/og-default.png';
+
   return {
     title: `${post?.title} | 팁픽(Tip-Pick) 인사이트`,
-    description: post?.summary,
+    description,
     alternates: {
       canonical: `https://tip-pick.com/blog/${slug}`,
     },
     openGraph: {
       title: post?.title,
-      description: post?.summary,
+      description,
+      url: `https://tip-pick.com/blog/${slug}`,
+      siteName: '수도권 팁픽',
+      locale: 'ko_KR',
       type: 'article',
       publishedTime: post?.date,
       authors: [post?.author || '팁픽(Tip-Pick)'],
       tags: post?.tags,
-      images: [{ url: post?.image ? `https://tip-pick.com${post.image}` : 'https://tip-pick.com/og-image.png' }],
+      images: [{
+        url: ogImage,
+        width: 1200,
+        height: 630,
+      }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post?.title,
+      description,
+      images: [ogImage],
     },
   };
 }

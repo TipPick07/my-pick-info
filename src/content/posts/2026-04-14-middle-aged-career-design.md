@@ -7,8 +7,10 @@ officialDetails: 40세 이상 중장년을 위한 종합고용지원 서비스�
 officialDeadline: 상시신청
 date: 2026-04-14
 summary: 40세 이상 중장년 재직자 및 구직자를 위한 맞춤형 생애경력설계 교육과 1:1 컨설팅으로 성공적인 제2의 인생을 준비하세요. 수도권 팁픽이 강력 추천합니다!
+description: 40세 이상 중장년 재직자 및 구직자를 위한 맞춤형 생애경력설계 교육과 1:1 컨설팅으로 성공적인 제2의 인생을 준비하세요. 수도권 팁픽이 강력 추천합니다!
 category: 정보
 image: /images/blogs/pastel-3d-illustration-soft-mi-979.png
+ogImage: "https://tip-pick.com/images/blogs/pastel-3d-illustration-soft-mi-979.png"
 tags: [중장년, 생애경력설계, 재직자, 구직자, 경력전환, 노사발전재단, 컨설팅, 40대, 50대, 60대, 정부지원, 취업지원, 평생교육]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["온라인 신청","방문 신청"]

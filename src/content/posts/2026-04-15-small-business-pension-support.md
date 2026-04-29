@@ -7,8 +7,10 @@ officialDetails: 상시근로자 30명 이하 중소기업 사업주와 근로�
 officialDeadline: 상시
 date: 2026-04-15
 summary: 상시근로자 30명 이하 중소기업 사업주와 근로자를 위한 '푸른씨앗' 퇴직연금! 3년간 수수료 면제와 근로자 1인당 최대 27만 3천원의 지원금을 받을 수 있는 절호의 기회를 팁픽이 자세히 안내합니다.
+description: 상시근로자 30명 이하 중소기업 사업주와 근로자를 위한 '푸른씨앗' 퇴직연금! 3년간 수수료 면제와 근로자 1인당 최대 27만 3천원의 지원금을 받을 수 있는 절호의 기회를 팁픽이 자세히 안내합니다.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-983.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-983.png"
 tags: [중소기업, 퇴직연금, 푸른씨앗, 사업주지원, 근로자지원, 노후준비, 복지혜택, 고용안정, 정부지원]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["온라인 신청"]

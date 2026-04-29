@@ -7,8 +7,10 @@ officialDetails: 10년 이상 재직한 사립학교 퇴직 교직원을 위한 
 officialDeadline: 상시신청
 date: 2026-04-19
 summary: 10년 이상 재직한 사립학교 퇴직 교직원이라면 퇴직연금 대신 일시금으로 급여를 받을 수 있습니다. 복잡한 신청 서류와 절차를 한 번에 정리하여 안정적인 노후 설계를 돕는 팁픽의 가이드를 확인하세요.
+description: 10년 이상 재직한 사립학교 퇴직 교직원이라면 퇴직연금 대신 일시금으로 급여를 받을 수 있습니다. 복잡한 신청 서류와 절차를 한 번에 정리하여 안정적인 노후 설계를 돕는 팁픽의 가이드를 확인하세요.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-554.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-554.png"
 tags: [사립학교 퇴직, 교직원 연금, 퇴직 일시금, 노후 준비, 10년 재직, 사학연금]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["온라인 신청","방문 신청","직접 입력"]

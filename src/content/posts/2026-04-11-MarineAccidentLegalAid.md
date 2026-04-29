@@ -7,8 +7,10 @@ officialDetails: 정보 없음
 officialDeadline: 상시 접수
 date: 2026-04-11
 summary: 해양사고를 겪은 사회적 약자를 위해 국가가 무료로 전문 변호사를 지원하는 제도를 팁픽이 자세히 안내해 드립니다.
+description: 해양사고를 겪은 사회적 약자를 위해 국가가 무료로 전문 변호사를 지원하는 제도를 팁픽이 자세히 안내해 드립니다.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-469.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-469.png"
 tags: [해양사고, 국선변호인, 심판변론인, 법률지원, 무료변호, 사회적약자, 해양안전심판원, 팁픽]
 officialRequirements: []
 officialHowToApply: []

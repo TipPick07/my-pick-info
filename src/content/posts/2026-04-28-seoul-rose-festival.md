@@ -2,8 +2,10 @@
 title: "2026 중랑 서울장미축제 완전 정리 | 무료 입장·교통·꿀팁까지"
 date: 2026-04-28
 summary: "5월 15일부터 23일까지 중랑장미공원에서 열리는 서울 대표 장미축제. 5.45km 국내 최장 장미터널, 무료 입장, 교통 꿀팁까지 한눈에 정리했습니다."
+description: "5월 15일부터 23일까지 중랑장미공원에서 열리는 서울 대표 장미축제. 5.45km 국내 최장 장미터널, 무료 입장, 교통 꿀팁까지 한눈에 정리했습니다."
 category: 정보
 image: /images/blogs/festival-서울스프링페스티벌-567.png
+ogImage: "https://tip-pick.com/images/blogs/festival-서울스프링페스티벌-567.png"
 tags: ["서울장미축제", "중랑장미축제", "5월축제", "수도권축제", "서울꽃구경", "중랑장미공원", "무료축제", "가족나들이", "봄축제", "데이트코스"]
 officialLink: "http://www.jungnang.go.kr"
 officialDate: "2026.05.15~2026.05.23"

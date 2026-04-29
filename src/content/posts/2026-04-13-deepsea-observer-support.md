@@ -7,8 +7,10 @@ officialDetails: 해양수산부 공식 홈페이지를 통해 상세 정보 확
 officialDeadline: 상시
 date: 2026-04-13
 summary: 국제옵서버 승선으로 발생하는 원양선사의 경비 부담을 정부가 지원하는 사업으로, 상시 신청이 가능해 경영 안정과 국제 규정 준수에 큰 도움이 됩니다.
+description: 국제옵서버 승선으로 발생하는 원양선사의 경비 부담을 정부가 지원하는 사업으로, 상시 신청이 가능해 경영 안정과 국제 규정 준수에 큰 도움이 됩니다.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-156.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-156.png"
 tags: [원양선사, 옵서버, 승선경비지원, 해양수산부, 어업지원, 국제옵서버, 기업지원, 수도권팁픽]
 officialRequirements: ["해양수산부 공식 홈페이지(www.mof.go.kr)에서 상세 내용 확인"]
 officialHowToApply: ["해양수산부 공식 홈페이지(www.mof.go.kr)를 통한 온라인 신청 또는 관련 부서 문의"]

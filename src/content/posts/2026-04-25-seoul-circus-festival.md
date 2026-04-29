@@ -6,8 +6,10 @@ officialDetails: 서울서커스페스티벌이(가) 서울특별시 용산구 �
 officialDeadline: 2026.05.04~2026.05.05
 date: 2026-04-25
 summary: 5월 황금연휴, 서울 노들섬에서 펼쳐지는 2026 서울서커스페스티벌로 온 가족이 함께 짜릿하고 환상적인 추억을 만드세요! 눈을 뗄 수 없는 아슬아슬한 묘기와 유쾌한 퍼포먼스가 가득한 서울 도심 속 특별한 문화 나들이를 놓치지 마세요.
+description: 5월 황금연휴, 서울 노들섬에서 펼쳐지는 2026 서울서커스페스티벌로 온 가족이 함께 짜릿하고 환상적인 추억을 만드세요! 눈을 뗄 수 없는 아슬아슬한 묘기와 유쾌한 퍼포먼스가 가득한 서울 도심 속 특별한 문화 나들이를 놓치지 마세요.
 category: 정보
 image: /images/blogs/festival-서울서커스페스티벌-588.png
+ogImage: "https://tip-pick.com/images/blogs/festival-서울서커스페스티벌-588.png"
 tags: [서울 축제, 서커스 페스티벌, 노들섬 행사, 어린이 공연, 가족 나들이, 5월 축제, 주말 나들이]
 officialRequirements: []
 officialHowToApply: []

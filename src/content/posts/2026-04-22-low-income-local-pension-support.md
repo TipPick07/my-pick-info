@@ -7,8 +7,10 @@ officialDetails: 국민연금에 신고한 소득이 80만원 미만인 저소�
 officialDeadline: 상시
 date: 2026-04-22
 summary: 국민연금 납부가 부담스러운 저소득 지역가입자분들을 위한 희소식! 월 소득 80만원 미만이라면 국민연금 보험료의 50%를 최대 12개월까지 지원받을 수 있습니다. 지금 바로 신청하고 생활비 부담을 줄여보세요.
+description: 국민연금 납부가 부담스러운 저소득 지역가입자분들을 위한 희소식! 월 소득 80만원 미만이라면 국민연금 보험료의 50%를 최대 12개월까지 지원받을 수 있습니다. 지금 바로 신청하고 생활비 부담을 줄여보세요.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-360.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-360.png"
 tags: [국민연금, 지역가입자, 보험료지원, 저소득층, 생활비절약, 정부지원, 연금혜택, 방문신청, 1355, 복지혜택]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["방문신청"]

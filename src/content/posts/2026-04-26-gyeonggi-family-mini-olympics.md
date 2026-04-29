@@ -6,8 +6,10 @@ officialDetails: "어린이 미니올림픽 | 장소: 탄천종합운동장"
 officialDeadline: 2026.11.01~2026.11.30
 date: 2026-04-26
 summary: 2026년 11월, 탄천종합운동장에서 열리는 '우리가족 꼬마영웅 올림픽'으로 아이들에게 잊지 못할 추억을 선물하세요! 온 가족이 함께 즐길 수 있는 신나는 어린이 미니올림픽으로 특별한 가을 나들이를 계획해 보세요.
+description: 2026년 11월, 탄천종합운동장에서 열리는 '우리가족 꼬마영웅 올림픽'으로 아이들에게 잊지 못할 추억을 선물하세요! 온 가족이 함께 즐길 수 있는 신나는 어린이 미니올림픽으로 특별한 가을 나들이를 계획해 보세요.
 category: 정보
 image: https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop
+ogImage: "https://images.unsplash.com/photo-1533174000243-ea40ced1c828?q=80&w=800&auto=format&fit=crop"
 tags: [경기 축제, 성남 탄천종합운동장, 우리가족 꼬마영웅 올림픽, 어린이 미니올림픽, 11월 축제, 가족 나들이, 주말 가볼만한곳]
 officialRequirements: []
 officialHowToApply: []

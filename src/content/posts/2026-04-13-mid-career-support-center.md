@@ -7,8 +7,10 @@ officialDetails: 40대 이상 중장년에게 생애경력설계 프로그램, �
 officialDeadline: 상시
 date: 2026-04-13
 summary: 40대 이상 중장년의 성공적인 생애 전환을 돕는 '중장년내일센터', 팁픽이 엄선한 맞춤형 생애경력설계와 재취업 지원 프로그램을 통해 여러분의 제2의 근로생애를 위한 든든한 동반자를 만나보세요.
+description: 40대 이상 중장년의 성공적인 생애 전환을 돕는 '중장년내일센터', 팁픽이 엄선한 맞춤형 생애경력설계와 재취업 지원 프로그램을 통해 여러분의 제2의 근로생애를 위한 든든한 동반자를 만나보세요.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-93.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-93.png"
 tags: [중장년, 재취업, 경력설계, 은퇴준비, 고용지원, 커리어전환, 수도권팁픽, 40대이상, 재직자지원]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["온라인 신청","방문 신청"]

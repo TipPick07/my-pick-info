@@ -7,8 +7,10 @@ officialDetails: 서울시가 바쁜 부모님들을 위해 '서울형 아이돌
 officialDeadline: 상시 신청
 date: 2026-04-28
 summary: 서울시가 자녀 양육에 어려움을 겪는 가정을 위해 서울형 아이돌봄비를 지원합니다. 복지로 웹사이트에서 상시 신청 가능하며, 양육 부담을 덜고 **가계 경제** 안정에 기여하는 실질적인 혜택을 놓치지 마세요!
+description: 서울시가 자녀 양육에 어려움을 겪는 가정을 위해 서울형 아이돌봄비를 지원합니다. 복지로 웹사이트에서 상시 신청 가능하며, 양육 부담을 덜고 **가계 경제** 안정에 기여하는 실질적인 혜택을 놓치지 마세요!
 category: 정보
 image: /images/blogs/korea-welfare-benefit-278.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-278.png"
 tags: [서울형아이돌봄비, 육아지원, 자녀장려금, 복지로, 가족지원, 생활안정, 가계경제]
 officialRequirements: ["신청서","주민등록등본","가족관계증명서 등 상세 필요서류는 사업 공고 확인"]
 officialHowToApply: ["온라인 신청 (복지로 웹사이트 접속)","상세 절차는 신청 URL에서 확인 후 진행"]

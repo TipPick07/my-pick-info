@@ -7,8 +7,10 @@ officialDetails: 서울특별시 광진구에서 저소득 주민의 경제적 �
 officialDeadline: 상시
 date: 2026-04-18
 summary: 서울 광진구 저소득 주민을 위한 국민건강보험료 및 장기요양보험료 지원 사업을 소개합니다. 월 최저보험료 이하 부과 시 전액 지원받을 수 있으며, 노인, 장애인, 한부모가족도 신청 가능합니다. 지금 바로 확인하세요!
+description: 서울 광진구 저소득 주민을 위한 국민건강보험료 및 장기요양보험료 지원 사업을 소개합니다. 월 최저보험료 이하 부과 시 전액 지원받을 수 있으며, 노인, 장애인, 한부모가족도 신청 가능합니다. 지금 바로 확인하세요!
 category: 정보
 image: /images/blogs/korea-welfare-benefit-285.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-285.png"
 tags: [광진구 건강보험료, 저소득층 복지, 건강보험료 지원, 장기요양보험료, 노인 복지, 장애인 복지, 한부모가족, 국민건강보험공단, 서울 복지, 생활 지원]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["방문신청"]

@@ -7,8 +7,10 @@ officialDetails: 노후 원양어선의 대체 및 건조를 지원하여 원양
 officialDeadline: 공고에 따름
 date: 2026-04-12
 summary: 노후 원양어선 교체와 안전 강화를 위한 정부 지원 펀드! 어선원 복지까지 생각하는 이 기회, 수도권 팁픽에서 자세히 알아보세요.
+description: 노후 원양어선 교체와 안전 강화를 위한 정부 지원 펀드! 어선원 복지까지 생각하는 이 기회, 수도권 팁픽에서 자세히 알아보세요.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-212.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-212.png"
 tags: [원양어선, 어선안전, 어선지원, 안전펀드, 어선원복지, 해양수산, 노후어선교체]
 officialRequirements: ["사업 계획서","기타 공고에 명시된 서류"]
 officialHowToApply: ["펀드관리기관(세계로선박금융) 문의","온라인 신청 (세부사항은 공고 확인)"]

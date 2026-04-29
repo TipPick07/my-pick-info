@@ -7,8 +7,10 @@ officialDetails: 중동 정세 악화에 따른 고유가·고물가 부담 완�
 officialDeadline: "2026.07.03"
 date: 2026-04-27
 summary: 오늘(4월 27일)부터 고유가 피해지원금 1차 신청이 시작됩니다! 서울·경기·인천 거주 기초수급자는 최대 **55만원**, 소득 하위 70% 일반 가구도 **10만원** 받을 수 있어요. 신청 방법과 대상 확인법을 한눈에 정리했습니다.
+description: 오늘(4월 27일)부터 고유가 피해지원금 1차 신청이 시작됩니다! 서울·경기·인천 거주 기초수급자는 최대 **55만원**, 소득 하위 70% 일반 가구도 **10만원** 받을 수 있어요. 신청 방법과 대상 확인법을 한눈에 정리했습니다.
 category: 정보
 image: https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop
+ogImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop"
 tags: [고유가피해지원금, 민생지원금3차, 2026지원금, 서울지원금, 경기지원금, 인천지원금, 수도권혜택, 정부지원금, 소득하위70, 생활비지원]
 officialRequirements:
   - "2026년 3월 30일 기준 국내 주민등록 주소지 보유"

@@ -7,8 +7,10 @@ officialDetails: 고용창출장려금은 일자리 함께하기, 국내복귀�
 officialDeadline: 마감
 date: 2026-04-16
 summary: 2024년부터 신규 지원이 중단된 고용창출장려금. 일자리 창출 사업주를 위한 인건비 지원 제도였으나, 이제는 다른 유사 사업을 찾아야 합니다. 현재 이용 가능한 정부 지원금을 워크넷과 고용노동부 1350에서 확인하세요!
+description: 2024년부터 신규 지원이 중단된 고용창출장려금. 일자리 창출 사업주를 위한 인건비 지원 제도였으나, 이제는 다른 유사 사업을 찾아야 합니다. 현재 이용 가능한 정부 지원금을 워크넷과 고용노동부 1350에서 확인하세요!
 category: 정보
 image: /images/blogs/korea-welfare-benefit-928.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-928.png"
 tags: [고용창출장려금, 사업주 인건비 지원, 고용지원금, 정부지원사업 종료, 대체지원금, 일자리 함께하기, 신중년 적합직무, 고용노동부, 워크넷]
 officialRequirements: ["고용창출장려금 사업 참여 신청서","사업계획서"]
 officialHowToApply: ["고용노동부 온라인 시스템을 통한 신청 (현재 신규신청 불가)","지역별 고용센터(기업지원 부서) 문의 (현재 신규신청 불가)"]

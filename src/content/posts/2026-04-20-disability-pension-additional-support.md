@@ -7,8 +7,10 @@ officialDetails: 기존 장애인 연금을 받고 있는 생계 및 의료급�
 officialDeadline: 상시
 date: 2026-04-20
 summary: 생계 및 의료급여 수급 중증 장애인을 위한 희소식! 기존 장애인 연금에 추가 지원금이 자동 지급됩니다. 별도 신청 없이 받을 수 있는 현금 지원으로 생활 안정과 경제적 부담을 덜어보세요. 지금 바로 확인하세요!
+description: 생계 및 의료급여 수급 중증 장애인을 위한 희소식! 기존 장애인 연금에 추가 지원금이 자동 지급됩니다. 별도 신청 없이 받을 수 있는 현금 지원으로 생활 안정과 경제적 부담을 덜어보세요. 지금 바로 확인하세요!
 category: 정보
 image: /images/blogs/korea-welfare-benefit-660.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-660.png"
 tags: [장애인연금, 중증장애인, 생계급여, 의료급여, 복지지원, 자동지급, 현금지원, 수도권복지]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["별도 신청 불필요 (기존 연금 수급 대상자에게 자동 적용)"]

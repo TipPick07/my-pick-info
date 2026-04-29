@@ -10,6 +10,8 @@ export interface PostData {
   originalTitle?: string;
   link?: string;
   image?: string;
+  description?: string;
+  ogImage?: string;
   officialTarget?: string;
   officialDetails?: string;
   officialDeadline?: string;
@@ -58,12 +60,18 @@ export function getSortedPostsData(): PostData[] {
       }
 
       // Combine the data with the slug
+      const img = matterResult.data.image || '';
+      const ogImage = matterResult.data.ogImage ||
+        (img.startsWith('http') ? img : img ? `https://tip-pick.com${img}` : 'https://tip-pick.com/images/og-default.png');
+
       return {
         slug,
         title: matterResult.data.title || '',
         originalTitle: matterResult.data.originalTitle || '',
         link: matterResult.data.link || '',
-        image: matterResult.data.image || '',
+        image: img,
+        description: matterResult.data.description || matterResult.data.summary || '',
+        ogImage,
         officialTarget: matterResult.data.officialTarget || '',
         officialDetails: matterResult.data.officialDetails || '',
         officialDeadline: matterResult.data.officialDeadline || '',
@@ -102,12 +110,18 @@ export function getPostData(slug: string): PostData | null {
     }
   }
 
+  const img = matterResult.data.image || '';
+  const ogImage = matterResult.data.ogImage ||
+    (img.startsWith('http') ? img : img ? `https://tip-pick.com${img}` : 'https://tip-pick.com/images/og-default.png');
+
   return {
     slug,
     title: matterResult.data.title || '',
     originalTitle: matterResult.data.originalTitle || '',
     link: matterResult.data.link || '',
-    image: matterResult.data.image || '',
+    image: img,
+    description: matterResult.data.description || matterResult.data.summary || '',
+    ogImage,
     officialTarget: matterResult.data.officialTarget || '',
     officialDetails: matterResult.data.officialDetails || '',
     officialDeadline: matterResult.data.officialDeadline || '',

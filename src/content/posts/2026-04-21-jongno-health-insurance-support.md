@@ -7,8 +7,10 @@ officialDetails: 서울특별시 종로구에 거주하는 저소득 주민들�
 officialDeadline: 상시신청
 date: 2026-04-21
 summary: 종로구 거주 저소득층 노인, 장애인, 한부모 가정이라면 주목! 2026년 기준 월 최대 22,800원의 건강보험료 지원 혜택을 놓치지 마세요. 신청 자격과 방법을 '수도권 팁픽'이 쉽게 알려드립니다.
+description: 종로구 거주 저소득층 노인, 장애인, 한부모 가정이라면 주목! 2026년 기준 월 최대 22,800원의 건강보험료 지원 혜택을 놓치지 마세요. 신청 자격과 방법을 '수도권 팁픽'이 쉽게 알려드립니다.
 category: 정보
 image: /images/blogs/a-pastel-3d-illustration-depic-331.png
+ogImage: "https://tip-pick.com/images/blogs/a-pastel-3d-illustration-depic-331.png"
 tags: [종로구건강보험, 저소득층지원, 국민건강보험료, 노인복지, 장애인복지, 한부모가족지원, 건강보험료감면, 종로구사회복지, 기준중위소득, 서울복지]
 officialRequirements: ["신분증","주민등록등본","건강보험료 납부확인서","소득 증빙 서류 (필요시)","해당 증빙 서류 (장애인등록증, 한부모가족증명서 등)"]
 officialHowToApply: ["서울특별시 종로구 사회복지과에 방문하여 신청","방문 전 전화(02-2148-2552)로 문의하여 필요 서류 확인 및 상담"]

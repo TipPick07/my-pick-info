@@ -7,8 +7,10 @@ officialDetails: 사립학교 교직원의 퇴직 후 생활 안정을 위한 �
 officialDeadline: 상시
 date: 2026-04-20
 summary: 사립학교에서 10년 이상 재직하고 퇴직하신 교직원분들을 위한 소식입니다. 노후 생활 안정을 돕는 사립학교 교직원 퇴직연금, 매월 연금을 받을 수 있는 신청 자격과 방법을 팁픽이 자세히 알려드립니다. 지금 바로 안정적인 노후를 준비하세요!
+description: 사립학교에서 10년 이상 재직하고 퇴직하신 교직원분들을 위한 소식입니다. 노후 생활 안정을 돕는 사립학교 교직원 퇴직연금, 매월 연금을 받을 수 있는 신청 자격과 방법을 팁픽이 자세히 알려드립니다. 지금 바로 안정적인 노후를 준비하세요!
 category: 정보
 image: /images/blogs/a-conceptual-illustration-of-f-347.png
+ogImage: "https://tip-pick.com/images/blogs/a-conceptual-illustration-of-f-347.png"
 tags: [사립학교, 교직원, 퇴직연금, 노후대비, 연금신청, 복지서비스, 정부지원]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["온라인 신청 (해당 기관 문의)","방문 신청","직접 입력"]

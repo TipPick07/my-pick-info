@@ -7,8 +7,10 @@ officialDetails: 퇴직한 중장년이 경력전환형 일경험, 직무교육,
 officialDeadline: 상시신청
 date: 2026-04-16
 summary: 50대 이상 중장년이 퇴직 후 새로운 경력으로 전환할 수 있도록 정부가 적극 지원합니다. 일경험, 맞춤형 직무교육, 전문 멘토링을 통해 제2의 커리어를 성공적으로 시작할 기회! 지금 바로 상시신청하세요!
+description: 50대 이상 중장년이 퇴직 후 새로운 경력으로 전환할 수 있도록 정부가 적극 지원합니다. 일경험, 맞춤형 직무교육, 전문 멘토링을 통해 제2의 커리어를 성공적으로 시작할 기회! 지금 바로 상시신청하세요!
 category: 정보
 image: /images/blogs/korea-welfare-benefit-537.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-537.png"
 tags: [중장년, 50대, 경력전환, 재취업, 일경험, 직무교육, 멘토링, 정부지원, 상시신청, 수도권]
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["방문신청","직접입력"]
