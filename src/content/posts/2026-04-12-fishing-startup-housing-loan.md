@@ -8,7 +8,7 @@ officialDeadline: 농어촌지역 전입일로부터 만 5년이내 신청 가�
 date: 2026-04-12
 summary: 복잡한 도시를 떠나 새로운 삶을 꿈꾸는 당신을 위한 희소식! 귀어 창업과 주택 마련을 위한 정부 지원 융자 정보를 팁픽이 자세히 알려드립니다.
 category: 정보
-image: /images/blogs/korea-welfare-benefit-322.png
+image: /images/blogs/fallback-benefit-5.png
 tags: [귀어, 귀촌, 창업지원, 주택지원, 어촌생활, 정부지원, 융자, 수도권팁픽]
 officialRequirements: ["사업신청서","사업계획서","담보 관련 서류 (신용 또는 물건)","귀어 증빙 서류 (전입 관련)"]
 officialHowToApply: ["시·군·구청 수산 총괄 부서 방문 신청","해당 지방자치단체 수산 총괄 부서 또는 귀어귀촌 종합센터(1899-9597) 전화 문의 후 방문"]

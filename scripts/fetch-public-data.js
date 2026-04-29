@@ -1049,6 +1049,12 @@ async function main() {
     // 💡 이미지 생성 시 너무 빠른 API 요청으로 인한 실패(Rate Limit) 방지 지연 함수
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+    // 이미지 경로 중복 방지: 기존 pick-info.json에 이미 등록된 이미지 경로 셋
+    const existingImagePaths = new Set([
+      ...existingData.festivals.map(f => f.image).filter(Boolean),
+      ...existingData.benefits.map(b => b.image).filter(Boolean),
+    ]);
+
     for (const [index, selectedData] of selectedDataItems.entries()) {
       const titleToCheck = selectedData.서비스명;
       console.log(`[${index + 1}/${selectedDataItems.length}] 데이터 처리 시작: ${titleToCheck}`);
@@ -1181,10 +1187,26 @@ ${JSON.stringify(selectedData)}`
       const noPersonSuffix = '-no-people-no-face-no-character-infographic-style-flat-illustration';
       safePrompt = safePrompt + noPersonSuffix;
 
-      const externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true&format=webp`;
+      // 이미지 중복 방지: 동일 경로 존재 시 seed +100 재시도 (최대 3회)
+      let currentSeed = seed;
+      let localImagePath = `/images/blogs/${safePrompt.substring(0, 30).toLowerCase()}-${currentSeed}.webp`;
+      let externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${currentSeed}&nologo=true&format=webp`;
 
-      const localImageName = `${safePrompt.substring(0, 30).toLowerCase()}-${seed}.webp`;
-      const localImagePath = `/images/blogs/${localImageName}`;
+      for (let dupAttempt = 0; dupAttempt < 3; dupAttempt++) {
+        if (!existingImagePaths.has(localImagePath)) break;
+        console.log(`[중복] 이미지 경로 중복 감지 → seed +100 재시도 (${dupAttempt + 1}/3): ${localImagePath}`);
+        currentSeed += 100;
+        localImagePath = `/images/blogs/${safePrompt.substring(0, 30).toLowerCase()}-${currentSeed}.webp`;
+        externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${currentSeed}&nologo=true&format=webp`;
+      }
+
+      // 3회 모두 중복이면 타임스탬프 기반 고유 파일명 사용
+      if (existingImagePaths.has(localImagePath)) {
+        const typePrefix = parsedParams.type === 'festival' ? 'festival' : 'benefit';
+        localImagePath = `/images/blogs/${typePrefix}-${Date.now()}.webp`;
+        console.log(`[중복] 3회 모두 중복 → 타임스탬프 파일명 사용: ${localImagePath}`);
+      }
+
       const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
       
       console.log(`이미지 다운로드 시도: ${externalImageUrl}`);
