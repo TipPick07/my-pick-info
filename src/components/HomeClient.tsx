@@ -8,7 +8,6 @@ import Footer from "@/components/Footer";
 import { PostData } from "@/lib/posts";
 import AdBanner from "@/components/AdBanner";
 import CoupangBanner from "./CoupangBanner";
-import KakaoChannelBanner from "./KakaoChannelBanner";
 
 interface Weather {
   region: string;
@@ -545,7 +544,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
             )}
           </div>
         </section>
-        <KakaoChannelBanner />
         <CoupangBanner />
       </main>
 
