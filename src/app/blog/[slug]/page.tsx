@@ -43,6 +43,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       publishedTime: post?.date,
       authors: [post?.author || '팁픽(Tip-Pick)'],
       tags: post?.tags,
+      images: [{ url: post?.image ? `https://tip-pick.com${post.image}` : 'https://tip-pick.com/og-image.png' }],
     },
   };
 }

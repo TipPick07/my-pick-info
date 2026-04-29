@@ -25,6 +25,11 @@ export const metadata: Metadata = {
     siteName: "수도권 팁픽",
     locale: "ko_KR",
     type: "website",
+    images: [{ url: 'https://tip-pick.com/og-image.png', width: 1200, height: 630, alt: '수도권 팁픽 - 서울·인천·경기 축제·지원금 정보' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['https://tip-pick.com/og-image.png'],
   },
   icons: {
     icon: '/images/logo-tippick.png',
