@@ -7,7 +7,7 @@ tags: [인천어린이날, 어린이날행사, 인천축제, 가족나들이, �
 summary: "2026 어린이날, 인천 전역에서 9개 이상의 무료·유료 행사가 열립니다. 개항광장 기념행사부터 영종도 야외 축제, 과학관 체험까지 — 놓치면 후회할 인천 어린이날 완전 가이드."
 description: "2026 어린이날, 인천 전역에서 9개 이상의 무료·유료 행사가 열립니다. 개항광장 기념행사부터 영종도 야외 축제, 과학관 체험까지 — 놓치면 후회할 인천 어린이날 완전 가이드."
 thumbnail: incheon-childrens-day-2026
-ogImage: "https://tip-pick.com/images/og-default.png"
+ogImage: "https://tip-pick.com/images/posts/2026-incheon-childrens-day.png"
 ---
 
 # 2026 인천 어린이날 행사 총정리 | 황금연휴 아이랑 갈 곳 다 모았다
