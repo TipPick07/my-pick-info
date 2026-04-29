@@ -1,9 +1,10 @@
-# *
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
 
-# Host
-Host: https://tip-pick.com
+User-agent: Googlebot
+Allow: /
 
 # Sitemaps
 Sitemap: https://tip-pick.com/sitemap.xml

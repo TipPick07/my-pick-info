@@ -151,7 +151,15 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         {/* Post Content */}
         <article className="bg-white p-8 md:p-16 rounded-[40px] shadow-sm border border-slate-100 overflow-hidden">
           <div className="prose prose-slate prose-lg max-w-none prose-headings:font-black prose-headings:tracking-tighter prose-a:text-indigo-600 hover:prose-a:text-indigo-500 prose-img:rounded-3xl prose-img:shadow-lg">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                img: ({ src, alt }) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={src} alt={alt || post.title} className="rounded-3xl shadow-lg" />
+                ),
+              }}
+            >
               {post.content}
             </ReactMarkdown>
           </div>
