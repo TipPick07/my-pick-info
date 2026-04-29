@@ -118,12 +118,12 @@ export default function BenefitsClient({ data }: { data: Data }) {
   const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
   const paginated = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
-  // 마감 임박 카운트 (모집중 + D-Day 7일 이내 또는 isEmergency)
+  // 마감 임박 카운트 (모집중 + D-Day 30일 이내 또는 isEmergency)
   const urgentCount = data.benefits.filter((b) => {
     if (getBenefitStatus(b.deadline, todayKST) === "마감") return false;
     if (b.isEmergency) return true;
     const d = calcDDay(b.deadline, todayKST);
-    return d !== null && d >= 0 && d <= 7;
+    return d !== null && d >= 0 && d <= 30;
   }).length;
 
   const handleFilterChange = (r: string) => {
@@ -223,7 +223,7 @@ export default function BenefitsClient({ data }: { data: Data }) {
             const isExpired = benefitStatus === "마감";
             const isAlways = benefitStatus === "상시";
             const dday = calcDDay(b.deadline, todayKST);
-            const isUrgent = !isExpired && (b.isEmergency || (dday !== null && dday >= 0 && dday <= 7));
+            const isUrgent = !isExpired && (b.isEmergency || (dday !== null && dday >= 0 && dday <= 30));
             const isLocalMatch = filter !== "전체" && b.region === filter;
 
             const cardContent = (
@@ -261,8 +261,8 @@ export default function BenefitsClient({ data }: { data: Data }) {
                         >
                           {isUrgent ? "마감임박" : isAlways ? "상시" : "모집중"}
                         </span>
-                        {/* D-Day 배지 (7일 이내만) */}
-                        {dday !== null && dday >= 0 && dday <= 7 && (
+                        {/* D-Day 배지 (30일 이내만) */}
+                        {dday !== null && dday >= 0 && dday <= 30 && (
                           <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-rose-600 text-white animate-pulse w-full text-center">
                             {dday === 0 ? "D-DAY" : `D-${dday}`}
                           </span>

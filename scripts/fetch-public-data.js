@@ -663,11 +663,11 @@ async function fetchBokjiroCentral(apiKey) {
   const endpoints = [
     {
       name: 'V1',
-      url: `https://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist?serviceKey=${safeKey}&pageNo=1&numOfRows=10&callTp=L&_type=json`,
+      url: `https://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist?serviceKey=${safeKey}&pageNo=1&numOfRows=20&callTp=L&_type=json`,
     },
     {
       name: 'V2',
-      url: `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${safeKey}&pageNo=1&numOfRows=10&_type=json`,
+      url: `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${safeKey}&pageNo=1&numOfRows=20&_type=json`,
     },
   ];
 
@@ -707,7 +707,7 @@ async function fetchBokjiroLocal(apiKey) {
   for (const region of regionNames) {
     if (results.length >= 10) break;
     const ctpv = encodeURIComponent(region);
-    const url = `https://apis.data.go.kr/B554287/LocalGovernmentWelfareInformations/LcgvWelfarelist?serviceKey=${safeKey}&pageNo=1&numOfRows=5&ctpvNm=${ctpv}&_type=json`;
+    const url = `https://apis.data.go.kr/B554287/LocalGovernmentWelfareInformations/LcgvWelfarelist?serviceKey=${safeKey}&pageNo=1&numOfRows=20&ctpvNm=${ctpv}&_type=json`;
     console.log(`[URL] 복지로지자체:${region} ${url.replace(safeKey, safeKey.substring(0, 6) + '***')}`);
     try {
       const res = await fetchWithRetry(url, reqOptions);
@@ -1037,7 +1037,7 @@ async function main() {
   summary: 원문 텍스트를 단순 복사하지 말고, 대상자·혜택(행사면 즐길거리)을 에디터의 시각에서 재해석한 3~4문장의 독창적인 설명문 (유사 문서 패널티 회피용 필수 항목),
   location: '행사 장소명 또는 주소 (festival일 때만. benefit이면 빈 문자열)',
   link: 상세URL,
-  tag: '추천/마감임박/상시 등 짧은태그',
+  tag: '마감일이 오늘로부터 30일 이내이면 반드시 마감임박, 마감일이 없거나 상시 모집이면 상시, 그 외엔 추천',
   imagePrompt: '축제/행사라면 이 축제의 분위기를 파스텔톤 3D 일러스트 스타일로 표현하는 영문 프롬프트 1문장 (pastel 3D illustration, soft mint and warm colors, clean white background, flat perspective, professional)',
   requirements: ['필요서류1', '필요서류2'],
   howToApply: ['신청방법1', '신청방법2'],

@@ -105,11 +105,11 @@ export default function DeadlineClient({ items }: { items: Benefit[] }) {
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
             놓치면 끝!{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-orange-400">
-              D-7 이내 혜택
+              D-30 이내 혜택
             </span>
           </h2>
           <p className="text-slate-500 text-lg font-medium max-w-xl mx-auto">
-            신청 기간이 7일 이내로 남은 혜택만 모았어요.{" "}
+            신청 기간이 30일 이내로 남은 혜택만 모았어요.{" "}
             <span className="font-black text-slate-700">지금 바로 확인하고 챙기세요!</span>
           </p>
 
