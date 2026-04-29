@@ -804,6 +804,21 @@ function formatFestivalDate(startDate, endDate) {
   return e && e !== s ? `${s}~${e}` : s;
 }
 
+// ─── 폴백 이미지 중복 방지 헬퍼 ─────────────────────────────────────────────
+function pickFallback(id, type, usedSet) {
+  const hash = String(id).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  let num = (hash % 5) + 1;
+  if (usedSet.size < 5) {
+    while (usedSet.has(num)) {
+      num = (num % 5) + 1;
+    }
+  } else {
+    usedSet.clear(); // 5개 모두 사용된 경우 초기화 후 재사용
+  }
+  usedSet.add(num);
+  return num;
+}
+
 async function main() {
   const DRY_RUN = process.env.DRY_RUN === 'true';
   if (DRY_RUN) console.log('[DRY RUN] 테스트 모드 — pick-info.json에 데이터를 저장하지 않습니다.');
@@ -867,6 +882,8 @@ async function main() {
 
     const DAILY_LIMIT = 5;
     const validRegions = ['서울', '인천', '경기'];
+    const usedBenefitFallbacks = new Set();
+    const usedFestFallbacks = new Set();
 
     // 중복 체크를 위한 기존 타이틀 셋 구성
     const existingTitles = new Set([
@@ -976,8 +993,7 @@ async function main() {
       const norm = normTitle(item.title);
       if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm)) {
         const _benefitId = item.id || `gemini-benefit-${Date.now()}`;
-        const _benefitHash = String(_benefitId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-        const _benefitFallbackNum = (_benefitHash % 5) + 1;
+        const _benefitFallbackNum = pickFallback(_benefitId, 'benefit', usedBenefitFallbacks);
         existingData.benefits.unshift({
           id: _benefitId,
           region: item.region || '전국',
@@ -1054,7 +1070,7 @@ async function main() {
   location: '행사 장소명 또는 주소 (festival일 때만. benefit이면 빈 문자열)',
   link: 상세URL,
   tag: '마감일이 오늘로부터 30일 이내이면 반드시 마감임박, 마감일이 없거나 상시 모집이면 상시, 그 외엔 추천',
-  imagePrompt: '축제/행사라면 이 축제의 분위기를 파스텔톤 3D 일러스트 스타일로 표현하는 영문 프롬프트 1문장 (pastel 3D illustration, soft mint and warm colors, clean white background, flat perspective, professional)',
+  imagePrompt: 'Create a short descriptive English prompt (max 10 words) for an AI image generator. Focus on objects, scenery and atmosphere only. No text, no faces, no people, no characters. Return only the English prompt, nothing else.',
   requirements: ['필요서류1', '필요서류2'],
   howToApply: ['신청방법1', '신청방법2'],
   eligibilityQuiz: ['자격 요건 질문1', '자격 요건 질문2'],
@@ -1126,18 +1142,26 @@ ${JSON.stringify(selectedData)}`
       // 한글 포함 여부 확인 후 기본값으로 교체
       const hasKorean = /[가-힣]/.test(rawPrompt);
       if (hasKorean) {
-        rawPrompt = parsedParams.type === 'festival' ? 'korea festival event landscape scenery' : 'korea lifestyle welfare benefit infographic';
+        rawPrompt = parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
         console.log(`[안내] 프롬프트에 한글 포함 → 기본 영문으로 교체: ${rawPrompt}`);
       }
 
       let safePrompt = rawPrompt
-        .replace(/[^a-zA-Z0-9 ]/g, '') // 특수문자 및 한글 제거
-        .replace(/\s+/g, '-'); // 공백을 대시로 치환
+        .replace(/[^\w\s-]/g, '') // 한글·특수문자 제거 (영숫자·공백·대시만 유지)
+        .replace(/\s+/g, '-')
+        .toLowerCase()
+        .trim();
 
-      // 만약 정규식으로 인해 프롬프트가 다 날아갔다면(한글만 있었던 경우 등) 기본 영문 키워드로 폴백
-      if (!safePrompt || safePrompt.length < 2) {
-        safePrompt = parsedParams.type === 'festival' ? 'korea-festival-event-landscape' : 'korea-lifestyle-benefit';
+      // 프롬프트가 비어있거나 5자 미만이면 타입별 기본값 사용
+      if (!safePrompt || safePrompt.length < 5) {
+        safePrompt = parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
         console.log(`[안내] 프롬프트가 비어있어 기본 키워드로 변경되었습니다: ${safePrompt}`);
+      }
+
+      // 숫자·특수문자로만 구성된 경우 기본값으로 교체
+      if (/^[\d\-_]+$/.test(safePrompt)) {
+        safePrompt = parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
+        console.log(`[안내] 프롬프트가 숫자/특수문자만으로 구성되어 기본 키워드로 변경: ${safePrompt}`);
       }
 
       // 인물/얼굴 방지 + 인포그래픽 스타일 강제
@@ -1161,22 +1185,28 @@ ${JSON.stringify(selectedData)}`
           const arrayBuffer = await imgRes.arrayBuffer();
           if (!DRY_RUN) {
             fs.writeFileSync(absoluteImagePath, Buffer.from(arrayBuffer));
-            console.log(`이미지 로컬 저장 성공: ${localImagePath}`);
+            if (fs.existsSync(absoluteImagePath)) {
+              console.log(`이미지 로컬 저장 성공: ${localImagePath}`);
+            } else {
+              console.log(`이미지 저장 후 파일 없음 — 폴백 사용: ${localImagePath}`);
+              const _verifyFallback = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
+              finalImageUrl = parsedParams.type === 'festival'
+                ? `/images/blogs/fallback-festival-${_verifyFallback}.png`
+                : `/images/blogs/fallback-benefit-${_verifyFallback}.png`;
+            }
           } else {
             console.log(`[DRY RUN] 이미지 저장 건너뜀: ${localImagePath}`);
           }
         } else {
           console.log(`이미지 생성 실패(Type: ${contentType}), 폴백 이미지로 대체`);
-          const _idHash1 = String(newId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-          const _fallbackNum1 = (_idHash1 % 5) + 1;
+          const _fallbackNum1 = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
           finalImageUrl = parsedParams.type === 'festival'
             ? `/images/blogs/fallback-festival-${_fallbackNum1}.png`
             : `/images/blogs/fallback-benefit-${_fallbackNum1}.png`;
         }
       } catch (e) {
         console.log('이미지 처리 중 간헐적 오류 발생, 폴백 이미지로 대체:', e.message);
-        const _idHash2 = String(newId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-        const _fallbackNum2 = (_idHash2 % 5) + 1;
+        const _fallbackNum2 = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
         finalImageUrl = parsedParams.type === 'festival'
           ? `/images/blogs/fallback-festival-${_fallbackNum2}.png`
           : `/images/blogs/fallback-benefit-${_fallbackNum2}.png`;
@@ -1315,8 +1345,7 @@ ${JSON.stringify(selectedData)}`
       const norm = normTitle(item.title);
       if (!existingFestTitles.has(item.title) && !existingFestNorm.has(norm)) {
         const _festId = item.id || `gemini-fest-${Date.now()}`;
-        const _festHash = String(_festId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-        const _festFallbackNum = (_festHash % 5) + 1;
+        const _festFallbackNum = pickFallback(_festId, 'festival', usedFestFallbacks);
         existingData.festivals.unshift({
           id: _festId,
           region: item.region || '전국',
@@ -1385,16 +1414,12 @@ ${JSON.stringify(selectedData)}`
           }
         } catch (e) {
           console.warn(`[축제] 이미지 다운로드 실패, 폴백 사용: ${e.message}`);
-          const _festImgId = fest.id || fest.servId || title;
-          const _festImgHash = String(_festImgId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-          finalImageUrl = `/images/blogs/fallback-festival-${(_festImgHash % 5) + 1}.png`;
+          finalImageUrl = `/images/blogs/fallback-festival-${pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks)}.png`;
         }
       } else if (imageUrl) {
         finalImageUrl = imageUrl; // 이미 로컬 경로인 경우
       } else {
-        const _festNoImgId = fest.id || fest.servId || title;
-        const _festNoImgHash = String(_festNoImgId).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-        finalImageUrl = `/images/blogs/fallback-festival-${(_festNoImgHash % 5) + 1}.png`;
+        finalImageUrl = `/images/blogs/fallback-festival-${pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks)}.png`;
       }
 
       const newFest = {
