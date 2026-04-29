@@ -819,6 +819,13 @@ function pickFallback(id, type, usedSet) {
   return num;
 }
 
+// ─── 폴백 이미지 경로 헬퍼 (.webp 우선, 없으면 .png) ─────────────────────────
+function getFallbackPath(num, type) {
+  const webpPath = path.join(__dirname, `../public/images/blogs/fallback-${type}-${num}.webp`);
+  const ext = fs.existsSync(webpPath) ? 'webp' : 'png';
+  return `/images/blogs/fallback-${type}-${num}.${ext}`;
+}
+
 async function main() {
   const DRY_RUN = process.env.DRY_RUN === 'true';
   if (DRY_RUN) console.log('[DRY RUN] 테스트 모드 — pick-info.json에 데이터를 저장하지 않습니다.');
@@ -1000,7 +1007,7 @@ async function main() {
           title: item.title,
           target: item.target || '누구나',
           deadline: item.deadline || '상시',
-          image: `/images/blogs/fallback-benefit-${_benefitFallbackNum}.png`,
+          image: getFallbackPath(_benefitFallbackNum, 'benefit'),
           isEmergency: false,
           details: item.details || '',
           link: item.link || '',
@@ -1164,13 +1171,19 @@ ${JSON.stringify(selectedData)}`
         console.log(`[안내] 프롬프트가 숫자/특수문자만으로 구성되어 기본 키워드로 변경: ${safePrompt}`);
       }
 
+      // 타입별 구체적 prefix 추가 (Gemini 생성 프롬프트 앞에 붙이기)
+      const typePrefix = parsedParams.type === 'festival'
+        ? 'south-korean-outdoor-festival-scene-colorful-cheerful-'
+        : 'south-korean-government-support-concept-warm-helpful-';
+      safePrompt = typePrefix + safePrompt;
+
       // 인물/얼굴 방지 + 인포그래픽 스타일 강제
       const noPersonSuffix = '-no-people-no-face-no-character-infographic-style-flat-illustration';
       safePrompt = safePrompt + noPersonSuffix;
 
-      const externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true`;
-      
-      const localImageName = `${safePrompt.substring(0, 30).toLowerCase()}-${seed}.png`;
+      const externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${seed}&nologo=true&format=webp`;
+
+      const localImageName = `${safePrompt.substring(0, 30).toLowerCase()}-${seed}.webp`;
       const localImagePath = `/images/blogs/${localImageName}`;
       const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
       
@@ -1190,9 +1203,7 @@ ${JSON.stringify(selectedData)}`
             } else {
               console.log(`이미지 저장 후 파일 없음 — 폴백 사용: ${localImagePath}`);
               const _verifyFallback = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
-              finalImageUrl = parsedParams.type === 'festival'
-                ? `/images/blogs/fallback-festival-${_verifyFallback}.png`
-                : `/images/blogs/fallback-benefit-${_verifyFallback}.png`;
+              finalImageUrl = getFallbackPath(_verifyFallback, parsedParams.type === 'festival' ? 'festival' : 'benefit');
             }
           } else {
             console.log(`[DRY RUN] 이미지 저장 건너뜀: ${localImagePath}`);
@@ -1200,16 +1211,12 @@ ${JSON.stringify(selectedData)}`
         } else {
           console.log(`이미지 생성 실패(Type: ${contentType}), 폴백 이미지로 대체`);
           const _fallbackNum1 = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
-          finalImageUrl = parsedParams.type === 'festival'
-            ? `/images/blogs/fallback-festival-${_fallbackNum1}.png`
-            : `/images/blogs/fallback-benefit-${_fallbackNum1}.png`;
+          finalImageUrl = getFallbackPath(_fallbackNum1, parsedParams.type === 'festival' ? 'festival' : 'benefit');
         }
       } catch (e) {
         console.log('이미지 처리 중 간헐적 오류 발생, 폴백 이미지로 대체:', e.message);
         const _fallbackNum2 = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
-        finalImageUrl = parsedParams.type === 'festival'
-          ? `/images/blogs/fallback-festival-${_fallbackNum2}.png`
-          : `/images/blogs/fallback-benefit-${_fallbackNum2}.png`;
+        finalImageUrl = getFallbackPath(_fallbackNum2, parsedParams.type === 'festival' ? 'festival' : 'benefit');
       }
 
       if (parsedParams.type === 'festival') {
@@ -1352,7 +1359,7 @@ ${JSON.stringify(selectedData)}`
           title: item.title,
           date: item.date || '상시',
           tag: item.tag || '신규',
-          image: `/images/blogs/fallback-festival-${_festFallbackNum}.png`,
+          image: getFallbackPath(_festFallbackNum, 'festival'),
           location: item.location || '',
           description: item.description || '',
           link: item.link || '',
@@ -1414,12 +1421,12 @@ ${JSON.stringify(selectedData)}`
           }
         } catch (e) {
           console.warn(`[축제] 이미지 다운로드 실패, 폴백 사용: ${e.message}`);
-          finalImageUrl = `/images/blogs/fallback-festival-${pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks)}.png`;
+          finalImageUrl = getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
         }
       } else if (imageUrl) {
         finalImageUrl = imageUrl; // 이미 로컬 경로인 경우
       } else {
-        finalImageUrl = `/images/blogs/fallback-festival-${pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks)}.png`;
+        finalImageUrl = getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
       }
 
       const newFest = {
