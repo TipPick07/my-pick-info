@@ -682,11 +682,19 @@ async function fetchBokjiroCentral(apiKey) {
       }
       const items = json ? extractItems(json) : (xmlItems || []);
       if (items.length === 0) continue;
+      const centralItems = [];
       for (const item of items) {
         const norm = normalizeItem(item, '복지로중앙');
-        if (norm.서비스명) results.push(norm);
+        if (norm.서비스명) centralItems.push(norm);
       }
-      console.log(`[복지로중앙:${ep.name}] ${items.length}건 수집`);
+      // 마감일 있는 데이터 우선 정렬
+      centralItems.sort((a, b) => {
+        const aHas = a.신청기한 ? 1 : 0;
+        const bHas = b.신청기한 ? 1 : 0;
+        return bHas - aHas;
+      });
+      results.push(...centralItems);
+      console.log(`[복지로중앙:${ep.name}] ${centralItems.length}건 수집 (마감일 있는 항목 우선 정렬)`);
       break;
     } catch (err) {
       console.log(`[복지로중앙:${ep.name}] 네트워크 오류: ${err.message}`);
@@ -718,11 +726,19 @@ async function fetchBokjiroLocal(apiKey) {
       }
       const items = json ? extractItems(json) : (xmlItems || []);
       if (items.length === 0) continue;
+      const regionItems = [];
       for (const item of items) {
         const norm = normalizeItem(item, '복지로지자체');
-        if (norm.서비스명) results.push(norm);
+        if (norm.서비스명) regionItems.push(norm);
       }
-      console.log(`[복지로지자체:${region}] ${items.length}건 수집`);
+      // 마감일 있는 데이터 우선 정렬 (신청기한 비어있으면 뒤로)
+      regionItems.sort((a, b) => {
+        const aHas = a.신청기한 ? 1 : 0;
+        const bHas = b.신청기한 ? 1 : 0;
+        return bHas - aHas;
+      });
+      results.push(...regionItems);
+      console.log(`[복지로지자체:${region}] ${regionItems.length}건 수집 (마감일 있는 항목 우선 정렬)`);
     } catch (err) {
       console.log(`[복지로지자체:${region}] 네트워크 오류: ${err.message}`);
     }
