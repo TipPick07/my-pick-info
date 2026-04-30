@@ -2,6 +2,10 @@ name: Post to Threads
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Deploy to Cloudflare Pages"]
+    types:
+      - completed
 
 permissions:
   contents: read
