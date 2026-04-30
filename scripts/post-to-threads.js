@@ -188,14 +188,26 @@ async function postToThreads(text, label) {
   console.log(text);
   console.log('──────────────────────────────────────────');
 
-  const containerId = await createContainer(text);
-  console.log(`[Threads] 컨테이너 생성: ${containerId}`);
+  const MAX_RETRY = 3;
+  for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
+    try {
+      const containerId = await createContainer(text);
+      console.log(`[Threads] 컨테이너 생성: ${containerId}`);
 
-  await new Promise(r => setTimeout(r, 3000));
+      await new Promise(r => setTimeout(r, 3000));
 
-  const postId = await publishContainer(containerId);
-  console.log(`[Threads] ✅ 발행 완료 (post ID: ${postId})`);
-  return postId;
+      const postId = await publishContainer(containerId);
+      console.log(`[Threads] ✅ 발행 완료 (post ID: ${postId})`);
+      return postId;
+    } catch (err) {
+      if (attempt < MAX_RETRY) {
+        console.warn(`[Threads] ⚠️ ${attempt}차 실패, 30초 후 재시도... (${err.message})`);
+        await new Promise(r => setTimeout(r, 30000));
+      } else {
+        throw err;
+      }
+    }
+  }
 }
 
 // ─── 메인 ─────────────────────────────────────────────────────────────────────
