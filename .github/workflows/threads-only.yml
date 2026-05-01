@@ -8,7 +8,7 @@ on:
       - completed
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   post:
@@ -30,3 +30,11 @@ jobs:
         env:
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
           THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+
+      - name: 토큰 변경사항 커밋
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .threads-token.json
+          git diff --staged --quiet || git commit -m "chore: threads token auto-refresh"
+          git push

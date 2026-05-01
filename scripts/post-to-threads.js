@@ -11,10 +11,44 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
-const THREADS_ACCESS_TOKEN = process.env.THREADS_ACCESS_TOKEN;
 const THREADS_USER_ID = process.env.THREADS_USER_ID;
 const BASE_URL = 'https://tip-pick.com';
 const API_BASE = 'https://graph.threads.net/v1.0';
+
+// ─── 토큰 관리 ────────────────────────────────────────────────────────────────
+async function getValidToken() {
+  const tokenFile = '.threads-token.json';
+  let tokenData = {};
+
+  if (fs.existsSync(tokenFile)) {
+    tokenData = JSON.parse(fs.readFileSync(tokenFile, 'utf8'));
+  }
+
+  const now = Date.now();
+  const sevenDays = 7 * 24 * 60 * 60 * 1000;
+
+  if (!tokenData.longLivedToken || !tokenData.expiresAt ||
+      tokenData.expiresAt - now < sevenDays) {
+
+    const currentToken = tokenData.longLivedToken || process.env.THREADS_ACCESS_TOKEN;
+
+    const refreshRes = await fetch(
+      `https://graph.threads.net/refresh_access_token?grant_type=th_refresh_token&access_token=${currentToken}`
+    );
+    const refreshData = await refreshRes.json();
+
+    if (refreshData.access_token) {
+      tokenData.longLivedToken = refreshData.access_token;
+      tokenData.expiresAt = now + refreshData.expires_in * 1000;
+      fs.writeFileSync(tokenFile, JSON.stringify(tokenData, null, 2));
+      console.log('[Threads] 토큰 갱신 완료, 만료일:', new Date(tokenData.expiresAt).toLocaleDateString());
+    } else {
+      console.error('[Threads] 토큰 갱신 실패:', refreshData.error);
+    }
+  }
+
+  return tokenData.longLivedToken || process.env.THREADS_ACCESS_TOKEN;
+}
 
 // ─── 오늘 생성된 포스트 읽기 ──────────────────────────────────────────────────
 function getTodayPosts() {
@@ -154,11 +188,11 @@ ${hashtags}`;
 }
 
 // ─── Threads API ──────────────────────────────────────────────────────────────
-async function createContainer(text) {
+async function createContainer(text, accessToken) {
   const params = new URLSearchParams({
     media_type: 'TEXT',
     text,
-    access_token: THREADS_ACCESS_TOKEN,
+    access_token: accessToken,
   });
 
   const res = await fetch(`${API_BASE}/${THREADS_USER_ID}/threads?${params}`, {
@@ -169,10 +203,10 @@ async function createContainer(text) {
   return data.id;
 }
 
-async function publishContainer(creationId) {
+async function publishContainer(creationId, accessToken) {
   const params = new URLSearchParams({
     creation_id: creationId,
-    access_token: THREADS_ACCESS_TOKEN,
+    access_token: accessToken,
   });
 
   const res = await fetch(`${API_BASE}/${THREADS_USER_ID}/threads_publish?${params}`, {
@@ -183,7 +217,7 @@ async function publishContainer(creationId) {
   return data.id;
 }
 
-async function postToThreads(text, label) {
+async function postToThreads(text, label, accessToken) {
   console.log(`\n[Threads] ── ${label} ──────────────────────`);
   console.log(text);
   console.log('──────────────────────────────────────────');
@@ -191,12 +225,12 @@ async function postToThreads(text, label) {
   const MAX_RETRY = 3;
   for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
     try {
-      const containerId = await createContainer(text);
+      const containerId = await createContainer(text, accessToken);
       console.log(`[Threads] 컨테이너 생성: ${containerId}`);
 
       await new Promise(r => setTimeout(r, 3000));
 
-      const postId = await publishContainer(containerId);
+      const postId = await publishContainer(containerId, accessToken);
       console.log(`[Threads] ✅ 발행 완료 (post ID: ${postId})`);
       return postId;
     } catch (err) {
@@ -212,7 +246,7 @@ async function postToThreads(text, label) {
 
 // ─── 메인 ─────────────────────────────────────────────────────────────────────
 async function main() {
-  if (!THREADS_ACCESS_TOKEN) {
+  if (!process.env.THREADS_ACCESS_TOKEN) {
     console.error('[Threads] THREADS_ACCESS_TOKEN 환경변수가 설정되지 않았습니다.');
     process.exit(1);
   }
@@ -220,6 +254,8 @@ async function main() {
     console.error('[Threads] THREADS_USER_ID 환경변수가 설정되지 않았습니다.');
     process.exit(1);
   }
+
+  const accessToken = await getValidToken();
 
   const posts = getTodayPosts();
   if (posts.length === 0) {
@@ -233,7 +269,7 @@ async function main() {
 
   if (festivalPost) {
     try {
-      await postToThreads(formatFestival(festivalPost), '축제 게시물');
+      await postToThreads(formatFestival(festivalPost), '축제 게시물', accessToken);
       successCount++;
     } catch (err) {
       console.error(`[Threads] ❌ 축제 발행 실패: ${err.message}`);
@@ -248,7 +284,7 @@ async function main() {
 
   if (benefitPost) {
     try {
-      await postToThreads(formatBenefit(benefitPost), '지원금 게시물');
+      await postToThreads(formatBenefit(benefitPost), '지원금 게시물', accessToken);
       successCount++;
     } catch (err) {
       console.error(`[Threads] ❌ 지원금 발행 실패: ${err.message}`);
