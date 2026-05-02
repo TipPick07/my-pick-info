@@ -508,12 +508,16 @@ FILENAME: YYYY-MM-DD-영문키워드`
       console.log(`[보정] Gemini가 이미지를 비워 로컬 폴백 이미지를 주입했습니다: ${fallbackImage}`);
     }
 
-    // ogImage 자동 주입: image 필드 기반으로 절대 URL 구성
+    // ogImage 자동 주입: thumbnail → image 우선순위로 절대 URL 구성
     const imageLineMatch = mdContent.match(/^image:\s*(.+)$/m);
     const imageVal = imageLineMatch ? imageLineMatch[1].trim().replace(/^['"]|['"]$/g, '') : '';
-    const computedOgImage = imageVal.startsWith('http')
-      ? imageVal
-      : imageVal ? `https://tip-pick.com${imageVal}` : 'https://tip-pick.com/images/og-default.png';
+    const thumbnailLineMatch = mdContent.match(/^thumbnail:\s*(.+)$/m);
+    const thumbnailVal = thumbnailLineMatch ? thumbnailLineMatch[1].trim().replace(/^['"]|['"]$/g, '') : '';
+    const isValidImgVal = v => v && (v.startsWith('http') || v.startsWith('/'));
+    const ogSource = isValidImgVal(thumbnailVal) ? thumbnailVal : imageVal;
+    const computedOgImage = ogSource.startsWith('http')
+      ? ogSource
+      : ogSource ? `https://tip-pick.com${ogSource}` : 'https://tip-pick.com/images/og-default.png';
     if (/^ogImage:\s*$/m.test(mdContent)) {
       mdContent = mdContent.replace(/^(ogImage:)\s*$/m, `$1 "${computedOgImage}"`);
     } else if (!/^ogImage:/m.test(mdContent)) {
