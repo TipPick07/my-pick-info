@@ -1,11 +1,9 @@
 name: Post to Threads
 
 on:
+  schedule:
+    - cron: '5 20 * * *'  # 한국시간 오전 5:05 (UTC 20:05)
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Deploy to Cloudflare Pages"]
-    types:
-      - completed
 
 permissions:
   contents: write
