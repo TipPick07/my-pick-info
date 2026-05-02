@@ -188,12 +188,14 @@ ${hashtags}`;
 }
 
 // ─── Threads API ──────────────────────────────────────────────────────────────
-async function createContainer(text, accessToken) {
+async function createContainer(text, accessToken, imageUrl = null) {
   const params = new URLSearchParams({
-    media_type: 'TEXT',
+    media_type: imageUrl ? 'IMAGE' : 'TEXT',
     text,
     access_token: accessToken,
   });
+
+  if (imageUrl) params.append('image_url', imageUrl);
 
   const res = await fetch(`${API_BASE}/${THREADS_USER_ID}/threads?${params}`, {
     method: 'POST',
@@ -217,7 +219,7 @@ async function publishContainer(creationId, accessToken) {
   return data.id;
 }
 
-async function postToThreads(text, label, accessToken) {
+async function postToThreads(text, label, accessToken, imageUrl = null) {
   console.log(`\n[Threads] ── ${label} ──────────────────────`);
   console.log(text);
   console.log('──────────────────────────────────────────');
@@ -225,7 +227,7 @@ async function postToThreads(text, label, accessToken) {
   const MAX_RETRY = 3;
   for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
     try {
-      const containerId = await createContainer(text, accessToken);
+      const containerId = await createContainer(text, accessToken, imageUrl);
       console.log(`[Threads] 컨테이너 생성: ${containerId}`);
 
       await new Promise(r => setTimeout(r, 3000));
@@ -269,7 +271,10 @@ async function main() {
 
   if (festivalPost) {
     try {
-      await postToThreads(formatFestival(festivalPost), '축제 게시물', accessToken);
+      const festImageUrl = festivalPost.image?.startsWith('http')
+        ? festivalPost.image
+        : festivalPost.image ? `https://tip-pick.com${festivalPost.image}` : null;
+      await postToThreads(formatFestival(festivalPost), '축제 게시물', accessToken, festImageUrl);
       successCount++;
     } catch (err) {
       console.error(`[Threads] ❌ 축제 발행 실패: ${err.message}`);
@@ -284,7 +289,10 @@ async function main() {
 
   if (benefitPost) {
     try {
-      await postToThreads(formatBenefit(benefitPost), '지원금 게시물', accessToken);
+      const benefitImageUrl = benefitPost.image?.startsWith('http')
+        ? benefitPost.image
+        : benefitPost.image ? `https://tip-pick.com${benefitPost.image}` : null;
+      await postToThreads(formatBenefit(benefitPost), '지원금 게시물', accessToken, benefitImageUrl);
       successCount++;
     } catch (err) {
       console.error(`[Threads] ❌ 지원금 발행 실패: ${err.message}`);
