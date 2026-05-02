@@ -264,11 +264,21 @@ async function main() {
     }).filter(p => p.title);
 
     const alreadyPostedTitles = existingPostsList.map(p => p.title);
+    const alreadyPostedNorm = new Set(
+      existingPostsList.map(p =>
+        (p.title || '').replace(/^\[[^\]]+\]\s*/, '').replace(/\s+/g, '').toLowerCase()
+      )
+    );
 
     existingPostsList.sort((a, b) => b.filename.localeCompare(a.filename));
     const recentPostsForLinking = existingPostsList.slice(0, 30).map(p => `- [${p.title}](/blog/${p.filename})`).join('\n');
 
-    const unpostedItems = allItems.filter(item => !alreadyPostedTitles.includes(item.title));
+    const unpostedItems = allItems.filter(item => {
+      if (alreadyPostedTitles.includes(item.title)) return false;
+      const norm = (item.title || '').replace(/^\[[^\]]+\]\s*/, '').replace(/\s+/g, '').toLowerCase();
+      if (alreadyPostedNorm.has(norm)) return false;
+      return true;
+    });
 
     if (unpostedItems.length === 0) {
       console.log('모든 데이터가 이미 블로그에 작성되었습니다.');
