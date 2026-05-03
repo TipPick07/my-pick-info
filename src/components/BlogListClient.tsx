@@ -49,7 +49,7 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
               className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black shadow border border-white/50 tracking-wider"
               style={{ color: "#00CCFF" }}
             >
-              {post.category}
+              {post.category === 'festival' ? '축제' : post.category === 'benefit' ? '지원금' : post.category}
             </div>
           </div>
 
