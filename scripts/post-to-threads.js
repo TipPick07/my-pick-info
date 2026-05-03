@@ -187,6 +187,21 @@ ${point}
 ${hashtags}`;
 }
 
+// ─── 이미지 URL 인코딩 (한글 파일명 대응) ────────────────────────────────────
+function encodeImageUrl(url) {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    u.pathname = u.pathname
+      .split('/')
+      .map(seg => encodeURIComponent(decodeURIComponent(seg)))
+      .join('/');
+    return u.toString();
+  } catch {
+    return url;
+  }
+}
+
 // ─── Threads API ──────────────────────────────────────────────────────────────
 async function createContainer(text, accessToken, imageUrl = null) {
   const params = new URLSearchParams({
@@ -224,25 +239,38 @@ async function postToThreads(text, label, accessToken, imageUrl = null) {
   console.log(text);
   console.log('──────────────────────────────────────────');
 
+  const encodedImageUrl = encodeImageUrl(imageUrl);
   const MAX_RETRY = 3;
-  for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
-    try {
-      const containerId = await createContainer(text, accessToken, imageUrl);
-      console.log(`[Threads] 컨테이너 생성: ${containerId}`);
 
-      await new Promise(r => setTimeout(r, 3000));
-
-      const postId = await publishContainer(containerId, accessToken);
-      console.log(`[Threads] ✅ 발행 완료 (post ID: ${postId})`);
-      return postId;
-    } catch (err) {
-      if (attempt < MAX_RETRY) {
-        console.warn(`[Threads] ⚠️ ${attempt}차 실패, 30초 후 재시도... (${err.message})`);
-        await new Promise(r => setTimeout(r, 30000));
-      } else {
-        throw err;
+  if (encodedImageUrl) {
+    for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
+      try {
+        const containerId = await createContainer(text, accessToken, encodedImageUrl);
+        console.log(`[Threads] 컨테이너 생성: ${containerId}`);
+        await new Promise(r => setTimeout(r, 3000));
+        const postId = await publishContainer(containerId, accessToken);
+        console.log(`[Threads] ✅ 발행 완료 (post ID: ${postId})`);
+        return postId;
+      } catch (err) {
+        if (attempt < MAX_RETRY) {
+          console.warn(`[Threads] ⚠️ ${attempt}차 실패, 30초 후 재시도... (${err.message})`);
+          await new Promise(r => setTimeout(r, 30000));
+        } else {
+          console.warn(`[Threads] ⚠️ 이미지 포함 발행 최종 실패 → 텍스트 전용으로 재시도`);
+        }
       }
     }
+  }
+
+  try {
+    const containerId = await createContainer(text, accessToken, null);
+    console.log(`[Threads] 컨테이너 생성 (텍스트 전용): ${containerId}`);
+    await new Promise(r => setTimeout(r, 3000));
+    const postId = await publishContainer(containerId, accessToken);
+    console.log(`[Threads] ✅ 발행 완료 — 텍스트 전용 (post ID: ${postId})`);
+    return postId;
+  } catch (err) {
+    throw err;
   }
 }
 
