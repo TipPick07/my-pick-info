@@ -509,7 +509,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
                     }}
                   />
                   <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black text-cyan-600 shadow border border-white/50 tracking-wider">
-                    {post.category}
+                    {post.category === 'festival' ? '축제' : post.category === 'benefit' ? '지원금' : post.category}
                   </div>
                 </div>
 

@@ -8,7 +8,7 @@ officialDeadline: 2026.06.01
 date: 2026-05-05
 summary: 2026년 자녀장려금 신청으로 가정 경제에 보탬을! 국세청에서 지원하는 최대 300만원 자녀 양육 보조금 혜택을 놓치지 마세요. 신청 기간과 자격 요건을 자세히 알려드립니다.
 description: 2026년 자녀장려금 신청으로 가정 경제에 보탬을! 국세청에서 지원하는 최대 300만원 자녀 양육 보조금 혜택을 놓치지 마세요. 신청 기간과 자격 요건을 자세히 알려드립니다.
-category: 정보
+category: benefit
 image: /images/blogs/fallback-benefit-1.png
 ogImage: "tags: [자녀장려금, 양육지원, 가족지원, 국세청혜택, 가정의달지원금]"
 officialRequirements: ["2025년 귀속 근로·사업·종교인 소득 자료","2025년 6월 1일 기준 가구원 재산 자료"]

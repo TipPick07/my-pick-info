@@ -399,7 +399,7 @@ officialDeadline: ${targetItem.deadline || targetItem.date || '상시'}
 date: ${today}
 summary: (메타 디스크립션용 — 핵심키워드 1회, 클릭 유도 문장, 150자 이내)
 description: (summary와 동일한 내용으로 작성)
-category: 정보
+category: ${postType === 'festival' ? 'festival' : 'benefit'}
 image: ${targetItem.image || ''}
 ogImage:
 tags: [연관키워드1, 연관키워드2, 연관키워드3, 연관키워드4, 연관키워드5]

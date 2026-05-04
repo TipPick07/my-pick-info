@@ -7,7 +7,7 @@ officialDeadline: 2026.05.06~2026.12.31
 date: 2026-05-05
 summary: 따스한 봄부터 연말까지, 서울 도심 한복판에서 다채로운 문화 공연이 펼쳐지는 '문화가 흐르는 서울광장'을 만나보세요. 온 가족이 함께 즐길 수 있는 특별한 나들이 정보를 팁픽이 알려드립니다.
 description: 따스한 봄부터 연말까지, 서울 도심 한복판에서 다채로운 문화 공연이 펼쳐지는 '문화가 흐르는 서울광장'을 만나보세요. 온 가족이 함께 즐길 수 있는 특별한 나들이 정보를 팁픽이 알려드립니다.
-category: 정보
+category: festival
 image: /images/blogs/festival-문화가흐르는서울광장-517.png
 ogImage: "tags: [서울 가볼만한 곳, 주말 나들이, 무료 공연, 가족 행사, 문화 생활]"
 officialRequirements: []
