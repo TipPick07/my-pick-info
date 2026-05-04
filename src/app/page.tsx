@@ -25,11 +25,8 @@ export default function Home() {
   const todayStr = `${kstYear}-${kstMonth}-${kstDay}`;
 
   const todayPosts = allPosts.filter(post => post.date === todayStr);
-  const todayFestivals = todayPosts.filter(post =>
-    post.tags.some(tag => tag.includes('축제') || tag.includes('페스티벌') || tag.includes('행사')) ||
-    post.title.includes('축제') || post.title.includes('페스티벌') || post.title.includes('행사')
-  );
-  const todayBenefits = todayPosts.filter(post => !todayFestivals.includes(post));
+  const todayFestivals = todayPosts.filter(post => post.category === 'festival');
+  const todayBenefits = todayPosts.filter(post => post.category === 'benefit');
 
   const todayUpdates = {
     festivals: todayFestivals,
