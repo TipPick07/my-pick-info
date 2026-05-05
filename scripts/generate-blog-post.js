@@ -277,6 +277,16 @@ async function main() {
       if (alreadyPostedTitles.includes(item.title)) return false;
       const norm = (item.title || '').replace(/^\[[^\]]+\]\s*/, '').replace(/\s+/g, '').toLowerCase();
       if (alreadyPostedNorm.has(norm)) return false;
+      if (postType === 'festival') {
+        const dateMatches = [...String(item.date || '').matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
+        if (dateMatches.length > 0) {
+          const last = dateMatches[dateMatches.length - 1];
+          const endDate = new Date(parseInt(last[1]), parseInt(last[2]) - 1, parseInt(last[3]));
+          const todayKST = new Date();
+          todayKST.setHours(0, 0, 0, 0);
+          if (endDate < todayKST) return false;
+        }
+      }
       return true;
     });
 
