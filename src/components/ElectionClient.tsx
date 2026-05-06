@@ -28,6 +28,7 @@ export default function ElectionClient({ posts }: Props) {
   const [filter, setFilter] = useState("전체");
   const [currentPage, setCurrentPage] = useState(1);
   const regions = ["전체", "서울", "인천", "경기"];
+  const regionLabel: Record<string, string> = { seoul: "서울", incheon: "인천", gyeonggi: "경기" };
 
   // 지역 필터링
   const filtered = (posts || []).filter((item) => {
@@ -125,7 +126,7 @@ export default function ElectionClient({ posts }: Props) {
                         boxShadow: "0 2px 8px rgba(0,204,255,0.5)",
                       }}
                     >
-                      📍 {item.region}
+                      📍 {regionLabel[item.region ?? ''] ?? item.region}
                     </span>
                   </div>
                 )}
