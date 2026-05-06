@@ -114,19 +114,25 @@ export default function ElectionClient({ posts }: Props) {
                   alt={item.title}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                 />
+                {item.region && (
+                  <div className="absolute bottom-2 left-2">
+                    <span
+                      className="px-3 py-1 rounded-full text-sm font-black text-white shadow-lg"
+                      style={{
+                        background: "linear-gradient(135deg, #00CCFF, #33FF99)",
+                        textShadow: "0 1px 3px rgba(0,0,0,0.3)",
+                        boxShadow: "0 2px 8px rgba(0,204,255,0.5)",
+                      }}
+                    >
+                      📍 {item.region}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* 텍스트 내용 */}
               <div className="flex-1 p-6 flex flex-col justify-between gap-3">
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <span 
-                      className="px-2.5 py-0.5 rounded-full text-[10px] font-black text-white shadow-sm"
-                      style={{ background: "#00CCFF" }}
-                    >
-                      {item.region}
-                    </span>
-                  </div>
                   <h4 className="text-lg md:text-xl font-black text-slate-900 leading-snug group-hover:text-[#00CCFF] transition-colors">
                     {item.title}
                   </h4>
