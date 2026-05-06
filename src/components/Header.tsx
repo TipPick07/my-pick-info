@@ -13,11 +13,13 @@ export default function Header() {
     { href: "/festivals/", label: "이번 주말 어디 가?" },
     { href: "/weekly/", label: "이번 주 행사" },
     { href: "/benefits/", label: "내 돈 찾는 지원금" },
+    { href: "/election/", label: "우리 동네 선거 공약", isNew: true },
     { href: "/deadline/", label: "마감 임박" },
     { href: "/blog/", label: "팁픽 인사이트" },
     { href: "/about/", label: "팁픽은 왜 만들었나" },
     { href: "/contact/", label: "광고 문의" },
   ];
+
 
   const normalize = (p: string) => p.replace(/\/$/, "") || "/";
   const isActive = (href: string) => {
@@ -60,13 +62,18 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative group transition-colors ${
-                  active
+                className={`relative group transition-colors flex items-center gap-1 ${
+                  active || link.isNew
                     ? "text-[#00CCFF] font-bold"
                     : "font-semibold text-slate-500 hover:text-[#00CCFF]"
                 }`}
               >
                 {link.label}
+                {link.isNew && (
+                  <span className="bg-[#00CCFF] text-white text-[8px] px-1 py-0.5 rounded-sm font-black animate-pulse">
+                    NEW
+                  </span>
+                )}
                 <span
                   className={`absolute -bottom-1 left-0 h-0.5 transition-all duration-300 rounded-full ${
                     active ? "w-full" : "w-0 group-hover:w-full"
@@ -100,13 +107,18 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`border-b border-slate-50 pb-3 transition-colors ${
-                  active
+                className={`border-b border-slate-50 pb-3 transition-colors flex items-center justify-between ${
+                  active || link.isNew
                     ? "font-extrabold text-[#00CCFF]"
                     : "font-bold text-slate-800 hover:text-[#00CCFF]"
                 }`}
               >
-                {link.label}
+                <span>{link.label}</span>
+                {link.isNew && (
+                  <span className="bg-[#00CCFF] text-white text-[10px] px-1.5 py-0.5 rounded-full font-black">
+                    NEW
+                  </span>
+                )}
               </Link>
             );
           })}

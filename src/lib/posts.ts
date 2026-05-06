@@ -2,11 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-const postsDirectory = path.join(process.cwd(), 'src/content/posts');
-
 export interface PostData {
   slug: string;
   title: string;
+  region?: string;
   originalTitle?: string;
   link?: string;
   image?: string;
@@ -27,13 +26,15 @@ export interface PostData {
   content: string;
 }
 
-export function getSortedPostsData(): PostData[] {
+export function getSortedPostsData(dirName = 'posts'): PostData[] {
+  const targetDirectory = path.join(process.cwd(), `src/content/${dirName}`);
+  
   // Get file names under /posts
-  if (!fs.existsSync(postsDirectory)) {
+  if (!fs.existsSync(targetDirectory)) {
     return [];
   }
-  
-  const fileNames = fs.readdirSync(postsDirectory);
+
+  const fileNames = fs.readdirSync(targetDirectory);
   const allPostsData = fileNames
     .filter((fileName) => fileName.endsWith('.md'))
     .map((fileName) => {
@@ -41,7 +42,7 @@ export function getSortedPostsData(): PostData[] {
       const slug = fileName.replace(/\.md$/, '');
 
       // Read markdown file as string
-      const fullPath = path.join(postsDirectory, fileName);
+      const fullPath = path.join(targetDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
 
       // Use gray-matter to parse the post metadata section
@@ -50,10 +51,10 @@ export function getSortedPostsData(): PostData[] {
       // Handle date formatting (YYYY-MM-DD)
       let dateStr = '';
       if (matterResult.data.date) {
-        const dateObj = matterResult.data.date instanceof Date 
-          ? matterResult.data.date 
+        const dateObj = matterResult.data.date instanceof Date
+          ? matterResult.data.date
           : new Date(matterResult.data.date);
-        
+
         if (!isNaN(dateObj.getTime())) {
           dateStr = dateObj.toISOString().split('T')[0];
         }
@@ -67,6 +68,7 @@ export function getSortedPostsData(): PostData[] {
       return {
         slug,
         title: matterResult.data.title || '',
+        region: matterResult.data.region || '',
         originalTitle: matterResult.data.originalTitle || '',
         link: matterResult.data.link || '',
         image: img,
@@ -92,8 +94,9 @@ export function getSortedPostsData(): PostData[] {
   return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export function getPostData(slug: string): PostData | null {
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
+export function getPostData(slug: string, dirName = 'posts'): PostData | null {
+  const targetDirectory = path.join(process.cwd(), `src/content/${dirName}`);
+  const fullPath = path.join(targetDirectory, `${slug}.md`);
   if (!fs.existsSync(fullPath)) return null;
 
   const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -101,10 +104,10 @@ export function getPostData(slug: string): PostData | null {
 
   let dateStr = '';
   if (matterResult.data.date) {
-    const dateObj = matterResult.data.date instanceof Date 
-      ? matterResult.data.date 
+    const dateObj = matterResult.data.date instanceof Date
+      ? matterResult.data.date
       : new Date(matterResult.data.date);
-    
+
     if (!isNaN(dateObj.getTime())) {
       dateStr = dateObj.toISOString().split('T')[0];
     }
@@ -117,6 +120,7 @@ export function getPostData(slug: string): PostData | null {
   return {
     slug,
     title: matterResult.data.title || '',
+    region: matterResult.data.region || '',
     originalTitle: matterResult.data.originalTitle || '',
     link: matterResult.data.link || '',
     image: img,
