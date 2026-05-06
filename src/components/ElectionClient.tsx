@@ -110,9 +110,10 @@ export default function ElectionClient({ posts }: Props) {
               {/* 이미지 (썸네일) */}
               <div className="relative w-full md:w-56 md:shrink-0 bg-slate-200 overflow-hidden" style={{ aspectRatio: "16/9" }}>
                 <img
-                  src={item.image || "/images/placeholder-blog.png"}
+                  src={item.image || "/images/og-default.png"}
                   alt={item.title}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                  onError={(e) => { (e.target as HTMLImageElement).src = "/images/og-default.png"; }}
                 />
                 {item.region && (
                   <div className="absolute bottom-2 left-2">
