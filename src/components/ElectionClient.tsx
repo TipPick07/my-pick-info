@@ -29,10 +29,11 @@ export default function ElectionClient({ posts }: Props) {
   const [currentPage, setCurrentPage] = useState(1);
   const regions = ["전체", "서울", "인천", "경기"];
   const regionLabel: Record<string, string> = { seoul: "서울", incheon: "인천", gyeonggi: "경기" };
+  const regionKey: Record<string, string> = { "서울": "seoul", "인천": "incheon", "경기": "gyeonggi" };
 
   // 지역 필터링
   const filtered = (posts || []).filter((item) => {
-    return filter === "전체" || item.region === filter;
+    return filter === "전체" || item.region === regionKey[filter];
   });
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
