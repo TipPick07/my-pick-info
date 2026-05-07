@@ -1,8 +1,8 @@
 ---
 category: "election"
 region: "seoul"
-image: "/images/blogs/festival-DDP어린이디자인페-429.png"
-ogImage: "https://tip-pick.com/images/blogs/festival-DDP어린이디자인페-429.png"
+image: "/images/election/Seoul.jpg"
+ogImage: "https://tip-pick.com/images/election/Seoul.jpg"
 title: "[2026 지방선거] 서울시 교육감 '무상급식 및 에듀테크' 공약 완벽 분석"
 originalTitle: "2026 서울시 교육감 주요 공약 및 가계 경제 파급 효과"
 link: ""

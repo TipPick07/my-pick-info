@@ -10,8 +10,8 @@ officialDeadline: "2026-06-03"
 date: "2026-05-06"
 summary: "6월 3일 서울시장 선거, 내 집 마련의 꿈은 누가 이뤄줄까요? 재개발 규제 완화부터 무주택 청년 주거비 지원까지, 유력 후보들의 부동산 공약을 가구별 혜택으로 계산해 드립니다."
 description: "6월 3일 서울시장 선거, 내 집 마련의 꿈은 누가 이뤄줄까요? 재개발 규제 완화부터 무주택 청년 주거비 지원까지, 유력 후보들의 부동산 공약을 가구별 혜택으로 계산해 드립니다."
-image: "/images/blogs/fallback-benefit-2.png"
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-2.png"
+image: "/images/election/Seoul.jpg"
+ogImage: "https://tip-pick.com/images/election/Seoul.jpg"
 tags: ["2026지방선거", "서울시장", "부동산공약", "청년주거지원", "재건축재개발", "모아타운", "공공임대주택", "서울시지원금"]
 officialRequirements: ["서울시에 주민등록을 둔 유권자", "높은 전월세 주거비로 부담을 느끼는 세입자", "주거 환경 개선(재건축)을 원하는 주택 소유주"]
 officialHowToApply: ["6월 3일 선거 당일 투표소 방문", "5월 29일~30일 사전투표 참여"]

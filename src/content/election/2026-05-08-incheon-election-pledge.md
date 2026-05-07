@@ -1,8 +1,8 @@
 ---
 category: "election"
 region: "incheon"
-image: "/images/blogs/festival-인천어린이과학관놀다-334.png"
-ogImage: "https://tip-pick.com/images/blogs/festival-인천어린이과학관놀다-334.png"
+image: "/images/election/Incheon.jpg"
+ogImage: "https://tip-pick.com/images/election/Incheon.jpg"
 title: "[2026 지방선거] 인천시 교육감 후보 공약 비교: 늘봄학교와 지역 격차 해소"
 originalTitle: "2026 인천시 교육감 선거 핵심 공약 및 경제성 분석"
 link: ""

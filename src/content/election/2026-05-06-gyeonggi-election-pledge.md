@@ -10,8 +10,8 @@ officialDeadline: "2026-06-03"
 date: "2026-05-06"
 summary: "6월 3일 경기도지사 선거, 누구를 찍어야 내 지갑이 두꺼워질까요? 김동연 후보의 '생활비 반값'과 추미애 후보의 '기본소득' 공약을 가구별 혜택으로 계산해 드립니다."
 description: "6월 3일 경기도지사 선거, 누구를 찍어야 내 지갑이 두꺼워질까요? 김동연 후보의 '생활비 반값'과 추미애 후보의 '기본소득' 공약을 가구별 혜택으로 계산해 드립니다."
-image: "/images/blogs/fallback-benefit-1.png"
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
+image: "/images/election/Gyeonggi.jpg"
+ogImage: "https://tip-pick.com/images/election/Gyeonggi.jpg"
 tags: ["2026지방선거", "경기도지사", "김동연", "추미애", "경기지역화폐", "기본소득", "생활비반값", "경기도지원금"]
 officialRequirements: ["경기도에 주민등록을 둔 유권자", "지역화폐(경기지역화폐) 사용자", "대중교통 이용자 및 주거비 부담을 느끼는 도민"]
 officialHowToApply: ["6월 3일 선거 당일 투표소 방문", "5월 29일~30일 사전투표 참여"]
