@@ -12,6 +12,7 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CoupangBanner from '@/components/CoupangBanner';
+import MdContent from '@/components/MdContent';
 
 interface Festival {
   id: string;
@@ -25,6 +26,7 @@ interface Festival {
   link: string;
   mapx?: string;
   mapy?: string;
+  content?: string;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -210,27 +212,33 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
               <p className="text-slate-400 italic">주최 측에서 제공한 상세 설명이 없습니다.</p>
             )}
 
-            {/* 추천 포인트 강조 박스 */}
-            <div className="bg-gradient-to-br from-indigo-50/50 to-white p-8 md:p-12 rounded-[2.5rem] border border-indigo-100/50 my-12 shadow-sm space-y-8">
-              <div className="flex items-center gap-3 text-indigo-600">
-                <Sparkles className="w-6 h-6" />
-                <h4 className="text-xl font-black">추천 포인트</h4>
+            {/* 추천 포인트 강조 박스 또는 블로그형 본문 */}
+            {festival.content && festival.content.trim().length > 10 ? (
+              <div className="mt-8">
+                <MdContent>{festival.content}</MdContent>
               </div>
-              <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <li className="space-y-2">
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-indigo-600 text-sm shadow-sm">1</div>
-                  <p className="text-sm font-bold text-slate-600">지역 고유의 테마를 가장 생동감 있게 체험할 수 있는 기회</p>
-                </li>
-                <li className="space-y-2">
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-indigo-600 text-sm shadow-sm">2</div>
-                  <p className="text-sm font-bold text-slate-600">가족, 연인, 친구와 함께 잊지 못할 추억을 남길 수 있는 최고의 포토존</p>
-                </li>
-                <li className="space-y-2">
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-indigo-600 text-sm shadow-sm">3</div>
-                  <p className="text-sm font-bold text-slate-600">현지에서만 맛보고 즐길 수 있는 다채로운 문화 프로그램 구성</p>
-                </li>
-              </ul>
-            </div>
+            ) : (
+              <div className="bg-gradient-to-br from-indigo-50/50 to-white p-8 md:p-12 rounded-[2.5rem] border border-indigo-100/50 my-12 shadow-sm space-y-8">
+                <div className="flex items-center gap-3 text-indigo-600">
+                  <Sparkles className="w-6 h-6" />
+                  <h4 className="text-xl font-black">추천 포인트</h4>
+                </div>
+                <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <li className="space-y-2">
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-indigo-600 text-sm shadow-sm">1</div>
+                    <p className="text-sm font-bold text-slate-600">지역 고유의 테마를 가장 생동감 있게 체험할 수 있는 기회</p>
+                  </li>
+                  <li className="space-y-2">
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-indigo-600 text-sm shadow-sm">2</div>
+                    <p className="text-sm font-bold text-slate-600">가족, 연인, 친구와 함께 잊지 못할 추억을 남길 수 있는 최고의 포토존</p>
+                  </li>
+                  <li className="space-y-2">
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-black text-indigo-600 text-sm shadow-sm">3</div>
+                    <p className="text-sm font-bold text-slate-600">현지에서만 맛보고 즐길 수 있는 다채로운 문화 프로그램 구성</p>
+                  </li>
+                </ul>
+              </div>
+            )}
           </section>
           {/* 지도 위젯 */}
           {(festival.mapx && festival.mapy) ? (

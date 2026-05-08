@@ -180,6 +180,70 @@ async function supplementWithGemini(hotKeywords, type, existingTitles, geminiApi
 }
 // ──────────────────────────────────────────────────────────────────────────────
 
+async function generateFestivalContent(fest, geminiApiKey, geminiModel) {
+  if (!geminiApiKey) return '';
+  const model = geminiModel || process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiApiKey}`;
+
+  const promptText = `구글 검색으로 아래 축제의 실제 정보를 찾아서 방문자가 유용하게 읽을 수 있는 본문을 마크다운으로 작성해줘.
+
+축제 정보:
+- 이름: ${fest.title}
+- 날짜: ${fest.date}
+- 장소: ${fest.location}
+- 설명: ${fest.description}
+- 링크: ${fest.link}
+
+작성 규칙:
+1. 도입부: 이 축제만의 특징을 생동감 있게 2~3문장. generic 표현 절대 금지.
+2. ## 핵심 정보: 날짜/장소/입장료/교통편을 표(table)로 정리. 교통편은 지하철 몇 호선 몇 번 출구까지 구체적으로.
+3. ## 이런 분께 추천해요: 가족/연인/혼자 등 구체적 추천 대상과 이유 3가지.
+4. ## 방문 꿀팁: 최적 방문 시간대, 주차 현실, 준비물 등 실용적 팁 3가지.
+5. 분량: 600자 이상.
+6. 반드시 JSON만 출력: {"content": "마크다운 내용"}`;
+
+  const maxRetries = 3;
+  let delay = 10000;
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const res = await fetch(geminiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: promptText }] }],
+          tools: [{ googleSearch: {} }],
+          generationConfig: { temperature: 0.8 }
+        })
+      });
+
+      if (res.status === 503 || res.status === 429) {
+        console.warn(`[content 생성] ${fest.title} 재시도 ${attempt}/${maxRetries} (HTTP ${res.status}) - ${delay/1000}초 대기`);
+        await new Promise(r => setTimeout(r, delay));
+        delay *= 2;
+        continue;
+      }
+      if (!res.ok) {
+        console.warn(`[content 생성] ${fest.title} 실패 (HTTP ${res.status})`);
+        return '';
+      }
+
+      const json = await res.json();
+      let text = json.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      text = text.replace(/```json/gi, '').replace(/```/g, '').trim();
+      const parsed = JSON.parse(text);
+      return parsed.content || '';
+    } catch (err) {
+      console.warn(`[content 생성] ${fest.title} 오류 (시도 ${attempt}/${maxRetries}):`, err.message);
+      if (attempt < maxRetries) {
+        await new Promise(r => setTimeout(r, delay));
+        delay *= 2;
+      }
+    }
+  }
+  return '';
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
 // 마감일 만료 여부 확인 (날짜 범위의 마지막 날짜 기준)
 function isDeadlineExpired(deadline) {
   if (!deadline) return false;
@@ -1451,6 +1515,12 @@ ${JSON.stringify(selectedData)}`
         finalImageUrl = getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
       }
 
+      const generatedContent = await generateFestivalContent(
+        { title, date: fest.date, location: fest.location, description: fest.description, link: fest.link },
+        geminiApiKey,
+        process.env.GEMINI_MODEL
+      );
+
       const newFest = {
         id: fest.id || `fest-${Date.now()}`,
         region: fest.region || '전국',
@@ -1463,6 +1533,7 @@ ${JSON.stringify(selectedData)}`
         link: fest.link || '',
         mapx: fest.mapx || '',
         mapy: fest.mapy || '',
+        content: generatedContent,
       };
 
       existingData.festivals.unshift(newFest);
