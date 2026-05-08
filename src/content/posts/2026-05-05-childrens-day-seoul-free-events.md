@@ -1,5 +1,5 @@
 ---
-title: "2026 어린이날 서울·수도권 무료 행사 총정리 | 예약 없어도 오늘 바로 가는 꿀팁"
+title: "서울·수도권 2026 어린이날 무료 행사 총정리 | 예약 없이 바로 즐기는 꿀팁"
 date: "2026-05-05"
 slug: "2026-childrens-day-seoul-free-events"
 category: "festival"

@@ -1,5 +1,5 @@
 ---
-title: "2026 5월 수도권 가볼만한 곳 총정리 | 황금연휴부터 주말 나들이까지 다 모았다"
+title: "[수도권] 2026년 5월 황금연휴 축제 | 주말 나들이 가볼만한 곳 총정리"
 date: 2026-05-03
 slug: 2026-may-metropolitan-festival-guide
 category: festival

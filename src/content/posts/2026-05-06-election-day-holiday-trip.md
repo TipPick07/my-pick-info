@@ -1,12 +1,12 @@
 ---
-title: "6월 3일 선거일, 공휴일 맞아요? 투표 후 수도권 나들이 BEST 5 총정리"
+title: "[수도권] 2026년 6월 3일 선거일 공휴일! 투표 후 나들이 명소 BEST 5"
 originalTitle: 2026 지방선거일 수도권 나들이
 link: https://www.nec.go.kr
 officialTarget: 수도권 거주 전 연령층, 가족 단위
 officialDetails: 2026년 6월 3일 제9회 전국동시지방선거일 법정 임시공휴일 지정, 투표 후 수도권 나들이 명소 5곳 비교 안내
 officialDeadline: 2026.06.03
 date: 2026-05-06
-summary: 6월 3일 선거일은 법정 공휴일! 사전투표 미리 하고 하루 온전히 즐기는 수도권 나들이 BEST 5를 거리·비용·혼잡도·주차까지 한눈에 비교 정리했어요
+summary: "2026년 6월 3일 선거일, 수도권 나들이 명소 5곳을 거리, 비용, 주차 정보와 함께 소개합니다. 투표 후 즐거운 하루를 계획하세요!"
 description: 6월 3일 선거일은 법정 공휴일! 사전투표 미리 하고 하루 온전히 즐기는 수도권 나들이 BEST 5를 거리·비용·혼잡도·주차까지 한눈에 비교 정리했어요
 category: festival
 image: /images/blogs/fallback-festival-1.png

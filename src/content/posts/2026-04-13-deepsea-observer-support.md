@@ -1,12 +1,12 @@
 ---
-title: 원양선사 주목! 국제옵서버 승선경비, 정부가 든든하게 지원합니다!
+title: "[전국] 원양선사 국제옵서버 승선경비, 정부 지원으로 경영 안정!"
 originalTitle: 옵서버 승선경비 지원
 link: https://www.mof.go.kr
 officialTarget: 국제옵서버를 승선시킨 원양선사
 officialDetails: 해양수산부 공식 홈페이지를 통해 상세 정보 확인 가능
 officialDeadline: 상시
 date: 2026-04-13
-summary: 국제옵서버 승선으로 발생하는 원양선사의 경비 부담을 정부가 지원하는 사업으로, 상시 신청이 가능해 경영 안정과 국제 규정 준수에 큰 도움이 됩니다.
+summary: "원양선사 대상 국제옵서버 승선경비 지원! 정부 지원으로 경비 부담을 덜고 경영 안정을 도모하세요. 해양수산부 홈페이지에서 상세 내용 확인하세요."
 description: 국제옵서버 승선으로 발생하는 원양선사의 경비 부담을 정부가 지원하는 사업으로, 상시 신청이 가능해 경영 안정과 국제 규정 준수에 큰 도움이 됩니다.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-156.png

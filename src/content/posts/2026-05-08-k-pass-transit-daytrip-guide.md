@@ -1,12 +1,12 @@
 ---
-title: "K-패스·기후동행카드·인천e음카드 완벽 활용법: 수도권 나들이 교통비 확 줄이는 법"
+title: "수도권 K-패스·기후동행카드·인천e음카드: 교통비+식비 최대 절약 꿀팁"
 originalTitle: K-패스·기후동행카드·인천e음카드 나들이 절약 가이드
 link: https://www.k-pass.kr
 officialTarget: 수도권 거주 직장인·4060세대·육아가정 나들이족
 officialDetails: K-패스 환급 구조, 기후동행카드 손익분기점, 인천e음카드 캐시백을 조합해 수도권 나들이 교통비와 식비를 최대한 줄이는 실전 가이드
 officialDeadline: 2026.12.31
 date: 2026-05-08
-summary: "K-패스·기후동행카드·인천e음카드 중 내게 맞는 카드는? 수도권 나들이 코스별 교통비 시뮬레이션으로 가장 유리한 조합을 찾아드립니다."
+summary: "수도권 대중교통 이용자 및 나들이객을 위한 K-패스, 기후동행카드, 인천e음카드별 교통비 및 식비 절약 혜택을 비교 분석하고 최적의 카드 조합을 확인하세요."
 description: "K-패스·기후동행카드·인천e음카드 중 내게 맞는 카드는? 수도권 나들이 코스별 교통비 시뮬레이션으로 가장 유리한 조합을 찾아드립니다."
 category: benefits
 image: /images/blogs/climate-companion-card-seoul-transportation-456.png

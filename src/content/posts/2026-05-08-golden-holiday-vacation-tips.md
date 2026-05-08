@@ -1,12 +1,12 @@
 ---
-title: "연차 1장으로 만드는 6월 황금연휴 조합법"
+title: "[수도권] 2026년 6월 황금연휴: 연차 1장으로 3~4일 나들이 즐기기!"
 originalTitle: 연차 1장으로 만드는 6월 황금연휴 조합법
 link: https://tip-pick.com/blog/2026-05-08-golden-holiday-vacation-tips
 officialTarget: 수도권 직장인, 연차 계획 중인 2030~4050 직장인
 officialDetails: 2026년 6월 3일 선거일 공휴일을 활용한 황금연휴 조합법, 연차 1장으로 최대 3~4일 연휴 만들기, 수도권 추천 나들이 코스
 officialDeadline: 2026.06.03
 date: 2026-05-08
-summary: "6월 3일 선거일은 공휴일입니다. 연차 딱 1장만 써도 3~4일 황금연휴가 됩니다. 조합법 3가지와 수도권 추천 코스 총정리."
+summary: "2026년 6월 3일 공휴일을 활용, 연차 1장으로 3~4일 황금연휴를 즐기세요. 수도권 추천 나들이 코스로 특별한 휴가를 계획하세요."
 description: "6월 3일 선거일은 공휴일입니다. 연차 딱 1장만 써도 3~4일 황금연휴가 됩니다. 조합법 3가지와 수도권 추천 코스 총정리."
 category: festival
 image: /images/blogs/festival-한강페스티벌-817.png

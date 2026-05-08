@@ -1,12 +1,12 @@
 ---
-title: 오늘 마감! 놓치지 마세요, 경기도 만 24세 청년 25만원 지원!
+title: "경기도 만 24세 청년 기본소득 25만원 (연간 최대 100만원) 신청 오늘 마감!"
 originalTitle: 2026년 2분기 청년 기본소득 신청
 link: https://apply.jobaba.net
 officialTarget: 경기도 거주 만 24세 청년
 officialDetails: 행복한 미래를 꿈꾸는 경기도 청년들을 위해 분기별 25만 원(연간 최대 100만 원)을 지역화폐로 지원합니다. 만 24세가 되는 분기마다 놓치지 말고 신청하세요.
 officialDeadline: 오늘 마감
 date: 2026-04-08
-summary: 오늘 마감되는 경기도 만 24세 청년 기본소득 신청, 팁픽이 자세한 신청 방법과 놓치면 아쉬울 핵심 포인트를 안내합니다.
+summary: "경기도 만 24세 청년 대상, 분기별 25만원(연간 최대 100만원) 지역화폐 지원! 신청 마감 임박, 지금 바로 확인하세요."
 description: 오늘 마감되는 경기도 만 24세 청년 기본소득 신청, 팁픽이 자세한 신청 방법과 놓치면 아쉬울 핵심 포인트를 안내합니다.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-322.png

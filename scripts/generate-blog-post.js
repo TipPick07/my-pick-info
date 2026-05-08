@@ -407,7 +407,7 @@ officialTarget: ${targetItem.target || '정보 없음'}
 officialDetails: ${targetItem.details || targetItem.description || '정보 없음'}
 officialDeadline: ${targetItem.deadline || targetItem.date || '상시'}
 date: ${today}
-summary: (메타 디스크립션용 — 핵심키워드 1회, 클릭 유도 문장, 150자 이내)
+summary: (구글 검색 결과에 그대로 노출되는 설명. 구체적 날짜나 금액 수치 반드시 포함. 형식: 언제/어디서 + 무엇을 + 얼마나 + 지금 확인하세요 순서. 반드시 ~하세요 또는 ~챙기세요로 끝낼 것. 100자 이내.)
 description: (summary와 동일한 내용으로 작성)
 category: ${postType === 'festival' ? 'festival' : 'benefit'}
 image: ${targetItem.image || ''}

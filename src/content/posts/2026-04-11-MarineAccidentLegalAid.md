@@ -1,12 +1,12 @@
 ---
-title: 바다 위 예상치 못한 시련, '국선 심판변론인'이 든든한 방패가 되어 드립니다!
+title: "국선 심판변론인 제도: 해양사고 무료 법률 지원 혜택"
 originalTitle: 해양사고 국선 심판변론인 선정 지원
 link: https://www.kmst.go.kr
 officialTarget: 해양사고를 입은 사회적 약자 (미성년자, 70세 이상, 청각/언어/심신장애 의심자, 중위소득 60% 이하, 고졸 이하, 국가유공자 등)
 officialDetails: 정보 없음
 officialDeadline: 상시 접수
 date: 2026-04-11
-summary: 해양사고를 겪은 사회적 약자를 위해 국가가 무료로 전문 변호사를 지원하는 제도를 팁픽이 자세히 안내해 드립니다.
+summary: "해양사고 사회적 약자 대상, 국선 심판변론인 무료 변호사 지원 혜택을 지금 확인하세요."
 description: 해양사고를 겪은 사회적 약자를 위해 국가가 무료로 전문 변호사를 지원하는 제도를 팁픽이 자세히 안내해 드립니다.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-469.png

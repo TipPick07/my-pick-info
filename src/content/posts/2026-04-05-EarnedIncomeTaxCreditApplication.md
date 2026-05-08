@@ -1,5 +1,5 @@
 ---
-title: 🔥D-15! 열심히 일한 당신, 2026 근로장려금 꼭 챙기세요! (놓치면 후회!)
+title: "전국 2026 근로장려금 최대 300만원 지원"
 originalTitle: 2026 근로장려금 정기 신청
 image: "/images/blogs/earned-income-tax.png"
 ogImage: "https://tip-pick.com/images/blogs/earned-income-tax.png"
@@ -8,7 +8,7 @@ officialTarget: 가구별 소득 요건 충족자
 officialDetails: 열심히 일하지만 소득이 적어 생활이 어려운 가구에 실질적인 도움을 주는 환급 제도입니다. 정해진 기간 내에 신청하여 가계 경제에 보탬이 되는 혜택을 누리세요.
 officialDeadline: D-15
 date: 2026-04-05
-summary: 소득이 적어 생활이 어려운 근로 가구에게 최대 300만원까지 지급되는 2026년 근로장려금 정기 신청이 마감 D-15를 앞두고 있습니다.
+summary: "소득이 적은 근로 가구에게 최대 300만원까지 지급되는 2026 근로장려금. 지금 바로 신청 대상과 방법을 확인하세요."
 description: 소득이 적어 생활이 어려운 근로 가구에게 최대 300만원까지 지급되는 2026년 근로장려금 정기 신청이 마감 D-15를 앞두고 있습니다.
 category: 정보
 tags: [근로장려금, EITC, 소득지원, 가계경제, 세금환급, 국세청, 홈택스]

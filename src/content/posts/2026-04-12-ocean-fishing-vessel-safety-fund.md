@@ -1,12 +1,12 @@
 ---
-title: 흔들림 없는 바다를 위한 투자! 원양어선 안전관리 펀드, 팁픽이 꼼꼼히 짚어드립니다
+title: "원양어선 안전관리 펀드: 노후선 교체, 안전 강화, 어선원 복지 지원!"
 originalTitle: 원양어선안전관리
 link: https://www.gov.kr/portal/rcvfvrSvc/dtlEx/119200000022
 officialTarget: ｢원양산업발전법｣ 제6조에 따른 원양어업허가를 받은 자(원양어업허가의 유예를 받은 자 포함)
 officialDetails: 노후 원양어선의 대체 및 건조를 지원하여 원양어선의 안전성을 확보하고 어선원 복지 증진에 기여하는 안전펀드 조성 사업입니다.
 officialDeadline: 공고에 따름
 date: 2026-04-12
-summary: 노후 원양어선 교체와 안전 강화를 위한 정부 지원 펀드! 어선원 복지까지 생각하는 이 기회, 수도권 팁픽에서 자세히 알아보세요.
+summary: "노후 원양어선 교체 및 안전 강화, 어선원 복지 증진을 위한 정부 지원 펀드! 지금 바로 신청 자격과 방법을 확인하세요."
 description: 노후 원양어선 교체와 안전 강화를 위한 정부 지원 펀드! 어선원 복지까지 생각하는 이 기회, 수도권 팁픽에서 자세히 알아보세요.
 category: 정보
 image: /images/blogs/korea-welfare-benefit-212.png

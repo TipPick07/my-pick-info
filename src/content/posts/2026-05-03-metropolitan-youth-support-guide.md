@@ -1,5 +1,5 @@
 ---
-title: "2026 수도권 청년 지원금 총정리 | 서울·경기·인천 주거·생활·취업 한번에"
+title: "2026 수도권 청년 지원금 (서울, 경기, 인천) | 주거·생활·취업 통합 지원"
 date: 2026-05-03
 slug: 2026-metropolitan-youth-support-guide
 category: benefit

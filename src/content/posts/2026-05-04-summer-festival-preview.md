@@ -1,5 +1,5 @@
 ---
-title: "2026 수도권 여름 축제 미리보기 총정리 | 워터밤·펜타포트·민트라이프까지 다 모았다"
+title: "[수도권] 2026 여름 축제: 워터밤, 펜타포트, 민트라이프 일정 및 최신 정보"
 date: 2026-05-04
 slug: 2026-summer-festival-preview
 category: festival
