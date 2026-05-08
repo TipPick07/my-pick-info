@@ -9,8 +9,8 @@ date: 2026-05-08
 summary: "6월 3일 선거일은 공휴일입니다. 연차 딱 1장만 써도 3~4일 황금연휴가 됩니다. 조합법 3가지와 수도권 추천 코스 총정리."
 description: "6월 3일 선거일은 공휴일입니다. 연차 딱 1장만 써도 3~4일 황금연휴가 됩니다. 조합법 3가지와 수도권 추천 코스 총정리."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-한강페스티벌-817.png
+ogImage: "https://tip-pick.com/images/blogs/festival-한강페스티벌-817.png"
 tags: [황금연휴, 연차, 선거일공휴일, 6월연휴, 수도권나들이, 당일치기, 연차조합, 직장인여행]
 officialRequirements: []
 officialHowToApply: ["연차 신청은 사내 시스템 또는 팀장 보고 후 진행", "6월 2~5일 중 원하는 날 1일 선택"]

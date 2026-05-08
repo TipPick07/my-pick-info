@@ -9,8 +9,8 @@ date: 2026-05-08
 summary: "서울 50플러스·인천 고령사회대응센터·경기 베이비부머 지원 중 내 지역 혜택이 가장 많은 곳은? 지자체별 중장년 복지 정책을 한눈에 비교합니다."
 description: "서울 50플러스·인천 고령사회대응센터·경기 베이비부머 지원 중 내 지역 혜택이 가장 많은 곳은? 지자체별 중장년 복지 정책을 한눈에 비교합니다."
 category: benefits
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/a-group-of-happy-elderly-peopl-375.png
+ogImage: "https://tip-pick.com/images/blogs/a-group-of-happy-elderly-peopl-375.png"
 tags: [중장년지원금, 50플러스, 베이비부머, 4060복지, 중장년일자리, 재취업지원, 서울복지, 인천복지, 경기복지, 은퇴준비]
 officialRequirements: []
 officialHowToApply: ["서울: 50플러스 포털(50plus.or.kr) 회원가입 후 프로그램 신청", "인천: 인천고령사회대응센터 방문 또는 전화 상담", "경기: 경기도일자리재단 홈페이지(jobaba.net) 신청"]

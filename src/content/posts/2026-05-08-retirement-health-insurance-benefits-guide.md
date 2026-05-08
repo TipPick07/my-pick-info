@@ -9,8 +9,8 @@ date: 2026-05-08
 summary: "퇴직 후 건보료가 갑자기 2~3배 오른다? 임의계속가입 제도와 피부양자 전략으로 최대 2년 아끼는 법, 지원금 탈락 시 이의신청까지 총정리합니다."
 description: "퇴직 후 건보료가 갑자기 2~3배 오른다? 임의계속가입 제도와 피부양자 전략으로 최대 2년 아끼는 법, 지원금 탈락 시 이의신청까지 총정리합니다."
 category: benefits
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/korea-welfare-benefit-691.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-691.png"
 tags: [건강보험료, 지역가입자, 임의계속가입, 은퇴준비, 퇴직후건보료, 소득인정액, 기초연금, 지원금이의신청, 복지재테크, 4060]
 officialRequirements: []
 officialHowToApply: ["임의계속가입: 퇴직일로부터 36개월 이내, 국민건강보험공단(nhis.or.kr) 신청", "지원금 이의신청: 처분 통보일로부터 90일 이내, 행정복지센터 방문"]

@@ -9,8 +9,8 @@ date: 2026-05-08
 summary: "K-패스·기후동행카드·인천e음카드 중 내게 맞는 카드는? 수도권 나들이 코스별 교통비 시뮬레이션으로 가장 유리한 조합을 찾아드립니다."
 description: "K-패스·기후동행카드·인천e음카드 중 내게 맞는 카드는? 수도권 나들이 코스별 교통비 시뮬레이션으로 가장 유리한 조합을 찾아드립니다."
 category: benefits
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/climate-companion-card-seoul-transportation-456.png
+ogImage: "https://tip-pick.com/images/blogs/climate-companion-card-seoul-transportation-456.png"
 tags: [K패스, 기후동행카드, 인천e음카드, 교통비절약, 수도권나들이, 대중교통환급, 지역화폐, 나들이꿀팁, 주말여행, 4060]
 officialRequirements: []
 officialHowToApply: ["K-패스 앱 또는 카드사 홈페이지에서 신청", "기후동행카드 서울 지하철 1~9호선 게이트에서 충전", "인천e음카드 인천시 공식 앱에서 발급"]

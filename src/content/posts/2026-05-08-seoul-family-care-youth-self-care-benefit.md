@@ -9,8 +9,8 @@ date: 2026-05-08
 summary: 서울에 거주하는 9~39세 가족돌봄청소년·청년이라면, 최대 월 40만원의 자기돌봄비를 지원받아 경제적 부담을 덜고 생활 안정을 찾을 수 있습니다. 지금 바로 신청하세요!
 description: 서울에 거주하는 9~39세 가족돌봄청소년·청년이라면, 최대 월 40만원의 자기돌봄비를 지원받아 경제적 부담을 덜고 생활 안정을 찾을 수 있습니다. 지금 바로 신청하세요!
 category: benefit
-image: /images/blogs/fallback-benefit-3.png
-ogImage: "tags: [서울시 지원금, 가족돌봄, 청소년 복지, 청년 혜택, 생활비 지원, 복지 서비스, 자기돌봄, 간병비 지원, 의료비 보조, 경제적 안정]"
+image: /images/blogs/korea-welfare-benefit-843.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-843.png"
 officialRequirements: ["돌봄이 필요한 가족의 진단서 또는 의사소견서 등 증빙자료"]
 officialHowToApply: ["서울복지포털(welfare.seoul.go.kr)에서 온라인 신청","만 14세 미만은 법정대리인과 함께 거주지 관할 구청 방문 신청"]
 officialEligibilityQuiz: ["서울에 거주하는 9세~39세 청소년 또는 청년이신가요?","장애, 정신·신체의 질병 등으로 돌봄이 필요한 가족이 있나요?","가구 소득이 기준 중위소득 150% 이하인가요?"]
