@@ -90,9 +90,13 @@ function calcHotScore(item, hotKeywords) {
 }
 // ──────────────────────────────────────────────────────────────────────────────
 
-// 제목 정규화: [지역] prefix 제거 + 공백·특수문자 제거 → 중복 감지용
+// 제목 정규화: [지역] prefix 제거 + 2026 제거 + 특수문자/공백 전부 제거 → 중복 감지용
 function normTitle(title) {
-  return (title || '').replace(/^\[[^\]]+\]\s*/, '').replace(/\s+/g, '').toLowerCase();
+  return (title || '')
+    .replace(/^\[[^\]]+\]\s*/, '')
+    .replace(/2026/g, '')
+    .replace(/[^가-힣a-zA-Z0-9]/g, '')
+    .toLowerCase();
 }
 
 // ─── 핫 키워드 공공데이터 매칭 여부 확인 + Gemini 보완 ──────────────────────
@@ -1436,7 +1440,8 @@ ${JSON.stringify(selectedData)}`
     );
     for (const item of festSupplements) {
       const norm = normTitle(item.title);
-      if (!existingFestTitles.has(item.title) && !existingFestNorm.has(norm)) {
+      const isSimilar = [...existingFestNorm].some(n => n && (norm.includes(n) || n.includes(norm)));
+      if (!existingFestTitles.has(item.title) && !isSimilar) {
         const _festId = item.id || `gemini-fest-${Date.now()}`;
         const _festFallbackNum = pickFallback(_festId, 'festival', usedFestFallbacks);
         existingData.festivals.unshift({
@@ -1455,14 +1460,20 @@ ${JSON.stringify(selectedData)}`
         if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
         console.log(`✓ [Gemini 보완 축제] 추가됨: ${item.title}`);
       } else {
-        console.log(`  ✗ [Gemini 보완 축제] 중복 스킵: ${item.title}`);
+        console.log(`  ✗ [Gemini 보완 축제] 유사 중복 스킵: ${item.title}`);
       }
     }
     // ──────────────────────────────────────────────────────────────────────────────
 
     for (const fest of allFestItems) {
       const title = (fest.title || '').trim();
-      if (!title || existingFestTitles.has(title)) continue;
+      if (!title) continue;
+      const norm = normTitle(title);
+      const isSimilar = [...existingFestNorm].some(n => n && (norm.includes(n) || n.includes(norm)));
+      if (existingFestTitles.has(title) || isSimilar) {
+        console.log(`  ✗ [축제] 유사 중복 스킵: ${title}`);
+        continue;
+      }
 
       // ─── 수도권 외 지역 축제 필터링 ─────────────────────────────────────────
       const festText = [fest.title, fest.description, fest.location, fest.region].filter(Boolean).join(' ');
@@ -1538,6 +1549,7 @@ ${JSON.stringify(selectedData)}`
 
       existingData.festivals.unshift(newFest);
       existingFestTitles.add(title);
+      existingFestNorm.add(normTitle(title));
       if (DRY_RUN) { console.log('[DRY RUN] 파일 저장 건너뜀'); } else {
       fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
       }
