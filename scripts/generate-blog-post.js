@@ -210,6 +210,23 @@ function calcScore(item, postType, hotKeywords = []) {
   return score;
 }
 
+function normTitle(title) {
+  return (title || '')
+    .replace(/\[[^\]]*\]/g, '')
+    .replace(/2026|2025/g, '')
+    .replace(/[^가-힣a-zA-Z0-9]/g, '')
+    .toLowerCase();
+}
+
+function isDuplicate(newNorm, existingNormSet) {
+  for (const existing of existingNormSet) {
+    if (newNorm.includes(existing) || existing.includes(newNorm)) return true;
+    if (newNorm.length >= 10 && existing.length >= 10 &&
+        newNorm.slice(0, 10) === existing.slice(0, 10)) return true;
+  }
+  return false;
+}
+
 async function main() {
   const DRY_RUN = process.env.DRY_RUN === 'true';
   if (DRY_RUN) {
@@ -253,30 +270,30 @@ async function main() {
     const existingFiles = fs.readdirSync(postsDir);
     const existingPostsList = existingFiles.filter(f => f.endsWith('.md')).map(file => {
       const content = fs.readFileSync(path.join(postsDir, file), 'utf8');
-      const originalTitleMatch = content.match(/originalTitle:\s*"(.*)"/) || content.match(/originalTitle:\s*(.*)\r?\n/);
-      let title = originalTitleMatch ? originalTitleMatch[1].replace(/"/g, '').trim() : null;
-
+      const originalTitleMatch = content.match(/originalTitle:\s*["']?(.+?)["']?\s*$/m);
+      const originalTitle = originalTitleMatch ? originalTitleMatch[1].trim() : null;
+      let title = originalTitle;
       if (!title) {
         const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\r?\n/);
         title = titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
       }
-      return { title, filename: file.replace('.md', '') };
+      return { title, originalTitle, filename: file.replace('.md', '') };
     }).filter(p => p.title);
 
     const alreadyPostedTitles = existingPostsList.map(p => p.title);
-    const alreadyPostedNorm = new Set(
-      existingPostsList.map(p =>
-        (p.title || '').replace(/^\[[^\]]+\]\s*/, '').replace(/\s+/g, '').toLowerCase()
-      )
-    );
+    const alreadyPostedNorm = new Set();
+    for (const p of existingPostsList) {
+      if (p.title) alreadyPostedNorm.add(normTitle(p.title));
+      if (p.originalTitle) alreadyPostedNorm.add(normTitle(p.originalTitle));
+    }
 
     existingPostsList.sort((a, b) => b.filename.localeCompare(a.filename));
     const recentPostsForLinking = existingPostsList.slice(0, 30).map(p => `- [${p.title}](/blog/${p.filename})`).join('\n');
 
     const unpostedItems = allItems.filter(item => {
       if (alreadyPostedTitles.includes(item.title)) return false;
-      const norm = (item.title || '').replace(/^\[[^\]]+\]\s*/, '').replace(/\s+/g, '').toLowerCase();
-      if (alreadyPostedNorm.has(norm)) return false;
+      const norm = normTitle(item.title);
+      if (isDuplicate(norm, alreadyPostedNorm)) return false;
       if (postType === 'festival') {
         const dateMatches = [...String(item.date || '').matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
         if (dateMatches.length > 0) {
