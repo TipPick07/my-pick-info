@@ -212,17 +212,22 @@ function calcScore(item, postType, hotKeywords = []) {
 
 function normTitle(title) {
   return (title || '')
-    .replace(/\[[^\]]*\]/g, '')
+    .replace(/\[.*?\]/g, '')
     .replace(/2026|2025/g, '')
-    .replace(/[^가-힣a-zA-Z0-9]/g, '')
-    .toLowerCase();
+    .replace(/[^가-힣a-z0-9]/gi, '')
+    .toLowerCase()
+    .trim();
 }
 
 function isDuplicate(newNorm, existingNormSet) {
+  if (!newNorm || newNorm.length < 4) return false;
   for (const existing of existingNormSet) {
+    if (!existing || existing.length < 4) continue;
+    if (newNorm === existing) return true;
     if (newNorm.includes(existing) || existing.includes(newNorm)) return true;
-    if (newNorm.length >= 10 && existing.length >= 10 &&
-        newNorm.slice(0, 10) === existing.slice(0, 10)) return true;
+    const shorter = newNorm.length < existing.length ? newNorm : existing;
+    const minLen = Math.min(10, shorter.length);
+    if (minLen >= 4 && newNorm.slice(0, minLen) === existing.slice(0, minLen)) return true;
   }
   return false;
 }
@@ -280,20 +285,21 @@ async function main() {
       return { title, originalTitle, filename: file.replace('.md', '') };
     }).filter(p => p.title);
 
-    const alreadyPostedTitles = existingPostsList.map(p => p.title);
     const alreadyPostedNorm = new Set();
-    for (const p of existingPostsList) {
+    existingPostsList.forEach(p => {
       if (p.title) alreadyPostedNorm.add(normTitle(p.title));
       if (p.originalTitle) alreadyPostedNorm.add(normTitle(p.originalTitle));
-    }
+    });
 
     existingPostsList.sort((a, b) => b.filename.localeCompare(a.filename));
     const recentPostsForLinking = existingPostsList.slice(0, 30).map(p => `- [${p.title}](/blog/${p.filename})`).join('\n');
 
     const unpostedItems = allItems.filter(item => {
-      if (alreadyPostedTitles.includes(item.title)) return false;
-      const norm = normTitle(item.title);
-      if (isDuplicate(norm, alreadyPostedNorm)) return false;
+      const normItem = normTitle(item.title);
+      if (isDuplicate(normItem, alreadyPostedNorm)) {
+        console.log(`  [중복 스킵] ${item.title}`);
+        return false;
+      }
       if (postType === 'festival') {
         const dateMatches = [...String(item.date || '').matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
         if (dateMatches.length > 0) {
