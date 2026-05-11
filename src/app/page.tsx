@@ -25,8 +25,8 @@ export default function Home() {
   const todayStr = `${kstYear}-${kstMonth}-${kstDay}`;
 
   const todayPosts = allPosts.filter(post => post.date === todayStr);
-  const todayFestivals = todayPosts.filter(post => post.category === 'festival');
-  const todayBenefits = todayPosts.filter(post => post.category === 'benefit');
+  const todayFestivals = todayPosts.filter(post => post.category === 'festival' || post.category === 'festivals');
+  const todayBenefits = todayPosts.filter(post => post.category === 'benefit' || post.category === 'benefits');
 
   const todayUpdates = {
     festivals: todayFestivals,
