@@ -214,6 +214,7 @@ function normTitle(title) {
   return (title || '')
     .replace(/\[.*?\]/g, '')
     .replace(/2026|2025/g, '')
+    .replace(/서울특별시|서울시|서울|인천광역시|인천시|인천|경기도|경기|수도권/g, '')
     .replace(/[^가-힣a-z0-9]/gi, '')
     .toLowerCase()
     .trim();
