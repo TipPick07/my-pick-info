@@ -9,8 +9,8 @@ date: 2026-05-13
 summary: "개막 첫날 30만 명이 다녀간 서울국제정원박람회, 무료 입장에 167개 정원까지. 포켓몬 팝업은 6월 21일에 끝납니다. 지금 바로 동선 짜세요."
 description: "개막 첫날 30만 명이 다녀간 서울국제정원박람회, 무료 입장에 167개 정원까지. 포켓몬 팝업은 6월 21일에 끝납니다. 지금 바로 동선 짜세요."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-266642-228.png
+ogImage: "https://tip-pick.com/images/blogs/festival-266642-228.png"
 tags: [서울국제정원박람회, 서울숲, 성수동, 무료축제, 포켓몬시크릿포레스트, 5월나들이, 6월행사, 가족나들이, 서울가볼만한곳, 수도권축제]
 officialRequirements: []
 officialHowToApply: ["별도 예약 없이 현장 무료 입장", "포켓몬 시크릿 포레스트 등 일부 체험은 현장 유료"]

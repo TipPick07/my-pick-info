@@ -9,8 +9,8 @@ date: 2026-05-13
 summary: "소득이 적을수록 더 많이 주는 서울 안심소득, 이제 이름이 '디딤돌소득'으로 바뀌었습니다. 2026년 기준 내가 받을 수 있는 금액 계산법과 지원 현황을 총정리했습니다."
 description: "소득이 적을수록 더 많이 주는 서울 안심소득, 이제 이름이 '디딤돌소득'으로 바뀌었습니다. 2026년 기준 내가 받을 수 있는 금액 계산법과 지원 현황을 총정리했습니다."
 category: benefit
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/korea-welfare-benefit-656.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-656.png"
 tags: [서울안심소득, 디딤돌소득, 서울복지, 저소득지원금, 2026지원금, 서울시지원금, 복지사각지대, 하후상박, 가족돌봄청년, 소득보장]
 officialRequirements: ["서울시 주민등록 거주", "가구소득 중위소득 50% 이하", "재산 3억 2,600만 원 이하", "국민기초생활보장 비수급자"]
 officialHowToApply: ["서울복지포털(wis.seoul.go.kr) 온라인 신청", "예비 선정 후 동주민센터 방문 서류 제출"]

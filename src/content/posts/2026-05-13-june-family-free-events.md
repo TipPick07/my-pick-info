@@ -9,8 +9,8 @@ date: 2026-05-13
 summary: 돈 안 들고 애들 좋아하는 6월 무료 행사만 뽑았습니다. 서울·경기 가족 나들이 완벽 정리.
 description: 돈 안 들고 애들 좋아하는 6월 무료 행사만 뽑았습니다. 서울·경기 가족 나들이 완벽 정리.
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-293030-499.png
+ogImage: "https://tip-pick.com/images/blogs/festival-293030-499.png"
 tags: [6월행사, 무료행사, 가족나들이, 서울행사, 경기행사, 어린이체험, 주말나들이, 여름행사]
 officialRequirements: []
 officialHowToApply: ["현장 자유 방문", "일부 프로그램 사전 예약 필요 (각 공식 사이트 확인)"]
