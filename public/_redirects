@@ -1,8 +1,5 @@
 https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 
-# /festival/* (singular) → /festivals/ (plural) 301
-/festival/* /festivals/ 301
-
 # 개별 blog 404 → /blog/ 301
 /blog/2026-incheon-childrens-day /blog/ 301
 /blog/2026-seoul-gyeonggi-childrens-day /blog/ 301
