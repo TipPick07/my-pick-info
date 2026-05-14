@@ -4,8 +4,9 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron: '5 20 * * *' # 매일 아침 한국시간 5시 5분 (UTC 20시 5분)
+  # schedule:
+  #   - cron: '5 20 * * *' # 매일 아침 한국시간 5시 5분 (UTC 20시 5분)
+  # 📌 AdSense 4차 심사 대응 중 - 자동배포 일시 중단 (2026-05-14 ~ 6/5)
   workflow_dispatch:
 
 permissions:
