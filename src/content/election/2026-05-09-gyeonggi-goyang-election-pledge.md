@@ -55,5 +55,5 @@ officialTip: "노후계획도시 특별법에 따른 각 후보의 용적률 상
 ---
 
 **💰 선거와 무관하게 당장 챙겨야 할 지원금**
-* 👉 [경기 청년 전월세 지원 알아보기](/blog/2026-05-01-gyeonggi-youth-rent-support)
+* 👉 [경기 청년 전월세 지원 알아보기](/blog/2026-04-08-gyeonggi-youth-basic-income)
 * 👉 [근로장려금 신청 방법 총정리](/blog/2026-05-07-national-earned-income-tax-credit-application)

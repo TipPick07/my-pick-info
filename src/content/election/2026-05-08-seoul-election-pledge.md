@@ -56,4 +56,4 @@ officialTip: "자녀의 연령대(유치원/초/중/고)에 맞춘 스마트기�
 
 **💰 선거와 무관하게 당장 챙겨야 할 지원금**
 * 👉 [서울시 보육 지원 혜택 확인하기](/blog/2026-04-28-seoul-childcare-support)
-* 👉 [서울 청년 월세 지원 확대 알아보기](/blog/2026-05-02-seoul-youth-rent-support-expanded)
+* 👉 [서울 청년 월세 지원 확대 알아보기](/blog/2026-04-30-youth-rent-support)

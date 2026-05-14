@@ -72,5 +72,5 @@ officialTip: "각 후보의 재건축 인허가 단축 기간과 종부세 과�
 
 ---
 **💡 선거와 무관하게 당장 챙겨야 할 지원금 (팁픽 추천)**
-* [서울 청년 월세 지원금 알아보기](/blog/2026-05-06-seoul-youth-rent-support)
-* [수도권 유류비 지원금 신청하기](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit)
+* [서울 청년 월세 지원금 알아보기](/blog/2026-04-30-youth-rent-support)
+* [수도권 유류비 지원금 신청하기](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)

@@ -61,5 +61,5 @@ officialTip: "거주하는 지역이 경기 남부인지 북부인지, 신도시
 ---
 
 **선거와 무관하게 당장 챙겨야 할 경기도 지원금**
-* [경기도 청년 전월세 보증금 이자 지원](/blog/2026-05-01-gyeonggi-youth-rent-support)
+* [경기도 청년 전월세 보증금 이자 지원](/blog/2026-04-08-gyeonggi-youth-basic-income)
 * [경기도 청년 기본소득 신청 안내](/blog/2026-04-08-gyeonggi-youth-basic-income)

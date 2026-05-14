@@ -57,4 +57,4 @@ officialTip: "후보별 반도체 기본소득 및 인프라 정책 확인 필�
 
 **💰 선거와 무관하게 당장 챙겨야 할 지원금**
 * 👉 [경기 청년 기본소득 알아보기](/blog/2026-04-08-gyeonggi-youth-basic-income)
-* 👉 [수도권 유류비 지원 혜택 확인하기](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit)
+* 👉 [수도권 유류비 지원 혜택 확인하기](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)

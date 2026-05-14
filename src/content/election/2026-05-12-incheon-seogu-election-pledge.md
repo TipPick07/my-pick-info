@@ -68,5 +68,5 @@ officialTip: "단순한 정당 투표가 아닌, 출퇴근 시간을 줄여줄 G
 ### 💸 선거와 무관하게 당장 챙겨야 할 지원금 (놓치면 손해!)
 후보들의 공약이 실현되기까지 기다릴 필요 없습니다. 지금 당장 신청 가능한 정부 및 지자체 지원금을 확인하세요.
 
-*   [수도권 출퇴근러 필수! 유류비 및 교통비 지원 총정리](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit)
+*   [수도권 출퇴근러 필수! 유류비 및 교통비 지원 총정리](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)
 *   [최대 330만 원 환급! 2026 근로장려금 정기 신청 완벽 가이드](/blog/2026-05-07-national-earned-income-tax-credit-application)

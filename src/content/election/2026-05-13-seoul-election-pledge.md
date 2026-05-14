@@ -70,5 +70,5 @@ officialTip: "두 후보 모두 '현금성 복지'와 '주거 안정'을 내세�
 
 지방선거 공약도 좋지만, 지금 당장 내 통장으로 받을 수 있는 혜택을 놓치지 마세요. 예산이 소진되기 전에 서둘러야 합니다.
 
-* 👉 [서울 청년 월세 지원금 확대 (최대 240만 원 혜택)](/blog/2026-05-02-seoul-youth-rent-support-expanded)
+* 👉 [서울 청년 월세 지원금 확대 (최대 240만 원 혜택)](/blog/2026-04-30-youth-rent-support)
 * 👉 [서울 자영업자 육아휴직 지원금 (1인 사업장도 가능!)](/blog/2026-04-29-seoul-selfemployed-paternity-leave-support)

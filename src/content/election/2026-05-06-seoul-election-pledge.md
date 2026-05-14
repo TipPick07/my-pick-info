@@ -58,5 +58,5 @@ officialTip: "본인의 주거 형태(자가/전월세)에 맞춰 재건축 분�
 ---
 
 **💰 선거와 무관하게 당장 챙겨야 할 지원금**
-* 👉 [월 최대 20만 원 혜택! 서울 청년 월세 지원 알아보기](/blog/2026-05-06-seoul-youth-rent-support)
+* 👉 [월 최대 20만 원 혜택! 서울 청년 월세 지원 알아보기](/blog/2026-04-30-youth-rent-support)
 * 👉 [전월세 사기 철벽 방어! 서울 1인가구 안심계약 지원](/blog/2026-05-01-seoul-single-household-support)

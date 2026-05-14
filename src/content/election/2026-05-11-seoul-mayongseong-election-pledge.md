@@ -72,5 +72,5 @@ officialTip: "단순한 공공임대 물량 발표를 넘어, 실제 입주 가�
 
 ---
 **💡 선거와 무관하게 당장 챙겨야 할 지원금 (팁픽 추천)**
-* [서울 청년 월세 지원금(확대판) 알아보기](/blog/2026-05-02-seoul-youth-rent-support-expanded)
+* [서울 청년 월세 지원금(확대판) 알아보기](/blog/2026-04-30-youth-rent-support)
 * [전국 월세 보증금 지원 혜택 확인하기](/blog/2026-04-10-monthly-rent-guarantee)

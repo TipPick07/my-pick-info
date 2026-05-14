@@ -71,4 +71,4 @@ officialTip: "교통비 절감이 시급한지, 지역 내 일자리와 인프�
 도지사가 바뀌기 전이라도 경기도민이 챙길 수 있는 현금성 혜택이 있습니다. 지금 당장 확인하고 신청하세요.
 
 * 👉 [경기도 청년 기본소득 2분기 접수 (최대 100만 원 지역화폐 지급)](/blog/2026-04-08-gyeonggi-youth-basic-income)
-* 👉 [수도권(서울/경기/인천) 통합 유류비 지원 혜택 알아보기](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit)
+* 👉 [수도권(서울/경기/인천) 통합 유류비 지원 혜택 알아보기](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)

@@ -58,4 +58,4 @@ officialTip: "인천e음카드 캐시백 상향 한도(월 50만 원~100만 원)
 
 **💰 선거와 무관하게 당장 챙겨야 할 인천/수도권 혜택**
 * 👉 [인천 시티투어 5월 특별 할인 프로모션 확인하기](/blog/2026-05-03-incheon-citytour-may-promotion)
-* 👉 [수도권 출퇴근러 필수! 유류비 지원 혜택 알아보기](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit)
+* 👉 [수도권 출퇴근러 필수! 유류비 지원 혜택 알아보기](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)

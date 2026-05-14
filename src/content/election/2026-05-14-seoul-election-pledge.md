@@ -61,5 +61,5 @@ officialTip: "부동산 소유 여부 및 대중교통 이용 빈도에 따라 �
 ---
 
 **선거와 무관하게 당장 챙겨야 할 서울시 지원금**
-* [서울 청년 월세 지원금 (최대 20만 원 지원)](/blog/2026-05-06-seoul-youth-rent-support)
-* [서울 청년 월세 확대 방안 알아보기](/blog/2026-05-02-seoul-youth-rent-support-expanded)
+* [서울 청년 월세 지원금 (최대 20만 원 지원)](/blog/2026-04-30-youth-rent-support)
+* [서울 청년 월세 확대 방안 알아보기](/blog/2026-04-30-youth-rent-support)

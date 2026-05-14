@@ -55,5 +55,5 @@ officialTip: "분당 재건축 선도지구 지원 및 8호선 판교 연장 공
 ---
 
 **💰 선거와 무관하게 당장 챙겨야 할 지원금**
-* 👉 [경기 청년 전월세 지원 알아보기](/blog/2026-05-01-gyeonggi-youth-rent-support)
-* 👉 [수도권 유류비 지원 혜택 확인하기](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit)
+* 👉 [경기 청년 전월세 지원 알아보기](/blog/2026-04-08-gyeonggi-youth-basic-income)
+* 👉 [수도권 유류비 지원 혜택 확인하기](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)
