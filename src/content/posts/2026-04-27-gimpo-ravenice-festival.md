@@ -8,8 +8,8 @@ date: 2026-04-27
 summary: "2026년 10월 17일, 김포 라베니체에서 화려한 불꽃쇼, 낭만 콘서트, 체험 프로그램을 즐겨보세요! 온 가족이 함께 추억을 만드세요."
 description: 2026년 가을, 김포 라베니체에서 화려한 불꽃쇼와 낭만적인 수상 버스킹, 신나는 콘서트를 만끽하세요! 온 가족이 즐길 수 있는 체험 프로그램까지, 아름다운 수변 도시에서 잊지 못할 추억을 만들어보세요.
 category: 정보
-image: /images/blogs/fallback-festival-2.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
+image: /images/blogs/festival-와인뮤직페스티발-520.png
+ogImage: "https://tip-pick.com/images/blogs/festival-와인뮤직페스티발-520.png"
 tags: [김포축제, 라베니체, 가을축제, 불꽃놀이, 수도권나들이, 가족여행, 주말가볼만한곳, 콘서트, 버스킹, 체험프로그램]
 officialRequirements: []
 officialHowToApply: []

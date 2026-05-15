@@ -9,8 +9,8 @@ date: 2026-05-12
 summary: "5월 22~24일 올림픽공원에서 열리는 서울재즈페스티벌 2026, 날짜별 라인업·티켓 잔여·현장 꿀팁까지 한 번에 정리했습니다."
 description: "5월 22~24일 올림픽공원에서 열리는 서울재즈페스티벌 2026, 날짜별 라인업·티켓 잔여·현장 꿀팁까지 한 번에 정리했습니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-이모셔널데미지락페스-325.png
+ogImage: "https://tip-pick.com/images/blogs/festival-이모셔널데미지락페스-325.png"
 tags: [서울재즈페스티벌, 서재페2026, 올림픽공원, 허비행콕, 자넬모네, 존바티스트, 혁오, 축제, 서울축제, 5월축제]
 officialRequirements: []
 officialHowToApply: ["멜론티켓 앱 또는 PC에서 예매", "취소표 수시 확인 (금요일 1일권 잔여 있을 수 있음)"]

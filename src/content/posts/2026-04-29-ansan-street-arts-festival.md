@@ -8,8 +8,8 @@ date: 2026-04-29
 summary: "2026년 5월 1일~3일 안산문화광장에서 펼쳐지는 안산국제거리극축제! 다채로운 거리 공연과 특별한 즐거움 가득, 가족과 함께 즐기세요!"
 description: 경기도 안산국제거리극축제가 5월 황금연휴를 맞아 화려하게 펼쳐집니다. 다채로운 거리 공연과 특별한 즐거움이 가득한 봄 축제에서 가족과 함께 잊지 못할 추억을 만들어보세요!
 category: 정보
-image: /images/blogs/fallback-festival-3.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-3.png"
+image: /images/blogs/festival-안산국제거리극축제-769.png
+ogImage: "https://tip-pick.com/images/blogs/festival-안산국제거리극축제-769.png"
 tags: [안산축제, 거리예술축제, 5월축제, 가족나들이, 주말가볼만한곳]
 officialRequirements: []
 officialHowToApply: []

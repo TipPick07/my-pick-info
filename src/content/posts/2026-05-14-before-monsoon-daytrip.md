@@ -9,8 +9,8 @@ date: 2026-05-14
 summary: "2026 수도권 장마는 6월 25~27일 시작 예정. 남은 황금 6주, 무료부터 유료까지 수도권 나들이 명소 BEST 7을 입장료·주차·혼잡도 비교표로 총정리했습니다."
 description: "2026 수도권 장마는 6월 25~27일 시작 예정. 남은 황금 6주, 무료부터 유료까지 수도권 나들이 명소 BEST 7을 입장료·주차·혼잡도 비교표로 총정리했습니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-두릅산나물축제-732.png
+ogImage: "https://tip-pick.com/images/blogs/festival-두릅산나물축제-732.png"
 tags: [나들이, 장마전나들이, 수도권여행, 6월여행, 수국명소, 가족나들이, 서울근교여행, 아침고요수목원, 하늘공원, 벽초지수목원]
 officialRequirements: []
 officialHowToApply: ["방문 전 날씨 확인 필수", "주말 방문 시 오전 10시 이전 도착 권장"]

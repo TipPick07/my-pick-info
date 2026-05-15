@@ -9,8 +9,8 @@ date: 2026-05-11
 summary: "5월 수도권 대학 축제 시즌, 어디는 외부인 입장 되고 어디는 안 될까요? 학교별 입장 정책부터 교통·주차·주변 맛집까지 한 번에 정리했어요."
 description: "5월 수도권 대학 축제 시즌, 어디는 외부인 입장 되고 어디는 안 될까요? 학교별 입장 정책부터 교통·주차·주변 맛집까지 한 번에 정리했어요."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-아시아프(ASYAA-386.png
+ogImage: "https://tip-pick.com/images/blogs/festival-아시아프(ASYAA-386.png"
 tags: [대학축제, 수도권축제, 서울축제, 봄축제, 2026축제, 외부인입장, 서강대축제, 연세대아카라카, 고려대입실렌티, 팁픽]
 officialRequirements: []
 officialHowToApply: ["총학생회 공식 인스타그램에서 외부인 입장 공지 확인", "현장 방문 전 당일 공지 재확인 필수"]

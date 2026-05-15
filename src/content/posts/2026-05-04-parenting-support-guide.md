@@ -9,8 +9,8 @@ date: 2026-05-04
 summary: "부모급여·아동수당·첫만남이용권·아이돌봄서비스까지 — 수도권 육아가정이 받을 수 있는 지원금을 한 번에 총정리했습니다. 몰라서 못 받는 일 없도록 확인하세요."
 description: "수도권 육아가정이 받을 수 있는 지원금을 한 곳에 모았습니다. 부모급여, 아동수당, 아이돌봄서비스, 지자체 출산축하금까지 팁픽이 총정리했습니다."
 category: benefit
-image: /images/blogs/fallback-benefit-2.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-2.png"
+image: /images/blogs/korea-welfare-benefit-152.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-152.png"
 tags: [육아지원금, 부모급여, 아동수당, 수도권육아, 출산지원금, 아이돌봄, 경기도육아, 서울육아, 첫만남이용권, 양육수당]
 officialRequirements: ["출생신고 완료", "주민등록상 수도권 거주", "아이돌봄서비스는 맞벌이·한부모·다자녀 가정 확인서"]
 officialHowToApply: ["행복출산 원스톱(gov.kr)에서 부모급여·아동수당·첫만남이용권 동시 신청", "아이돌봄서비스: idolbom.go.kr에서 사전 신청", "지자체 자체 지원금: 거주 구청·시청 복지 부서 문의"]

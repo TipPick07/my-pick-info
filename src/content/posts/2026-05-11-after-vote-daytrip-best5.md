@@ -9,8 +9,8 @@ date: 2026-05-11
 summary: 6월 3일 선거일은 법정 공휴일! 투표 후 수도권 당일치기 명소 BEST 5와 가는 법·주차·맛집까지 한 번에 정리했습니다.
 description: 6월 3일 선거일은 법정 공휴일! 투표 후 수도권 당일치기 명소 BEST 5와 가는 법·주차·맛집까지 한 번에 정리했습니다.
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-왕가의산책-842.png
+ogImage: "https://tip-pick.com/images/blogs/festival-왕가의산책-842.png"
 tags: [선거일, 선거일공휴일, 당일치기, 수도권나들이, 투표후나들이, 6월나들이, 가족나들이, 수도권여행, 지방선거, 선거공휴일]
 officialRequirements: []
 officialHowToApply: ["투표 후 나들이 명소 방문", "대중교통 또는 자가용 이동"]

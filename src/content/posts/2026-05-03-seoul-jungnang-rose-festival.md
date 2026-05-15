@@ -9,7 +9,7 @@ date: 2026-05-03
 summary: "2026년 5월 15일부터 23일까지 서울 중랑구에서 천만 송이 장미와 국내 최장 5.45km 장미터널을 만끽하며 인생샷과 특별 공연을 즐겨보세요!"
 description: 서울 중랑구에서 열리는 2026 중랑 서울장미축제! 5.45km 장미터널에서 인생샷 찍고, 가정의 달 특별 공연도 즐겨보세요. 가족, 연인 모두에게 잊지 못할 봄 추억을 선사합니다.
 category: 정보
-image: /images/blogs/fallback-festival-2.png
+image: /images/blogs/festival-서울세계도시문화축제-131.png
 ogImage: "tags: [서울축제, 중랑구축제, 봄나들이, 꽃축제, 가족나들이]"
 officialRequirements: []
 officialHowToApply: []

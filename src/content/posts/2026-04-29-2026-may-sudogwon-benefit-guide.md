@@ -4,8 +4,8 @@ date: 2026-04-29
 summary: "2026년 5월, 수도권 시민을 위한 고유가 피해, 청년내일저축계좌 등 4가지 지원금을 총정리했습니다. 지금 바로 신청 가능한 혜택을 확인하세요."
 description: "2026년 5월, 수도권 시민이라면 꼭 챙겨야 할 지원금 4가지를 한 번에 정리했습니다. 고유가 피해지원금부터 청년내일저축계좌까지, 놓치면 후회하는 혜택 총정리!"
 category: 가이드
-image: /images/blogs/fallback-benefit-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
+image: /images/blogs/korea-welfare-benefit-103.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-103.png"
 tags: [수도권지원금, 고유가피해지원금, 청년내일저축계좌, 서울지원금, 경기지원금, 2026지원금, 5월지원금]
 ---
 

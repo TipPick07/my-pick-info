@@ -6,8 +6,8 @@ category: festival
 tags: [인천어린이날, 어린이날행사, 인천축제, 가족나들이, 황금연휴, 어린이날2026, 인천아이와함께, 수도권어린이날, 어린이날나들이, 인천가볼만한곳]
 summary: "2026 어린이날, 인천 전역에서 풍성한 무료 체험, 야외 축제, 과학관 행사 등 9개 이상 행사를 즐기세요."
 description: "2026 어린이날, 인천 전역에서 9개 이상의 무료·유료 행사가 열립니다. 개항광장 기념행사부터 영종도 야외 축제, 과학관 체험까지 — 놓치면 후회할 인천 어린이날 완전 가이드."
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-강서어린이동화축제-735.png
+ogImage: "https://tip-pick.com/images/blogs/festival-강서어린이동화축제-735.png"
 ---
 
 > 📅 행사 기간: 2026년 5월 1일(목) ~ 5월 5일(월)

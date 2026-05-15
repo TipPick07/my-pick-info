@@ -9,8 +9,8 @@ date: 2026-05-06
 summary: "2026년 6월 3일 선거일, 수도권 나들이 명소 5곳을 거리, 비용, 주차 정보와 함께 소개합니다. 투표 후 즐거운 하루를 계획하세요!"
 description: 6월 3일 선거일은 법정 공휴일! 사전투표 미리 하고 하루 온전히 즐기는 수도권 나들이 BEST 5를 거리·비용·혼잡도·주차까지 한눈에 비교 정리했어요
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-차없는잠수교뚜벅뚜벅-393.png
+ogImage: "https://tip-pick.com/images/blogs/festival-차없는잠수교뚜벅뚜벅-393.png"
 tags: [선거일공휴일, 6월3일, 지방선거, 수도권나들이, 투표후갈곳, 당일치기, 서울대공원, 한강공원, 수원화성, 북한산, 두물머리, 황금연휴]
 officialRequirements: []
 officialHowToApply: ["사전투표 5월 29일~30일 전국 어디서나 가능", "당일투표 6월 3일 오전 6시~오후 6시"]

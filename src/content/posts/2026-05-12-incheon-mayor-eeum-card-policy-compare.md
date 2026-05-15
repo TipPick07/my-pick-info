@@ -9,8 +9,8 @@ date: 2026-05-12
 summary: "6·3 지방선거 D-22, 인천시장 유정복 vs 박찬대 후보의 이음카드·복지 공약을 항목별로 비교했습니다. 누가 내 지갑에 더 유리한지 확인해보세요."
 description: "6·3 지방선거 D-22, 인천시장 유정복 vs 박찬대 후보의 이음카드·복지 공약을 항목별로 비교했습니다. 누가 내 지갑에 더 유리한지 확인해보세요."
 category: benefits
-image: /images/blogs/fallback-benefit-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
+image: /images/blogs/korea-welfare-benefit-210.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-210.png"
 tags: [인천시장선거, 이음카드, 복지공약, 유정복, 박찬대, 지방선거2026, 인천e음, 청년지원, 육아지원, 6·3지방선거]
 officialRequirements: []
 officialHowToApply: ["사전투표: 5월 29~30일 전국 어디서나", "본투표: 6월 3일 지정 투표소"]

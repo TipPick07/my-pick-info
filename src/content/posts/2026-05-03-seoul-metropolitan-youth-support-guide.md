@@ -4,8 +4,8 @@ date: 2026-05-03
 slug: 2026-metropolitan-youth-support-guide
 category: benefit
 description: "2026년 수도권 청년이라면 꼭 알아야 할 지원금을 한 곳에 모았습니다. 서울 청년수당, 경기 청년기본소득, 월세지원까지 — 몰라서 못 받는 일 없도록 팁픽이 총정리했습니다."
-image: /images/blogs/fallback-benefit-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
+image: /images/blogs/korea-welfare-benefit-145.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-145.png"
 tags: ["청년지원금", "수도권청년", "서울청년수당", "경기청년기본소득", "월세지원", "취업지원금", "청년혜택", "2026지원금"]
 summary: "서울 청년수당, 경기 청년기본소득, 청년 월세지원까지 — 2026년 수도권 청년이라면 꼭 챙겨야 할 지원금 총정리."
 ---

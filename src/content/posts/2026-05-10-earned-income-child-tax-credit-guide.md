@@ -9,8 +9,8 @@ date: 2026-05-10
 summary: "근로장려금과 자녀장려금, 동시에 신청하면 최대 630만 원. 5월 31일 마감 전에 두 가지 모두 챙기는 법을 정리했습니다."
 description: "근로장려금과 자녀장려금, 동시에 신청하면 최대 630만 원. 5월 31일 마감 전에 두 가지 모두 챙기는 법을 정리했습니다."
 category: benefits
-image: /images/blogs/fallback-benefit-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
+image: /images/blogs/korea-welfare-benefit-194.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-194.png"
 tags: [근로장려금, 자녀장려금, 장려금신청, 지원금, 국세청, 홈택스, 수도권지원금, 5월지원금, 육아지원, 생활비지원]
 officialRequirements: []
 officialHowToApply: ["홈택스(hometax.go.kr) 접속 후 신청", "손택스 앱에서 모바일 신청", "ARS 1544-9944 전화 신청"]

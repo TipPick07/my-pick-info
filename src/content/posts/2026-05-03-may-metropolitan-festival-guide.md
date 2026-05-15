@@ -4,8 +4,8 @@ date: 2026-05-03
 slug: 2026-may-metropolitan-festival-guide
 category: festival
 description: "5월 수도권에서 열리는 축제·행사·나들이 명소를 한 곳에 모았습니다. 어린이날 황금연휴, 궁중문화축전, 가족 나들이 코스까지 — 팁픽이 직접 고른 5월 수도권 완벽 가이드."
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-서울스프링페스티벌-567.png
+ogImage: "https://tip-pick.com/images/blogs/festival-서울스프링페스티벌-567.png"
 tags: ["5월축제", "수도권나들이", "어린이날", "주말나들이", "서울축제", "경기축제", "인천축제", "가족나들이"]
 ---
 

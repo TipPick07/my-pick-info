@@ -9,8 +9,8 @@ date: 2026-05-09
 summary: "전국 어디서나 받는 국가 지원금 말고, 서울·경기 거주자만 받을 수 있는 독자 복지 제도를 한 곳에 정리했습니다."
 description: "전국 어디서나 받는 국가 지원금 말고, 서울·경기 거주자만 받을 수 있는 독자 복지 제도를 한 곳에 정리했습니다."
 category: benefit
-image: /images/blogs/fallback-benefit-3.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-3.png"
+image: /images/blogs/korea-welfare-benefit-175.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-175.png"
 tags: [서울복지, 경기복지, 수도권혜택, 청년수당, 안심소득, 경기청년기본소득, 지역복지, 특화혜택]
 officialRequirements: []
 officialHowToApply: ["서울복지포털(welfare.seoul.go.kr) 온라인 신청", "경기도청 복지포털(gg.go.kr/welfare) 신청", "주민센터 방문 신청"]

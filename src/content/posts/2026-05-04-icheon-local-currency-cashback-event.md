@@ -9,7 +9,7 @@ date: 2026-05-04
 summary: "이천시민이라면 이천사랑 지역화폐 사용 시 최대 10만원 캐시백 혜택을 받을 수 있습니다. 지금 바로 확인하세요!"
 description: 이천시민을 위한 이천사랑 지역화폐 캐시백 이벤트! 가정의 달을 맞아 최대 10만원 환급 혜택으로 알뜰 소비를 시작해 보세요.
 category: 정보
-image: /images/blogs/fallback-benefit-2.png
+image: /images/blogs/korea-welfare-benefit-147.png
 ogImage: "tags: [이천시, 지역화폐, 캐시백, 가정의달, 소비혜택]"
 officialRequirements: []
 officialHowToApply: ["이천사랑 지역화폐 충전","이천시 관내 모든 지역화폐 가맹점에서 결제"]

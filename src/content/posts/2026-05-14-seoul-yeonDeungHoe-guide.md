@@ -9,7 +9,7 @@ date: 2026-05-14
 summary: 2026년 **5월 16일(토)~17일(일)** 서울 종로에서 유네스코 연등회 축제를 만나요! 화려한 연등행렬과 다채로운 무료 전통문화 체험을 가족과 함께 즐겨보세요.
 description: 2026년 **5월 16일(토)~17일(일)** 서울 종로에서 유네스코 연등회 축제를 만나요! 화려한 연등행렬과 다채로운 무료 전통문화 체험을 가족과 함께 즐겨보세요.
 category: festival
-image: /images/blogs/fallback-festival-2.png
+image: /images/blogs/festival-덕수궁밤의석조전-344.png
 ogImage: "tags: [연등회, 서울축제, 5월축제, 가족나들이, 무료체험, 유네스코, 전통문화, 종로축제, 봄밤나들이, 가정의달]"
 officialRequirements: []
 officialHowToApply: []

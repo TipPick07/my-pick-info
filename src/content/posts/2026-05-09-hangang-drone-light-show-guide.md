@@ -9,8 +9,8 @@ date: 2026-05-09
 summary: "2026 한강 드론라이트쇼 남은 회차는 5월 16일·6월 5일 단 2번. 뚝섬 명당 자리부터 주차·대중교통·우천 대비까지 놓치면 후회할 꿀팁만 모았습니다."
 description: "2026 한강 드론라이트쇼 남은 회차는 5월 16일·6월 5일 단 2번. 뚝섬 명당 자리부터 주차·대중교통·우천 대비까지 놓치면 후회할 꿀팁만 모았습니다."
 category: festival
-image: /images/blogs/fallback-festival-2.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
+image: /images/blogs/festival-한강서래섬피크닉콘서-645.png
+ogImage: "https://tip-pick.com/images/blogs/festival-한강서래섬피크닉콘서-645.png"
 tags: [한강드론라이트쇼, 드론라이트쇼, 한강불빛공연, 뚝섬한강공원, 서울야경, 무료축제, 서울봄축제, 가족나들이, 데이트코스, 서울야간행사]
 officialRequirements: []
 officialHowToApply: ["사전 예약 없음, 현장 무료 관람", "공식 홈페이지(seouldroneshow.com)에서 일정 사전 확인 필수"]

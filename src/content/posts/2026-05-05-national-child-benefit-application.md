@@ -9,8 +9,8 @@ date: 2026-05-05
 summary: "2026 자녀장려금 정기 신청 마감은 6월 1일입니다. 자녀 1명당 최대 100만원, 최대 300만원까지 현금 지급 — 지금 홈택스 또는 ARS로 신청하세요."
 description: "2026년 자녀장려금 신청 방법 총정리. 국세청이 지원하는 최대 300만원 자녀 양육 현금 지원, 6월 1일 마감 전 꼭 신청하세요."
 category: benefit
-image: /images/blogs/fallback-benefit-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
+image: /images/blogs/korea-welfare-benefit-156.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-156.png"
 tags: [자녀장려금, 양육지원, 가족지원, 국세청혜택, 가정의달지원금, 홈택스신청, 저소득육아, 부양자녀, 소득공제]
 officialRequirements: ["2025년 귀속 근로·사업·종교인 소득 자료", "2025년 6월 1일 기준 가구원 재산 자료"]
 officialHowToApply: ["ARS 전화신청 (1544-9944)", "홈택스 (hometax.go.kr) 모바일 또는 PC 신청", "모바일 안내문 QR코드 스캔 후 신청하기", "장려금 상담센터 (1566-3636) 상담사 도움 신청"]

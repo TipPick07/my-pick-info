@@ -9,8 +9,8 @@ date: 2026-05-09
 summary: "은퇴 후 건강보험료가 갑자기 오르는 이유와 낮추는 방법, 노인 일자리 신청법까지 2026년 최신 기준으로 정리했습니다."
 description: "은퇴 후 건강보험료가 갑자기 오르는 이유와 낮추는 방법, 노인 일자리 신청법까지 2026년 최신 기준으로 정리했습니다."
 category: benefit
-image: /images/blogs/fallback-benefit-2.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-2.png"
+image: /images/blogs/korea-welfare-benefit-191.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-191.png"
 tags: [노후복지, 건강보험료경감, 노인일자리, 기초연금, 은퇴지원, 장기요양보험, 60대혜택, 수도권복지]
 officialRequirements: []
 officialHowToApply: ["국민건강보험공단 지사 방문 또는 1577-1000 전화 신청", "복지로(bokjiro.go.kr) 기초연금 신청", "노인일자리 통합지원시스템(seniorro.or.kr) 신청"]

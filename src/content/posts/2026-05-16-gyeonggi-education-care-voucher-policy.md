@@ -9,8 +9,8 @@ date: 2026-05-16
 summary: "6.3 선거 경기도교육감 임태희 vs 안민석, 돌봄·바우처 공약이 내 가정에 어떤 차이를 만들지 가구별로 따져봤습니다."
 description: "6.3 선거 경기도교육감 임태희 vs 안민석, 돌봄·바우처 공약이 내 가정에 어떤 차이를 만들지 가구별로 따져봤습니다."
 category: benefit
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/korea-welfare-benefit-212.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-212.png"
 tags: [경기도교육감, 임태희, 안민석, 초등돌봄, 교육바우처, 유보통합, 방과후돌봄, 2026지방선거, 경기교육, 맞벌이돌봄]
 officialRequirements: ""
 officialHowToApply: ""

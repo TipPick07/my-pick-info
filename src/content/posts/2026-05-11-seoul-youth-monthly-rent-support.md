@@ -9,8 +9,8 @@ date: 2026-05-11
 summary: 2026년 5월 19일까지 서울 무주택 청년, 무자녀 신혼부부에게 월 최대 20만원을 지원합니다. 확대된 소득 및 나이 기준을 지금 바로 확인하세요!
 description: 2026년 5월 19일까지 서울 무주택 청년, 무자녀 신혼부부에게 월 최대 20만원을 지원합니다. 확대된 소득 및 나이 기준을 지금 바로 확인하세요!
 category: benefit
-image: /images/blogs/fallback-benefit-2.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-2.png"
+image: /images/blogs/korea-welfare-benefit-20.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-20.png"
 tags: [서울, 청년, 월세지원, 주거안정, 무주택, 신혼부부, 전세사기, 생활비, 2026년]
 officialRequirements: ["임대차계약서 사본","주민등록등본","소득·재산 신고서","금융정보 제공 동의서 (가구원 전원)","가족관계증명서 (상세)","통장 사본","(해당 시) 한부모가족 증명서","(해당 시) 전세사기피해자 등 결정문 사본","(해당 시) 병적증명서"]
 officialHowToApply: ["서울주거포털(housing.seoul.go.kr) 접속","온라인 신청 메뉴에서 본인 인증 후 신청서 작성 및 구비서류 업로드"]

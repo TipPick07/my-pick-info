@@ -9,8 +9,8 @@ date: 2026-05-16
 summary: "5월 16~17일 DDP에서 열리는 서울드럼페스티벌! 무료 공연·워크숍·퍼레이드 정보와 주차·교통 꿀팁까지 총정리합니다."
 description: "5월 16~17일 DDP에서 열리는 서울드럼페스티벌! 무료 공연·워크숍·퍼레이드 정보와 주차·교통 꿀팁까지 총정리합니다."
 category: festival
-image: /images/blogs/fallback-festival-2.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
+image: /images/blogs/festival-DDP루프탑투어-482.png
+ogImage: "https://tip-pick.com/images/blogs/festival-DDP루프탑투어-482.png"
 tags: [서울드럼페스티벌, DDP, 동대문디자인플라자, 서울축제, 무료공연, 주말나들이, 서울행사, 타악축제, 서울여행, 주말축제]
 officialRequirements: []
 officialHowToApply: ["seouldrumfestival.com 또는 네이버 예약에서 워크숍 사전 예약", "예약금 1,000원 결제 후 현장 체크인 (당일 현장 환불)"]

@@ -4,8 +4,8 @@ date: 2026-05-04
 slug: 2026-summer-festival-preview
 category: festival
 description: "2026 수도권 여름 축제를 미리 정리했습니다. 워터밤, 인천 펜타포트, 월드DJ페스티벌, 뷰티풀 민트 라이프까지 — 티켓 오픈 전에 미리 챙겨야 하는 여름 축제 완벽 가이드."
-image: /images/blogs/fallback-festival-3.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-3.png"
+image: /images/blogs/festival-과천재즈피크닉-294.png
+ogImage: "https://tip-pick.com/images/blogs/festival-과천재즈피크닉-294.png"
 tags: ["여름축제", "워터밤", "펜타포트", "수도권축제", "2026여름", "뮤직페스티벌", "서울축제", "인천축제", "과천축제"]
 ---
 

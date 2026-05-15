@@ -9,7 +9,7 @@ date: 2026-05-03
 summary: "가족, 어린이, 교직원이라면 인천시티투어 순환형 노선 50% 할인과 기념품 혜택을 놓치지 마세요! 지금 바로 확인하세요."
 description: 5월 가정의 달을 맞아 인천시티투어가 가족 나들이를 위한 50% 할인 혜택을 제공합니다. 어린이날 혜택과 교직원 특별 할인까지, 인천의 매력을 경제적으로 즐겨보세요!
 category: 정보
-image: /images/blogs/fallback-benefit-3.png
+image: /images/blogs/korea-welfare-benefit-135.png
 ogImage: "tags: [인천시티투어, 가정의달할인, 가족나들이, 어린이날혜택, 교직원할인]"
 officialRequirements: ["가족 동반 증빙 (예: 등본, 가족관계증명서 등 필요 시)","교직원 신분증 (스승의 날 프로모션 해당 시)"]
 officialHowToApply: ["인천시티투어 현장 매표소 또는 온라인 예매 시 할인 적용","가족 동반 시 현장 확인 후 할인","교직원 신분증 제시 후 할인"]

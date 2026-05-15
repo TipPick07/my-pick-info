@@ -9,8 +9,8 @@ date: 2026-05-15
 summary: "장마 오기 전 지금이 딱! 서울·인천·경기 6월 야시장 총정리. 밤도깨비 야시장 4곳부터 인천 부둣가 야시장까지 위치·시간·특징 한눈에."
 description: "장마 오기 전 지금이 딱! 서울·인천·경기 6월 야시장 총정리. 밤도깨비 야시장 4곳부터 인천 부둣가 야시장까지 위치·시간·특징 한눈에."
 category: festival
-image: /images/blogs/fallback-festival-2.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
+image: /images/blogs/festival-오슬로우빈티지마켓-255.png
+ogImage: "https://tip-pick.com/images/blogs/festival-오슬로우빈티지마켓-255.png"
 tags: [야시장, 서울야시장, 밤도깨비야시장, 인천야시장, 경기야시장, 6월야시장, 야외푸드마켓, 한강야시장, 수도권나들이, 여름나들이]
 officialRequirements: []
 officialHowToApply: ["현장 방문 (사전예약 불필요)", "우천 시 취소될 수 있으니 방문 전 공식 SNS 확인 필수"]

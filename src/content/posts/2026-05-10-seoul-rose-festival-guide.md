@@ -9,8 +9,8 @@ date: 2026-05-10
 summary: "5월 장미 시즌, 어디 갈지 고민된다면? 중랑 vs 부천 장미축제 일정·교통·분위기·꿀팁까지 한 번에 비교했습니다."
 description: "5월 장미 시즌, 어디 갈지 고민된다면? 중랑 vs 부천 장미축제 일정·교통·분위기·꿀팁까지 한 번에 비교했습니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-서울일러스트레이션페-105.png
+ogImage: "https://tip-pick.com/images/blogs/festival-서울일러스트레이션페-105.png"
 tags: [장미축제, 중랑장미축제, 부천장미축제, 수도권축제, 5월축제, 무료축제, 장미터널, 가족나들이, 데이트코스, 수도권나들이]
 officialRequirements: []
 officialHowToApply: ["중랑장미공원 직접 방문", "부천 도당공원 직접 방문"]

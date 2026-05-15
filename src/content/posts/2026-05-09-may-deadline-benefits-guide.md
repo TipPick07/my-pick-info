@@ -9,8 +9,8 @@ date: 2026-05-09
 summary: "5월 31일이면 사라지는 수도권 지원금들, 지금 당장 확인하세요. 근로장려금·자녀장려금부터 서울·경기 지역 한정 혜택까지 마감일 순으로 정리했습니다."
 description: "5월 31일이면 사라지는 수도권 지원금들, 지금 당장 확인하세요. 근로장려금·자녀장려금부터 서울·경기 지역 한정 혜택까지 마감일 순으로 정리했습니다."
 category: benefit
-image: /images/blogs/fallback-benefit-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
+image: /images/blogs/korea-welfare-benefit-174.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-174.png"
 tags: [지원금, 마감임박, 근로장려금, 자녀장려금, 서울복지, 경기복지, 5월혜택, 복지신청]
 officialRequirements: []
 officialHowToApply: ["국세청 홈택스(손택스) 접속 후 장려금 신청", "복지로(bokjiro.go.kr) 온라인 신청", "주민센터 방문 신청"]

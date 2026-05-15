@@ -9,8 +9,8 @@ date: 2026-05-01
 summary: "서울시 1인 가구 세입자를 위한 전월세 계약 전후 무료 안전 점검 및 법률 상담! 소중한 보증금 지키는 방법 지금 바로 확인하세요."
 description: 서울시가 1인 가구를 위해 전월세 계약 전·후 무료로 안전 점검을 해드립니다. 등기부등본 분석부터 법률 전문가 1:1 상담까지, 전세사기로부터 내 보증금을 지키는 방법을 지금 바로 확인하세요.
 category: 정보
-image: /images/blogs/fallback-benefit-1.png
-ogImage: https://tip-pick.com/images/blogs/fallback-benefit-1.png
+image: /images/blogs/korea-welfare-benefit-132.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-132.png"
 tags: [서울시, 1인가구, 전월세안심, 전세사기예방, 계약지원, 주거복지, 법률상담, 보증금보호, 서울지원금]
 officialRequirements: ["서울시 거주 또는 서울 소재 주택 전월세 계약 예정자", "1인 가구 세입자 (혼자 거주 중이거나 거주 예정인 분)"]
 officialHowToApply: ["서울시 1인 가구 포털(1in.seoul.go.kr) 접속 후 서비스 신청", "다산콜센터(120) 전화 문의 후 신청"]

@@ -9,8 +9,8 @@ date: 2026-05-07
 summary: "2026년 근로장려금, 저소득 가구 및 근로자에게 최대 330만원 지원! 6월 1일 마감 전 신청 요건을 확인하세요."
 description: 2026년 근로장려금 정기 신청 기간이 6월 1일까지입니다. 2025년 소득이 발생한 저소득 가구라면 최대 330만원의 소득 지원 혜택을 놓치지 마세요.
 category: benefit
-image: /images/blogs/fallback-benefit-3.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-3.png"
+image: /images/blogs/korea-welfare-benefit-172.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-172.png"
 tags: [근로소득지원, 저소득층혜택, 가정의달지원, 소득세환급, 생활안정자금]
 officialRequirements: ["2025년 귀속 소득 자료","2025년 6월 1일 기준 가구원 재산 자료"]
 officialHowToApply: ["신청 안내문 수령 시: 모바일 안내문의 '신청하기' 또는 ARS(1544-9944) 이용","안내문 미수령 시: 홈택스(PC/모바일)를 통해 직접 신청","신청 어려울 시: 장려금 상담센터(1566-3636)에 신청 대리 서비스 요청"]
