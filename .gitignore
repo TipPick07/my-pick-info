@@ -42,3 +42,6 @@ next-env.d.ts
 
 # scratch
 /scratch
+
+# local check output
+link_check_result.txt
