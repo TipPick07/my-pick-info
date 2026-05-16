@@ -24,14 +24,17 @@ export default function Home() {
   const kstDay = String(kstNow.getDate()).padStart(2, '0');
   const todayStr = `${kstYear}-${kstMonth}-${kstDay}`;
 
-  const todayPosts = allPosts.filter(post => post.date === todayStr);
-  const todayFestivals = todayPosts.filter(post => post.category === 'festival' || post.category === 'festivals');
-  const todayBenefits = todayPosts.filter(post => post.category === 'benefit' || post.category === 'benefits');
+  const latestDate = allPosts.length > 0 ? allPosts[0].date : todayStr;
+  const recentPosts = allPosts.filter(post => post.date === latestDate);
+  const todayFestivals = recentPosts.filter(post => post.category === 'festival' || post.category === 'festivals');
+  const todayBenefits = recentPosts.filter(post => post.category === 'benefit' || post.category === 'benefits');
 
   const todayUpdates = {
     festivals: todayFestivals,
     benefits: todayBenefits,
-    totalCount: todayPosts.length,
+    totalCount: recentPosts.length,
+    isToday: latestDate === todayStr,
+    date: latestDate,
   };
 
   const eventSchema = data.festivals.map((f: any) => ({

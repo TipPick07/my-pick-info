@@ -44,6 +44,8 @@ interface TodayUpdates {
   festivals: PostData[];
   benefits: PostData[];
   totalCount: number;
+  isToday?: boolean;
+  date?: string;
 }
 
 // ── 지원금 만료 체크 ─────────────────────────────────────────────────────────
@@ -283,7 +285,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
                   오늘의 신규 Pick
                 </span>
                 <h3 className="text-slate-800 font-bold text-base md:text-lg">
-                  오늘 아침, <span className="text-cyan-600 font-black">{todayUpdates.totalCount}건</span>의 새로운 정보가 추가되었어요!
+                  {todayUpdates.isToday ? '오늘 아침' : '최근 업데이트'}, <span className="text-cyan-600 font-black">{todayUpdates.totalCount}건</span>의 새로운 정보가 추가되었어요!
                 </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
