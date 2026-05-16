@@ -104,7 +104,7 @@ officialTip: "안양은 경부선 지하화·평촌 재건축·원도심 재생�
 
 - [경기도 2026 청년 지원금 신청 방법 총정리](/blog/2026-05-17-gyeonggi-youth-support-guide)
 - [수도권 4060세대 복지 비교 총정리](/blog/2026-05-08-metropolitan-4060-welfare-comparison)
-- [수도권 청년 지원금 모음](/blog/2026-05-03-metropolitan-youth-support-guide)
+- [수도권 청년 지원금 모음](/blog/2026-05-03-seoul-metropolitan-youth-support-guide)
 
 ---
 

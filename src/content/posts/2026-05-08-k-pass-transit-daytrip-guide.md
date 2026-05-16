@@ -97,7 +97,7 @@ officialTip: "K-패스 미등록 상태로 태그하면 환급이 안 됩니다 
 
 ## 🔗 함께 보면 도움되는 팁픽 글
 
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-10-june-free-festival-calendar)
+- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 - [장마 전에 꼭 가야 할 수도권 나들이 명소 BEST 7](/blog/2026-05-14-before-monsoon-daytrip)
 - [서울·경기에서만 받는 독자 복지 혜택 총정리 2026](/blog/2026-05-09-metropolitan-exclusive-benefits)
 

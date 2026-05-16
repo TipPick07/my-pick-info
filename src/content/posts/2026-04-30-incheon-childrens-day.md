@@ -150,5 +150,5 @@ XR·로봇·AI 등 첨단 과학기술 체험과 레고 부스, 과학 스토리
 
 ## 함께 챙기면 좋은 수도권 나들이 정보
 
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-10-june-free-festival-calendar)
+- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 - [장마 전에 꼭 가야 할 수도권 나들이 명소 BEST 7](/blog/2026-05-14-before-monsoon-daytrip)

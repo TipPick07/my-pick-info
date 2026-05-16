@@ -108,7 +108,7 @@ officialTip: "중랑은 규모·접근성, 부천은 분위기·여유로움 —
 
 ## 🔗 함께 보면 도움되는 팁픽 글
 
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-10-june-free-festival-calendar)
+- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 - [수도권 6월 야시장·야외 푸드마켓 총정리](/blog/2026-05-15-june-night-market-guide)
 - [장마 전에 꼭 가야 할 수도권 나들이 명소 BEST 7](/blog/2026-05-14-before-monsoon-daytrip)
 

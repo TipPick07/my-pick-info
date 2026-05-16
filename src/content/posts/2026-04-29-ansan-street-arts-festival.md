@@ -87,6 +87,6 @@ officialTip: "차량 진입이 전면 통제됩니다 — 4호선 고잔역 또�
 
 - [수도권 장미축제 총정리 2026 — 중랑 vs 부천](/blog/2026-05-10-seoul-rose-festival-guide)
 - [2026 김포 라베니체축제 — 불꽃쇼·콘서트 총정리](/blog/2026-04-27-gimpo-ravenice-festival)
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-10-june-free-festival-calendar)
+- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 
 #안산축제 #거리예술축제 #5월축제 #가족나들이 #안산문화광장 #황금연휴 #거리극 #무료공연 #경기축제

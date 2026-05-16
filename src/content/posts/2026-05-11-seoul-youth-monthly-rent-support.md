@@ -86,5 +86,5 @@ officialTip: 정책 혜택에서 소외되었던 무자녀 신혼부부, 한부�
 
 ## 함께 챙기면 좋은 서울 청년 지원
 
-- [2026 수도권 청년 지원금 총정리](/blog/2026-05-03-metropolitan-youth-support-guide)
+- [2026 수도권 청년 지원금 총정리](/blog/2026-05-03-seoul-metropolitan-youth-support-guide)
 - [5월 마감 임박 지원금 총정리](/blog/2026-05-09-may-deadline-benefits-guide)

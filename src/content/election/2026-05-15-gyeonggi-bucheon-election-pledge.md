@@ -97,4 +97,4 @@ officialTip: "사전투표 5/29~30, 본투표 6/3 — 공약 전문은 중앙선
 ## 💰 선거와 무관하게 당장 챙겨야 할 지원금
 
 - [경기도 청년 지원금 신청 방법 총정리](/blog/2026-05-17-gyeonggi-youth-support-guide)
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-10-june-free-festival-calendar)
+- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)

@@ -78,7 +78,7 @@ officialTip: "기초생활수급자·차상위계층, 서울시 청년수당 등
 
 ## 🔗 함께 보면 도움되는 팁픽 글
 
-- [2026 수도권 청년 지원금 총정리](/blog/2026-05-03-metropolitan-youth-support-guide)
+- [2026 수도권 청년 지원금 총정리](/blog/2026-05-03-seoul-metropolitan-youth-support-guide)
 - [서울 청년 월세지원 신청 방법](/blog/2026-05-11-seoul-youth-monthly-rent-support)
 - [서울 안심소득 신청 가이드](/blog/2026-05-13-seoul-ansimsodeuk-guide)
 

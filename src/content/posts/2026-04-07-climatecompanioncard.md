@@ -67,5 +67,5 @@ officialHowToApply: ["모바일: 안드로이드폰에서 모바일 T-money 앱 
 
 ### 함께 챙기면 좋은 서울 교통·생활 지원
 
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-10-june-free-festival-calendar)
+- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 - [서울시 육아가정 복지 지원 총정리](/blog/2026-04-28-seoul-childcare-support)

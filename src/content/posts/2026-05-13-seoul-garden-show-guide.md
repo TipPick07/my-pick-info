@@ -102,7 +102,7 @@ officialTip: "포켓몬 시크릿 포레스트는 6월 21일 종료 — 아이 �
 
 ## 🔗 함께 보면 도움되는 팁픽 글
 
-- [서울국제정원박람회 인근 성수동 나들이 코스](/blog/2026-05-10-june-free-festival-calendar)
+- [서울국제정원박람회 인근 성수동 나들이 코스](/blog/2026-05-16-june-free-festival-calendar)
 - [수도권 6월 가족 무료 행사 총정리](/blog/2026-05-13-june-family-free-events)
 - [한강 드론라이트쇼 무료 관람 꿀팁](/blog/2026-05-09-hangang-drone-light-show-guide)
 

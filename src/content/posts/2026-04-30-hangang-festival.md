@@ -89,7 +89,7 @@ officialTip: "4호선 이촌역 2번 출구에서 도보 5분 — 주말 주차�
 
 ## 🔗 함께 보면 도움되는 팁픽 글
 
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-10-june-free-festival-calendar)
+- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 - [서울 한강공원 야외수영장 개장일·요금·예약 2026](/blog/2026-05-20-hangang-outdoor-pool-open)
 - [한강 드론라이트쇼 무료 관람 꿀팁](/blog/2026-05-09-hangang-drone-light-show-guide)
 
