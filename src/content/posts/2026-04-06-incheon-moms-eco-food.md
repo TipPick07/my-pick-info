@@ -1,8 +1,6 @@
 ---
 title: "인천 임산부 친환경 농산물 꾸러미 지원 — 신청 방법·대상·꿀팁 총정리"
 originalTitle: 임산부 친환경 농산물 꾸러미 지원
-image: "/images/blogs/incheon-moms-eco-food.png"
-ogImage: "https://tip-pick.com/images/blogs/incheon-moms-eco-food.png"
 link: https://www.incheon.go.kr
 officialTarget: 인천 거주 임산부 전체
 officialDetails: 인천시가 임산부에게 유기농·무농약 친환경 농산물 꾸러미를 저렴한 가격에 제공하는 사업. 매달 제철 채소·과일 위주로 구성되며 집으로 배송됩니다. 선착순 마감이므로 공고 확인 후 즉시 신청 권장.
