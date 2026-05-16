@@ -45,3 +45,6 @@ next-env.d.ts
 
 # local check output
 link_check_result.txt
+
+# boost scripts
+boost_benefits_*.py
