@@ -1,6 +1,6 @@
 https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 
-# 개별 blog 404 → /blog/ 301
-/blog/2026-incheon-childrens-day /blog/ 301
-/blog/2026-seoul-gyeonggi-childrens-day /blog/ 301
-/blog/2026-royal-culture-festival-guide /blog/ 301
+# 개별 blog 슬러그 오류 → 올바른 포스트 URL 301
+/blog/2026-incheon-childrens-day /blog/2026-04-30-incheon-childrens-day/ 301
+/blog/2026-seoul-gyeonggi-childrens-day /blog/2026-05-01-seoul-gyeonggi-childrens-day/ 301
+/blog/2026-royal-culture-festival-guide /blog/2026-05-02-royal-culture-festival-guide/ 301
