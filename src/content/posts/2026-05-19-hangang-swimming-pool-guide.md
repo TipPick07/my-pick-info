@@ -9,8 +9,8 @@ date: 2026-05-19
 summary: 2026년 한강 수영장은 잠원 폐쇄·광나루 재개장으로 판이 바뀌었습니다 — 6곳 장소별 특징 비교, 요금·할인·꿀팁을 한 번에 정리했습니다.
 description: 2026년 한강 수영장은 잠원 폐쇄·광나루 재개장으로 판이 바뀌었습니다 — 6곳 장소별 특징 비교, 요금·할인·꿀팁을 한 번에 정리했습니다.
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/fallback-festival-2.png
+ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
 tags: [한강수영장, 한강물놀이장, 뚝섬수영장, 여의도수영장, 잠실물놀이장, 광나루물놀이장, 한강개장일, 한강수영장요금, 한강수영장할인, 여름나들이서울, 가족물놀이, 한강야간수영]
 officialRequirements: []
 officialHowToApply: ["현장 매표소에서 당일 구매 (온라인 사전 예약 없음)", "할인 대상자는 다둥이행복카드·의료보험증·신분증 등 증빙서류 지참 필수", "방문 전 미래한강본부(hangang.seoul.go.kr) 또는 서울시 앱에서 운영 중단 여부 확인 권장"]
