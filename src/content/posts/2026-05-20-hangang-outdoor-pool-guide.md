@@ -9,8 +9,8 @@ date: 2026-05-20
 summary: "2026년 한강 수영장·물놀이장 6곳을 시설·요금·혼잡도·교통 기준으로 비교했습니다. 가족, 커플, 야간 방문자 등 상황별로 딱 맞는 곳을 골라드려요."
 description: "2026년 한강 수영장·물놀이장 6곳을 시설·요금·혼잡도·교통 기준으로 비교했습니다. 가족, 커플, 야간 방문자 등 상황별로 딱 맞는 곳을 골라드려요."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/fallback-festival-3.png
+ogImage: "https://tip-pick.com/images/blogs/fallback-festival-3.png"
 tags: [한강수영장, 한강물놀이장, 뚝섬수영장, 여의도수영장, 난지물놀이장, 한강공원여름, 서울야외수영장, 서울여름나들이, 한강피서, 2026여름서울]
 officialRequirements: []
 officialHowToApply: ["현장 매표소 방문 후 현장 구매 (사전 예약 없음)", "수영복·수영모자(캡모자 가능) 필수 지참", "아쿠아슈즈 외 신발 착용 불가"]

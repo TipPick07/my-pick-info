@@ -9,8 +9,8 @@ date: 2026-05-20
 summary: "여의도, 뚝섬, 반포, 망원, 이촌, 난지 — 6개 한강공원을 그늘·주차·배달·혼잡도 기준으로 비교했습니다. 내 상황에 맞는 피크닉 명당을 골라보세요."
 description: "여의도, 뚝섬, 반포, 망원, 이촌, 난지 — 6개 한강공원을 그늘·주차·배달·혼잡도 기준으로 비교했습니다. 내 상황에 맞는 피크닉 명당을 골라보세요."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/fallback-festival-4.png
+ogImage: "https://tip-pick.com/images/blogs/fallback-festival-4.png"
 tags: [한강피크닉, 여의도한강공원, 뚝섬한강공원, 반포한강공원, 망원한강공원, 한강공원추천, 서울피크닉명소, 한강그늘막, 한강배달, 서울여름나들이]
 officialRequirements: []
 officialHowToApply: ["공원 방문 후 원하는 자리에 돗자리·그늘막 설치 (별도 예약 없음)", "그늘막(텐트)은 지정 구역에서만 허용, 밀폐형 텐트 금지", "배달음식은 공원 내 배달존 픽업"]
