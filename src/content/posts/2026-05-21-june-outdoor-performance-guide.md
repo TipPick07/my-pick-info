@@ -8,8 +8,8 @@ date: 2026-05-21
 summary: "2026년 6월 수도권에서 열리는 무료 야외공연을 한곳에 정리했습니다. 서울광장 매주 수요일 상설공연부터 한강 드론쇼, 서울시향 강변음악회, 남산골 태권도 공연까지 — 돗자리 하나만 챙기면 됩니다."
 description: "2026년 6월 수도권에서 열리는 무료 야외공연을 한곳에 정리했습니다. 서울광장 매주 수요일 상설공연부터 한강 드론쇼, 서울시향 강변음악회, 남산골 태권도 공연까지 — 돗자리 하나만 챙기면 됩니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/fallback-festival-2.png
+ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
 tags: [무료야외공연, 서울공연, 6월공연, 서울광장공연, 한강공연, 강변음악회, 드론라이트쇼, 남산골한옥마을, 야외공연달력, 수도권무료문화행사, 서울시향, 무료콘서트]
 officialRequirements: []
 officialHowToApply: ["별도 예약 없이 현장 방문 관람 가능 (일부 공연 사전 신청 필요)", "서울문화포털(culture.seoul.go.kr)에서 최신 일정 확인"]

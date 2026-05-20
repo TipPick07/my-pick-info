@@ -8,8 +8,8 @@ date: 2026-05-21
 summary: "홍대 예술시장부터 서울숲 핸드메이드 마켓, 망원·뚝섬 플리마켓까지 — 2026년 6월 수도권 플리마켓을 지역별·특징별로 한눈에 비교 정리했습니다."
 description: "홍대 예술시장부터 서울숲 핸드메이드 마켓, 망원·뚝섬 플리마켓까지 — 2026년 6월 수도권 플리마켓을 지역별·특징별로 한눈에 비교 정리했습니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/fallback-festival-5.png
+ogImage: "https://tip-pick.com/images/blogs/fallback-festival-5.png"
 tags: [플리마켓, 핸드메이드마켓, 서울플리마켓, 홍대프리마켓, 서울숲마켓, 망원플리마켓, 수도권플리마켓, 6월마켓, 주말나들이, 아트마켓, 핸드메이드, 2026플리마켓]
 officialRequirements: []
 officialHowToApply: ["현장 방문 (대부분 무료 입장)", "일부 마켓은 기상 조건에 따라 취소 가능 — 각 마켓 SNS 사전 확인 권장"]

@@ -9,8 +9,8 @@ date: 2026-05-21
 summary: "2026 종합소득세 신고 마감일은 6월 1일(6월 1일 자동 연장)입니다. 3.3% 원천징수된 프리랜서·N잡러라면 신고만 해도 돌려받을 가능성이 높습니다. 홈택스 신고 방법, 환급 시기, 절세 꿀팁까지 한 번에 정리했습니다."
 description: "2026 종합소득세 신고 마감일은 6월 1일입니다. 3.3% 원천징수된 프리랜서·N잡러라면 신고만 해도 돌려받을 가능성이 높습니다. 홈택스 신고 방법, 환급 시기, 절세 꿀팁까지 한 번에 정리했습니다."
 category: benefit
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/fallback-benefit-1.png
+ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
 tags: [종합소득세, 종합소득세신고, 종합소득세환급, 프리랜서세금, N잡러세금, 자영업자세금, 홈택스신고, 종합소득세마감일, 33원천징수환급, 종소세절세, 2026종합소득세, 모두채움서비스]
 officialRequirements: ["공동인증서 또는 간편인증(카카오·네이버 등)", "2025년 소득 관련 원천징수영수증", "사업 관련 지출 영수증 및 적격증빙 (장부 신고 시)"]
 officialHowToApply: ["홈택스(hometax.go.kr) 또는 손택스 앱 접속 → 공동인증서·간편인증 로그인", "세금신고 → 종합소득세 → 신고서 작성 메뉴 선택", "신고 유형 확인 (모두채움·단순경비율·기준경비율 등)", "소득·공제 항목 입력 후 제출 → 위택스에서 지방소득세 별도 신고"]
