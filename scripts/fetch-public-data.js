@@ -1430,6 +1430,12 @@ ${JSON.stringify(selectedData)}`
 
     const existingFestTitles = new Set(existingData.festivals.map(f => f.title));
     const existingFestNorm = new Set(existingData.festivals.map(f => normTitle(f.title)));
+    // 장소+날짜 조합으로도 중복 감지 (제목이 달라도 같은 행사인 경우 방지)
+    const existingFestLocDate = new Set(
+      existingData.festivals
+        .filter(f => f.location && f.date)
+        .map(f => `${f.location.trim()}|${f.date.trim()}`)
+    );
 
     // ─── Gemini 구글검색 보완 (축제) ─────────────────────────────────────────
     const festSupplements = await supplementWithGemini(
@@ -1441,7 +1447,9 @@ ${JSON.stringify(selectedData)}`
     for (const item of festSupplements) {
       const norm = normTitle(item.title);
       const isSimilar = [...existingFestNorm].some(n => n && (norm.includes(n) || n.includes(norm)));
-      if (!existingFestTitles.has(item.title) && !isSimilar) {
+      const locDateKey = item.location && item.date ? `${item.location.trim()}|${item.date.trim()}` : null;
+      const isLocDateDup = locDateKey && existingFestLocDate.has(locDateKey);
+      if (!existingFestTitles.has(item.title) && !isSimilar && !isLocDateDup) {
         const _festId = item.id || `gemini-fest-${Date.now()}`;
         const _festFallbackNum = pickFallback(_festId, 'festival', usedFestFallbacks);
         existingData.festivals.unshift({
@@ -1457,6 +1465,7 @@ ${JSON.stringify(selectedData)}`
         });
         existingFestTitles.add(item.title);
         existingFestNorm.add(norm);
+        if (locDateKey) existingFestLocDate.add(locDateKey);
         if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
         console.log(`✓ [Gemini 보완 축제] 추가됨: ${item.title}`);
       } else {
@@ -1470,7 +1479,9 @@ ${JSON.stringify(selectedData)}`
       if (!title) continue;
       const norm = normTitle(title);
       const isSimilar = [...existingFestNorm].some(n => n && (norm.includes(n) || n.includes(norm)));
-      if (existingFestTitles.has(title) || isSimilar) {
+      const festLocDateKey = fest.location && fest.date ? `${fest.location.trim()}|${fest.date.trim()}` : null;
+      const isLocDateDup = festLocDateKey && existingFestLocDate.has(festLocDateKey);
+      if (existingFestTitles.has(title) || isSimilar || isLocDateDup) {
         console.log(`  ✗ [축제] 유사 중복 스킵: ${title}`);
         continue;
       }
@@ -1550,6 +1561,7 @@ ${JSON.stringify(selectedData)}`
       existingData.festivals.unshift(newFest);
       existingFestTitles.add(title);
       existingFestNorm.add(normTitle(title));
+      if (festLocDateKey) existingFestLocDate.add(festLocDateKey);
       if (DRY_RUN) { console.log('[DRY RUN] 파일 저장 건너뜀'); } else {
       fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
       }

@@ -33,6 +33,7 @@ jobs:
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
           node scripts/fetch-public-data.js
+          node scripts/dedup-festivals-v2.js
           node scripts/generate-blog-post.js
           echo "Gemini 과부하 방지를 위해 3분 대기 중..."
           sleep 180
