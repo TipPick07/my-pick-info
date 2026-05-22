@@ -27,7 +27,7 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
       {paginated.map((post) => (
         <Link
           key={post.slug}
-          href={`/blog/${post.slug}`}
+          href={`/blog/${post.slug}/`}
           className="group flex items-center bg-white rounded-[2rem] overflow-hidden border-2 border-slate-100 shadow-sm hover:shadow-[0_4px_24px_rgba(0,204,255,0.14)] hover:border-[rgba(0,204,255,0.3)] transition-all duration-300 hover:-translate-y-0.5"
         >
           {/* 왼쪽 정방형 썸네일 */}

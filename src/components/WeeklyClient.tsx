@@ -149,7 +149,7 @@ export default function WeeklyClient({ items }: { items: Festival[] }) {
               return (
                 <Link
                   key={f.id}
-                  href={`/festival/${f.id}`}
+                  href={`/festival/${f.id}/`}
                   className="group bg-white rounded-2xl border border-slate-100 overflow-hidden flex flex-col md:flex-row hover:border-cyan-200 hover:shadow-md transition-all duration-300"
                 >
                   {/* 이미지 */}

@@ -407,7 +407,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
               }
 
               return (
-                <Link key={f.id} href={`/festival/${f.id}`} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden flex flex-col md:flex-row hover:border-cyan-200 hover:shadow-md transition-all duration-300">
+                <Link key={f.id} href={`/festival/${f.id}/`} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden flex flex-col md:flex-row hover:border-cyan-200 hover:shadow-md transition-all duration-300">
                   {/* 이미지 */}
                   <div className="relative w-full md:w-64 md:shrink-0 bg-slate-200 overflow-hidden" style={{ aspectRatio: "16/9" }}>
                     <img

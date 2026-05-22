@@ -299,7 +299,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
                     <ul className="space-y-1.5">
                       {todayUpdates.festivals.slice(0, 3).map((f) => (
                         <li key={f.slug} className="text-sm text-slate-600 truncate font-medium">
-                          <Link href={`/blog/${f.slug}`} className="hover:text-cyan-600 transition-colors">
+                          <Link href={`/blog/${f.slug}/`} className="hover:text-cyan-600 transition-colors">
                             · {f.title}
                           </Link>
                         </li>
@@ -322,7 +322,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
                     <ul className="space-y-1.5">
                       {todayUpdates.benefits.slice(0, 3).map((b) => (
                         <li key={b.slug} className="text-sm text-slate-600 truncate font-medium">
-                          <Link href={`/blog/${b.slug}`} className="hover:text-emerald-600 transition-colors">
+                          <Link href={`/blog/${b.slug}/`} className="hover:text-emerald-600 transition-colors">
                             · {b.title}
                           </Link>
                         </li>
@@ -361,7 +361,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
               {filteredFestivals.slice(0, 4).map((f) => (
-                <Link key={f.id} href={`/festival/${f.id}`} className="group cursor-pointer">
+                <Link key={f.id} href={`/festival/${f.id}/`} className="group cursor-pointer">
                   {/* 이미지 높이 16:9 비율로 슬림하게 */}
                   <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] mb-3 bg-slate-200">
                     <img
@@ -414,7 +414,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
               {filteredBenefits.map((b) => (
                 <Link
                   key={b.id}
-                  href={`/benefit/${b.id}`}
+                  href={`/benefit/${b.id}/`}
                   className={`block p-4 rounded-[2rem] border-2 transition-all group ${b.isEmergency ? "border-rose-100 bg-rose-50/50" : "border-slate-100 bg-white"
                     }`}
                   onMouseEnter={e => {
@@ -480,7 +480,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
                 팁픽(Tip-Pick) 가이드
               </h3>
             </div>
-            <Link href="/blog" className="text-sm font-bold transition-colors" style={{ color: "#059669" }}>
+            <Link href="/blog/" className="text-sm font-bold transition-colors" style={{ color: "#059669" }}>
               전체 보기 →
             </Link>
           </div>
@@ -489,7 +489,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
             {posts.slice(0, 3).map((post) => (
               <Link
                 key={post.slug}
-                href={`/blog/${post.slug}`}
+                href={`/blog/${post.slug}/`}
                 className="group flex items-stretch bg-white rounded-[1.75rem] overflow-hidden border border-slate-100 shadow-sm hover:-translate-y-0.5 transition-all duration-300"
                 onMouseEnter={e => {
                   e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,204,255,0.12)";

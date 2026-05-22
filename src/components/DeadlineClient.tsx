@@ -146,7 +146,7 @@ export default function DeadlineClient({ items }: { items: Benefit[] }) {
             return (
               <Link
                 key={b.id}
-                href={`/benefit/${b.id}`}
+                href={`/benefit/${b.id}/`}
                 className="group flex items-stretch bg-white rounded-2xl overflow-hidden border border-rose-200 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(244,63,94,0.15)] hover:border-rose-300"
               >
                 {/* 왼쪽 강조 선 */}

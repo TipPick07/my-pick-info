@@ -124,7 +124,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         {/* Navigation Row */}
         <div className="flex items-center gap-4 mb-12">
           <Link 
-            href="/blog"
+            href="/blog/"
             className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-indigo-600 transition-all group"
           >
             <span className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">←</span>
