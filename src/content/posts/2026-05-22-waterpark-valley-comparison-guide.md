@@ -9,8 +9,8 @@ date: 2026-05-22
 summary: "캐리비안베이 vs 가평·포천·양평 계곡, 어디로 가야 할까요? 비용·서울 거리·주차·혼잡도·편의시설을 표로 비교했습니다."
 description: "캐리비안베이 vs 가평·포천·양평 계곡, 어디로 가야 할까요? 비용·서울 거리·주차·혼잡도·편의시설을 표로 비교했습니다."
 category: festival
-image: /images/blogs/fallback-festival-2.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
+image: /images/blogs/festival-한강페스티벌-817.png
+ogImage: "https://tip-pick.com/images/blogs/festival-한강페스티벌-817.png"
 tags: [계곡, 워터파크, 여름물놀이, 캐리비안베이, 가평계곡, 포천계곡, 양평계곡, 수도권여름, 서울근교물놀이, 가족나들이, 계곡추천, 워터파크비교]
 officialRequirements: []
 officialHowToApply: ["워터파크는 공식 홈페이지 또는 네이버 예약에서 사전 구매 시 할인 가능", "계곡은 별도 예약 없이 당일 방문 가능 (성수기 주말은 오전 일찍 출발 필수)"]

@@ -9,8 +9,8 @@ date: 2026-05-23
 summary: "국립중앙박물관 상설전은 무료, 국립현대미술관은 수·토 야간 무료, 문화가 있는 날은 이제 매주 수요일! 수도권 국공립 박물관·미술관 무료·할인 입장 방법을 한 번에 정리했습니다."
 description: "국립중앙박물관 상설전은 무료, 국립현대미술관은 수·토 야간 무료, 문화가 있는 날은 이제 매주 수요일! 수도권 국공립 박물관·미술관 무료·할인 입장 방법을 한 번에 정리했습니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-국립박물관문화재단인-521.png
+ogImage: "https://tip-pick.com/images/blogs/festival-국립박물관문화재단인-521.png"
 tags: [박물관무료입장, 미술관무료, 국립중앙박물관, 국립현대미술관, 서울시립미술관, 문화가있는날, 수도권박물관, 무료문화생활, 수도권무료나들이, KB무료관람, 서울역사박물관, 서서울미술관]
 officialRequirements: []
 officialHowToApply: ["해당 시설 홈페이지 또는 현장 방문", "문화가 있는 날(매주 수요일) 활용", "KB스타뱅킹 국민지갑 앱 활용 시 추가 혜택 가능"]

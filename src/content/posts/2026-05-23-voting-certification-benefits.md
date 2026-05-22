@@ -9,8 +9,8 @@ date: 2026-05-23
 summary: "6월 3일 투표하면 식당·카페·놀이공원에서 할인받을 수 있습니다. 투표 인증 혜택의 모든 것 — 인증 방법부터 업종별 기대 혜택, 주의사항까지 한 번에 정리했습니다."
 description: "6월 3일 투표하면 식당·카페·놀이공원에서 할인받을 수 있습니다. 투표 인증 혜택의 모든 것 — 인증 방법부터 업종별 기대 혜택, 주의사항까지 한 번에 정리했습니다."
 category: benefit
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/korea-welfare-benefit-329.png
+ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-329.png"
 tags: [투표인증혜택, 6월3일선거, 2026지방선거, 사전투표, 투표할인, 투표혜택, 놀이공원할인, 선거혜택, 수도권선거, 6·3선거혜택, 투표인증, 지방선거할인]
 officialRequirements: []
 officialHowToApply: ["사전투표 또는 본투표 참여 후 투표 인증(도장 찍힌 손 사진 등)", "매장 방문 시 인증 사진 또는 투표 확인서 제시", "업체별 이벤트 페이지 사전 확인 필수"]

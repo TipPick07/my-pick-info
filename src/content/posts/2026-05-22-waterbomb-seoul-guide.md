@@ -9,8 +9,8 @@ date: 2026-05-22
 summary: "워터밤 서울 2026이 7월 24~26일 킨텍스에서 열립니다. 티켓 가격·예매처·라인업·교통편·현장 꿀팁까지 한 번에 정리했습니다."
 description: "워터밤 서울 2026이 7월 24~26일 킨텍스에서 열립니다. 티켓 가격·예매처·라인업·교통편·현장 꿀팁까지 한 번에 정리했습니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-이모셔널데미지락페스-389.png
+ogImage: "https://tip-pick.com/images/blogs/festival-이모셔널데미지락페스-389.png"
 tags: [워터밤, 워터밤서울2026, 워터밤서울, 킨텍스, 여름페스티벌, 뮤직페스티벌, 박재범, 비비, 카리나, 이영지, 여름축제수도권, 워터밤티켓]
 officialRequirements: []
 officialHowToApply: ["멜론티켓·티켓링크·네이버·29CM·퀸즈스마일 등 공식 예매처에서 날짜 선택 후 구매", "예매 시 정확한 휴대전화 번호 입력 필수 (QR티켓 발송)", "입장 시 신분증 지참 필수 (19세 미만 입장 불가)"]
