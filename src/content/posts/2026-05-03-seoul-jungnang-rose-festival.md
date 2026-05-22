@@ -1,13 +1,13 @@
 ---
-title: "서울 중랑 서울장미축제 2026, 5월 15일~23일 천만 송이 장미 개화"
+title: "서울장미축제 2026 완벽 가이드 — 중랑천 5.45km 장미터널·교통·꿀팁 총정리"
 originalTitle: "[서울] 중랑 서울장미축제"
 link: https://www.jungnang.go.kr/portal/culture/cultureInfo/cultureEvent/view.do?mId=0402010000&idx=1130
 officialTarget: 전 연령층
 officialDetails: 2026 중랑 서울장미축제는 국내 최장 5.45km의 장미터널을 자랑하며 천만 송이 장미가 피어나는 국내 최대 규모 봄 꽃 축제입니다. '랑랑 18세'를 주제로 가수 축하공연, 전통 국악 공연, 장미 퍼레이드 등 다채로운 프로그램이 운영됐습니다.
 officialDeadline: "2026.05.23"
 date: 2026-05-03
-summary: "5.45km 장미터널, 천만 송이 장미! 2026 중랑 서울장미축제 정보와 에디터 꿀팁을 총정리했습니다. (5/15~5/23 종료)"
-description: "5.45km 장미터널, 천만 송이 장미! 2026 중랑 서울장미축제 정보와 에디터 꿀팁을 총정리했습니다. (5/15~5/23 종료)"
+summary: "국내 최장 5.45km 장미터널, 천만 송이 장미! 서울장미축제 2026 일정·교통·주차·야간 조명 꿀팁을 총정리했습니다. 내년 방문 참고용으로 활용하세요."
+description: "국내 최장 5.45km 장미터널, 천만 송이 장미! 서울장미축제 2026 일정·교통·주차·야간 조명 꿀팁을 총정리했습니다. 내년 방문 참고용으로 활용하세요."
 category: festival
 image: /images/blogs/festival-서울세계도시문화축제-131.png
 ogImage: "https://tip-pick.com/images/blogs/festival-서울세계도시문화축제-131.png"

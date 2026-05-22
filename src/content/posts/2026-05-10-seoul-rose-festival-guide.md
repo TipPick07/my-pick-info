@@ -1,13 +1,13 @@
 ---
-title: "수도권 장미축제 총정리 2026 — 중랑 vs 부천 일정·교통·꿀팁 완벽 비교"
+title: "부천장미축제 2026 완벽 가이드 — 일정·교통·꿀팁 + 서울 중랑장미축제 비교"
 originalTitle: 수도권 장미축제 총정리 2026
 link: https://www.jungnang.go.kr
 officialTarget: 수도권 거주 가족·커플·나들이족
 officialDetails: 중랑 서울장미축제(5/15~23)와 부천 백만송이 장미축제(5/23~6/7) 일정·교통·주차·주변 맛집 비교 총정리. 두 축제 모두 무료 입장.
 officialDeadline: "2026.06.07"
 date: 2026-05-10
-summary: "중랑 vs 부천 장미축제, 일정·교통·분위기·꿀팁까지 한 번에 비교했습니다. 읽고 나면 어디 갈지 바로 결정됩니다."
-description: "5월 장미 시즌, 어디 갈지 고민된다면? 중랑 vs 부천 장미축제 일정·교통·분위기·꿀팁까지 한 번에 비교했습니다."
+summary: "부천 백만송이 장미축제 2026 일정·교통·꿀팁 총정리. 서울 중랑장미축제와 거리·혼잡도·분위기 비교해 내 상황에 맞는 곳을 골라드립니다. (부천 6/7까지 진행 중)"
+description: "부천 백만송이 장미축제 2026 일정·교통·꿀팁 총정리. 서울 중랑장미축제와 거리·혼잡도·분위기 비교해 내 상황에 맞는 곳을 골라드립니다. (부천 6/7까지 진행 중)"
 category: festival
 image: /images/blogs/festival-서울일러스트레이션페-105.png
 ogImage: "https://tip-pick.com/images/blogs/festival-seoul-rose-105.png"
@@ -111,5 +111,3 @@ officialTip: "중랑은 규모·접근성, 부천은 분위기·여유로움 —
 - [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 - [수도권 6월 야시장·야외 푸드마켓 총정리](/blog/2026-05-15-june-night-market-guide)
 - [장마 전에 꼭 가야 할 수도권 나들이 명소 BEST 7](/blog/2026-05-14-before-monsoon-daytrip)
-
-#장미축제 #중랑장미축제 #부천장미축제 #수도권축제 #5월축제 #무료축제 #장미터널 #가족나들이 #데이트코스
