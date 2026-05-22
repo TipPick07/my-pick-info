@@ -4,3 +4,18 @@ https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 /blog/2026-incheon-childrens-day /blog/2026-04-30-incheon-childrens-day/ 301
 /blog/2026-seoul-gyeonggi-childrens-day /blog/2026-05-01-seoul-gyeonggi-childrens-day/ 301
 /blog/2026-royal-culture-festival-guide /blog/2026-05-02-royal-culture-festival-guide/ 301
+
+/festival/*   /festivals/   301
+/benefit/*    /benefits/    301
+/election/2026/*   /election/   301
+/blog/2026-05-06-seoul-youth-rent-support   /blog/   301
+/blog/2026-05-06-seoul-youth-rent-support/  /blog/   301
+/blog/2026-05-10-june-free-festival-calendar   /blog/   301
+/blog/2026-05-21-june-outdoor-concert-calendar   /blog/   301
+/blog/2026-04-11-fishing-vessel-energy-saving   /blog/   301
+/blog/2026-04-11-fishing-vessel-energy-saving/  /blog/   301
+/blog/2026-05-20-hangang-outdoor-pool-open   /blog/   301
+/blog/2026-05-22-waterbomb-seoul-2026-guide   /blog/   301
+/blog/2026-05-03-metropolitan-youth-support-guide   /blog/   301
+/blog/2026-04-12-ocean-fishing-vessel-safety-fund   /blog/   301
+/blog/2026-04-05-EarnedIncomeTaxCreditApplication   /blog/   301
