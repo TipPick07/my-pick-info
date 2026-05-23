@@ -9,8 +9,8 @@ date: 2026-05-24
 summary: "선거 황금연휴에 아이랑 어디 갈지 고민 중이라면? 2026년 6월 수도권 어린이·가족 무료 체험 행사 총정리. 서울 포켓몬 페스타부터 과천과학관, 국립어린이박물관까지 입장료 없이 즐기는 알짜 코스만 모았습니다."
 description: "선거 황금연휴에 아이랑 어디 갈지 고민 중이라면? 2026년 6월 수도권 어린이·가족 무료 체험 행사 총정리. 서울 포켓몬 페스타부터 과천과학관, 국립어린이박물관까지 입장료 없이 즐기는 알짜 코스만 모았습니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-어린이가족예술축제-59.png
+ogImage: "https://tip-pick.com/images/blogs/festival-어린이가족예술축제-59.png"
 tags: [수도권어린이행사, 6월가족행사, 무료체험, 서울어린이행사, 경기어린이행사, 인천어린이행사, 육아가정나들이, 국립어린이박물관, 과천과학관, 선거연휴나들이]
 officialRequirements: []
 officialHowToApply: ["현장 방문 또는 공식 홈페이지 사전 예약", "일부 시설 온라인 예약 필수 (국립중앙박물관 어린이관, 국립어린이박물관 등)"]

@@ -9,8 +9,8 @@ date: 2026-05-24
 summary: "서울에서 강아지랑 갈 만한 곳 어디? 반려견 동반 공원 6곳 + 애견 카페 5곳 + 주의사항까지 한 번에 정리했습니다. 소형견·대형견 가능 여부, 대중교통 접근성, 비용 비교 포함."
 description: "서울에서 강아지랑 갈 만한 곳 어디? 반려견 동반 공원 6곳 + 애견 카페 5곳 + 주의사항까지 한 번에 정리했습니다. 소형견·대형견 가능 여부, 대중교통 접근성, 비용 비교 포함."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-포천펫스타-105.png
+ogImage: "https://tip-pick.com/images/blogs/festival-포천펫스타-105.png"
 tags: [서울반려동물, 애견동반카페, 반려견공원, 서울견주, 애견동반명소, 반려동물동반, 서울강아지산책, 한강반려견, 애견놀이터서울, 수도권반려견]
 officialRequirements: []
 officialHowToApply: ["광견병 예방접종 확인 후 방문", "목줄·켄넬 지참 필수", "배변 봉투 지참 권장"]
