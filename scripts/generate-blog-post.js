@@ -179,10 +179,15 @@ async function getCoupangProduct(keyword) {
     const queryString = `keyword=${encodeURIComponent(searchKeyword)}&limit=1`;
 
     const now = new Date();
-    const datetime = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z/, 'Z');
-
-    // HMAC-SHA256 서명: "{datetime}\n{METHOD}\n{path}\n{queryString}"
-    const message = `${datetime}\n${method}\n${apiPath}\n${queryString}`;
+    const pad = n => String(n).padStart(2, '0');
+    const yy = String(now.getUTCFullYear()).slice(2);
+    const mm = pad(now.getUTCMonth() + 1);
+    const dd = pad(now.getUTCDate());
+    const hh = pad(now.getUTCHours());
+    const mi = pad(now.getUTCMinutes());
+    const ss = pad(now.getUTCSeconds());
+    const datetime = `${yy}${mm}${dd}T${hh}${mi}${ss}Z`;
+    const message = datetime + method + apiPath + queryString;
     const signature = crypto.createHmac('sha256', secretKey).update(message).digest('hex');
     const authorization = `CEA algorithm=HmacSHA256, access-key=${accessKey}, signed-date=${datetime}, signature=${signature}`;
 
@@ -201,7 +206,7 @@ async function getCoupangProduct(keyword) {
 
     const result = await response.json();
 
-    if (result.rCode !== '00' || !result.data?.productData?.length) {
+    if (result.rCode !== '0' || !result.data?.productData?.length) {
       console.log(`[쿠팡] "${searchKeyword}" 검색 결과 없음 → 제휴 링크 생략`);
       return null;
     }
