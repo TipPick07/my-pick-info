@@ -1,3 +1,10 @@
+# ⚠️ 주의: 와일드카드(*) 리다이렉트 금지
+# /festival/* /benefit/* /blog/* 등 기존 라우트와 겹치는
+# 와일드카드 규칙은 상세 페이지를 막으므로 절대 추가하지 말 것.
+# GSC 오류 대응 시 정확한 URL만 개별 지정할 것.
+# 예) /festival/ → /festivals/ (OK)
+# 예) /festival/* → /festivals/ (NG - 상세 페이지 막힘)
+
 https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 
 # 개별 blog 슬러그 오류 → 올바른 포스트 URL 301
