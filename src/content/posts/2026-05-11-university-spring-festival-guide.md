@@ -105,7 +105,7 @@ officialTip: "외부인존은 재학생보다 자리 경쟁이 치열합니다 �
 ## 🔗 함께 보면 도움되는 팁픽 글
 
 - [2026 서울재즈페스티벌 라인업·티켓·꿀팁 총정리](/blog/2026-05-12-seoul-jazz-festival-2026-guide)
-- [수도권 6월 야외공연·무료 공연 달력 총정리](/blog/2026-05-21-june-outdoor-concert-calendar)
+- [수도권 6월 야외공연·무료 공연 달력 총정리](/blog/2026-05-21-june-outdoor-performance-guide)
 - [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 
 #대학축제 #수도권축제 #봄축제 #외부인입장 #서강대축제 #연세대아카라카 #고려대입실렌티 #2026축제

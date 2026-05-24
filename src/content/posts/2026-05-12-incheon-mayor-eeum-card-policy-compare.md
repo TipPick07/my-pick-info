@@ -95,7 +95,7 @@ officialTip: "이음카드 혜택은 누가 당선되든 5~7월 20% 캐시백 �
 ## 🔗 함께 보면 도움되는 팁픽 글
 
 - [서울·경기에서만 받는 독자 복지 혜택 총정리](/blog/2026-05-09-metropolitan-exclusive-benefits)
-- [2026 인천시장 유정복 vs 박찬대 공약 전체 비교](/blog/2026-05-07-incheon-election-pledge)
+
 - [수도권 4060세대 복지 비교 총정리](/blog/2026-05-08-metropolitan-4060-welfare-comparison)
 
 #인천시장선거 #이음카드 #복지공약 #유정복 #박찬대 #6·3지방선거 #인천e음 #청년지원 #육아지원

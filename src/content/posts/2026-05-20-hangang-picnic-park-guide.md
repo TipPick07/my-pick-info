@@ -147,4 +147,3 @@ officialTip: "주말 여의도·뚝섬은 오후 3시 이후 자리 경쟁 극�
 
 - [서울 한강공원 공식 홈페이지](https://hangang.seoul.go.kr)
 - [팁픽 — 서울 한강공원 야외수영장·물놀이장 6곳 완전 비교 2026](/blog/2026-05-20-hangang-outdoor-pool-guide/)
-- [팁픽 — 한강 수상레저·카약·보트 2026 예약·요금 가이드](/blog/2026-05-30-hangang-water-leisure-guide/)

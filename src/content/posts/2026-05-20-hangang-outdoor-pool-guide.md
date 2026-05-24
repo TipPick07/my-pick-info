@@ -107,5 +107,3 @@ officialTip: "개장 첫 주말은 인파 폭발 — 6월 말 평일 야간(19~2
 ## 관련 정보
 
 - [서울 한강공원 공식 홈페이지](https://hangang.seoul.go.kr)
-- [팁픽 — 수도권 야외수영장·물놀이장 개장일 총정리 2026](/blog/2026-05-31-outdoor-pool-opendate-guide/)
-- [팁픽 — 한강 수상레저·카약·보트 2026 예약·요금 가이드](/blog/2026-05-30-hangang-water-leisure-guide/)

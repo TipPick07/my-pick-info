@@ -108,4 +108,4 @@ tags: ["여름축제", "워터밤", "펜타포트", "수도권축제", "2026여�
 
 - [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 - [2026 수도권 여름 캠핑장 예약 오픈 총정리](/blog/2026-05-16-summer-camping-reservation)
-- [서울 한강공원 야외수영장 개장일·요금·예약 2026](/blog/2026-05-20-hangang-outdoor-pool-open)
+- [서울 한강공원 야외수영장 개장일·요금·예약 2026](/blog/2026-05-20-hangang-outdoor-pool-guide)

@@ -125,7 +125,7 @@ officialTip: "야외 어울림마당 '야마하 오픈 스테이지'는 예약 �
 
 - [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 - [수도권 6월 야시장·야외 푸드마켓 총정리](/blog/2026-05-15-june-night-market-guide)
-- [수도권 6월 야외공연·무료 공연 달력 총정리](/blog/2026-05-21-june-outdoor-concert-calendar)
+- [수도권 6월 야외공연·무료 공연 달력 총정리](/blog/2026-05-21-june-outdoor-performance-guide)
 
 ---
 

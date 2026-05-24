@@ -92,6 +92,6 @@ officialTip: "매직 아워(해 지기 30분 전)에 도착하면 노을과 야�
 
 - [한강 드론라이트쇼 무료 관람 꿀팁](/blog/2026-05-09-hangang-drone-light-show-guide)
 - [2026 이촌 한강페스티벌 완벽 가이드](/blog/2026-04-30-hangang-festival)
-- [서울 한강공원 야외수영장 개장일·요금·예약 2026](/blog/2026-05-20-hangang-outdoor-pool-open)
+- [서울 한강공원 야외수영장 개장일·요금·예약 2026](/blog/2026-05-20-hangang-outdoor-pool-guide)
 
 #한강야경 #서울밤 #여의도데이트 #야경명소 #한강유람선 #서울가볼만한곳 #여름야간나들이 #한강공원

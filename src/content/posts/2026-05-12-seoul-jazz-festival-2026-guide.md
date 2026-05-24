@@ -96,8 +96,8 @@ officialTip: "타임테이블을 미리 캡처해두고 무대 간 이동 시간
 
 ## 🔗 함께 보면 도움되는 팁픽 글
 
-- [수도권 6월 야외공연·무료 공연 달력 총정리](/blog/2026-05-21-june-outdoor-concert-calendar)
-- [2026 워터밤 서울 일정·티켓·꿀팁 총정리](/blog/2026-05-22-waterbomb-seoul-2026-guide)
+- [수도권 6월 야외공연·무료 공연 달력 총정리](/blog/2026-05-21-june-outdoor-performance-guide)
+- [2026 워터밤 서울 일정·티켓·꿀팁 총정리](/blog/2026-05-22-waterbomb-seoul-guide)
 - [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
 
 #서울재즈페스티벌 #서재페2026 #올림픽공원 #허비행콕 #자넬모네 #존바티스트 #혁오 #5월축제 #서울축제

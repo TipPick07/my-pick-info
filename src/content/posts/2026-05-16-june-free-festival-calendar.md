@@ -117,7 +117,7 @@ officialTip: "6월 첫째 주 선거 공휴일(6/3)에 맞춰 행사 일정 집�
 
 - [수도권 6월 야시장·야외 푸드마켓 총정리](/blog/2026-05-15-june-night-market-guide)
 - [선거일 투표 후 갈 곳 - 수도권 당일치기 BEST 5](/blog/2026-05-11-after-vote-daytrip-best5)
-- [서울 한강공원 야외수영장 개장일·요금·예약 2026](/blog/2026-05-20-hangang-outdoor-pool-open)
+- [서울 한강공원 야외수영장 개장일·요금·예약 2026](/blog/2026-05-20-hangang-outdoor-pool-guide)
 
 ---
 

@@ -119,7 +119,7 @@ officialTip: "공공 캠핑장 예약 오픈 당일 오전 자동접속 필수 �
 ## 📎 함께 보면 좋은 팁픽 추천 정보
 
 - [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
-- [서울 한강공원 야외수영장 개장일·요금·예약 2026](/blog/2026-05-20-hangang-outdoor-pool-open)
+- [서울 한강공원 야외수영장 개장일·요금·예약 2026](/blog/2026-05-20-hangang-outdoor-pool-guide)
 - [장마 전에 꼭 가야 할 수도권 나들이 명소 BEST 7](/blog/2026-05-14-before-monsoon-daytrip)
 
 ---
