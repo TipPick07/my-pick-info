@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import CoupangBanner from "@/components/CoupangBanner";
 
 export const metadata = {
   title: "이용약관 | 수도권 팁픽(Tip-Pick)",
@@ -147,7 +146,6 @@ export default function TermsPage() {
           </section>
 
         </div>
-        <CoupangBanner />
       </main>
       <Footer />
     </div>

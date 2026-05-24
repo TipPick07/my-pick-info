@@ -7,7 +7,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { notFound } from "next/navigation";
 import AdBanner from "@/components/AdBanner";
-import CoupangBanner from "@/components/CoupangBanner";
 import SafeImage from "@/components/SafeImage";
 
 interface PostPageProps {
@@ -148,7 +147,6 @@ export default async function ElectionPostPage({ params }: PostPageProps) {
         </article>
 
         <AdBanner />
-        <CoupangBanner />
       </main>
 
       <Footer />

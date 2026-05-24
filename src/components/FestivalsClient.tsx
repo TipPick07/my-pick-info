@@ -8,7 +8,6 @@ import WeatherModal from "@/components/WeatherModal";
 import {
   Sun, Cloud, CloudRain, CloudDrizzle, CloudLightning, Snowflake, LucideIcon
 } from "lucide-react";
-import CoupangBanner from "./CoupangBanner";
 
 interface WeatherData {
   region: string;
@@ -484,7 +483,6 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
             </div>
           )}
         </section>
-        <CoupangBanner />
       </main>
 
       {/* 날씨 상세 모달 */}

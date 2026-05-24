@@ -9,7 +9,6 @@ import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
 import AdBanner from "@/components/AdBanner";
-import CoupangBanner from "@/components/CoupangBanner";
 import EligibilityChecker from "@/components/EligibilityChecker";
 import SafeImage from "@/components/SafeImage";
 import { CheckCircle2, FileText, Clock, Lightbulb } from "lucide-react";
@@ -304,7 +303,6 @@ export default async function BlogPostPage({ params }: PostPageProps) {
 
         {/* Monetization Banners */}
         <AdBanner />
-        <CoupangBanner />
       </main>
 
       <Footer />

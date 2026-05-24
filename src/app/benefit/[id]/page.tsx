@@ -17,7 +17,6 @@ import {
   Lightbulb
 } from 'lucide-react';
 import EligibilityChecker from "@/components/EligibilityChecker";
-import CoupangBanner from '@/components/CoupangBanner';
 
 interface Benefit {
   id: string;
@@ -273,7 +272,6 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
 
           </div>
         </article>
-        <CoupangBanner />
       </main>
 
       <Footer />

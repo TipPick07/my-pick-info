@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import CoupangBanner from "@/components/CoupangBanner";
 
 export const metadata = {
   title: "개인정보처리방침 | 수도권 팁픽(Tip-Pick)",
@@ -132,7 +131,6 @@ export default function PrivacyPage() {
           </section>
 
         </div>
-        <CoupangBanner />
       </main>
       <Footer />
     </div>

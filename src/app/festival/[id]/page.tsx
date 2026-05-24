@@ -11,7 +11,6 @@ import {
 } from 'lucide-react';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CoupangBanner from '@/components/CoupangBanner';
 import MdContent from '@/components/MdContent';
 
 interface Festival {
@@ -296,7 +295,6 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
           </footer>
 
         </article>
-        <CoupangBanner />
       </div>
 
       <Footer />

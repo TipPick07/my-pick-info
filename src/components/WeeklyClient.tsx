@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CoupangBanner from "./CoupangBanner";
 
 interface Festival {
   id: string;
@@ -230,7 +229,6 @@ export default function WeeklyClient({ items }: { items: Festival[] }) {
           )}
         </section>
 
-        <CoupangBanner />
       </main>
 
       <Footer />

@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CoupangBanner from "./CoupangBanner";
 import { PostData } from "@/lib/posts";
 
 interface Props {
@@ -188,7 +187,6 @@ export default function ElectionClient({ posts }: Props) {
           )}
         </section>
 
-        <CoupangBanner />
       </main>
 
       <Footer />
