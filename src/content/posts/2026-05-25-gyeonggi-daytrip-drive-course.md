@@ -8,8 +8,8 @@ date: 2026-05-25
 summary: 서울 출발 2시간 이내, 6월에 가기 딱 좋은 경기도 드라이브 코스 BEST 5. 양평·가평·파주·여주·안성 코스를 비용·거리·주차·추천 포인트로 비교했습니다.
 description: 서울 출발 2시간 이내, 6월에 가기 딱 좋은 경기도 드라이브 코스 BEST 5. 양평·가평·파주·여주·안성 코스를 비용·거리·주차·추천 포인트로 비교했습니다.
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/fallback-festival-3.png
+ogImage: "https://tip-pick.com/images/blogs/fallback-festival-3.png"
 tags: [경기도드라이브코스, 당일치기드라이브, 수도권드라이브, 6월나들이, 경기근교여행, 양평드라이브, 가평드라이브, 파주드라이브, 여주드라이브, 당일치기여행, 커플드라이브, 가족나들이]
 officialRequirements: []
 officialHowToApply: []

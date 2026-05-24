@@ -9,8 +9,8 @@ date: 2026-05-25
 summary: 6월 3일 선거 공휴일, 투표 마치고 어디 갈까? 서울·경기·인천 권역별 당일 나들이 명소 10곳을 거리·비용·혼잡도·주차 기준으로 비교했습니다.
 description: 6월 3일 선거 공휴일, 투표 마치고 어디 갈까? 서울·경기·인천 권역별 당일 나들이 명소 10곳을 거리·비용·혼잡도·주차 기준으로 비교했습니다.
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/fallback-festival-4.png
+ogImage: "https://tip-pick.com/images/blogs/fallback-festival-4.png"
 tags: [선거공휴일나들이, 6월3일선거, 투표후나들이, 수도권명소, 선거공휴일, 6월수도권나들이, 서울나들이, 경기나들이, 인천나들이, 당일치기, 가족나들이, 2026지방선거]
 officialRequirements: []
 officialHowToApply: []
