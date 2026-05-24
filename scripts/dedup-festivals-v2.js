@@ -35,6 +35,21 @@ function isSameGroup(a, b) {
     a.date.trim() === b.date.trim()
   ) return true;
 
+  // 날짜가 같고 위치 및 제목 키워드가 겹치는 경우 스마트 중복 감지
+  if (a.date && b.date && a.date.trim() === b.date.trim()) {
+    const locA = (a.location || '').trim();
+    const locB = (b.location || '').trim();
+    
+    const sharedLocs = ['전곡항', '제부도', '궁평', '임진각', '동탄', '수원역', '혜화역', '마로니에', '체부홀', '상상캠퍼스', '예술가의집', '여의도', '창경궁'];
+    const hasSharedLoc = sharedLocs.some(kw => locA.includes(kw) && locB.includes(kw));
+
+    if (locA === locB || locA.includes(locB) || locB.includes(locA) || hasSharedLoc) {
+      const titleKeywords = ['뱃놀이', '연등', '빛', '드론', '장미', '가족', '어린이', '음악극', '연극', '재즈', '콘서트', '독주회', '페스티벌', '축제'];
+      const hasSharedTitle = titleKeywords.some(kw => a.title.includes(kw) && b.title.includes(kw));
+      if (hasSharedTitle) return true;
+    }
+  }
+
   return false;
 }
 

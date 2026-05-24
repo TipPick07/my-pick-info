@@ -594,6 +594,42 @@ function deduplicateFestivals(festivals) {
   return Array.from(seen.values());
 }
 
+// 두 축제가 중복인지 여부를 강력하게 판별하는 헬퍼 함수
+function isFestivalDuplicate(fest, existingFestivals) {
+  const normNew = normTitle(fest.title);
+  const dateNew = (fest.date || '').trim();
+  const locNew = (fest.location || fest.region || '').trim();
+
+  for (const existing of existingFestivals) {
+    const normExist = normTitle(existing.title);
+    const dateExist = (existing.date || '').trim();
+    const locExist = (existing.location || existing.region || '').trim();
+
+    // 1. 완벽히 같은 제목인 경우
+    if (existing.title === fest.title || normExist === normNew) return true;
+
+    // 2. 제목이 부분 포함 관계이거나 매우 유사하면서 날짜가 겹치는 경우
+    if (normNew.includes(normExist) || normExist.includes(normNew)) {
+      // 날짜가 같으면 중복
+      if (dateNew === dateExist) return true;
+    }
+
+    // 3. 날짜가 정확히 같으면서 위치에 공통 랜드마크 키워드가 들어가고, 제목의 키워드도 겹치는 경우 (강력한 스마트 필터)
+    if (dateNew && dateExist && dateNew === dateExist) {
+      const sharedLocs = ['전곡항', '제부도', '궁평', '임진각', '동탄', '수원역', '혜화역', '마로니에', '체부홀', '상상캠퍼스', '예술가의집', '여의도', '창경궁'];
+      const hasSharedLoc = sharedLocs.some(kw => locNew.includes(kw) && locExist.includes(kw));
+
+      if (locNew === locExist || locNew.includes(locExist) || locExist.includes(locNew) || hasSharedLoc) {
+        const titleKeywords = ['뱃놀이', '연등', '빛', '드론', '장미', '가족', '어린이', '음악극', '연극', '재즈', '콘서트', '독주회', '페스티벌', '축제'];
+        const hasSharedTitle = titleKeywords.some(kw => fest.title.includes(kw) && existing.title.includes(kw));
+        if (hasSharedTitle) return true;
+      }
+    }
+  }
+
+  return false;
+}
+
 // ─── API 연동 설정 ────────────────────────────────────────────────────────────
 
 // gov24 fallback 검색 키워드 (2순위)
@@ -1445,11 +1481,7 @@ ${JSON.stringify(selectedData)}`
       geminiApiKey
     );
     for (const item of festSupplements) {
-      const norm = normTitle(item.title);
-      const isSimilar = [...existingFestNorm].some(n => n && (norm.includes(n) || n.includes(norm)));
-      const locDateKey = item.location && item.date ? `${item.location.trim()}|${item.date.trim()}` : null;
-      const isLocDateDup = locDateKey && existingFestLocDate.has(locDateKey);
-      if (!existingFestTitles.has(item.title) && !isSimilar && !isLocDateDup) {
+      if (!isFestivalDuplicate(item, existingData.festivals)) {
         const _festId = item.id || `gemini-fest-${Date.now()}`;
         const _festFallbackNum = pickFallback(_festId, 'festival', usedFestFallbacks);
         existingData.festivals.unshift({
@@ -1464,8 +1496,7 @@ ${JSON.stringify(selectedData)}`
           link: item.link || '',
         });
         existingFestTitles.add(item.title);
-        existingFestNorm.add(norm);
-        if (locDateKey) existingFestLocDate.add(locDateKey);
+        existingFestNorm.add(normTitle(item.title));
         if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
         console.log(`✓ [Gemini 보완 축제] 추가됨: ${item.title}`);
       } else {
@@ -1477,11 +1508,8 @@ ${JSON.stringify(selectedData)}`
     for (const fest of allFestItems) {
       const title = (fest.title || '').trim();
       if (!title) continue;
-      const norm = normTitle(title);
-      const isSimilar = [...existingFestNorm].some(n => n && (norm.includes(n) || n.includes(norm)));
-      const festLocDateKey = fest.location && fest.date ? `${fest.location.trim()}|${fest.date.trim()}` : null;
-      const isLocDateDup = festLocDateKey && existingFestLocDate.has(festLocDateKey);
-      if (existingFestTitles.has(title) || isSimilar || isLocDateDup) {
+      
+      if (isFestivalDuplicate(fest, existingData.festivals)) {
         console.log(`  ✗ [축제] 유사 중복 스킵: ${title}`);
         continue;
       }
