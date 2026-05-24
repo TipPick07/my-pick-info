@@ -1,5 +1,9 @@
+const dotenv = require('dotenv');
+dotenv.config({ path: '.env.local' });
+
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const fallbacks = require('../src/lib/image-fallbacks.json');
 
 // ─── 방법3: 월별 계절 키워드 자동 주입 ────────────────────────────────────
@@ -54,7 +58,6 @@ const SEASONAL_KEYWORDS = {
   }
 };
 
-// 현재 월 기준 계절 키워드 반환
 function getSeasonalKeywords(postType) {
   const month = new Date().getMonth() + 1;
   const keywords = SEASONAL_KEYWORDS[month] || SEASONAL_KEYWORDS[5];
@@ -79,7 +82,6 @@ async function getNaverDataLabKeywords(postType) {
     const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
     const startDate = `${weekAgo.getFullYear()}-${pad(weekAgo.getMonth() + 1)}-${pad(weekAgo.getDate())}`;
 
-    // 포스트 타입별 조회할 키워드 그룹
     const keywordGroups = postType === 'festival'
       ? [
         { groupName: '축제', keywords: ['축제'] },
@@ -118,7 +120,6 @@ async function getNaverDataLabKeywords(postType) {
 
     const result = await response.json();
 
-    // 최근 3일 평균 ratio 기준으로 그룹 정렬
     const scored = result.results.map(group => {
       const recent = group.data.slice(-3);
       const avg = recent.reduce((sum, d) => sum + d.ratio, 0) / recent.length;
@@ -136,15 +137,87 @@ async function getNaverDataLabKeywords(postType) {
   }
 }
 
-// 계절 키워드 + DataLab 키워드 합산
 async function getTodayHotKeywords(postType) {
   const seasonal = getSeasonalKeywords(postType);
   const datalab = await getNaverDataLabKeywords(postType);
 
-  // DataLab 키워드를 앞에 배치 (우선순위 높음)
   const merged = [...new Set([...datalab, ...seasonal])];
   console.log(`[핫 키워드] 오늘의 키워드 (${postType}): ${merged.slice(0, 5).join(', ')}`);
   return merged;
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
+// ─── 쿠팡 파트너스 연동 ──────────────────────────────────────────────────────
+function extractCoupangKeyword(title) {
+  return (title || '')
+    .replace(/\d{4}/g, '')
+    .replace(/서울특별시|서울시|서울|인천광역시|인천시|인천|경기도|경기|수도권/g, '')
+    .replace(/가이드|총정리|완벽|정보|안내|꿀팁|추천|비교|일정|방법|신청/g, '')
+    .trim()
+    .split(/[\s·\-\/—]/)
+    .filter(w => w.length >= 2)
+    .slice(0, 2)
+    .join(' ')
+    .trim();
+}
+
+async function getCoupangProduct(keyword) {
+  const accessKey = process.env.COUPANG_ACCESS_KEY;
+  const secretKey = process.env.COUPANG_SECRET_KEY;
+
+  if (!accessKey || !secretKey) {
+    console.log('[쿠팡] API 키 없음 → 제휴 링크 생략');
+    return null;
+  }
+
+  const searchKeyword = keyword || '베스트셀러';
+
+  try {
+    const method = 'GET';
+    const domain = 'https://api-gateway.coupang.com';
+    const apiPath = '/v2/providers/affiliate_open_api/apis/openapi/v1/products/search';
+    const queryString = `keyword=${encodeURIComponent(searchKeyword)}&limit=1`;
+
+    const now = new Date();
+    const datetime = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z/, 'Z');
+
+    // HMAC-SHA256 서명: "{datetime}\n{METHOD}\n{path}\n{queryString}"
+    const message = `${datetime}\n${method}\n${apiPath}\n${queryString}`;
+    const signature = crypto.createHmac('sha256', secretKey).update(message).digest('hex');
+    const authorization = `CEA algorithm=HmacSHA256, access-key=${accessKey}, signed-date=${datetime}, signature=${signature}`;
+
+    const response = await fetch(`${domain}${apiPath}?${queryString}`, {
+      method,
+      headers: {
+        'Authorization': authorization,
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    });
+
+    if (!response.ok) {
+      console.warn(`[쿠팡] API 응답 오류 (${response.status}) → 제휴 링크 생략`);
+      return null;
+    }
+
+    const result = await response.json();
+
+    if (result.rCode !== '00' || !result.data?.productData?.length) {
+      console.log(`[쿠팡] "${searchKeyword}" 검색 결과 없음 → 제휴 링크 생략`);
+      return null;
+    }
+
+    const product = result.data.productData[0];
+    console.log(`[쿠팡] 연결 상품 발견: "${product.productName}"`);
+    return {
+      name: product.productName,
+      url: product.productUrl,
+      price: product.productPrice
+    };
+
+  } catch (err) {
+    console.warn('[쿠팡] 호출 실패 → 제휴 링크 생략:', err.message);
+    return null;
+  }
 }
 // ──────────────────────────────────────────────────────────────────────────────
 
@@ -154,13 +227,11 @@ function calcScore(item, postType, hotKeywords = []) {
   today.setHours(0, 0, 0, 0);
   const text = [item.title, item.details, item.description, item.target, item.summary, item.deadline, item.date].join(' ');
 
-  // ─── 핫 키워드 매칭 점수 (신규) ───────────────────────────────────────────
   hotKeywords.forEach((kw, idx) => {
-    const weight = idx < 2 ? 30 : 15; // DataLab 상위 2개는 가중치 2배
+    const weight = idx < 2 ? 30 : 15;
     if (item.title?.includes(kw)) score += weight;
     if (text.includes(kw)) score += Math.floor(weight / 2);
   });
-  // ──────────────────────────────────────────────────────────────────────────
 
   if (postType === 'festival') {
     const dateMatches = [...String(item.date || '').matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
@@ -233,6 +304,26 @@ function isDuplicate(newNorm, existingNormSet) {
   return false;
 }
 
+// ─── 폴더에서 포스트 제목 목록 읽기 ─────────────────────────────────────────
+function readPostTitlesFromDir(dir) {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir)
+    .filter(f => f.endsWith('.md'))
+    .map(file => {
+      const content = fs.readFileSync(path.join(dir, file), 'utf8');
+      const originalTitleMatch = content.match(/originalTitle:\s*["']?(.+?)["']?\s*$/m);
+      const originalTitle = originalTitleMatch ? originalTitleMatch[1].trim() : null;
+      let title = originalTitle;
+      if (!title) {
+        const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\r?\n/);
+        title = titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
+      }
+      return { title, originalTitle, filename: file.replace('.md', '') };
+    })
+    .filter(p => p.title);
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
 async function main() {
   const DRY_RUN = process.env.DRY_RUN === 'true';
   if (DRY_RUN) {
@@ -267,33 +358,43 @@ async function main() {
     const hotKeywords = await getTodayHotKeywords(postType);
     // ──────────────────────────────────────────────────────────────────────
 
-    // 기존 포스트 디렉토리 확인
-    const postsDir = path.join(process.cwd(), 'src/content/posts');
+    // ─── 3개 폴더 중복 스캔: posts / drafts / review ──────────────────────
+    const postsDir  = path.join(process.cwd(), 'src/content/posts');
+    const draftsDir = path.join(process.cwd(), 'src/content/drafts');
+    const reviewDir = path.join(process.cwd(), 'src/content/review');
+
     if (!fs.existsSync(postsDir)) {
       fs.mkdirSync(postsDir, { recursive: true });
     }
+    if (!fs.existsSync(reviewDir)) {
+      fs.mkdirSync(reviewDir, { recursive: true });
+    }
 
-    const existingFiles = fs.readdirSync(postsDir);
-    const existingPostsList = existingFiles.filter(f => f.endsWith('.md')).map(file => {
-      const content = fs.readFileSync(path.join(postsDir, file), 'utf8');
-      const originalTitleMatch = content.match(/originalTitle:\s*["']?(.+?)["']?\s*$/m);
-      const originalTitle = originalTitleMatch ? originalTitleMatch[1].trim() : null;
-      let title = originalTitle;
-      if (!title) {
-        const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\r?\n/);
-        title = titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
-      }
-      return { title, originalTitle, filename: file.replace('.md', '') };
-    }).filter(p => p.title);
+    // 3개 폴더 전체에서 제목 수집 → 중복 판단용
+    const allExistingPosts = [
+      ...readPostTitlesFromDir(postsDir),
+      ...readPostTitlesFromDir(draftsDir),
+      ...readPostTitlesFromDir(reviewDir),
+    ];
+    console.log(
+      `[중복 스캔] posts:${readPostTitlesFromDir(postsDir).length} ` +
+      `drafts:${readPostTitlesFromDir(draftsDir).length} ` +
+      `review:${readPostTitlesFromDir(reviewDir).length} (합계 ${allExistingPosts.length}건)`
+    );
 
     const alreadyPostedNorm = new Set();
-    existingPostsList.forEach(p => {
+    allExistingPosts.forEach(p => {
       if (p.title) alreadyPostedNorm.add(normTitle(p.title));
       if (p.originalTitle) alreadyPostedNorm.add(normTitle(p.originalTitle));
     });
 
-    existingPostsList.sort((a, b) => b.filename.localeCompare(a.filename));
-    const recentPostsForLinking = existingPostsList.slice(0, 30).map(p => `- [${p.title}](/blog/${p.filename})`).join('\n');
+    // 내부 링크 후보: 발행된 posts 폴더만 사용
+    const publishedPosts = readPostTitlesFromDir(postsDir);
+    publishedPosts.sort((a, b) => b.filename.localeCompare(a.filename));
+    const recentPostsForLinking = publishedPosts.slice(0, 30)
+      .map(p => `- [${p.title}](/blog/${p.filename})`)
+      .join('\n');
+    // ──────────────────────────────────────────────────────────────────────
 
     const unpostedItems = allItems.filter(item => {
       const normItem = normTitle(item.title);
@@ -340,6 +441,26 @@ async function main() {
     }
 
     console.log(`발행 대상 발견: ${targetItem.title}`);
+
+    // ─── 쿠팡 파트너스 제휴 상품 검색 ────────────────────────────────────
+    const coupangKeyword = extractCoupangKeyword(targetItem.title);
+    const coupangProduct = await getCoupangProduct(coupangKeyword);
+
+    // 쿠팡 상품이 있을 때만 프롬프트에 주입할 섹션 구성
+    const coupangPromptSection = coupangProduct ? `
+[쿠팡 파트너스 제휴 상품 링크 - 반드시 포함]
+아래 버튼 링크를 본문에서 가장 자연스러운 위치(준비물·추천 상품·쇼핑 안내 이후 등)에 한 번만 삽입하세요:
+[👉 ${coupangProduct.name} — 쿠팡에서 확인하기](${coupangProduct.url})
+
+` : '';
+
+    const coupangDisclosureSection = coupangProduct ? `
+[공정위 고시 문구 - 반드시 포함]
+브랜드 문구("매일 아침...") 바로 다음 줄에 이탤릭체로 추가하세요:
+*이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.*
+
+` : '';
+    // ──────────────────────────────────────────────────────────────────────
 
     // 2. Gemini AI로 블로그 글 생성
     const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
@@ -405,7 +526,7 @@ ${postType === 'festival'
 - 불렛포인트와 표를 적절히 혼합 (한 가지만 쓰지 말 것)
 - 분량: 공백 제외 **1,500자 이상** (기존 800자에서 상향)
 
-[하단 연결 섹션 - 반드시 포함]
+${coupangPromptSection}[하단 연결 섹션 - 반드시 포함]
 ${postType === 'festival'
               ? '### 🚀 이번 주말 또 다른 가볼만한 곳\n이번 주말, 여기 말고도 재밌는 축제가 더 궁금하다면 팁픽의 다른 글도 확인해보세요!'
               : ''}
@@ -421,7 +542,7 @@ ${recentPostsForLinking}
 글 맨 마지막 줄:
 "매일 아침, 일상을 풍요롭게 만드는 정보를 엄선하여 배달합니다."
 
-아래 형식으로만 출력. YAML Frontmatter 포함. 다른 설명 제외.
+${coupangDisclosureSection}아래 형식으로만 출력. YAML Frontmatter 포함. 다른 설명 제외.
 반드시 응답 맨 마지막 줄에 'FILENAME: YYYY-MM-DD-영문키워드' 형식으로 파일명 출력.
 ---
 title: (SEO 최적화된 구체적 제목 — 지역명+대상+핵심혜택 조합)
@@ -435,7 +556,7 @@ summary: (구글 검색 결과에 그대로 노출되는 설명. 구체적 날�
 description: (summary와 동일한 내용으로 작성)
 category: ${postType === 'festival' ? 'festival' : 'benefit'}
 image: ${targetItem.image || ''}
-ogImage:
+ogImage: ""
 tags: [연관키워드1, 연관키워드2, 연관키워드3, 연관키워드4, 연관키워드5]
 officialRequirements: ${JSON.stringify(targetItem.requirements || [])}
 officialHowToApply: ${JSON.stringify(targetItem.howToApply || [])}
@@ -568,7 +689,7 @@ FILENAME: YYYY-MM-DD-영문키워드`
       mdContent = mdContent.replace(/^(image:.+)$/m, `$1\nogImage: "${computedOgImage}"`);
     }
 
-    const finalPath = path.join(postsDir, filename);
+    const finalPath = path.join(reviewDir, filename);
     if (DRY_RUN) {
       console.log(`[DRY RUN] 파일 저장 건너뜀: ${filename}`);
       return;
