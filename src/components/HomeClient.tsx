@@ -7,6 +7,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { PostData } from "@/lib/posts";
 import AdBanner from "@/components/AdBanner";
+import AdFit from "@/components/AdFit";
+import CustomBanner from "@/components/CustomBanner";
 
 interface Weather {
   region: string;
@@ -133,7 +135,7 @@ function sortFestivals<T extends { date: string }>(list: T[], today: Date): T[] 
 }
 // ────────────────────────────────────────────────────────────────────────────
 
-export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }: { data: Data, posts: PostData[], weatherApiKey: string, todayUpdates?: TodayUpdates }) {
+export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, bannerConfig }: { data: Data, posts: PostData[], weatherApiKey: string, todayUpdates?: TodayUpdates, bannerConfig?: { isActive: boolean; imageUrl: string; linkUrl: string } }) {
   const [filter, setFilter] = useState("전체");
 
   // KST 기준 오늘 날짜
@@ -238,6 +240,9 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
             ))}
           </div>
         </section>
+
+        {/* 직접 광고 영업용 고정 배너 영역 */}
+        <CustomBanner config={bannerConfig} />
 
         {/* ── D-Day 위젯 Section ── */}
         <section className="bg-gradient-to-r from-rose-50 to-orange-50 rounded-[2rem] p-5 shadow-sm border border-rose-100/50">
@@ -466,6 +471,9 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates }:
 
         {/* Ad Banner */}
         <AdBanner />
+
+        {/* 메인 화면 중간 카카오 애드핏 광고 */}
+        <AdFit unit="DAN-임시코드" width="320" height="100" />
 
 
         {/* ── 팁픽 가이드 (블로그) 섹션 — 가로형 카드 ── */}

@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { getSortedPostsData } from "@/lib/posts";
 import HomeClient from "@/components/HomeClient";
+import bannerConfig from "@/data/banner-config.json";
 
 export const metadata: Metadata = {
   title: "수도권 팁픽 (TIP-PICK) | 내 돈 찾는 지원금 & 축제 가이드",
@@ -72,7 +73,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(benefitSchema) }}
       />
-      <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} todayUpdates={todayUpdates} />
+      <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} todayUpdates={todayUpdates} bannerConfig={bannerConfig} />
     </>
   );
 }

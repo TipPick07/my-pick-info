@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
 import AdBanner from "@/components/AdBanner";
+import AffiliateBanner from "@/components/AffiliateBanner";
 import EligibilityChecker from "@/components/EligibilityChecker";
 import SafeImage from "@/components/SafeImage";
 import { CheckCircle2, FileText, Clock, Lightbulb } from "lucide-react";
@@ -300,6 +301,9 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             ))}
           </div>
         </article>
+
+        {/* 제휴 마케팅 자동화 키워드 배너 */}
+        <AffiliateBanner textContext={post.content} />
 
         {/* Monetization Banners */}
         <AdBanner />
