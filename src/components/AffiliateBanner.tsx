@@ -14,7 +14,7 @@ export const FINANCE_BANNER = {
 // ✈️ 여행/쿠팡(CPS) 배너 설정 정보
 // 나중에 실제 이미지 경로와 링크 주소로 교체해서 사용하세요!
 export const TRAVEL_BANNER = {
-  href: "https://travel-cps-link.com", // 👈 여행/쿠팡 제휴 마케팅 링크로 변경하세요.
+  href: "https://link.coupang.com/a/d2iVnkYZmC", // 👈 여행/쿠팡 제휴 마케팅 링크로 변경하세요.
   imgSrc: "", // 👈 실제 배너 이미지 경로로 변경하세요. (예: "/images/banners/travel.png")
   title: "✈️ [특가] 이번 주말 힐링 보장! 인기 축제 & 감성 숙소 모음",
   description: "팁픽이 직접 엄선한 드라이브 코스 정보와 최대 50% 특가 할인 숙소 혜택을 지금 만나보세요.",
