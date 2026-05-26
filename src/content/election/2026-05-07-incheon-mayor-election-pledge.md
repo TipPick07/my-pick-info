@@ -107,8 +107,3 @@ officialTip: "이음카드는 지금 당장 쓸 수 있는 혜택입니다. 두 
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [인천 임산부 친환경 농산물 꾸러미 지원받기](/blog/2026-04-06-incheon-moms-eco-food)
-- [수도권 주민 5월 마감 지원금 총정리](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)

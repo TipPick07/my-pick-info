@@ -116,8 +116,3 @@ officialTip: "사전투표 5월 29~30일, 본투표 6월 3일. 화성시 투표�
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [경기도 2026 청년 지원금 5종 완전 비교](/blog/2026-05-17-gyeonggi-youth-support-guide)
-- [K-패스 교통카드로 수도권 대중교통비 최대 53% 환급받기](/blog/2026-05-08-k-pass-transit-daytrip-guide)

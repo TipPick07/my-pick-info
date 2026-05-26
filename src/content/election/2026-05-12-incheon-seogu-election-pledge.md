@@ -131,8 +131,3 @@ officialTip: "서구e음 캐시백 조건과 청년주택 입주 소득 기준�
 - **후보 공약집 전문:** 정책·공약마당([policy.nec.go.kr](https://policy.nec.go.kr))
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [근로장려금 최대 330만 원 신청 완벽 가이드](/blog/2026-05-07-national-earned-income-tax-credit-application)
-- [경기도 2026 청년 지원금 5종 완전 비교](/blog/2026-05-17-gyeonggi-youth-support-guide)

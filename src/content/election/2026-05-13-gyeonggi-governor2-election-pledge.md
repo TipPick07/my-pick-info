@@ -108,8 +108,3 @@ officialTip: "교통비 즉각 절감이 시급한지, 반도체 일자리·집�
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [경기도 청년 기본소득 2분기 신청 (최대 100만 원)](/blog/2026-04-08-gyeonggi-youth-basic-income)
-- [수도권 유류비·교통비 지원 총정리](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)

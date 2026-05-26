@@ -109,8 +109,3 @@ officialTip: "경부선 지하화·위례과천선 연장은 대형 국책 사�
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [경기도 2026 청년 지원금 5종 완전 비교](/blog/2026-05-17-gyeonggi-youth-support-guide)
-- [수도권 4060세대 복지 비교 총정리](/blog/2026-05-08-metropolitan-4060-welfare-comparison)

@@ -121,8 +121,3 @@ officialTip: "은평·서대문 모두 2022년 초박빙 4년 만의 리턴매�
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [서울시 아이돌봄 서비스 지원 가이드](/blog/2026-04-28-seoul-childcare-support)
-- [서울시 청년 월세 지원 신청 방법](/blog/2026-05-11-seoul-youth-monthly-rent-support)

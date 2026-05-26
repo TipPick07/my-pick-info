@@ -111,8 +111,3 @@ officialTip: "자녀가 많을수록 보편 복지(정근식) 효과가 배수�
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [서울시 보육 지원 혜택 확인하기](/blog/2026-04-28-seoul-childcare-support)
-- [서울 청년 월세 지원 — 월 최대 20만 원](/blog/2026-04-30-youth-rent-support)

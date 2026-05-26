@@ -108,8 +108,3 @@ officialTip: "실거주 청년이라면 월세 지원 수급 조건, 소상공�
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [서울 청년 월세 지원 — 월 최대 20만 원](/blog/2026-04-30-youth-rent-support)
-- [전국 월세 보증금 지원 혜택 확인](/blog/2026-04-10-monthly-rent-guarantee)

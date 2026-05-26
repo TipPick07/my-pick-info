@@ -166,8 +166,3 @@ officialTip: "사전투표는 5월 29~30일 전국 어디서나 가능. 투표�
 - 후보 공약집 전문: 정책·공약마당(policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [2026 문화누리카드 완벽 가이드 (최대 16만 원)](/blog/2026-05-17-culture-voucher-nuri-card-guide)
-- [경기도 2026 청년 지원금 5종 완전 비교](/blog/2026-05-17-gyeonggi-youth-support-guide)

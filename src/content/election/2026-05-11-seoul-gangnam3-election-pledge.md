@@ -110,8 +110,3 @@ officialTip: "자가 소유자는 종부세·재초환 절감액, 전월세 거�
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [서울 청년 월세 지원 — 월 최대 20만 원](/blog/2026-04-30-youth-rent-support)
-- [수도권 주민 지원금 총정리](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)

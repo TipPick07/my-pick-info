@@ -110,8 +110,3 @@ officialTip: "부동산 소유자라면 분담금 완화·인허가 속도, 무�
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [서울 청년 월세 지원 — 월 최대 20만 원](/blog/2026-04-30-youth-rent-support)
-- [서울 자영업자 육아휴직 지원금 안내](/blog/2026-04-29-seoul-selfemployed-paternity-leave-support)

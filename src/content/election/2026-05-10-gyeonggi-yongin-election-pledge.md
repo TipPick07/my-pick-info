@@ -108,8 +108,3 @@ officialTip: "반도체 클러스터 개발 이익을 인프라 완성에 쓸지
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [경기도 2026 청년 지원금 5종 완전 비교](/blog/2026-05-17-gyeonggi-youth-support-guide)
-- [수도권 주민 지원금 총정리](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)

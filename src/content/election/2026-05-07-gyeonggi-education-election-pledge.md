@@ -106,8 +106,3 @@ officialTip: "자녀가 초등 저학년이면 돌봄 공백 해소가 최우선
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [경기 24세 청년이라면? 기본소득 신청 가이드](/blog/2026-04-08-gyeonggi-youth-basic-income)
-- [내 통장에 꽂히는 근로장려금 신청 방법](/blog/2026-05-07-national-earned-income-tax-credit-application)

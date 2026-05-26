@@ -107,8 +107,3 @@ officialTip: "송도 거주자라면 분구 현실화 가능성, 원도심 거�
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [인천 임산부 친환경 농산물 꾸러미 지원](/blog/2026-04-06-incheon-moms-eco-food)
-- [아동수당 신청 방법 총정리](/blog/2026-05-05-national-child-benefit-application)

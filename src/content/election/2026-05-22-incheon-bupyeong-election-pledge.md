@@ -127,8 +127,3 @@ officialTip: "부평구는 GTX-B 착공·캠프마켓·1113공병단 부지 등 
 - 후보 공약집 전문: 정책·공약마당(policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [2026 문화누리카드 완벽 가이드 — 최대 16만 원](/blog/2026-05-17-culture-voucher-nuri-card-guide/)
-- [2026 종합소득세 신고 완벽 가이드 — 환급·절세법 총정리](/blog/2026-05-21-jongso-tax-filing-guide/)

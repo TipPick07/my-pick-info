@@ -107,8 +107,3 @@ officialTip: "신도시 거주면 과밀 해소·모듈러 퇴출 속도, 원도
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [인천 임산부 친환경 농산물 꾸러미 지원받기](/blog/2026-04-06-incheon-moms-eco-food)
-- [인천 시티투어 5월 특별 프로모션](/blog/2026-05-03-incheon-citytour-may-promotion)

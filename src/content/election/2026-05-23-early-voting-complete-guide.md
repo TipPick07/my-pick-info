@@ -170,8 +170,3 @@ officialTip: "직장 근처 사전투표소에서 점심시간에 투표 가능!
 - **후보 공약집 전문:** 정책·공약마당([policy.nec.go.kr](https://policy.nec.go.kr))
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [6·3 선거 투표 인증 혜택 총정리 — 식당·카페·놀이공원 할인](/blog/2026-05-23-voting-certification-benefits)
-- [경기도 2026 청년 지원금 5종 완전 비교](/blog/2026-05-17-gyeonggi-youth-support-guide)

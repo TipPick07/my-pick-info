@@ -154,8 +154,3 @@ officialTip: "사전투표 5월 29~30일, 본투표 6월 3일 — 내 투표소�
 - 후보 공약집 전문: 정책·공약마당(policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [2026 문화누리카드 완벽 가이드 (최대 16만 원)](/blog/2026-05-17-culture-voucher-nuri-card-guide)
-- [수도권 청년·신혼부부 주거 지원 총정리 2026 — 행복주택 vs 청년전세임대 비교](/blog/2026-05-18-youth-housing-support-guide)

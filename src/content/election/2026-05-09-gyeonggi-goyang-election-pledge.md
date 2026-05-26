@@ -106,8 +106,3 @@ officialTip: "노후계획도시 특별법에 따른 용적률 상향 폭과 이
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [경기도 2026 청년 지원금 5종 완전 비교](/blog/2026-05-17-gyeonggi-youth-support-guide)
-- [내 통장에 꽂히는 근로장려금 신청 방법](/blog/2026-05-07-national-earned-income-tax-credit-application)

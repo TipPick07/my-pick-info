@@ -157,6 +157,16 @@ export default async function ElectionPostPage({ params }: PostPageProps) {
           </div>
         </article>
 
+        {/* 선거글 내부 순환 버튼 */}
+        <div className="mt-8 text-center">
+          <Link
+            href="/election/"
+            className="inline-flex items-center gap-2 bg-cyan-50 text-cyan-700 font-bold px-6 py-3 rounded-full border border-cyan-200 hover:bg-cyan-100 transition-all text-sm"
+          >
+            🗳 다른 지역 선거 공약도 확인하기 →
+          </Link>
+        </div>
+
         <AdBanner />
       </main>
 

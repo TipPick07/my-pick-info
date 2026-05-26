@@ -131,8 +131,3 @@ officialTip: "분당 재건축의 핵심은 '속도(신상진)'냐 '물량 해�
 - **후보 공약집 전문:** 정책·공약마당([policy.nec.go.kr](https://policy.nec.go.kr))
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [경기도 2026 청년 지원금 5종 완전 비교](/blog/2026-05-17-gyeonggi-youth-support-guide)
-- [수도권 청년·신혼부부 주거 지원 총정리 2026](/blog/2026-05-18-youth-housing-support-guide)

@@ -126,8 +126,3 @@ officialTip: "재건축·GTX는 구청장 혼자 결정하지 못하고 서울�
 - **후보 공약집 전문:** [정책·공약마당](https://policy.nec.go.kr)
 
 ---
-
-## 💰 선거와 무관하게 당장 챙겨야 할 지원금
-
-- [서울시 청년 월세 지원 — 월 최대 20만 원](/blog/2026-04-30-youth-rent-support)
-- [서울시 육아가정 복지 지원 총정리](/blog/2026-04-28-seoul-childcare-support)
