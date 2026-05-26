@@ -4,18 +4,23 @@ const path = require('path');
 const postsDir = path.join(process.cwd(), 'src/content/posts');
 const files = fs.readdirSync(postsDir).filter(f => f.endsWith('.md'));
 
-const patterns = [
-  // "## 🔗 함께 챙기면 좋은 정보" 형태 섹션
-  /\n##\s*[^\n]*함께 챙기면 좋은[^\n]*\n[\s\S]*?(?=\n##\s|$)/g,
-  // "## 💰 선거와 무관하게 당장 챙겨야 할 지원금" 형태
-  /\n##\s*[^\n]*당장 챙겨야 할[^\n]*\n[\s\S]*?(?=\n##\s|$)/g,
-  // "## 🔗 함께 보면 도움되는 팁픽 글" 형태
-  /\n##\s*[^\n]*함께 보면 도움[^\n]*\n[\s\S]*?(?=\n##\s|$)/g,
-  // "## 함께 읽으면 좋은" 형태
-  /\n##\s*[^\n]*함께 읽으면 좋은[^\n]*\n[\s\S]*?(?=\n##\s|$)/g,
-  // "## 함께 보면 좋은" 형태
-  /\n##\s*[^\n]*함께 보면 좋은[^\n]*\n[\s\S]*?(?=\n##\s|$)/g,
-];
+const PROTECTED_KEYWORDS = ['쿠팡', '파트너스', '👉', '🛒', 'iryan', 'coupang', '라쿠텐', '수수료'];
+
+function isProtected(sectionText) {
+  return PROTECTED_KEYWORDS.some(kw => sectionText.includes(kw));
+}
+
+function isLinkOnlySection(sectionBody) {
+  const lines = sectionBody.split('\n').map(l => l.trim()).filter(l => l !== '');
+  if (lines.length === 0) return false;
+  if (lines.length > 8) return false;
+  return lines.every(line =>
+    // - [제목](링크)
+    line.match(/^[-*]\s*\[.+\]\(.+\)/) ||
+    // - **[제목](링크)** — 설명
+    line.match(/^[-*]\s*\*{0,2}\[.+\]\(.+\)\*{0,2}/)
+  );
+}
 
 let count = 0;
 files.forEach(file => {
@@ -23,11 +28,23 @@ files.forEach(file => {
   let content = fs.readFileSync(filePath, 'utf8');
   const original = content;
 
-  patterns.forEach(pattern => {
-    content = content.replace(pattern, '');
+  const parts = content.split(/(?=\n## )/);
+  const filtered = parts.filter(part => {
+    const trimmed = part.trim();
+    if (!trimmed.startsWith('## ')) return true;
+    if (isProtected(part)) return true;
+
+    const bodyStart = part.indexOf('\n', part.indexOf('## '));
+    const body = bodyStart !== -1 ? part.slice(bodyStart) : '';
+
+    if (isLinkOnlySection(body)) {
+      console.log(`  🗑 제거: [${file}] ${trimmed.split('\n')[0].slice(0, 60)}`);
+      return false;
+    }
+    return true;
   });
 
-  content = content.trimEnd() + '\n';
+  content = filtered.join('').trimEnd() + '\n';
 
   if (content !== original) {
     fs.writeFileSync(filePath, content, 'utf8');
