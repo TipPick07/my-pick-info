@@ -71,9 +71,3 @@ officialTip: "해가 질 무렵 방문하면 조명과 공연이 어우러지는
 **인생샷 포인트:** 서울시청 건물을 배경으로 공연 무대 + 잔디밭 전경
 
 ---
-
-## 📎 함께 보면 좋은 팁픽 추천 정보
-
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
-- [수도권 6월 야시장·야외 푸드마켓 총정리](/blog/2026-05-15-june-night-market-guide)
-- [서울 한강드론라이트쇼 무료 관람 꿀팁](/blog/2026-05-09-hangang-drone-light-show-guide)

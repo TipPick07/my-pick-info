@@ -65,8 +65,3 @@ officialTip: 정기 신청 기간(5월 1일 ~ 6월 1일) 내에 신청해야 감
 **지급일:** 2026년 8월 27일 예정
 
 ---
-
-### 함께 챙기면 좋은 지원
-
-- [2026년 자녀장려금 신청 안내](/blog/2026-05-05-national-child-benefit-application)
-- [5월 마감 임박 수도권 지원금 총정리](/blog/2026-05-09-may-deadline-benefits-guide)

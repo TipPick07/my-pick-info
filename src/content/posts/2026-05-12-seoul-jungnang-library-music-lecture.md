@@ -76,9 +76,3 @@ officialTip: "강연 15~20분 전 도착해 3층 세미나실 좌석 미리 확�
 - [ ] 강연 후 관련 도서 관심 목록 작성
 
 ---
-
-## 📎 함께 보면 좋은 팁픽 추천 정보
-
-- [수도권 장미축제 총정리 2026](/blog/2026-05-10-seoul-rose-festival-guide)
-- [양천중앙도서관 무료 마당극 '나는 고양이로소이다'](/blog/2026-05-11-yangcheon-library-childrens-play)
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)

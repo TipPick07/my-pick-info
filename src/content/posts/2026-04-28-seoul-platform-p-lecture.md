@@ -51,8 +51,3 @@ officialEligibilityQuiz: []
 강연 일정은 수시로 업데이트되며, 출판·책·독서 관련 관심사가 있다면 정기적으로 확인해두는 것이 좋다.
 
 ---
-
-### 함께 보면 좋은 서울 문화 행사
-
-- [수도권 6월 야시장·야외 푸드마켓 총정리](/blog/2026-05-15-june-night-market-guide)
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)

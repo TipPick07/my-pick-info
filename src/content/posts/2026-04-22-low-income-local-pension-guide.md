@@ -70,8 +70,3 @@ officialTip: 신청 전 본인의 소득 및 재산 기준 충족 여부를 반�
 국민연금공단 지사 위치는 공단 홈페이지(nps.or.kr)에서 '지사 찾기'로 확인할 수 있다.
 
 ---
-
-### 함께 챙기면 좋은 지원
-
-- [소상공인·자영업자 지원금 총정리](/blog/2026-04-15-small-business-pension-support)
-- [중장년 경력전환 일경험·직무교육·멘토링 지원](/blog/2026-04-16-mid-career-support-korea)

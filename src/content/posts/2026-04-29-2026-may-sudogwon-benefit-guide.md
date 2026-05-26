@@ -104,8 +104,3 @@ tags: [수도권지원금, 고유가피해지원금, 청년내일저축계좌, �
 4. 서울 거주 양육 공백 가정 → 서울형 아이돌봄비
 
 ---
-
-## 함께 챙기면 좋은 수도권 지원
-
-- [고유가 피해지원금 상세 안내 — 대상·금액·신청방법](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit)
-- [서울 1인 자영업자 출산·육아 지원 총정리](/blog/2026-04-29-seoul-selfemployed-paternity-leave-support)

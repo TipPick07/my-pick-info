@@ -69,9 +69,3 @@ officialTip: "공연 30분 전 도착해 도서관 유아자료실 먼저 둘러
 - [ ] 다음 프로그램 일정 확인 (lifestudy.yangcheon.go.kr)
 
 ---
-
-## 📎 함께 보면 좋은 팁픽 추천 정보
-
-- [수도권 6월 가족 무료 행사 총정리](/blog/2026-05-13-june-family-free-events)
-- [서울·수도권 2026 어린이날 무료 행사 총정리](/blog/2026-05-05-childrens-day-seoul-free-events)
-- [수도권 장미축제 총정리 2026](/blog/2026-05-10-seoul-rose-festival-guide)

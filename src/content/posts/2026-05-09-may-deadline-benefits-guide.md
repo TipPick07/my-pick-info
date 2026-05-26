@@ -81,8 +81,3 @@ officialTip: "5월 31일 자정이 마감 — 오늘 신청 여부 확인이 곧
 손택스(앱)에서는 카카오·네이버·PASS 간편인증으로 로그인 후 바로 신청 가능하다.
 
 ---
-
-## 함께 챙기면 좋은 지원
-
-- [2026년 근로장려금 정기 신청 상세 안내](/blog/2026-05-07-national-earned-income-tax-credit-application)
-- [2026년 자녀장려금 신청 안내](/blog/2026-05-05-national-child-benefit-application)

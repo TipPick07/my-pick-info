@@ -183,8 +183,3 @@ officialTip: "마감일 직전 홈택스 접속 폭주로 느려지는 일이 �
 - 지방소득세 신고: [https://www.wetax.go.kr](https://www.wetax.go.kr)
 
 ---
-
-## 함께 보면 좋은 팁픽 글
-
-- [경기도 2026 청년 지원금 5종 완전 비교](/blog/2026-05-17-gyeonggi-youth-support-guide)
-- [2026 문화누리카드 완벽 가이드 (최대 16만 원)](/blog/2026-05-17-culture-voucher-nuri-card-guide)

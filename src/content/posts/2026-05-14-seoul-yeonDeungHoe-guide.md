@@ -90,9 +90,3 @@ officialTip: "연등행렬 명당은 종로3가~종각 구간 — 행렬 시작 
 - [ ] 카메라 또는 스마트폰 여유 저장 공간
 
 ---
-
-## 📎 함께 보면 좋은 팁픽 추천 정보
-
-- [2026 서울국제정원박람회 완전 정복 가이드](/blog/2026-05-13-seoul-garden-show-guide)
-- [서울·경기 6월 가족 무료 행사 총정리 2026](/blog/2026-05-13-june-family-free-events)
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)

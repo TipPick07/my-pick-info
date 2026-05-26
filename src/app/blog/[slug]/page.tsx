@@ -344,7 +344,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
                   className="group bg-white border border-slate-100 rounded-2xl p-5 hover:border-indigo-200 hover:shadow-md transition-all"
                 >
                   <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-2 block">
-                    {related.category}
+                    {related.category === 'benefit' ? '지원금' : related.category === 'festival' ? '축제' : related.category === 'election' ? '선거' : related.category}
                   </span>
                   <p className="text-sm font-bold text-slate-800 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-2">
                     {related.title}

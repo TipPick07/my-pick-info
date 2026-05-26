@@ -96,8 +96,3 @@ officialTip: "3주 코스 전부 참여하면 인천 핵심 명소(문화예술�
 | 공식 사이트 | https://www.incheon.go.kr/art/ART010101 |
 
 ---
-
-## 📎 함께 보면 좋은 팁픽 추천 정보
-
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)
-- [장마 전에 꼭 가야 할 수도권 나들이 명소 BEST 7](/blog/2026-05-14-before-monsoon-daytrip)

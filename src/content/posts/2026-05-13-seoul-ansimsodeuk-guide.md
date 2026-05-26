@@ -106,8 +106,3 @@ officialTip: "소득이 전혀 없는 서울시 1인 가구라면 2026년 기준
 하나라도 해당된다면 서울복지포털(wis.seoul.go.kr)에서 상담 신청을 먼저 해보자.
 
 ---
-
-## 함께 챙기면 좋은 서울 복지
-
-- [서울시 1인 가구 전월세 안심 계약 지원](/blog/2026-05-01-seoul-single-household-support)
-- [서울 청년 월세 지원 — 월 최대 20만원](/blog/2026-05-11-seoul-youth-monthly-rent-support)

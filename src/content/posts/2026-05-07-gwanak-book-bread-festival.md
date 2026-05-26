@@ -82,11 +82,3 @@ officialTip: "어린이 제빵 스쿨은 오전 일찍 마감될 수 있으니 �
 - ✅ 북토크는 오후 → 30분 전 착석 필수
 
 ---
-
-## 🔗 함께 보면 도움되는 팁픽 글
-
-- [2026 서울 전국빵지자랑 5월 8~10일 가락몰 총정리](/blog/2026-05-08-national-bread-festival-garak-market)
-- [수도권 5월 가볼만한 곳 총정리](/blog/2026-05-03-may-metropolitan-festival-guide)
-- [2026 서울·경기 어린이날 행사 총정리](/blog/2026-05-01-seoul-gyeonggi-childrens-day)
-
-#관악구축제 #서울나들이 #5월축제 #가족행사 #무료입장 #책문화 #베이킹체험 #이금희 #별빛내린천

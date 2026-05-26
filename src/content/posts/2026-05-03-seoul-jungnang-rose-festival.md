@@ -80,9 +80,3 @@ officialTip: "장미 만개 시기는 5월 18~24일 전후 — 중반 방문 시
 - 야간(19:30~): 조명쇼와 함께 로맨틱한 분위기
 
 ---
-
-## 📎 함께 보면 좋은 팁픽 추천 정보
-
-- [서울 장미축제 가이드 2026 (서울숲·강서·중랑 비교)](/blog/2026-05-10-seoul-rose-festival-guide)
-- [장마 전에 꼭 가야 할 수도권 나들이 명소 BEST 7](/blog/2026-05-14-before-monsoon-daytrip)
-- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar)

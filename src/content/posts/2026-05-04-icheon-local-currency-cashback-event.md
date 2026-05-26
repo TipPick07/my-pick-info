@@ -80,8 +80,3 @@ officialTip: "캐시백 지급일로부터 2개월 이내 사용 — 유효기�
 - [ ] 자주 이용하는 가맹점 미리 앱에서 확인
 
 ---
-
-## 📎 함께 보면 좋은 팁픽 추천 정보
-
-- [2026년 5월 수도권 지원금 총정리](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)
-- [서울·경기·인천 유가 지원금·기후동행카드 혜택 비교](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit)

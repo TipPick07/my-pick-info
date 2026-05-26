@@ -95,9 +95,3 @@ officialTip: "드론 라이트쇼 자리는 최소 1시간 전 선점 필수 —
 - [ ] 아이 미아방지 이름표 (손목 팔찌형 권장)
 
 ---
-
-## 📎 함께 보면 좋은 팁픽 추천 정보
-
-- [2026 서울·경기 어린이날 행사 총정리](/blog/2026-05-01-seoul-gyeonggi-childrens-day)
-- [수도권 6월 가족 무료 행사 총정리](/blog/2026-05-13-june-family-free-events)
-- [장마 전에 꼭 가야 할 수도권 나들이 명소 BEST 7](/blog/2026-05-14-before-monsoon-daytrip)

@@ -94,8 +94,3 @@ officialTip: "거주 지역 상관없이 서울 50플러스 캠퍼스 프로그�
 3. 동 주민센터 방문 상담 — 숨은 소규모 사업 확인
 
 ---
-
-## 함께 챙기면 좋은 중장년 지원
-
-- [중장년 경력전환 일경험·직무교육·멘토링 지원](/blog/2026-04-16-mid-career-support-korea)
-- [영등포구 40세 이상 자격증 응시료 90% 지원](/blog/2026-04-14-yeongdeungpo-childcare-qualification)

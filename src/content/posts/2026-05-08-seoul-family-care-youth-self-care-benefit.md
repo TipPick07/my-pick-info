@@ -75,11 +75,3 @@ officialTip: "기초생활수급자·차상위계층, 서울시 청년수당 등
 **문의:** 다산콜센터 ☎ 120 또는 거주지 관할 구청 복지 부서
 
 ---
-
-## 🔗 함께 보면 도움되는 팁픽 글
-
-- [2026 수도권 청년 지원금 총정리](/blog/2026-05-03-seoul-metropolitan-youth-support-guide)
-- [서울 청년 월세지원 신청 방법](/blog/2026-05-11-seoul-youth-monthly-rent-support)
-- [서울 안심소득 신청 가이드](/blog/2026-05-13-seoul-ansimsodeuk-guide)
-
-#가족돌봄청년 #자기돌봄비 #서울복지포털 #청년지원금 #청소년지원 #중위소득150 #서울시복지 #돌봄청년

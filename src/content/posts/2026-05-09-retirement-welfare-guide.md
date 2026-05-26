@@ -134,11 +134,3 @@ officialTip: "은퇴 직후 지역가입자 전환 전, 자녀·배우자의 피
 | 서울 어르신복지 | ☎02-120 | senior.seoul.go.kr |
 
 ---
-
-## 🔗 함께 보면 도움되는 팁픽 글
-
-- [퇴직 후 건강보험료 폭탄 막는 법 — 임의계속가입 실전 가이드](/blog/2026-05-08-retirement-health-insurance-benefits-guide)
-- [수도권 4060세대 복지 비교 총정리](/blog/2026-05-08-metropolitan-4060-welfare-comparison)
-- [수도권 저소득층 지역별 연금 가이드](/blog/2026-04-22-low-income-local-pension-guide)
-
-#건강보험료경감 #노인일자리 #기초연금 #장기요양보험 #은퇴복지 #노후대비 #60대지원금 #수도권복지

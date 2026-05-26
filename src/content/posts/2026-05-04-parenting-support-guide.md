@@ -117,11 +117,3 @@ officialTip: "출생신고 즉시 행복출산 원스톱(gov.kr)에서 부모급
 - **복지로(bokjiro.go.kr)** → 내 상황에 맞는 지원금 통합 조회
 
 ---
-
-## 🔗 함께 보면 도움되는 팁픽 글
-
-- [서울시 아이돌봄 서비스 완벽 가이드](/blog/2026-04-28-seoul-childcare-support)
-- [2026년 자녀장려금 최대 300만원 신청 방법](/blog/2026-05-05-national-child-benefit-application)
-- [수도권 5월 지원금 총정리](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)
-
-#육아지원금 #부모급여 #아동수당 #수도권육아 #출산지원금 #아이돌봄 #경기도육아 #서울육아 #첫만남이용권 #양육수당
