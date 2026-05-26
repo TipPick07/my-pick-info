@@ -52,10 +52,3 @@ officialTip: 아이돌봄비 지원은 가구 소득, 자녀 수 등 구체적�
 두 가지 모두 해당된다면 신청 자격이 될 가능성이 높습니다. 복지로에서 상세 요건을 확인하세요.
 
 **공식 신청 바로가기:** [복지로 서울형 아이돌봄비](https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005097&wlfareInfoReldBztpCd=02)
-
-### 🔗 함께 보시면 도움되는 추천 정보
-
-- [2026년 5월 수도권 지원금 총정리](/blog/2026-04-29-2026-may-sudogwon-benefit-guide)
-- [서울시 자영업자 출산휴가 지원금 신청 방법](/blog/2026-04-29-seoul-selfemployed-paternity-leave-support)
-
-매일 아침, 일상을 풍요롭게 만드는 정보를 엄선하여 배달합니다.
