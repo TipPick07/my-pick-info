@@ -1,33 +1,42 @@
 const fs = require('fs');
 const path = require('path');
-
 const postsDir = path.join(process.cwd(), 'src/content/posts');
-const files = [
-  '2026-04-15-small-business-pension-support.md',
-  '2026-04-20-disability-pension-additional-support.md',
-  '2026-04-28-seoul-childcare-support.md',
-  '2026-04-29-seoul-selfemployed-paternity-leave-support.md',
-  '2026-04-30-youth-rent-support.md',
+
+const targets = [
+  // 파일명: 삭제할 섹션 키워드
+  { file: '2026-05-16-gyeonggi-education-care-voucher-policy.md', keyword: '선거와 무관하게 지금 당장' },
+  { file: '2026-05-18-election-welfare-benefit-preview.md', keyword: '선거와 무관하게 지금 당장' },
+  { file: '2026-05-26-early-voting-practical-guide.md', keyword: '투표 인증 혜택도 챙기세요' },
 ];
 
-const PROTECTED_KEYWORDS = ['쿠팡', '파트너스', '👉', '🛒', 'iryan', 'coupang', '라쿠텐', '수수료'];
+// 중장년 파일은 파일명 확인 후 처리
+const allFiles = fs.readdirSync(postsDir).filter(f => f.endsWith('.md'));
+const midlifeFile = allFiles.find(f => {
+  const content = fs.readFileSync(path.join(postsDir, f), 'utf8');
+  return content.includes('중장년 경력지원제') && content.includes('함께 확인하면 좋은 중장년 지원');
+});
+if (midlifeFile) {
+  targets.push({ file: midlifeFile, keyword: '함께 확인하면 좋은 중장년 지원' });
+  console.log(`중장년 파일 감지: ${midlifeFile}`);
+}
 
 let count = 0;
-files.forEach(file => {
+targets.forEach(({ file, keyword }) => {
   const filePath = path.join(postsDir, file);
-  if (!fs.existsSync(filePath)) return;
+  if (!fs.existsSync(filePath)) {
+    console.log(`❌ 파일 없음: ${file}`);
+    return;
+  }
 
   let content = fs.readFileSync(filePath, 'utf8');
   const original = content;
 
-  // ## 와 ### 모두 섹션 단위로 분리
+  // ## 또는 ### 섹션 단위로 분리
   const parts = content.split(/(?=\n#{2,3} )/);
   const filtered = parts.filter(part => {
-    const trimmed = part.trim();
-    if (!trimmed.match(/^#{2,3} /)) return true;
-    if (PROTECTED_KEYWORDS.some(kw => part.includes(kw))) return true;
-    if (part.includes('매일 아침') || part.includes('풍요롭게') || part.includes('함께 보시면')) {
-      console.log(`  🗑 제거: [${file}] ${trimmed.split('\n')[0].slice(0, 60)}`);
+    if (!part.trim().match(/^#{2,3} /)) return true;
+    if (part.includes(keyword)) {
+      console.log(`  🗑 제거: [${file}] ${part.trim().split('\n')[0].slice(0, 60)}`);
       return false;
     }
     return true;

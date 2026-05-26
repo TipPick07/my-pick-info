@@ -69,8 +69,3 @@ officialTip: 경력전환을 희망하는 중장년층이라면 이 프로그램
 서류는 지원 유형에 따라 다르므로 방문 또는 정부24에서 미리 확인하고 준비하자. 공식 페이지 링크: [정부24 중장년 경력지원제](https://www.gov.kr/portal/rcvfvrSvc/dtlEx/149200005029)
 
 ---
-
-### 함께 확인하면 좋은 중장년 지원
-
-- [소상공인·자영업자 지원금 총정리](/blog/2026-04-15-small-business-pension-support)
-- [저소득 지역가입자 국민연금 보험료 50% 지원](/blog/2026-04-22-low-income-local-pension-guide)
