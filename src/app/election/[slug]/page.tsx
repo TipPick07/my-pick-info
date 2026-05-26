@@ -112,6 +112,17 @@ export default async function ElectionPostPage({ params }: PostPageProps) {
         {/* Post Content */}
         <article className="bg-white p-8 md:p-16 rounded-[40px] shadow-sm border border-slate-100 overflow-hidden">
           <div className="prose prose-slate prose-lg max-w-none prose-headings:font-black prose-headings:tracking-tighter prose-a:text-[#00CCFF] hover:prose-a:text-[#00AACC] prose-img:rounded-3xl prose-img:shadow-lg">
+            {/* 핵심 요약 카드 — 이탈 방지 */}
+            <div className="mb-10 p-6 bg-cyan-50 rounded-2xl border border-cyan-100 not-prose">
+              <p className="text-xs font-black text-cyan-500 uppercase tracking-widest mb-3">📌 이 글의 핵심</p>
+              <p className="text-slate-700 font-semibold leading-relaxed text-base mb-4">{post.summary}</p>
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-cyan-100">
+                <span className="bg-white text-cyan-700 text-xs font-bold px-3 py-1.5 rounded-full border border-cyan-200">🗳 사전투표: 5/29~30</span>
+                <span className="bg-white text-cyan-700 text-xs font-bold px-3 py-1.5 rounded-full border border-cyan-200">📅 본투표: 6/3(화)</span>
+                <span className="bg-white text-cyan-700 text-xs font-bold px-3 py-1.5 rounded-full border border-cyan-200">⬇ 아래에서 가구별 혜택 확인</span>
+              </div>
+            </div>
+
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{

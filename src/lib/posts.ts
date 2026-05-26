@@ -141,3 +141,23 @@ export function getPostData(slug: string, dirName = 'posts'): PostData | null {
     content: matterResult.content,
   };
 }
+
+export function getRelatedPosts(
+  currentSlug: string,
+  category: string,
+  tags: string[],
+  dirName = 'posts',
+  count = 3
+): PostData[] {
+  const all = getSortedPostsData(dirName).filter(p => p.slug !== currentSlug);
+  const scored = all.map(p => {
+    const tagOverlap = p.tags.filter(t => tags.includes(t)).length;
+    const sameCategory = p.category === category ? 2 : 0;
+    return { post: p, score: tagOverlap + sameCategory };
+  });
+  return scored
+    .filter(s => s.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, count)
+    .map(s => s.post);
+}

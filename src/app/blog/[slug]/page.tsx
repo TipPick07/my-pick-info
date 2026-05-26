@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { getPostData, getSortedPostsData } from "@/lib/posts";
+import { getPostData, getSortedPostsData, getRelatedPosts } from "@/lib/posts";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { notFound } from "next/navigation";
@@ -78,6 +78,8 @@ export default async function BlogPostPage({ params }: PostPageProps) {
   if (!post) {
     notFound();
   }
+
+  const relatedPosts = getRelatedPosts(post.slug, post.category, post.tags);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
@@ -166,6 +168,34 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         {/* Post Content */}
         <article className="bg-white p-8 md:p-16 rounded-[40px] shadow-sm border border-slate-100 overflow-hidden">
           <div className="prose prose-slate prose-lg max-w-none prose-headings:font-black prose-headings:tracking-tighter prose-a:text-indigo-600 hover:prose-a:text-indigo-500 prose-img:rounded-3xl prose-img:shadow-lg">
+            {/* 핵심 요약 카드 — 이탈 방지 */}
+            {(() => {
+              const isBenefit = post.category === 'benefit';
+              const isFestival = post.category === 'festival';
+              const bg = isBenefit ? 'bg-emerald-50' : isFestival ? 'bg-orange-50' : 'bg-indigo-50';
+              const border = isBenefit ? 'border-emerald-100' : isFestival ? 'border-orange-100' : 'border-indigo-100';
+              const textColor = isBenefit ? 'text-emerald-600' : isFestival ? 'text-orange-500' : 'text-indigo-500';
+              const badgeBg = isBenefit ? 'bg-white text-emerald-700 border-emerald-200' : isFestival ? 'bg-white text-orange-700 border-orange-200' : 'bg-white text-indigo-700 border-indigo-200';
+              const icon = isBenefit ? '💰' : isFestival ? '🎪' : '💡';
+              return (
+                <div className={`mb-10 p-6 ${bg} rounded-2xl border ${border} not-prose`}>
+                  <p className={`text-xs font-black ${textColor} uppercase tracking-widest mb-3`}>{icon} 이 글의 핵심</p>
+                  <p className="text-slate-700 font-semibold leading-relaxed text-base mb-4">{post.summary}</p>
+                  {post.officialDeadline && (
+                    <div className={`flex flex-wrap gap-2 pt-4 border-t ${border}`}>
+                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full border ${badgeBg}`}>📅 마감: {post.officialDeadline}</span>
+                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full border ${badgeBg}`}>⬇ 아래에서 신청 방법 확인</span>
+                    </div>
+                  )}
+                  {!post.officialDeadline && (
+                    <div className={`flex flex-wrap gap-2 pt-4 border-t ${border}`}>
+                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full border ${badgeBg}`}>⬇ 아래에서 자세한 내용 확인</span>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
+
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
@@ -301,6 +331,30 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             ))}
           </div>
         </article>
+
+        {/* 연관글 추천 카드 */}
+        {relatedPosts.length > 0 && (
+          <div className="mt-10">
+            <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">📚 함께 읽으면 좋은 글</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {relatedPosts.map(related => (
+                <Link
+                  key={related.slug}
+                  href={`/blog/${related.slug}/`}
+                  className="group bg-white border border-slate-100 rounded-2xl p-5 hover:border-indigo-200 hover:shadow-md transition-all"
+                >
+                  <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-2 block">
+                    {related.category}
+                  </span>
+                  <p className="text-sm font-bold text-slate-800 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-2">
+                    {related.title}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-2 line-clamp-2">{related.summary}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* 제휴 마케팅 자동화 키워드 배너 */}
         <AffiliateBanner textContext={post.content} />
