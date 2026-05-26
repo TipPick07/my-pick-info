@@ -17,7 +17,7 @@ interface AdFitProps {
  * 화면이 켜질 때 광고 요소를 동적으로 만들고, 페이지를 떠날 때 말끔히 지우도록 설계되었습니다.
  */
 export default function AdFit({
-  unit = "DAN-iSiQsQYidnpr3aRd", // 단위 코드는 나중에 실제 광고 코드로 교체하시면 됩니다.
+  unit = "DAN-QfBmTx8He16AouXv", // 단위 코드는 나중에 실제 광고 코드로 교체하시면 됩니다.
   width = "320",
   height = "100",
   disabled = false,
