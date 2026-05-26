@@ -59,6 +59,8 @@ export default function AdFit({
     };
   }, [unit, width, height, disabled]);
 
+  if (process.env.NEXT_PUBLIC_ADS_ENABLED !== 'true') return null;
+
   return (
     // 광고가 가운데에 예쁘게 오도록 정렬하고, 마진(여백)을 줍니다.
     <div className="flex justify-center my-6 w-full overflow-hidden">

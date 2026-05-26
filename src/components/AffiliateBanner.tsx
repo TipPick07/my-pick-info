@@ -69,6 +69,8 @@ export default function AffiliateBanner({ textContext }: AffiliateBannerProps) {
   // 이미지가 정상적으로 지정되어 있고 에러가 안 났다면 이미지 배너를 보여줍니다.
   const showImage = bannerData.imgSrc && bannerData.imgSrc.trim() !== "" && !imageError;
 
+  if (process.env.NEXT_PUBLIC_ADS_ENABLED !== 'true') return null;
+
   return (
     <div className="w-full my-8">
       <a
