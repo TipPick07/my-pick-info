@@ -9,8 +9,8 @@ date: 2026-05-26
 summary: "올여름 어디 갈지 아직 못 정했다면 여기서 결정하세요. 수도권 출발 당일치기 5곳·1박2일 3곳, 거리·비용·혼잡도·주차까지 한 번에 비교합니다."
 description: "올여름 어디 갈지 아직 못 정했다면 여기서 결정하세요. 수도권 출발 당일치기 5곳·1박2일 3곳, 거리·비용·혼잡도·주차까지 한 번에 비교합니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-포천한탄강가든페스타-57.png
+ogImage: "https://tip-pick.com/images/blogs/festival-포천한탄강가든페스타-57.png"
 tags: [여름휴가, 수도권여름휴가, 당일치기여행, 1박2일여행, 여름여행지추천, 가평여행, 양평여행, 강릉여행, 속초여행, 강화도여행, 춘천여행, 단양여행, 수도권근교여행, 국내여름여행, 여름휴가코스]
 officialRequirements: []
 officialHowToApply: []

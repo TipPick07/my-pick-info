@@ -9,8 +9,8 @@ date: 2026-05-27
 summary: "뷰티풀 민트 라이프·서울가든페스티벌 마지막 주말·잠수교 푸드 페스티벌까지 — 6월 첫째 주 수도권 주말 나들이 축제 7선, 비용·교통·주차까지 한눈에 정리했습니다."
 description: "뷰티풀 민트 라이프·서울가든페스티벌 마지막 주말·잠수교 푸드 페스티벌까지 — 6월 첫째 주 수도권 주말 나들이 축제 7선, 비용·교통·주차까지 한눈에 정리했습니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-한강서래섬피크닉콘서-645.png
+ogImage: "https://tip-pick.com/images/blogs/festival-한강서래섬피크닉콘서-645.png"
 tags: [수도권축제, 6월축제, 주말나들이, 서울축제, 가족나들이, 커플나들이, 뷰티풀민트라이프, 서울가든페스티벌, 잠수교축제, 성북세계음식축제, 주말행사, 6월첫째주]
 officialRequirements: []
 officialHowToApply: ["현장 방문", "일부 행사 사전 예매 필요"]

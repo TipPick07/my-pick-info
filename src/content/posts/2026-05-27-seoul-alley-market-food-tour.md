@@ -9,8 +9,8 @@ date: 2026-05-27
 summary: "광장시장 마약김밥부터 통인시장 엽전 도시락, 남대문 칼국수 골목까지 — 서울 전통시장·골목 먹거리 코스 5선을 예산·교통·혼잡도 비교표로 한눈에 정리했습니다."
 description: "광장시장 마약김밥부터 통인시장 엽전 도시락, 남대문 칼국수 골목까지 — 서울 전통시장·골목 먹거리 코스 5선을 예산·교통·혼잡도 비교표로 한눈에 정리했습니다."
 category: festival
-image: /images/blogs/fallback-festival-2.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
+image: /images/blogs/festival-경기미김밥페스타-343.png
+ogImage: "https://tip-pick.com/images/blogs/festival-경기미김밥페스타-343.png"
 tags: [전통시장, 서울맛집, 서울나들이, 주말나들이, 골목맛집, 광장시장, 통인시장, 남대문시장, 서울먹거리, 시장투어, 수도권축제, 주말코스]
 officialRequirements: []
 officialHowToApply: ["현장 방문"]
