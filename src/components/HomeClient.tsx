@@ -473,7 +473,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
         <AdBanner />
 
         {/* 메인 화면 중간 카카오 애드핏 광고 */}
-        <AdFit unit="DAN-임시코드" width="320" height="100" />
+        <AdFit width="320" height="100" />
 
 
         {/* ── 팁픽 가이드 (블로그) 섹션 — 가로형 카드 ── */}

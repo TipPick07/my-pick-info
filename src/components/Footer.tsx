@@ -22,7 +22,7 @@ export default function Footer() {
   return (
     <>
       {/* 공통 하단 카카오 애드핏 광고 */}
-      <AdFit unit="DAN-임시코드" width="320" height="100" />
+      <AdFit width="320" height="100" />
       
       <footer className="bg-slate-50 border-t border-slate-200/60 py-16 px-6 mt-auto">
       <div className="container mx-auto max-w-4xl space-y-10 text-center">
