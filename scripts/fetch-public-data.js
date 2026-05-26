@@ -1586,6 +1586,7 @@ ${JSON.stringify(selectedData)}`
         content: generatedContent,
       };
 
+      const festLocDateKey = (newFest.location && newFest.date) ? `${newFest.location.trim()}|${newFest.date.trim()}` : null;
       existingData.festivals.unshift(newFest);
       existingFestTitles.add(title);
       existingFestNorm.add(normTitle(title));
