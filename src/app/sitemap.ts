@@ -48,5 +48,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     }));
 
-  return [...staticRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes];
+  // 4. 선거 공약 마크다운 파일에서 동적 경로 가져오기
+  const electionDir = path.join(process.cwd(), 'src/content/election');
+  const electionFiles = fs.existsSync(electionDir) ? fs.readdirSync(electionDir) : [];
+
+  const electionRoutes = electionFiles
+    .filter(file => file.endsWith('.md'))
+    .map(file => ({
+      url: `${baseUrl}/election/${file.replace('.md', '')}/`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }));
+
+  return [...staticRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes, ...electionRoutes];
 }
