@@ -9,8 +9,8 @@ date: 2026-05-30
 summary: "6월 3일 선거일은 임시공휴일! 투표 인증 할인 챙기고 수도권 데이트·가족 나들이 코스로 황금연휴를 완성하세요. 거리·비용·혼잡도 비교표 수록."
 description: "6월 3일 선거일은 임시공휴일! 투표 인증 할인 챙기고 수도권 데이트·가족 나들이 코스로 황금연휴를 완성하세요. 거리·비용·혼잡도 비교표 수록."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-과천재즈피크닉-294.png
+ogImage: "https://tip-pick.com/images/blogs/festival-과천재즈피크닉-294.png"
 tags: [선거일나들이, 6월3일공휴일, 황금연휴, 수도권나들이, 서울데이트, 가족나들이, 투표후나들이, 선거일여행, 수도권축제, 주말나들이, 6월나들이, 데이트코스]
 officialRequirements: []
 officialHowToApply: ["6월 3일 오전 투표 완료", "투표 인증 할인 챙기기", "코스별 사전 예약 여부 확인 후 출발"]
