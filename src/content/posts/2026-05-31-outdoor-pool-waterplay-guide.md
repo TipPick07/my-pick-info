@@ -9,8 +9,8 @@ date: 2026-05-31
 summary: "6월 20일 전후 개장 예정인 한강 수영장부터 인천·경기 무료 물놀이장까지 — 요금·혼잡도·주차·대중교통을 한 표로 비교했습니다."
 description: "6월 20일 전후 개장 예정인 한강 수영장부터 인천·경기 무료 물놀이장까지 — 요금·혼잡도·주차·대중교통을 한 표로 비교했습니다."
 category: festival
-image: /images/blogs/fallback-festival-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
+image: /images/blogs/festival-한강서래섬피크닉콘서-587.png
+ogImage: "https://tip-pick.com/images/blogs/festival-한강서래섬피크닉콘서-587.png"
 tags: [수도권야외수영장, 한강수영장, 물놀이장, 2026개장일, 뚝섬수영장, 여의도수영장, 잠원수영장, 잠실물놀이장, 인천물놀이, 경기물놀이, 가족나들이, 여름나들이, 수도권여름, 무료물놀이, 주말나들이]
 officialRequirements: []
 officialHowToApply: ["한강 수영장·물놀이장: 현장 방문 후 현장 매표 (사전예약 없음)", "인천·경기 공공 물놀이장: 대부분 무료 개방, 지자체 공식 홈페이지 개장일 확인 필수"]
