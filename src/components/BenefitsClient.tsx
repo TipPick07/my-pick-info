@@ -97,6 +97,7 @@ function getPaginationRange(current: number, total: number): (number | '...')[] 
 export default function BenefitsClient({ data }: { data: Data }) {
   const [filter, setFilter] = useState("전체");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("전체");
+  const [benefitFilter, setBenefitFilter] = useState("전체 보기");
   const [currentPage, setCurrentPage] = useState(1);
   const regions = ["전체", "서울", "인천", "경기"];
   const STATUS_OPTIONS: StatusFilter[] = ["전체", "상시", "모집중", "마감"];
@@ -105,12 +106,20 @@ export default function BenefitsClient({ data }: { data: Data }) {
   const todayKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
   todayKST.setHours(0, 0, 0, 0);
 
-  // 지역 + 진행 상태 AND 필터
-  const filtered = data.benefits.filter((b) => {
-    const regionOk = filter === "전체" || b.region === filter || b.region === "전국";
-    const statusOk = statusFilter === "전체" || getBenefitStatus(b.deadline, todayKST) === statusFilter;
-    return regionOk && statusOk;
-  });
+  // 지역 + 진행 상태 + 고가치 카테고리 AND 필터
+  const filtered = data.benefits
+    .filter((b) => {
+      const regionOk = filter === "전체" || b.region === filter || b.region === "전국";
+      const statusOk = statusFilter === "전체" || getBenefitStatus(b.deadline, todayKST) === statusFilter;
+      return regionOk && statusOk;
+    })
+    .filter((b) => {
+      if (benefitFilter === "LH/SH 주거 지원")
+        return (b.title + " " + b.target).match(/주거|청년안심|LH|SH|전세|월세|임대/);
+      if (benefitFilter === "소상공인")
+        return (b.title + " " + b.target).match(/소상공인|자영업|창업/);
+      return true;
+    });
 
   const sorted = sortBenefits(filtered, todayKST);
 
@@ -169,6 +178,23 @@ export default function BenefitsClient({ data }: { data: Data }) {
               이 마감을 앞두고 있습니다.
             </div>
           )}
+
+          {/* 고가치 카테고리 필터 탭 */}
+          <div className="flex gap-2 justify-center flex-wrap pt-1">
+            {["전체 보기", "LH/SH 주거 지원", "소상공인"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => { setBenefitFilter(tab); setCurrentPage(1); }}
+                className={`px-5 py-2 rounded-full text-sm font-bold transition-all border ${
+                  benefitFilter === tab
+                    ? "bg-slate-900 text-white border-slate-900"
+                    : "bg-white text-slate-500 border-slate-200 hover:border-slate-400"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
 
           {/* 지역 필터 + 진행 상태 드롭다운 */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
