@@ -527,7 +527,7 @@ title: (SEO 최적화된 구체적 제목 — 테마와 핵심 내용을 포괄�
 originalTitle: ${targetItems[0].title} 외 ${targetItems.length - 1}건
 link: ${targetItems[0].link || ''}
 officialTarget: ${targetItems[0].target || targetItems[0].targetPersona || '정보 없음'}
-officialDetails: ${targetItems[0].detailedExplanation || targetItems[0].details || targetItems[0].description || '정보 없음'}
+officialDetails: ${(targetItems[0].detailedExplanation || targetItems[0].details || targetItems[0].description || '정보 없음').replace(/\r?\n+/g, ' ').trim()}
 officialDeadline: ${targetItems[0].deadline || targetItems[0].date || '상시'}
 date: ${today}
 summary: (구글 검색 결과에 그대로 노출되는 설명. 구체적 날짜나 금액 수치 반드시 포함. 형식: 언제/어디서 + 무엇을 + 얼마나 + 지금 확인하세요 순서. 반드시 ~하세요 또는 ~챙기세요로 끝낼 것. 100자 이내.)
@@ -539,7 +539,7 @@ tags: [연관키워드1, 연관키워드2, 연관키워드3, 연관키워드4, �
 officialRequirements: ${JSON.stringify(targetItems[0].requirements || [])}
 officialHowToApply: ${JSON.stringify(targetItems[0].howToApply || [])}
 officialEligibilityQuiz: ${JSON.stringify(targetItems[0].eligibilityQuiz || [])}
-officialTip: ${targetItems[0].practicalTip || targetItems[0].tip || ''}
+officialTip: ${(targetItems[0].practicalTip || targetItems[0].tip || '').replace(/\r?\n+/g, ' ').trim()}
 ---
 
 (본문 시작 — 도입부는 매번 다른 방식으로. E-E-A-T 기준 충족. 1,500자 이상.)
@@ -613,6 +613,23 @@ FILENAME: YYYY-MM-DD-영문키워드`
 
     // 연속된 빈 줄 정리 (3줄 이상 → 2줄로)
     mdContent = mdContent.replace(/\n{3,}/g, '\n\n');
+
+    // Frontmatter 내 멀티라인 값을 단일 라인으로 압축 (YAML 파싱 에러 방지)
+    mdContent = mdContent.replace(
+      /^---\r?\n([\s\S]*?)\n---/m,
+      (match, body) => {
+        const lines = body.split('\n');
+        const collapsed = [];
+        for (const line of lines) {
+          if (/^[a-zA-Z][a-zA-Z0-9_]*:/.test(line)) {
+            collapsed.push(line);
+          } else if (collapsed.length > 0 && line.trim() !== '') {
+            collapsed[collapsed.length - 1] += ' ' + line.trim();
+          }
+        }
+        return '---\n' + collapsed.join('\n') + '\n---';
+      }
+    );
 
     mdContent = mdContent.replace(
       /^(---\r?\n)([\s\S]*?)(---)/,
