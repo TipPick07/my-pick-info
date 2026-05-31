@@ -141,7 +141,8 @@ async function supplementWithGemini(hotKeywords, type, existingTitles, geminiApi
   "title": "[지역명] 혜택명",
   "deadline": "YYYY.MM.DD 또는 상시",
   "target": "지원대상",
-  "details": "지원내용 3~4문장",
+  "summary": "구글 검색 결과에 노출되는 메타 디스크립션. 반드시 구체적 날짜나 금액 수치 포함. 형식: 언제/어디서 + 무엇을 + 얼마나 + 지금 확인하세요 순서로 작성. 반드시 ~하세요 또는 ~확인하세요로 끝낼 것. 100자 이내.",
+  "detailedExplanation": "지원금의 목적, 혜택 내용, 기대 효과 등을 포함하여 아주 구체적이고 상세하게 풀어서 설명하는 글 (공백 포함 최소 500자 이상). 친절한 말투로 아주 길고 유익하게 작성할 것.",
   "link": "공식 URL",
   "tag": "신규",
   "image": "",
@@ -154,7 +155,7 @@ async function supplementWithGemini(hotKeywords, type, existingTitles, geminiApi
   "practicalTip": "관공서 서류 제출 시 누락하기 쉬운 점 등 실무적이고 디테일한 팁"
 }`;
 
-      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
       const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
 
       const res = await fetch(geminiUrl, {
@@ -1208,6 +1209,7 @@ async function main() {
   date: 'YYYY.MM.DD~YYYY.MM.DD' 또는 마감일,
   target: 지원대상,
   summary: '구글 검색 결과에 노출되는 메타 디스크립션. 반드시 구체적 날짜나 금액 수치 포함. 형식: 언제/어디서 + 무엇을 + 얼마나 + 지금 확인하세요 순서로 작성. 예시(축제): 5월 15~23일 중랑장미공원 천만 송이 장미 무료 관람! 인생샷 스팟과 주차 꿀팁까지 한번에 확인하세요. 예시(지원금): 서울 청년이라면 월 최대 20만원 월세 지원 받을 수 있습니다. 신청 자격과 서류를 2분 만에 확인하세요. 반드시 ~하세요 또는 ~확인하세요로 끝낼 것. 100자 이내.',
+  detailedExplanation: '지원금의 목적, 혜택 내용, 기대 효과 등을 포함하여 아주 구체적이고 상세하게 풀어서 설명하는 글 (공백 포함 최소 500자 이상). 신청자가 이 지원금을 왜 받아야 하는지, 어떤 점이 가장 좋은지 등을 친절한 말투로 아주 길고 유익하게 작성할 것. 짧게 요약하지 말고 최대한 자세히 설명할 것.',
   location: '행사 장소명 또는 주소 (festival일 때만. benefit이면 빈 문자열)',
   link: 상세URL,
   tag: '마감일이 오늘로부터 30일 이내이면 반드시 마감임박, 마감일이 없거나 상시 모집이면 상시, 그 외엔 추천',
@@ -1230,7 +1232,7 @@ ${JSON.stringify(selectedData)}`
         }]
       };
 
-      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
       const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
       let textResult;
 

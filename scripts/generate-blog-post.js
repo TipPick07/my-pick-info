@@ -549,7 +549,7 @@ title: (SEO 최적화된 구체적 제목 — 테마와 핵심 내용을 포괄�
 originalTitle: ${targetItems[0].title} 외 ${targetItems.length - 1}건
 link: ${targetItems[0].link || ''}
 officialTarget: ${targetItems[0].target || targetItems[0].targetPersona || '정보 없음'}
-officialDetails: ${targetItems[0].details || targetItems[0].description || '정보 없음'}
+officialDetails: ${targetItems[0].detailedExplanation || targetItems[0].details || targetItems[0].description || '정보 없음'}
 officialDeadline: ${targetItems[0].deadline || targetItems[0].date || '상시'}
 date: ${today}
 summary: (구글 검색 결과에 그대로 노출되는 설명. 구체적 날짜나 금액 수치 반드시 포함. 형식: 언제/어디서 + 무엇을 + 얼마나 + 지금 확인하세요 순서. 반드시 ~하세요 또는 ~챙기세요로 끝낼 것. 100자 이내.)
@@ -577,7 +577,7 @@ FILENAME: YYYY-MM-DD-영문키워드`
       }
     };
 
-    const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+    const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
     let result;
     let geminiBackoff = 30000;
