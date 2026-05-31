@@ -457,14 +457,9 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
               <h3 className="text-xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #00CCFF" }}>
                 주목할 만한 축제/행사
               </h3>
-              <div className="flex items-center gap-4">
-                <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
-                  📅 이번 주 나들이 보기 →
-                </Link>
-                <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
-                  전체 보기 →
-                </Link>
-              </div>
+              <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
+                전체 보기 →
+              </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
               {filteredFestivals.slice(0, 4).map((f) => (
