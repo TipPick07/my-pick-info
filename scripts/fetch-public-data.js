@@ -318,6 +318,35 @@ function isFestivalQuality(item) {
   const location = (item.location || item.region || '').trim();
   if (!location) return false;
 
+  const fullText = title + ' ' + desc;
+
+  // 5. 블랙리스트 (학술, 행정, 비대중적 행사 배제)
+  const blacklist = [
+    '포럼', '세미나', '학술', '간담회', '총회', '워크숍', '연수', '위원회', 
+    '발대식', '위촉식', '공모전', '설명회', '캠페인', '토론회', '심포지엄'
+  ];
+  if (blacklist.some(keyword => fullText.includes(keyword))) {
+    return false;
+  }
+
+  // 6. 화이트리스트 (대중적이고 인기 있는 키워드 1개 이상 포함 필수)
+  const whitelist = [
+    // 타겟
+    '어린이', '가족', '아이', '키즈', '연인', '커플', '데이트', '청년',
+    // 볼거리/계절
+    '꽃', '벚꽃', '단풍', '장미', '불꽃', '야경', '미디어아트', '빛축제', '눈꽃',
+    // 엔터테인먼트
+    '페스티벌', '콘서트', '음악', '공연', '뮤직', '버스킹', '전시', '뮤지컬', '연극',
+    // 먹거리/나들이
+    '푸드', '야시장', '먹거리', '맛집', '맥주', '와인', '바비큐', '체험', '문화제', '피크닉', '나들이', '캠핑', '플리마켓',
+    // 액티비티
+    '물놀이', '워터', '걷기', '마라톤', '요가'
+  ];
+  
+  if (!whitelist.some(keyword => fullText.includes(keyword))) {
+    return false;
+  }
+
   return true;
 }
 
