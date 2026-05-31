@@ -220,8 +220,8 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           <div className="mt-16 pt-10 border-t-2 border-slate-50 space-y-8">
             <div className="p-8 bg-indigo-50/50 rounded-[2rem] border border-indigo-100/50">
               <p className="text-slate-600 text-sm leading-relaxed font-medium mb-6">
-                💡 **AI 생성 정보 안내**<br />
-                이 글은 공공데이터포털 정보를 바탕으로 AI가 작성하였습니다. 
+                💡 **팁픽 큐레이션 안내**<br />
+                이 글은 공공데이터를 팁픽(Tip-Pick)만의 시각으로 직접 재구성한 고유 콘텐츠입니다. 
                 정확한 내용은 아래 **[공공서비스 공식 정보]**를 통해 다시 한번 확인해주시기 바랍니다.
               </p>
 

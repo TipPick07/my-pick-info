@@ -425,30 +425,44 @@ async function main() {
       return;
     }
 
-    // ─── 핫 키워드 반영 스코어링으로 최종 선정 ────────────────────────────
-    const scoredItems = unpostedItems
-      .map(item => ({ item, score: calcScore(item, postType, hotKeywords) }))
-      .sort((a, b) => b.score - a.score);
-
-    const topCandidates = scoredItems.slice(0, 3);
-    const selected = topCandidates[Math.floor(Math.random() * topCandidates.length)];
-    const targetItem = selected.item;
-
-    console.log(`[블로그] 핫 키워드 반영 TOP3:`);
-    topCandidates.forEach((c, i) => console.log(`  ${i + 1}위 (${c.score}점): ${c.item.title}`));
-    console.log(`[블로그] 최종 선정 (${selected.score}점): ${targetItem.title}`);
-    // ──────────────────────────────────────────────────────────────────────
-
-    if (!targetItem.image || targetItem.image.includes('default.png')) {
-      const guideFallbacks = fallbacks.GUIDE;
-      targetItem.image = guideFallbacks[Math.floor(Math.random() * guideFallbacks.length)];
-      console.log(`[보정] 이미지 누락 데이터에 스톡 이미지를 할당했습니다: ${targetItem.image}`);
+    // ─── [Step 3] 핫 키워드 반영 스코어링 및 테마별 묶음 추출 ──────────────
+    const scoredItems = unpostedItems.map(item => ({ item, score: calcScore(item, postType, hotKeywords) }));
+    
+    // 그룹핑: targetPersona(페르소나) 기준으로 묶기 (없으면 tag 기준)
+    const grouped = {};
+    for (const { item, score } of scoredItems) {
+      const themeKey = item.targetPersona || item.tag || '공통 혜택';
+      if (!grouped[themeKey]) grouped[themeKey] = { score: 0, items: [] };
+      grouped[themeKey].items.push(item);
+      grouped[themeKey].score += score; // 그룹 전체 핫 키워드 점수 합산
     }
 
-    console.log(`발행 대상 발견: ${targetItem.title}`);
+    // 최우수 테마 선정 (점수 가장 높은 그룹)
+    const sortedGroups = Object.entries(grouped).sort((a, b) => b[1].score - a[1].score);
+    const topThemeName = sortedGroups[0][0];
+    const topThemeGroup = sortedGroups[0][1];
 
-    // ─── 쿠팡 파트너스 제휴 상품 검색 ────────────────────────────────────
-    const coupangKeyword = extractCoupangKeyword(targetItem.title);
+    // 해당 테마 내에서 개별 점수가 높은 순으로 정렬 후 3~4개 추출
+    topThemeGroup.items.sort((a, b) => calcScore(b, postType, hotKeywords) - calcScore(a, postType, hotKeywords));
+    const targetItems = topThemeGroup.items.slice(0, 4);
+
+    console.log(`[블로그] 큐레이션 최우수 테마: "${topThemeName}" (그룹 총점: ${topThemeGroup.score}점)`);
+    console.log(`[블로그] 선정된 데이터 세트 (총 ${targetItems.length}건):`);
+    targetItems.forEach((t, i) => console.log(`  ${i + 1}. ${t.title}`));
+    // ──────────────────────────────────────────────────────────────────────
+
+    // 이미지 보정 (각 아이템별 처리)
+    for (const tItem of targetItems) {
+      if (!tItem.image || tItem.image.includes('default.png')) {
+        const guideFallbacks = fallbacks.GUIDE;
+        tItem.image = guideFallbacks[Math.floor(Math.random() * guideFallbacks.length)];
+        console.log(`[보정] 이미지 누락 데이터에 스톡 이미지를 할당했습니다: ${tItem.image}`);
+      }
+    }
+
+    // ─── 쿠팡 파트너스 제휴 상품 검색 (메인 아이템 기준) ───────────────────
+    const mainTitleForCoupang = targetItems[0].title;
+    const coupangKeyword = extractCoupangKeyword(mainTitleForCoupang);
     const coupangProduct = await getCoupangProduct(coupangKeyword);
 
     // 쿠팡 상품이 있을 때만 프롬프트에 주입할 섹션 구성
@@ -475,11 +489,12 @@ async function main() {
           text: `절대로 내부 사고 과정, 계획, 분석 내용을 출력하지 마세요.
 오직 완성된 마크다운 블로그 글만 출력하세요.
 
-이 글은 ${postType === 'festival' ? '축제/행사 정보' : '지원금/혜택 정보'} 블로그 포스트입니다.
+이 글은 ${postType === 'festival' ? '축제/행사 정보' : '지원금/혜택 정보'} 테마별 큐레이션(총정리) 블로그 포스트입니다.
 당신은 수도권 생활 정보 큐레이션 서비스 '수도권 팁픽(Tip-Pick)'의 전문 에디터이자 SEO 전문가입니다.
-아래 공공서비스 정보를 바탕으로 구글/네이버 검색 상위 노출이 가능한 프리미엄 블로그 글을 작성해줘.
+아래 제공된 3~4개의 공공서비스 데이터 세트를 바탕으로, 구글/네이버 검색 상위 노출이 가능한 프리미엄 비교/분석 큐레이션 블로그 글을 작성해줘.
 
-정보: ${JSON.stringify(targetItem)}
+선정된 테마(페르소나): ${topThemeName}
+정보 데이터 세트(배열): ${JSON.stringify(targetItems, null, 2)}
 
 오늘의 핫 키워드: ${hotKeywords.slice(0, 5).join(', ')}
 
@@ -488,48 +503,28 @@ ${postType === 'festival'
               ? '- 타겟: 전 연령층\n- 말투: 밝고 경쾌하게\n- 주제: 나들이, 즐거움'
               : '- 타겟: 40~60대 중장년층\n- 말투: 신뢰감 있고 따뜻하게\n- 주제: 경제적 이득, 생활 안정'}
 
-[SEO 핵심 원칙 - 반드시 지킬 것]
-1. 핵심 키워드는 제목 1회, 본문 첫 문단 1회, 소제목 1회 이내로만 사용. 절대 반복 금지.
-2. 같은 키워드를 3회 이상 반복하면 구글 스팸 필터에 걸림. 동의어와 자연스러운 표현으로 대체할 것.
-3. 오늘의 핫 키워드는 제목과 본문에 딱 1~2회만 자연스럽게 녹일 것. 억지로 끼워넣지 말 것.
-4. LSI 키워드(연관 키워드) 전략: 핵심 키워드 대신 연관된 다양한 표현을 사용할 것.
-   - 예: '지원금' 대신 '혜택', '보조금', '신청', '받을 수 있는' 등으로 자연스럽게 분산
-5. 메타 디스크립션(summary)은 핵심 키워드 1회 포함, 클릭을 유도하는 문장으로 150자 이내.
-6. 제목은 검색자가 실제로 입력할 법한 구체적 표현 사용. (지역명 + 대상 + 핵심혜택 조합)
+[작성 가이드라인 - 본문 구조 강제]
+1. 서론 (Intro): 
+   - 테마 선정 이유와 독자(페르소나)의 현재 고민/상황에 대한 강력한 공감으로 시작하세요.
+   - 예: "최근 물가 상승으로 영유아 부모님들의 고민이 큽니다. 그래서 오늘 가성비 주말 나들이 테마로 가장 혜택이 좋은 3가지를 엄선했습니다."
+2. 1분 자격 진단 퀴즈 (Interactive): 
+   - 서론 직후에 독자가 본인의 대상 여부를 확인할 수 있도록 마크다운 체크박스('- [ ]')를 사용한 O/X 퀴즈 영역을 반드시 만드세요.
+   - 제공된 데이터의 'eligibilityQuiz' 배열 항목들을 활용해 인터랙티브하게 구성하세요.
+3. 본론 (Body - 비교 및 분석 큐레이션):
+   - 3~4개의 데이터를 단순 나열하지 마세요. 각 항목이 어떤 점이 좋고, 누가 신청/방문하면 좋을지 서로 **비교·분석**하는 형태로 서술하세요.
+   - 각 데이터의 'targetPersona', 'coreValue'를 활용하여 명확한 타겟팅을 제시하세요.
+   - 데이터에 'simulation' 내용이 있다면 (예: 연간 120만원 절약) 이를 시각적으로 눈에 띄게 배치하여 기대 효용을 극대화하세요.
+   - 데이터에 'practicalTip' 내용이 있다면 (예: 서류 발급 꿀팁, 주차 꿀팁) 실무적인 팁으로 강조해서 서술하세요.
+4. 결론 (Outro): 
+   - 큐레이션 내용을 3줄로 요약하고 독자의 행동(신청/방문)을 촉구하세요.
 
-[수도권 지역 필터 - 반드시 확인]
-- 서울, 인천, 경기 중 하나 이상 관련된 내용이어야 함
-- 타 지역(부산, 대구, 경남 등) 정보가 주제면 → 수도권 거주자에게 적용 가능한 유사 혜택으로 내용 전환할 것
-- 지역 언급이 없으면 → '수도권' 또는 '전국' 기준으로 작성할 것
-
-[핵심 금지 사항 - 반드시 지킬 것]
-1. 도입부 고정 인사말 금지. ("안녕하세요, 팁픽 에디터입니다" 등)
-2. 마무리 고정 문구 금지. ("팁픽은 앞으로도..." 등)
-3. 폴백 텍스트 금지. ("지원금별로 필요한 서류가 다를 수 있습니다" 같은 의미없는 문장)
-4. Raw 데이터 그대로 사용 금지. ("직접입력", "해당없음" 등 공공데이터 원본값)
-5. 키워드 남발 절대 금지. 같은 단어가 3회 이상 나오면 무조건 다른 표현으로 교체.
-6. 외부 채널 홍보 문구 금지. (유튜브, 타 플랫폼 유도 등)
-7. 구조 반복 금지. 매번 다른 방식으로 구성할 것. (표→체크리스트→스토리텔링→인포그래픽형 등 순환)
-
-[콘텐츠 품질 기준 - E-E-A-T 충족]
-구글의 E-E-A-T(경험·전문성·권위·신뢰) 기준을 충족하는 글을 작성할 것.
-1. Experience(경험): 실제 방문하거나 신청해본 것처럼 구체적인 경험 묘사 포함
-   - 축제: "현장에서 가장 붐비는 구간은...", "실제로 주차하기 어려운 이유는..."
-   - 지원금: "신청 과정에서 많은 분들이 놓치는 부분은...", "실제 수령까지 걸리는 시간은..."
-2. Expertise(전문성): 단순 정보 나열이 아닌 분석과 해석 포함
-   - "이 지원금이 다른 혜택과 다른 점은...", "올해 달라진 부분은..."
-3. Authoritativeness(권위): 공식 출처 명시, 정확한 수치 사용
-4. Trustworthiness(신뢰): 주의사항, 함정, 놓치기 쉬운 포인트 명시
-
-[필수 포함 요소]
-- 에디터 인사이트: 공식 데이터에 없는 독창적 꿀팁 2~3문장 (재탕 금지)
-  ${postType === 'festival'
-              ? '축제: 인생샷 스팟, 최적 방문 시간대, 주차 현실, 준비물'
-              : '지원금: 이 혜택만의 특이점, 놓치기 쉬운 함정, 실제 수령 팁'}
-- 핵심 수치(금액, 날짜, 조건)는 **굵게** 강조
-- 표(Table) 1개 이상 필수 포함
-- 불렛포인트와 표를 적절히 혼합 (한 가지만 쓰지 말 것)
-- 분량: 공백 제외 **1,500자 이상** (기존 800자에서 상향)
+[SEO 및 품질 핵심 원칙 - 반드시 지킬 것]
+1. 핵심 키워드는 제목 1회, 본문 첫 문단 1회, 소제목 1회 이내로만 사용. 3회 이상 반복 금지.
+2. LSI 키워드(연관 키워드) 전략: 핵심 키워드 대신 '혜택', '보조금', '신청' 등 다양한 표현 사용.
+3. 메타 디스크립션(summary)은 150자 이내, 클릭 유도형 문장 사용 (수치/날짜 필수).
+4. 표(Table) 1개 이상 필수 포함 (3~4개 데이터의 핵심 정보 비교표 권장).
+5. E-E-A-T 충족을 위해 경험적 묘사와 전문적 해석, 함정/주의사항을 반드시 포함할 것.
+6. 분량 강제: **공백 제외 반드시 1,500자 이상** 작성. 짧은 단답을 피하고 상세한 스토리텔링과 실용적 팁을 담을 것.
 
 ${coupangPromptSection}[하단 연결 섹션 - 반드시 포함]
 ${postType === 'festival'
@@ -550,23 +545,23 @@ ${recentPostsForLinking}
 ${coupangDisclosureSection}아래 형식으로만 출력. YAML Frontmatter 포함. 다른 설명 제외.
 반드시 응답 맨 마지막 줄에 'FILENAME: YYYY-MM-DD-영문키워드' 형식으로 파일명 출력.
 ---
-title: (SEO 최적화된 구체적 제목 — 지역명+대상+핵심혜택 조합)
-originalTitle: ${targetItem.title}
-link: ${targetItem.link || ''}
-officialTarget: ${targetItem.target || '정보 없음'}
-officialDetails: ${targetItem.details || targetItem.description || '정보 없음'}
-officialDeadline: ${targetItem.deadline || targetItem.date || '상시'}
+title: (SEO 최적화된 구체적 제목 — 테마와 핵심 내용을 포괄하는 큐레이션 제목)
+originalTitle: ${targetItems[0].title} 외 ${targetItems.length - 1}건
+link: ${targetItems[0].link || ''}
+officialTarget: ${targetItems[0].target || targetItems[0].targetPersona || '정보 없음'}
+officialDetails: ${targetItems[0].details || targetItems[0].description || '정보 없음'}
+officialDeadline: ${targetItems[0].deadline || targetItems[0].date || '상시'}
 date: ${today}
 summary: (구글 검색 결과에 그대로 노출되는 설명. 구체적 날짜나 금액 수치 반드시 포함. 형식: 언제/어디서 + 무엇을 + 얼마나 + 지금 확인하세요 순서. 반드시 ~하세요 또는 ~챙기세요로 끝낼 것. 100자 이내.)
 description: (summary와 동일한 내용으로 작성)
 category: ${postType === 'festival' ? 'festival' : 'benefit'}
-image: ${targetItem.image || ''}
+image: ${targetItems[0].image || ''}
 ogImage: ""
 tags: [연관키워드1, 연관키워드2, 연관키워드3, 연관키워드4, 연관키워드5]
-officialRequirements: ${JSON.stringify(targetItem.requirements || [])}
-officialHowToApply: ${JSON.stringify(targetItem.howToApply || [])}
-officialEligibilityQuiz: ${JSON.stringify(targetItem.eligibilityQuiz || [])}
-officialTip: ${targetItem.tip || ''}
+officialRequirements: ${JSON.stringify(targetItems[0].requirements || [])}
+officialHowToApply: ${JSON.stringify(targetItems[0].howToApply || [])}
+officialEligibilityQuiz: ${JSON.stringify(targetItems[0].eligibilityQuiz || [])}
+officialTip: ${targetItems[0].practicalTip || targetItems[0].tip || ''}
 ---
 
 (본문 시작 — 도입부는 매번 다른 방식으로. E-E-A-T 기준 충족. 1,500자 이상.)
@@ -582,7 +577,7 @@ FILENAME: YYYY-MM-DD-영문키워드`
       }
     };
 
-    const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
     let result;
     let geminiBackoff = 30000;
@@ -617,7 +612,7 @@ FILENAME: YYYY-MM-DD-영문키워드`
     const filenameMatch = fullText.match(/FILENAME:\s*([^\s\n]+)/i);
     let filename;
     if (!filenameMatch) {
-      const fallbackId = targetItem.id || `${postType}-${Date.now()}`;
+      const fallbackId = targetItems[0].id || `${postType}-${Date.now()}`;
       filename = `${today}-${postType}-${fallbackId}.md`;
       console.warn(`[경고] Gemini가 FILENAME을 누락 — 폴백 파일명 사용: ${filename}`);
     } else {

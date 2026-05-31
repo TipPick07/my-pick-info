@@ -147,11 +147,14 @@ async function supplementWithGemini(hotKeywords, type, existingTitles, geminiApi
   "image": "",
   "requirements": ["필요서류1", "필요서류2"],
   "howToApply": ["신청방법1", "신청방법2"],
-  "eligibilityQuiz": ["자격요건 질문1?", "자격요건 질문2?"],
-  "tip": "한 줄 꿀팁"
+  "targetPersona": "이 정보를 가장 필요로 할 구체적인 대상 (예: 영유아 자녀를 둔 3040 부모)",
+  "coreValue": "이 정보가 주는 핵심 가치 요약 (예: 청년 주거비 절감)",
+  "eligibilityQuiz": ["자격 요건 O/X 질문1", "자격 요건 O/X 질문2", "질문3", "질문4"],
+  "simulation": "타겟 페르소나를 가정한 구체적인 연간 체감 혜택이나 예상 절약 금액 시뮬레이션",
+  "practicalTip": "관공서 서류 제출 시 누락하기 쉬운 점 등 실무적이고 디테일한 팁"
 }`;
 
-      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
       const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
 
       const res = await fetch(geminiUrl, {
@@ -203,8 +206,9 @@ async function generateFestivalContent(fest, geminiApiKey, geminiModel) {
 2. ## 핵심 정보: 날짜/장소/입장료/교통편을 표(table)로 정리. 교통편은 지하철 몇 호선 몇 번 출구까지 구체적으로.
 3. ## 이런 분께 추천해요: 가족/연인/혼자 등 구체적 추천 대상과 이유 3가지.
 4. ## 방문 꿀팁: 최적 방문 시간대, 주차 현실, 준비물 등 실용적 팁 3가지.
-5. 분량: 600자 이상.
-6. 반드시 JSON만 출력: {"content": "마크다운 내용"}`;
+5. 분량 강제: 공백 제외 반드시 1,000자 이상 작성. 짧은 문장을 피하고 내용을 깊이 있게 다룰 것.
+6. 구조화 강제: 반드시 ## (H2), ### (H3) 태그를 사용하여 서론, 본론, 결론의 체계적인 구조로 작성할 것.
+7. 반드시 JSON만 출력: {"content": "마크다운 내용"}`;
 
   const maxRetries = 3;
   let delay = 10000;
@@ -276,6 +280,21 @@ function isBenefitQuality(item) {
   // 4. 의미없는 값만 있는 경우 탈락 ('-', '해당없음', '직접입력' 등)
   const meaningless = ['-', '해당없음', '직접입력', 'N/A', '없음', '미정'];
   if (meaningless.includes(title)) return false;
+
+  // [Step 1 개편] 강력한 필터링 - 화이트리스트 & 블랙리스트
+  const fullText = title + ' ' + desc;
+  
+  // 블랙리스트 (행정적 공고 등 실질 가치가 떨어지는 것 배제)
+  const blacklist = ['상담', '교육', '캠페인', '대회', '멘토링'];
+  if (blacklist.some(keyword => fullText.includes(keyword))) {
+    return false;
+  }
+
+  // 화이트리스트 (현금성 지원이나 확실한 혜택)
+  const whitelist = ['수당', '환급', '바우처', '월세', '캐시백', '장려금', '지원금'];
+  if (!whitelist.some(keyword => fullText.includes(keyword))) {
+    return false;
+  }
 
   return true;
 }
@@ -1082,11 +1101,13 @@ async function main() {
 
     console.log(`\n[지원금] 최종 수집: ${newItems.length}건`);
 
-    if (newItems.length === 0) {
-      console.log('새로운 공공데이터가 없습니다. (날씨만 업데이트 완료)');
-      return;
+    let skipBenefit = false;
+    if (newItems.length < 3) {
+      console.log(`[지원금] 오늘 수집된 고가치 데이터가 3개 미만(${newItems.length}건)이므로 품질 유지를 위해 지원금 수집 및 발행 처리를 스킵합니다.`);
+      skipBenefit = true;
     }
 
+    if (!skipBenefit) {
     // ─── 핫 키워드 기준으로 지원금 데이터 정렬 ──────────────────────────────────
     const benefitHotKeywords = await getTodayHotKeywords('benefit');
     console.log(`[지원금] 핫 키워드 반영 정렬 시작 (키워드: ${benefitHotKeywords.slice(0,3).join(', ')})`);
@@ -1118,7 +1139,10 @@ async function main() {
           requirements: item.requirements || [],
           howToApply: item.howToApply || [],
           eligibilityQuiz: item.eligibilityQuiz || [],
-          tip: item.tip || ''
+          tip: item.practicalTip || item.tip || '',
+          targetPersona: item.targetPersona || '누구나',
+          coreValue: item.coreValue || '유용한 혜택',
+          simulation: item.simulation || ''
         });
         existingTitles.add(item.title);
         existingBenefitNorm.add(norm);
@@ -1190,12 +1214,15 @@ async function main() {
   imagePrompt: 'Create a short descriptive English prompt (max 10 words) for an AI image generator. Focus on objects, scenery and atmosphere only. No text, no faces, no people, no characters. Return only the English prompt, nothing else.',
   requirements: ['필요서류1', '필요서류2'],
   howToApply: ['신청방법1', '신청방법2'],
-  eligibilityQuiz: ['자격 요건 질문1', '자격 요건 질문2'],
-  tip: '사용자를 위한 한 줄 꿀팁'
+  targetPersona: '이 정보를 가장 필요로 할 구체적인 대상 (예: 영유아 자녀를 둔 3040 부모)',
+  coreValue: '이 정보가 주는 핵심 가치 요약 (예: 가성비 주말 나들이, 청년 주거비 절감)',
+  eligibilityQuiz: ['자격 요건 O/X 질문1', '자격 요건 O/X 질문2', '질문3', '질문4'],
+  simulation: '타겟 페르소나를 가정한 구체적인 연간 체감 혜택이나 예상 절약 금액 시뮬레이션 (지원금인 경우 필수, 축제는 빈 문자열)',
+  practicalTip: '관공서 서류 제출 시 누락하기 쉬운 점이나 축제 현장의 주차/편의성 등 실무적이고 디테일한 팁'
 }
 
 내용을 보고 행사/축제면 type을 'festival', 지원금/서비스면 'benefit'으로 판단해.
-eligibilityQuiz는 지원 대상을 분석해서 "~이신가요?" 형태의 질문으로 최소 2개 만들어줘.
+eligibilityQuiz는 지원 대상을 분석해서 1분 자격 진단기 연동을 위한 구체적인 O/X 퀴즈 형식으로 3~4개 세분화해서 만들어줘.
 반드시 JSON 객체만 출력해. 다른 텍스트 없이.
 공공데이터:
 ${JSON.stringify(selectedData)}`
@@ -1203,7 +1230,7 @@ ${JSON.stringify(selectedData)}`
         }]
       };
 
-      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
       const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
       let textResult;
 
@@ -1354,7 +1381,10 @@ ${JSON.stringify(selectedData)}`
           tag: parsedParams.tag || '신규',
           image: finalImageUrl,
           location: parsedParams.location || '',
-          description: parsedParams.summary || ''
+          description: parsedParams.summary || '',
+          targetPersona: parsedParams.targetPersona || '누구나',
+          coreValue: parsedParams.coreValue || '유용한 정보',
+          practicalTip: parsedParams.practicalTip || ''
         });
       } else {
         // 만료된 공고 스킵
@@ -1388,7 +1418,10 @@ ${JSON.stringify(selectedData)}`
           requirements: requirements,
           howToApply: howToApply,
           eligibilityQuiz: eligibilityQuiz,
-          tip: parsedParams.tip || "신청 기간이 지나기 전에 미리 확인하고 혜택을 챙기세요!"
+          tip: parsedParams.practicalTip || parsedParams.tip || "신청 기간이 지나기 전에 미리 확인하고 혜택을 챙기세요!",
+          targetPersona: parsedParams.targetPersona || '누구나',
+          coreValue: parsedParams.coreValue || '유용한 혜택',
+          simulation: parsedParams.simulation || ''
         });
       }
 
@@ -1398,6 +1431,7 @@ ${JSON.stringify(selectedData)}`
       }
       console.log(`✓ 정상 추가됨: ${titleToCheck}`);
     }
+    } // End of !skipBenefit
 
     // ─── 수도권 축제/행사 수집 (지자체 1순위 + KTO 2순위) ────────────────
     console.log('\n[축제] 수도권 축제/행사 데이터 수집 시작...');
@@ -1458,6 +1492,14 @@ ${JSON.stringify(selectedData)}`
     const allFestItems = deduplicateFestivals([...primaryItems, ...ktoFormatted]);
     console.log(`[축제] 중복 제거 후: ${allFestItems.length}건`);
 
+    const validFests = allFestItems.filter(fest => isFestivalQuality(fest));
+    let skipFestival = false;
+    if (validFests.length < 3) {
+      console.log(`[축제] 오늘 수집된 고가치 데이터가 3개 미만(${validFests.length}건)이므로 품질 유지를 위해 축제 수집 및 발행 처리를 스킵합니다.`);
+      skipFestival = true;
+    }
+
+    if (!skipFestival) {
     // ─── 핫 키워드 기준으로 축제 데이터 정렬 ────────────────────────────────────
     const festHotKeywords = await getTodayHotKeywords('festival');
     console.log(`[축제] 핫 키워드 반영 정렬 시작 (키워드: ${festHotKeywords.slice(0,3).join(', ')})`);
@@ -1596,7 +1638,14 @@ ${JSON.stringify(selectedData)}`
       }
       console.log(`✓ [축제] 추가됨: ${title} (${newFest.region}, ${newFest.date}) [${fest._source}]`);
     }
+    } // End of !skipFestival
     // ──────────────────────────────────────────────────────────────────────
+
+    // 만약 둘 다 스킵되었다면 프로세스 종료 코드를 다르게 주거나 로그를 남길 수 있습니다.
+    if (skipBenefit && skipFestival) {
+      console.log('✅ 오늘 등록할 양질의 데이터가 없어(모두 3개 미만) 파이프라인 처리를 종료합니다.');
+      process.exit(0);
+    }
 
   } catch (error) {
     console.error('----------------------------------------------------');
