@@ -226,7 +226,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
                   e.currentTarget.style.color = "";
                 }}
               >
-                이번 주말 어디 가?
+                이번 주 나들이 보기
               </Link>
             </div>
           </div>
@@ -441,8 +441,8 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
                 주목할 만한 축제/행사
               </h3>
               <div className="flex items-center gap-4">
-                <Link href="/weekly/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
-                  📅 이번 주 행사 보기 →
+                <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
+                  📅 이번 주 나들이 보기 →
                 </Link>
                 <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
                   전체 보기 →
