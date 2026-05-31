@@ -90,11 +90,11 @@ function calcHotScore(item, hotKeywords) {
 }
 // ──────────────────────────────────────────────────────────────────────────────
 
-// 제목 정규화: [지역] prefix 제거 + 2026 제거 + 특수문자/공백 전부 제거 → 중복 감지용
+// 제목 정규화: [지역] prefix 제거 + 연도(4자리+년) 제거 + 특수문자/공백 전부 제거 → 중복 감지용
 function normTitle(title) {
   return (title || '')
     .replace(/^\[[^\]]+\]\s*/, '')
-    .replace(/2026/g, '')
+    .replace(/\d{4}년?/g, '')
     .replace(/[^가-힣a-zA-Z0-9]/g, '')
     .toLowerCase();
 }
@@ -105,9 +105,11 @@ async function supplementWithGemini(hotKeywords, type, existingTitles, geminiApi
   if (!geminiApiKey) return results;
 
   // 핫 키워드 중 현재 데이터에 없는 것만 추출
+  // 핵심 명사 추출: 신청/지원/안내 등 동작어 제거 후 기존 정규화 제목과 비교
   const missingKeywords = hotKeywords.slice(0, 3).filter(kw => {
-    const allTitles = [...existingTitles].join(' ');
-    return !allTitles.includes(kw);
+    const coreKw = normTitle(kw).replace(/신청(준비)?|지원|안내|혜택|조회|접수|방법|총정리/g, '');
+    if (coreKw.length < 2) return false;
+    return ![...existingTitles].some(t => normTitle(t).includes(coreKw));
   });
 
   if (missingKeywords.length === 0) {
@@ -1063,6 +1065,10 @@ async function main() {
         const title = item.서비스명;
         if (!title) continue;
         if (existingTitles.has(title) || collectedTitles.has(title)) continue;
+        // prefix 5자 기반 유사 중복 검사
+        const _normT = normTitle(title);
+        const _prefix = _normT.slice(0, 5);
+        if (_prefix.length >= 4 && [...existingBenefitNorm].some(n => n.startsWith(_prefix))) continue;
 
         // ─── 수도권 외 지역 필터링 ───────────────────────────────────────────────
         const itemText = [item.서비스명, item.서비스목적요약, item.지원대상, item.소관기관명].filter(Boolean).join(' ');
@@ -1153,7 +1159,10 @@ async function main() {
       );
       for (const item of benefitSupplements) {
         const norm = normTitle(item.title);
-        if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm)) {
+        // prefix 5자 기반 유사 중복 검사: 같은 주제의 다른 표현 제목 차단
+        const normPrefix = norm.slice(0, 5);
+        const isPrefixDup = normPrefix.length >= 4 && [...existingBenefitNorm].some(n => n.startsWith(normPrefix));
+        if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm) && !isPrefixDup) {
           const _benefitId = item.id || `gemini-benefit-${Date.now()}`;
           const _benefitFallbackNum = pickFallback(_benefitId, 'benefit', usedBenefitFallbacks);
           existingData.benefits.unshift({
@@ -1310,7 +1319,8 @@ ${JSON.stringify(selectedData)}`
           continue; // 파싱 실패해도 다음 데이터 처리는 계속 진행
         }
 
-        const newId = String(parsedParams.id || Date.now() + index);
+        // Gemini가 생성한 id는 충돌 위험 → 항상 서버 타임스탬프 기반으로 생성
+        const newId = `${Date.now()}-${index}-${Math.random().toString(36).slice(2, 6)}`;
         const seed = Math.floor(Math.random() * 1000) + index;
         let rawPrompt = (parsedParams.imagePrompt || parsedParams.title);
 
@@ -1403,11 +1413,21 @@ ${JSON.stringify(selectedData)}`
           finalImageUrl = getFallbackPath(_fallbackNum2, parsedParams.type === 'festival' ? 'festival' : 'benefit');
         }
 
+        // Gemini가 변환한 제목으로 한 번 더 중복 검사 (원본 API 제목과 달라진 경우 대비)
+        const _transformedTitle = (parsedParams.title || titleToCheck).trim();
+        const _transformedNorm = normTitle(_transformedTitle);
+        const _transformedPrefix = _transformedNorm.slice(0, 5);
+        if (existingTitles.has(_transformedTitle) || existingBenefitNorm.has(_transformedNorm) ||
+            (_transformedPrefix.length >= 4 && [...existingBenefitNorm].some(n => n.startsWith(_transformedPrefix)))) {
+          console.log(`  ✗ [스킵] Gemini 변환 후 중복 감지: ${_transformedTitle}`);
+          continue;
+        }
+
         if (parsedParams.type === 'festival') {
           existingData.festivals.unshift({
             id: newId,
             region: parsedParams.region || '전국',
-            title: parsedParams.title || titleToCheck,
+            title: _transformedTitle,
             date: parsedParams.date || '상시',
             tag: parsedParams.tag || '신규',
             image: finalImageUrl,
@@ -1417,6 +1437,7 @@ ${JSON.stringify(selectedData)}`
             coreValue: parsedParams.coreValue || '유용한 정보',
             practicalTip: parsedParams.practicalTip || ''
           });
+          existingTitles.add(_transformedTitle);
         } else {
           // 만료된 공고 스킵
           if (isDeadlineExpired(parsedParams.date)) {
@@ -1439,7 +1460,7 @@ ${JSON.stringify(selectedData)}`
           existingData.benefits.unshift({
             id: newId,
             region: parsedParams.region || '전국',
-            title: parsedParams.title || titleToCheck,
+            title: _transformedTitle,
             target: parsedParams.target || '누구나',
             deadline: parsedParams.date || '상시',
             image: finalImageUrl,
@@ -1454,6 +1475,9 @@ ${JSON.stringify(selectedData)}`
             coreValue: parsedParams.coreValue || '유용한 혜택',
             simulation: parsedParams.simulation || ''
           });
+          // 같은 실행 내 후속 항목에서도 중복 방지: 즉시 셋 갱신
+          existingTitles.add(_transformedTitle);
+          existingBenefitNorm.add(_transformedNorm);
         }
 
         // 1건 처리될 때마다 파일에 동기화하여 중간에 다운되어도 데이터 유실 방지

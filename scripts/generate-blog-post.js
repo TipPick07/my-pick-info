@@ -393,12 +393,6 @@ async function main() {
       if (p.originalTitle) alreadyPostedNorm.add(normTitle(p.originalTitle));
     });
 
-    // 내부 링크 후보: 발행된 posts 폴더만 사용
-    const publishedPosts = readPostTitlesFromDir(postsDir);
-    publishedPosts.sort((a, b) => b.filename.localeCompare(a.filename));
-    const recentPostsForLinking = publishedPosts.slice(0, 30)
-      .map(p => `- [${p.title}](/blog/${p.filename})`)
-      .join('\n');
     // ──────────────────────────────────────────────────────────────────────
 
     const unpostedItems = allItems.filter(item => {
@@ -526,23 +520,7 @@ ${postType === 'festival'
 5. E-E-A-T 충족을 위해 경험적 묘사와 전문적 해석, 함정/주의사항을 반드시 포함할 것.
 6. 분량 강제: **공백 제외 반드시 1,500자 이상** 작성. 짧은 단답을 피하고 상세한 스토리텔링과 실용적 팁을 담을 것.
 
-${coupangPromptSection}[하단 연결 섹션 - 반드시 포함]
-${postType === 'festival'
-              ? '### 🚀 이번 주말 또 다른 가볼만한 곳\n이번 주말, 여기 말고도 재밌는 축제가 더 궁금하다면 팁픽의 다른 글도 확인해보세요!'
-              : ''}
-
-### 🔗 함께 보시면 도움되는 추천 정보
-현재 작성 중인 글과 지역이나 주제가 가장 유사한 기존 포스팅을 아래 목록에서 2개 선별하여 자연스러운 추천 텍스트와 함께 연결할 것.
-연결 방식: [포스트 제목](/blog/파일명) 마크다운 링크 유지.
-(후보 목록:
-${recentPostsForLinking}
-)
-
-[마무리 브랜드 문구 - 반드시 포함]
-글 맨 마지막 줄:
-"매일 아침, 일상을 풍요롭게 만드는 정보를 엄선하여 배달합니다."
-
-${coupangDisclosureSection}아래 형식으로만 출력. YAML Frontmatter 포함. 다른 설명 제외.
+${coupangPromptSection}${coupangDisclosureSection}아래 형식으로만 출력. YAML Frontmatter 포함. 다른 설명 제외.
 반드시 응답 맨 마지막 줄에 'FILENAME: YYYY-MM-DD-영문키워드' 형식으로 파일명 출력.
 ---
 title: (SEO 최적화된 구체적 제목 — 테마와 핵심 내용을 포괄하는 큐레이션 제목)
@@ -689,7 +667,7 @@ FILENAME: YYYY-MM-DD-영문키워드`
       mdContent = mdContent.replace(/^(image:.+)$/m, `$1\nogImage: "${computedOgImage}"`);
     }
 
-    const finalPath = path.join(reviewDir, filename);
+    const finalPath = path.join(postsDir, filename);
     if (DRY_RUN) {
       console.log(`[DRY RUN] 파일 저장 건너뜀: ${filename}`);
       return;
