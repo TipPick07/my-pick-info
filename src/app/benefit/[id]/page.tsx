@@ -31,6 +31,10 @@ interface Benefit {
   howToApply?: string[];
   eligibilityQuiz?: string[];
   tip?: string;
+  detailedExplanation?: string;
+  targetPersona?: string;
+  coreValue?: string;
+  simulation?: string;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -136,6 +140,16 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
                 }`}>
                 {benefit.deadline}
               </span>
+              {benefit.targetPersona && (
+                <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-50 text-amber-700 rounded-full text-sm font-black">
+                  🎯 추천 대상: {benefit.targetPersona}
+                </span>
+              )}
+              {benefit.coreValue && (
+                <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-black">
+                  💎 핵심 가치: {benefit.coreValue}
+                </span>
+              )}
             </div>
 
             {/* 타이틀 */}
@@ -169,7 +183,7 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
                   <div className="mt-1 w-2 h-2 rounded-full bg-indigo-400 shrink-0" />
                   <div className="space-y-1">
                     <p className="text-sm font-bold text-slate-400">지원 내용</p>
-                    <p className="text-lg font-bold text-slate-800 leading-relaxed whitespace-pre-line">{benefit.details}</p>
+                    <p className="text-lg font-bold text-slate-800 leading-relaxed whitespace-pre-line">{benefit.detailedExplanation || benefit.details}</p>
                   </div>
                 </div>
               </div>
@@ -177,6 +191,24 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
 
             {/* 1분 자격 진단기 */}
             <EligibilityChecker quiz={benefit.eligibilityQuiz} />
+
+            {/* 체감 혜택 시뮬레이션 */}
+            {benefit.simulation && (
+              <section className="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-[2rem] p-8 md:p-10 mb-12 text-white shadow-xl relative overflow-hidden mt-12">
+                <div className="absolute top-0 right-0 p-6 opacity-20 pointer-events-none">
+                  <Sparkles className="w-32 h-32" />
+                </div>
+                <div className="relative z-10 space-y-4">
+                  <h3 className="text-2xl font-black flex items-center gap-2">
+                    <Lightbulb className="w-7 h-7 text-yellow-300" />
+                    체감 혜택 시뮬레이션
+                  </h3>
+                  <p className="text-lg font-bold text-cyan-50 leading-relaxed whitespace-pre-line">
+                    {benefit.simulation}
+                  </p>
+                </div>
+              </section>
+            )}
 
             {/* 상세 섹션: 제출 서류 및 방법 */}
             <div className="space-y-12">
