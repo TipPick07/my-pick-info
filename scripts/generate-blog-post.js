@@ -364,7 +364,7 @@ async function main() {
     // ──────────────────────────────────────────────────────────────────────
 
     // ─── 3개 폴더 중복 스캔: posts / drafts / review ──────────────────────
-    const postsDir  = path.join(process.cwd(), 'src/content/posts');
+    const postsDir = path.join(process.cwd(), 'src/content/posts');
     const draftsDir = path.join(process.cwd(), 'src/content/drafts');
     const reviewDir = path.join(process.cwd(), 'src/content/review');
 
@@ -427,7 +427,7 @@ async function main() {
 
     // ─── [Step 3] 핫 키워드 반영 스코어링 및 테마별 묶음 추출 ──────────────
     const scoredItems = unpostedItems.map(item => ({ item, score: calcScore(item, postType, hotKeywords) }));
-    
+
     // 그룹핑: targetPersona(페르소나) 기준으로 묶기 (없으면 tag 기준)
     const grouped = {};
     for (const { item, score } of scoredItems) {

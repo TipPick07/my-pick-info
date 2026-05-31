@@ -13,6 +13,7 @@ export default function Footer() {
   const isActive = (href: string) => normalize(pathname) === normalize(href);
 
   const footerLinks = [
+    { href: "/about", label: "팁픽은 왜 만들었나" },
     { href: "/terms", label: "이용약관" },
     { href: "/privacy", label: "개인정보처리방침" },
     { href: "/disclaimer", label: "면책공고" },
