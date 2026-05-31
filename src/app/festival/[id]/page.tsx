@@ -26,6 +26,9 @@ interface Festival {
   mapx?: string;
   mapy?: string;
   content?: string;
+  targetPersona?: string;
+  coreValue?: string;
+  practicalTip?: string;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -167,6 +170,16 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
               <span className="px-4 py-1.5 bg-indigo-50 text-indigo-600 text-xs font-black rounded-full">
                 {festival.tag}
               </span>
+              {festival.targetPersona && (
+                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-amber-50 text-amber-700 text-xs font-black rounded-full">
+                  🎯 추천 대상: {festival.targetPersona}
+                </span>
+              )}
+              {festival.coreValue && (
+                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-emerald-50 text-emerald-700 text-xs font-black rounded-full">
+                  ✨ 핵심 매력: {festival.coreValue}
+                </span>
+              )}
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
               {festival.title}
