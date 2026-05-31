@@ -4,18 +4,18 @@ const fallbacks = require('../src/lib/image-fallbacks.json');
 
 // ─── 네이버 DataLab + 계절 키워드 ─────────────────────────────────────────
 const SEASONAL_KEYWORDS = {
-  1:  { festival: ['설날행사','겨울축제','눈꽃축제'], benefit: ['난방비지원','에너지바우처','설맞이지원금'] },
-  2:  { festival: ['봄맞이축제','매화축제','실내전시'], benefit: ['청년취업지원','복지급여','근로장려금신청준비'] },
-  3:  { festival: ['벚꽃축제','봄꽃축제','봄나들이'], benefit: ['청년창업지원','소상공인지원','취업성공패키지'] },
-  4:  { festival: ['벚꽃축제','튤립축제','봄축제'], benefit: ['근로장려금','자녀장려금','청년주거지원'] },
-  5:  { festival: ['어린이날행사','장미축제','연등회'], benefit: ['근로장려금신청','자녀장려금신청','가정의달지원금'] },
-  6:  { festival: ['여름축제','물축제','한강축제'], benefit: ['청년지원금','에너지바우처','취업지원'] },
-  7:  { festival: ['여름축제','물놀이행사','워터페스티벌'], benefit: ['에너지취약계층지원','청년주거지원','여름방학지원'] },
-  8:  { festival: ['여름축제','해변축제','별빛축제'], benefit: ['개학맞이지원','주거급여','저소득층지원'] },
-  9:  { festival: ['추석행사','가을축제','단풍축제'], benefit: ['추석명절지원금','복지급여','노인복지혜택'] },
-  10: { festival: ['단풍축제','핼러윈행사','문화행사'], benefit: ['난방비지원신청','에너지바우처신청','노후준비지원'] },
-  11: { festival: ['빛축제','크리스마스마켓','겨울준비행사'], benefit: ['에너지바우처','난방비지원','연말정산준비'] },
-  12: { festival: ['크리스마스행사','연말축제','겨울빛축제'], benefit: ['연말정산','겨울난방지원','신년복지혜택'] }
+  1: { festival: ['설날행사', '겨울축제', '눈꽃축제'], benefit: ['난방비지원', '에너지바우처', '설맞이지원금'] },
+  2: { festival: ['봄맞이축제', '매화축제', '실내전시'], benefit: ['청년취업지원', '복지급여', '근로장려금신청준비'] },
+  3: { festival: ['벚꽃축제', '봄꽃축제', '봄나들이'], benefit: ['청년창업지원', '소상공인지원', '취업성공패키지'] },
+  4: { festival: ['벚꽃축제', '튤립축제', '봄축제'], benefit: ['근로장려금', '자녀장려금', '청년주거지원'] },
+  5: { festival: ['어린이날행사', '장미축제', '연등회'], benefit: ['근로장려금신청', '자녀장려금신청', '가정의달지원금'] },
+  6: { festival: ['여름축제', '물축제', '한강축제'], benefit: ['청년지원금', '에너지바우처', '취업지원'] },
+  7: { festival: ['여름축제', '물놀이행사', '워터페스티벌'], benefit: ['에너지취약계층지원', '청년주거지원', '여름방학지원'] },
+  8: { festival: ['여름축제', '해변축제', '별빛축제'], benefit: ['개학맞이지원', '주거급여', '저소득층지원'] },
+  9: { festival: ['추석행사', '가을축제', '단풍축제'], benefit: ['추석명절지원금', '복지급여', '노인복지혜택'] },
+  10: { festival: ['단풍축제', '핼러윈행사', '문화행사'], benefit: ['난방비지원신청', '에너지바우처신청', '노후준비지원'] },
+  11: { festival: ['빛축제', '크리스마스마켓', '겨울준비행사'], benefit: ['에너지바우처', '난방비지원', '연말정산준비'] },
+  12: { festival: ['크리스마스행사', '연말축제', '겨울빛축제'], benefit: ['연말정산', '겨울난방지원', '신년복지혜택'] }
 };
 
 async function getTodayHotKeywords(type) {
@@ -32,23 +32,23 @@ async function getTodayHotKeywords(type) {
   try {
     const now = new Date();
     const pad = n => String(n).padStart(2, '0');
-    const endDate = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+    const endDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
     const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
-    const startDate = `${weekAgo.getFullYear()}-${pad(weekAgo.getMonth()+1)}-${pad(weekAgo.getDate())}`;
+    const startDate = `${weekAgo.getFullYear()}-${pad(weekAgo.getMonth() + 1)}-${pad(weekAgo.getDate())}`;
 
     const keywordGroups = type === 'festival'
       ? [
-          { groupName: '축제', keywords: ['축제'] },
-          { groupName: '행사', keywords: ['행사'] },
-          { groupName: '나들이', keywords: ['나들이'] },
-          { groupName: '공연', keywords: ['공연'] }
-        ]
+        { groupName: '축제', keywords: ['축제'] },
+        { groupName: '행사', keywords: ['행사'] },
+        { groupName: '나들이', keywords: ['나들이'] },
+        { groupName: '공연', keywords: ['공연'] }
+      ]
       : [
-          { groupName: '지원금', keywords: ['지원금'] },
-          { groupName: '혜택', keywords: ['혜택'] },
-          { groupName: '복지', keywords: ['복지'] },
-          { groupName: '보조금', keywords: ['보조금'] }
-        ];
+        { groupName: '지원금', keywords: ['지원금'] },
+        { groupName: '혜택', keywords: ['혜택'] },
+        { groupName: '복지', keywords: ['복지'] },
+        { groupName: '보조금', keywords: ['보조금'] }
+      ];
 
     const res = await fetch('https://openapi.naver.com/v1/datalab/search', {
       method: 'POST',
@@ -226,7 +226,7 @@ async function generateFestivalContent(fest, geminiApiKey, geminiModel) {
       });
 
       if (res.status === 503 || res.status === 429) {
-        console.warn(`[content 생성] ${fest.title} 재시도 ${attempt}/${maxRetries} (HTTP ${res.status}) - ${delay/1000}초 대기`);
+        console.warn(`[content 생성] ${fest.title} 재시도 ${attempt}/${maxRetries} (HTTP ${res.status}) - ${delay / 1000}초 대기`);
         await new Promise(r => setTimeout(r, delay));
         delay *= 2;
         continue;
@@ -284,7 +284,7 @@ function isBenefitQuality(item) {
 
   // [Step 1 개편] 강력한 필터링 - 화이트리스트 & 블랙리스트
   const fullText = title + ' ' + desc;
-  
+
   // 블랙리스트 (행정적 공고 등 실질 가치가 떨어지는 것 배제)
   const blacklist = ['상담', '교육', '캠페인', '대회', '멘토링'];
   if (blacklist.some(keyword => fullText.includes(keyword))) {
@@ -338,11 +338,11 @@ function asQuestion(text) {
   if (q.endsWith('?')) return q;
   // 동사 어미 처리 (단순화된 규칙)
   q = q.replace(/자$/, '자이신가요?')
-       .replace(/자$/g, '자이신가요?')
-       .replace(/가구$/g, '가구에 속하시나요?')
-       .replace(/대상$/g, '대상에 해당하시나요?')
-       .replace(/충족$/g, '충족하시나요?');
-  
+    .replace(/자$/g, '자이신가요?')
+    .replace(/가구$/g, '가구에 속하시나요?')
+    .replace(/대상$/g, '대상에 해당하시나요?')
+    .replace(/충족$/g, '충족하시나요?');
+
   if (!q.endsWith('?') && !q.endsWith('요')) {
     q += '이신가요?';
   }
@@ -382,7 +382,7 @@ async function fetchWeatherData() {
       { name: '인천', lat: 37.4563, lon: 126.7052 },
       { name: '경기', lat: 37.2636, lon: 127.0286 }
     ];
-    
+
     const results = [];
     for (const loc of latlons) {
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current_weather=true&timezone=Asia%2FSeoul`;
@@ -390,7 +390,7 @@ async function fetchWeatherData() {
       const json = await res.json();
       const current = json.current_weather;
       const { status, icon } = parseWeather(current.weathercode);
-      
+
       results.push({
         region: loc.name,
         temp: `${Math.round(current.temperature)}°`,
@@ -727,7 +727,7 @@ async function readAndParse(label, res) {
   // ② XML 감지
   if (trimmed.startsWith('<')) {
     const codeMatch = raw.match(/<returnReasonCode>(\d+)<\/returnReasonCode>/);
-    const msgMatch  = raw.match(/<returnAuthMsg>([^<]+)<\/returnAuthMsg>/);
+    const msgMatch = raw.match(/<returnAuthMsg>([^<]+)<\/returnAuthMsg>/);
     const codeMap = {
       '10': '잘못된요청파라미터', '11': '필수요청파라미터없음',
       '12': '해당OpenAPI서비스없음', '20': '서비스접근거부',
@@ -735,7 +735,7 @@ async function readAndParse(label, res) {
       '32': '등록되지않은IP', '99': '서버오류',
     };
     const code = codeMatch ? codeMatch[1] : null;
-    const msg  = msgMatch  ? msgMatch[1]  : '(메시지 없음)';
+    const msg = msgMatch ? msgMatch[1] : '(메시지 없음)';
 
     // 에러 코드가 있고 00이 아니면 → 실패
     if (code && code !== '00') {
@@ -921,7 +921,7 @@ async function fetchBenefitsByKeyword(apiKey, keyword) {
 
 // 축제 날짜 포맷 변환 (YYYYMMDD → YYYY.MM.DD)
 function formatFestivalDate(startDate, endDate) {
-  const fmt = (d) => d ? `${d.slice(0,4)}.${d.slice(4,6)}.${d.slice(6,8)}` : '';
+  const fmt = (d) => d ? `${d.slice(0, 4)}.${d.slice(4, 6)}.${d.slice(6, 8)}` : '';
   const s = fmt(String(startDate || ''));
   const e = fmt(String(endDate || ''));
   if (!s) return '상시';
@@ -1007,7 +1007,7 @@ async function main() {
       existingData.weather = weatherData;
       console.log('날씨 정보 업데이트 성공');
       if (DRY_RUN) { console.log('[DRY RUN] 파일 저장 건너뜀'); } else {
-      fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+        fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
       }
     }
 
@@ -1109,95 +1109,95 @@ async function main() {
     }
 
     if (!skipBenefit) {
-    // ─── 핫 키워드 기준으로 지원금 데이터 정렬 ──────────────────────────────────
-    const benefitHotKeywords = await getTodayHotKeywords('benefit');
-    console.log(`[지원금] 핫 키워드 반영 정렬 시작 (키워드: ${benefitHotKeywords.slice(0,3).join(', ')})`);
-    newItems.sort((a, b) => calcHotScore(b, benefitHotKeywords) - calcHotScore(a, benefitHotKeywords));
-    // ──────────────────────────────────────────────────────────────────────────────
+      // ─── 핫 키워드 기준으로 지원금 데이터 정렬 ──────────────────────────────────
+      const benefitHotKeywords = await getTodayHotKeywords('benefit');
+      console.log(`[지원금] 핫 키워드 반영 정렬 시작 (키워드: ${benefitHotKeywords.slice(0, 3).join(', ')})`);
+      newItems.sort((a, b) => calcHotScore(b, benefitHotKeywords) - calcHotScore(a, benefitHotKeywords));
+      // ──────────────────────────────────────────────────────────────────────────────
 
-    // ─── Gemini 구글검색 보완 (지원금) ───────────────────────────────────────
-    const benefitSupplements = await supplementWithGemini(
-      benefitHotKeywords,
-      'benefit',
-      new Set(existingData.benefits.map(b => b.title)),
-      geminiApiKey
-    );
-    for (const item of benefitSupplements) {
-      const norm = normTitle(item.title);
-      if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm)) {
-        const _benefitId = item.id || `gemini-benefit-${Date.now()}`;
-        const _benefitFallbackNum = pickFallback(_benefitId, 'benefit', usedBenefitFallbacks);
-        existingData.benefits.unshift({
-          id: _benefitId,
-          region: item.region || '전국',
-          title: item.title,
-          target: item.target || '누구나',
-          deadline: item.deadline || '상시',
-          image: getFallbackPath(_benefitFallbackNum, 'benefit'),
-          isEmergency: false,
-          details: item.details || '',
-          link: item.link || '',
-          requirements: item.requirements || [],
-          howToApply: item.howToApply || [],
-          eligibilityQuiz: item.eligibilityQuiz || [],
-          tip: item.practicalTip || item.tip || '',
-          targetPersona: item.targetPersona || '누구나',
-          coreValue: item.coreValue || '유용한 혜택',
-          simulation: item.simulation || ''
-        });
-        existingTitles.add(item.title);
-        existingBenefitNorm.add(norm);
-        if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
-        console.log(`✓ [Gemini 보완 지원금] 추가됨: ${item.title}`);
-      } else {
-        console.log(`  ✗ [Gemini 보완 지원금] 중복 스킵: ${item.title}`);
+      // ─── Gemini 구글검색 보완 (지원금) ───────────────────────────────────────
+      const benefitSupplements = await supplementWithGemini(
+        benefitHotKeywords,
+        'benefit',
+        new Set(existingData.benefits.map(b => b.title)),
+        geminiApiKey
+      );
+      for (const item of benefitSupplements) {
+        const norm = normTitle(item.title);
+        if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm)) {
+          const _benefitId = item.id || `gemini-benefit-${Date.now()}`;
+          const _benefitFallbackNum = pickFallback(_benefitId, 'benefit', usedBenefitFallbacks);
+          existingData.benefits.unshift({
+            id: _benefitId,
+            region: item.region || '전국',
+            title: item.title,
+            target: item.target || '누구나',
+            deadline: item.deadline || '상시',
+            image: getFallbackPath(_benefitFallbackNum, 'benefit'),
+            isEmergency: false,
+            details: item.details || '',
+            link: item.link || '',
+            requirements: item.requirements || [],
+            howToApply: item.howToApply || [],
+            eligibilityQuiz: item.eligibilityQuiz || [],
+            tip: item.practicalTip || item.tip || '',
+            targetPersona: item.targetPersona || '누구나',
+            coreValue: item.coreValue || '유용한 혜택',
+            simulation: item.simulation || ''
+          });
+          existingTitles.add(item.title);
+          existingBenefitNorm.add(norm);
+          if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+          console.log(`✓ [Gemini 보완 지원금] 추가됨: ${item.title}`);
+        } else {
+          console.log(`  ✗ [Gemini 보완 지원금] 중복 스킵: ${item.title}`);
+        }
       }
-    }
-    // ──────────────────────────────────────────────────────────────────────────────
+      // ──────────────────────────────────────────────────────────────────────────────
 
-    // 수도권 지역 조건 맞는 것 우선 선정
-    let selectedDataItems = [];
-    for (const item of newItems) {
-      const textToSearch = [item.서비스명, item.서비스목적요약, item.지원대상, item.소관기관명].join(' ');
-      if (validRegions.some(r => textToSearch?.includes(r))) {
-        selectedDataItems.push(item);
-      }
-      if (selectedDataItems.length >= DAILY_LIMIT) break;
-    }
-
-    // 수도권 조건 미충족 항목으로 나머지 채움
-    if (selectedDataItems.length < DAILY_LIMIT) {
+      // 수도권 지역 조건 맞는 것 우선 선정
+      let selectedDataItems = [];
       for (const item of newItems) {
-        if (!selectedDataItems.includes(item)) {
+        const textToSearch = [item.서비스명, item.서비스목적요약, item.지원대상, item.소관기관명].join(' ');
+        if (validRegions.some(r => textToSearch?.includes(r))) {
           selectedDataItems.push(item);
         }
         if (selectedDataItems.length >= DAILY_LIMIT) break;
       }
-    }
 
-    // 💡 이미지 생성 시 너무 빠른 API 요청으로 인한 실패(Rate Limit) 방지 지연 함수
-    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-    // 이미지 경로 중복 방지: 기존 pick-info.json에 이미 등록된 이미지 경로 셋
-    const existingImagePaths = new Set([
-      ...existingData.festivals.map(f => f.image).filter(Boolean),
-      ...existingData.benefits.map(b => b.image).filter(Boolean),
-    ]);
-
-    for (const [index, selectedData] of selectedDataItems.entries()) {
-      const titleToCheck = selectedData.서비스명;
-      console.log(`[${index + 1}/${selectedDataItems.length}] 데이터 처리 시작: ${titleToCheck}`);
-
-      // 지연 (첫번째는 제외) - 자동 배포 안정성 확보 (봇 의심 및 IP 차단 방지)
-      if (index > 0) {
-        console.log('안정적인 API 처리를 위해 1.5초 대기 중...');
-        await delay(1500);
+      // 수도권 조건 미충족 항목으로 나머지 채움
+      if (selectedDataItems.length < DAILY_LIMIT) {
+        for (const item of newItems) {
+          if (!selectedDataItems.includes(item)) {
+            selectedDataItems.push(item);
+          }
+          if (selectedDataItems.length >= DAILY_LIMIT) break;
+        }
       }
 
-      const promptObj = {
-        contents: [{
-          parts: [{
-            text: `아래 공공데이터 1건을 분석해서 JSON 객체로 변환해줘.
+      // 💡 이미지 생성 시 너무 빠른 API 요청으로 인한 실패(Rate Limit) 방지 지연 함수
+      const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+      // 이미지 경로 중복 방지: 기존 pick-info.json에 이미 등록된 이미지 경로 셋
+      const existingImagePaths = new Set([
+        ...existingData.festivals.map(f => f.image).filter(Boolean),
+        ...existingData.benefits.map(b => b.image).filter(Boolean),
+      ]);
+
+      for (const [index, selectedData] of selectedDataItems.entries()) {
+        const titleToCheck = selectedData.서비스명;
+        console.log(`[${index + 1}/${selectedDataItems.length}] 데이터 처리 시작: ${titleToCheck}`);
+
+        // 지연 (첫번째는 제외) - 자동 배포 안정성 확보 (봇 의심 및 IP 차단 방지)
+        if (index > 0) {
+          console.log('안정적인 API 처리를 위해 1.5초 대기 중...');
+          await delay(1500);
+        }
+
+        const promptObj = {
+          contents: [{
+            parts: [{
+              text: `아래 공공데이터 1건을 분석해서 JSON 객체로 변환해줘.
 이 데이터는 웹사이트에 상세 페이지로 자동 배포되므로, 구글/네이버 검색 노출(SEO)을 위해 '유사 문서'로 분류되지 않는 독창적인 가공이 매우 중요해.
 
 형식:
@@ -1228,211 +1228,211 @@ eligibilityQuiz는 지원 대상을 분석해서 1분 자격 진단기 연동을
 반드시 JSON 객체만 출력해. 다른 텍스트 없이.
 공공데이터:
 ${JSON.stringify(selectedData)}`
+            }]
           }]
-        }]
-      };
+        };
 
-      const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
-      let textResult;
+        const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
+        let textResult;
 
-      // Gemini 503/429 지수 백오프 재시도 (최대 3회, 초기 10초)
-      let geminiOk = false;
-      let geminiBackoff = 10000;
-      for (let attempt = 0; attempt < 3; attempt++) {
-        try {
-          const geminiRes = await fetch(geminiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(promptObj)
-          });
+        // Gemini 503/429 지수 백오프 재시도 (최대 3회, 초기 10초)
+        let geminiOk = false;
+        let geminiBackoff = 10000;
+        for (let attempt = 0; attempt < 3; attempt++) {
+          try {
+            const geminiRes = await fetch(geminiUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(promptObj)
+            });
 
-          if (geminiRes.status === 503 || geminiRes.status === 429) {
-            console.log(`Gemini API 과부하 (${geminiRes.status}) — ${geminiBackoff / 1000}초 후 재시도 (${attempt + 1}/3)`);
-            await delay(geminiBackoff);
+            if (geminiRes.status === 503 || geminiRes.status === 429) {
+              console.log(`Gemini API 과부하 (${geminiRes.status}) — ${geminiBackoff / 1000}초 후 재시도 (${attempt + 1}/3)`);
+              await delay(geminiBackoff);
+              geminiBackoff *= 2;
+              continue;
+            }
+
+            if (!geminiRes.ok) {
+              const errBody = await geminiRes.text();
+              console.log(`Gemini API 호출 실패 (상태: ${geminiRes.status}): ${errBody.substring(0, 200)}`);
+              break;
+            }
+
+            const geminiJson = await geminiRes.json();
+            textResult = geminiJson.candidates[0].content.parts[0].text;
+            textResult = textResult.replace(/```json/gi, '').replace(/```/g, '').trim();
+            geminiOk = true;
+            break;
+          } catch (err) {
+            console.log(`Gemini 서버 통신 에러 (${attempt + 1}/3): ${err.message}`);
+            if (attempt < 2) await delay(geminiBackoff);
             geminiBackoff *= 2;
+          }
+        }
+        if (!geminiOk) { continue; }
+
+        let parsedParams;
+        try {
+          parsedParams = JSON.parse(textResult);
+        } catch (e) {
+          console.error('Gemini 응답 JSON 파싱 에러:', textResult);
+          continue; // 파싱 실패해도 다음 데이터 처리는 계속 진행
+        }
+
+        const newId = String(parsedParams.id || Date.now() + index);
+        const seed = Math.floor(Math.random() * 1000) + index;
+        let rawPrompt = (parsedParams.imagePrompt || parsedParams.title);
+
+        // 한글 포함 여부 확인 후 기본값으로 교체
+        const hasKorean = /[가-힣]/.test(rawPrompt);
+        if (hasKorean) {
+          rawPrompt = parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
+          console.log(`[안내] 프롬프트에 한글 포함 → 기본 영문으로 교체: ${rawPrompt}`);
+        }
+
+        let safePrompt = rawPrompt
+          .replace(/[^\w\s-]/g, '') // 한글·특수문자 제거 (영숫자·공백·대시만 유지)
+          .replace(/\s+/g, '-')
+          .toLowerCase()
+          .trim();
+
+        // 프롬프트가 비어있거나 5자 미만이면 타입별 기본값 사용
+        if (!safePrompt || safePrompt.length < 5) {
+          safePrompt = parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
+          console.log(`[안내] 프롬프트가 비어있어 기본 키워드로 변경되었습니다: ${safePrompt}`);
+        }
+
+        // 숫자·특수문자로만 구성된 경우 기본값으로 교체
+        if (/^[\d\-_]+$/.test(safePrompt)) {
+          safePrompt = parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
+          console.log(`[안내] 프롬프트가 숫자/특수문자만으로 구성되어 기본 키워드로 변경: ${safePrompt}`);
+        }
+
+        // 타입별 구체적 prefix 추가 (Gemini 생성 프롬프트 앞에 붙이기)
+        const typePrefix = parsedParams.type === 'festival'
+          ? 'south-korean-outdoor-festival-scene-colorful-cheerful-'
+          : 'south-korean-government-support-concept-warm-helpful-';
+        safePrompt = typePrefix + safePrompt;
+
+        // 인물/얼굴 방지 + 인포그래픽 스타일 강제
+        const noPersonSuffix = '-no-people-no-face-no-character-infographic-style-flat-illustration';
+        safePrompt = safePrompt + noPersonSuffix;
+
+        // 이미지 중복 방지: 동일 경로 존재 시 seed +100 재시도 (최대 3회)
+        let currentSeed = seed;
+        let localImagePath = `/images/blogs/${safePrompt.substring(0, 30).toLowerCase()}-${currentSeed}.webp`;
+        let externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${currentSeed}&nologo=true&format=webp`;
+
+        for (let dupAttempt = 0; dupAttempt < 3; dupAttempt++) {
+          if (!existingImagePaths.has(localImagePath)) break;
+          console.log(`[중복] 이미지 경로 중복 감지 → seed +100 재시도 (${dupAttempt + 1}/3): ${localImagePath}`);
+          currentSeed += 100;
+          localImagePath = `/images/blogs/${safePrompt.substring(0, 30).toLowerCase()}-${currentSeed}.webp`;
+          externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${currentSeed}&nologo=true&format=webp`;
+        }
+
+        // 3회 모두 중복이면 타임스탬프 기반 고유 파일명 사용
+        if (existingImagePaths.has(localImagePath)) {
+          const typePrefix = parsedParams.type === 'festival' ? 'festival' : 'benefit';
+          localImagePath = `/images/blogs/${typePrefix}-${Date.now()}.webp`;
+          console.log(`[중복] 3회 모두 중복 → 타임스탬프 파일명 사용: ${localImagePath}`);
+        }
+
+        const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
+
+        console.log(`이미지 다운로드 시도: ${externalImageUrl}`);
+        let finalImageUrl = localImagePath;
+
+        try {
+          const imgRes = await fetch(externalImageUrl);
+          const contentType = imgRes.headers.get('content-type');
+
+          if (imgRes.ok && contentType && contentType.startsWith('image/')) {
+            const arrayBuffer = await imgRes.arrayBuffer();
+            if (!DRY_RUN) {
+              fs.writeFileSync(absoluteImagePath, Buffer.from(arrayBuffer));
+              if (fs.existsSync(absoluteImagePath)) {
+                console.log(`이미지 로컬 저장 성공: ${localImagePath}`);
+              } else {
+                console.log(`이미지 저장 후 파일 없음 — 폴백 사용: ${localImagePath}`);
+                const _verifyFallback = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
+                finalImageUrl = getFallbackPath(_verifyFallback, parsedParams.type === 'festival' ? 'festival' : 'benefit');
+              }
+            } else {
+              console.log(`[DRY RUN] 이미지 저장 건너뜀: ${localImagePath}`);
+            }
+          } else {
+            console.log(`이미지 생성 실패(Type: ${contentType}), 폴백 이미지로 대체`);
+            const _fallbackNum1 = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
+            finalImageUrl = getFallbackPath(_fallbackNum1, parsedParams.type === 'festival' ? 'festival' : 'benefit');
+          }
+        } catch (e) {
+          console.log('이미지 처리 중 간헐적 오류 발생, 폴백 이미지로 대체:', e.message);
+          const _fallbackNum2 = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
+          finalImageUrl = getFallbackPath(_fallbackNum2, parsedParams.type === 'festival' ? 'festival' : 'benefit');
+        }
+
+        if (parsedParams.type === 'festival') {
+          existingData.festivals.unshift({
+            id: newId,
+            region: parsedParams.region || '전국',
+            title: parsedParams.title || titleToCheck,
+            date: parsedParams.date || '상시',
+            tag: parsedParams.tag || '신규',
+            image: finalImageUrl,
+            location: parsedParams.location || '',
+            description: parsedParams.summary || '',
+            targetPersona: parsedParams.targetPersona || '누구나',
+            coreValue: parsedParams.coreValue || '유용한 정보',
+            practicalTip: parsedParams.practicalTip || ''
+          });
+        } else {
+          // 만료된 공고 스킵
+          if (isDeadlineExpired(parsedParams.date)) {
+            console.log(`[스킵] 만료된 공고 건너뜀: ${titleToCheck} (마감: ${parsedParams.date})`);
             continue;
           }
 
-          if (!geminiRes.ok) {
-            const errBody = await geminiRes.text();
-            console.log(`Gemini API 호출 실패 (상태: ${geminiRes.status}): ${errBody.substring(0, 200)}`);
-            break;
-          }
+          // 혜택(Benefit) 데이터 보강 및 폴백 적용
+          const requirements = (parsedParams.requirements && parsedParams.requirements.length > 0)
+            ? parsedParams.requirements
+            : ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."];
 
-          const geminiJson = await geminiRes.json();
-          textResult = geminiJson.candidates[0].content.parts[0].text;
-          textResult = textResult.replace(/```json/gi, '').replace(/```/g, '').trim();
-          geminiOk = true;
-          break;
-        } catch (err) {
-          console.log(`Gemini 서버 통신 에러 (${attempt + 1}/3): ${err.message}`);
-          if (attempt < 2) await delay(geminiBackoff);
-          geminiBackoff *= 2;
-        }
-      }
-      if (!geminiOk) { continue; }
+          const howToApply = (parsedParams.howToApply && parsedParams.howToApply.length > 0 && parsedParams.howToApply[0] !== '-')
+            ? parsedParams.howToApply
+            : ["온라인 신청 또는 관할 주민센터 방문 신청 (상세 내용은 공식 사이트 참조)"];
 
-      let parsedParams;
-      try {
-        parsedParams = JSON.parse(textResult);
-      } catch(e) {
-        console.error('Gemini 응답 JSON 파싱 에러:', textResult);
-        continue; // 파싱 실패해도 다음 데이터 처리는 계속 진행
-      }
+          const rawQuiz = parsedParams.eligibilityQuiz || [parsedParams.target || "해당 지원 사업의 대상자이신가요?"];
+          const eligibilityQuiz = rawQuiz.map(q => asQuestion(q));
 
-      const newId = String(parsedParams.id || Date.now() + index);
-      const seed = Math.floor(Math.random() * 1000) + index;
-      let rawPrompt = (parsedParams.imagePrompt || parsedParams.title);
-
-      // 한글 포함 여부 확인 후 기본값으로 교체
-      const hasKorean = /[가-힣]/.test(rawPrompt);
-      if (hasKorean) {
-        rawPrompt = parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
-        console.log(`[안내] 프롬프트에 한글 포함 → 기본 영문으로 교체: ${rawPrompt}`);
-      }
-
-      let safePrompt = rawPrompt
-        .replace(/[^\w\s-]/g, '') // 한글·특수문자 제거 (영숫자·공백·대시만 유지)
-        .replace(/\s+/g, '-')
-        .toLowerCase()
-        .trim();
-
-      // 프롬프트가 비어있거나 5자 미만이면 타입별 기본값 사용
-      if (!safePrompt || safePrompt.length < 5) {
-        safePrompt = parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
-        console.log(`[안내] 프롬프트가 비어있어 기본 키워드로 변경되었습니다: ${safePrompt}`);
-      }
-
-      // 숫자·특수문자로만 구성된 경우 기본값으로 교체
-      if (/^[\d\-_]+$/.test(safePrompt)) {
-        safePrompt = parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
-        console.log(`[안내] 프롬프트가 숫자/특수문자만으로 구성되어 기본 키워드로 변경: ${safePrompt}`);
-      }
-
-      // 타입별 구체적 prefix 추가 (Gemini 생성 프롬프트 앞에 붙이기)
-      const typePrefix = parsedParams.type === 'festival'
-        ? 'south-korean-outdoor-festival-scene-colorful-cheerful-'
-        : 'south-korean-government-support-concept-warm-helpful-';
-      safePrompt = typePrefix + safePrompt;
-
-      // 인물/얼굴 방지 + 인포그래픽 스타일 강제
-      const noPersonSuffix = '-no-people-no-face-no-character-infographic-style-flat-illustration';
-      safePrompt = safePrompt + noPersonSuffix;
-
-      // 이미지 중복 방지: 동일 경로 존재 시 seed +100 재시도 (최대 3회)
-      let currentSeed = seed;
-      let localImagePath = `/images/blogs/${safePrompt.substring(0, 30).toLowerCase()}-${currentSeed}.webp`;
-      let externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${currentSeed}&nologo=true&format=webp`;
-
-      for (let dupAttempt = 0; dupAttempt < 3; dupAttempt++) {
-        if (!existingImagePaths.has(localImagePath)) break;
-        console.log(`[중복] 이미지 경로 중복 감지 → seed +100 재시도 (${dupAttempt + 1}/3): ${localImagePath}`);
-        currentSeed += 100;
-        localImagePath = `/images/blogs/${safePrompt.substring(0, 30).toLowerCase()}-${currentSeed}.webp`;
-        externalImageUrl = `https://image.pollinations.ai/prompt/${safePrompt}?width=800&height=600&seed=${currentSeed}&nologo=true&format=webp`;
-      }
-
-      // 3회 모두 중복이면 타임스탬프 기반 고유 파일명 사용
-      if (existingImagePaths.has(localImagePath)) {
-        const typePrefix = parsedParams.type === 'festival' ? 'festival' : 'benefit';
-        localImagePath = `/images/blogs/${typePrefix}-${Date.now()}.webp`;
-        console.log(`[중복] 3회 모두 중복 → 타임스탬프 파일명 사용: ${localImagePath}`);
-      }
-
-      const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
-      
-      console.log(`이미지 다운로드 시도: ${externalImageUrl}`);
-      let finalImageUrl = localImagePath; 
-
-      try {
-        const imgRes = await fetch(externalImageUrl);
-        const contentType = imgRes.headers.get('content-type');
-        
-        if (imgRes.ok && contentType && contentType.startsWith('image/')) {
-          const arrayBuffer = await imgRes.arrayBuffer();
-          if (!DRY_RUN) {
-            fs.writeFileSync(absoluteImagePath, Buffer.from(arrayBuffer));
-            if (fs.existsSync(absoluteImagePath)) {
-              console.log(`이미지 로컬 저장 성공: ${localImagePath}`);
-            } else {
-              console.log(`이미지 저장 후 파일 없음 — 폴백 사용: ${localImagePath}`);
-              const _verifyFallback = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
-              finalImageUrl = getFallbackPath(_verifyFallback, parsedParams.type === 'festival' ? 'festival' : 'benefit');
-            }
-          } else {
-            console.log(`[DRY RUN] 이미지 저장 건너뜀: ${localImagePath}`);
-          }
-        } else {
-          console.log(`이미지 생성 실패(Type: ${contentType}), 폴백 이미지로 대체`);
-          const _fallbackNum1 = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
-          finalImageUrl = getFallbackPath(_fallbackNum1, parsedParams.type === 'festival' ? 'festival' : 'benefit');
-        }
-      } catch (e) {
-        console.log('이미지 처리 중 간헐적 오류 발생, 폴백 이미지로 대체:', e.message);
-        const _fallbackNum2 = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
-        finalImageUrl = getFallbackPath(_fallbackNum2, parsedParams.type === 'festival' ? 'festival' : 'benefit');
-      }
-
-      if (parsedParams.type === 'festival') {
-        existingData.festivals.unshift({
-          id: newId,
-          region: parsedParams.region || '전국',
-          title: parsedParams.title || titleToCheck,
-          date: parsedParams.date || '상시',
-          tag: parsedParams.tag || '신규',
-          image: finalImageUrl,
-          location: parsedParams.location || '',
-          description: parsedParams.summary || '',
-          targetPersona: parsedParams.targetPersona || '누구나',
-          coreValue: parsedParams.coreValue || '유용한 정보',
-          practicalTip: parsedParams.practicalTip || ''
-        });
-      } else {
-        // 만료된 공고 스킵
-        if (isDeadlineExpired(parsedParams.date)) {
-          console.log(`[스킵] 만료된 공고 건너뜀: ${titleToCheck} (마감: ${parsedParams.date})`);
-          continue;
+          existingData.benefits.unshift({
+            id: newId,
+            region: parsedParams.region || '전국',
+            title: parsedParams.title || titleToCheck,
+            target: parsedParams.target || '누구나',
+            deadline: parsedParams.date || '상시',
+            image: finalImageUrl,
+            isEmergency: parsedParams.tag === '마감임박' && !isDeadlineExpired(parsedParams.date),
+            details: parsedParams.summary || '상세 정보는 공식 홈페이지를 참조하세요.',
+            link: parsedParams.link || '',
+            requirements: requirements,
+            howToApply: howToApply,
+            eligibilityQuiz: eligibilityQuiz,
+            tip: parsedParams.practicalTip || parsedParams.tip || "신청 기간이 지나기 전에 미리 확인하고 혜택을 챙기세요!",
+            targetPersona: parsedParams.targetPersona || '누구나',
+            coreValue: parsedParams.coreValue || '유용한 혜택',
+            simulation: parsedParams.simulation || ''
+          });
         }
 
-        // 혜택(Benefit) 데이터 보강 및 폴백 적용
-        const requirements = (parsedParams.requirements && parsedParams.requirements.length > 0)
-          ? parsedParams.requirements 
-          : ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."];
-        
-        const howToApply = (parsedParams.howToApply && parsedParams.howToApply.length > 0 && parsedParams.howToApply[0] !== '-')
-          ? parsedParams.howToApply
-          : ["온라인 신청 또는 관할 주민센터 방문 신청 (상세 내용은 공식 사이트 참조)"];
-
-        const rawQuiz = parsedParams.eligibilityQuiz || [parsedParams.target || "해당 지원 사업의 대상자이신가요?"];
-        const eligibilityQuiz = rawQuiz.map(q => asQuestion(q));
-
-        existingData.benefits.unshift({
-          id: newId,
-          region: parsedParams.region || '전국',
-          title: parsedParams.title || titleToCheck,
-          target: parsedParams.target || '누구나',
-          deadline: parsedParams.date || '상시',
-          image: finalImageUrl,
-          isEmergency: parsedParams.tag === '마감임박' && !isDeadlineExpired(parsedParams.date),
-          details: parsedParams.summary || '상세 정보는 공식 홈페이지를 참조하세요.',
-          link: parsedParams.link || '',
-          requirements: requirements,
-          howToApply: howToApply,
-          eligibilityQuiz: eligibilityQuiz,
-          tip: parsedParams.practicalTip || parsedParams.tip || "신청 기간이 지나기 전에 미리 확인하고 혜택을 챙기세요!",
-          targetPersona: parsedParams.targetPersona || '누구나',
-          coreValue: parsedParams.coreValue || '유용한 혜택',
-          simulation: parsedParams.simulation || ''
-        });
+        // 1건 처리될 때마다 파일에 동기화하여 중간에 다운되어도 데이터 유실 방지
+        if (DRY_RUN) { console.log('[DRY RUN] 파일 저장 건너뜀'); } else {
+          fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+        }
+        console.log(`✓ 정상 추가됨: ${titleToCheck}`);
       }
-
-      // 1건 처리될 때마다 파일에 동기화하여 중간에 다운되어도 데이터 유실 방지
-      if (DRY_RUN) { console.log('[DRY RUN] 파일 저장 건너뜀'); } else {
-      fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
-      }
-      console.log(`✓ 정상 추가됨: ${titleToCheck}`);
-    }
     } // End of !skipBenefit
 
     // ─── 수도권 축제/행사 수집 (지자체 1순위 + KTO 2순위) ────────────────
@@ -1459,7 +1459,7 @@ ${JSON.stringify(selectedData)}`
     const ktoFormatted = ktoItems.map(fest => {
       const title = fest.title || fest.contenttitle || '';
       const endDateFormatted = fest.eventenddate
-        ? `${fest.eventenddate.slice(0,4)}.${fest.eventenddate.slice(4,6)}.${fest.eventenddate.slice(6,8)}`
+        ? `${fest.eventenddate.slice(0, 4)}.${fest.eventenddate.slice(4, 6)}.${fest.eventenddate.slice(6, 8)}`
         : null;
       if (endDateFormatted && isDeadlineExpired(endDateFormatted)) return null;
       const festLocation = [fest.addr1, fest.addr2].filter(Boolean).join(' ').trim();
@@ -1502,144 +1502,144 @@ ${JSON.stringify(selectedData)}`
     }
 
     if (!skipFestival) {
-    // ─── 핫 키워드 기준으로 축제 데이터 정렬 ────────────────────────────────────
-    const festHotKeywords = await getTodayHotKeywords('festival');
-    console.log(`[축제] 핫 키워드 반영 정렬 시작 (키워드: ${festHotKeywords.slice(0,3).join(', ')})`);
-    allFestItems.sort((a, b) => calcHotScore(b, festHotKeywords) - calcHotScore(a, festHotKeywords));
-    // ──────────────────────────────────────────────────────────────────────────────
+      // ─── 핫 키워드 기준으로 축제 데이터 정렬 ────────────────────────────────────
+      const festHotKeywords = await getTodayHotKeywords('festival');
+      console.log(`[축제] 핫 키워드 반영 정렬 시작 (키워드: ${festHotKeywords.slice(0, 3).join(', ')})`);
+      allFestItems.sort((a, b) => calcHotScore(b, festHotKeywords) - calcHotScore(a, festHotKeywords));
+      // ──────────────────────────────────────────────────────────────────────────────
 
-    const existingFestTitles = new Set(existingData.festivals.map(f => f.title));
-    const existingFestNorm = new Set(existingData.festivals.map(f => normTitle(f.title)));
-    // 장소+날짜 조합으로도 중복 감지 (제목이 달라도 같은 행사인 경우 방지)
-    const existingFestLocDate = new Set(
-      existingData.festivals
-        .filter(f => f.location && f.date)
-        .map(f => `${f.location.trim()}|${f.date.trim()}`)
-    );
-
-    // ─── Gemini 구글검색 보완 (축제) ─────────────────────────────────────────
-    const festSupplements = await supplementWithGemini(
-      festHotKeywords,
-      'festival',
-      new Set(existingData.festivals.map(f => f.title)),
-      geminiApiKey
-    );
-    for (const item of festSupplements) {
-      if (!isFestivalDuplicate(item, existingData.festivals)) {
-        const _festId = item.id || `gemini-fest-${Date.now()}`;
-        const _festFallbackNum = pickFallback(_festId, 'festival', usedFestFallbacks);
-        existingData.festivals.unshift({
-          id: _festId,
-          region: item.region || '전국',
-          title: item.title,
-          date: item.date || '상시',
-          tag: item.tag || '신규',
-          image: getFallbackPath(_festFallbackNum, 'festival'),
-          location: item.location || '',
-          description: item.description || '',
-          link: item.link || '',
-        });
-        existingFestTitles.add(item.title);
-        existingFestNorm.add(normTitle(item.title));
-        if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
-        console.log(`✓ [Gemini 보완 축제] 추가됨: ${item.title}`);
-      } else {
-        console.log(`  ✗ [Gemini 보완 축제] 유사 중복 스킵: ${item.title}`);
-      }
-    }
-    // ──────────────────────────────────────────────────────────────────────────────
-
-    for (const fest of allFestItems) {
-      const title = (fest.title || '').trim();
-      if (!title) continue;
-      
-      if (isFestivalDuplicate(fest, existingData.festivals)) {
-        console.log(`  ✗ [축제] 유사 중복 스킵: ${title}`);
-        continue;
-      }
-
-      // ─── 수도권 외 지역 축제 필터링 ─────────────────────────────────────────
-      const festText = [fest.title, fest.description, fest.location, fest.region].filter(Boolean).join(' ');
-      const festNonMetro = ['부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주', '사천', '창원', '진주', '통영', '거제', '포항', '경주', '안동', '구미', '여수', '순천', '목포', '전주', '청주', '천안', '아산'];
-      const isFestNonMetro = festNonMetro.some(r => fest.region?.includes(r) || fest.location?.includes(r));
-      const isFestMetro = ['서울', '인천', '경기', '수도권'].some(r => festText.includes(r));
-
-      if (isFestNonMetro && !isFestMetro) {
-        console.log(`  ✗ [축제] 수도권 외 지역 스킵: ${title}`);
-        continue;
-      }
-      // ──────────────────────────────────────────────────────────────────────────
-
-      // 품질 필터
-      if (!isFestivalQuality(fest)) {
-        console.log(`  ✗ [축제] 품질 미달 스킵: ${title}`);
-        continue;
-      }
-
-      // 이미지 다운로드 (외부 URL → 로컬 저장)
-      let finalImageUrl;
-      const imageUrl = fest.image || '';
-      if (imageUrl.startsWith('http')) {
-        const seed = Math.floor(Math.random() * 1000);
-        const localImageName = `festival-${String(title).replace(/[^\w\uAC00-\uD7A3]/g,'').slice(0,10)}-${seed}.png`;
-        const localImagePath = `/images/blogs/${localImageName}`;
-        const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
-        try {
-          const imgRes = await fetch(imageUrl);
-          const contentType = imgRes.headers.get('content-type');
-          if (imgRes.ok && contentType && contentType.startsWith('image/')) {
-            const buf = await imgRes.arrayBuffer();
-            if (!DRY_RUN) {
-              fs.writeFileSync(absoluteImagePath, Buffer.from(buf));
-              console.log(`[축제] 이미지 저장: ${localImagePath}`);
-            } else {
-              console.log(`[DRY RUN] 축제 이미지 저장 건너뜀: ${localImagePath}`);
-            }
-            finalImageUrl = localImagePath;
-          } else {
-            throw new Error(`이미지 타입 불일치: ${contentType}`);
-          }
-        } catch (e) {
-          console.warn(`[축제] 이미지 다운로드 실패, 폴백 사용: ${e.message}`);
-          finalImageUrl = getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
-        }
-      } else if (imageUrl) {
-        finalImageUrl = imageUrl; // 이미 로컬 경로인 경우
-      } else {
-        finalImageUrl = getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
-      }
-
-      const generatedContent = await generateFestivalContent(
-        { title, date: fest.date, location: fest.location, description: fest.description, link: fest.link },
-        geminiApiKey,
-        process.env.GEMINI_MODEL
+      const existingFestTitles = new Set(existingData.festivals.map(f => f.title));
+      const existingFestNorm = new Set(existingData.festivals.map(f => normTitle(f.title)));
+      // 장소+날짜 조합으로도 중복 감지 (제목이 달라도 같은 행사인 경우 방지)
+      const existingFestLocDate = new Set(
+        existingData.festivals
+          .filter(f => f.location && f.date)
+          .map(f => `${f.location.trim()}|${f.date.trim()}`)
       );
 
-      const newFest = {
-        id: fest.id || `fest-${Date.now()}`,
-        region: fest.region || '전국',
-        title,
-        date: fest.date || '상시',
-        tag: fest.tag || '신규',
-        image: finalImageUrl,
-        location: fest.location || fest.region || '',
-        description: fest.description || '',
-        link: fest.link || '',
-        mapx: fest.mapx || '',
-        mapy: fest.mapy || '',
-        content: generatedContent,
-      };
-
-      const festLocDateKey = (newFest.location && newFest.date) ? `${newFest.location.trim()}|${newFest.date.trim()}` : null;
-      existingData.festivals.unshift(newFest);
-      existingFestTitles.add(title);
-      existingFestNorm.add(normTitle(title));
-      if (festLocDateKey) existingFestLocDate.add(festLocDateKey);
-      if (DRY_RUN) { console.log('[DRY RUN] 파일 저장 건너뜀'); } else {
-      fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+      // ─── Gemini 구글검색 보완 (축제) ─────────────────────────────────────────
+      const festSupplements = await supplementWithGemini(
+        festHotKeywords,
+        'festival',
+        new Set(existingData.festivals.map(f => f.title)),
+        geminiApiKey
+      );
+      for (const item of festSupplements) {
+        if (!isFestivalDuplicate(item, existingData.festivals)) {
+          const _festId = item.id || `gemini-fest-${Date.now()}`;
+          const _festFallbackNum = pickFallback(_festId, 'festival', usedFestFallbacks);
+          existingData.festivals.unshift({
+            id: _festId,
+            region: item.region || '전국',
+            title: item.title,
+            date: item.date || '상시',
+            tag: item.tag || '신규',
+            image: getFallbackPath(_festFallbackNum, 'festival'),
+            location: item.location || '',
+            description: item.description || '',
+            link: item.link || '',
+          });
+          existingFestTitles.add(item.title);
+          existingFestNorm.add(normTitle(item.title));
+          if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+          console.log(`✓ [Gemini 보완 축제] 추가됨: ${item.title}`);
+        } else {
+          console.log(`  ✗ [Gemini 보완 축제] 유사 중복 스킵: ${item.title}`);
+        }
       }
-      console.log(`✓ [축제] 추가됨: ${title} (${newFest.region}, ${newFest.date}) [${fest._source}]`);
-    }
+      // ──────────────────────────────────────────────────────────────────────────────
+
+      for (const fest of allFestItems) {
+        const title = (fest.title || '').trim();
+        if (!title) continue;
+
+        if (isFestivalDuplicate(fest, existingData.festivals)) {
+          console.log(`  ✗ [축제] 유사 중복 스킵: ${title}`);
+          continue;
+        }
+
+        // ─── 수도권 외 지역 축제 필터링 ─────────────────────────────────────────
+        const festText = [fest.title, fest.description, fest.location, fest.region].filter(Boolean).join(' ');
+        const festNonMetro = ['부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주', '사천', '창원', '진주', '통영', '거제', '포항', '경주', '안동', '구미', '여수', '순천', '목포', '전주', '청주', '천안', '아산'];
+        const isFestNonMetro = festNonMetro.some(r => fest.region?.includes(r) || fest.location?.includes(r));
+        const isFestMetro = ['서울', '인천', '경기', '수도권'].some(r => festText.includes(r));
+
+        if (isFestNonMetro && !isFestMetro) {
+          console.log(`  ✗ [축제] 수도권 외 지역 스킵: ${title}`);
+          continue;
+        }
+        // ──────────────────────────────────────────────────────────────────────────
+
+        // 품질 필터
+        if (!isFestivalQuality(fest)) {
+          console.log(`  ✗ [축제] 품질 미달 스킵: ${title}`);
+          continue;
+        }
+
+        // 이미지 다운로드 (외부 URL → 로컬 저장)
+        let finalImageUrl;
+        const imageUrl = fest.image || '';
+        if (imageUrl.startsWith('http')) {
+          const seed = Math.floor(Math.random() * 1000);
+          const localImageName = `festival-${String(title).replace(/[^\w\uAC00-\uD7A3]/g, '').slice(0, 10)}-${seed}.png`;
+          const localImagePath = `/images/blogs/${localImageName}`;
+          const absoluteImagePath = path.join(__dirname, '../public', localImagePath);
+          try {
+            const imgRes = await fetch(imageUrl);
+            const contentType = imgRes.headers.get('content-type');
+            if (imgRes.ok && contentType && contentType.startsWith('image/')) {
+              const buf = await imgRes.arrayBuffer();
+              if (!DRY_RUN) {
+                fs.writeFileSync(absoluteImagePath, Buffer.from(buf));
+                console.log(`[축제] 이미지 저장: ${localImagePath}`);
+              } else {
+                console.log(`[DRY RUN] 축제 이미지 저장 건너뜀: ${localImagePath}`);
+              }
+              finalImageUrl = localImagePath;
+            } else {
+              throw new Error(`이미지 타입 불일치: ${contentType}`);
+            }
+          } catch (e) {
+            console.warn(`[축제] 이미지 다운로드 실패, 폴백 사용: ${e.message}`);
+            finalImageUrl = getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
+          }
+        } else if (imageUrl) {
+          finalImageUrl = imageUrl; // 이미 로컬 경로인 경우
+        } else {
+          finalImageUrl = getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
+        }
+
+        const generatedContent = await generateFestivalContent(
+          { title, date: fest.date, location: fest.location, description: fest.description, link: fest.link },
+          geminiApiKey,
+          process.env.GEMINI_MODEL
+        );
+
+        const newFest = {
+          id: fest.id || `fest-${Date.now()}`,
+          region: fest.region || '전국',
+          title,
+          date: fest.date || '상시',
+          tag: fest.tag || '신규',
+          image: finalImageUrl,
+          location: fest.location || fest.region || '',
+          description: fest.description || '',
+          link: fest.link || '',
+          mapx: fest.mapx || '',
+          mapy: fest.mapy || '',
+          content: generatedContent,
+        };
+
+        const festLocDateKey = (newFest.location && newFest.date) ? `${newFest.location.trim()}|${newFest.date.trim()}` : null;
+        existingData.festivals.unshift(newFest);
+        existingFestTitles.add(title);
+        existingFestNorm.add(normTitle(title));
+        if (festLocDateKey) existingFestLocDate.add(festLocDateKey);
+        if (DRY_RUN) { console.log('[DRY RUN] 파일 저장 건너뜀'); } else {
+          fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
+        }
+        console.log(`✓ [축제] 추가됨: ${title} (${newFest.region}, ${newFest.date}) [${fest._source}]`);
+      }
     } // End of !skipFestival
     // ──────────────────────────────────────────────────────────────────────
 

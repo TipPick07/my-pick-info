@@ -125,7 +125,8 @@ async function main() {
     const item = filteredBenefits[i];
     
     // 이미 보완된 필드가 충분히 있는지 확인 (재실행 시 스킵 목적)
-    if (item.detailedExplanation && item.eligibilityQuiz && item.simulation) {
+    // detailedExplanation이 있어야 완전히 보완된 것으로 판단
+    if (item.detailedExplanation && item.detailedExplanation.length > 100) {
       console.log(`  ✓ 이미 보완된 데이터 스킵: ${item.title || item.서비스명}`);
       continue;
     }
