@@ -93,6 +93,15 @@ function sortBenefitsHome(list: Benefit[], today: Date): Benefit[] {
 }
 // ────────────────────────────────────────────────────────────────────────────
 
+function getDDayLabel(deadline: string, today: Date): string {
+  const end = parseBenefitEndDate(deadline);
+  if (!end) return "";
+  const diff = Math.round((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  if (diff === 0) return "D-Day";
+  if (diff > 0) return `D-${diff}`;
+  return "마감";
+}
+
 // ── 축제 날짜 유틸 ──────────────────────────────────────────────────────────
 function parseFestivalDates(dateStr: string): { start: Date | null; end: Date | null } {
   if (!dateStr || dateStr === '상시') return { start: null, end: null };
@@ -142,6 +151,13 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
   // KST 기준 오늘 날짜
   const todayKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
   todayKST.setHours(0, 0, 0, 0);
+
+  const closingSoonBenefits = data.benefits.filter((b) => {
+    const end = parseBenefitEndDate(b.deadline);
+    if (!end) return false;
+    const diff = (end.getTime() - todayKST.getTime()) / (1000 * 60 * 60 * 24);
+    return diff >= 0 && diff <= 7;
+  });
 
   const filteredFestivals = sortFestivals(
     (filter === "전체" ? data.festivals : data.festivals.filter(f => f.region === filter))
@@ -253,40 +269,41 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
         <CustomBanner config={bannerConfig} />
 
         {/* ── D-Day 위젯 Section ── */}
-        <section className="bg-gradient-to-r from-rose-50 to-orange-50 rounded-[2rem] p-5 shadow-sm border border-rose-100/50">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="bg-rose-500 text-white p-3 rounded-2xl shadow-lg animate-pulse">
+        {closingSoonBenefits.length > 0 && (
+          <section className="bg-gradient-to-r from-rose-50 to-orange-50 rounded-[2rem] p-5 shadow-sm border border-rose-100/50">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="bg-rose-500 text-white p-3 rounded-2xl shadow-lg animate-pulse shrink-0">
                 <span className="text-2xl">🚨</span>
               </div>
-              <div className="space-y-0.5">
-                <h3 className="text-lg font-black text-slate-900">놓치면 0원! 이번 주 마감 혜택</h3>
-                <p className="text-slate-500 text-sm font-medium">서두르세요! 곧 신청이 마감되는 혜택들이에요.</p>
-              </div>
+              <h3 className="text-lg font-black text-slate-900">
+                서두르세요! 이번 주 마감되는 혜택이 총{" "}
+                <span className="text-rose-500">{closingSoonBenefits.length}건</span> 있습니다.
+              </h3>
             </div>
-            <div className="flex flex-wrap gap-3 w-full md:w-auto">
-              {data.benefits
-                .filter((b: any) => b.isEmergency)
-                .slice(0, 2)
-                .map((benefit: any) => (
+            <div className="flex flex-col gap-2">
+              {closingSoonBenefits.slice(0, 2).map((benefit) => {
+                const dday = getDDayLabel(benefit.deadline, todayKST);
+                return (
                   <Link
                     key={benefit.id}
                     href={`/benefit/${benefit.id}/`}
-                    className="flex-1 md:flex-none group bg-white p-4 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+                    className="group bg-white p-4 rounded-2xl border border-rose-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-3"
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-black">
-                        {benefit.deadline.includes('마감') ? '마감임박' : benefit.deadline.includes('선착순') ? '선착순' : 'CHECK'}
-                      </span>
-                      <span className="text-slate-800 font-bold group-hover:text-rose-600 transition-colors">
-                        {benefit.title}
+                    <span className="text-slate-800 font-bold group-hover:text-rose-600 transition-colors text-sm line-clamp-1 flex-1">
+                      {benefit.title}
+                    </span>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <span className="text-slate-400 text-xs font-medium">{benefit.deadline}</span>
+                      <span className={`px-3 py-1 rounded-full text-xs font-black ${dday === "D-Day" ? "bg-rose-500 text-white" : "bg-rose-100 text-rose-600"}`}>
+                        {dday}
                       </span>
                     </div>
                   </Link>
-                ))}
+                );
+              })}
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* ── 오늘자 업데이트 요약 위젯 ── */}
         {todayUpdates && todayUpdates.totalCount > 0 && (
@@ -491,14 +508,9 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
               <h3 className="text-xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #33FF99" }}>
                 내 돈 찾는 지원금
               </h3>
-              <div className="flex items-center gap-4">
-                <Link href="/deadline/" className="text-sm font-bold text-rose-500 transition-colors hover:text-rose-600">
-                  🚨 마감 임박 지원금 보기 →
-                </Link>
-                <Link href="/benefits/" className="text-sm font-bold transition-colors" style={{ color: "#33FF99", filter: "brightness(0.75)" }}>
-                  전체 보기 →
-                </Link>
-              </div>
+              <Link href="/benefits/" className="text-sm font-bold transition-colors" style={{ color: "#33FF99", filter: "brightness(0.75)" }}>
+                전체 보기 →
+              </Link>
             </div>
 
             {/* ── 지원금 고가치 필터 탭 ── */}
