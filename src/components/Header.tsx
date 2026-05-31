@@ -10,14 +10,10 @@ export default function Header() {
   const pathname = usePathname();
 
   const navLinks = [
-    { href: "/festivals/", label: "이번 주말 어디 가?" },
-    { href: "/weekly/", label: "이번 주 행사" },
+    { href: "/festivals/", label: "이번 주 나들이" },
     { href: "/benefits/", label: "내 돈 찾는 지원금" },
     { href: "/election/", label: "우리 동네 선거 공약", isNew: true },
-    { href: "/deadline/", label: "마감 임박" },
     { href: "/blog/", label: "팁픽 인사이트" },
-    { href: "/about/", label: "팁픽은 왜 만들었나" },
-    { href: "/contact/", label: "광고 문의" },
   ];
 
 
@@ -83,6 +79,11 @@ export default function Header() {
               </Link>
             );
           })}
+          
+          {/* CTA 버튼 */}
+          <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-5 rounded-full hover:scale-105 transition-transform shadow-md flex items-center gap-2">
+            🔍 1분 맞춤 혜택 찾기
+          </button>
         </nav>
 
         {/* ── 모바일 햄버거 버튼 ── */}
@@ -122,6 +123,11 @@ export default function Header() {
               </Link>
             );
           })}
+          
+          {/* 모바일 CTA 버튼 */}
+          <button className="mt-4 w-full bg-indigo-600 text-white font-bold py-3 rounded-full hover:bg-indigo-700 flex items-center justify-center gap-2 shadow-md active:scale-[0.98] transition-transform">
+            🔍 1분 맞춤 혜택 찾기
+          </button>
         </nav>
       </div>
     </header>

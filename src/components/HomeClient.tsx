@@ -137,6 +137,7 @@ function sortFestivals<T extends { date: string }>(list: T[], today: Date): T[] 
 
 export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, bannerConfig }: { data: Data, posts: PostData[], weatherApiKey: string, todayUpdates?: TodayUpdates, bannerConfig?: { isActive: boolean; imageUrl: string; linkUrl: string } }) {
   const [filter, setFilter] = useState("전체");
+  const [benefitFilter, setBenefitFilter] = useState("전체 보기");
 
   // KST 기준 오늘 날짜
   const todayKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
@@ -152,7 +153,16 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
     (filter === "전체"
       ? data.benefits
       : data.benefits.filter(b => b.region === filter || b.region === "전국"))
-      .filter(b => !isBenefitExpired(b.deadline, todayKST)),
+      .filter(b => !isBenefitExpired(b.deadline, todayKST))
+      .filter(b => {
+        if (benefitFilter === "LH/SH 주거 지원") {
+          return (b.title + " " + b.target).match(/주거|청년안심|LH|SH|전세|월세|임대/);
+        }
+        if (benefitFilter === "소상공인") {
+          return (b.title + " " + b.target).match(/소상공인|자영업|창업/);
+        }
+        return true;
+      }),
     todayKST
   ).slice(0, 5);
 
@@ -188,9 +198,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
               을 픽(Pick)하세요!
             </h2>
             <p className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl mx-auto">
-              꼭 챙겨야 할 쏠쏠한 현금 혜택부터 우리 동네 숨은 축제까지.{" "}
-              수많은 공공데이터 속에서 오직 당신에게 필요한{" "}
-              <span className="font-black text-slate-700">진짜 정보</span>만 큐레이션 합니다.
+              나열된 공고문 대신, 에디터가 직접 분석한 지원금/축제 총정리와 실무 팁을 확인하세요.
             </p>
             {/* CTA 배너 */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
@@ -202,7 +210,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
                 onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 0 rgba(0,204,255,0)")}
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  💡 지금 바로 Pick 하세요 →
+                  💡 에디터 추천 큐레이션 보기
                 </span>
               </Link>
               <Link
@@ -345,137 +353,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
           </section>
         )}
 
-        {/* ── 메인 컨텐츠 (2-Column) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-          {/* 축제/행사 (2/3) */}
-          <section className="lg:col-span-2 space-y-6">
-            <div className="flex items-center justify-between px-2">
-              <h3 className="text-xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #00CCFF" }}>
-                주목할 만한 축제/행사
-              </h3>
-              <div className="flex items-center gap-4">
-                <Link href="/weekly/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
-                  📅 이번 주 행사 보기 →
-                </Link>
-                <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
-                  전체 보기 →
-                </Link>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
-              {filteredFestivals.slice(0, 4).map((f) => (
-                <Link key={f.id} href={`/festival/${f.id}/`} className="group cursor-pointer">
-                  {/* 이미지 높이 16:9 비율로 슬림하게 */}
-                  <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] mb-3 bg-slate-200">
-                    <img
-                      src={f.image || '/images/blogs/korea-welfare-benefit-322.png'}
-                      alt={f.title}
-                      className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-                      onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
-                      }}
-                    />
-                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black shadow-sm" style={{ color: "#00CCFF" }}>
-                      {f.region}
-                    </div>
-                    <div className="absolute bottom-3 right-3 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-white shadow-sm" style={{ background: "#00CCFF" }}>
-                      {f.tag}
-                    </div>
-                  </div>
-                  <h4 className="text-lg font-black text-slate-900 transition-colors mb-1 group-hover:text-[#00CCFF]">
-                    {f.title}
-                  </h4>
-                  <p className="text-slate-500 font-bold text-sm flex items-center gap-1">
-                    📅 {f.date}
-                  </p>
-                </Link>
-              ))}
-              {filteredFestivals.length === 0 && (
-                <div className="md:col-span-2 py-16 text-center text-slate-400 font-medium bg-slate-100 rounded-[2rem] border-2 border-dashed border-slate-200">
-                  해당 지역의 예정된 행사가 없습니다.
-                </div>
-              )}
-            </div>
-          </section>
-
-          {/* 혜택/지원금 (1/3) */}
-          <aside className="space-y-6">
-            <div className="flex items-center justify-between px-2">
-              <h3 className="text-xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #33FF99" }}>
-                내 돈 찾는 지원금
-              </h3>
-              <div className="flex items-center gap-4">
-                <Link href="/deadline/" className="text-sm font-bold text-rose-500 transition-colors hover:text-rose-600">
-                  🚨 마감 임박 지원금 보기 →
-                </Link>
-                <Link href="/benefits/" className="text-sm font-bold transition-colors" style={{ color: "#33FF99", filter: "brightness(0.75)" }}>
-                  전체 보기 →
-                </Link>
-              </div>
-            </div>
-            <div className="space-y-3">
-              {filteredBenefits.map((b) => (
-                <Link
-                  key={b.id}
-                  href={`/benefit/${b.id}/`}
-                  className={`block p-4 rounded-[2rem] border-2 transition-all group ${b.isEmergency ? "border-rose-100 bg-rose-50/50" : "border-slate-100 bg-white"
-                    }`}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.boxShadow = b.isEmergency ? "0 4px 16px rgba(244,63,94,0.15)" : "0 4px 16px rgba(0,204,255,0.15)";
-                    e.currentTarget.style.borderColor = b.isEmergency ? "#fecdd3" : "rgba(0,204,255,0.4)";
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.boxShadow = "";
-                    e.currentTarget.style.borderColor = b.isEmergency ? "#ffe4e6" : "#f1f5f9";
-                  }}
-                >
-                  <div className="flex justify-between items-start mb-1.5">
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${b.isEmergency ? "bg-rose-500 text-white" : "text-white"
-                      }`} style={b.isEmergency ? {} : { background: "rgba(51,255,153,0.25)", color: "#059669" }}>
-                      💡 {b.region}
-                    </span>
-                    <span className={`text-xs font-bold ${b.isEmergency ? "text-rose-600" : "text-slate-400"}`}>
-                      {b.deadline}
-                    </span>
-                  </div>
-                  <h4
-                    className="font-black text-slate-900 text-sm mb-0.5 leading-snug"
-                    onMouseEnter={e => (e.currentTarget.style.color = "#00CCFF")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "")}
-                  >
-                    {b.title}
-                  </h4>
-                  <p className="text-slate-500 text-xs font-bold line-clamp-1">{b.target}</p>
-                </Link>
-              ))}
-            </div>
-            {/* 더보기 버튼 */}
-            <Link
-              href="/benefits/"
-              className="flex items-center justify-center gap-2 w-full py-3 rounded-[2rem] border-2 border-dashed text-sm font-black transition-all duration-300"
-              style={{ borderColor: "rgba(51,255,153,0.5)", color: "#059669" }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = "rgba(51,255,153,0.08)";
-                e.currentTarget.style.borderColor = "#33FF99";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = "";
-                e.currentTarget.style.borderColor = "rgba(51,255,153,0.5)";
-              }}
-            >
-              더보기 →
-            </Link>
-          </aside>
-        </div>
-
-        {/* Ad Banner */}
-        <AdBanner />
-
-        {/* 메인 화면 중간 카카오 애드핏 광고 */}
-        <AdFit width="320" height="100" />
-
-
         {/* ── 팁픽 가이드 (블로그) 섹션 — 가로형 카드 ── */}
         <section className="space-y-6 pt-4">
           <div className="flex items-center justify-between px-2">
@@ -553,6 +430,154 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
             )}
           </div>
         </section>
+
+        {/* ── 메인 컨텐츠 (2-Column) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+          {/* 축제/행사 (2/3) */}
+          <section className="lg:col-span-2 space-y-6">
+            <div className="flex items-center justify-between px-2">
+              <h3 className="text-xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #00CCFF" }}>
+                주목할 만한 축제/행사
+              </h3>
+              <div className="flex items-center gap-4">
+                <Link href="/weekly/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
+                  📅 이번 주 행사 보기 →
+                </Link>
+                <Link href="/festivals/" className="text-sm font-bold transition-colors" style={{ color: "#00CCFF" }}>
+                  전체 보기 →
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
+              {filteredFestivals.slice(0, 4).map((f) => (
+                <Link key={f.id} href={`/festival/${f.id}/`} className="group cursor-pointer">
+                  {/* 이미지 높이 16:9 비율로 슬림하게 */}
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] mb-3 bg-slate-200">
+                    <img
+                      src={f.image || '/images/blogs/korea-welfare-benefit-322.png'}
+                      alt={f.title}
+                      className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
+                      }}
+                    />
+                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black shadow-sm" style={{ color: "#00CCFF" }}>
+                      {f.region}
+                    </div>
+                    <div className="absolute bottom-3 right-3 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-white shadow-sm" style={{ background: "#00CCFF" }}>
+                      {f.tag}
+                    </div>
+                  </div>
+                  <h4 className="text-lg font-black text-slate-900 transition-colors mb-1 group-hover:text-[#00CCFF]">
+                    {f.title}
+                  </h4>
+                  <p className="text-slate-500 font-bold text-sm flex items-center gap-1">
+                    📅 {f.date}
+                  </p>
+                </Link>
+              ))}
+              {filteredFestivals.length === 0 && (
+                <div className="md:col-span-2 py-16 text-center text-slate-400 font-medium bg-slate-100 rounded-[2rem] border-2 border-dashed border-slate-200">
+                  해당 지역의 예정된 행사가 없습니다.
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* 혜택/지원금 (1/3) */}
+          <aside className="space-y-6">
+            <div className="flex items-center justify-between px-2">
+              <h3 className="text-xl font-black text-slate-900 pl-4" style={{ borderLeft: "6px solid #33FF99" }}>
+                내 돈 찾는 지원금
+              </h3>
+              <div className="flex items-center gap-4">
+                <Link href="/deadline/" className="text-sm font-bold text-rose-500 transition-colors hover:text-rose-600">
+                  🚨 마감 임박 지원금 보기 →
+                </Link>
+                <Link href="/benefits/" className="text-sm font-bold transition-colors" style={{ color: "#33FF99", filter: "brightness(0.75)" }}>
+                  전체 보기 →
+                </Link>
+              </div>
+            </div>
+
+            {/* ── 지원금 고가치 필터 탭 ── */}
+            <div className="flex gap-2 px-2 overflow-x-auto pb-1 scrollbar-hide">
+              {["전체 보기", "LH/SH 주거 지원", "소상공인"].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setBenefitFilter(tab)}
+                  className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                    benefitFilter === tab
+                      ? "bg-emerald-100 text-emerald-700 border border-emerald-200 shadow-sm"
+                      : "bg-slate-100 text-slate-500 border border-transparent hover:bg-slate-200"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+
+            <div className="space-y-3">
+              {filteredBenefits.map((b) => (
+                <Link
+                  key={b.id}
+                  href={`/benefit/${b.id}/`}
+                  className={`block p-4 rounded-[2rem] border-2 transition-all group ${b.isEmergency ? "border-rose-100 bg-rose-50/50" : "border-slate-100 bg-white"
+                    }`}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.boxShadow = b.isEmergency ? "0 4px 16px rgba(244,63,94,0.15)" : "0 4px 16px rgba(0,204,255,0.15)";
+                    e.currentTarget.style.borderColor = b.isEmergency ? "#fecdd3" : "rgba(0,204,255,0.4)";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.boxShadow = "";
+                    e.currentTarget.style.borderColor = b.isEmergency ? "#ffe4e6" : "#f1f5f9";
+                  }}
+                >
+                  <div className="flex justify-between items-start mb-1.5">
+                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${b.isEmergency ? "bg-rose-500 text-white" : "text-white"
+                      }`} style={b.isEmergency ? {} : { background: "rgba(51,255,153,0.25)", color: "#059669" }}>
+                      💡 {b.region}
+                    </span>
+                    <span className={`text-xs font-bold ${b.isEmergency ? "text-rose-600" : "text-slate-400"}`}>
+                      {b.deadline}
+                    </span>
+                  </div>
+                  <h4
+                    className="font-black text-slate-900 text-sm mb-0.5 leading-snug"
+                    onMouseEnter={e => (e.currentTarget.style.color = "#00CCFF")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "")}
+                  >
+                    {b.title}
+                  </h4>
+                  <p className="text-slate-500 text-xs font-bold line-clamp-1">{b.target}</p>
+                </Link>
+              ))}
+            </div>
+            {/* 더보기 버튼 */}
+            <Link
+              href="/benefits/"
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-[2rem] border-2 border-dashed text-sm font-black transition-all duration-300"
+              style={{ borderColor: "rgba(51,255,153,0.5)", color: "#059669" }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "rgba(51,255,153,0.08)";
+                e.currentTarget.style.borderColor = "#33FF99";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = "";
+                e.currentTarget.style.borderColor = "rgba(51,255,153,0.5)";
+              }}
+            >
+              더보기 →
+            </Link>
+          </aside>
+        </div>
+
+        {/* Ad Banner */}
+        <AdBanner />
+
+        {/* 메인 화면 중간 카카오 애드핏 광고 */}
+        <AdFit width="320" height="100" />
       </main>
 
       <Footer />
