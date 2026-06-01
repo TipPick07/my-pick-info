@@ -1,6 +1,6 @@
 import EligibilityPage from "@/components/EligibilityPage";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import fs from "fs";
 import path from "path";
 
@@ -33,16 +33,9 @@ export default function EligibilityRoute() {
     }));
 
   return (
-    <main className="min-h-[80vh] bg-slate-50 py-12 px-6 flex flex-col items-center">
-      <div className="w-full max-w-2xl">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-800 font-bold mb-8 transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          메인으로 돌아가기
-        </Link>
-
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+      <Header />
+      <main className="max-w-2xl mx-auto px-4 py-12">
         <div className="text-center space-y-4 mb-10">
           <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
             나에게 딱 맞는 혜택 찾기 🔍
@@ -53,7 +46,8 @@ export default function EligibilityRoute() {
         </div>
 
         <EligibilityPage benefits={benefits} benefitPool={benefitPool} />
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </div>
   );
 }

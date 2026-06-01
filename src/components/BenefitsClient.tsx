@@ -190,7 +190,7 @@ export default function BenefitsClient({ data }: { data: Data }) {
 
           {/* 고가치 카테고리 필터 탭 */}
           <div className="flex gap-2 justify-center flex-wrap pt-1">
-            {["전체 보기", "주거/임대 지원"].map((tab) => (
+            {(["전체 보기", "주거/임대 지원"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => { setBenefitFilter(tab); changePage(1); }}
