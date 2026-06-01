@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { PostData } from "@/lib/posts";
 
@@ -18,6 +18,17 @@ function getPaginationRange(current: number, total: number): (number | '...')[] 
 
 export default function BlogListClient({ posts }: { posts: PostData[] }) {
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const p = parseInt(new URLSearchParams(window.location.search).get('page') ?? '1', 10);
+    if (!isNaN(p) && p > 1) setCurrentPage(p);
+  }, []);
+
+  const changePage = (p: number) => {
+    setCurrentPage(p);
+    const url = p === 1 ? window.location.pathname : `${window.location.pathname}?page=${p}`;
+    window.history.replaceState(null, '', url);
+  };
 
   const totalPages = Math.ceil(posts.length / ITEMS_PER_PAGE);
   const paginated = posts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
@@ -93,7 +104,7 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 pt-6">
           <button
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            onClick={() => changePage(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
             className="px-4 py-2 rounded-full text-sm font-bold border border-slate-200 bg-white disabled:opacity-30 hover:border-cyan-300 transition-colors"
           >
@@ -104,7 +115,7 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
               ? <span key={`e${idx}`} className="text-slate-400 px-1">···</span>
               : <button
                   key={p}
-                  onClick={() => setCurrentPage(p as number)}
+                  onClick={() => changePage(p as number)}
                   className={`w-9 h-9 rounded-full text-sm font-bold transition-colors ${
                     currentPage === p ? "text-white" : "bg-white border border-slate-200 text-slate-600 hover:border-cyan-300"
                   }`}
@@ -114,7 +125,7 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
                 </button>
           )}
           <button
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            onClick={() => changePage(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
             className="px-4 py-2 rounded-full text-sm font-bold border border-slate-200 bg-white disabled:opacity-30 hover:border-cyan-300 transition-colors"
           >
