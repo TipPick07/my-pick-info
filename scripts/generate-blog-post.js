@@ -454,13 +454,14 @@ async function main() {
       return;
     }
 
-    // ─── Step 3: 3분할 카테고리 분기 (축제/행사 · 주거/부동산 · 일반 지원금) ──
+    // ─── Step 3: 3분할 카테고리 분기 (축제/행사 · 주거/임대 지원 · 일반 지원금) ──
     const PUBLISH_THRESHOLD = 3;
     let categoryFilteredItems = unpostedItems;
     let publishCategory = postType === 'festival' ? '축제/행사' : '일반 지원금';
 
     if (postType === 'benefit') {
-      const housingKws = ['LH', 'SH', 'GH', '주거', '임대', '청약', '행복주택', '국민임대'];
+      // 지원금 탭 "주거/임대 지원" 필터(BenefitsClient)와 동일 기준으로 선별
+      const housingKws = ['주거', '청년안심', 'LH', 'SH', 'GH', '전세', '월세', '임대', '행복주택', '국민임대'];
       const housingItems = unpostedItems.filter(item =>
         item._source === '마이홈포털' ||
         housingKws.some(kw =>
@@ -469,7 +470,7 @@ async function main() {
       );
       const generalItems = unpostedItems.filter(item => !housingItems.includes(item));
 
-      console.log(`[3분할] 주거/부동산: ${housingItems.length}건, 일반 지원금: ${generalItems.length}건 (임계치: ${PUBLISH_THRESHOLD}건)`);
+      console.log(`[3분할] 주거/임대 지원: ${housingItems.length}건, 일반 지원금: ${generalItems.length}건 (임계치: ${PUBLISH_THRESHOLD}건)`);
 
       const housingReady = housingItems.length >= PUBLISH_THRESHOLD;
       const generalReady = generalItems.length >= PUBLISH_THRESHOLD;
@@ -482,14 +483,14 @@ async function main() {
       if (housingReady && generalReady) {
         if (housingItems.length >= generalItems.length) {
           categoryFilteredItems = housingItems;
-          publishCategory = '주거/부동산';
+          publishCategory = '주거/임대 지원';
         } else {
           categoryFilteredItems = generalItems;
           publishCategory = '일반 지원금';
         }
       } else if (housingReady) {
         categoryFilteredItems = housingItems;
-        publishCategory = '주거/부동산';
+        publishCategory = '주거/임대 지원';
       } else {
         categoryFilteredItems = generalItems;
         publishCategory = '일반 지원금';
@@ -575,7 +576,7 @@ async function main() {
 [타겟 및 톤앤매너]
 ${publishCategory === '축제/행사'
               ? '- 타겟: 전 연령층\n- 말투: 밝고 경쾌하게\n- 주제: 나들이, 즐거움'
-              : publishCategory === '주거/부동산'
+              : publishCategory === '주거/임대 지원'
               ? '- 타겟: 무주택 청년·신혼부부·서민 가구\n- 말투: 신뢰감 있고 전문적으로\n- 주제: 주거 안정, 임대료 절감, 청약 전략'
               : '- 타겟: 40~60대 중장년층\n- 말투: 신뢰감 있고 따뜻하게\n- 주제: 경제적 이득, 생활 안정'}
 
@@ -724,7 +725,7 @@ officialTip: (반드시 3~5개 번호 매기기 리스트. 형식: "1. 팁내용
         'Selected Theme (Persona):',
         'Information Dataset (Array):',
         '이 글은 일반 지원금 테마별 큐레이션',
-        '이 글은 주거/부동산 테마별 큐레이션',
+        '이 글은 주거/임대 지원 테마별 큐레이션',
         '이 글은 축제/행사 테마별 큐레이션',
         '당신은 수도권 생활 정보 큐레이션 서비스',
         '정보 데이터 세트(배열):',
