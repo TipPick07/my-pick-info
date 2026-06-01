@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 1. 기본 정적 경로 (trailingSlash: true 설정에 맞춰 trailing slash 포함)
   const staticRoutes = [
     '/', '/festivals/', '/benefits/', '/blog/',
-    '/situations/', '/eligibility/', '/deadline/', '/weekly/',
+    '/situations/', '/eligibility/',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),

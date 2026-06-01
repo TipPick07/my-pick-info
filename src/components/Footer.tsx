@@ -16,13 +16,8 @@ export default function Footer() {
     { href: "/benefits/", label: "내 돈 찾는 지원금" },
     { href: "/festivals/", label: "이번 주 나들이·축제" },
     { href: "/situations/", label: "상황별 맞춤 혜택" },
-    { href: "/blog/", label: "팁픽 인사이트" },
-  ];
-
-  const toolLinks = [
     { href: "/eligibility/", label: "🔍 1분 맞춤 혜택 찾기" },
-    { href: "/deadline/", label: "⏰ 마감 임박 지원금" },
-    { href: "/weekly/", label: "📅 이번 주 행사 모아보기" },
+    { href: "/blog/", label: "팁픽 인사이트" },
   ];
 
   const footerLinks = [
@@ -44,8 +39,8 @@ export default function Footer() {
       <footer className="bg-slate-50 border-t border-slate-200/60 py-16 px-6 mt-auto">
       <div className="container mx-auto max-w-4xl space-y-10 text-center">
 
-        {/* 사이트맵: 콘텐츠 · 바로가기 도구 · 사이트 정보 */}
-        <nav className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-8 text-left max-w-2xl mx-auto">
+        {/* 사이트맵: 콘텐츠 · 사이트 정보 */}
+        <nav className="grid grid-cols-2 gap-x-6 gap-y-8 text-left max-w-md mx-auto">
           <div className="space-y-3">
             <p className="text-xs font-black text-slate-700 tracking-wider">콘텐츠</p>
             <ul className="space-y-2.5 text-sm">
@@ -57,16 +52,6 @@ export default function Footer() {
             </ul>
           </div>
           <div className="space-y-3">
-            <p className="text-xs font-black text-slate-700 tracking-wider">바로가기 도구</p>
-            <ul className="space-y-2.5 text-sm">
-              {toolLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className={colLink(isActive(link.href))}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-3 col-span-2 sm:col-span-1">
             <p className="text-xs font-black text-slate-700 tracking-wider">사이트 정보</p>
             <ul className="space-y-2.5 text-sm">
               {footerLinks.map((link) => (
