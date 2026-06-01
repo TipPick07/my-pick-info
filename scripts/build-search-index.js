@@ -87,34 +87,7 @@ function buildIndex() {
     }
   }
 
-  // 3. 선거 포스트 데이터 처리
-  const ELECTION_DIR = path.join(__dirname, '../src/content/election');
-  if (fs.existsSync(ELECTION_DIR)) {
-    try {
-      const files = fs.readdirSync(ELECTION_DIR);
-      files.filter(f => f.endsWith('.md')).forEach(file => {
-        const filePath = path.join(ELECTION_DIR, file);
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        const { data, content } = matter(fileContent);
-
-        const plainContent = cleanMarkdown(content);
-        const snippet = plainContent.slice(0, 500);
-
-        index.push({
-          id: file.replace('.md', ''),
-          type: 'election',
-          title: data.title || '',
-          summary: data.summary || '',
-          content: snippet,
-          link: `/election/${file.replace('.md', '')}`
-        });
-      });
-    } catch (err) {
-      console.error('Error processing election posts:', err.message);
-    }
-  }
-
-  // 4. 인덱스 파일 저장
+  // 3. 인덱스 파일 저장
   try {
     const outputDir = path.dirname(OUTPUT_FILE);
     if (!fs.existsSync(outputDir)) {

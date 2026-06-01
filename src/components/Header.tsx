@@ -12,7 +12,6 @@ export default function Header() {
   const navLinks = [
     { href: "/festivals/", label: "이번 주 나들이" },
     { href: "/benefits/", label: "내 돈 찾는 지원금" },
-    { href: "/election/", label: "우리 동네 선거 공약", isNew: true },
     { href: "/blog/", label: "팁픽 인사이트" },
   ];
 
@@ -59,17 +58,12 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className={`relative group transition-colors flex items-center gap-1 ${
-                  active || link.isNew
+                  active
                     ? "text-[#00CCFF] font-bold"
                     : "font-semibold text-slate-500 hover:text-[#00CCFF]"
                 }`}
               >
                 {link.label}
-                {link.isNew && (
-                  <span className="bg-[#00CCFF] text-white text-[8px] px-1 py-0.5 rounded-sm font-black animate-pulse">
-                    NEW
-                  </span>
-                )}
                 <span
                   className={`absolute -bottom-1 left-0 h-0.5 transition-all duration-300 rounded-full ${
                     active ? "w-full" : "w-0 group-hover:w-full"
@@ -109,17 +103,12 @@ export default function Header() {
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
                 className={`border-b border-slate-50 pb-3 transition-colors flex items-center justify-between ${
-                  active || link.isNew
+                  active
                     ? "font-extrabold text-[#00CCFF]"
                     : "font-bold text-slate-800 hover:text-[#00CCFF]"
                 }`}
               >
                 <span>{link.label}</span>
-                {link.isNew && (
-                  <span className="bg-[#00CCFF] text-white text-[10px] px-1.5 py-0.5 rounded-full font-black">
-                    NEW
-                  </span>
-                )}
               </Link>
             );
           })}
