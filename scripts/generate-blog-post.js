@@ -286,6 +286,30 @@ function calcScore(item, postType, hotKeywords = []) {
   return score;
 }
 
+// ─── 중복 방지 유틸 (Jaccard 유사도 기반 강화) ────────────────────────────────
+const DEDUP_STOP_WORDS = new Set([
+  '총정리', '완벽', '가이드', '비교', '안내', '방법', '신청', '지원', '혜택', '정보',
+  '2026', '2025', '2024', '서울', '인천', '경기', '수도권', '전국',
+  '이것', '무엇', '어떻게', '공식', '행사', '이번', 'best', 'top',
+  '및', '등', '또는', '그리고', '위한', '위해', '부터', '까지',
+]);
+
+function extractKeywords(title) {
+  return (title || '')
+    .replace(/\[.*?\]/g, '')
+    .replace(/[^가-힣a-z0-9\s]/gi, ' ')
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(w => w.length >= 2 && !DEDUP_STOP_WORDS.has(w));
+}
+
+function jaccardSimilarity(setA, setB) {
+  if (!setA.size || !setB.size) return 0;
+  const intersection = [...setA].filter(w => setB.has(w)).length;
+  const union = new Set([...setA, ...setB]).size;
+  return intersection / union;
+}
+
 function normTitle(title) {
   return (title || '')
     .replace(/\[.*?\]/g, '')
@@ -296,36 +320,51 @@ function normTitle(title) {
     .trim();
 }
 
-function isDuplicate(newNorm, existingNormSet) {
+// existingPosts: readPostTitlesFromDir() 반환 배열 (norm + keywords 포함)
+function isDuplicate(newNorm, newKeywords, existingPosts) {
   if (!newNorm || newNorm.length < 4) return false;
-  for (const existing of existingNormSet) {
-    if (!existing || existing.length < 4) continue;
-    if (newNorm === existing) return true;
-    if (newNorm.includes(existing) || existing.includes(newNorm)) return true;
-    const shorter = newNorm.length < existing.length ? newNorm : existing;
-    const minLen = Math.min(10, shorter.length);
-    if (minLen >= 4 && newNorm.slice(0, minLen) === existing.slice(0, minLen)) return true;
+  for (const existing of existingPosts) {
+    const existNorm = existing.norm;
+    if (!existNorm || existNorm.length < 4) continue;
+    // 1. 정규화 제목 완전 일치
+    if (newNorm === existNorm) return true;
+    // 2. 포함 관계
+    if (newNorm.includes(existNorm) || existNorm.includes(newNorm)) return true;
+    // 3. 앞 10자 일치
+    const minLen = Math.min(10, newNorm.length, existNorm.length);
+    if (minLen >= 4 && newNorm.slice(0, minLen) === existNorm.slice(0, minLen)) return true;
+    // 4. Jaccard 유사도 ≥ 0.5 (키워드 집합 기준)
+    if (newKeywords.size >= 3 && existing.keywords.size >= 3) {
+      if (jaccardSimilarity(newKeywords, existing.keywords) >= 0.5) return true;
+    }
   }
   return false;
 }
 
-// ─── 폴더에서 포스트 제목 목록 읽기 ─────────────────────────────────────────
+// ─── 폴더에서 포스트 메타 목록 읽기 (norm + keywords 포함) ──────────────────
 function readPostTitlesFromDir(dir) {
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir)
     .filter(f => f.endsWith('.md'))
-    .map(file => {
+    .flatMap(file => {
       const content = fs.readFileSync(path.join(dir, file), 'utf8');
       const originalTitleMatch = content.match(/originalTitle:\s*["']?(.+?)["']?\s*$/m);
       const originalTitle = originalTitleMatch ? originalTitleMatch[1].trim() : null;
-      let title = originalTitle;
-      if (!title) {
-        const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\r?\n/);
-        title = titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
-      }
-      return { title, originalTitle, filename: file.replace('.md', '') };
-    })
-    .filter(p => p.title);
+      const titleMatch = content.match(/title:\s*"(.*)"/) || content.match(/title:\s*(.*)\r?\n/);
+      const title = titleMatch ? titleMatch[1].replace(/"/g, '').trim() : null;
+
+      const makeEntry = t => ({
+        title: t,
+        norm: normTitle(t),
+        keywords: new Set(extractKeywords(t)),
+        filename: file.replace('.md', ''),
+      });
+
+      const entries = [];
+      if (title) entries.push(makeEntry(title));
+      if (originalTitle && originalTitle !== title) entries.push(makeEntry(originalTitle));
+      return entries;
+    });
 }
 // ──────────────────────────────────────────────────────────────────────────────
 
@@ -381,23 +420,19 @@ async function main() {
       ...readPostTitlesFromDir(draftsDir),
       ...readPostTitlesFromDir(reviewDir),
     ];
+    const countMd = d => fs.existsSync(d) ? fs.readdirSync(d).filter(f => f.endsWith('.md')).length : 0;
     console.log(
-      `[중복 스캔] posts:${readPostTitlesFromDir(postsDir).length} ` +
-      `drafts:${readPostTitlesFromDir(draftsDir).length} ` +
-      `review:${readPostTitlesFromDir(reviewDir).length} (합계 ${allExistingPosts.length}건)`
+      `[중복 스캔] posts:${countMd(postsDir)}파일 ` +
+      `drafts:${countMd(draftsDir)}파일 ` +
+      `review:${countMd(reviewDir)}파일 (총 인덱스 ${allExistingPosts.length}건, Jaccard 유사도 적용)`
     );
-
-    const alreadyPostedNorm = new Set();
-    allExistingPosts.forEach(p => {
-      if (p.title) alreadyPostedNorm.add(normTitle(p.title));
-      if (p.originalTitle) alreadyPostedNorm.add(normTitle(p.originalTitle));
-    });
 
     // ──────────────────────────────────────────────────────────────────────
 
     const unpostedItems = allItems.filter(item => {
       const normItem = normTitle(item.title);
-      if (isDuplicate(normItem, alreadyPostedNorm)) {
+      const itemKeywords = new Set(extractKeywords(item.title));
+      if (isDuplicate(normItem, itemKeywords, allExistingPosts)) {
         console.log(`  [중복 스킵] ${item.title}`);
         return false;
       }
