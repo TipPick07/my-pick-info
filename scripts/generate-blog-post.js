@@ -669,6 +669,38 @@ officialTip: ${(targetItems[0].practicalTip || targetItems[0].tip || '').replace
     // 표 행에서 셀 내용이 500자 이상인 행 전체 제거
     mdContent = mdContent.replace(/^\|[^\n]{500,}\|$/gm, '');
 
+    // 프롬프트 에코 감지: Gemini가 프롬프트 내용을 출력에 포함시킨 경우 제거
+    // 프론트매터 이후 본문에서만 적용
+    const fmEnd = mdContent.indexOf('\n---\n', mdContent.indexOf('---'));
+    if (fmEnd !== -1) {
+      const frontmatter = mdContent.substring(0, fmEnd + 5);
+      let body = mdContent.substring(fmEnd + 5);
+      const PROMPT_ECHO_SIGS = [
+        'This is a general support curation blog post.',
+        'You are a professional editor and SEO expert',
+        'Selected Theme (Persona):',
+        'Information Dataset (Array):',
+        '이 글은 일반 지원금 테마별 큐레이션',
+        '이 글은 주거/부동산 테마별 큐레이션',
+        '이 글은 축제/행사 테마별 큐레이션',
+        '당신은 수도권 생활 정보 큐레이션 서비스',
+        '정보 데이터 세트(배열):',
+        '[타겟 및 톤앤매너]',
+        '[작성 가이드라인 - 본문 구조 강제]',
+      ];
+      for (const sig of PROMPT_ECHO_SIGS) {
+        const idx = body.indexOf(sig);
+        if (idx !== -1) {
+          // 오염 시작점 직전 | 또는 줄 시작으로 이동
+          const lineStart = body.lastIndexOf('\n', idx);
+          body = body.substring(0, lineStart > 0 ? lineStart : idx);
+          console.warn(`[경고] 프롬프트 에코 감지 ("${sig.substring(0, 30)}...") — 오염 구간 제거`);
+          break;
+        }
+      }
+      mdContent = frontmatter + body;
+    }
+
     // 연속된 빈 줄 정리 (3줄 이상 → 2줄로)
     mdContent = mdContent.replace(/\n{3,}/g, '\n\n');
 
