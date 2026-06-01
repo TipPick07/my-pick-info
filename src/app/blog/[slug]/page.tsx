@@ -145,8 +145,8 @@ export default async function BlogPostPage({ params }: PostPageProps) {
 
         {/* Post Header */}
         <header className="space-y-6 text-center mb-16">
-          <div className="inline-block bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg shadow-indigo-100">
-            {post.category}
+          <div className="inline-block bg-indigo-600 text-white text-[10px] font-black tracking-widest px-4 py-1.5 rounded-full shadow-lg shadow-indigo-100">
+            {({ festival: '축제', festivals: '축제', benefit: '지원금', benefits: '지원금', election: '선거', info: '정보' } as Record<string, string>)[post.category ?? ''] ?? post.category}
           </div>
           
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -357,7 +357,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
                   className="group bg-white border border-slate-100 rounded-2xl p-5 hover:border-indigo-200 hover:shadow-md transition-all"
                 >
                   <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-2 block">
-                    {related.category === 'benefit' ? '지원금' : related.category === 'festival' ? '축제' : related.category === 'election' ? '선거' : related.category}
+                    {({ festival: '축제', festivals: '축제', benefit: '지원금', benefits: '지원금', election: '선거', info: '정보' } as Record<string, string>)[related.category ?? ''] ?? related.category}
                   </span>
                   <p className="text-sm font-bold text-slate-800 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-2">
                     {related.title}

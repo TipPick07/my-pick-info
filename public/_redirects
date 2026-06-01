@@ -79,3 +79,9 @@ https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 /blog/2026-05-14-seoul-yeonDeungHoe-guide   /blog/  301
 /blog/2026-05-16-seoul-drum-festival-ddp/  /blog/  301
 /blog/2026-05-16-seoul-drum-festival-ddp   /blog/  301
+
+# /deadline·/weekly 라우트 삭제 (통합) → 관련 섹션으로 301
+/deadline/  /benefits/  301
+/deadline   /benefits/  301
+/weekly/    /festivals/  301
+/weekly     /festivals/  301
