@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const ogImage = post?.ogImage || 'https://tip-pick.com/images/og-default.png';
 
   return {
-    title: `${post?.title} | 팁픽(Tip-Pick) 인사이트`,
+    title: `${post?.title} | 팁픽(Tip-Pick)`,
     description,
     alternates: {
       canonical: `https://tip-pick.com/blog/${slug}`,
