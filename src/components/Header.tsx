@@ -12,6 +12,7 @@ export default function Header() {
   const navLinks = [
     { href: "/festivals/", label: "이번 주 나들이" },
     { href: "/benefits/", label: "내 돈 찾는 지원금" },
+    { href: "/situations/", label: "상황별 혜택" },
     { href: "/blog/", label: "팁픽 인사이트" },
   ];
 

@@ -182,3 +182,11 @@ KB금융그룹이 운영하는 'KB 무료 관람 프로젝트'를 통해 전국 
 - **후보 공약집 전문:** 정책·공약마당([policy.nec.go.kr](https://policy.nec.go.kr))
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [이번 주 축제·나들이 전체 보기](/festivals/)
+- [수도권 장마철 실내 나들이 명소 BEST 10 — 비 와도 OK!](/blog/2026-05-19-indoor-spots-rainy-day-guide/)
+- [2026 수도권 가족 나들이 추천! 아이와 함께 즐기는 특별한 축제 4곳 완벽 비교](/blog/2026-06-01-metro-family-festival-guide/)
+

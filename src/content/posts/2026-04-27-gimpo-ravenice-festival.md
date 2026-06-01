@@ -70,3 +70,11 @@ officialTip: "10월 17일 당일 하루만 열리는 축제 — 불꽃쇼 시작
 - ✅ 수로변 명당 자리는 1시간 전 확보
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [이번 주 축제·나들이 전체 보기](/festivals/)
+- [2026 안성 남사당바우덕이 '곰뱅이텄다' 상설 공연 — 일정·교통·관람 꿀팁 총정리](/blog/2026-04-23-AnseongNamsadangBaudeogiPerformance/)
+- [2026 평택 원평나루 억새축제 10월 31일 — 인생샷 명당·교통·꿀팁 총정리](/blog/2026-04-24-PyeongtaekWonpyeongnaruEoksaeFestival/)
+

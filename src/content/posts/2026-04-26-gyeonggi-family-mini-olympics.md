@@ -70,3 +70,12 @@ officialTip: "탄천종합운동장은 지하철 접근이 편리합니다 — �
 - ✅ 탄천 자전거 이용 계획이라면 헬멧 지참
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [우리가족 꼬마영웅 올림픽 2026 자세히 보기 →](/festival/fest-gg-1776985198049-gxo9/)
+- [이번 주 축제·나들이 전체 보기](/festivals/)
+- [2026 안성 남사당바우덕이 '곰뱅이텄다' 상설 공연 — 일정·교통·관람 꿀팁 총정리](/blog/2026-04-23-AnseongNamsadangBaudeogiPerformance/)
+- [2026 평택 원평나루 억새축제 10월 31일 — 인생샷 명당·교통·꿀팁 총정리](/blog/2026-04-24-PyeongtaekWonpyeongnaruEoksaeFestival/)
+

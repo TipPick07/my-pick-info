@@ -133,3 +133,13 @@ officialTip: "서울가든페스티벌은 6월 7일이 마지막 날 — 이번 
 👉 [방수 피크닉 매트 — 쿠팡에서 확인하기](https://link.coupang.com/re/AFFSDP?lptag=AF6155387&subid=tippick&pageKey=8602365300&itemId=24943904892&vendorItemId=91950805438&traceid=V0-153-b97ed8f72760cdc0&clickBeacon=76c91600-5958-11f1-97eb-5b8f00eadf6d%7E3&requestid=20260527081310937109280931&token=31850C%7CMIXED)
 이 포스팅은 쿠팡 파트너스 활동의 일환으로,
 이에 따른 일정액의 수수료를 제공받습니다.
+
+---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [이번 주 축제·나들이 전체 보기](/festivals/)
+- [2026 평택 원평나루 억새축제 10월 31일 — 인생샷 명당·교통·꿀팁 총정리](/blog/2026-04-24-PyeongtaekWonpyeongnaruEoksaeFestival/)
+- [수도권 6월 무료 축제 캘린더 총정리 2026](/blog/2026-05-16-june-free-festival-calendar/)
+

@@ -76,3 +76,11 @@ officialTip: 자동 선정이지만 누락 가능성이 있으므로, 요건을 
 | **공식 정보** | gov.kr 복지 서비스 포털 |
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [전체 지원금 한눈에 보기](/benefits/)
+- [[전국] 저소득 지역가입자 국민연금 보험료 50% 지원! 최대 12개월 혜택](/blog/2026-04-22-low-income-local-pension-guide/)
+- [[전국] 2026년 근로장려금 최대 330만원! 저소득 가구 신청 안내](/blog/2026-05-07-national-earned-income-tax-credit-application/)
+

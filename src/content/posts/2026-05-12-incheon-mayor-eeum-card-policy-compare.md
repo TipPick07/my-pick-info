@@ -92,3 +92,11 @@ officialTip: "이음카드 혜택은 누가 당선되든 5~7월 20% 캐시백 �
 | **투표소 찾기** | nec.go.kr 또는 선관위 앱 |
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [전체 지원금 한눈에 보기](/benefits/)
+- [만 3-5세 누리과정 유아학비 지원 혜택: 유치원 학비 부담 줄이세요!](/blog/2026-04-08-childcare-tuition-support/)
+- [[서울] 서울형 아이돌봄비, 든든한 육아지원 혜택](/blog/2026-04-28-seoul-childcare-support/)
+

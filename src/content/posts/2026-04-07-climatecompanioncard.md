@@ -66,3 +66,11 @@ officialHowToApply: ["모바일: 안드로이드폰에서 모바일 T-money 앱 
 3. 원하는 권종으로 충전 후 사용
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [전체 지원금 한눈에 보기](/benefits/)
+- [K-패스·기후동행카드·인천e음카드 비교 — 수도권 교통비 최대 절약 가이드 2026](/blog/2026-05-08-k-pass-transit-daytrip-guide/)
+- [만 3-5세 누리과정 유아학비 지원 혜택: 유치원 학비 부담 줄이세요!](/blog/2026-04-08-childcare-tuition-support/)
+

@@ -95,3 +95,11 @@ officialTip: "거주 지역 상관없이 서울 50플러스 캠퍼스 프로그�
 3. 동 주민센터 방문 상담 — 숨은 소규모 사업 확인
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [전체 지원금 한눈에 보기](/benefits/)
+- [5월 마감 임박! 수도권 놓치면 후회하는 지원금 총정리 (D-22 이내)](/blog/2026-05-09-may-deadline-benefits-guide/)
+- [서울·경기에서만 받는 독자 복지 혜택 총정리 2026 — 국가 지원금 그 이상](/blog/2026-05-09-metropolitan-exclusive-benefits/)
+

@@ -7,10 +7,10 @@
 
 https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 
-# 개별 blog 슬러그 오류 → 올바른 포스트 URL 301
-/blog/2026-incheon-childrens-day /blog/2026-04-30-incheon-childrens-day/ 301
-/blog/2026-seoul-gyeonggi-childrens-day /blog/2026-05-01-seoul-gyeonggi-childrens-day/ 301
-/blog/2026-royal-culture-festival-guide /blog/2026-05-02-royal-culture-festival-guide/ 301
+# 오타 슬러그 → /blog/ (대상 포스트 삭제됨: 종료 행사 정리)
+/blog/2026-incheon-childrens-day /blog/ 301
+/blog/2026-seoul-gyeonggi-childrens-day /blog/ 301
+/blog/2026-royal-culture-festival-guide /blog/ 301
 
 /blog/2026-05-06-seoul-youth-rent-support   /blog/   301
 /blog/2026-05-06-seoul-youth-rent-support/  /blog/   301
@@ -23,3 +23,59 @@ https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 /blog/2026-05-03-metropolitan-youth-support-guide   /blog/   301
 /blog/2026-04-12-ocean-fishing-vessel-safety-fund   /blog/   301
 /blog/2026-04-05-EarnedIncomeTaxCreditApplication   /blog/   301
+
+# 종료 행사·선거 글 삭제 (2026-06-01 정리) → /blog/ 301
+/blog/2026-05-11-after-vote-daytrip-best5/  /blog/  301
+/blog/2026-05-11-after-vote-daytrip-best5   /blog/  301
+/blog/2026-05-18-election-welfare-benefit-preview/  /blog/  301
+/blog/2026-05-18-election-welfare-benefit-preview   /blog/  301
+/blog/2026-05-23-voting-certification-benefits/  /blog/  301
+/blog/2026-05-23-voting-certification-benefits   /blog/  301
+/blog/2026-05-25-election-holiday-spots-guide/  /blog/  301
+/blog/2026-05-25-election-holiday-spots-guide   /blog/  301
+/blog/2026-05-26-early-voting-practical-guide/  /blog/  301
+/blog/2026-05-26-early-voting-practical-guide   /blog/  301
+/blog/2026-05-28-election-golden-holiday-travel-course/  /blog/  301
+/blog/2026-05-28-election-golden-holiday-travel-course   /blog/  301
+/blog/2026-05-30-election-day-dating-family-spots/  /blog/  301
+/blog/2026-05-30-election-day-dating-family-spots   /blog/  301
+/blog/2026-04-25-seoul-circus-festival/  /blog/  301
+/blog/2026-04-25-seoul-circus-festival   /blog/  301
+/blog/2026-04-27-seoul-yeondeunghoe-lantern-festival/  /blog/  301
+/blog/2026-04-27-seoul-yeondeunghoe-lantern-festival   /blog/  301
+/blog/2026-04-29-ansan-street-arts-festival/  /blog/  301
+/blog/2026-04-29-ansan-street-arts-festival   /blog/  301
+/blog/2026-04-30-hangang-festival/  /blog/  301
+/blog/2026-04-30-hangang-festival   /blog/  301
+/blog/2026-04-30-incheon-childrens-day/  /blog/  301
+/blog/2026-04-30-incheon-childrens-day   /blog/  301
+/blog/2026-05-01-seoul-gyeonggi-childrens-day/  /blog/  301
+/blog/2026-05-01-seoul-gyeonggi-childrens-day   /blog/  301
+/blog/2026-05-01-seoul-jongmyo-jerye/  /blog/  301
+/blog/2026-05-01-seoul-jongmyo-jerye   /blog/  301
+/blog/2026-05-02-royal-culture-festival-guide/  /blog/  301
+/blog/2026-05-02-royal-culture-festival-guide   /blog/  301
+/blog/2026-05-03-may-metropolitan-festival-guide/  /blog/  301
+/blog/2026-05-03-may-metropolitan-festival-guide   /blog/  301
+/blog/2026-05-03-seoul-jungnang-rose-festival/  /blog/  301
+/blog/2026-05-03-seoul-jungnang-rose-festival   /blog/  301
+/blog/2026-05-04-seoul-childrens-day-event/  /blog/  301
+/blog/2026-05-04-seoul-childrens-day-event   /blog/  301
+/blog/2026-05-05-childrens-day-seoul-free-events/  /blog/  301
+/blog/2026-05-05-childrens-day-seoul-free-events   /blog/  301
+/blog/2026-05-06-incheon-dancing-city-festival-2026/  /blog/  301
+/blog/2026-05-06-incheon-dancing-city-festival-2026   /blog/  301
+/blog/2026-05-07-gwanak-book-bread-festival/  /blog/  301
+/blog/2026-05-07-gwanak-book-bread-festival   /blog/  301
+/blog/2026-05-08-national-bread-festival-garak-market/  /blog/  301
+/blog/2026-05-08-national-bread-festival-garak-market   /blog/  301
+/blog/2026-05-10-seongnam-global-harmony-festival-guide/  /blog/  301
+/blog/2026-05-10-seongnam-global-harmony-festival-guide   /blog/  301
+/blog/2026-05-11-university-spring-festival-guide/  /blog/  301
+/blog/2026-05-11-university-spring-festival-guide   /blog/  301
+/blog/2026-05-12-seoul-jazz-festival-2026-guide/  /blog/  301
+/blog/2026-05-12-seoul-jazz-festival-2026-guide   /blog/  301
+/blog/2026-05-14-seoul-yeonDeungHoe-guide/  /blog/  301
+/blog/2026-05-14-seoul-yeonDeungHoe-guide   /blog/  301
+/blog/2026-05-16-seoul-drum-festival-ddp/  /blog/  301
+/blog/2026-05-16-seoul-drum-festival-ddp   /blog/  301

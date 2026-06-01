@@ -54,3 +54,11 @@ officialEligibilityQuiz: []
 강연 일정은 수시로 업데이트되며, 출판·책·독서 관련 관심사가 있다면 정기적으로 확인해두는 것이 좋다.
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [전체 지원금 한눈에 보기](/benefits/)
+- [용산구 장애인가정 출산지원금, 최대 100만원 초기 양육비 부담 확 줄이는 꿀팁 총정리 (2026년 최신)](/blog/2026-06-01-yongsan-disabled-family-birth-support/)
+- [이천시 생활비 절감 꿀팁! 이천사랑 지역화폐 10% 캐시백, 최대 10만원으로 가계경제 살리는 법](/blog/2026-06-01-icheon-local-currency-cashback/)
+

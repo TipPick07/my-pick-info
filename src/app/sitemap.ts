@@ -4,16 +4,28 @@ export const revalidate = false;
 import { MetadataRoute } from 'next';
 import fs from 'fs';
 import path from 'path';
+import { SITUATIONS } from '@/lib/situations';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://tip-pick.com';
 
   // 1. 기본 정적 경로 (trailingSlash: true 설정에 맞춰 trailing slash 포함)
-  const staticRoutes = ['/', '/festivals/', '/benefits/', '/blog/'].map((route) => ({
+  const staticRoutes = [
+    '/', '/festivals/', '/benefits/', '/blog/',
+    '/situations/', '/eligibility/', '/deadline/', '/weekly/',
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'daily' as const,
     priority: route === '/' ? 1 : 0.8,
+  }));
+
+  // 1-b. 상황별 허브 페이지
+  const situationRoutes = SITUATIONS.map((s) => ({
+    url: `${baseUrl}/situations/${s.key}/`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
   }));
 
   // 2. JSON 데이터에서 동적 경로 (축제, 혜택) 가져오기
@@ -48,5 +60,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     }));
 
-  return [...staticRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes];
+  return [...staticRoutes, ...situationRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes];
 }

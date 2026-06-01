@@ -159,3 +159,11 @@ LH청약플러스(apply.lh.or.kr)에서 지역·유형별 공고를 확인합니
 - 경기도 주거복지센터: housing.gg.go.kr
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [전체 지원금 한눈에 보기](/benefits/)
+- [수도권 2026년 청년월세 지원, 월 20만원 최장 24개월 혜택 (총 480만원)](/blog/2026-04-30-youth-rent-support/)
+- [용산구 장애인가정 출산지원금, 최대 100만원 초기 양육비 부담 확 줄이는 꿀팁 총정리 (2026년 최신)](/blog/2026-06-01-yongsan-disabled-family-birth-support/)
+

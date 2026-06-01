@@ -109,3 +109,11 @@ officialDetails: "2026년 5월 수도권 시민이 신청할 수 있는 핵심 �
 4. 서울 거주 양육 공백 가정 → 서울형 아이돌봄비
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [전체 지원금 한눈에 보기](/benefits/)
+- [[수도권] 고유가 피해지원금 최대 55만원 지원](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit/)
+- [근로장려금 + 자녀장려금 같이 받는 법 총정리 2026 — 최대 630만원](/blog/2026-05-10-earned-income-child-tax-credit-guide/)
+

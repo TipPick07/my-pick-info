@@ -135,3 +135,11 @@ officialTip: "은퇴 직후 지역가입자 전환 전, 자녀·배우자의 피
 | 서울 어르신복지 | ☎02-120 | senior.seoul.go.kr |
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [전체 지원금 한눈에 보기](/benefits/)
+- [퇴직 후 건강보험료 폭탄 막는 법 — 임의계속가입·소득인정액·이의신청 실전 가이드](/blog/2026-05-08-retirement-health-insurance-benefits-guide/)
+- [수도권 의료비 지원·건강보험료 경감 혜택 2026 총정리 — 모르면 손해인 병원비 절약법](/blog/2026-05-31-medical-health-insurance-support/)
+

@@ -70,3 +70,11 @@ officialTip: 경력전환을 희망하는 중장년층이라면 이 프로그램
 서류는 지원 유형에 따라 다르므로 방문 또는 정부24에서 미리 확인하고 준비하자. 공식 페이지 링크: [정부24 중장년 경력지원제](https://www.gov.kr/portal/rcvfvrSvc/dtlEx/149200005029)
 
 ---
+
+<!-- related-block -->
+### 👉 함께 보면 좋은 정보
+
+- [전체 지원금 한눈에 보기](/benefits/)
+- [[영등포] 40세 이상 자격증 응시료 90% 지원! 최대 10만원 혜택](/blog/2026-04-14-yeongdeungpo-childcare-qualification/)
+- [중소기업 '푸른씨앗' 퇴직연금, 수수료 면제 및 1인당 최대 27.3만원 지원](/blog/2026-04-15-small-business-pension-support/)
+
