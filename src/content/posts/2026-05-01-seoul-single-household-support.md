@@ -57,13 +57,3 @@ officialTip: "계약 체결 전에 반드시 신청하세요. 이미 계약 후 
 **전화:** 다산콜센터 ☎ 120 → '1인 가구 전월세 안심 계약 지원' 요청
 
 **방문:** 가까운 자치구 1인 가구 지원센터 방문 신청
-
----
-
-<!-- related-block -->
-### 👉 함께 보면 좋은 정보
-
-- [전체 지원금 한눈에 보기](/benefits/)
-- [[은평구] 음료 배달 돌봄 서비스: 고독사 위험 완화, 정기 안부 확인 혜택](/blog/2026-04-25-eunpyeonggu-mid-senior-single-household-support/)
-- [[수도권] 고유가 피해지원금 최대 55만원 지원](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit/)
-

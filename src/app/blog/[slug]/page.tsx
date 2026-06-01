@@ -369,6 +369,22 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           </div>
         )}
 
+        {/* 다음 단계 CTA — 모든 글 공통. 섹션·허브로 연결해 이탈 방지 및 탐색 유도 */}
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {(post.category === 'festival' || post.category === 'festivals') ? (
+            <Link href="/festivals/" className="group flex items-center justify-center gap-2 bg-slate-900 hover:bg-indigo-600 text-white font-black py-5 px-6 rounded-2xl transition-all active:scale-[0.98]">
+              🎪 이번 주 나들이·축제 전체 보기
+            </Link>
+          ) : (
+            <Link href="/benefits/" className="group flex items-center justify-center gap-2 bg-slate-900 hover:bg-emerald-600 text-white font-black py-5 px-6 rounded-2xl transition-all active:scale-[0.98]">
+              💰 전체 지원금 한눈에 보기
+            </Link>
+          )}
+          <Link href="/situations/" className="group flex items-center justify-center gap-2 bg-[#00CCFF]/10 hover:bg-[#00CCFF]/20 text-[#00AACC] font-black py-5 px-6 rounded-2xl transition-all active:scale-[0.98]">
+            🎯 내 상황별 맞춤 혜택 찾기
+          </Link>
+        </div>
+
         {/* 제휴 마케팅 자동화 키워드 배너 */}
         <AffiliateBanner textContext={post.content} />
 

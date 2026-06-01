@@ -131,13 +131,3 @@ officialTip: "기존 수급자는 세대원·주소 변경 없으면 자동 갱�
 
 - 복지로 온라인 신청: [www.bokjiro.go.kr](https://www.bokjiro.go.kr)
 - 에너지바우처 공식 사업 안내: [www.energyv.or.kr](http://www.energyv.or.kr)
-
----
-
-<!-- related-block -->
-### 👉 함께 보면 좋은 정보
-
-- [전체 지원금 한눈에 보기](/benefits/)
-- [[수도권] 2026년 5월 지원금 총정리 | 지금 신청해야 할 4가지 핵심 혜택](/blog/2026-04-29-2026-may-sudogwon-benefit-guide/)
-- [[수도권] 2026년 중장년(4060) 복지 정책: 서울·인천·경기 일자리·교육·생활 지원 혜택 비교](/blog/2026-05-08-metropolitan-4060-welfare-comparison/)
-

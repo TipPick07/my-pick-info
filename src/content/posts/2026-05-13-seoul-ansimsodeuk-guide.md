@@ -105,13 +105,3 @@ officialTip: "소득이 전혀 없는 서울시 1인 가구라면 2026년 기준
 - 가구 재산이 3억 2,600만원 이하다
 
 하나라도 해당된다면 서울복지포털(wis.seoul.go.kr)에서 상담 신청을 먼저 해보자.
-
----
-
-<!-- related-block -->
-### 👉 함께 보면 좋은 정보
-
-- [전체 지원금 한눈에 보기](/benefits/)
-- [[수도권] 고유가 피해지원금 최대 55만원 지원](/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit/)
-- [[수도권] 2026년 5월 지원금 총정리 | 지금 신청해야 할 4가지 핵심 혜택](/blog/2026-04-29-2026-may-sudogwon-benefit-guide/)
-
