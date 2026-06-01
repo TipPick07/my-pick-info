@@ -765,6 +765,14 @@ officialTip: (반드시 3~5개 번호 매기기 리스트. 형식: "1. 팁내용
       }
     );
 
+    // officialTip: Gemini가 번호 앞에 '- ' 불릿을 붙이는 경우가 있는데,
+    // YAML은 '- '로 시작하는 평문 스칼라를 시퀀스로 오인해 파싱 에러가 난다.
+    // 6/1 규칙(번호만: "1. … 2. …")에 맞게 번호 앞 대시 불릿을 제거한다.
+    mdContent = mdContent.replace(
+      /^(officialTip):[ \t]*(.+)$/gm,
+      (_, key, value) => `${key}: ${value.replace(/(^|\s)-\s+(?=\d+\.)/g, '$1').trim()}`
+    );
+
     mdContent = mdContent.replace(
       /^(---\r?\n)([\s\S]*?)(---)/,
       (_, open, frontmatter, close) => {
@@ -777,6 +785,13 @@ officialTip: (반드시 3~5개 번호 매기기 리스트. 형식: "1. 팁내용
             if ((trimmed.startsWith('[') && trimmed.endsWith(']')) ||
               (trimmed.startsWith('{') && trimmed.endsWith('}'))) return line;
             if (trimmed.startsWith('[') || trimmed.startsWith('{')) {
+              return `${key}: "${trimmed.replace(/"/g, '\\"')}"`;
+            }
+            // 따옴표/YAML 지시자 문자로 시작하지만 올바르게 감싸이지 않은 평문 스칼라는
+            // 따옴표로 감싸 파싱 에러를 원천 차단한다.
+            //  - officialDetails 가 '…!'는 … 형태(작은따옴표로 시작·중간에 닫힘)
+            //  - officialTip 이 '- '로 시작하는 경우 등 Gemini 출력 변동 대응
+            if (/^['"\-?:,&*!|>@%`#[\]{}]/.test(trimmed)) {
               return `${key}: "${trimmed.replace(/"/g, '\\"')}"`;
             }
             if (trimmed.includes(': ')) {
