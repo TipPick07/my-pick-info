@@ -4,14 +4,17 @@ import fs from 'fs';
 import path from 'path';
 import {
   ArrowLeft,
-  Clock,
   MapPin,
   Sparkles,
-  ExternalLink
+  ExternalLink,
+  Lightbulb,
+  CheckCircle2,
+  Info
 } from 'lucide-react';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MdContent from '@/components/MdContent';
+import SummaryCard from '@/components/SummaryCard';
 
 interface Festival {
   id: string;
@@ -186,27 +189,14 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
             </h1>
           </header>
 
-          {/* 핵심 정보 박스 (가로형) */}
-          <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 md:p-10 flex flex-col md:flex-row gap-8 md:gap-16">
-            <div className="flex items-start gap-5">
-              <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 shrink-0">
-                <Clock className="w-6 h-6 text-indigo-600" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">행사 기간</p>
-                <p className="text-base font-black text-slate-800 break-keep leading-snug">{festival.date}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-5">
-              <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-                <MapPin className="w-6 h-6 text-indigo-600" />
-              </div>
-              <div>
-                <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">행사 장소</p>
-                <p className="text-lg font-black text-slate-800 leading-snug">{festival.location}</p>
-              </div>
-            </div>
-          </section>
+          {/* 핵심 정보 박스 */}
+          <SummaryCard
+            category="festival"
+            rows={[
+              { label: '행사 기간', value: festival.date },
+              { label: '행사 장소', value: festival.location },
+            ]}
+          />
 
           {/* 본문 (상세 설명) — 버튼 로직과 완전 독립 렌더링 */}
           <section className="text-lg font-medium text-slate-700 leading-[1.8] space-y-10">
@@ -281,6 +271,28 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
               </a>
             </section>
           ) : null}
+
+          {/* 팁픽 가이드 */}
+          {festival.practicalTip && (
+            <section className="rounded-[2rem] overflow-hidden border border-emerald-100 relative group mt-2">
+              <div className="border-t-4 border-emerald-400" />
+              <div className="bg-emerald-50/50 p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <Info className="w-20 h-20 text-emerald-500" />
+                </div>
+                <div className="relative space-y-4">
+                  <div className="flex items-center gap-2 text-emerald-700 font-black text-lg">
+                    <Lightbulb className="w-5 h-5 fill-emerald-100" />
+                    <CheckCircle2 className="w-4 h-4" />
+                    <h4>팁픽 가이드</h4>
+                  </div>
+                  <p className="text-emerald-900/80 font-bold leading-relaxed whitespace-pre-line text-lg">
+                    {festival.practicalTip}
+                  </p>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* 하단 CTA 버튼 — 항상 렌더링 (URL 유효 시 공식 링크, 아니면 네이버 검색) */}
           <footer className="pt-4">

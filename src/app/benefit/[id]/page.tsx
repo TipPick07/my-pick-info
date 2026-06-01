@@ -17,6 +17,7 @@ import {
   Lightbulb
 } from 'lucide-react';
 import EligibilityChecker from "@/components/EligibilityChecker";
+import SummaryCard from '@/components/SummaryCard';
 
 interface Benefit {
   id: string;
@@ -157,37 +158,16 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
               {benefit.title}
             </h1>
 
-            {/* 핵심 요약 박스 (Gradient Box) */}
-            <section className="bg-gradient-to-br from-indigo-50 to-blue-50/50 rounded-[2rem] p-8 md:p-10 mb-12 border border-indigo-100/30">
-              <div className="flex items-center gap-2 mb-6 text-indigo-600">
-                <Sparkles className="w-6 h-6 fill-indigo-100" />
-                <h2 className="text-lg font-black uppercase tracking-wider">한눈에 보는 핵심 요약</h2>
-              </div>
-
-              <div className="grid gap-6">
-                <div className="flex gap-4">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-indigo-400 shrink-0" />
-                  <div className="space-y-1">
-                    <p className="text-sm font-bold text-slate-400">지원 대상</p>
-                    <p className="text-lg font-bold text-slate-800 leading-snug">{benefit.target}</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-indigo-400 shrink-0" />
-                  <div className="space-y-1">
-                    <p className="text-sm font-bold text-slate-400">신청 기한</p>
-                    <p className="text-lg font-bold text-slate-800 leading-snug">{benefit.deadline}</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-indigo-400 shrink-0" />
-                  <div className="space-y-1">
-                    <p className="text-sm font-bold text-slate-400">지원 내용</p>
-                    <p className="text-lg font-bold text-slate-800 leading-relaxed whitespace-pre-line">{benefit.detailedExplanation || benefit.details}</p>
-                  </div>
-                </div>
-              </div>
-            </section>
+            {/* 핵심 요약 박스 */}
+            <SummaryCard
+              category="benefit"
+              rows={[
+                { label: '지원 대상', value: benefit.target },
+                { label: '신청 기한', value: benefit.deadline },
+                { label: '지원 내용', value: benefit.detailedExplanation || benefit.details },
+              ]}
+              className="mb-12"
+            />
 
             {/* 1분 자격 진단기 */}
             <EligibilityChecker quiz={benefit.eligibilityQuiz} />

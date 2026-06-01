@@ -23,6 +23,7 @@ export interface PostData {
   officialHowToApply: string[];
   officialEligibilityQuiz: string[];
   officialTip?: string;
+  officialCurationNote?: string;
   content: string;
 }
 
@@ -86,6 +87,7 @@ export function getSortedPostsData(dirName = 'posts'): PostData[] {
         officialHowToApply: matterResult.data.officialHowToApply || [],
         officialEligibilityQuiz: matterResult.data.officialEligibilityQuiz || [],
         officialTip: matterResult.data.officialTip || '',
+        officialCurationNote: matterResult.data.officialCurationNote || '',
         content: matterResult.content,
       };
     });
@@ -138,6 +140,7 @@ export function getPostData(slug: string, dirName = 'posts'): PostData | null {
     officialHowToApply: matterResult.data.officialHowToApply || [],
     officialEligibilityQuiz: matterResult.data.officialEligibilityQuiz || [],
     officialTip: matterResult.data.officialTip || '',
+    officialCurationNote: matterResult.data.officialCurationNote || '',
     content: matterResult.content,
   };
 }

@@ -12,7 +12,8 @@ import AdBanner from "@/components/AdBanner";
 import AffiliateBanner from "@/components/AffiliateBanner";
 import EligibilityChecker from "@/components/EligibilityChecker";
 import SafeImage from "@/components/SafeImage";
-import { CheckCircle2, FileText, Clock, Lightbulb } from "lucide-react";
+import SummaryCard from "@/components/SummaryCard";
+import { FileText, Clock, Lightbulb } from "lucide-react";
 
 function isValidUrl(url: string | undefined | null): boolean {
   if (!url || typeof url !== 'string') return false;
@@ -80,6 +81,14 @@ export default async function BlogPostPage({ params }: PostPageProps) {
   }
 
   const relatedPosts = getRelatedPosts(post.slug, post.category, post.tags);
+
+  const cardCategory: 'festival' | 'benefit' | 'blog' =
+    post.category === 'benefit' ? 'benefit'
+    : post.category === 'festival' ? 'festival'
+    : 'blog';
+  const cardBadges = post.officialDeadline
+    ? [`📅 마감: ${post.officialDeadline}`, '⬇ 아래에서 신청 방법 확인']
+    : ['⬇ 아래에서 자세한 내용 확인'];
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
@@ -168,33 +177,13 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         {/* Post Content */}
         <article className="bg-white p-8 md:p-16 rounded-[40px] shadow-sm border border-slate-100 overflow-hidden">
           <div className="prose prose-slate prose-lg max-w-none prose-headings:font-black prose-headings:tracking-tighter prose-a:text-indigo-600 hover:prose-a:text-indigo-500 prose-img:rounded-3xl prose-img:shadow-lg">
-            {/* 핵심 요약 카드 — 이탈 방지 */}
-            {(() => {
-              const isBenefit = post.category === 'benefit';
-              const isFestival = post.category === 'festival';
-              const bg = isBenefit ? 'bg-emerald-50' : isFestival ? 'bg-orange-50' : 'bg-indigo-50';
-              const border = isBenefit ? 'border-emerald-100' : isFestival ? 'border-orange-100' : 'border-indigo-100';
-              const textColor = isBenefit ? 'text-emerald-600' : isFestival ? 'text-orange-500' : 'text-indigo-500';
-              const badgeBg = isBenefit ? 'bg-white text-emerald-700 border-emerald-200' : isFestival ? 'bg-white text-orange-700 border-orange-200' : 'bg-white text-indigo-700 border-indigo-200';
-              const icon = isBenefit ? '💰' : isFestival ? '🎪' : '💡';
-              return (
-                <div className={`mb-10 p-6 ${bg} rounded-2xl border ${border} not-prose`}>
-                  <p className={`text-xs font-black ${textColor} uppercase tracking-widest mb-3`}>{icon} 이 글의 핵심</p>
-                  <p className="text-slate-700 font-semibold leading-relaxed text-base mb-4">{post.summary}</p>
-                  {post.officialDeadline && (
-                    <div className={`flex flex-wrap gap-2 pt-4 border-t ${border}`}>
-                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full border ${badgeBg}`}>📅 마감: {post.officialDeadline}</span>
-                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full border ${badgeBg}`}>⬇ 아래에서 신청 방법 확인</span>
-                    </div>
-                  )}
-                  {!post.officialDeadline && (
-                    <div className={`flex flex-wrap gap-2 pt-4 border-t ${border}`}>
-                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full border ${badgeBg}`}>⬇ 아래에서 자세한 내용 확인</span>
-                    </div>
-                  )}
-                </div>
-              );
-            })()}
+            {/* 핵심 요약 카드 */}
+            <SummaryCard
+              category={cardCategory}
+              rows={[{ label: '핵심 요약', value: post.summary }]}
+              badges={cardBadges}
+              className="mb-10 not-prose"
+            />
 
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
@@ -213,16 +202,26 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           {post.officialEligibilityQuiz && post.officialEligibilityQuiz.length > 0 && (
             <div className="mt-12 px-2">
               <EligibilityChecker quiz={post.officialEligibilityQuiz} />
+              {/* 크롤러용 정적 안내 텍스트 */}
+              <div className="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-100 not-prose">
+                <p className="text-xs font-bold text-slate-600 mb-1">✅ 자격 확인 안내</p>
+                <p className="text-xs text-slate-500 leading-relaxed">위 항목에 해당하시면 신청 자격이 있습니다. 지원 대상·소득 기준·거주지 조건을 확인한 뒤 아래 신청 방법을 참고해 진행하세요.</p>
+              </div>
             </div>
           )}
 
           {/* AI Disclosure & Source Link */}
           <div className="mt-16 pt-10 border-t-2 border-slate-50 space-y-8">
             <div className="p-8 bg-indigo-50/50 rounded-[2rem] border border-indigo-100/50">
+              {post.officialCurationNote && (
+                <div className="mb-5 p-4 bg-white border-l-4 border-indigo-500 rounded-xl shadow-sm">
+                  <p className="text-indigo-900 text-sm font-black leading-relaxed">⭐ {post.officialCurationNote}</p>
+                </div>
+              )}
               <p className="text-slate-600 text-sm leading-relaxed font-medium mb-6">
-                💡 **팁픽 큐레이션 안내**<br />
-                이 글은 공공데이터를 팁픽(Tip-Pick)만의 시각으로 직접 재구성한 고유 콘텐츠입니다. 
-                정확한 내용은 아래 **[공공서비스 공식 정보]**를 통해 다시 한번 확인해주시기 바랍니다.
+                💡 <strong>팁픽 큐레이션 안내</strong><br />
+                이 글은 공공데이터를 팁픽(Tip-Pick)만의 시각으로 직접 재구성한 고유 콘텐츠입니다.
+                정확한 내용은 아래 <strong>공공서비스 공식 정보</strong>를 통해 다시 한번 확인해주시기 바랍니다.
               </p>
 
               {/* Official Data Section */}
@@ -321,6 +320,20 @@ export default async function BlogPostPage({ params }: PostPageProps) {
               </div>
             </div>
           </div>
+
+          {/* CTA 버튼 — 공식 신청 링크 */}
+          {isValidUrl(post.link) && (
+            <div className="mt-8">
+              <a
+                href={post.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3 w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white font-black py-5 px-8 rounded-2xl transition-all shadow-lg hover:shadow-indigo-200/50 text-base tracking-tight"
+              >
+                📋 공식 사이트에서 바로 신청하기 →
+              </a>
+            </div>
+          )}
 
           {/* Tags */}
           <div className="mt-12 pt-8 border-t border-slate-50 flex flex-wrap gap-2">

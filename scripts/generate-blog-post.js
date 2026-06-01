@@ -556,7 +556,11 @@ ${publishCategory === '축제/행사'
    - 각 데이터의 'targetPersona', 'coreValue'를 활용하여 명확한 타겟팅을 제시하세요.
    - 데이터에 'simulation' 내용이 있다면 (예: 연간 120만원 절약) 이를 시각적으로 눈에 띄게 배치하여 기대 효용을 극대화하세요.
    - 데이터에 'practicalTip' 내용이 있다면 (예: 서류 발급 꿀팁, 주차 꿀팁) 실무적인 팁으로 강조해서 서술하세요.
-4. 결론 (Outro): 
+   - 반드시 아래 3개의 H2(##) 섹션을 본론 내 순서대로 포함할 것:
+     ## 이 제도/행사는 왜 생겼나 — 배경 및 개요
+     ## 핵심 지원 내용 / 주요 프로그램 — 금액, 대상, 신청 방법
+     ## 신청 전 꼭 알아야 할 주의사항 — 자주 하는 실수, 체크리스트
+4. 결론 (Outro):
    - 큐레이션 내용을 3줄로 요약하고 독자의 행동(신청/방문)을 촉구하세요.
 
 [SEO 및 품질 핵심 원칙 - 반드시 지킬 것]
@@ -566,16 +570,19 @@ ${publishCategory === '축제/행사'
 4. 표(Table) 1개 이상 필수 포함 (3~4개 데이터의 핵심 정보 비교표 권장).
 5. E-E-A-T 충족을 위해 경험적 묘사와 전문적 해석, 함정/주의사항을 반드시 포함할 것.
 6. 분량 강제: **공백 제외 반드시 1,500자 이상** 작성. 짧은 단답을 피하고 상세한 스토리텔링과 실용적 팁을 담을 것.
+7. officialDetails: 데이터의 사실 정보를 바탕으로 반드시 3문단 이상·최소 300자의 정보성 텍스트로 직접 작성. 마케팅·감성 표현 완전 금지. ①지원 대상 ②지원 금액/내용 ③신청 방법 3단 구조 유지.
+8. officialTip: 반드시 3~5개 번호 매기기 리스트(1. 내용 / 2. 내용 형식)로 신청 실전 팁 작성. 감상문·홍보 문구 금지.
+9. officialCurationNote: "이런 분께 강력 추천합니다: [대상]" 형식으로 구체적 수치(금액·기한) 포함 1~2문장으로 작성.
 
 ${coupangPromptSection}${coupangDisclosureSection}아래 형식으로만 출력. YAML Frontmatter 포함. 다른 설명 제외.
 **응답 첫 번째 줄에 반드시** 아래 형식으로 파일명을 출력할 것 (이 줄이 없으면 응답 전체가 무효 처리됨):
 FILENAME: YYYY-MM-DD-영문-키워드-슬러그 (예: FILENAME: 2026-06-01-seoul-yongsan-disabled-birth-support)
 ---
-title: (SEO 최적화된 구체적 제목 — 테마와 핵심 내용을 포괄하는 큐레이션 제목)
+title: (반드시 "[지역명] 핵심키워드 (타겟독자)" 형식 준수. 예①축제: [인천 서구] 정서진 노을 종 축제 (유아·초등 자녀 동반 추천) / 예②지원금: [서울 용산] 장애인가정 출산지원금 (등록 장애인 부모 필독) / 예③주거: [경기 이천] 이천사랑 지역화폐 캐시백 (이천시 거주 3040 가족 필독))
 originalTitle: ${targetItems[0].title} 외 ${targetItems.length - 1}건
 link: ${targetItems[0].link || ''}
 officialTarget: ${targetItems[0].target || targetItems[0].targetPersona || '정보 없음'}
-officialDetails: ${(targetItems[0].detailedExplanation || targetItems[0].details || targetItems[0].description || '정보 없음').replace(/\r?\n+/g, ' ').trim()}
+officialDetails: (위 데이터의 detailedExplanation/details를 바탕으로 직접 작성. 반드시 3문단 이상·최소 300자. ①지원 대상 ②지원 금액/내용 ③신청 방법 순서로 사실만 기재. 마케팅·감성 표현 완전 금지.)
 officialDeadline: ${targetItems[0].deadline || targetItems[0].date || '상시'}
 date: ${today}
 summary: (구글 검색 결과에 그대로 노출되는 설명. 구체적 날짜나 금액 수치 반드시 포함. 형식: 언제/어디서 + 무엇을 + 얼마나 + 지금 확인하세요 순서. 반드시 ~하세요 또는 ~챙기세요로 끝낼 것. 100자 이내.)
@@ -584,10 +591,11 @@ category: ${postType === 'festival' ? 'festival' : 'benefit'}
 image: ${targetItems[0].image || ''}
 ogImage: ""
 tags: [연관키워드1, 연관키워드2, 연관키워드3, 연관키워드4, 연관키워드5]
+officialCurationNote: (이런 분께 강력 추천합니다: [구체적 대상]. 반드시 금액·기한 등 수치 1개 이상 포함. 2문장 이내.)
 officialRequirements: ${JSON.stringify(targetItems[0].requirements || [])}
 officialHowToApply: ${JSON.stringify(targetItems[0].howToApply || [])}
 officialEligibilityQuiz: ${JSON.stringify(targetItems[0].eligibilityQuiz || [])}
-officialTip: ${(targetItems[0].practicalTip || targetItems[0].tip || '').replace(/\r?\n+/g, ' ').trim()}
+officialTip: (반드시 3~5개 번호 매기기 리스트. 형식: "1. 팁내용 2. 팁내용 3. 팁내용". 서류 준비·기한 확인·온오프라인 선택·자주 하는 실수 등 실전 정보. 홍보 문구 금지.)
 ---
 
 (본문 시작 — 도입부는 매번 다른 방식으로. E-E-A-T 기준 충족. 1,500자 이상.)`
