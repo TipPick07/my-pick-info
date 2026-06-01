@@ -568,7 +568,8 @@ ${publishCategory === '축제/행사'
 6. 분량 강제: **공백 제외 반드시 1,500자 이상** 작성. 짧은 단답을 피하고 상세한 스토리텔링과 실용적 팁을 담을 것.
 
 ${coupangPromptSection}${coupangDisclosureSection}아래 형식으로만 출력. YAML Frontmatter 포함. 다른 설명 제외.
-반드시 응답 맨 마지막 줄에 'FILENAME: YYYY-MM-DD-영문키워드' 형식으로 파일명 출력.
+**응답 첫 번째 줄에 반드시** 아래 형식으로 파일명을 출력할 것 (이 줄이 없으면 응답 전체가 무효 처리됨):
+FILENAME: YYYY-MM-DD-영문-키워드-슬러그 (예: FILENAME: 2026-06-01-seoul-yongsan-disabled-birth-support)
 ---
 title: (SEO 최적화된 구체적 제목 — 테마와 핵심 내용을 포괄하는 큐레이션 제목)
 originalTitle: ${targetItems[0].title} 외 ${targetItems.length - 1}건
@@ -589,10 +590,7 @@ officialEligibilityQuiz: ${JSON.stringify(targetItems[0].eligibilityQuiz || [])}
 officialTip: ${(targetItems[0].practicalTip || targetItems[0].tip || '').replace(/\r?\n+/g, ' ').trim()}
 ---
 
-(본문 시작 — 도입부는 매번 다른 방식으로. E-E-A-T 기준 충족. 1,500자 이상.)
-
----
-FILENAME: YYYY-MM-DD-영문키워드`
+(본문 시작 — 도입부는 매번 다른 방식으로. E-E-A-T 기준 충족. 1,500자 이상.)`
         }]
       }],
       tools: [{ googleSearch: {} }],
@@ -637,8 +635,21 @@ FILENAME: YYYY-MM-DD-영문키워드`
     const filenameMatch = fullText.match(/FILENAME:\s*([^\s\n]+)/i);
     let filename;
     if (!filenameMatch) {
-      const fallbackId = targetItems[0].id || `${postType}-${Date.now()}`;
-      filename = `${today}-${postType}-${fallbackId}.md`;
+      const titleMatch = fullText.match(/^title:\s*(.+)$/m);
+      let fallbackSlug;
+      if (titleMatch) {
+        fallbackSlug = titleMatch[1]
+          .replace(/[()（）[\]【】<>《》『』「」"'""'']/g, '')
+          .replace(/[,，。·\-–—]/g, ' ')
+          .trim()
+          .replace(/\s+/g, '-')
+          .replace(/-{2,}/g, '-')
+          .substring(0, 50)
+          .replace(/-+$/, '');
+      } else {
+        fallbackSlug = `${postType}-${Date.now()}`;
+      }
+      filename = `${today}-${fallbackSlug}.md`;
       console.warn(`[경고] Gemini가 FILENAME을 누락 — 폴백 파일명 사용: ${filename}`);
     } else {
       const rawFilename = filenameMatch[1].trim().replace(/\.md$/i, '').replace(/\.+$/, '');
