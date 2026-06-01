@@ -97,7 +97,7 @@ function getPaginationRange(current: number, total: number): (number | '...')[] 
 export default function BenefitsClient({ data }: { data: Data }) {
   const [filter, setFilter] = useState("전체");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("전체");
-  const [benefitFilter, setBenefitFilter] = useState("전체 보기");
+  const [benefitFilter, setBenefitFilter] = useState<"전체 보기" | "주거/임대 지원">("전체 보기");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -125,10 +125,8 @@ export default function BenefitsClient({ data }: { data: Data }) {
       return regionOk && statusOk;
     })
     .filter((b) => {
-      if (benefitFilter === "LH/SH 주거 지원")
-        return (b.title + " " + b.target).match(/주거|청년안심|LH|SH|전세|월세|임대/);
-      if (benefitFilter === "소상공인")
-        return (b.title + " " + b.target).match(/소상공인|자영업|창업/);
+      if (benefitFilter === "주거/임대 지원")
+        return (b.title + " " + b.target).match(/주거|청년안심|LH|SH|GH|전세|월세|임대|행복주택|국민임대/);
       return true;
     });
 
@@ -192,7 +190,7 @@ export default function BenefitsClient({ data }: { data: Data }) {
 
           {/* 고가치 카테고리 필터 탭 */}
           <div className="flex gap-2 justify-center flex-wrap pt-1">
-            {["전체 보기", "LH/SH 주거 지원", "소상공인"].map((tab) => (
+            {["전체 보기", "주거/임대 지원"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => { setBenefitFilter(tab); changePage(1); }}
