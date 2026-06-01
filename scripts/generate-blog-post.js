@@ -419,8 +419,53 @@ async function main() {
       return;
     }
 
-    // ─── [Step 3] 핫 키워드 반영 스코어링 및 테마별 묶음 추출 ──────────────
-    const scoredItems = unpostedItems.map(item => ({ item, score: calcScore(item, postType, hotKeywords) }));
+    // ─── Step 3: 3분할 카테고리 분기 (축제/행사 · 주거/부동산 · 일반 지원금) ──
+    const PUBLISH_THRESHOLD = 3;
+    let categoryFilteredItems = unpostedItems;
+    let publishCategory = postType === 'festival' ? '축제/행사' : '일반 지원금';
+
+    if (postType === 'benefit') {
+      const housingKws = ['LH', 'SH', 'GH', '주거', '임대', '청약', '행복주택', '국민임대'];
+      const housingItems = unpostedItems.filter(item =>
+        item._source === '마이홈포털' ||
+        housingKws.some(kw =>
+          (item.title || '').includes(kw) || (item.target || '').includes(kw)
+        )
+      );
+      const generalItems = unpostedItems.filter(item => !housingItems.includes(item));
+
+      console.log(`[3분할] 주거/부동산: ${housingItems.length}건, 일반 지원금: ${generalItems.length}건 (임계치: ${PUBLISH_THRESHOLD}건)`);
+
+      const housingReady = housingItems.length >= PUBLISH_THRESHOLD;
+      const generalReady = generalItems.length >= PUBLISH_THRESHOLD;
+
+      if (!housingReady && !generalReady) {
+        console.log(`[3분할] 두 카테고리 모두 ${PUBLISH_THRESHOLD}건 미달 → 발행 건너뜀`);
+        return;
+      }
+
+      if (housingReady && generalReady) {
+        if (housingItems.length >= generalItems.length) {
+          categoryFilteredItems = housingItems;
+          publishCategory = '주거/부동산';
+        } else {
+          categoryFilteredItems = generalItems;
+          publishCategory = '일반 지원금';
+        }
+      } else if (housingReady) {
+        categoryFilteredItems = housingItems;
+        publishCategory = '주거/부동산';
+      } else {
+        categoryFilteredItems = generalItems;
+        publishCategory = '일반 지원금';
+      }
+
+      console.log(`[3분할] 발행 선택: ${publishCategory} (${categoryFilteredItems.length}건)`);
+    }
+    // ───────────────────────────────────────────────────────────────────────
+
+    // ─── 핫 키워드 반영 스코어링 및 테마별 묶음 추출 ──────────────────────
+    const scoredItems = categoryFilteredItems.map(item => ({ item, score: calcScore(item, postType, hotKeywords) }));
 
     // 그룹핑: targetPersona(페르소나) 기준으로 묶기 (없으면 tag 기준)
     const grouped = {};
@@ -483,7 +528,7 @@ async function main() {
           text: `절대로 내부 사고 과정, 계획, 분석 내용을 출력하지 마세요.
 오직 완성된 마크다운 블로그 글만 출력하세요.
 
-이 글은 ${postType === 'festival' ? '축제/행사 정보' : '지원금/혜택 정보'} 테마별 큐레이션(총정리) 블로그 포스트입니다.
+이 글은 ${publishCategory} 테마별 큐레이션(총정리) 블로그 포스트입니다.
 당신은 수도권 생활 정보 큐레이션 서비스 '수도권 팁픽(Tip-Pick)'의 전문 에디터이자 SEO 전문가입니다.
 아래 제공된 3~4개의 공공서비스 데이터 세트를 바탕으로, 구글/네이버 검색 상위 노출이 가능한 프리미엄 비교/분석 큐레이션 블로그 글을 작성해줘.
 
@@ -493,8 +538,10 @@ async function main() {
 오늘의 핫 키워드: ${hotKeywords.slice(0, 5).join(', ')}
 
 [타겟 및 톤앤매너]
-${postType === 'festival'
+${publishCategory === '축제/행사'
               ? '- 타겟: 전 연령층\n- 말투: 밝고 경쾌하게\n- 주제: 나들이, 즐거움'
+              : publishCategory === '주거/부동산'
+              ? '- 타겟: 무주택 청년·신혼부부·서민 가구\n- 말투: 신뢰감 있고 전문적으로\n- 주제: 주거 안정, 임대료 절감, 청약 전략'
               : '- 타겟: 40~60대 중장년층\n- 말투: 신뢰감 있고 따뜻하게\n- 주제: 경제적 이득, 생활 안정'}
 
 [작성 가이드라인 - 본문 구조 강제]

@@ -935,6 +935,74 @@ async function fetchBizinfo(apiKey) {
   return results;
 }
 
+// ─── 1순위: 마이홈포털 주거 지원 공고 (LH·SH·GH 임대주택 모집) ─────────────────
+// Endpoint: https://apis.data.go.kr/1613000/HWSPR02/rsdtRcritNtcList
+// ENV: PUBLIC_DATA_API_KEY (기존 재사용)
+async function fetchMyHomeData(apiKey) {
+  const results = [];
+  const regions = [
+    { code: '11', name: '서울' },
+    { code: '28', name: '인천' },
+    { code: '41', name: '경기' },
+  ];
+
+  for (const region of regions) {
+    const url = buildDataGoKrUrl(
+      'https://apis.data.go.kr/1613000/HWSPR02/rsdtRcritNtcList',
+      apiKey,
+      { pageNo: 1, numOfRows: 20, srhRegion: region.code, returnType: 'json' }
+    );
+    try {
+      const res = await fetchWithRetry(url);
+      const { json, xmlItems } = await readAndParse(`마이홈포털:${region.name}`, res);
+      if (!res.ok) { console.log(`[마이홈포털:${region.name}] HTTP ${res.status} — 위 RAW 참조`); continue; }
+
+      const raw = json
+        ? (json?.response?.body?.items?.item || json?.items || json?.data || [])
+        : (xmlItems || []);
+      const items = Array.isArray(raw) ? raw : (raw && typeof raw === 'object' ? [raw] : []);
+
+      let regionCount = 0;
+      for (const item of items) {
+        const houseName   = item.HOUSE_NM      || item.houseNm      || item.house_nm      || '';
+        const houseType   = item.HOUSE_SECD_NM || item.houseSecdNm  || item.house_secd_nm
+                         || item.HOUSE_TY      || item.houseTy      || item.house_ty      || '';
+        const bizName     = item.BSNS_MBY_NM   || item.bsnsMbyNm   || item.bsns_mby_nm   || '';
+        const areaName    = item.SUBSCRPT_AREA_CODE_NM || item.subscrptAreaCodeNm || region.name;
+        const rceptEnd    = item.RCEPT_ENDDE    || item.rceptEndde   || item.rcept_endde   || '';
+        const hmpgAdres   = item.HMPG_ADRES     || item.hmpgAdres    || item.hmpg_adres    || 'https://www.myhome.go.kr';
+
+        if (!houseName && !houseType) continue;
+
+        const title = houseName
+          ? `[${areaName}] ${houseName}${houseType ? ` (${houseType})` : ''} 모집 공고`
+          : `[${areaName}] ${houseType}${bizName ? ` (${bizName})` : ''} 모집 공고`;
+
+        const deadlineFormatted = rceptEnd && rceptEnd.length === 8
+          ? `${rceptEnd.slice(0, 4)}.${rceptEnd.slice(4, 6)}.${rceptEnd.slice(6, 8)}`
+          : '';
+
+        results.push({
+          서비스명: title.trim(),
+          서비스목적요약: `${houseType || '주거 지원'} 수도권 모집 공고. 무주택 세대구성원 대상 임대주택 공급.`,
+          지원대상: '무주택 세대구성원',
+          소관기관명: bizName || '마이홈포털',
+          지원내용: `${houseType || '임대주택'} 공급 모집`,
+          신청URL: hmpgAdres,
+          신청기한: deadlineFormatted,
+          _source: '마이홈포털',
+          _raw: item,
+        });
+        regionCount++;
+      }
+      console.log(`[마이홈포털:${region.name}] ${items.length}건 수신, ${regionCount}건 정규화`);
+    } catch (err) {
+      console.warn(`[마이홈포털:${region.name}] 오류: ${err.message}`);
+    }
+  }
+  return results;
+}
+
 // ─── 2순위 Fallback: gov24 키워드 검색 (행정안전부) ─────────────────────────
 // ENV: PUBLIC_DATA_API_KEY (기존)
 async function fetchBenefitsByKeyword(apiKey, keyword) {
@@ -1094,6 +1162,13 @@ async function main() {
       }
     };
 
+    // ① 1순위: 마이홈포털 주거 지원 공고 (LH·SH·GH 임대주택)
+    if (newItems.length < DAILY_LIMIT) {
+      console.log('\n[지원금] 1순위 수집 - 마이홈포털 주거 지원...');
+      addItems(await fetchMyHomeData(govApiKey));
+      console.log(`  소계: ${newItems.length}건`);
+    }
+
     // ① 1순위: 복지로 중앙부처 — 현재 500 에러로 비활성화, 지자체로 대체
     // addItems(await fetchBokjiroCentral(govApiKey));
 
@@ -1232,10 +1307,44 @@ async function main() {
           await delay(1500);
         }
 
-        const promptObj = {
-          contents: [{
-            parts: [{
-              text: `아래 공공데이터 1건을 분석해서 JSON 객체로 변환해줘.
+        // ─── Step 2: 마이홈포털 부동산 특화 프롬프트 분기 ───────────────────────
+        const isHousingSource = selectedData._source === '마이홈포털';
+        const geminiPromptText = isHousingSource
+          ? `아래 공공데이터 1건은 LH·SH·GH 등의 임대주택 모집 공고입니다. 부동산/주거 특화 JSON으로 변환해줘.
+무주택 서민·청년·신혼부부가 실질적으로 유용하게 읽을 수 있어야 하며, 구글/네이버 SEO를 위해 독창적 가공이 매우 중요해.
+
+형식:
+{
+  id: 랜덤숫자,
+  region: '서울', '인천', '경기', '전국' 중 택1,
+  type: 'benefit',
+  title: '반드시 LH, SH, GH, 주거, 임대 중 하나 포함. [지역명] + 주거키워드 + 주택유형 + 핵심정보 조합. 예: [서울] LH 행복주택 청년 전용 2026 신청 자격 총정리 / [경기] SH 국민임대 신혼부부 무주택 신청 방법 완벽 가이드.',
+  date: '공고 마감일 YYYY.MM.DD 또는 상시',
+  target: '반드시 무주택, 임대, 주거 중 하나 포함. 예: 무주택 세대구성원, 무주택 청년, 소득 5분위 이하 무주택 신혼부부.',
+  summary: '보증금·월세 예상 금액 + 신청 자격(소득 기준) + 지금 확인하세요 순서로 작성. 반드시 ~하세요 또는 ~확인하세요로 끝낼 것. 100자 이내.',
+  detailedExplanation: '이 임대주택 공고의 목적, 주택유형, 입주 조건, 소득 기준, 자산 기준 등을 아주 구체적이고 친절하게 설명 (공백 포함 최소 500자 이상). 신청자가 왜 이 공고를 확인해야 하는지 실감나게 작성할 것.',
+  location: '',
+  link: '공식 사이트 URL. 없으면 https://www.myhome.go.kr',
+  tag: '마감일이 30일 이내이면 마감임박, 상시 모집이면 상시, 그 외엔 추천',
+  imagePrompt: 'Korean public housing apartment complex modern building exterior, flat illustration, no people, no faces, blue sky background',
+  requirements: ['무주택확인서 (정부24 온라인 발급 가능)', '소득증명원 (최근 3개월)', '주민등록등본', '청약통장 사본 (해당 시)'],
+  howToApply: ['마이홈포털(www.myhome.go.kr) 온라인 청약 신청', '청약홈(applyhome.co.kr)에서 공고 확인', '현장 접수 또는 우편 접수 (공고문 확인)'],
+  targetPersona: '이 공고를 가장 필요로 할 구체적인 대상. 예: 소득 5분위 이하 무주택 청년, 결혼 7년 이내 신혼부부.',
+  coreValue: '이 공고의 핵심 가치. 예: 시세 대비 30~50% 저렴한 임대료로 수도권 주거 안정.',
+  eligibilityQuiz: [
+    '세대원 전원이 무주택자입니까?',
+    '해당 지역(서울·인천·경기)에 거주하거나 직장이 있으십니까?',
+    '도시근로자 월평균 소득 100% 이하에 해당하십니까?',
+    '부동산·자동차 등 자산 기준을 충족하십니까?'
+  ],
+  simulation: '전용면적별 보증금·월 임대료 예상 시뮬레이션. 예: 전용 36㎡ 기준 보증금 약 3,000만원·월 임대료 약 15만원, 시세 대비 약 40% 절감. 연간 약 180만원·5년 약 900만원 절약 효과.',
+  practicalTip: '임대주택 신청 실무 팁. 예: 무주택확인서는 정부24에서 무료 발급. 소득·자산 기준은 전년도 기준 적용. 청약통장 납입 횟수가 당첨 순위에 직접 영향. 사전청약·본청약 일정 차이 필수 확인.'
+}
+
+반드시 JSON 객체만 출력해. 다른 텍스트 없이.
+공공데이터:
+${JSON.stringify(selectedData)}`
+          : `아래 공공데이터 1건을 분석해서 JSON 객체로 변환해줘.
 이 데이터는 웹사이트에 상세 페이지로 자동 배포되므로, 구글/네이버 검색 노출(SEO)을 위해 '유사 문서'로 분류되지 않는 독창적인 가공이 매우 중요해.
 
 형식:
@@ -1265,7 +1374,12 @@ async function main() {
 eligibilityQuiz는 지원 대상을 분석해서 1분 자격 진단기 연동을 위한 구체적인 O/X 퀴즈 형식으로 3~4개 세분화해서 만들어줘.
 반드시 JSON 객체만 출력해. 다른 텍스트 없이.
 공공데이터:
-${JSON.stringify(selectedData)}`
+${JSON.stringify(selectedData)}`;
+
+        const promptObj = {
+          contents: [{
+            parts: [{
+              text: geminiPromptText
             }]
           }]
         };
@@ -1319,6 +1433,19 @@ ${JSON.stringify(selectedData)}`
           continue; // 파싱 실패해도 다음 데이터 처리는 계속 진행
         }
 
+        // 마이홈포털 주거 키워드 강제 검증: title·target에 주거 키워드 없으면 접두 보완
+        if (isHousingSource) {
+          const housingKws = ['LH', 'SH', 'GH', '주거', '임대', '청약', '행복주택', '국민임대'];
+          const titleHasKw = housingKws.some(kw => (parsedParams.title || '').includes(kw));
+          const targetHasKw = housingKws.some(kw => (parsedParams.target || '').includes(kw));
+          if (!titleHasKw) {
+            parsedParams.title = `[임대주택] ${parsedParams.title || selectedData.서비스명}`;
+          }
+          if (!targetHasKw) {
+            parsedParams.target = `무주택 세대구성원 (${parsedParams.target || '수도권 거주자'})`;
+          }
+        }
+
         // Gemini가 생성한 id는 충돌 위험 → 항상 서버 타임스탬프 기반으로 생성
         const newId = `${Date.now()}-${index}-${Math.random().toString(36).slice(2, 6)}`;
         const seed = Math.floor(Math.random() * 1000) + index;
@@ -1327,7 +1454,9 @@ ${JSON.stringify(selectedData)}`
         // 한글 포함 여부 확인 후 기본값으로 교체
         const hasKorean = /[가-힣]/.test(rawPrompt);
         if (hasKorean) {
-          rawPrompt = parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
+          rawPrompt = isHousingSource
+            ? 'korean-public-housing-apartment-complex-modern-exterior'
+            : parsedParams.type === 'festival' ? 'korean-festival-colorful-outdoor-event' : 'korean-government-welfare-benefit-support';
           console.log(`[안내] 프롬프트에 한글 포함 → 기본 영문으로 교체: ${rawPrompt}`);
         }
 
