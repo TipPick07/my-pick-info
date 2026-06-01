@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-경기미김밥페스타-343.png
 ogImage: "https://tip-pick.com/images/blogs/festival-경기미김밥페스타-343.png"
 tags: [전통시장, 서울맛집, 서울나들이, 주말나들이, 골목맛집, 광장시장, 통인시장, 남대문시장, 서울먹거리, 시장투어, 수도권축제, 주말코스]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 주말 나들이객, 가족, 커플. 자세한 일정·장소·프로그램을 미리 확인해 가장 알찬 나들이를 계획해보세요."
 officialRequirements: []
 officialHowToApply: ["현장 방문"]
 officialEligibilityQuiz: []

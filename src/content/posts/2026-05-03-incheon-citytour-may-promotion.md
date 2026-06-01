@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/korea-welfare-benefit-135.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-135.png"
 tags: [인천시티투어, 가정의달할인, 가족나들이, 어린이날혜택, 교직원할인, 인천관광, 수도권나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 자녀 또는 부모님과 동반 탑승하는 가족 단위 이용객, 어린이집, 유치원 및 초, 중, …. 05.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: ["가족 동반 증빙 (등본 또는 가족관계증명서)", "교직원 신분증 (스승의 날 프로모션 해당 시)"]
 officialHowToApply: ["인천시티투어 현장 매표소 또는 공식 홈페이지 온라인 예매", "가족 동반 시 증빙 서류 현장 제시 후 할인 적용", "교직원 신분증 제시 후 할인 적용"]
 officialEligibilityQuiz: []

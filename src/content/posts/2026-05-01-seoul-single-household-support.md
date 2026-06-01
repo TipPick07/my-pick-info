@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/korea-welfare-benefit-132.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-132.png"
 tags: [서울시, 1인가구, 전월세안심, 전세사기예방, 계약지원, 주거복지, 법률상담, 보증금보호, 서울지원금]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울시에 거주하거나 거주 예정인 1인 가구. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: ["서울시 거주 또는 서울 소재 주택 전월세 계약 예정자", "1인 가구 세입자 (혼자 거주 중이거나 거주 예정인 분)"]
 officialHowToApply: ["서울시 1인 가구 포털(1in.seoul.go.kr) 접속 후 서비스 신청", "다산콜센터(120) 전화 문의 후 신청"]
 officialEligibilityQuiz: ["서울에서 혼자 거주하고 있거나, 서울 내 전월세 계약을 앞두고 계신가요?", "전월세 계약 전에 등기부등본이나 계약서 위험 여부를 무료로 확인하고 싶으신가요?"]

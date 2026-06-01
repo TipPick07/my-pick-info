@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/fallback-benefit-1.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
 tags: [청년미래적금, 청년도약계좌, 청년지원금, 청년정책, 청년혜택, 청년저축, 정부지원적금, 목돈마련, 비과세적금, 청년재테크, 수도권청년, 청년금융지원]
+officialCurationNote: "이런 분께 강력 추천합니다: 만 19~34세 청년, 개인소득 6,000만 원 이하 직장인, 자영업자, 프리랜서. 12% 혜택을 12.31까지 신청할 수 있으니, 자격 조건을 지금 바로 확인하고 놓치지 마세요."
 officialRequirements: ["만 19~34세 청년", "개인소득 6,000만 원 이하 (청년미래적금) / 7,500만 원 이하 (청년도약계좌)", "가구소득 중위 250% 이하", "신분증 및 소득금액증명원"]
 officialHowToApply: ["은행 앱에서 가입 가능 여부 사전 조회", "취급 은행(KB국민·신한·우리·하나·농협·기업) 선택 후 앱 비대면 신청", "자동 심사 완료 후 자동이체 설정"]
 officialEligibilityQuiz: []

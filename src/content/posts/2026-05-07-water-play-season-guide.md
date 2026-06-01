@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-한강서래섬피크닉콘서-587.png
 ogImage: "https://tip-pick.com/images/blogs/festival-한강서래섬피크닉콘서-587.png"
 tags: [물놀이, 계곡, 한강수영장, 수도권여름, 6월나들이, 가족나들이, 서울물놀이, 여름피서, 계곡추천, 물놀이장개장]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 인천, 경기 거주 가족, 육아가정, 여름 피서 준비 시민. 08.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["한강공원 수영장·물놀이장: 현장 방문 후 현장 매표", "계곡: 별도 예약 없이 자유 방문 (주차만 사전 확인)"]
 officialEligibilityQuiz: []

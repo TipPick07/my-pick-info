@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-어린이가족예술축제-59.png
 ogImage: "https://tip-pick.com/images/blogs/festival-어린이가족예술축제-59.png"
 tags: [수도권어린이행사, 6월가족행사, 무료체험, 서울어린이행사, 경기어린이행사, 인천어린이행사, 육아가정나들이, 국립어린이박물관, 과천과학관, 선거연휴나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 육아 가정, 초등학생 자녀를 둔 부모. 06.30까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["현장 방문 또는 공식 홈페이지 사전 예약", "일부 시설 온라인 예약 필수 (국립중앙박물관 어린이관, 국립어린이박물관 등)"]
 officialEligibilityQuiz: []

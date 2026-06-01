@@ -11,6 +11,7 @@ category: festival
 image: /images/blogs/fallback-festival-2.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
 tags: [인천당일치기, 을왕리해수욕장, 인천여행, 황금연휴, 수도권나들이, 소래포구, 송도센트럴파크, 월미도, 6월나들이, 주말나들이, 여름나들이, 수도권축제]
+officialCurationNote: "이런 분께 강력 추천합니다: 해당 조건에 맞는 수도권 시민. 06.03까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

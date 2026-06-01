@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/fallback-benefit-2.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-2.png"
 tags: [에너지바우처, 냉방비지원, 에너지바우처신청, 저소득층지원, 취약계층혜택, 복지지원금, 전기요금지원, 수도권지원금, 서울복지, 2026여름지원금, 기초생활수급자, 냉방비바우처]
+officialCurationNote: "이런 분께 강력 추천합니다: 기초생활수급자 중 노인, 장애인, 영유아, 임산부, 중증질환자 세대원 포함 가구. 12.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: ["기초생활수급자(생계·의료·주거·교육급여) 해당 가구", "세대원 중 노인·장애인·영유아·임산부·중증질환자 1인 이상 포함", "주소지 관할 행정복지센터 방문 또는 복지로 온라인 신청"]
 officialHowToApply: ["주소지 읍·면·동 행정복지센터(주민센터) 방문 신청", "복지로 누리집(www.bokjiro.go.kr) 온라인 신청", "거동 불편 시 담당 공무원 직권 신청 가능"]
 officialEligibilityQuiz: []

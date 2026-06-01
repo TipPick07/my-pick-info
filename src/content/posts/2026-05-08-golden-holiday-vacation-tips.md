@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-한강페스티벌-817.png
 ogImage: "https://tip-pick.com/images/blogs/festival-한강페스티벌-817.png"
 tags: [황금연휴, 연차, 선거일공휴일, 6월연휴, 수도권나들이, 당일치기, 연차조합, 직장인여행]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 직장인, 연차 계획 중인 2030~4050 직장인. 06.03까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["연차 신청은 사내 시스템 또는 팀장 보고 후 진행", "6월 2~5일 중 원하는 날 1일 선택"]
 officialEligibilityQuiz: []

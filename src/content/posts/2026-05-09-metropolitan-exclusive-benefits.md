@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-175.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-175.png"
 tags: [서울복지, 경기복지, 수도권혜택, 청년수당, 안심소득, 경기청년기본소득, 지역복지, 특화혜택, 공공산후조리원, 청소년교통비]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 경기 거주 시민 전반. 12.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
 officialHowToApply: ["서울복지포털(welfare.seoul.go.kr) 온라인 신청", "경기도청 복지포털(gg.go.kr/welfare) 신청", "주민센터 방문 신청"]
 officialEligibilityQuiz: []

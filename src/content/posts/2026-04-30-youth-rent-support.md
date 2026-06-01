@@ -12,6 +12,7 @@ category: 정보
 image: https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop
 ogImage: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop"
 tags: [청년주거비, 월세지원, 청년혜택, 주거안정, 복지로, 청년주거지원]
+officialCurationNote: "이런 분께 강력 추천합니다: 부모님과 별도 거주하는 만 19세~34세 무주택 청년 중, 청년 가구 소득이 기준 중위…. 최대 20만원 혜택을 05.29까지 신청할 수 있으니, 자격 조건을 지금 바로 확인하고 놓치지 마세요."
 officialRequirements: ["월세지원 신청서 및 소득·재산 신고서","임대차계약서 사본 (확정일자 날인)","최근 3개월간 월세 이체 증빙 서류 (최근 계약 시 최소 1개월 이상)","월세 지급 통장 사본","신청인 및 배우자의 가족관계증명서 (상세)","부모 및 배우자 부모의 가족관계증명서 (상세)","서약서"]
 officialHowToApply: ["복지로(www.bokjiro.go.kr) 누리집을 통한 온라인 신청","거주지 관할 행정복지센터 방문 신청"]
 officialEligibilityQuiz: ["만 19세 이상 34세 이하의 독립 거주 무주택 청년이신가요?","청년 가구 소득이 기준 중위소득 60% 이하이신가요?","원가구 소득이 기준 중위소득 100% 이하이신가요?"]

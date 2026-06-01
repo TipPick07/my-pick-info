@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-전국빵지자랑-960.png
 ogImage: "https://tip-pick.com/images/blogs/festival-bread-festival-960.png"
 tags: [빵축제, 서울가볼만한곳, 가락몰, 빵지순례, 미식축제, 가정의달, 주말나들이, 송파구, 전국빵지자랑, 베이커리]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 수도권 거주 빵 마니아, 가족 나들이객, 미식 관심자. 05.10까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-종묘대제-719.png
 ogImage: "https://tip-pick.com/images/blogs/festival-jongmyo-jerye-719.png"
 tags: [서울축제, 종묘, 유네스코세계유산, 궁중문화, 5월행사, 전통문화, 가족나들이, 봄나들이, 종묘대제, 어가행렬]
+officialCurationNote: "이런 분께 강력 추천합니다: 전 연령층, 전통문화, 역사 관심자, 가족 나들이객, 외국인 관광객. 05.03까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

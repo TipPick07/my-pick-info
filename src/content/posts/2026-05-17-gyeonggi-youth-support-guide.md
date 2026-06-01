@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/fallback-benefit-1.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
 tags: [경기도청년지원금, 청년기본소득, 청년노동자지원, 경기도청년정책, 2026청년혜택, 잡아바, 경기도지원금]
+officialCurationNote: "이런 분께 강력 추천합니다: 경기도 거주 만 19~39세 청년. 11.30이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: ["경기도 주민등록 (기간 조건 사업별 상이)", "연령 요건 충족 (사업별 만 24세 또는 만 19~39세)", "고용·재직 증빙 (노동자 대상 사업)", "주민등록초본 또는 건강보험료 자격득실확인서"]
 officialHowToApply: ["경기도 일자리 플랫폼 잡아바(apply.jobaba.net) 접속", "해당 사업 공고 검색 후 신청서 작성", "필요 서류 업로드 (공공 마이데이터 동의 시 초본 자동 제출)", "심사 후 지역화폐 또는 복지포인트로 지급"]
 officialEligibilityQuiz: []

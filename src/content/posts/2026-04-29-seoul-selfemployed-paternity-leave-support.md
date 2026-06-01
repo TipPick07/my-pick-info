@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/korea-welfare-benefit-128.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-128.png"
 tags: [서울시, 1인 자영업자, 배우자 출산, 출산휴가, 육아 지원, 소득 보전, 특수형태근로종사자, 경제적 혜택, 복지로 신청, 중장년층 혜택]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울시에 거주하는 1인 자영업자 또는 특수형태근로종사자. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: ["사업자등록증 또는 특수형태근로종사자 입증 서류","주민등록등본 (서울시 거주 확인)","배우자 출산 증빙 서류 (출생증명서 등)","통장 사본"]
 officialHowToApply: ["복지로 웹사이트를 통한 온라인 신청 (신청 URL 참조)","필요 서류 준비 및 첨부파일 제출"]
 officialEligibilityQuiz: ["현재 서울시에 거주하는 1인 자영업자 또는 특수형태근로종사자이신가요?","배우자가 출산했거나 출산 예정으로 배우자 출산휴가를 사용할 계획이신가요?"]

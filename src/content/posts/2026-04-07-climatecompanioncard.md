@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/climate-companion-card-seoul-transportation-456.png?v=2
 ogImage: "https://tip-pick.com/images/blogs/climate-companion-card-seoul-transportation-456.png?v=2"
 tags: [기후동행카드, 서울대중교통, 무제한교통, 교통비절약, 따릉이, 서울시혜택, 수도권팁픽]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울시 대중교통 이용 시민. 2천원 혜택을 상시 신청할 수 있으며, 조건에 해당된다면 지금 바로 신청하세요."
 officialEligibilityQuiz: ["서울시 대중교통 이용 시민이신가요?"]
 officialRequirements: ["실물 카드: 편의점 구매 후 등록","모바일 카드: 안드로이드폰 전용 모바일 T-money 앱 설치 후 충전"]
 officialHowToApply: ["모바일: 안드로이드폰에서 모바일 T-money 앱 설치 → 기후동행카드 권종 선택 → 충전","실물: 편의점 구매 → 카드 등록 → 충전"]

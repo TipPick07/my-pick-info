@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-491.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-491.png"
 tags: [서울성북구, 건강보험료지원, 저소득층혜택, 노인장기요양보험료, 취약계층지원, 자동선정복지, 국민건강보험, 성북구복지, 65세이상, 등록장애인, 한부모가구, 만성질환자, 지역가입자]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울 성북구 거주 지역가입자 중 최저보험료 미만 세대 — 65세 이상 노인, 등록장애인…. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: ["별도 서류 불필요 (자동 선정 방식)"]
 officialHowToApply: ["신청 불필요 — 자격 요건 충족 시 자동 선정", "누락 의심 시 성북구 생활보장과 문의 (02-2241-2830)"]
 officialEligibilityQuiz: ["서울특별시 성북구에 거주하는 국민건강보험 지역가입자이신가요?", "건강보험료 부과금액이 최저보험료(22,340원) 미만이신가요?", "65세 이상 노인, 등록장애인, 한부모·조손가구, 만성질환자 가구 중 하나에 해당하시나요?"]

@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-한강서래섬피크닉콘서-645.png
 ogImage: "https://tip-pick.com/images/blogs/festival-한강서래섬피크닉콘서-645.png"
 tags: [한강드론라이트쇼, 드론라이트쇼, 한강불빛공연, 뚝섬한강공원, 서울야경, 무료축제, 서울봄축제, 가족나들이, 데이트코스, 서울야간행사]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 수도권 거주 시민, 가족, 커플, 나들이객. 06.05까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["사전 예약 없음, 현장 무료 관람", "공식 홈페이지(seouldroneshow.com)에서 일정 사전 확인 필수"]
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/korea-welfare-benefit-537.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-537.png"
 tags: [중장년, 50대, 경력전환, 재취업, 일경험, 직무교육, 멘토링, 정부지원, 상시신청, 수도권]
+officialCurationNote: "이런 분께 강력 추천합니다: 퇴직 후 경력전환을 위해 자격을 취득했거나 직업훈련을 이수한 50세 이상 중장년 및 고…. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["방문신청","직접입력"]
 officialEligibilityQuiz: ["만 50세 이상 중장년이신가요?","퇴직 후 경력전환을 위해 자격을 취득했거나 직업훈련을 이수하셨나요?"]

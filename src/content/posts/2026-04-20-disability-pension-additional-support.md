@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/korea-welfare-benefit-660.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-660.png"
 tags: [장애인연금, 중증장애인, 생계급여, 의료급여, 복지지원, 자동지급, 현금지원, 수도권복지]
+officialCurationNote: "이런 분께 강력 추천합니다: 생계, 의료 수급자 중 중증 장애인. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["별도 신청 불필요 (기존 연금 수급 대상자에게 자동 적용)"]
 officialEligibilityQuiz: ["생계급여 또는 의료급여 수급자이신가요?","보건복지부에서 정한 기준에 따른 중증 장애인이신가요?"]

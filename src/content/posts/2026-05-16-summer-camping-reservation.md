@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-2.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
 tags: [수도권캠핑, 여름캠핑장, 캠핑예약, 서울캠핑장, 경기캠핑장, 공공캠핑장, 가족캠핑, 글램핑, 여름나들이, 캠핑추천]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 인천, 경기 거주 캠핑족, 가족 단위 여름 캠퍼. 08.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["서울시공공예약시스템(yeyak.seoul.go.kr)", "NOL인터파크", "고캠핑(gocamping.or.kr)", "각 지자체 예약 시스템"]
 officialEligibilityQuiz: []

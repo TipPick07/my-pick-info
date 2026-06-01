@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/a-pastel-3d-illustration-depic-25.png
 ogImage: "https://tip-pick.com/images/blogs/a-pastel-3d-illustration-depic-25.png"
 tags: [의료비지원, 건강보험료경감, 의료급여, 저소득의료비, 차상위본인부담경감, 기초생활수급, 병원비지원, 수도권복지, 서울의료비, 인천복지, 경기복지, 지원금, 복지혜택, 2026복지, 의료복지]
+officialCurationNote: "이런 분께 강력 추천합니다: 저소득, 중저소득 수도권 거주 시민. 12.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: ["신분증", "건강보험료 납부 확인서 (필요 시)", "가족관계증명서 또는 주민등록등본", "소득·재산 확인 서류 (행정정보 공동이용 동의 시 생략 가능)"]
 officialHowToApply: ["복지로(www.bokjiro.go.kr) 온라인 신청", "주민등록상 주소지 관할 읍·면·동 행정복지센터 방문 신청", "보건복지상담센터 129 전화 문의", "의료급여의 경우 신청 후 30~60일 이내 결과 통보"]
 officialEligibilityQuiz: []

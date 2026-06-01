@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-4.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-4.png"
 tags: [한강피크닉, 여의도한강공원, 뚝섬한강공원, 반포한강공원, 망원한강공원, 한강공원추천, 서울피크닉명소, 한강그늘막, 한강배달, 서울여름나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울 수도권 거주 시민, 한강 피크닉 계획 중인 가족, 커플, 친구 모임. 08.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["공원 방문 후 원하는 자리에 돗자리·그늘막 설치 (별도 예약 없음)", "그늘막(텐트)은 지정 구역에서만 허용, 밀폐형 텐트 금지", "배달음식은 공원 내 배달존 픽업"]
 officialEligibilityQuiz: []

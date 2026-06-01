@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/korea-welfare-benefit-322.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-322.png"
 tags: [경기도, 청년, 기본소득, 지역화폐, 잡아바, 청년정책, 생활지원, 경기청년]
+officialCurationNote: "이런 분께 강력 추천합니다: 경기도 거주 만 24세 청년. 최대 100만원 혜택을 상시 신청할 수 있으며, 조건에 해당된다면 지금 바로 신청하세요."
 ---
 
 경기도에 사는 만 24세 청년이라면 분기마다 25만 원, 연간 최대 100만 원을 지역화폐로 받을 수 있다. 조건이 까다롭지도 않고, 신청 자체도 온라인으로 간단히 끝난다. 그런데도 신청하지 않고 넘어가는 청년이 꽤 많다. 분기 신청 기간을 놓쳐서다.

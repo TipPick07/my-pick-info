@@ -11,6 +11,7 @@ category: festival
 image: /images/blogs/fallback-festival-5.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-5.png"
 tags: [플리마켓, 핸드메이드마켓, 서울플리마켓, 홍대프리마켓, 서울숲마켓, 망원플리마켓, 수도권플리마켓, 6월마켓, 주말나들이, 아트마켓, 핸드메이드, 2026플리마켓]
+officialCurationNote: "이런 분께 강력 추천합니다: 해당 조건에 맞는 수도권 시민. 06.30까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["현장 방문 (대부분 무료 입장)", "일부 마켓은 기상 조건에 따라 취소 가능 — 각 마켓 SNS 사전 확인 권장"]
 officialEligibilityQuiz: []

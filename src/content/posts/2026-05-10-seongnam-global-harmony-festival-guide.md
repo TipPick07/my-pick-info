@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-fallback-지구촌어울림축제-736.png
 ogImage: "https://tip-pick.com/images/blogs/festival-seongnam-global-harmony-736.png"
 tags: [성남축제, 경기도축제, 가정의달행사, 세계문화체험, 무료공연, 가족나들이, 음식축제, 다문화축제, 어린이날행사, 성남시청]
+officialCurationNote: "이런 분께 강력 추천합니다: 경기 성남시 거주 가족, 어린이, 다문화 관심자, 수도권 주말 나들이객. 05.10까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

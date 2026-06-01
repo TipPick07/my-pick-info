@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-194.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-194.png"
 tags: [근로장려금, 자녀장려금, 장려금신청, 지원금, 국세청, 홈택스, 수도권지원금, 5월지원금, 육아지원, 생활비지원]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 저소득 근로자, 사업자 가구, 18세 미만 자녀가 있는 가정. 최대 330만원 혜택을 05.31까지 신청할 수 있으니, 자격 조건을 지금 바로 확인하고 놓치지 마세요."
 officialRequirements: []
 officialHowToApply: ["홈택스(hometax.go.kr) 접속 후 신청", "손택스 앱에서 모바일 신청", "ARS ☎1544-9944 전화 신청"]
 officialEligibilityQuiz: []

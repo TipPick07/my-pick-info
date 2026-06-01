@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-서울서커스페스티벌-588.png
 ogImage: "https://tip-pick.com/images/blogs/festival-seoul-circus-588.png"
 tags: [서울축제, 서커스페스티벌, 노들섬행사, 어린이공연, 가족나들이, 5월축제, 주말나들이, 어린이날, 무료행사, 한강공원]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 수도권 가족, 어린이 동반 나들이객, 어린이날 연휴 계획 중인 시민. 05.05까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-왕가의산책-842.png
 ogImage: "https://tip-pick.com/images/blogs/festival-왕가의산책-842.png"
 tags: [선거일, 선거일공휴일, 당일치기, 수도권나들이, 투표후나들이, 6월나들이, 가족나들이, 수도권여행, 지방선거, 선거공휴일]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 유권자. 06.03까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["투표 후 나들이 명소 방문", "대중교통 또는 자가용 이동"]
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-4.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-4.png"
 tags: [선거공휴일나들이, 6월3일선거, 투표후나들이, 수도권명소, 선거공휴일, 6월수도권나들이, 서울나들이, 경기나들이, 인천나들이, 당일치기, 가족나들이, 2026지방선거]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 유권자 및 가족 나들이객. 06.03까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

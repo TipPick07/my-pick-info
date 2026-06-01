@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/fallback-benefit-1.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
 tags: [지방선거혜택, 수도권복지공약, 2026지방선거, 청년지원금, 육아지원, 청년주거, 노인복지, 교통비지원, 6월3일선거, 선거공약, 지원금확대, 수도권생활]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 시민, 청년, 신혼부부, 육아가정, 노년층. 06.03이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
 officialHowToApply: ["6월 3일 투표 참여", "지방선거 이후 각 지자체 공식 홈페이지에서 신청 일정 확인"]
 officialEligibilityQuiz: []

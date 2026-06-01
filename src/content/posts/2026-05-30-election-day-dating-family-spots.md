@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-과천재즈피크닉-294.png
 ogImage: "https://tip-pick.com/images/blogs/festival-과천재즈피크닉-294.png"
 tags: [선거일나들이, 6월3일공휴일, 황금연휴, 수도권나들이, 서울데이트, 가족나들이, 투표후나들이, 선거일여행, 수도권축제, 주말나들이, 6월나들이, 데이트코스]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 커플, 가족. 06.03까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["6월 3일 오전 투표 완료", "투표 인증 할인 챙기기", "코스별 사전 예약 여부 확인 후 출발"]
 officialEligibilityQuiz: []

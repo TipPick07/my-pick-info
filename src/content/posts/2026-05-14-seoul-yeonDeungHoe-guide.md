@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-덕수궁밤의석조전-344.png
 ogImage: "https://tip-pick.com/images/blogs/festival-덕수궁밤의석조전-344.png"
 tags: [연등회, 서울축제, 5월축제, 가족나들이, 무료체험, 유네스코, 전통문화, 종로축제, 봄밤나들이, 부처님오신날]
+officialCurationNote: "이런 분께 강력 추천합니다: 전 연령, 가족 단위, 외국인 방문객. 05.17까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

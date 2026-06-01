@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-DDP루프탑투어-482.png
 ogImage: "https://tip-pick.com/images/blogs/festival-DDP루프탑투어-482.png"
 tags: [서울드럼페스티벌, DDP, 동대문디자인플라자, 서울축제, 무료공연, 주말나들이, 서울행사, 타악축제, 서울여행, 주말축제]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 수도권 시민, 음악 애호가, 주말 나들이객, 가족. 05.16까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["seouldrumfestival.com 또는 네이버 예약에서 워크숍 사전 예약", "예약금 1,000원 결제 후 현장 체크인 (당일 현장 환불)"]
 officialEligibilityQuiz: []

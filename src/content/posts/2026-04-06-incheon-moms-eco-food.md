@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/incheon-moms-eco-food.png
 ogImage: "https://tip-pick.com/images/blogs/incheon-moms-eco-food.png"
 tags: [인천임산부, 친환경농산물, 임산부혜택, 인천복지, 임산부지원금, 유기농꾸러미, 인천출산지원, 무농약농산물, 태교지원, 인천시지원]
+officialCurationNote: "이런 분께 강력 추천합니다: 인천 거주 임산부 전체. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: ["임신확인서 또는 산모수첩 (임신 사실 증명 서류)"]
 officialHowToApply: ["인천시 공식 홈페이지(incheon.go.kr) 공지사항에서 신청 링크 확인 후 온라인 신청", "관할 주민센터 방문 신청 (지역별 신청 방법 상이)"]
 officialEligibilityQuiz: ["현재 인천시에 주민등록이 되어 있는 임산부이신가요?", "임신 사실을 증명할 서류(산모수첩 또는 임신확인서)를 준비할 수 있나요?"]

@@ -7,6 +7,7 @@ description: "2026년 수도권 청년이라면 꼭 알아야 할 지원금을 �
 image: /images/blogs/korea-welfare-benefit-145.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-145.png"
 tags: ["청년지원금", "수도권청년", "서울청년수당", "경기청년기본소득", "월세지원", "취업지원금", "청년혜택", "2026지원금"]
+officialCurationNote: "이런 분께 강력 추천합니다: 해당 조건에 맞는 수도권 시민. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 summary: "서울 청년수당, 경기 청년기본소득, 청년 월세지원까지 — 2026년 수도권 청년이라면 꼭 챙겨야 할 지원금 총정리."
 ---
 

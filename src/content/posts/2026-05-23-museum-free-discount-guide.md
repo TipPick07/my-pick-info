@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-국립박물관문화재단인-521.png
 ogImage: "https://tip-pick.com/images/blogs/festival-국립박물관문화재단인-521.png"
 tags: [박물관무료입장, 미술관무료, 국립중앙박물관, 국립현대미술관, 서울시립미술관, 문화가있는날, 수도권박물관, 무료문화생활, 수도권무료나들이, KB무료관람, 서울역사박물관, 서서울미술관]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 문화생활 관심 시민, 가족 나들이 계획자, 무료 문화생활 찾는 분. 12.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["해당 시설 홈페이지 또는 현장 방문", "문화가 있는 날(매주 수요일) 활용", "KB스타뱅킹 국민지갑 앱 활용 시 추가 혜택 가능"]
 officialEligibilityQuiz: []

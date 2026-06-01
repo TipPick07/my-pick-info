@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/fallback-benefit-1.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
 tags: [무더위쉼터, 폭염대피소, 수도권무더위쉼터, 서울무더위쉼터, 경기무더위쉼터, 폭염대책, 안전디딤돌앱, 국민재난안전포털, 폭염특보, 이동노동자쉼터, 여름지원, 무료시설]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 전 시민. 09.30이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
 officialHowToApply: ["국민재난안전포털(safekorea.go.kr) → 무더위쉼터 메뉴에서 지역별 검색", "스마트폰 앱 '안전디딤돌' 설치 → 현 위치 기반 가장 가까운 쉼터 실시간 확인", "각 시·군·구청 홈페이지 → 재난안전 카테고리에서 지역 내 쉼터 목록 확인"]
 officialEligibilityQuiz: []

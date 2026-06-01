@@ -11,6 +11,7 @@ category: festival
 image: /images/blogs/festival-문화가흐르는서울광장-517.png
 ogImage: "https://tip-pick.com/images/blogs/festival-문화가흐르는서울광장-517.png"
 tags: [무료야외공연, 서울공연, 6월공연, 서울광장공연, 한강공연, 강변음악회, 드론라이트쇼, 남산골한옥마을, 야외공연달력, 수도권무료문화행사, 서울시향, 무료콘서트]
+officialCurationNote: "이런 분께 강력 추천합니다: 해당 조건에 맞는 수도권 시민. 06.30까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["별도 예약 없이 현장 방문 관람 가능 (일부 공연 사전 신청 필요)", "서울문화포털(culture.seoul.go.kr)에서 최신 일정 확인"]
 officialEligibilityQuiz: []

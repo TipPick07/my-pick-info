@@ -11,6 +11,7 @@ category: festival
 image: /images/blogs/festival-고양행주문화제-145.png
 ogImage: ""
 tags: [수도권가족축제, 아이와가볼만한곳, 주말나들이, 무료체험, 여름축제]
+officialCurationNote: "이런 분께 강력 추천합니다: 해당 조건에 맞는 수도권 시민. 06.13~2026.06.14까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/fallback-benefit-2.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-2.png"
 tags: [청년미래적금, 청년도약계좌, 청년도약계좌갈아타기, 청년미래적금신청, 청년미래적금조건, 청년정책금융, 청년지원금, 청년자산형성, 정부기여금, 비과세적금, 2026청년혜택, 수도권청년]
+officialCurationNote: "이런 분께 강력 추천합니다: 만 19~34세 소득 있는 청년. 06.30이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: ["만 19~34세 (병역 이행 시 최대 37세까지)", "연 소득 7,500만원 이하 (소득 있는 청년)", "청년도약계좌·청년내일저축계좌·청년희망적금 미보유자"]
 officialHowToApply: ["6월 출시 후 취급 은행 앱 접속", "비대면 신청 (소득 자동 심사, 서류 제출 불필요)", "심사 완료 후 납입 시작"]
 officialEligibilityQuiz: []

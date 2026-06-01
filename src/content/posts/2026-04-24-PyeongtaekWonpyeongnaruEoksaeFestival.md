@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-2.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
 tags: [평택축제, 억새축제, 가을축제, 평택가볼만한곳, 주말나들이, 노을생태문화공원, 군문교, 수도권축제, 인생샷명소, 가족나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 경기, 수도권 거주 가족, 커플, 나들이객, 가을 사진 즐기는 시민. 10.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

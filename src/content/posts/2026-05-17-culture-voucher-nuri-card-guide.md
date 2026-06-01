@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/fallback-benefit-2.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-2.png"
 tags: [문화누리카드, 통합문화이용권, 2026문화누리카드, 기초생활수급자혜택, 차상위계층지원, 문화누리카드사용처, 문화바우처]
+officialCurationNote: "이런 분께 강력 추천합니다: 기초생활수급자 및 차상위계층 , 수도권 거주 저소득 가구. 11.30이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: ["기초생활수급자 또는 차상위계층 자격 유지", "만 6세 이상", "신규 발급 시 주민센터 방문 또는 온라인(mnuri.kr) 신청", "자동재충전 해당자: 2025년 3만 원 이상 사용 이력"]
 officialHowToApply: ["온라인 신청: www.mnuri.kr 접속 → 신규 발급 신청", "모바일 앱 '문화누리카드' 다운로드 후 신청", "가까운 주민센터 방문 신청 (즉시 발급 가능)", "ARS 전화 신청: 1544-3412"]
 officialEligibilityQuiz: []

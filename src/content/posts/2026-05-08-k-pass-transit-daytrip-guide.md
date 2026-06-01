@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/climate-companion-card-seoul-transportation-456.png
 ogImage: "https://tip-pick.com/images/blogs/climate-companion-card-seoul-transportation-456.png"
 tags: [K패스, 기후동행카드, 인천e음카드, 교통비절약, 수도권나들이, 대중교통환급, 지역화폐, 나들이꿀팁, 주말여행, 4060]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 직장인, 4060세대, 육아가정, 나들이족. 12.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
 officialHowToApply: ["K-패스: k-pass.kr 앱 또는 카드사 홈페이지 신청 후 회원 등록 필수", "기후동행카드: 서울 지하철 역 무인 발급기 또는 앱에서 충전", "인천e음카드: 인천시 공식 앱 '인천e음'에서 발급"]
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-293030-499.png
 ogImage: "https://tip-pick.com/images/blogs/festival-293030-499.png"
 tags: [6월행사, 무료행사, 가족나들이, 서울행사, 경기행사, 어린이체험, 주말나들이, 여름행사]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 가족. 06.30까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["현장 자유 방문", "일부 프로그램 사전 예약 필요 (각 공식 사이트 확인)"]
 officialEligibilityQuiz: []

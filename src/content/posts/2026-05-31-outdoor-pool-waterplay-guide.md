@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-한강서래섬피크닉콘서-587.png
 ogImage: "https://tip-pick.com/images/blogs/festival-한강서래섬피크닉콘서-587.png"
 tags: [수도권야외수영장, 한강수영장, 물놀이장, 2026개장일, 뚝섬수영장, 여의도수영장, 잠원수영장, 잠실물놀이장, 인천물놀이, 경기물놀이, 가족나들이, 여름나들이, 수도권여름, 무료물놀이, 주말나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 가족, 커플, 개인. 08.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["한강 수영장·물놀이장: 현장 방문 후 현장 매표 (사전예약 없음)", "인천·경기 공공 물놀이장: 대부분 무료 개방, 지자체 공식 홈페이지 개장일 확인 필수"]
 officialEligibilityQuiz: []

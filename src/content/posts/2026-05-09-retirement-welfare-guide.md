@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-191.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-191.png"
 tags: [노후복지, 건강보험료경감, 노인일자리, 기초연금, 은퇴지원, 장기요양보험, 60대혜택, 수도권복지, 임의계속가입, 피부양자등록]
+officialCurationNote: "이런 분께 강력 추천합니다: 만 60세 이상 수도권 거주 은퇴자 및 은퇴 준비자. 12.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
 officialHowToApply: ["국민건강보험공단 지사 방문 또는 ☎1577-1000 전화 신청", "기초연금: 복지로(bokjiro.go.kr) 또는 주민센터 신청", "노인 일자리: seniorro.or.kr 또는 주민센터 신청"]
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-174.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-174.png"
 tags: [지원금, 마감임박, 근로장려금, 자녀장려금, 서울복지, 경기복지, 5월혜택, 복지신청]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 근로자, 청년, 저소득 가구. 05.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
 officialHowToApply: ["국세청 홈택스(손택스) 접속 후 장려금 신청", "복지로(bokjiro.go.kr) 온라인 신청", "주민센터 방문 신청"]
 officialEligibilityQuiz: []

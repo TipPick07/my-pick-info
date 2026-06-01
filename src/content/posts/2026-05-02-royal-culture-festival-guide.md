@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-1.png
 ogImage: "https://tip-pick.com/images/og-default.png"
 tags: [궁중문화축전, 궁중문화축전2026, 서울궁궐행사, 경복궁축제, 황금연휴서울, 서울무료행사, 어린이날나들이, 가족나들이, 궁궐데이트, 서울문화행사]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 수도권 가족, 커플, 외국인 관광객, 어린이날 연휴 나들이객. 05.03까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

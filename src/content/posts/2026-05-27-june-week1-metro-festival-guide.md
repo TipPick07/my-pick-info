@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-한강서래섬피크닉콘서-645.png
 ogImage: "https://tip-pick.com/images/blogs/festival-한강서래섬피크닉콘서-645.png"
 tags: [수도권축제, 6월축제, 주말나들이, 서울축제, 가족나들이, 커플나들이, 뷰티풀민트라이프, 서울가든페스티벌, 잠수교축제, 성북세계음식축제, 주말행사, 6월첫째주]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 가족, 커플, 친구 모임. 06.07까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["현장 방문", "일부 행사 사전 예매 필요"]
 officialEligibilityQuiz: []

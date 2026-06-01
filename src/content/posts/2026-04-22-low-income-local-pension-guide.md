@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/korea-welfare-benefit-360.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-360.png"
 tags: [국민연금, 지역가입자, 보험료지원, 저소득층, 생활비절약, 정부지원, 연금혜택, 방문신청, 1355, 복지혜택]
+officialCurationNote: "이런 분께 강력 추천합니다: 기준소득월액 80만원 미만, 재산세 과세표준 합이 6억원 미만, 사업 및 근로소득을 제…. 80만원 혜택을 상시 신청할 수 있으며, 조건에 해당된다면 지금 바로 신청하세요."
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["방문신청"]
 officialEligibilityQuiz: ["국민연금 지역가입자이신가요?","기준소득월액이 80만원 미만이신가요?","재산세 과세표준의 합이 6억원 미만이신가요?"]

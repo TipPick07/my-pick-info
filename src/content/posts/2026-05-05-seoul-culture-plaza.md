@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-문화가흐르는서울광장-517.png
 ogImage: "https://tip-pick.com/images/blogs/festival-문화가흐르는서울광장-517.png"
 tags: [서울광장, 무료공연, 서울가볼만한곳, 주말나들이, 문화생활, 도심공연, 가족행사, 서울시청]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울 시민 및 서울 방문객 전 연령. 12.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

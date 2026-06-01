@@ -12,6 +12,7 @@ category: benefits
 image: /images/blogs/a-group-of-happy-elderly-peopl-375.png
 ogImage: "https://tip-pick.com/images/blogs/a-group-of-happy-elderly-peopl-375.png"
 tags: [중장년지원금, 50플러스, 베이비부머, 4060복지, 중장년일자리, 재취업지원, 서울복지, 인천복지, 경기복지, 은퇴준비]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 40~60대, 은퇴 준비 중장년, 재취업 희망자. 12.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
 officialHowToApply: ["서울: 50플러스 포털(50plus.or.kr) 회원가입 후 프로그램 신청", "인천: 인천고령사회대응센터 방문 또는 전화 상담", "경기: 경기도일자리재단 홈페이지(jobaba.net) 신청"]
 officialEligibilityQuiz: []

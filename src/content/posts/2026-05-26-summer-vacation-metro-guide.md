@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-포천한탄강가든페스타-57.png
 ogImage: "https://tip-pick.com/images/blogs/festival-포천한탄강가든페스타-57.png"
 tags: [여름휴가, 수도권여름휴가, 당일치기여행, 1박2일여행, 여름여행지추천, 가평여행, 양평여행, 강릉여행, 속초여행, 강화도여행, 춘천여행, 단양여행, 수도권근교여행, 국내여름여행, 여름휴가코스]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 가족, 커플, 직장인. 08.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

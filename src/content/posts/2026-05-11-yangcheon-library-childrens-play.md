@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-양천중앙도서관북스타-577.png
 ogImage: "https://tip-pick.com/images/blogs/festival-양천중앙도서관북스타-577.png"
 tags: [서울무료행사, 어린이공연, 가족나들이, 5월축제, 양천구, 도서관공연, 마당극, 어린이날행사]
+officialCurationNote: "이런 분께 강력 추천합니다: 미취학 및 초등 저학년 자녀를 둔 가족. 05.16까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

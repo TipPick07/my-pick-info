@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-이모셔널데미지락페스-325.png
 ogImage: "https://tip-pick.com/images/blogs/festival-seoul-jazz-2026.png"
 tags: [서울재즈페스티벌, 서재페2026, 올림픽공원, 허비행콕, 자넬모네, 존바티스트, 혁오, 축제, 서울축제, 5월축제]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 수도권 음악 페스티벌 관심자, 공연 나들이 계획 중인 가족, 커플, 친구. 05.24까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["멜론티켓 앱 또는 PC에서 예매", "금요일(5/22) 1일권 잔여 수시 확인 권장"]
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-제104회어린이날기-680.png
 ogImage: "https://tip-pick.com/images/blogs/festival-제104회어린이날기-680.png"
 tags: [어린이날, 서울중구, 도심행사, 가족행사, 어린이날기념행사, 무료행사, 서울나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 어린이를 동반한 가족, 전 연령. 05.04까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

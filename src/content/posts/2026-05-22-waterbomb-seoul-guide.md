@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-이모셔널데미지락페스-389.png
 ogImage: "https://tip-pick.com/images/blogs/festival-이모셔널데미지락페스-389.png"
 tags: [워터밤, 워터밤서울2026, 워터밤서울, 킨텍스, 여름페스티벌, 뮤직페스티벌, 박재범, 비비, 카리나, 이영지, 여름축제수도권, 워터밤티켓]
+officialCurationNote: "이런 분께 강력 추천합니다: 20대 이상 음악 페스티벌 매니아, 여름 이벤트 탐색자. 07.26까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["멜론티켓·티켓링크·네이버·29CM·퀸즈스마일 등 공식 예매처에서 날짜 선택 후 구매", "예매 시 정확한 휴대전화 번호 입력 필수 (QR티켓 발송)", "입장 시 신분증 지참 필수 (19세 미만 입장 불가)"]
 officialEligibilityQuiz: []

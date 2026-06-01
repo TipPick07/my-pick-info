@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/fallback-benefit-2.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-2.png"
 tags: [행복주택, 청년전세임대, 청년주거지원, 신혼부부주거, 수도권공공임대, LH청약, SH청약, 청년월세지원, 서울주거지원, 경기주거지원, 공공임대신청방법, 무주택청년]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 만 19~39세 청년, 혼인 7년 이내 신혼부부, 무주택 가구. 12.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: ["무주택자 요건 충족", "소득 기준 충족 (중위소득 100% 이하, 유형별 상이)", "자산 기준 충족 (총자산 3억 4,500만 원 이하)", "LH청약플러스(apply.lh.or.kr) 회원가입"]
 officialHowToApply: ["마이홈(myhome.go.kr) 또는 LH청약플러스(apply.lh.or.kr)에서 공고 확인", "소득·자산·자격 요건 사전 점검", "공고 기간 내 인터넷 청약 신청", "서류 제출 및 자격 심사 완료 후 입주"]
 officialEligibilityQuiz: []

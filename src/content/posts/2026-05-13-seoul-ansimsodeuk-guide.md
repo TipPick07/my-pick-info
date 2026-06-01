@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-656.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-656.png"
 tags: [서울안심소득, 디딤돌소득, 서울복지, 저소득지원금, 2026지원금, 서울시지원금, 복지사각지대, 하후상박, 가족돌봄청년, 소득보장]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울 거주 저소득 가구, 가족돌봄청년, 저소득 한부모, 복지 사각지대 가구. 85% 혜택을 12.31까지 신청할 수 있으니, 자격 조건을 지금 바로 확인하고 놓치지 마세요."
 officialRequirements: ["서울시 주민등록 거주", "가구소득 중위소득 50% 이하", "재산 3억 2,600만 원 이하", "국민기초생활보장 비수급자"]
 officialHowToApply: ["서울복지포털(wis.seoul.go.kr) 온라인 신청", "예비 선정 후 동주민센터 방문 서류 제출"]
 officialEligibilityQuiz: []

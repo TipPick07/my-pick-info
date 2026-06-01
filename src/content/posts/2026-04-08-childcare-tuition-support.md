@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/korea-welfare-benefit-279.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-279.png"
 tags: [유아학비, 누리과정, 유치원비지원, 육아지원, 교육비, 보육료, 아이행복카드, 복지로, 수도권팁픽, 자녀교육]
+officialCurationNote: "이런 분께 강력 추천합니다: 국공립 및 사립유치원에 다니는 만 3~5세 아동 및 법정저소득층 유아. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: ["사회보장급여 신청(변경)서","신청인 신분증","유아학비 지원 대상 아동 명의의 아이행복카드"]
 officialHowToApply: ["복지로 홈페이지 또는 거주지 읍면동 주민센터 방문","서비스 신청 및 아이행복카드 발급","유치원 입학 후 카드로 결제"]
 officialEligibilityQuiz: ["아이의 연령이 만 3세~5세 사이인가요?","국공립 또는 사립 유치원에 재원 중이거나 입학 예정인가요?"]

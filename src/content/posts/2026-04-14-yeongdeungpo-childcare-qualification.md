@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/korea-welfare-benefit-582.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-582.png"
 tags: [영등포구, 중장년, 어르신, 국가자격증, 응시료지원, 취업지원, 역량강화, 수도권팁픽]
+officialCurationNote: "이런 분께 강력 추천합니다: 신청일 기준 영등포구에 1개월 이상 거주하는 만 40세 이상 미취업자 및 사업자등록 사…. 최대 10만원 혜택을 상시 신청할 수 있으며, 조건에 해당된다면 지금 바로 신청하세요."
 officialRequirements: ["신청서","주민등록표 등본 (영등포구 거주기간 확인)","건강보험자격득실확인서 (미취업 및 사업자등록 사실 없음 확인)","국가자격시험 응시 확인 서류 및 결제 영수증"]
 officialHowToApply: ["온라인 신청 (정부24 또는 영등포구청 홈페이지)","방문 신청 (영등포구청 일자리경제과)"]
 officialEligibilityQuiz: ["만 40세 이상이신가요?","신청일 기준 영등포구에 1개월 이상 주민등록을 하고 계신가요?","현재 미취업 상태이거나 사업자등록 사실이 없으신가요?","당해연도 국가자격시험에 응시하신 사실이 있으신가요?"]

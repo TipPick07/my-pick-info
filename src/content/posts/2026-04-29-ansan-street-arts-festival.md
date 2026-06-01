@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-안산국제거리극축제-769.png
 ogImage: "https://tip-pick.com/images/blogs/festival-ansan-street-arts-769.png"
 tags: [안산축제, 거리예술축제, 5월축제, 가족나들이, 주말가볼만한곳, 안산문화광장, 황금연휴, 거리극, 무료공연, 경기축제]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권, 경기 거주 가족, 나들이객, 거리예술, 공연 관심자, 황금연휴 나들이 계획 중…. 05.03까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

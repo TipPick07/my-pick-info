@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-172.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-172.png"
 tags: [근로소득지원, 저소득층혜택, 가정의달지원, 소득세환급, 생활안정자금]
+officialCurationNote: "이런 분께 강력 추천합니다: 2025년 근로, 사업, 종교인 소득이 발생한 저소득 가구. 최대 330만원 혜택을 06.01까지 신청할 수 있으니, 자격 조건을 지금 바로 확인하고 놓치지 마세요."
 officialRequirements: ["2025년 귀속 소득 자료","2025년 6월 1일 기준 가구원 재산 자료"]
 officialHowToApply: ["신청 안내문 수령 시: 모바일 안내문의 '신청하기' 또는 ARS(1544-9944) 이용","안내문 미수령 시: 홈택스(PC/모바일)를 통해 직접 신청","신청 어려울 시: 장려금 상담센터(1566-3636)에 신청 대리 서비스 요청"]
 officialEligibilityQuiz: ["2025년에 근로·사업·종교인 소득이 있었나요?","2025년 6월 1일 기준, 가구원 전체 재산 합계액이 2억 4천만원 미만인가요?","가구 유형(단독/홑벌이/맞벌이)에 따른 2025년 총소득 기준을 충족하나요?"]

@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-한강페스티벌-817.png
 ogImage: "https://tip-pick.com/images/blogs/festival-한강페스티벌-817.png"
 tags: [계곡, 워터파크, 여름물놀이, 캐리비안베이, 가평계곡, 포천계곡, 양평계곡, 수도권여름, 서울근교물놀이, 가족나들이, 계곡추천, 워터파크비교]
+officialCurationNote: "이런 분께 강력 추천합니다: 여름 물놀이를 계획하는 수도권 가족, 커플, 친구 그룹. 08.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["워터파크는 공식 홈페이지 또는 네이버 예약에서 사전 구매 시 할인 가능", "계곡은 별도 예약 없이 당일 방문 가능 (성수기 주말은 오전 일찍 출발 필수)"]
 officialEligibilityQuiz: []

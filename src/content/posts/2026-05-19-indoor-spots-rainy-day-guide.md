@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-1.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
 tags: [장마철실내나들이, 비오는날명소, 수도권실내명소, 서울실내관광, 경기실내명소, 인천실내명소, 가족나들이실내, 무료실내관광, 국립중앙박물관, 과천과학관, 아쿠아플라넷일산, 별마당도서관]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 가족, 커플, 뚜벅이 여행자. 12.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

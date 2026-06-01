@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-두릅산나물축제-732.png
 ogImage: "https://tip-pick.com/images/blogs/festival-두릅산나물축제-732.png"
 tags: [나들이, 장마전나들이, 수도권여행, 6월여행, 수국명소, 가족나들이, 서울근교여행, 아침고요수목원, 하늘공원, 벽초지수목원]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 시민, 가족 나들이 계획 중인 분. 06.24까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["방문 전 날씨 확인 필수", "주말 방문 시 오전 10시 이전 도착 권장"]
 officialEligibilityQuiz: []

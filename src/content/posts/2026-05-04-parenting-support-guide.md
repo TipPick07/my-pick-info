@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-152.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-152.png"
 tags: [육아지원금, 부모급여, 아동수당, 수도권육아, 출산지원금, 아이돌봄, 경기도육아, 서울육아, 첫만남이용권, 양육수당]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 0~9세 자녀를 둔 육아가정, 맞벌이 가정, 한부모 가정. 최대 100만원 혜택을 상시 신청할 수 있으며, 조건에 해당된다면 지금 바로 신청하세요."
 officialRequirements: ["출생신고 완료", "주민등록상 수도권 거주", "아이돌봄서비스는 맞벌이·한부모·다자녀 가정 확인서"]
 officialHowToApply: ["행복출산 원스톱(gov.kr)에서 부모급여·아동수당·첫만남이용권 동시 신청", "아이돌봄서비스: idolbom.go.kr에서 사전 신청", "지자체 자체 지원금: 거주 구청·시청 복지 부서 문의"]
 officialEligibilityQuiz: ["0~23개월 자녀가 있으신가요? (부모급여 대상)", "만 9세 미만 자녀가 있으신가요? (아동수당 대상)", "맞벌이 또는 한부모 가정이신가요? (아이돌봄서비스 우선 지원)"]

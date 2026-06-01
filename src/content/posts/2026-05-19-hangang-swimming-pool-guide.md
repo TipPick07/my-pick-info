@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-2.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
 tags: [한강수영장, 한강물놀이장, 뚝섬수영장, 여의도수영장, 잠실물놀이장, 광나루물놀이장, 한강개장일, 한강수영장요금, 한강수영장할인, 여름나들이서울, 가족물놀이, 한강야간수영]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울 거주 시민, 수도권 당일 나들이 가족, 커플. 08.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["현장 매표소에서 당일 구매 (온라인 사전 예약 없음)", "할인 대상자는 다둥이행복카드·의료보험증·신분증 등 증빙서류 지참 필수", "방문 전 미래한강본부(hangang.seoul.go.kr) 또는 서울시 앱에서 운영 중단 여부 확인 권장"]
 officialEligibilityQuiz: []

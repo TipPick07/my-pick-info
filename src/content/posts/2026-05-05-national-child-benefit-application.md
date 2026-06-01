@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-156.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-156.png"
 tags: [자녀장려금, 양육지원, 가족지원, 국세청혜택, 가정의달지원금, 홈택스신청, 저소득육아, 부양자녀, 소득공제]
+officialCurationNote: "이런 분께 강력 추천합니다: 2025년 귀속 근로, 사업, 종교인 소득이 있고, 18세 미만 부양자녀를 둔 홑벌이 …. 최대 100만원 혜택을 06.01까지 신청할 수 있으니, 자격 조건을 지금 바로 확인하고 놓치지 마세요."
 officialRequirements: ["2025년 귀속 근로·사업·종교인 소득 자료", "2025년 6월 1일 기준 가구원 재산 자료"]
 officialHowToApply: ["ARS 전화신청 (1544-9944)", "홈택스 (hometax.go.kr) 모바일 또는 PC 신청", "모바일 안내문 QR코드 스캔 후 신청하기", "장려금 상담센터 (1566-3636) 상담사 도움 신청"]
 officialEligibilityQuiz: ["2025년에 근로·사업·종교인 소득이 있었나요?", "18세 미만의 부양자녀가 있나요?", "2025년 부부합산 총소득이 7천만원 미만인가요?", "2025년 6월 1일 기준 가구원 전체 재산합계액이 2.4억원 미만인가요?"]

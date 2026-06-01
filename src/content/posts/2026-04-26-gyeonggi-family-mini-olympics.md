@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-1.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
 tags: [경기축제, 성남탄천종합운동장, 꼬마영웅올림픽, 어린이미니올림픽, 11월축제, 가족나들이, 주말가볼만한곳, 성남축제, 어린이행사, 탄천]
+officialCurationNote: "이런 분께 강력 추천합니다: 경기 성남, 분당 거주 어린이 동반 가족, 수도권 가을 나들이객. 11.30까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

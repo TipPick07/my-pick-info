@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-1.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
 tags: [서울가든페스티벌, 서울숲공연, 이무진, 멜로망스, 10CM, 이날치, 서울무료공연, 서울숲축제, 서울국제정원박람회, 성동구]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 수도권 거주 시민, 나들이, 공연 관심 가족, 커플, 직장인. 06.07까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["서울시 공공서비스예약(yeyak.seoul.go.kr) 접속", "2026 서울가든페스티벌 검색 후 원하는 날짜 선택", "인원 선택 후 예약 완료 (선착순 마감)"]
 officialEligibilityQuiz: []

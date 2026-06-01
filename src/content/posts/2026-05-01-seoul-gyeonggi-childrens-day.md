@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-1.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
 tags: [서울어린이날, 경기어린이날, 어린이날행사, 스타워즈드론쇼, 에버랜드어린이날, 서울서커스페스티벌, 황금연휴, 어린이날2026, 수도권어린이날, 어린이날가볼만한곳]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 경기 거주 어린이 동반 가족, 어린이날 연휴 나들이 계획 중인 시민. 05.05까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-한강페스티벌-817.png
 ogImage: "https://tip-pick.com/images/blogs/festival-hangang-festival-817.png"
 tags: [서울축제, 이촌한강공원, 가족나들이, 5월축제, 봄나들이, 어린이날행사, 주말나들이, 무료행사, 한강공원, 용산구]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 수도권 가족, 커플, 나들이객, 어린이날 연휴 나들이 계획 중인 시민. 05.10까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

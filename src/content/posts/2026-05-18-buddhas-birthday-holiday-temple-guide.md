@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-2.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-2.png"
 tags: [부처님오신날, 대체공휴일, 5월연휴, 수도권사찰, 조계사, 봉은사, 진관사, 수종사, 봉선사, 전등사, 사찰나들이, 템플스테이, 석가탄신일연휴]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 시민, 가족 나들이, 힐링 여행 계획자. 05.25까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["각 사찰 공식 홈페이지 또는 한국불교문화사업단(templestay.com)에서 템플스테이 사전 예약", "연등 만들기 등 체험 프로그램은 사전 신청 필수 (조기 마감 주의)"]
 officialEligibilityQuiz: []

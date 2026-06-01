@@ -8,6 +8,7 @@ summary: "5월 수도권 축제·나들이 명소 완벽 총정리. 어린이날
 image: /images/blogs/festival-서울스프링페스티벌-567.png
 ogImage: "https://tip-pick.com/images/blogs/festival-서울스프링페스티벌-567.png"
 tags: ["5월축제", "수도권나들이", "어린이날", "주말나들이", "서울축제", "경기축제", "인천축제", "가족나들이"]
+officialCurationNote: "이런 분께 강력 추천합니다: 해당 조건에 맞는 수도권 시민. 자세한 일정·장소·프로그램을 미리 확인해 가장 알찬 나들이를 계획해보세요."
 ---
 
 ## 5월 수도권, 어디 갈지 고민된다면 여기서 끝내세요

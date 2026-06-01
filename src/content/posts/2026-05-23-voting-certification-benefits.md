@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-329.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-329.png"
 tags: [투표인증혜택, 6월3일선거, 2026지방선거, 사전투표, 투표할인, 투표혜택, 놀이공원할인, 선거혜택, 수도권선거, 6·3선거혜택, 투표인증, 지방선거할인]
+officialCurationNote: "이런 분께 강력 추천합니다: 2026 지방선거 유권자. 06.03이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
 officialHowToApply: ["사전투표 또는 본투표 참여 후 투표 인증(도장 찍힌 손 사진 등)", "매장 방문 시 인증 사진 또는 투표 확인서 제시", "업체별 이벤트 페이지 사전 확인 필수"]
 officialEligibilityQuiz: []

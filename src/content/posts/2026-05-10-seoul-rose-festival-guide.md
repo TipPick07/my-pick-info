@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-서울일러스트레이션페-105.png
 ogImage: "https://tip-pick.com/images/blogs/festival-seoul-rose-105.png"
 tags: [장미축제, 중랑장미축제, 부천장미축제, 수도권축제, 5월축제, 무료축제, 장미터널, 가족나들이, 데이트코스, 수도권나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 가족, 커플, 나들이족. 06.07까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["중랑장미공원 직접 방문 (7호선 먹골역 7번 출구 도보 5분)", "부천 도당공원 직접 방문 (7호선 까치울역에서 버스 환승)"]
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/korea-welfare-benefit-983.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-983.png"
 tags: [중소기업, 퇴직연금, 푸른씨앗, 사업주지원, 근로자지원, 노후준비, 복지혜택, 고용안정, 정부지원]
+officialCurationNote: "이런 분께 강력 추천합니다: 중소기업퇴직연금기금제도에 가입한 상시근로자수 30명 이하 사업주 및 근로자. 273만원 혜택을 상시 신청할 수 있으며, 조건에 해당된다면 지금 바로 신청하세요."
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["온라인 신청"]
 officialEligibilityQuiz: ["귀사의 상시근로자 수가 30명 이하인가요?","중소기업퇴직연금기금제도에 가입하셨거나 가입 예정이신가요?"]

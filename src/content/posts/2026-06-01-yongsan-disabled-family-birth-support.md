@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/south-korean-government-suppor-519.webp
 ogImage: ""
 tags: [용산구지원금, 장애인가정, 출산지원금, 입양지원금, 육아혜택]
+officialCurationNote: "이런 분께 강력 추천합니다: 장애인. 최대 100만원 혜택을 상시 신청할 수 있으며, 조건에 해당된다면 지금 바로 신청하세요."
 officialRequirements: ["장애인 등록증","출생증명서 또는 입양 관련 서류","주민등록등본","통장 사본"]
 officialHowToApply: ["용산구청 복지정책과 방문 또는 전화 문의","신청서 및 증빙 서류 제출","자격 심사 후 지원금 지급 결정","지정 계좌로 일시금 지급"]
 officialEligibilityQuiz: ["현재 서울 용산구에 거주하고 계신가요?","부모님 중 한 분이라도 등록된 장애인이신가요?","최근 출산했거나 입양을 진행하셨나요?","출산 또는 입양 후 신청 기한 내에 계신가요?"]

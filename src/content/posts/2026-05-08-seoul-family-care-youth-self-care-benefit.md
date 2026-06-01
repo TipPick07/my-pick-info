@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-843.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-843.png"
 tags: [가족돌봄청년, 자기돌봄비, 서울복지포털, 청년지원금, 청소년지원, 중위소득150, 서울시복지, 돌봄청년, 청년수당]
+officialCurationNote: "이런 분께 강력 추천합니다: 장애, 정신, 신체 질병을 가진 가족을 돌보는 9~39세 서울 거주 청소년, 청년. 30만원 혜택을 05.26까지 신청할 수 있으니, 자격 조건을 지금 바로 확인하고 놓치지 마세요."
 officialRequirements: ["돌봄이 필요한 가족의 진단서 또는 의사소견서 등 증빙자료"]
 officialHowToApply: ["서울복지포털(welfare.seoul.go.kr)에서 온라인 신청 (사전에 '가족돌봄정보' 등록 필수)", "만 14세 미만은 법정대리인과 함께 거주지 관할 구청 방문 신청"]
 officialEligibilityQuiz: ["서울에 거주하는 9세~39세 청소년 또는 청년이신가요?", "장애, 정신·신체 질병 등으로 돌봄이 필요한 가족이 있나요?", "가구 소득이 기준 중위소득 150% 이하인가요?"]

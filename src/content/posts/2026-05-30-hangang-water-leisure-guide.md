@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-한강야경투어-43.png
 ogImage: "https://tip-pick.com/images/blogs/festival-한강야경투어-43.png"
 tags: [한강수상레저, 한강카약, 한강패들보드, 한강수상스키, 황금연휴, 수도권나들이, 한강나들이, 여름레저, 한강액티비티, 수상레저, 서울나들이, 여름나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 액티비티 관심자, 커플, 친구 모임. 09.05까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["카카오T 앱 여행 탭 → '한강 물놀이' 테마에서 종목별 프로그램 검색", "서울시 공공서비스 예약사이트에서 슬로프·체육시설 예약", "현장 즉시 결제 가능한 종목은 당일 방문도 OK (선셋 카약 등 인기 시간대는 사전 예약 권장)"]
 officialEligibilityQuiz: []

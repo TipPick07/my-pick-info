@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-중랑구립면목정보도서-20.png
 ogImage: "https://tip-pick.com/images/blogs/festival-중랑구립면목정보도서-20.png"
 tags: [서울무료강연, 중랑구문화생활, 음악인문학, 5월주말, 대중음악사, 도서관강연, 무료문화]
+officialCurationNote: "이런 분께 강력 추천합니다: 한국 대중음악 및 인문학에 관심 있는 성인 시민. 05.16까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

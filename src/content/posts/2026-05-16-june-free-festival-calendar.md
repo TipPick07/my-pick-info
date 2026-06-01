@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-1.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-1.png"
 tags: [6월축제, 수도권무료축제, 서울축제, 경기축제, 인천행사, 무료행사, 6월나들이, 가족행사, 무료입장, 주말나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 인천, 경기 거주 시민, 가족 단위 나들이객. 06.30까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["현장 방문", "일부 행사 사전 예약 필요"]
 officialEligibilityQuiz: []

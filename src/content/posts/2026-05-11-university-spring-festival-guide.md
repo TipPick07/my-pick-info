@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-아시아프(ASYAA-386.png
 ogImage: "https://tip-pick.com/images/blogs/festival-university-spring-festival-386.png"
 tags: [대학축제, 수도권축제, 서울축제, 봄축제, 2026축제, 외부인입장, 서강대축제, 연세대아카라카, 고려대입실렌티, 팁픽]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 20~40대, 대학 축제 관람 희망자, 졸업생, 아티스트 팬. 05.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["총학생회 공식 인스타그램에서 외부인 입장 공지 확인", "현장 방문 전 당일 공지 재확인 필수"]
 officialEligibilityQuiz: []

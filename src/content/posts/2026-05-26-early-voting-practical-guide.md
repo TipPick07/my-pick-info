@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/fallback-benefit-1.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
 tags: [사전투표, 사전투표장소, 사전투표방법, 사전투표꿀팁, 2026지방선거, 6월3일선거, 지방선거공약비교, 투표용지7장, 투표소찾기, 직장인투표, 수도권선거, 사전투표시간]
+officialCurationNote: "이런 분께 강력 추천합니다: 2026 지방선거 유권자 전체. 05.30이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
 officialHowToApply: ["사진 있는 신분증 1개 지참 (주민등록증·운전면허증·여권 등)", "가까운 사전투표소 방문 — 전국 어디서나 가능, 주소지 무관", "선거인 확인 후 투표용지(최대 7장) 수령 및 기표 후 투표함 투입"]
 officialEligibilityQuiz: []

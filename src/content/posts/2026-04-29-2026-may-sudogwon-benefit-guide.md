@@ -7,6 +7,7 @@ category: 가이드
 image: /images/blogs/korea-welfare-benefit-103.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-103.png"
 tags: [수도권지원금, 고유가피해지원금, 청년내일저축계좌, 서울지원금, 경기지원금, 2026지원금, 5월지원금]
+officialCurationNote: "이런 분께 강력 추천합니다: 해당 조건에 맞는 수도권 시민. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 ---
 
 5월은 가정의 달이지만, 동시에 지원금 신청의 달이기도 하다. 지금 이 순간에도 수도권 시민이 받을 수 있는 지원금이 줄을 서고 있다. 마감 기한이 제각각이라 한 번에 정리하지 않으면 놓치기 쉽다.

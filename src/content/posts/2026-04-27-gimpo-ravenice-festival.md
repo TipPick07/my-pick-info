@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-와인뮤직페스티발-520.png
 ogImage: "https://tip-pick.com/images/blogs/festival-gimpo-ravenice-520.png"
 tags: [김포축제, 라베니체, 가을축제, 불꽃놀이, 수도권나들이, 가족여행, 주말가볼만한곳, 콘서트, 버스킹, 체험프로그램]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권, 경기 거주 커플, 가족, 나들이객, 야간 축제 관심자. 10.17까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

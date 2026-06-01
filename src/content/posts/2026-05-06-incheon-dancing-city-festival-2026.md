@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/fallback-festival-5.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-5.png"
 tags: [인천축제, 춤추는도시인천, 무료공연, 송도센트럴파크, 인천대공원, 인천행사, 현대무용, 가족나들이, 5월축제, 인천문화예술회관]
+officialCurationNote: "이런 분께 강력 추천합니다: 전 연령층, 가족 단위, 문화예술 관심자. 05.30까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["개막공연(5/16)은 인천문화예술회관 홈페이지 사전예약 필수", "2·3주차 야외 공연은 예약 없이 현장 자유 관람"]
 officialEligibilityQuiz: []

@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-안성남사당바우덕이풍-333.png
 ogImage: "https://tip-pick.com/images/blogs/festival-anseong-namsadang-333.png"
 tags: [안성남사당바우덕이, 풍물단공연, 경기주말나들이, 전통문화체험, 가족여행, 안성맞춤랜드, 상설공연, 남사당놀이, 경기축제, 주말드라이브]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권, 경기 거주 가족, 나들이객, 전통문화 관심자, 주말 드라이브 코스 찾는 시민. 11.29까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

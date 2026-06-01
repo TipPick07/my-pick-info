@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/korea-welfare-benefit-519.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-519.png"
 tags: [월세보증, 주택금융공사, 주거안정, 사회초년생, 청년월세]
+officialCurationNote: "이런 분께 강력 추천합니다: 보증금 1억원 이하 및 월세금 60만원 이하인 월세 계약을 체결한 주택도시기금 주거안정…. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements:
   - "주택도시기금 주거안정 월세대출 대상자"
   - "보증금 1억원 이하 월세 계약 체결"

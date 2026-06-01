@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/a-conceptual-illustration-of-f-347.png
 ogImage: "https://tip-pick.com/images/blogs/a-conceptual-illustration-of-f-347.png"
 tags: [사립학교, 교직원, 퇴직연금, 노후대비, 연금신청, 복지서비스, 정부지원]
+officialCurationNote: "이런 분께 강력 추천합니다: 재직기간 10년 이상 사립학교 퇴직 교직원. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["온라인 신청 (사학연금공단 홈페이지 또는 해당 기관 문의)","방문 신청"]
 officialEligibilityQuiz: ["사립학교에서 퇴직하신 교직원이신가요?","총 재직 기간이 10년 이상이신가요?"]

@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-관악문화재단2026-318.png
 ogImage: "https://tip-pick.com/images/blogs/festival-gwanak-book-bread-318.png"
 tags: [관악구축제, 서울나들이, 5월축제, 가정의달, 가족행사, 무료입장, 책문화, 베이킹체험, 이금희, 별빛내린천, 어린이체험]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울 관악구 거주 가족, 어린이, 독서, 베이킹 관심자, 주말 나들이객. 05.10까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

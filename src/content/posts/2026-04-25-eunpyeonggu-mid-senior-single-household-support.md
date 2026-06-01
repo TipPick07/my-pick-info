@@ -12,6 +12,7 @@ category: 정보
 image: /images/blogs/1--594.png
 ogImage: "https://tip-pick.com/images/blogs/1--594.png"
 tags: [은평구, 중장년, 1인가구, 돌봄서비스, 고독사, 복지혜택, 생활안정, 노후대책]
+officialCurationNote: "이런 분께 강력 추천합니다: 중장년 1인 가구 중 중증질환자, 중증장애인 가구 등 고독사 위험 가구. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: ["지원금별로 필요한 서류가 다를 수 있습니다. 정확한 서류는 하단의 공식 사이트에서 반드시 확인해 주세요."]
 officialHowToApply: ["방문신청 (은평구 통합돌봄과 문의 후 방문)"]
 officialEligibilityQuiz: ["은평구에 거주하는 중장년 1인 가구이신가요?","중증질환자 또는 중증장애인 가구에 해당하시거나, 고독사 위험이 있는 가구이신가요?"]

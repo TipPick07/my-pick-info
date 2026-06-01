@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-691.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-691.png"
 tags: [건강보험료, 지역가입자, 임의계속가입, 은퇴준비, 퇴직후건보료, 소득인정액, 기초연금, 지원금이의신청, 복지재테크, 4060]
+officialCurationNote: "이런 분께 강력 추천합니다: 퇴직 예정자, 은퇴자, 자영업자 전환 중장년, 지원금 신청 경험자. 12.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
 officialHowToApply: ["임의계속가입: 퇴직일로부터 2개월 이내 국민건강보험공단(nhis.or.kr) 신청", "지원금 이의신청: 처분 통보일로부터 90일 이내 행정복지센터 방문"]
 officialEligibilityQuiz: []

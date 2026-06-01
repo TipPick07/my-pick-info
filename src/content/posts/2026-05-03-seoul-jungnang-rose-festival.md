@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-서울세계도시문화축제-131.png
 ogImage: "https://tip-pick.com/images/blogs/festival-서울세계도시문화축제-131.png"
 tags: [서울장미축제, 중랑장미축제, 중랑구축제, 봄나들이, 꽃축제, 가족나들이, 서울무료축제]
+officialCurationNote: "이런 분께 강력 추천합니다: 전 연령층. 05.23까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

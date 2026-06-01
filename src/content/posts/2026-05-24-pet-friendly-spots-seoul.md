@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-포천펫스타-105.png
 ogImage: "https://tip-pick.com/images/blogs/festival-포천펫스타-105.png"
 tags: [서울반려동물, 애견동반카페, 반려견공원, 서울견주, 애견동반명소, 반려동물동반, 서울강아지산책, 한강반려견, 애견놀이터서울, 수도권반려견]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울 수도권 거주 반려견, 반려동물 보호자. 12.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["광견병 예방접종 확인 후 방문", "목줄·켄넬 지참 필수", "배변 봉투 지참 권장"]
 officialEligibilityQuiz: []

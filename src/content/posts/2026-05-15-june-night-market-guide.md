@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-오슬로우빈티지마켓-255.png
 ogImage: "https://tip-pick.com/images/blogs/festival-오슬로우빈티지마켓-255.png"
 tags: [야시장, 서울야시장, 밤도깨비야시장, 인천야시장, 경기야시장, 6월야시장, 야외푸드마켓, 한강야시장, 수도권나들이, 여름나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 시민, 커플, 가족, 직장인. 10.31까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: ["현장 방문 (사전예약 불필요)", "우천 시 취소될 수 있으니 방문 전 공식 SNS 확인 필수"]
 officialEligibilityQuiz: []

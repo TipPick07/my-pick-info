@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-212.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-212.png"
 tags: [경기도교육감, 임태희, 안민석, 초등돌봄, 교육바우처, 유보통합, 방과후돌봄, 2026지방선거, 경기교육, 맞벌이돌봄]
+officialCurationNote: "이런 분께 강력 추천합니다: 경기도 거주 초등학생 학부모, 맞벌이 가정, 돌봄 공백 걱정하는 양육자. 06.03이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: ""
 officialHowToApply: ""
 officialEligibilityQuiz: ""

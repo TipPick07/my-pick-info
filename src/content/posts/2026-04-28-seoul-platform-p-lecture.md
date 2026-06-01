@@ -9,6 +9,7 @@ category: 정보
 image: /images/blogs/festival-PLATFORMP교-47.png
 ogImage: "https://tip-pick.com/images/blogs/festival-PLATFORMP교-47.png"
 tags: [플랫폼P, 서울강연, 무료강연, 출판강연, 독서트렌드, 마포구]
+officialCurationNote: "이런 분께 강력 추천합니다: 해당 조건에 맞는 수도권 시민. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

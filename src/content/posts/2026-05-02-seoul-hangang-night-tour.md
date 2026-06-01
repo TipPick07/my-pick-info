@@ -12,6 +12,7 @@ category: festival
 image: /images/blogs/festival-한강야경투어-43.png
 ogImage: "https://tip-pick.com/images/blogs/festival-hangang-night-tour-43.png"
 tags: [한강야경, 서울밤, 여의도데이트, 야경명소, 한강유람선, 서울가볼만한곳, 여름야간나들이, 봄꽃축제, 한강공원, 수도권나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 수도권 거주 커플, 친구, 가족, 야간 나들이 계획 중인 시민. 09.19까지 진행되는 행사이므로, 지금 바로 일정을 확인하고 방문 계획을 세우세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []

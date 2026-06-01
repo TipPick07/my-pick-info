@@ -12,6 +12,7 @@ category: benefit
 image: /images/blogs/korea-welfare-benefit-20.png
 ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-20.png"
 tags: [서울, 청년, 월세지원, 주거안정, 무주택, 신혼부부, 전세사기, 생활비, 2026년]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울시에 주민등록이 되어 있는 무주택 청년 . 1인 가구, 무자녀 신혼부부, 청년 한부…. 최대 20만원 혜택을 05.19까지 신청할 수 있으니, 자격 조건을 지금 바로 확인하고 놓치지 마세요."
 officialRequirements: ["임대차계약서 사본","주민등록등본","소득·재산 신고서","금융정보 제공 동의서 (가구원 전원)","가족관계증명서 (상세)","통장 사본","(해당 시) 한부모가족 증명서","(해당 시) 전세사기피해자 등 결정문 사본","(해당 시) 병적증명서"]
 officialHowToApply: ["서울주거포털(housing.seoul.go.kr) 접속","온라인 신청 메뉴에서 본인 인증 후 신청서 작성 및 구비서류 업로드"]
 officialEligibilityQuiz: ["서울시에 주민등록이 되어 있는 무주택 청년인가요?","기준 중위소득 48% 초과 ~ 150% 이하에 해당하는가요?","만 19세~39세(군 복무 시 최대 42세)에 해당하는가요?"]

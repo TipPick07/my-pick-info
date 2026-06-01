@@ -8,6 +8,7 @@ summary: "2026 수도권 여름 축제 미리 보기. 워터밤·인천 펜타�
 image: /images/blogs/festival-과천재즈피크닉-294.png
 ogImage: "https://tip-pick.com/images/blogs/festival-과천재즈피크닉-294.png"
 tags: ["여름축제", "워터밤", "펜타포트", "수도권축제", "2026여름", "뮤직페스티벌", "서울축제", "인천축제", "월드DJ페스티벌"]
+officialCurationNote: "이런 분께 강력 추천합니다: 해당 조건에 맞는 수도권 시민. 자세한 일정·장소·프로그램을 미리 확인해 가장 알찬 나들이를 계획해보세요."
 ---
 
 ## 5월에 여름 축제 준비? 이미 늦을 수 있습니다

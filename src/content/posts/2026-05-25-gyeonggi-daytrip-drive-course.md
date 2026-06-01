@@ -11,6 +11,7 @@ category: festival
 image: /images/blogs/fallback-festival-3.png
 ogImage: "https://tip-pick.com/images/blogs/fallback-festival-3.png"
 tags: [경기도드라이브코스, 당일치기드라이브, 수도권드라이브, 6월나들이, 경기근교여행, 양평드라이브, 가평드라이브, 파주드라이브, 여주드라이브, 당일치기여행, 커플드라이브, 가족나들이]
+officialCurationNote: "이런 분께 강력 추천합니다: 서울, 수도권 거주 드라이브 나들이객. 자세한 일정·장소·프로그램을 미리 확인해 가장 알찬 나들이를 계획해보세요."
 officialRequirements: []
 officialHowToApply: []
 officialEligibilityQuiz: []
