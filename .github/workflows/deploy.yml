@@ -5,10 +5,9 @@ on:
     branches:
       - main
   schedule:
-    # GitHub 스케줄러는 '정시 근처'에 부하가 몰려 실행이 지연·누락(drop)됨 → 어정쩡한 분(分)으로 분산
-    - cron: '23 20 * * *' # 1차: 한국시간 05:23 (UTC 20:23)
-    - cron: '23 23 * * *' # 2차(백업): 한국시간 08:23 (UTC 23:23) — 1차 누락 시 보충
-  # 📌 5/31 자동배포 재개 / 6/2 누락 대응: 혼잡시간 회피 + 백업 트리거(멱등 처리)
+    # GitHub 스케줄러는 '정시 근처'에 부하가 몰려 실행이 지연·누락(drop)됨 → 어정쩡한 분(分)으로 회피
+    - cron: '23 20 * * *' # 한국시간 05:23 (UTC 20:23)
+  # 📌 5/31 자동배포 재개 / 6/2 누락 대응: 혼잡시간 회피
   workflow_dispatch:
 
 permissions:
@@ -23,25 +22,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 1차·2차 트리거가 같은 날 둘 다 실행돼도 글이 중복 생성되지 않도록,
-      # 오늘(KST) 이미 자동 업데이트 커밋이 있으면 이후 단계를 건너뜀.
-      - name: Guard - skip if already deployed today
-        id: guard
-        run: |
-          if [ "${{ github.event_name }}" != "schedule" ]; then
-            echo "proceed=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          SINCE="$(TZ=Asia/Seoul date +%Y-%m-%d)T00:00:00+09:00"
-          DONE=$(git log --since="$SINCE" --grep="자동 업데이트" --pretty=%h)
-          if [ -n "$DONE" ]; then
-            echo "오늘 이미 자동배포 완료(커밋 $DONE) → 건너뜀"
-            echo "proceed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "오늘 자동배포 기록 없음 → 진행"
-            echo "proceed=true" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -51,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: Fetch Public Data and Generate Blog Post
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && steps.guard.outputs.proceed == 'true')
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
           node scripts/fetch-public-data.js
           node scripts/dedup-festivals-v2.js
@@ -68,7 +48,7 @@ jobs:
           INCHEON_API_KEY: ${{ secrets.INCHEON_API_KEY }}
 
       - name: Commit and Push Changes
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && steps.guard.outputs.proceed == 'true')
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
@@ -76,11 +56,9 @@ jobs:
           git diff --quiet && git diff --staged --quiet || (git commit -m "자동 업데이트: 공공데이터 수집 및 블로그 글 생성" && git pull --rebase && git push)
 
       - name: Build Project
-        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'true'
         run: npm run build
 
       - name: Deploy to Cloudflare Pages
-        if: github.event_name != 'schedule' || steps.guard.outputs.proceed == 'true'
         run: npx wrangler pages deploy out --project-name=my-pick-info --commit-message="Auto deploy"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
