@@ -253,20 +253,17 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
   const WEATHER_REGIONS = ["서울", "인천", "경기"];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-cyan-100">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
       <Header />
 
-      <main className="max-w-3xl mx-auto px-6 py-10 space-y-8">
+      <main className="max-w-3xl mx-auto px-4 md:px-6 py-10 space-y-8">
 
         {/* ── Hero ── */}
         <section className="text-center space-y-5 py-6">
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest rounded-full border"
-            style={{ background: "rgba(0,204,255,0.08)", color: "#00AACC", borderColor: "rgba(0,204,255,0.25)" }}
-          >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest rounded-full border border-cyan-200 bg-cyan-50 text-brand-dark">
             🎪 수도권 문화행사 & 축제
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
             팁픽이 고른{" "}
             <span
               className="text-transparent bg-clip-text"
@@ -274,7 +271,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
             >
               수도권 문화행사
             </span>
-          </h2>
+          </h1>
           <p className="text-slate-500 text-lg font-medium max-w-2xl mx-auto">
             복잡하게 검색할 필요 없어요.{" "}
             <span className="font-black text-slate-700">서울·인천·경기 콘서트·전시·축제</span>를 팁픽이 대신 골라드립니다.
@@ -417,7 +414,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
               }
 
               return (
-                <Link key={f.id} href={`/festival/${f.id}/`} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden flex flex-col md:flex-row hover:border-cyan-200 hover:shadow-md transition-all duration-300">
+                <Link key={f.id} href={`/festival/${f.id}/`} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden flex flex-col md:flex-row hover:border-brand/40 hover:shadow-[0_4px_18px_rgba(0,204,255,0.12)] hover:-translate-y-0.5 transition-all duration-300">
                   {/* 이미지 */}
                   <div className="relative w-full md:w-64 md:shrink-0 bg-slate-200 overflow-hidden" style={{ aspectRatio: "16/9" }}>
                     <img
@@ -437,9 +434,9 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
                   <div className="flex-1 p-5 flex flex-col justify-center gap-2.5">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-slate-100 text-slate-600">{f.region}</span>
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black text-white shadow-sm" style={{ background: "#00CCFF" }}>{f.tag}</span>
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black text-white shadow-sm bg-neon-blue">{f.tag}</span>
                     </div>
-                    <h4 className="text-base md:text-lg font-black text-slate-900 leading-snug group-hover:text-[#00CCFF] transition-colors">
+                    <h4 className="text-base md:text-lg font-black text-slate-900 leading-snug group-hover:text-brand-dark transition-colors">
                       {f.title}
                     </h4>
                     {f.description && (
@@ -453,7 +450,7 @@ export default function FestivalsClient({ data, weatherApiKey }: { data: any; we
             })}
 
             {filteredFestivals.length === 0 && (
-              <div className="py-16 text-center text-slate-400 font-medium bg-slate-100 rounded-2xl border-2 border-dashed border-slate-200">
+              <div className="py-16 text-center text-slate-400 font-medium bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
                 {statusFilter !== "전체"
                   ? `${filter === "전체" ? "수도권" : filter} 지역의 '${statusFilter}' 행사가 없습니다.`
                   : "해당 지역의 예정된 행사가 없습니다."}

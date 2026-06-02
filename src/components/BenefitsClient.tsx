@@ -154,10 +154,10 @@ export default function BenefitsClient({ data }: { data: Data }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-cyan-100">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
       <Header />
 
-      <main className="container mx-auto px-6 py-10 space-y-8 max-w-3xl">
+      <main className="max-w-3xl mx-auto w-full px-4 md:px-6 py-10 space-y-8">
 
         {/* ── Hero ── */}
         <section className="text-center space-y-5 py-6">
@@ -165,12 +165,12 @@ export default function BenefitsClient({ data }: { data: Data }) {
             💡 내 돈 찾는 지원금
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
             오늘 팁픽이 골라낸{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-emerald-500">
               지원금/혜택
             </span>
-          </h2>
+          </h1>
           <p className="text-slate-500 text-lg font-medium max-w-xl mx-auto">
             복잡한 공공데이터 속에서 당신에게 꼭 필요한 지원금을 팁픽이 대신 선별했습니다.{" "}
             <span className="font-black text-slate-700">지금 바로 확인해 보세요!</span>
@@ -311,7 +311,7 @@ export default function BenefitsClient({ data }: { data: Data }) {
                         ? "text-slate-400"
                         : isUrgent
                           ? "text-slate-900 group-hover:text-rose-600"
-                          : "text-slate-900 group-hover:text-cyan-600"
+                          : "text-slate-900 group-hover:text-brand-dark"
                       }`}>
                       {b.title}
                     </h4>
@@ -339,7 +339,7 @@ export default function BenefitsClient({ data }: { data: Data }) {
                   </div>
 
                   {/* 화살표 */}
-                  <div className={`shrink-0 text-sm transition-all ${isExpired ? "text-slate-200" : "text-slate-300 group-hover:text-cyan-400 group-hover:translate-x-0.5"}`}>
+                  <div className={`shrink-0 text-sm transition-all ${isExpired ? "text-slate-200" : "text-slate-300 group-hover:text-brand group-hover:translate-x-0.5"}`}>
                     →
                   </div>
                 </div>
