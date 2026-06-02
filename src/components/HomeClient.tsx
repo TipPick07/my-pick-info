@@ -246,23 +246,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
               </Link>
             </div>
           </div>
-
-          {/* 지역 필터 */}
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {regions.map((r) => (
-              <button
-                key={r}
-                onClick={() => setFilter(r)}
-                className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${filter === r ? "text-white" : "bg-white text-slate-600 border border-slate-200/50 hover:bg-slate-50"}`}
-                style={filter === r ? {
-                  background: "linear-gradient(to right, #00CCFF, #33FF99)",
-                  boxShadow: "0 4px 20px rgba(0,204,255,0.35)"
-                } : {}}
-              >
-                {r}
-              </button>
-            ))}
-          </div>
         </section>
 
         {/* 직접 광고 영업용 고정 배너 영역 */}
@@ -306,25 +289,30 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
         )}
 
         {/* ── 오늘자 업데이트 요약 위젯 ── */}
-        {todayUpdates && todayUpdates.totalCount > 0 && (
+        {todayUpdates && (todayUpdates.festivals.length > 0 || todayUpdates.benefits.length > 0) && (
           <section className="bg-gradient-to-r from-cyan-50 to-emerald-50 rounded-[2rem] p-5 shadow-sm border border-cyan-100/50">
             <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2 md:gap-3">
                 <span className="bg-cyan-500 text-white px-3 py-1 rounded-full text-xs font-black animate-pulse">
                   오늘의 신규 Pick
                 </span>
+                {todayUpdates.date && (
+                  <span className="inline-flex items-center gap-1 bg-white text-slate-500 px-3 py-1 rounded-full text-xs font-bold border border-slate-200">
+                    📅 {todayUpdates.date.replace(/-/g, '.')} 업데이트
+                  </span>
+                )}
                 <h3 className="text-slate-800 font-bold text-base md:text-lg">
-                  {todayUpdates.isToday ? '오늘 아침' : '최근 업데이트'}, <span className="text-cyan-600 font-black">{todayUpdates.totalCount}건</span>의 새로운 정보가 추가되었어요!
+                  {todayUpdates.isToday ? '오늘 아침 새로운 소식을 추가했어요!' : '최근 새로운 소식을 추가했어요!'}
                 </h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className={`grid gap-4 ${todayUpdates.festivals.length > 0 && todayUpdates.benefits.length > 0 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
 
-                {/* 축제/행사 요약 박스 */}
-                <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-100">
-                  <h4 className="font-black text-slate-800 mb-2 flex items-center gap-1">
-                    🎉 축제/행사 <span className="text-cyan-600">({todayUpdates.festivals.length}건)</span>
-                  </h4>
-                  {todayUpdates.festivals.length > 0 ? (
+                {/* 축제/행사 요약 박스 — 항목 있을 때만 노출 */}
+                {todayUpdates.festivals.length > 0 && (
+                  <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-100">
+                    <h4 className="font-black text-slate-800 mb-2 flex items-center gap-1">
+                      🎉 축제/행사
+                    </h4>
                     <ul className="space-y-1.5">
                       {todayUpdates.festivals.slice(0, 3).map((f) => (
                         <li key={f.slug} className="text-sm text-slate-600 truncate font-medium">
@@ -337,17 +325,15 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
                         <li className="text-xs text-slate-400 pt-1">외 {todayUpdates.festivals.length - 3}건 더보기...</li>
                       )}
                     </ul>
-                  ) : (
-                    <p className="text-sm text-slate-400 mt-1">오늘 추가된 축제/행사는 없습니다.</p>
-                  )}
-                </div>
+                  </div>
+                )}
 
-                {/* 혜택/지원금 요약 박스 */}
-                <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-100">
-                  <h4 className="font-black text-slate-800 mb-2 flex items-center gap-1">
-                    💰 혜택/지원금 <span className="text-emerald-600">({todayUpdates.benefits.length}건)</span>
-                  </h4>
-                  {todayUpdates.benefits.length > 0 ? (
+                {/* 혜택/지원금 요약 박스 — 항목 있을 때만 노출 */}
+                {todayUpdates.benefits.length > 0 && (
+                  <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-100">
+                    <h4 className="font-black text-slate-800 mb-2 flex items-center gap-1">
+                      💰 혜택/지원금
+                    </h4>
                     <ul className="space-y-1.5">
                       {todayUpdates.benefits.slice(0, 3).map((b) => (
                         <li key={b.slug} className="text-sm text-slate-600 truncate font-medium">
@@ -360,96 +346,42 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
                         <li className="text-xs text-slate-400 pt-1">외 {todayUpdates.benefits.length - 3}건 더보기...</li>
                       )}
                     </ul>
-                  ) : (
-                    <p className="text-sm text-slate-400 mt-1">오늘 추가된 지원금은 없습니다.</p>
-                  )}
-                </div>
+                  </div>
+                )}
 
               </div>
             </div>
           </section>
         )}
 
-        {/* ── 팁픽 가이드 (블로그) 섹션 — 가로형 카드 ── */}
-        <section className="space-y-6 pt-4">
-          <div className="flex items-center justify-between px-2">
-            <div className="flex items-center gap-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 text-xs font-black uppercase tracking-widest rounded-full border" style={{ backgroundColor: "rgba(51,255,153,0.1)", color: "#059669", borderColor: "rgba(51,255,153,0.3)" }}>
-                💡 팁픽 가이드
-              </div>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">
-                팁픽(Tip-Pick) 가이드
-              </h3>
+        {/* ── 지역 필터 바 — 거르는 콘텐츠(축제·지원금) 바로 위에 배치 ── */}
+        <div className="space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white rounded-[2rem] border border-slate-100 shadow-sm px-6 py-5">
+            <div className="flex items-center gap-2.5">
+              <span className="text-lg font-black text-slate-900">📍 지역별 축제·지원금</span>
+              <span className="text-xs font-bold text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded-full">
+                {filter === "전체" ? "전체 지역" : filter}
+              </span>
             </div>
-            <Link href="/blog/" className="text-sm font-bold transition-colors" style={{ color: "#059669" }}>
-              전체 보기 →
-            </Link>
+            <div className="flex flex-wrap items-center gap-2">
+              {regions.map((r) => (
+                <button
+                  key={r}
+                  onClick={() => setFilter(r)}
+                  className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${filter === r ? "text-white scale-105" : "bg-slate-50 text-slate-600 border border-slate-200/70 hover:bg-slate-100"}`}
+                  style={filter === r ? {
+                    background: "linear-gradient(to right, #00CCFF, #33FF99)",
+                    boxShadow: "0 4px 18px rgba(0,204,255,0.32)"
+                  } : {}}
+                >
+                  {r}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="space-y-3">
-            {posts.slice(0, 3).map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}/`}
-                className="group flex items-stretch bg-white rounded-[1.75rem] overflow-hidden border border-slate-100 shadow-sm hover:-translate-y-0.5 transition-all duration-300"
-                onMouseEnter={e => {
-                  e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,204,255,0.12)";
-                  e.currentTarget.style.borderColor = "rgba(0,204,255,0.25)";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.boxShadow = "";
-                  e.currentTarget.style.borderColor = "#f1f5f9";
-                }}
-              >
-                {/* 왼쪽 이미지 */}
-                <div className="relative w-32 shrink-0 overflow-hidden bg-slate-100">
-                  <img
-                    src={post.image || '/images/blogs/korea-welfare-benefit-322.png'}
-                    alt={post.title}
-                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
-                    }}
-                  />
-                  <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black text-cyan-600 shadow border border-white/50 tracking-wider">
-                    {({ festival: '축제', benefit: '지원금', benefits: '지원금', election: '선거', info: '정보' } as Record<string, string>)[post.category ?? ''] ?? post.category}
-                  </div>
-                </div>
-
-                {/* 오른쪽 텍스트 */}
-                <div className="flex-1 px-5 py-4 flex flex-col justify-center gap-1.5">
-                  <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400">
-                    <span>💡 팁픽 큐레이션</span>
-                    <span>·</span>
-                    <span>{post.date}</span>
-                  </div>
-                  <h3 className="text-sm font-black text-slate-800 group-hover:text-cyan-600 transition-colors line-clamp-2 leading-snug">
-                    {post.title}
-                  </h3>
-                  <p className="text-slate-500 text-xs leading-relaxed line-clamp-1">
-                    {post.summary}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 pt-0.5">
-                    {post.tags.slice(0, 4).map((tag: string) => (
-                      <span key={tag} className="text-[9px] bg-cyan-50 text-cyan-600 px-2 py-0.5 rounded-md">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
-            ))}
-            {posts.length === 0 && (
-              <div className="py-16 text-center space-y-4">
-                <div className="text-5xl text-slate-200">💡</div>
-                <p className="text-slate-400">아직 등록된 팁픽 가이드가 없습니다.</p>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* ── 메인 컨텐츠 (2-Column) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* ── 메인 컨텐츠 (2-Column) ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
           {/* 축제/행사 (2/3) */}
           <section className="lg:col-span-2 space-y-6">
@@ -578,7 +510,86 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
               더보기 →
             </Link>
           </aside>
+          </div>
         </div>
+
+        {/* ── 팁픽 가이드 (블로그) 섹션 — 가로형 카드 (핵심 콘텐츠 아래 보조 콘텐츠) ── */}
+        <section className="space-y-6 pt-4">
+          <div className="flex items-center justify-between px-2">
+            <div className="flex items-center gap-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 text-xs font-black uppercase tracking-widest rounded-full border" style={{ backgroundColor: "rgba(51,255,153,0.1)", color: "#059669", borderColor: "rgba(51,255,153,0.3)" }}>
+                💡 팁픽 가이드
+              </div>
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">
+                팁픽(Tip-Pick) 가이드
+              </h3>
+            </div>
+            <Link href="/blog/" className="text-sm font-bold transition-colors" style={{ color: "#059669" }}>
+              전체 보기 →
+            </Link>
+          </div>
+
+          <div className="space-y-3">
+            {posts.slice(0, 3).map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}/`}
+                className="group flex items-stretch bg-white rounded-[1.75rem] overflow-hidden border border-slate-100 shadow-sm hover:-translate-y-0.5 transition-all duration-300"
+                onMouseEnter={e => {
+                  e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,204,255,0.12)";
+                  e.currentTarget.style.borderColor = "rgba(0,204,255,0.25)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.boxShadow = "";
+                  e.currentTarget.style.borderColor = "#f1f5f9";
+                }}
+              >
+                {/* 왼쪽 이미지 */}
+                <div className="relative w-32 shrink-0 overflow-hidden bg-slate-100">
+                  <img
+                    src={post.image || '/images/blogs/korea-welfare-benefit-322.png'}
+                    alt={post.title}
+                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
+                    }}
+                  />
+                  <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black text-cyan-600 shadow border border-white/50 tracking-wider">
+                    {({ festival: '축제', benefit: '지원금', benefits: '지원금', election: '선거', info: '정보' } as Record<string, string>)[post.category ?? ''] ?? post.category}
+                  </div>
+                </div>
+
+                {/* 오른쪽 텍스트 */}
+                <div className="flex-1 px-5 py-4 flex flex-col justify-center gap-1.5">
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400">
+                    <span>💡 팁픽 큐레이션</span>
+                    <span>·</span>
+                    <span>{post.date}</span>
+                  </div>
+                  <h3 className="text-sm font-black text-slate-800 group-hover:text-cyan-600 transition-colors line-clamp-2 leading-snug">
+                    {post.title}
+                  </h3>
+                  <p className="text-slate-500 text-xs leading-relaxed line-clamp-1">
+                    {post.summary}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 pt-0.5">
+                    {post.tags.slice(0, 4).map((tag: string) => (
+                      <span key={tag} className="text-[9px] bg-cyan-50 text-cyan-600 px-2 py-0.5 rounded-md">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            ))}
+            {posts.length === 0 && (
+              <div className="py-16 text-center space-y-4">
+                <div className="text-5xl text-slate-200">💡</div>
+                <p className="text-slate-400">아직 등록된 팁픽 가이드가 없습니다.</p>
+              </div>
+            )}
+          </div>
+        </section>
 
         {/* Ad Banner */}
         <AdBanner />
