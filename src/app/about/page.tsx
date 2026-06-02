@@ -17,7 +17,7 @@ const verifiedFeatures = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-cyan-100">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
       <Header />
 
       <main className="container mx-auto px-6 py-20 max-w-4xl space-y-20">
@@ -102,7 +102,7 @@ export default function AboutPage() {
           </div>
         </section>
         {/* 운영자 소개 */}
-        <section className="bg-white rounded-[2.5rem] border-2 border-slate-100 p-10 md:p-14 space-y-6 shadow-sm">
+        <section className="bg-white rounded-[2.5rem] border border-slate-100 p-10 md:p-14 space-y-6 shadow-sm">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-50 text-cyan-700 text-xs font-black uppercase tracking-widest rounded-full border border-cyan-200">
               운영자 소개

@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+    <div className="min-h-screen bg-white font-sans text-slate-900">
       <Header />
       <main className="container mx-auto max-w-3xl px-6 py-16 space-y-10">
 
@@ -21,7 +21,7 @@ export default function PrivacyPage() {
           <p className="text-slate-500 text-sm">최종 업데이트: 2026년 4월 27일</p>
         </div>
 
-        <div className="bg-white rounded-[2rem] border-2 border-slate-100 p-10 space-y-8 text-slate-700 text-[15px] leading-relaxed">
+        <div className="bg-white rounded-[2rem] border border-slate-100 p-10 space-y-8 text-slate-700 text-[15px] leading-relaxed">
 
           <p>
             수도권 팁픽(이하 &quot;팁픽&quot; 또는 &quot;사이트&quot;)은 이용자의 개인정보를 중요하게 생각하며,

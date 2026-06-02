@@ -55,7 +55,7 @@ const colorMap: Record<string, { border: string; bg: string; icon: string; badge
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-cyan-100">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
       <Header />
 
       <main className="container mx-auto px-6 py-20 max-w-4xl space-y-20">

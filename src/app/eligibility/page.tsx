@@ -33,7 +33,7 @@ export default function EligibilityRoute() {
     }));
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+    <div className="min-h-screen bg-white text-slate-900 font-sans">
       <Header />
       <main className="max-w-2xl mx-auto px-4 py-12">
         <div className="text-center space-y-4 mb-10">

@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+    <div className="min-h-screen bg-white font-sans text-slate-900">
       <Header />
       <main className="container mx-auto max-w-3xl px-6 py-16 space-y-10">
 
@@ -21,7 +21,7 @@ export default function TermsPage() {
           <p className="text-slate-500 text-sm">최종 업데이트: 2026년 4월 27일</p>
         </div>
 
-        <div className="bg-white rounded-[2rem] border-2 border-slate-100 p-10 space-y-8 text-slate-700 text-[15px] leading-relaxed">
+        <div className="bg-white rounded-[2rem] border border-slate-100 p-10 space-y-8 text-slate-700 text-[15px] leading-relaxed">
 
           <section className="space-y-3">
             <h2 className="text-xl font-black text-slate-900 border-l-4 pl-3" style={{ borderColor: "#00CCFF" }}>제1조 (목적)</h2>
