@@ -3,6 +3,21 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { Components } from 'react-markdown';
+import type { ReactNode } from 'react';
+
+// 표 셀의 순수 텍스트 길이를 추출 — 짧은 값은 가운데, 긴 문장은 왼쪽 정렬 판단용
+function cellTextLength(node: ReactNode): number {
+  if (node == null || typeof node === 'boolean') return 0;
+  if (typeof node === 'string' || typeof node === 'number') return String(node).length;
+  if (Array.isArray(node)) return node.reduce((sum: number, n) => sum + cellTextLength(n), 0);
+  if (typeof node === 'object' && 'props' in node) {
+    return cellTextLength((node as { props?: { children?: ReactNode } }).props?.children);
+  }
+  return 0;
+}
+
+// 이 길이를 넘으면 긴 문장으로 보고 왼쪽 정렬(가독성), 이하면 가운데 정렬(시인성)
+const LONG_CELL_THRESHOLD = 40;
 
 const components: Components = {
   h2: ({ children }) => (
@@ -24,11 +39,15 @@ const components: Components = {
     <table className="w-full border-collapse mb-6">{children}</table>
   ),
   th: ({ children }) => (
-    <th className="bg-slate-100 font-black text-sm p-3 text-left border border-slate-200">{children}</th>
+    <th className="bg-slate-100 font-black text-sm p-3 text-center align-middle border border-slate-200">{children}</th>
   ),
-  td: ({ children }) => (
-    <td className="p-3 border border-slate-200 text-sm">{children}</td>
-  ),
+  td: ({ children }) => {
+    // 짧은 값 → 가운데 정렬(시인성), 긴 문장 → 왼쪽 정렬(가독성), 전체 세로 가운데
+    const align = cellTextLength(children) > LONG_CELL_THRESHOLD ? 'text-left' : 'text-center';
+    return (
+      <td className={`p-3 border border-slate-200 text-sm align-middle ${align}`}>{children}</td>
+    );
+  },
   strong: ({ children }) => (
     <strong className="font-black text-slate-900">{children}</strong>
   ),
