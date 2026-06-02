@@ -39,6 +39,8 @@ jobs:
           echo "Gemini 과부하 방지를 위해 3분 대기 중..."
           sleep 180
           POST_TYPE=festival node scripts/generate-blog-post.js
+          echo "콘텐츠 검증 게이트 실행 (자동 정규화 + 깨진 글 격리)..."
+          node scripts/validate-content.js --fix --quarantine
         env:
           PUBLIC_DATA_API_KEY: ${{ secrets.PUBLIC_DATA_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

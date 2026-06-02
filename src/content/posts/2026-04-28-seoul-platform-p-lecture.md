@@ -10,7 +10,7 @@ image: /images/blogs/festival-PLATFORMP교-47.png
 ogImage: "https://tip-pick.com/images/blogs/festival-PLATFORMP교-47.png"
 tags: [플랫폼P, 서울강연, 무료강연, 출판강연, 독서트렌드, 마포구]
 officialCurationNote: "이런 분께 강력 추천합니다: 해당 조건에 맞는 수도권 시민. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
-officialTip: "1. 강연 일정은 플랫폼P 공식 홈페이지(platform-p.org)에서 월별 업데이트됩니다. 2. 무료 강연도 사전 신청 정원이 있으니 홈페이지에서 미리 접수하세요. 3. 마포구 서교동 위치 — 홍대입구역 2번 출구 도보 10분 거리. 4. 인스타그램·뉴스레터 구독 시 신규 강연 빠르게 확인 가능합니다."
+officialTip: "강연 일정은 플랫폼P 공식 홈페이지(platform-p.org)에서 월별 업데이트됩니다. 무료 강연도 사전 신청 정원이 있으니 홈페이지에서 미리 접수하세요. 마포구 서교동 위치 — 홍대입구역 2번 출구 도보 10분 거리. 인스타그램·뉴스레터 구독 시 신규 강연 빠르게 확인 가능합니다."
 officialDetails: "서울 마포구 복합문화공간 플랫폼P에서 정기 운영하는 출판·독서·콘텐츠 분야 무료 강연 프로그램. 출판 기획·편집·디자인 실무부터 독서 트렌드 분석까지 다양한 주제를 다룬다."
 officialRequirements: []
 officialHowToApply: []

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/build-search-index.js",
+    "prebuild": "node scripts/validate-content.js --fix --quarantine && node scripts/build-search-index.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
