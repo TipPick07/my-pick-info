@@ -95,6 +95,37 @@ function fixTableCells(text) {
   return out.join('\n');
 }
 
+// 깨진 표 복구: 구분선 행에 설명문이 통째로 박힌 패턴 교정
+// 예) "| :--- | :---<U>축제설명…</U><br>… |"  ← AI가 첫 표를 잘못 생성하고 본문이 구분선에 병합됨.
+// → 오염된 구분선 행 + 바로 위 헤더 행을 제거(보통 직후에 정상 표가 중복으로 따라옴) + 연속 중복 헤딩 정리.
+function repairBrokenTables(text) {
+  if (!text || !text.includes('|')) return text;
+  const lines = String(text).split('\n');
+  const drop = new Set();
+  for (let i = 0; i < lines.length; i++) {
+    const t = lines[i].trim();
+    if (!t.startsWith('|') || !/-{2,}/.test(t)) continue;
+    const cells = t.replace(/^\||\|$/g, '').split('|');
+    const firstSep = /^\s*:?-{2,}:?\s*$/.test(cells[0] || '');     // 첫 셀은 정상 구분선
+    const hasText = cells.some(c => /[가-힣A-Za-z]{2,}/.test(c));   // 어떤 셀에 설명문(글자) 혼입
+    if (firstSep && hasText) {
+      drop.add(i);
+      let h = i - 1; while (h >= 0 && lines[h].trim() === '') h--;
+      if (h >= 0 && /^\|.*\|$/.test(lines[h].trim()) && !isSepRow(lines[h])) drop.add(h); // 고아 헤더 제거
+    }
+  }
+  if (!drop.size) return text;
+  const kept = lines.filter((_, i) => !drop.has(i));
+  // 연속(빈 줄 사이) 중복 헤딩 제거
+  const out = [];
+  for (let i = 0; i < kept.length; i++) {
+    const t = kept[i].trim();
+    if (/^#{1,6}\s/.test(t)) { let j = i + 1; while (j < kept.length && kept[j].trim() === '') j++; if (j < kept.length && kept[j].trim() === t) continue; }
+    out.push(kept[i]);
+  }
+  return out.join('\n');
+}
+
 // ── 결과 수집 ──────────────────────────────────────────────────────
 const report = { fixed: [], blocked: [], warned: [], ok: 0, files: 0, willFix: 0 };
 function logFix(where, msg) { report.fixed.push(`[FIX] ${where}: ${msg}`); }
@@ -229,17 +260,21 @@ function checkPost(file) {
 }
 
 // ── benefit 시맨틱 중복 판정 (fetch-public-data.js와 동일 로직) ────────────────
+const METRO_DISTRICTS = /(종로|용산|성동|광진|동대문|중랑|성북|강북|도봉|노원|은평|서대문|마포|양천|강서|구로|금천|영등포|동작|관악|서초|강남|송파|강동|미추홀|연수|남동|부평|계양|강화|옹진|수원|성남|의정부|안양|부천|광명|평택|동두천|안산|고양|과천|구리|남양주|오산|시흥|군포|의왕|하남|용인|파주|이천|안성|김포|화성|양주|포천|여주|연천|가평|양평)/;
 function benefitDistrict(title) {
   const t = (title || '').replace(/서울특별시|인천광역시|경기도|서울시|인천시|서울|인천|경기/g, ' ');
   const m = t.match(/([가-힣]{2,4}구|[가-힣]{2,4}시|[가-힣]{2,3}군)/);
-  return m ? m[1] : '';
+  if (m) return m[1].replace(/(구|시|군)$/, '');
+  const a = t.match(METRO_DISTRICTS);
+  return a ? a[1] : '';
 }
 function benefitCore(title) {
   return (title || '')
     .replace(/\[[^\]]*\]/g, ' ')
     .replace(/[가-힣]{2,4}구|[가-힣]{2,4}시|[가-힣]{2,3}군|서울|인천|경기|전국|수도권|특별시|광역시/g, ' ')
+    .replace(METRO_DISTRICTS, ' ')
     .replace(/\d{4}년?|\d+세|\d+개월|\d+분기|\d+만원|\d+원|최대|매월|월별/g, ' ')
-    .replace(/신청|지원금|지원|자격|방법|가이드|총정리|완벽\s*분석|혜택|안내|지급|받기|확인|경제적|부담|경감|및/g, ' ')
+    .replace(/신청|지원금|지원|자격|방법|가이드|총정리|완벽\s*분석|혜택|안내|지급|받기|확인|경제적|부담|경감|구비|서류|및/g, ' ')
     .replace(/[^가-힣]/g, '');
 }
 function _bigrams(s) { const set = new Set(); for (let i = 0; i < s.length - 1; i++) set.add(s.slice(i, i + 2)); return set; }
@@ -285,17 +320,25 @@ function checkPickInfo() {
   // (WARN) 시맨틱 중복 benefit 탐지 — 같은 지역·같은 사업이 AI 변형 제목으로 누적되었는지
   const seen = [];
   for (const b of data.benefits) {
-    const cb = _bigrams(benefitCore(b.title));
+    const ca = benefitCore(b.title);
+    const cb = _bigrams(ca);
     const d = benefitDistrict(b.title);
-    const hit = seen.find(s => s.d === d && cb.size && _jaccard(cb, s.cb) >= 0.5);
+    const hit = seen.find(s => {
+      if (s.d !== d || !cb.size) return false;
+      if (ca.length >= 4 && s.ca.length >= 4 && (ca.includes(s.ca) || s.ca.includes(ca))) return true;
+      const small = cb.size <= s.cb.size ? cb : s.cb;
+      const large = cb.size <= s.cb.size ? s.cb : cb;
+      if (small.size >= 3) { let inter = 0; for (const x of small) if (large.has(x)) inter++; if (inter / small.size >= 0.7) return true; }
+      return _jaccard(cb, s.cb) >= 0.42;
+    });
     if (hit) logWarn('pick-info', `중복 의심 benefit (수기 정리 검토): "${b.title}" ≈ "${hit.title}"`);
-    else seen.push({ title: b.title, d, cb });
+    else seen.push({ title: b.title, d, ca, cb });
   }
 
   // 축제 content: 표 셀 줄바꿈으로 깨진 마크다운 표 교정 (AUTO)
   for (const f of (data.festivals || [])) {
     if (typeof f.content === 'string' && f.content.includes('|')) {
-      const fixed = fixTableCells(f.content);
+      const fixed = fixTableCells(repairBrokenTables(f.content));
       if (fixed !== f.content) { f.content = fixed; logFix('pick-info', `festival '${(f.title || '').slice(0, 20)}' 표 셀 줄바꿈 교정`); changed = true; }
     }
   }

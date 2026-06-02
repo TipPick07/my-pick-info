@@ -13,6 +13,10 @@ interface Benefit {
   deadline: string;
   isEmergency: boolean;
   addedAt?: string;
+  highlight?: string;
+  details?: string;
+  simulation?: string;
+  detailedExplanation?: string;
 }
 
 interface Data {
@@ -96,15 +100,89 @@ function isBenefitUrgent(deadline: string, today: Date): boolean {
   return d !== null && d >= 0 && d <= 30;
 }
 
-function sortBenefits(list: Benefit[], today: Date): Benefit[] {
-  const getOrder = (deadline: string) => {
-    if (getBenefitStatus(deadline, today) === "마감") return 2;
-    if (isBenefitOngoing(deadline, today)) return 0;
-    return 1;
-  };
-  return [...list].sort((a, b) => {
-    const aOrder = getOrder(a.deadline);
-    const bOrder = getOrder(b.deadline);
+// ── 금액 추출 유틸 ────────────────────────────────────────────────────────────
+// highlight 필드 우선, 없으면 본문에서 "최대 ◯◯만원" 류를 추출해 카드 강조에 사용
+function extractAmount(b: Benefit): string | null {
+  if (b.highlight && b.highlight.trim()) return b.highlight.trim();
+  const sources = [b.title, b.simulation, b.details, b.detailedExplanation];
+  const clean = (s: string) => s.replace(/\s+/g, " ").trim();
+  // 1순위: "최대 …원" (월/억/천만 단위 허용)
+  for (const src of sources) {
+    if (!src) continue;
+    const m = src.match(/최대\s*(?:월\s*)?[\d,]+\s*(?:억\s*)?(?:[\d,]+\s*)?(?:천\s*)?만?\s*원/);
+    if (m) return clean(m[0]);
+  }
+  // 2순위: "월 …만원"
+  for (const src of sources) {
+    if (!src) continue;
+    const m = src.match(/월\s*[\d,]+\s*만\s*원/);
+    if (m) return clean(m[0]);
+  }
+  // 3순위: 일반 "…만원" / "…억"
+  for (const src of sources) {
+    if (!src) continue;
+    const m = src.match(/[\d,]+\s*(?:억\s*)?(?:[\d,]+\s*)?(?:천\s*)?만\s*원/);
+    if (m) return clean(m[0]);
+  }
+  return null;
+}
+
+// 정렬용 금액 수치화 (억/만/천만 합산)
+function amountValue(b: Benefit): number {
+  const s = extractAmount(b);
+  if (!s) return 0;
+  let val = 0;
+  const eok = s.match(/([\d,]+)\s*억/);
+  if (eok) val += parseInt(eok[1].replace(/,/g, ""), 10) * 1e8;
+  const cheonman = s.match(/([\d,]+)\s*천\s*만/);
+  if (cheonman) val += parseInt(cheonman[1].replace(/,/g, ""), 10) * 1e7;
+  // 단순 "…만원" 케이스 (억/천만 미포함)
+  if (!eok && !cheonman) {
+    const m = s.match(/([\d,]+)\s*만\s*원/);
+    if (m) val += parseInt(m[1].replace(/,/g, ""), 10) * 1e4;
+    else {
+      const won = s.match(/([\d,]+)\s*원/);
+      if (won) val += parseInt(won[1].replace(/,/g, ""), 10);
+    }
+  }
+  return val;
+}
+
+// ── 정렬 ──────────────────────────────────────────────────────────────────────
+type SortKey = "마감임박순" | "최신등록순" | "금액높은순";
+const SORT_OPTIONS: SortKey[] = ["마감임박순", "최신등록순", "금액높은순"];
+
+function statusOrder(deadline: string, today: Date): number {
+  if (getBenefitStatus(deadline, today) === "마감") return 2;
+  if (isBenefitOngoing(deadline, today)) return 0;
+  return 1;
+}
+
+function sortBenefits(list: Benefit[], today: Date, sortKey: SortKey): Benefit[] {
+  const arr = [...list];
+  if (sortKey === "최신등록순") {
+    // 마감은 항상 뒤로, 그 안에서 등록일 최신순
+    return arr.sort((a, b) => {
+      const ao = statusOrder(a.deadline, today) === 2 ? 1 : 0;
+      const bo = statusOrder(b.deadline, today) === 2 ? 1 : 0;
+      if (ao !== bo) return ao - bo;
+      const ad = getAddedDate(a)?.getTime() ?? -Infinity;
+      const bd = getAddedDate(b)?.getTime() ?? -Infinity;
+      return bd - ad;
+    });
+  }
+  if (sortKey === "금액높은순") {
+    return arr.sort((a, b) => {
+      const ao = statusOrder(a.deadline, today) === 2 ? 1 : 0;
+      const bo = statusOrder(b.deadline, today) === 2 ? 1 : 0;
+      if (ao !== bo) return ao - bo;
+      return amountValue(b) - amountValue(a);
+    });
+  }
+  // 마감임박순 (기본): 진행 우선 → 마감일 가까운 순
+  return arr.sort((a, b) => {
+    const aOrder = statusOrder(a.deadline, today);
+    const bOrder = statusOrder(b.deadline, today);
     if (aOrder !== bOrder) return aOrder - bOrder;
     const aEnd = parseEndDate(a.deadline);
     const bEnd = parseEndDate(b.deadline);
@@ -112,8 +190,6 @@ function sortBenefits(list: Benefit[], today: Date): Benefit[] {
   });
 }
 // ─────────────────────────────────────────────────────────────────────────────
-
-type StatusFilter = "전체" | "상시" | "모집중" | "마감";
 
 const ITEMS_PER_PAGE = 20;
 
@@ -129,8 +205,7 @@ function getPaginationRange(current: number, total: number): (number | '...')[] 
 
 export default function BenefitsClient({ data }: { data: Data }) {
   const [filter, setFilter] = useState("전체");
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>("전체");
-  const [benefitFilter, setBenefitFilter] = useState<"전체 보기" | "주거/임대 지원">("전체 보기");
+  const [sortKey, setSortKey] = useState<SortKey>("마감임박순");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -144,26 +219,17 @@ export default function BenefitsClient({ data }: { data: Data }) {
     window.history.replaceState(null, '', url);
   };
   const regions = ["전체", "서울", "인천", "경기"];
-  const STATUS_OPTIONS: StatusFilter[] = ["전체", "상시", "모집중", "마감"];
 
   // KST 기준 오늘 날짜
   const todayKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
   todayKST.setHours(0, 0, 0, 0);
 
-  // 지역 + 진행 상태 + 고가치 카테고리 AND 필터
-  const filtered = data.benefits
-    .filter((b) => {
-      const regionOk = filter === "전체" || b.region === filter || b.region === "전국";
-      const statusOk = statusFilter === "전체" || getBenefitStatus(b.deadline, todayKST) === statusFilter;
-      return regionOk && statusOk;
-    })
-    .filter((b) => {
-      if (benefitFilter === "주거/임대 지원")
-        return (b.title + " " + b.target).match(/주거|청년안심|LH|SH|GH|전세|월세|임대|행복주택|국민임대/);
-      return true;
-    });
+  // 지역 필터
+  const filtered = data.benefits.filter((b) => {
+    return filter === "전체" || b.region === filter || b.region === "전국";
+  });
 
-  const sorted = sortBenefits(filtered, todayKST);
+  const sorted = sortBenefits(filtered, todayKST, sortKey);
 
   const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
   const paginated = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
@@ -176,8 +242,8 @@ export default function BenefitsClient({ data }: { data: Data }) {
     changePage(1);
   };
 
-  const handleStatusChange = (s: StatusFilter) => {
-    setStatusFilter(s);
+  const handleSortChange = (s: SortKey) => {
+    setSortKey(s);
     changePage(1);
   };
 
@@ -215,31 +281,16 @@ export default function BenefitsClient({ data }: { data: Data }) {
               이 마감을 앞두고 있습니다.
             </div>
           )}
+        </section>
 
-          {/* 고가치 카테고리 필터 탭 */}
-          <div className="flex gap-2 justify-center flex-wrap pt-1">
-            {(["전체 보기", "주거/임대 지원"] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => { setBenefitFilter(tab); changePage(1); }}
-                className={`px-5 py-2 rounded-full text-sm font-bold transition-all border ${
-                  benefitFilter === tab
-                    ? "bg-slate-900 text-white border-slate-900"
-                    : "bg-white text-slate-500 border-slate-200 hover:border-slate-400"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* 지역 필터 + 진행 상태 드롭다운 */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
+        {/* ── 필터 바: 지역 탭 + 정렬 드롭다운 ── */}
+        <section className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-5">
+          <div className="flex flex-wrap items-center gap-2">
             {regions.map((r) => (
               <button
                 key={r}
                 onClick={() => handleFilterChange(r)}
-                className={`px-7 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${filter === r
+                className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${filter === r
                     ? "text-white shadow-[0_4px_20px_rgba(6,182,212,0.4)]"
                     : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/50"
                   }`}
@@ -252,165 +303,160 @@ export default function BenefitsClient({ data }: { data: Data }) {
                 {r}
               </button>
             ))}
+          </div>
 
-            {/* 진행 상태 드롭다운 */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-slate-400">총 {sorted.length}건</span>
             <div className="relative">
               <select
-                value={statusFilter}
-                onChange={(e) => handleStatusChange(e.target.value as StatusFilter)}
-                className="appearance-none pl-4 pr-8 py-2.5 rounded-full text-sm font-bold bg-white text-slate-600 border border-slate-200/50 hover:bg-slate-100 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-200"
-                style={statusFilter !== "전체" ? { borderColor: "#00CCFF", color: "#00AACC" } : {}}
+                value={sortKey}
+                onChange={(e) => handleSortChange(e.target.value as SortKey)}
+                className="appearance-none pl-4 pr-9 py-2.5 rounded-full text-sm font-bold bg-white text-slate-600 border border-slate-200/50 hover:bg-slate-100 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-200"
               >
-                {STATUS_OPTIONS.map((s) => (
-                  <option key={s} value={s}>{s === "전체" ? "진행 상태" : s}</option>
+                {SORT_OPTIONS.map((s) => (
+                  <option key={s} value={s}>{s}</option>
                 ))}
               </select>
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">▾</span>
+              <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">▾</span>
             </div>
           </div>
         </section>
 
-        {/* ── 리스트 ── */}
-        <section className="space-y-2.5">
-          {sorted.length === 0 && (
+        {/* ── 카드 그리드 ── */}
+        <section>
+          {sorted.length === 0 ? (
             <div className="py-20 text-center text-slate-400 font-medium bg-white rounded-3xl border-2 border-dashed border-slate-200">
-              {statusFilter !== "전체"
-                ? `${filter === "전체" ? "수도권" : filter} 지역의 '${statusFilter}' 지원금이 없습니다.`
-                : "해당 지역의 예정된 혜택이 없습니다."}
+              해당 지역의 예정된 혜택이 없습니다.
             </div>
-          )}
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {paginated.map((b) => {
+                const benefitStatus = getBenefitStatus(b.deadline, todayKST);
+                const isExpired = benefitStatus === "마감";
+                const isAlways = benefitStatus === "상시";
+                const dday = calcDDay(b.deadline, todayKST);
+                const isUrgent = isBenefitUrgent(b.deadline, todayKST);
+                const isNew = !isExpired && !isUrgent && isBenefitNew(b, todayKST);
+                const isLocalMatch = filter !== "전체" && b.region === filter;
+                const amount = extractAmount(b);
+                const cleanTitle = b.title.replace(/^\[[^\]]*\]\s*/, "");
 
-          {paginated.map((b) => {
-            const benefitStatus = getBenefitStatus(b.deadline, todayKST);
-            const isExpired = benefitStatus === "마감";
-            const isAlways = benefitStatus === "상시";
-            const dday = calcDDay(b.deadline, todayKST);
-            const isUrgent = isBenefitUrgent(b.deadline, todayKST);
-            const isNew = !isExpired && !isUrgent && isBenefitNew(b, todayKST);
-            const isLocalMatch = filter !== "전체" && b.region === filter;
-
-            const cardContent = (
-              <>
-                {/* 왼쪽 강조 선 */}
-                <div
-                  className={`w-1 shrink-0 ${isExpired
-                    ? "bg-slate-300"
-                    : isUrgent
-                      ? "bg-rose-500"
-                      : isAlways
-                        ? "bg-cyan-400"
-                        : "bg-emerald-400"
-                    }`}
-                />
-
-                {/* 카드 본문 */}
-                <div className={`flex items-center gap-4 flex-1 px-5 py-4 ${isUrgent && !isExpired ? "bg-rose-50/20" : isLocalMatch && !isExpired ? "bg-cyan-50/20" : ""}`}>
-
-                  {/* 좌: 상태 배지 */}
-                  <div className="shrink-0 w-20 flex flex-col items-center gap-1.5">
-                    {isExpired ? (
-                      <span className="text-[10px] font-black px-2.5 py-1 rounded-full text-center w-full bg-slate-500 text-white">
-                        종료
+                const cardInner = (
+                  <>
+                    {/* 상단: 상태 배지 + 지역 */}
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        {isExpired ? (
+                          <span className="text-[10px] font-black px-2.5 py-1 rounded-full bg-slate-500 text-white">
+                            종료
+                          </span>
+                        ) : (
+                          <>
+                            <span
+                              className={`text-[10px] font-black px-2.5 py-1 rounded-full ${isUrgent
+                                  ? "bg-rose-500 text-white"
+                                  : isAlways
+                                    ? "bg-cyan-100 text-cyan-700"
+                                    : "bg-emerald-100 text-emerald-700"
+                                }`}
+                            >
+                              {isUrgent ? "마감임박" : isAlways ? "상시" : "모집중"}
+                            </span>
+                            {isNew && (
+                              <span className="text-[10px] font-black px-2 py-1 rounded-full bg-indigo-500 text-white">
+                                NEW
+                              </span>
+                            )}
+                            {dday !== null && dday >= 0 && dday <= 30 && (
+                              <span className="text-[10px] font-black px-2 py-1 rounded-full bg-rose-600 text-white animate-pulse">
+                                {dday === 0 ? "D-DAY" : `D-${dday}`}
+                              </span>
+                            )}
+                          </>
+                        )}
+                      </div>
+                      <span
+                        className={`shrink-0 text-[10px] font-black px-2.5 py-1 rounded-full ${isLocalMatch
+                            ? "bg-cyan-100 text-cyan-700"
+                            : "bg-slate-100 text-slate-500"
+                          }`}
+                      >
+                        {isLocalMatch && "📍 "}
+                        {b.region}
                       </span>
-                    ) : (
-                      <>
-                        <span
-                          className={`text-[10px] font-black px-2.5 py-1 rounded-full text-center w-full ${isUrgent
-                              ? "bg-rose-500 text-white"
-                              : isAlways
-                                ? "bg-cyan-100 text-cyan-700"
-                                : "bg-emerald-100 text-emerald-700"
-                            }`}
-                        >
-                          {isUrgent ? "마감임박" : isAlways ? "상시" : "모집중"}
-                        </span>
-                        {/* 신규 배지 (등록 7일 이내) */}
-                        {isNew && (
-                          <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-indigo-500 text-white w-full text-center">
-                            NEW
-                          </span>
-                        )}
-                        {/* D-Day 배지 (30일 이내만) */}
-                        {dday !== null && dday >= 0 && dday <= 30 && (
-                          <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-rose-600 text-white animate-pulse w-full text-center">
-                            {dday === 0 ? "D-DAY" : `D-${dday}`}
-                          </span>
-                        )}
-                      </>
-                    )}
-                  </div>
+                    </div>
 
-                  {/* 중: 제목 + 요약 */}
-                  <div className="flex-1 min-w-0 space-y-0.5">
-                    <h4 className={`font-black leading-snug line-clamp-2 text-sm md:text-base transition-colors ${isExpired
+                    {/* 제목 */}
+                    <h3 className={`font-black leading-snug line-clamp-2 text-base md:text-lg transition-colors ${isExpired
                         ? "text-slate-400"
                         : isUrgent
                           ? "text-slate-900 group-hover:text-rose-600"
-                          : "text-slate-900 group-hover:text-brand-dark"
+                          : "text-slate-900 group-hover:text-emerald-600"
                       }`}>
-                      {b.title}
-                    </h4>
-                    <p className="text-slate-500 text-xs line-clamp-1 font-medium">
-                      {b.target}
-                    </p>
-                  </div>
+                      {cleanTitle}
+                    </h3>
 
-                  {/* 우: 지역 + 마감일 */}
-                  <div className="shrink-0 text-right space-y-1 min-w-[72px]">
-                    <span
-                      className={`block text-[10px] font-black px-2 py-0.5 rounded-full text-center ${isLocalMatch
-                          ? "bg-cyan-100 text-cyan-700"
-                          : "bg-slate-100 text-slate-500"
-                        }`}
+                    {/* 금액 강조 */}
+                    {amount && (
+                      <div className={`mt-3 inline-flex items-center gap-1.5 text-sm font-black ${isExpired ? "text-slate-400" : "text-emerald-600"}`}>
+                        💰 {amount}
+                      </div>
+                    )}
+
+                    {/* 대상 */}
+                    {b.target && (
+                      <p className="mt-2 text-sm text-slate-500 font-medium line-clamp-2">
+                        {b.target}
+                      </p>
+                    )}
+
+                    {/* 하단: 마감일 + CTA */}
+                    <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <span className={`text-xs font-bold ${isExpired ? "text-slate-400" : isUrgent ? "text-rose-600" : "text-slate-400"}`}>
+                        {b.deadline || "상시 접수"}
+                      </span>
+                      {!isExpired && (
+                        <span className="inline-flex items-center gap-1 text-sm font-bold text-emerald-600">
+                          자세히 보기
+                          <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+                        </span>
+                      )}
+                    </div>
+                  </>
+                );
+
+                if (isExpired) {
+                  return (
+                    <div
+                      key={b.id}
+                      className="block bg-white rounded-3xl border-2 border-slate-100 p-6 opacity-50 cursor-not-allowed select-none"
                     >
-                      {isLocalMatch && "📍 "}
-                      {b.region}
-                    </span>
-                    <span
-                      className={`block text-[10px] font-bold ${isExpired ? "text-slate-400" : isUrgent ? "text-rose-600" : "text-slate-400"}`}
-                    >
-                      {b.deadline}
-                    </span>
-                  </div>
+                      {cardInner}
+                    </div>
+                  );
+                }
 
-                  {/* 화살표 */}
-                  <div className={`shrink-0 text-sm transition-all ${isExpired ? "text-slate-200" : "text-slate-300 group-hover:text-brand group-hover:translate-x-0.5"}`}>
-                    →
-                  </div>
-                </div>
-              </>
-            );
-
-            if (isExpired) {
-              return (
-                <div
-                  key={b.id}
-                  className="flex items-stretch bg-white rounded-2xl overflow-hidden border border-slate-100 opacity-50 cursor-not-allowed select-none"
-                >
-                  {cardContent}
-                </div>
-              );
-            }
-
-            return (
-              <Link
-                key={b.id}
-                href={`/benefit/${b.id}/`}
-                className={`group flex items-stretch bg-white rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-0.5 ${isUrgent
-                    ? "border-rose-200 hover:shadow-[0_4px_20px_rgba(244,63,94,0.15)] hover:border-rose-300"
-                    : isLocalMatch
-                      ? "border-cyan-200 hover:shadow-[0_4px_20px_rgba(0,204,255,0.12)] hover:border-cyan-300"
-                      : "border-slate-100 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:border-slate-200"
-                  }`}
-              >
-                {cardContent}
-              </Link>
-            );
-          })}
+                return (
+                  <Link
+                    key={b.id}
+                    href={`/benefit/${b.id}/`}
+                    className={`group block bg-white rounded-3xl border-2 p-6 transition-all duration-200 hover:-translate-y-0.5 ${isUrgent
+                        ? "border-rose-100 hover:border-rose-200 hover:shadow-[0_4px_24px_rgba(244,63,94,0.12)]"
+                        : isLocalMatch
+                          ? "border-cyan-100 hover:border-cyan-200 hover:shadow-[0_4px_24px_rgba(0,204,255,0.12)]"
+                          : "border-slate-100 hover:border-emerald-200 hover:shadow-[0_4px_24px_rgba(16,185,129,0.1)]"
+                      }`}
+                  >
+                    {cardInner}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
 
           {/* 페이지네이션 */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2 pt-6">
+            <div className="flex items-center justify-center gap-2 pt-8">
               <button
                 onClick={() => changePage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}

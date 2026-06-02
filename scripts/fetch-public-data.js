@@ -103,18 +103,24 @@ function normTitle(title) {
 // bokjiro 링크가 전부 동일 URL이라 링크 키가 무용 + 기존 prefix-5 검사는
 // "[서울] 관악구..." vs "[서울 관악구]..." 처럼 지역명 위치가 달라지면 회피됨.
 // → 지역(구/시/군)은 하드 식별자로 유지하고, 사업 핵심명사 bigram Jaccard로 판정.
+// 수도권 자치구/시 명칭(접미사 '구/시/군' 없이 쓰이는 경우 대비) — "[서울 용산]"처럼
+// '구'가 생략돼도 지역을 인식하기 위한 별칭 목록. 1글자(중·서·동 등)는 오탐 위험으로 제외.
+const METRO_DISTRICTS = /(종로|용산|성동|광진|동대문|중랑|성북|강북|도봉|노원|은평|서대문|마포|양천|강서|구로|금천|영등포|동작|관악|서초|강남|송파|강동|미추홀|연수|남동|부평|계양|강화|옹진|수원|성남|의정부|안양|부천|광명|평택|동두천|안산|고양|과천|구리|남양주|오산|시흥|군포|의왕|하남|용인|파주|이천|안성|김포|화성|양주|포천|여주|연천|가평|양평)/;
 function benefitDistrict(title) {
   // 광역 단위(서울/인천/경기)는 자치구가 아니므로 먼저 제거 → "서울시"가 구로 오인되는 것 방지
   const t = (title || '').replace(/서울특별시|인천광역시|경기도|서울시|인천시|서울|인천|경기/g, ' ');
   const m = t.match(/([가-힣]{2,4}구|[가-힣]{2,4}시|[가-힣]{2,3}군)/);
-  return m ? m[1] : '';
+  if (m) return m[1].replace(/(구|시|군)$/, ''); // 접미사 제거해 stem 통일 → "용산구"=="용산"
+  const a = t.match(METRO_DISTRICTS); // 접미사 없는 자치구명("용산") 인식
+  return a ? a[1] : '';
 }
 function benefitCore(title) {
   return (title || '')
     .replace(/\[[^\]]*\]/g, ' ')
     .replace(/[가-힣]{2,4}구|[가-힣]{2,4}시|[가-힣]{2,3}군|서울|인천|경기|전국|수도권|특별시|광역시/g, ' ')
+    .replace(METRO_DISTRICTS, ' ') // 접미사 없는 자치구명도 핵심명사에서 제외("용산가정출산"→"가정출산")
     .replace(/\d{4}년?|\d+세|\d+개월|\d+분기|\d+만원|\d+원|최대|매월|월별/g, ' ')
-    .replace(/신청|지원금|지원|자격|방법|가이드|총정리|완벽\s*분석|혜택|안내|지급|받기|확인|경제적|부담|경감|및/g, ' ')
+    .replace(/신청|지원금|지원|자격|방법|가이드|총정리|완벽\s*분석|혜택|안내|지급|받기|확인|경제적|부담|경감|구비|서류|및/g, ' ')
     .replace(/[^가-힣]/g, '');
 }
 function _bigrams(s) {
@@ -129,13 +135,25 @@ function _jaccard(a, b) {
   return inter / (a.size + b.size - inter);
 }
 // existingTitles(raw 제목 배열/셋)와 비교해 같은 지역·같은 사업이면 매칭 제목 반환
-function findBenefitDuplicate(title, existingTitles, threshold = 0.5) {
+function findBenefitDuplicate(title, existingTitles, threshold = 0.42) {
   const d = benefitDistrict(title);
-  const cb = _bigrams(benefitCore(title));
+  const ca = benefitCore(title);
+  const cb = _bigrams(ca);
   if (cb.size === 0) return null;
   for (const et of existingTitles) {
     if (benefitDistrict(et) !== d) continue; // 지역 다르면 별개 사업
-    if (_jaccard(cb, _bigrams(benefitCore(et))) >= threshold) return et;
+    const ce = benefitCore(et);
+    const eb = _bigrams(ce);
+    // 핵심명사 문자열 포함(짧은 쪽이 긴 쪽에 통째로 들어감)
+    if (ca.length >= 4 && ce.length >= 4 && (ca.includes(ce) || ce.includes(ca))) return et;
+    // bigram 포함률: 짧은 쪽 핵심명사가 긴 쪽에 70%+ 포함되면 동일 사업(AI가 군더더기 덧붙인 경우 포착)
+    const small = cb.size <= eb.size ? cb : eb;
+    const large = cb.size <= eb.size ? eb : cb;
+    if (small.size >= 3) {
+      let inter = 0; for (const x of small) if (large.has(x)) inter++;
+      if (inter / small.size >= 0.7) return et;
+    }
+    if (_jaccard(cb, eb) >= threshold) return et;
   }
   return null;
 }
@@ -195,7 +213,8 @@ async function supplementWithGemini(hotKeywords, type, existingTitles, geminiApi
   "coreValue": "이 정보가 주는 핵심 가치 요약 (예: 청년 주거비 절감)",
   "eligibilityQuiz": ["자격 요건 O/X 질문1", "자격 요건 O/X 질문2", "질문3", "질문4"],
   "simulation": "타겟 페르소나를 가정한 구체적인 연간 체감 혜택이나 예상 절약 금액 시뮬레이션",
-  "practicalTip": "관공서 서류 제출 시 누락하기 쉬운 점 등 실무적이고 디테일한 팁"
+  "practicalTip": "관공서 서류 제출 시 누락하기 쉬운 점 등 실무적이고 디테일한 팁",
+  "highlight": "목록 카드에 강조할 핵심 금액/혜택 한 줄. 예: 최대 330만원, 월 20만원, 1인당 100만원. 금액 혜택이 없으면 빈 문자열."
 }`;
 
       const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
@@ -1325,6 +1344,7 @@ async function main() {
             targetPersona: item.targetPersona || '누구나',
             coreValue: item.coreValue || '유용한 혜택',
             simulation: item.simulation || '',
+            highlight: item.highlight || '', // 목록 카드 금액 강조 (없으면 클라이언트가 본문에서 추출)
             faq: Array.isArray(item.faq) ? item.faq.filter(f => f && f.q && f.a) : [],
             rejectionReasons: Array.isArray(item.rejectionReasons) ? item.rejectionReasons.filter(Boolean) : [],
             addedAt: new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })
@@ -1410,6 +1430,7 @@ async function main() {
     '부동산·자동차 등 자산 기준을 충족하십니까?'
   ],
   simulation: '전용면적별 보증금·월 임대료 예상 시뮬레이션. 예: 전용 36㎡ 기준 보증금 약 3,000만원·월 임대료 약 15만원, 시세 대비 약 40% 절감. 연간 약 180만원·5년 약 900만원 절약 효과.',
+  highlight: '목록 카드에 강조할 핵심 금액/혜택 한 줄. 예: 보증금 3,000만원·월 15만원, 시세 대비 40% 절감. 금액 혜택이 없으면 빈 문자열.',
   practicalTip: '임대주택 신청 실무 팁. 예: 무주택확인서는 정부24에서 무료 발급. 소득·자산 기준은 전년도 기준 적용. 청약통장 납입 횟수가 당첨 순위에 직접 영향. 사전청약·본청약 일정 차이 필수 확인.',
   faq: [{ q: '무주택 요건은 세대원 전원이 충족해야 하나요?', a: '구체적 답변 1~2문장' }, { q: '소득·자산 기준은 어떻게 되나요?', a: '답변' }, { q: '청약통장이 꼭 필요한가요?', a: '답변' }],
   rejectionReasons: ['소득·자산 기준 초과', '무주택 요건 미충족(세대원 중 주택 보유)', '거주·청약통장 등 우선순위 요건 미달']
@@ -1441,6 +1462,7 @@ ${JSON.stringify(selectedData)}`
   coreValue: '이 정보가 주는 핵심 가치 요약 (예: 가성비 주말 나들이, 청년 주거비 절감)',
   eligibilityQuiz: ['자격 요건 O/X 질문1', '자격 요건 O/X 질문2', '질문3', '질문4'],
   simulation: '타겟 페르소나를 가정한 구체적인 연간 체감 혜택이나 예상 절약 금액 시뮬레이션 (지원금인 경우 필수, 축제는 빈 문자열)',
+  highlight: '목록 카드에 강조할 핵심 금액/혜택 한 줄. 예: 최대 330만원, 월 20만원. 지원금이고 금액 혜택이 있을 때만, 없으면 빈 문자열 (축제는 빈 문자열)',
   practicalTip: '관공서 서류 제출 시 누락하기 쉬운 점이나 축제 현장의 주차/편의성 등 실무적이고 디테일한 팁',
   faq: [{ q: '신청자가 실제로 궁금해할 질문', a: '구체적이고 정확한 답변 1~2문장' }, { q: '질문2', a: '답변2' }, { q: '질문3', a: '답변3' }],
   rejectionReasons: ['이 지원금에서 자주 탈락/거절되는 실제 사유1 (예: 소득 기준 초과, 거주 기간 미달)', '사유2', '사유3']
@@ -1687,6 +1709,7 @@ ${JSON.stringify(selectedData)}`;
             targetPersona: parsedParams.targetPersona || '누구나',
             coreValue: parsedParams.coreValue || '유용한 혜택',
             simulation: parsedParams.simulation || '',
+            highlight: parsedParams.highlight || '', // 목록 카드 금액 강조 (없으면 클라이언트가 본문에서 추출)
             faq: Array.isArray(parsedParams.faq) ? parsedParams.faq.filter(f => f && f.q && f.a) : [],
             rejectionReasons: Array.isArray(parsedParams.rejectionReasons) ? parsedParams.rejectionReasons.filter(Boolean) : [],
             addedAt: new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })

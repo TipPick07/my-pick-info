@@ -40,6 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Claude Code 로컬 설정 (에디터 전용 — 사이트 코드 아님)
+/.claude
+
 # scratch
 /scratch
 
