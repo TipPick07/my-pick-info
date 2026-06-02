@@ -21,7 +21,7 @@ export default function BlogListPage() {
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
       <Header />
 
-      <main className="max-w-3xl mx-auto w-full px-4 md:px-6 py-12 space-y-10">
+      <main className="max-w-5xl mx-auto w-full px-4 py-12 space-y-10">
 
         {/* Page Hero */}
         <section className="text-center space-y-6 max-w-3xl mx-auto py-8">

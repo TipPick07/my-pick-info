@@ -34,15 +34,16 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
   const paginated = posts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   return (
-    <div className="max-w-3xl mx-auto space-y-4">
+    <div className="max-w-5xl mx-auto space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {paginated.map((post) => (
         <Link
           key={post.slug}
           href={`/blog/${post.slug}/`}
-          className="group flex items-center bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-[0_4px_24px_rgba(0,204,255,0.12)] hover:border-brand/30 transition-all duration-300 hover:-translate-y-0.5"
+          className="group flex flex-col bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-[0_4px_24px_rgba(0,204,255,0.12)] hover:border-brand/30 transition-all duration-300 hover:-translate-y-1"
         >
-          {/* 왼쪽 정방형 썸네일 */}
-          <div className="relative w-36 h-36 md:w-44 md:h-44 shrink-0 overflow-hidden bg-slate-100">
+          {/* 상단 와이드 썸네일 */}
+          <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100">
             <img
               src={post.image || '/images/blogs/korea-welfare-benefit-322.png'}
               alt={post.title}
@@ -51,27 +52,25 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
                 (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
               }}
             />
-            <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black text-brand-dark shadow border border-white/50 tracking-wider">
+            <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-black text-brand-dark shadow border border-white/50 tracking-wider">
               {({ festival: '축제', benefit: '지원금', benefits: '지원금', election: '선거', info: '정보' } as Record<string, string>)[post.category ?? ''] ?? post.category}
             </div>
           </div>
 
-          {/* 오른쪽 텍스트 */}
-          <div className="flex-1 px-6 py-5 flex flex-col justify-between gap-2 min-h-[144px] md:min-h-[176px]">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-[10px] font-bold text-slate-400">
-                <span className="text-brand-dark">💡 팁픽 큐레이션</span>
-                <span>{post.date}</span>
-              </div>
-              <h3 className="text-base md:text-lg font-black text-slate-800 line-clamp-2 leading-snug transition-colors group-hover:text-brand-dark">
-                {post.title}
-              </h3>
-              <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">
-                {post.summary}
-              </p>
+          {/* 하단 텍스트 */}
+          <div className="flex-1 px-6 py-5 flex flex-col gap-2.5">
+            <div className="flex items-center justify-between text-[10px] font-bold text-slate-400">
+              <span className="text-brand-dark">💡 팁픽 큐레이션</span>
+              <span>{post.date}</span>
             </div>
-            <div className="flex flex-wrap gap-1.5">
-              {post.tags.slice(0, 5).map(tag => (
+            <h3 className="text-lg font-black text-slate-800 line-clamp-2 leading-snug transition-colors group-hover:text-brand-dark">
+              {post.title}
+            </h3>
+            <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 flex-1">
+              {post.summary}
+            </p>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {post.tags.slice(0, 4).map(tag => (
                 <span
                   key={tag}
                   className="text-[9px] px-2 py-0.5 rounded-md bg-cyan-50 text-brand-dark"
@@ -83,6 +82,7 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
           </div>
         </Link>
       ))}
+      </div>
 
       {posts.length === 0 && (
         <div className="py-20 text-center space-y-4">
