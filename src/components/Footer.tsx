@@ -29,7 +29,7 @@ export default function Footer() {
   ];
 
   const colLink = (active: boolean) =>
-    `transition-colors ${active ? "text-[#00CCFF] font-semibold" : "text-slate-500 hover:text-[#00CCFF]"}`;
+    `transition-colors ${active ? "text-brand-dark font-semibold" : "text-slate-500 hover:text-brand-dark"}`;
 
   return (
     <>

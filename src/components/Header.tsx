@@ -30,12 +30,7 @@ export default function Header() {
 
         {/* ── 로고 ── */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div
-            className="relative w-10 h-10 rounded-xl overflow-hidden transition-all duration-300"
-            style={{ boxShadow: "0 0 12px rgba(0,204,255,0.35)" }}
-            onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 22px rgba(0,204,255,0.6)")}
-            onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 12px rgba(0,204,255,0.35)")}
-          >
+          <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-[0_0_12px_rgba(0,204,255,0.35)] group-hover:shadow-[0_0_22px_rgba(0,204,255,0.55)] transition-shadow duration-300">
             <Image
               src="/images/logo-tippick.png"
               alt="수도권 팁픽 로고"
@@ -60,8 +55,8 @@ export default function Header() {
                 href={link.href}
                 className={`relative group transition-colors flex items-center gap-1 ${
                   active
-                    ? "text-[#00CCFF] font-bold"
-                    : "font-semibold text-slate-500 hover:text-[#00CCFF]"
+                    ? "text-brand-dark font-bold"
+                    : "font-semibold text-slate-500 hover:text-brand-dark"
                 }`}
               >
                 {link.label}
@@ -105,8 +100,8 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 className={`border-b border-slate-50 pb-3 transition-colors flex items-center justify-between ${
                   active
-                    ? "font-extrabold text-[#00CCFF]"
-                    : "font-bold text-slate-800 hover:text-[#00CCFF]"
+                    ? "font-extrabold text-brand-dark"
+                    : "font-bold text-slate-800 hover:text-brand-dark"
                 }`}
               >
                 <span>{link.label}</span>

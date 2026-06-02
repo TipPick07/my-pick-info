@@ -11,6 +11,10 @@
   --neon-green: #33FF99;
   --neon-green-dark: #00E57A;
 
+  /* ── Brand text colors (흰 배경에서 가독성 확보 — 링크/텍스트용) ── */
+  --brand: #0098C7;
+  --brand-dark: #007AA3;
+
   /* Glow shadows */
   --glow-blue: 0 0 20px rgba(0, 204, 255, 0.45);
   --glow-blue-sm: 0 0 12px rgba(0, 204, 255, 0.3);
@@ -31,6 +35,10 @@
   /* Neon Green */
   --color-neon-green: var(--neon-green);
   --color-neon-green-dark: var(--neon-green-dark);
+
+  /* Brand (가독성용 텍스트/링크 색) */
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
 }
 
 body {
