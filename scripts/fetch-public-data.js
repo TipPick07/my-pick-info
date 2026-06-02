@@ -144,7 +144,7 @@ async function supplementWithGemini(hotKeywords, type, existingTitles, geminiApi
   "deadline": "YYYY.MM.DD 또는 상시",
   "target": "지원대상",
   "summary": "구글 검색 결과에 노출되는 메타 디스크립션. 반드시 구체적 날짜나 금액 수치 포함. 형식: 언제/어디서 + 무엇을 + 얼마나 + 지금 확인하세요 순서로 작성. 반드시 ~하세요 또는 ~확인하세요로 끝낼 것. 100자 이내.",
-  "detailedExplanation": "지원금의 목적, 혜택 내용, 기대 효과 등을 포함하여 아주 구체적이고 상세하게 풀어서 설명하는 글 (공백 포함 최소 500자 이상). 친절한 말투로 아주 길고 유익하게 작성할 것. 반드시 3~4문단으로 나누어 각 문단 사이에 \\n\\n을 삽입할 것.",
+  "detailedExplanation": "지원금의 목적, 혜택 내용, 기대 효과 등을 포함하여 아주 구체적이고 상세하게 풀어서 설명하는 글 (공백 포함 800자 이상 권장 — 분량보다 내용 충실도 우선, 억지로 늘리거나 같은 내용을 반복하지 말 것). 친절한 말투로 아주 길고 유익하게 작성할 것. 반드시 3~4문단으로 나누어 각 문단 사이에 \\n\\n을 삽입할 것.",
   "link": "공식 URL",
   "tag": "신규",
   "image": "",
@@ -265,6 +265,14 @@ function isDeadlineExpired(deadline) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   return endDate < today;
+}
+
+// 신규 접수가 끝난(종료/폐지 안내) 제도를 걸러낸다.
+// '보호종료'(자립준비청년 등) 같은 제도명은 오탐하지 않도록
+// '지원/접수/사업/모집/운영 종료', '종료 안내', '폐지' 맥락만 매칭한다.
+function isProgramTerminated(item) {
+  const text = `${(item && item.title) || ''} ${(item && item.deadline) || ''}`;
+  return /(신규지원\s*종료|지원\s*종료|접수\s*종료|사업\s*종료|모집\s*종료|운영\s*종료|종료\s*안내|폐지되었|폐지\s*안내)/.test(text);
 }
 
 function isBenefitQuality(item) {
@@ -1080,6 +1088,7 @@ async function main() {
 
     // 지원금: 마감일이 지난 것 제거
     existingData.benefits = existingData.benefits.filter(b => {
+      if (isProgramTerminated(b)) return false; // 신규접수 종료/폐지 안내 제도 제거
       if (!b.deadline || b.deadline === '상시') return true;
       return !isDeadlineExpired(b.deadline);
     });
@@ -1237,7 +1246,7 @@ async function main() {
         // prefix 5자 기반 유사 중복 검사: 같은 주제의 다른 표현 제목 차단
         const normPrefix = norm.slice(0, 5);
         const isPrefixDup = normPrefix.length >= 4 && [...existingBenefitNorm].some(n => n.startsWith(normPrefix));
-        if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm) && !isPrefixDup) {
+        if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm) && !isPrefixDup && !isProgramTerminated(item)) {
           const _benefitId = item.id || `gemini-benefit-${Date.now()}`;
           const _benefitFallbackNum = pickFallback(_benefitId, 'benefit', usedBenefitFallbacks);
           existingData.benefits.unshift({
@@ -1249,11 +1258,13 @@ async function main() {
             image: getFallbackPath(_benefitFallbackNum, 'benefit'),
             isEmergency: false,
             details: item.details || '',
+            detailedExplanation: item.detailedExplanation || '', // 상세페이지 "지원 내용" 본문 (6/1 형식)
             link: item.link || '',
             requirements: item.requirements || [],
             howToApply: item.howToApply || [],
             eligibilityQuiz: item.eligibilityQuiz || [],
             tip: item.practicalTip || item.tip || '',
+            practicalTip: item.practicalTip || '', // 블로그 생성기 참조 필드 (6/1 형식)
             targetPersona: item.targetPersona || '누구나',
             coreValue: item.coreValue || '유용한 혜택',
             simulation: item.simulation || ''
@@ -1322,7 +1333,7 @@ async function main() {
   date: '공고 마감일 YYYY.MM.DD 또는 상시',
   target: '반드시 무주택, 임대, 주거 중 하나 포함. 예: 무주택 세대구성원, 무주택 청년, 소득 5분위 이하 무주택 신혼부부.',
   summary: '보증금·월세 예상 금액 + 신청 자격(소득 기준) + 지금 확인하세요 순서로 작성. 반드시 ~하세요 또는 ~확인하세요로 끝낼 것. 100자 이내.',
-  detailedExplanation: '이 임대주택 공고의 목적, 주택유형, 입주 조건, 소득 기준, 자산 기준 등을 아주 구체적이고 친절하게 설명 (공백 포함 최소 500자 이상). 신청자가 왜 이 공고를 확인해야 하는지 실감나게 작성할 것. 반드시 3~4문단으로 나누어 각 문단 사이에 \\n\\n을 삽입할 것.',
+  detailedExplanation: '이 임대주택 공고의 목적, 주택유형, 입주 조건, 소득 기준, 자산 기준 등을 아주 구체적이고 친절하게 설명 (공백 포함 800자 이상 권장 — 분량보다 내용 충실도 우선, 억지로 늘리거나 같은 내용을 반복하지 말 것). 신청자가 왜 이 공고를 확인해야 하는지 실감나게 작성할 것. 반드시 3~4문단으로 나누어 각 문단 사이에 \\n\\n을 삽입할 것.',
   location: '',
   link: '공식 사이트 URL. 없으면 https://www.myhome.go.kr',
   tag: '마감일이 30일 이내이면 마감임박, 상시 모집이면 상시, 그 외엔 추천',
@@ -1356,7 +1367,7 @@ ${JSON.stringify(selectedData)}`
   date: 'YYYY.MM.DD~YYYY.MM.DD' 또는 마감일,
   target: 지원대상,
   summary: '구글 검색 결과에 노출되는 메타 디스크립션. 반드시 구체적 날짜나 금액 수치 포함. 형식: 언제/어디서 + 무엇을 + 얼마나 + 지금 확인하세요 순서로 작성. 예시(축제): 5월 15~23일 중랑장미공원 천만 송이 장미 무료 관람! 인생샷 스팟과 주차 꿀팁까지 한번에 확인하세요. 예시(지원금): 서울 청년이라면 월 최대 20만원 월세 지원 받을 수 있습니다. 신청 자격과 서류를 2분 만에 확인하세요. 반드시 ~하세요 또는 ~확인하세요로 끝낼 것. 100자 이내.',
-  detailedExplanation: '지원금의 목적, 혜택 내용, 기대 효과 등을 포함하여 아주 구체적이고 상세하게 풀어서 설명하는 글 (공백 포함 최소 500자 이상). 신청자가 이 지원금을 왜 받아야 하는지, 어떤 점이 가장 좋은지 등을 친절한 말투로 아주 길고 유익하게 작성할 것. 짧게 요약하지 말고 최대한 자세히 설명할 것. 반드시 3~4문단으로 나누어 각 문단 사이에 \\n\\n을 삽입할 것.',
+  detailedExplanation: '지원금의 목적, 혜택 내용, 기대 효과 등을 포함하여 아주 구체적이고 상세하게 풀어서 설명하는 글 (공백 포함 800자 이상 권장 — 분량보다 내용 충실도 우선, 억지로 늘리거나 같은 내용을 반복하지 말 것). 신청자가 이 지원금을 왜 받아야 하는지, 어떤 점이 가장 좋은지 등을 친절한 말투로 아주 길고 유익하게 작성할 것. 짧게 요약하지 말고 최대한 자세히 설명할 것. 반드시 3~4문단으로 나누어 각 문단 사이에 \\n\\n을 삽입할 것.',
   location: '행사 장소명 또는 주소 (festival일 때만. benefit이면 빈 문자열)',
   link: 상세URL,
   tag: '마감일이 오늘로부터 30일 이내이면 반드시 마감임박, 마감일이 없거나 상시 모집이면 상시, 그 외엔 추천',
@@ -1573,6 +1584,11 @@ ${JSON.stringify(selectedData)}`;
             console.log(`[스킵] 만료된 공고 건너뜀: ${titleToCheck} (마감: ${parsedParams.date})`);
             continue;
           }
+          // 신규접수 종료/폐지 안내 제도 스킵
+          if (isProgramTerminated({ title: parsedParams.title || titleToCheck, deadline: parsedParams.date })) {
+            console.log(`[스킵] 종료된 제도 건너뜀: ${titleToCheck}`);
+            continue;
+          }
 
           // 혜택(Benefit) 데이터 보강 및 폴백 적용
           const requirements = (parsedParams.requirements && parsedParams.requirements.length > 0)
@@ -1595,11 +1611,13 @@ ${JSON.stringify(selectedData)}`;
             image: finalImageUrl,
             isEmergency: parsedParams.tag === '마감임박' && !isDeadlineExpired(parsedParams.date),
             details: parsedParams.summary || '상세 정보는 공식 홈페이지를 참조하세요.',
+            detailedExplanation: parsedParams.detailedExplanation || '', // 상세페이지 "지원 내용" 본문 (6/1 형식)
             link: parsedParams.link || '',
             requirements: requirements,
             howToApply: howToApply,
             eligibilityQuiz: eligibilityQuiz,
             tip: parsedParams.practicalTip || parsedParams.tip || "신청 기간이 지나기 전에 미리 확인하고 혜택을 챙기세요!",
+            practicalTip: parsedParams.practicalTip || '', // 블로그 생성기 참조 필드 (6/1 형식)
             targetPersona: parsedParams.targetPersona || '누구나',
             coreValue: parsedParams.coreValue || '유용한 혜택',
             simulation: parsedParams.simulation || ''

@@ -310,6 +310,21 @@ function jaccardSimilarity(setA, setB) {
   return intersection / union;
 }
 
+// 제목에서 고유 제도·행사명(프로그램명)을 추출한다.
+// 같은 제도를 다룬 글은 제목 표현이 달라도 이 토큰이 겹친다.
+// 예: '근로장려금', '에너지바우처', '청년기본소득', '장미축제'.
+// 제도성 접미사가 붙은 고유 복합명사만 잡아 일반 단어 오탐을 줄인다.
+function extractProgramNames(title) {
+  const t = (title || '').replace(/\[.*?\]/g, ' ');
+  const set = new Set();
+  const re = /([가-힣A-Za-z0-9]{2,}(?:장려금|바우처|기본소득|수당|지원금|보조금|장학금|급여|연금|공제|환급금|축제|페스티벌|박람회|엑스포))/g;
+  for (const m of t.matchAll(re)) {
+    const token = m[1].replace(/^\d+/, ''); // 앞에 붙은 연도/숫자 제거 (예: 2026근로장려금 → 근로장려금)
+    if (token.length >= 3) set.add(token);
+  }
+  return set;
+}
+
 function normTitle(title) {
   return (title || '')
     .replace(/\[.*?\]/g, '')
@@ -320,8 +335,8 @@ function normTitle(title) {
     .trim();
 }
 
-// existingPosts: readPostTitlesFromDir() 반환 배열 (norm + keywords 포함)
-function isDuplicate(newNorm, newKeywords, existingPosts) {
+// existingPosts: readPostTitlesFromDir() 반환 배열 (norm + keywords + programs 포함)
+function isDuplicate(newNorm, newKeywords, newPrograms, existingPosts) {
   if (!newNorm || newNorm.length < 4) return false;
   for (const existing of existingPosts) {
     const existNorm = existing.norm;
@@ -336,6 +351,13 @@ function isDuplicate(newNorm, newKeywords, existingPosts) {
     // 4. Jaccard 유사도 ≥ 0.5 (키워드 집합 기준)
     if (newKeywords.size >= 3 && existing.keywords.size >= 3) {
       if (jaccardSimilarity(newKeywords, existing.keywords) >= 0.5) return true;
+    }
+    // 5. 동일 프로그램명(고유 제도·행사명) 공유 시 중복 — 제목 표현이 달라도 같은 제도면 차단
+    //    (예: '근로장려금 최대 환급액' vs '근로장려금 최대 330만원' → 둘 다 '근로장려금' 보유)
+    if (newPrograms && newPrograms.size && existing.programs && existing.programs.size) {
+      for (const p of newPrograms) {
+        if (existing.programs.has(p)) return true;
+      }
     }
   }
   return false;
@@ -357,6 +379,7 @@ function readPostTitlesFromDir(dir) {
         title: t,
         norm: normTitle(t),
         keywords: new Set(extractKeywords(t)),
+        programs: extractProgramNames(t),
         filename: file.replace('.md', ''),
       });
 
@@ -432,7 +455,8 @@ async function main() {
     const unpostedItems = allItems.filter(item => {
       const normItem = normTitle(item.title);
       const itemKeywords = new Set(extractKeywords(item.title));
-      if (isDuplicate(normItem, itemKeywords, allExistingPosts)) {
+      const itemPrograms = extractProgramNames(item.title);
+      if (isDuplicate(normItem, itemKeywords, itemPrograms, allExistingPosts)) {
         console.log(`  [중복 스킵] ${item.title}`);
         return false;
       }
