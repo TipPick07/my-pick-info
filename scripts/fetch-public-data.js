@@ -99,6 +99,47 @@ function normTitle(title) {
     .toLowerCase();
 }
 
+// ─── 지역-구분 시맨틱 중복 판정 ────────────────────────────────────────────────
+// bokjiro 링크가 전부 동일 URL이라 링크 키가 무용 + 기존 prefix-5 검사는
+// "[서울] 관악구..." vs "[서울 관악구]..." 처럼 지역명 위치가 달라지면 회피됨.
+// → 지역(구/시/군)은 하드 식별자로 유지하고, 사업 핵심명사 bigram Jaccard로 판정.
+function benefitDistrict(title) {
+  // 광역 단위(서울/인천/경기)는 자치구가 아니므로 먼저 제거 → "서울시"가 구로 오인되는 것 방지
+  const t = (title || '').replace(/서울특별시|인천광역시|경기도|서울시|인천시|서울|인천|경기/g, ' ');
+  const m = t.match(/([가-힣]{2,4}구|[가-힣]{2,4}시|[가-힣]{2,3}군)/);
+  return m ? m[1] : '';
+}
+function benefitCore(title) {
+  return (title || '')
+    .replace(/\[[^\]]*\]/g, ' ')
+    .replace(/[가-힣]{2,4}구|[가-힣]{2,4}시|[가-힣]{2,3}군|서울|인천|경기|전국|수도권|특별시|광역시/g, ' ')
+    .replace(/\d{4}년?|\d+세|\d+개월|\d+분기|\d+만원|\d+원|최대|매월|월별/g, ' ')
+    .replace(/신청|지원금|지원|자격|방법|가이드|총정리|완벽\s*분석|혜택|안내|지급|받기|확인|경제적|부담|경감|및/g, ' ')
+    .replace(/[^가-힣]/g, '');
+}
+function _bigrams(s) {
+  const set = new Set();
+  for (let i = 0; i < s.length - 1; i++) set.add(s.slice(i, i + 2));
+  return set;
+}
+function _jaccard(a, b) {
+  if (!a.size || !b.size) return 0;
+  let inter = 0;
+  for (const x of a) if (b.has(x)) inter++;
+  return inter / (a.size + b.size - inter);
+}
+// existingTitles(raw 제목 배열/셋)와 비교해 같은 지역·같은 사업이면 매칭 제목 반환
+function findBenefitDuplicate(title, existingTitles, threshold = 0.5) {
+  const d = benefitDistrict(title);
+  const cb = _bigrams(benefitCore(title));
+  if (cb.size === 0) return null;
+  for (const et of existingTitles) {
+    if (benefitDistrict(et) !== d) continue; // 지역 다르면 별개 사업
+    if (_jaccard(cb, _bigrams(benefitCore(et))) >= threshold) return et;
+  }
+  return null;
+}
+
 // ─── 핫 키워드 공공데이터 매칭 여부 확인 + Gemini 보완 ──────────────────────
 async function supplementWithGemini(hotKeywords, type, existingTitles, geminiApiKey) {
   const results = [];
@@ -298,6 +339,14 @@ function isBenefitQuality(item) {
   // 블랙리스트 (행정적 공고 등 실질 가치가 떨어지는 것 배제)
   const blacklist = ['상담', '교육', '캠페인', '대회', '멘토링'];
   if (blacklist.some(keyword => fullText.includes(keyword))) {
+    return false;
+  }
+
+  // [대상 필터] 개인(수도권 주민)이 아닌 기업·사업주가 수혜자인 사업 배제
+  // 팁픽은 개인 대상 복지 정보 사이트 → 기업 고용지원금/사업주 지원 등은 정체성 불일치
+  const targetText = (item.지원대상 || '') + ' ' + (item.소관기관명 || '') + ' ' + fullText;
+  const bizRecipient = ['사업주', '우선지원대상기업', '중견기업', '상시근로자', '근로자를 고용', '구직자를 고용', '를 채용', '사업장 대표', '고용보험 가입 사업'];
+  if (bizRecipient.some(keyword => targetText.includes(keyword))) {
     return false;
   }
 
@@ -1130,6 +1179,8 @@ async function main() {
       ...existingData.benefits.map(b => b.title)
     ]);
     const existingBenefitNorm = new Set(existingData.benefits.map(b => normTitle(b.title)));
+    // 시맨틱 중복 판정용 raw 제목 목록(지역 가드 + 핵심명사 Jaccard). 삽입마다 갱신.
+    const existingBenefitTitles = existingData.benefits.map(b => b.title);
 
     // 수집된 신규 항목 추적용 셋 (API 간 중복 방지)
     const collectedTitles = new Set();
@@ -1146,12 +1197,17 @@ async function main() {
         const _normT = normTitle(title);
         const _prefix = _normT.slice(0, 5);
         if (_prefix.length >= 4 && [...existingBenefitNorm].some(n => n.startsWith(_prefix))) continue;
+        // 시맨틱 중복(같은 지역·같은 사업, AI 변형 제목) 차단
+        const _dupHit = findBenefitDuplicate(title, [...existingBenefitTitles, ...collectedTitles]);
+        if (_dupHit) { console.log(`  ✗ 시맨틱 중복 스킵: ${title} ≈ ${_dupHit}`); continue; }
 
         // ─── 수도권 외 지역 필터링 ───────────────────────────────────────────────
         const itemText = [item.서비스명, item.서비스목적요약, item.지원대상, item.소관기관명].filter(Boolean).join(' ');
-        const nonMetroRegions = ['부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주', '사천', '창원', '진주', '통영', '거제', '포항', '경주', '안동', '구미', '여수', '순천', '목포', '전주', '청주', '천안', '아산'];
-        const hasNonMetro = nonMetroRegions.some(r => item.소관기관명?.includes(r) || item.서비스명?.includes(r));
-        const hasMetro = ['서울', '인천', '경기', '수도권', '전국'].some(r => itemText.includes(r));
+        const nonMetroRegions = ['부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주', '사천', '창원', '진주', '통영', '거제', '포항', '경주', '안동', '구미', '여수', '순천', '목포', '전주', '청주', '천안', '아산', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '강원도', '제주도'];
+        // 지원대상까지 검사 → '전국' 라벨이라도 비수도권 지자체가 실제 자격지역이면 적발
+        const hasNonMetro = nonMetroRegions.some(r => item.소관기관명?.includes(r) || item.서비스명?.includes(r) || item.지원대상?.includes(r));
+        // '전국'은 metro 통과 사유에서 제외 → 비수도권 지자체 한정 사업이 '전국'에 묻어 통과되는 구멍 차단
+        const hasMetro = ['서울', '인천', '경기', '수도권'].some(r => itemText.includes(r));
 
         if (hasNonMetro && !hasMetro) {
           console.log(`  ✗ 수도권 외 지역 스킵: ${item.서비스명} [${item.소관기관명 || ''}]`);
@@ -1246,7 +1302,8 @@ async function main() {
         // prefix 5자 기반 유사 중복 검사: 같은 주제의 다른 표현 제목 차단
         const normPrefix = norm.slice(0, 5);
         const isPrefixDup = normPrefix.length >= 4 && [...existingBenefitNorm].some(n => n.startsWith(normPrefix));
-        if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm) && !isPrefixDup && !isProgramTerminated(item)) {
+        const semDup = findBenefitDuplicate(item.title, existingBenefitTitles);
+        if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm) && !isPrefixDup && !semDup && !isProgramTerminated(item)) {
           const _benefitId = item.id || `gemini-benefit-${Date.now()}`;
           const _benefitFallbackNum = pickFallback(_benefitId, 'benefit', usedBenefitFallbacks);
           existingData.benefits.unshift({
@@ -1267,10 +1324,14 @@ async function main() {
             practicalTip: item.practicalTip || '', // 블로그 생성기 참조 필드 (6/1 형식)
             targetPersona: item.targetPersona || '누구나',
             coreValue: item.coreValue || '유용한 혜택',
-            simulation: item.simulation || ''
+            simulation: item.simulation || '',
+            faq: Array.isArray(item.faq) ? item.faq.filter(f => f && f.q && f.a) : [],
+            rejectionReasons: Array.isArray(item.rejectionReasons) ? item.rejectionReasons.filter(Boolean) : [],
+            addedAt: new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })
           });
           existingTitles.add(item.title);
           existingBenefitNorm.add(norm);
+          existingBenefitTitles.push(item.title);
           if (!DRY_RUN) fs.writeFileSync(dataPath, JSON.stringify(existingData, null, 2), 'utf8');
           console.log(`✓ [Gemini 보완 지원금] 추가됨: ${item.title}`);
         } else {
@@ -1329,7 +1390,7 @@ async function main() {
   id: 랜덤숫자,
   region: '서울', '인천', '경기', '전국' 중 택1,
   type: 'benefit',
-  title: '반드시 LH, SH, GH, 주거, 임대 중 하나 포함. [지역명] + 주거키워드 + 주택유형 + 핵심정보 조합. 예: [서울] LH 행복주택 청년 전용 2026 신청 자격 총정리 / [경기] SH 국민임대 신혼부부 무주택 신청 방법 완벽 가이드.',
+  title: '반드시 LH, SH, GH, 주거, 임대 중 하나 포함. [지역명] + 주거키워드 + 주택유형 + 핵심정보 조합. 예: [서울] LH 행복주택 청년 전용 2026 소득 기준과 신청 일정 / [경기] SH 국민임대 신혼부부 보증금 얼마까지 가능할까. ⚠️ 제목 끝에 "총정리/완벽 가이드/완벽 분석/A-Z/한방에" 같은 상투적 표현 사용 금지. 검색자가 궁금해할 구체 포인트(소득 기준·보증금 액수·신청 일정·자격 조건 등)로 매번 다르게 마무리할 것.',
   date: '공고 마감일 YYYY.MM.DD 또는 상시',
   target: '반드시 무주택, 임대, 주거 중 하나 포함. 예: 무주택 세대구성원, 무주택 청년, 소득 5분위 이하 무주택 신혼부부.',
   summary: '보증금·월세 예상 금액 + 신청 자격(소득 기준) + 지금 확인하세요 순서로 작성. 반드시 ~하세요 또는 ~확인하세요로 끝낼 것. 100자 이내.',
@@ -1349,7 +1410,9 @@ async function main() {
     '부동산·자동차 등 자산 기준을 충족하십니까?'
   ],
   simulation: '전용면적별 보증금·월 임대료 예상 시뮬레이션. 예: 전용 36㎡ 기준 보증금 약 3,000만원·월 임대료 약 15만원, 시세 대비 약 40% 절감. 연간 약 180만원·5년 약 900만원 절약 효과.',
-  practicalTip: '임대주택 신청 실무 팁. 예: 무주택확인서는 정부24에서 무료 발급. 소득·자산 기준은 전년도 기준 적용. 청약통장 납입 횟수가 당첨 순위에 직접 영향. 사전청약·본청약 일정 차이 필수 확인.'
+  practicalTip: '임대주택 신청 실무 팁. 예: 무주택확인서는 정부24에서 무료 발급. 소득·자산 기준은 전년도 기준 적용. 청약통장 납입 횟수가 당첨 순위에 직접 영향. 사전청약·본청약 일정 차이 필수 확인.',
+  faq: [{ q: '무주택 요건은 세대원 전원이 충족해야 하나요?', a: '구체적 답변 1~2문장' }, { q: '소득·자산 기준은 어떻게 되나요?', a: '답변' }, { q: '청약통장이 꼭 필요한가요?', a: '답변' }],
+  rejectionReasons: ['소득·자산 기준 초과', '무주택 요건 미충족(세대원 중 주택 보유)', '거주·청약통장 등 우선순위 요건 미달']
 }
 
 반드시 JSON 객체만 출력해. 다른 텍스트 없이.
@@ -1363,7 +1426,7 @@ ${JSON.stringify(selectedData)}`
   id: 랜덤숫자,
   region: '서울', '인천', '경기', '전국' 중 택1,
   type: 'festival' 또는 'benefit',
-  title: '구글 검색자가 실제로 입력할 법한 제목으로 작성. 반드시 [지역명] + 핵심혜택 또는 행사명 + 구체적 수치나 연도 조합. 예: [서울] 중랑 장미축제 2026 무료입장 완벽 가이드 / [경기] 청년 월세 20만원 지원 신청 자격 총정리. 검색자가 이 제목을 보고 바로 이게 내가 찾던 것이라고 느껴야 함. 절대 뭉뚱그린 제목 금지.',
+  title: '구글 검색자가 실제로 입력할 법한 제목으로 작성. 반드시 [지역명] + 핵심혜택 또는 행사명 + 구체적 수치나 연도 조합. 예: [서울] 중랑 장미축제 2026 무료입장·주차 정보 / [경기] 청년 월세 20만원, 소득 얼마면 받을까. 검색자가 이 제목을 보고 바로 이게 내가 찾던 것이라고 느껴야 함. 절대 뭉뚱그린 제목 금지. ⚠️ 제목 끝에 "총정리/완벽 가이드/완벽 분석/A-Z/한방에" 같은 상투적 표현 사용 금지 — 검색 의도에 맞춰 매번 다른 방식(자격·금액·일정·대상·후기)으로 마무리할 것.',
   date: 'YYYY.MM.DD~YYYY.MM.DD' 또는 마감일,
   target: 지원대상,
   summary: '구글 검색 결과에 노출되는 메타 디스크립션. 반드시 구체적 날짜나 금액 수치 포함. 형식: 언제/어디서 + 무엇을 + 얼마나 + 지금 확인하세요 순서로 작성. 예시(축제): 5월 15~23일 중랑장미공원 천만 송이 장미 무료 관람! 인생샷 스팟과 주차 꿀팁까지 한번에 확인하세요. 예시(지원금): 서울 청년이라면 월 최대 20만원 월세 지원 받을 수 있습니다. 신청 자격과 서류를 2분 만에 확인하세요. 반드시 ~하세요 또는 ~확인하세요로 끝낼 것. 100자 이내.',
@@ -1378,7 +1441,9 @@ ${JSON.stringify(selectedData)}`
   coreValue: '이 정보가 주는 핵심 가치 요약 (예: 가성비 주말 나들이, 청년 주거비 절감)',
   eligibilityQuiz: ['자격 요건 O/X 질문1', '자격 요건 O/X 질문2', '질문3', '질문4'],
   simulation: '타겟 페르소나를 가정한 구체적인 연간 체감 혜택이나 예상 절약 금액 시뮬레이션 (지원금인 경우 필수, 축제는 빈 문자열)',
-  practicalTip: '관공서 서류 제출 시 누락하기 쉬운 점이나 축제 현장의 주차/편의성 등 실무적이고 디테일한 팁'
+  practicalTip: '관공서 서류 제출 시 누락하기 쉬운 점이나 축제 현장의 주차/편의성 등 실무적이고 디테일한 팁',
+  faq: [{ q: '신청자가 실제로 궁금해할 질문', a: '구체적이고 정확한 답변 1~2문장' }, { q: '질문2', a: '답변2' }, { q: '질문3', a: '답변3' }],
+  rejectionReasons: ['이 지원금에서 자주 탈락/거절되는 실제 사유1 (예: 소득 기준 초과, 거주 기간 미달)', '사유2', '사유3']
 }
 
 내용을 보고 행사/축제면 type을 'festival', 지원금/서비스면 'benefit'으로 판단해.
@@ -1557,9 +1622,10 @@ ${JSON.stringify(selectedData)}`;
         const _transformedTitle = (parsedParams.title || titleToCheck).trim();
         const _transformedNorm = normTitle(_transformedTitle);
         const _transformedPrefix = _transformedNorm.slice(0, 5);
-        if (existingTitles.has(_transformedTitle) || existingBenefitNorm.has(_transformedNorm) ||
+        const _semDup2 = parsedParams.type !== 'festival' ? findBenefitDuplicate(_transformedTitle, existingBenefitTitles) : null;
+        if (existingTitles.has(_transformedTitle) || existingBenefitNorm.has(_transformedNorm) || _semDup2 ||
             (_transformedPrefix.length >= 4 && [...existingBenefitNorm].some(n => n.startsWith(_transformedPrefix)))) {
-          console.log(`  ✗ [스킵] Gemini 변환 후 중복 감지: ${_transformedTitle}`);
+          console.log(`  ✗ [스킵] Gemini 변환 후 중복 감지: ${_transformedTitle}${_semDup2 ? ' ≈ ' + _semDup2 : ''}`);
           continue;
         }
 
@@ -1620,11 +1686,15 @@ ${JSON.stringify(selectedData)}`;
             practicalTip: parsedParams.practicalTip || '', // 블로그 생성기 참조 필드 (6/1 형식)
             targetPersona: parsedParams.targetPersona || '누구나',
             coreValue: parsedParams.coreValue || '유용한 혜택',
-            simulation: parsedParams.simulation || ''
+            simulation: parsedParams.simulation || '',
+            faq: Array.isArray(parsedParams.faq) ? parsedParams.faq.filter(f => f && f.q && f.a) : [],
+            rejectionReasons: Array.isArray(parsedParams.rejectionReasons) ? parsedParams.rejectionReasons.filter(Boolean) : [],
+            addedAt: new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })
           });
           // 같은 실행 내 후속 항목에서도 중복 방지: 즉시 셋 갱신
           existingTitles.add(_transformedTitle);
           existingBenefitNorm.add(_transformedNorm);
+          existingBenefitTitles.push(_transformedTitle);
         }
 
         // 1건 처리될 때마다 파일에 동기화하여 중간에 다운되어도 데이터 유실 방지

@@ -12,6 +12,7 @@ interface Benefit {
   target: string;
   deadline: string;
   isEmergency: boolean;
+  addedAt?: string;
 }
 
 interface Data {
@@ -61,6 +62,38 @@ function isBenefitOngoing(deadline: string, today: Date): boolean {
   const start = parseStartDate(deadline);
   const end = parseEndDate(deadline);
   return (!start || start <= today) && (!end || end >= today);
+}
+
+// 등록일 추출: addedAt 우선, 없으면 id에 박힌 13자리 ms 타임스탬프로 폴백
+function getAddedDate(b: Benefit): Date | null {
+  if (b.addedAt) {
+    const m = b.addedAt.match(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/);
+    if (m) return new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]));
+  }
+  // 'fixed-' 는 수기 교정 배치 id라 발견 시점이 아님 → 폴백 제외
+  if (!(b.id || '').startsWith('fixed-')) {
+    const ts = (b.id || '').match(/(\d{13})/);
+    if (ts) {
+      const d = new Date(parseInt(ts[1]));
+      if (!isNaN(d.getTime()) && d.getFullYear() >= 2024 && d.getFullYear() <= 2100) return d;
+    }
+  }
+  return null;
+}
+
+// 신규 여부: 등록 7일 이내
+function isBenefitNew(b: Benefit, today: Date): boolean {
+  const added = getAddedDate(b);
+  if (!added) return false;
+  const days = (today.getTime() - added.getTime()) / (1000 * 60 * 60 * 24);
+  return days >= 0 && days <= 7;
+}
+
+// 마감 임박 여부: 실제 마감일(D-Day 0~30) 기준 — stale isEmergency로 상시 항목이 잡히지 않게 통일
+function isBenefitUrgent(deadline: string, today: Date): boolean {
+  if (getBenefitStatus(deadline, today) !== "모집중") return false;
+  const d = calcDDay(deadline, today);
+  return d !== null && d >= 0 && d <= 30;
 }
 
 function sortBenefits(list: Benefit[], today: Date): Benefit[] {
@@ -135,13 +168,8 @@ export default function BenefitsClient({ data }: { data: Data }) {
   const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
   const paginated = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
-  // 마감 임박 카운트 (모집중 + D-Day 30일 이내 또는 isEmergency)
-  const urgentCount = data.benefits.filter((b) => {
-    if (getBenefitStatus(b.deadline, todayKST) === "마감") return false;
-    if (b.isEmergency) return true;
-    const d = calcDDay(b.deadline, todayKST);
-    return d !== null && d >= 0 && d <= 30;
-  }).length;
+  // 마감 임박 카운트 — 실제 마감일(D-Day 0~30) 기준. 상시 항목은 제외(불일치 방지)
+  const urgentCount = data.benefits.filter((b) => isBenefitUrgent(b.deadline, todayKST)).length;
 
   const handleFilterChange = (r: string) => {
     setFilter(r);
@@ -257,7 +285,8 @@ export default function BenefitsClient({ data }: { data: Data }) {
             const isExpired = benefitStatus === "마감";
             const isAlways = benefitStatus === "상시";
             const dday = calcDDay(b.deadline, todayKST);
-            const isUrgent = !isExpired && (b.isEmergency || (dday !== null && dday >= 0 && dday <= 30));
+            const isUrgent = isBenefitUrgent(b.deadline, todayKST);
+            const isNew = !isExpired && !isUrgent && isBenefitNew(b, todayKST);
             const isLocalMatch = filter !== "전체" && b.region === filter;
 
             const cardContent = (
@@ -295,6 +324,12 @@ export default function BenefitsClient({ data }: { data: Data }) {
                         >
                           {isUrgent ? "마감임박" : isAlways ? "상시" : "모집중"}
                         </span>
+                        {/* 신규 배지 (등록 7일 이내) */}
+                        {isNew && (
+                          <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-indigo-500 text-white w-full text-center">
+                            NEW
+                          </span>
+                        )}
                         {/* D-Day 배지 (30일 이내만) */}
                         {dday !== null && dday >= 0 && dday <= 30 && (
                           <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-rose-600 text-white animate-pulse w-full text-center">

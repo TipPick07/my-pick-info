@@ -85,3 +85,17 @@ https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 /deadline   /benefits/  301
 /weekly/    /festivals/  301
 /weekly     /festivals/  301
+
+# 기업/비수도권·중복·만료(선거) 블로그 글 정리 (2026-06-03) → /blog/ 301
+/blog/2026-04-15-small-business-pension-support/  /blog/  301
+/blog/2026-04-15-small-business-pension-support   /blog/  301
+/blog/2026-04-20-private-school-pension-for-teachers/  /blog/  301
+/blog/2026-04-20-private-school-pension-for-teachers   /blog/  301
+/blog/2026-05-11-seoul-youth-monthly-rent-support/  /blog/  301
+/blog/2026-05-11-seoul-youth-monthly-rent-support   /blog/  301
+/blog/2026-04-16-mid-career-support-korea/  /blog/  301
+/blog/2026-04-16-mid-career-support-korea   /blog/  301
+/blog/2026-05-12-incheon-mayor-eeum-card-policy-compare/  /blog/  301
+/blog/2026-05-12-incheon-mayor-eeum-card-policy-compare   /blog/  301
+/blog/2026-05-16-gyeonggi-education-care-voucher-policy/  /blog/  301
+/blog/2026-05-16-gyeonggi-education-care-voucher-policy   /blog/  301

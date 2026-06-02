@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ArrowRight } from 'lucide-react';
-import { SITUATIONS, getSituationCounts } from '@/lib/situations';
+import { SITUATIONS, getSituationCounts, getSituationPreview } from '@/lib/situations';
 
 export const metadata: Metadata = {
   title: '상황별 맞춤 혜택 모음 | 내 상황에 딱 맞는 지원금 - 팁픽(Tip-Pick)',
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function SituationsIndexPage() {
-  const cards = SITUATIONS.map((s) => ({ ...s, counts: getSituationCounts(s) }));
+  const cards = SITUATIONS.map((s) => ({ ...s, counts: getSituationCounts(s), preview: getSituationPreview(s, 3) }));
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -41,6 +41,19 @@ export default function SituationsIndexPage() {
                 {s.label}
               </h2>
               <p className="mt-2 text-slate-600 font-medium leading-relaxed">{s.tagline}</p>
+
+              {/* 대표 지원금 미리보기 */}
+              {s.preview.length > 0 && (
+                <ul className="mt-4 space-y-1.5">
+                  {s.preview.map((t, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-slate-500 font-medium">
+                      <span className="text-emerald-400 shrink-0 mt-0.5">✓</span>
+                      <span className="line-clamp-1">{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
               <div className="mt-5 flex items-center justify-between">
                 <div className="flex gap-2">
                   <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-black rounded-full">

@@ -200,6 +200,20 @@ function checkPost(file) {
   // 제목 형식([지역] 접두)은 자동생성 단일항목 글에만 적용되는 규칙이라
   // 라운드업·기획 글이 많은 블로그 전체엔 강제하지 않는다(오탐 방지).
 
+  // (WARN) 제목 클리셰 반복 — '총정리/완벽 가이드/A-Z' 등 상투적 마무리는 유사문서 인상 + SEO 약화
+  const titleM = fmText.match(/^title:\s*(.+)$/m);
+  const titleStr = titleM ? titleM[1].trim().replace(/^["']|["']$/g, '') : '';
+  if (/총정리|완벽\s*가이드|완벽\s*분석|A-Z|A\s*to\s*Z|한방에|한 방에/i.test(titleStr)) {
+    logWarn(where, `제목 클리셰 사용 (다양화 권장): "${titleStr}"`);
+  }
+
+  // (WARN) 콘텐츠 깊이 — 자동 발행 글의 얕은 깊이(유사문서 위험) 감지. 발행 차단은 아님.
+  const bodyTextLen = body.replace(/\s/g, '').length;
+  if (bodyTextLen < 1200) logWarn(where, `본문 분량 부족 ${bodyTextLen}자 (권장 1,500자 이상, 공백 제외)`);
+  if (!body.includes('|')) logWarn(where, '본문에 비교표(table) 없음 — 구조화/깊이 보강 권장');
+  const h2Count = (body.match(/^##\s/gm) || []).length;
+  if (h2Count < 3) logWarn(where, `본문 H2 섹션 ${h2Count}개 (권장 3개 이상: 배경·핵심내용·주의사항 등)`);
+
   // 실제 교정이 있을 때만 기록
   const next = head + body;
   if (next !== orig) {
@@ -212,6 +226,29 @@ function checkPost(file) {
     report.blocked.push(`  → 격리됨: ${file} → _quarantine/`);
   }
   return { blocking };
+}
+
+// ── benefit 시맨틱 중복 판정 (fetch-public-data.js와 동일 로직) ────────────────
+function benefitDistrict(title) {
+  const t = (title || '').replace(/서울특별시|인천광역시|경기도|서울시|인천시|서울|인천|경기/g, ' ');
+  const m = t.match(/([가-힣]{2,4}구|[가-힣]{2,4}시|[가-힣]{2,3}군)/);
+  return m ? m[1] : '';
+}
+function benefitCore(title) {
+  return (title || '')
+    .replace(/\[[^\]]*\]/g, ' ')
+    .replace(/[가-힣]{2,4}구|[가-힣]{2,4}시|[가-힣]{2,3}군|서울|인천|경기|전국|수도권|특별시|광역시/g, ' ')
+    .replace(/\d{4}년?|\d+세|\d+개월|\d+분기|\d+만원|\d+원|최대|매월|월별/g, ' ')
+    .replace(/신청|지원금|지원|자격|방법|가이드|총정리|완벽\s*분석|혜택|안내|지급|받기|확인|경제적|부담|경감|및/g, ' ')
+    .replace(/[^가-힣]/g, '');
+}
+function _bigrams(s) { const set = new Set(); for (let i = 0; i < s.length - 1; i++) set.add(s.slice(i, i + 2)); return set; }
+function _jaccard(a, b) { if (!a.size || !b.size) return 0; let inter = 0; for (const x of a) if (b.has(x)) inter++; return inter / (a.size + b.size - inter); }
+// 기업·사업주 수혜 사업 판정
+const BIZ_RECIPIENT = ['사업주', '우선지원대상기업', '중견기업', '상시근로자', '근로자를 고용', '구직자를 고용', '를 채용', '사업장 대표', '고용보험 가입 사업'];
+function isBusinessBenefit(b) {
+  const t = (b.target || '') + ' ' + (b.title || '') + ' ' + (b.details || '');
+  return BIZ_RECIPIENT.some(k => t.includes(k));
 }
 
 // ── 2) pick-info 검사 ──────────────────────────────────────────────
@@ -241,6 +278,18 @@ function checkPickInfo() {
       if (typeof b[k] === 'string' && /-{40,}/.test(b[k])) { b[k] = collapseDashes(b[k]); logFix('pick-info', `benefit '${b.title?.slice(0,20)}' ${k} 대시 폭주 정리`); changed = true; }
     }
     if (!b.detailedExplanation || !b.detailedExplanation.trim()) logWarn('pick-info', `benefit detailedExplanation 비어있음(상세페이지 폴백): ${b.title}`);
+    // (WARN) 기업·사업주 수혜 사업 — 개인 대상 사이트 정체성과 불일치
+    if (isBusinessBenefit(b)) logWarn('pick-info', `기업/사업주 대상 의심 benefit (개인 대상 아님 검토): ${b.title}`);
+  }
+
+  // (WARN) 시맨틱 중복 benefit 탐지 — 같은 지역·같은 사업이 AI 변형 제목으로 누적되었는지
+  const seen = [];
+  for (const b of data.benefits) {
+    const cb = _bigrams(benefitCore(b.title));
+    const d = benefitDistrict(b.title);
+    const hit = seen.find(s => s.d === d && cb.size && _jaccard(cb, s.cb) >= 0.5);
+    if (hit) logWarn('pick-info', `중복 의심 benefit (수기 정리 검토): "${b.title}" ≈ "${hit.title}"`);
+    else seen.push({ title: b.title, d, cb });
   }
 
   // 축제 content: 표 셀 줄바꿈으로 깨진 마크다운 표 교정 (AUTO)

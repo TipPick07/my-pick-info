@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import EligibilityChecker from "@/components/EligibilityChecker";
 import SummaryCard from '@/components/SummaryCard';
+import { getRelatedBenefits } from "@/lib/situations";
 
 interface Benefit {
   id: string;
@@ -36,6 +37,27 @@ interface Benefit {
   targetPersona?: string;
   coreValue?: string;
   simulation?: string;
+  faq?: { q: string; a: string }[];
+  rejectionReasons?: string[];
+}
+
+// 자주 묻는 질문: 큐레이션된 faq가 있으면 우선, 없으면 기존 필드에서 자동 파생
+function buildFaq(b: Benefit): { q: string; a: string }[] {
+  if (Array.isArray(b.faq) && b.faq.length > 0) return b.faq.filter((f) => f && f.q && f.a);
+  const faq: { q: string; a: string }[] = [];
+  if (b.target) faq.push({ q: '누가 받을 수 있나요?', a: b.target });
+  if (b.simulation && b.simulation.trim()) faq.push({ q: '얼마를 받을 수 있나요?', a: b.simulation.trim() });
+  if (b.deadline) {
+    faq.push({
+      q: '신청 기한은 언제까지인가요?',
+      a: b.deadline === '상시'
+        ? '상시 신청이 가능합니다. 다만 예산이 소진되면 조기 마감될 수 있으니 가능한 한 빨리 확인하세요.'
+        : `${b.deadline}까지 신청할 수 있습니다. 마감일 직전에는 접수가 몰릴 수 있으니 여유 있게 준비하세요.`,
+    });
+  }
+  if (b.howToApply && b.howToApply.length > 0) faq.push({ q: '어떻게 신청하나요?', a: b.howToApply.join(' / ') });
+  if (b.requirements && b.requirements.length > 0) faq.push({ q: '어떤 서류가 필요한가요?', a: b.requirements.join(', ') });
+  return faq;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -90,8 +112,28 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
 
   if (!benefit) return <div className="flex items-center justify-center h-screen font-bold text-slate-400 text-xl">혜택 정보를 불러오고 있습니다...</div>;
 
+  const faq = buildFaq(benefit);
+  const related = getRelatedBenefits(benefit);
+
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
+      {/* FAQPage JSON-LD (구글 FAQ 리치결과) */}
+      {faq.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": faq.map((f) => ({
+                "@type": "Question",
+                "name": f.q,
+                "acceptedAnswer": { "@type": "Answer", "text": f.a },
+              })),
+            }),
+          }}
+        />
+      )}
       {/* BreadcrumbList JSON-LD */}
       <script
         type="application/ld+json"
@@ -255,6 +297,67 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
                         {benefit.tip}
                       </p>
                     </div>
+                  </div>
+                </section>
+              )}
+
+              {/* 자주 거절되는 이유 / 주의사항 (데이터 있을 때만) */}
+              {benefit.rejectionReasons && benefit.rejectionReasons.length > 0 && (
+                <section className="rounded-[2rem] border border-amber-100 bg-amber-50/50 p-8">
+                  <h3 className="text-xl font-black text-amber-800 flex items-center gap-2 mb-4">
+                    <Info className="w-5 h-5" /> 신청 전 꼭 확인 — 자주 거절되는 이유
+                  </h3>
+                  <ul className="space-y-2.5">
+                    {benefit.rejectionReasons.map((r: string, i: number) => (
+                      <li key={i} className="flex gap-2.5 text-amber-900/80 font-medium leading-relaxed">
+                        <span className="text-amber-500 font-black shrink-0">⚠</span>
+                        <span>{r}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
+              {/* 자주 묻는 질문 (FAQ) — 기존 데이터에서 자동 구성 */}
+              {faq.length > 0 && (
+                <section className="space-y-4">
+                  <h3 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+                    <Info className="w-6 h-6 text-cyan-500" /> 자주 묻는 질문
+                  </h3>
+                  <div className="space-y-3">
+                    {faq.map((f, i) => (
+                      <div key={i} className="rounded-2xl border border-slate-100 bg-slate-50/60 p-5">
+                        <p className="font-black text-slate-800 mb-1.5">Q. {f.q}</p>
+                        <p className="text-slate-600 font-medium leading-relaxed whitespace-pre-line">A. {f.a}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* 관련 지원금 (같은 상황) — 내부 링크 + 허브 진입 */}
+              {related && (
+                <section className="space-y-4">
+                  <div className="flex items-center justify-between gap-3 flex-wrap">
+                    <h3 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+                      <Sparkles className="w-6 h-6 text-emerald-500" /> {related.sit.emoji} 함께 챙기면 좋은 {related.sit.label} 지원금
+                    </h3>
+                    <Link href={`/situations/${related.sit.key}/`} className="text-sm font-bold text-cyan-700 hover:text-cyan-900 whitespace-nowrap">
+                      전체 보기 →
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {related.items.map((r) => (
+                      <Link
+                        key={r.id}
+                        href={`/benefit/${r.id}/`}
+                        className="group flex items-center gap-3 rounded-2xl border border-slate-100 bg-white p-4 hover:border-emerald-200 hover:shadow-[0_4px_16px_rgba(16,185,129,0.1)] transition-all"
+                      >
+                        <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 shrink-0">{r.region}</span>
+                        <span className="flex-1 min-w-0 text-sm font-bold text-slate-700 line-clamp-2 group-hover:text-emerald-700">{r.title.replace(/^\[[^\]]+\]\s*/, '')}</span>
+                        <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 group-hover:translate-x-0.5 transition-all shrink-0" />
+                      </Link>
+                    ))}
                   </div>
                 </section>
               )}

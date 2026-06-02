@@ -114,3 +114,26 @@ export function getSituationCounts(sit: Situation): { benefits: number; posts: n
     posts: getPostsForSituation(sit).length,
   };
 }
+
+/** 인덱스 카드용 대표 지원금 미리보기 (상위 N개 제목) */
+export function getSituationPreview(sit: Situation, limit = 3): string[] {
+  return getBenefitsForSituation(sit).slice(0, limit).map((b) => b.title.replace(/^\[[^\]]+\]\s*/, '').trim());
+}
+
+/** 지원금 → 소속 상황 역방향 조회 (상세페이지 관련 지원금/허브 링크용) */
+export function getSituationForBenefit(b: { title: string; target?: string; details?: string }): Situation | undefined {
+  const text = `${b.title} ${b.target || ''} ${b.details || ''}`;
+  return SITUATIONS.find((s) => s.match.test(text));
+}
+
+/** 같은 상황의 형제 지원금 (자기 자신 제외) + 소속 상황 */
+export function getRelatedBenefits(
+  b: { id: string; title: string; target?: string; details?: string },
+  limit = 4,
+): { sit: Situation; items: SituationBenefit[] } | null {
+  const sit = getSituationForBenefit(b);
+  if (!sit) return null;
+  const items = getBenefitsForSituation(sit).filter((x) => x.id !== b.id).slice(0, limit);
+  if (items.length === 0) return null;
+  return { sit, items };
+}
