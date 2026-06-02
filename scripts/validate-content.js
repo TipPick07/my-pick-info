@@ -69,6 +69,32 @@ function cellCount(row) {
 }
 const isSepRow = l => /^\s*\|?[\s:|-]+\|?\s*$/.test(l) && /-/.test(l);
 
+// 표 셀 안 줄바꿈(실제 \n)으로 깨진 행을 한 행으로 병합 (셀 내 줄바꿈 → <br>) + 폭주 대시 축소
+// GFM 표는 셀 안에 줄바꿈을 못 넣어, 멀티라인 셀이 별도 행으로 깨지는 문제를 교정한다.
+function fixTableCells(text) {
+  if (!text || !text.includes('|')) return text;
+  const lines = String(text).replace(/-{10,}/g, '---').split('\n');
+  const out = [];
+  for (let i = 0; i < lines.length; i++) {
+    const ln = lines[i], tr = ln.trim();
+    if (tr.startsWith('|') && !tr.endsWith('|')) {       // | 로 시작하는데 닫히지 않은 셀
+      let merged = ln.replace(/\s+$/, '');
+      let steps = 0;
+      while (i + 1 < lines.length && steps < 10) {
+        i++; steps++;
+        const nt = lines[i].trim();
+        if (/^\|.*\|$/.test(nt) || /^#{1,6}\s/.test(nt)) { i--; break; } // 새 행/헤딩이면 멈춤
+        if (nt === '') continue;                          // 셀 내 빈 줄은 건너뜀
+        merged = merged + '<br>' + nt;
+        if (nt.endsWith('|')) break;                      // 셀이 닫히면 종료
+      }
+      if (!merged.trim().endsWith('|')) merged = merged.replace(/<br>$/, '') + ' |'; // 안전: 강제 닫기
+      out.push(merged);
+    } else out.push(ln);
+  }
+  return out.join('\n');
+}
+
 // ── 결과 수집 ──────────────────────────────────────────────────────
 const report = { fixed: [], blocked: [], warned: [], ok: 0, files: 0, willFix: 0 };
 function logFix(where, msg) { report.fixed.push(`[FIX] ${where}: ${msg}`); }
@@ -215,6 +241,14 @@ function checkPickInfo() {
       if (typeof b[k] === 'string' && /-{40,}/.test(b[k])) { b[k] = collapseDashes(b[k]); logFix('pick-info', `benefit '${b.title?.slice(0,20)}' ${k} 대시 폭주 정리`); changed = true; }
     }
     if (!b.detailedExplanation || !b.detailedExplanation.trim()) logWarn('pick-info', `benefit detailedExplanation 비어있음(상세페이지 폴백): ${b.title}`);
+  }
+
+  // 축제 content: 표 셀 줄바꿈으로 깨진 마크다운 표 교정 (AUTO)
+  for (const f of (data.festivals || [])) {
+    if (typeof f.content === 'string' && f.content.includes('|')) {
+      const fixed = fixTableCells(f.content);
+      if (fixed !== f.content) { f.content = fixed; logFix('pick-info', `festival '${(f.title || '').slice(0, 20)}' 표 셀 줄바꿈 교정`); changed = true; }
+    }
   }
 
   if (changed && FIX) fs.writeFileSync(PICK, JSON.stringify(data, null, 2) + (hadNL ? '\n' : ''), 'utf8');

@@ -104,15 +104,6 @@ function sortBenefitsHome(list: Benefit[], today: Date): Benefit[] {
 }
 // ────────────────────────────────────────────────────────────────────────────
 
-function getDDayLabel(deadline: string, today: Date): string {
-  const end = parseBenefitEndDate(deadline);
-  if (!end) return "";
-  const diff = Math.round((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-  if (diff === 0) return "D-Day";
-  if (diff > 0) return `D-${diff}`;
-  return "마감";
-}
-
 // ── 축제 날짜 유틸 ──────────────────────────────────────────────────────────
 function parseFestivalDates(dateStr: string): { start: Date | null; end: Date | null } {
   if (!dateStr || dateStr === '상시') return { start: null, end: null };
@@ -165,25 +156,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
   const todayKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
   todayKST.setHours(0, 0, 0, 0);
 
-  const closingSoonBenefits = data.benefits.filter((b) => {
-    const end = parseBenefitEndDate(b.deadline);
-    if (!end) return false;
-    const diff = (end.getTime() - todayKST.getTime()) / (1000 * 60 * 60 * 24);
-    return diff >= 0 && diff <= 7;
-  });
-
-  // ── 벤토(이번 주 픽)용 — 지역 필터와 무관한 전역 대표 콘텐츠 ──
-  const heroFestivals = sortFestivals(
-    data.festivals.filter((f: Festival) => !isFestivalExpired(f.date, todayKST)),
-    todayKST
-  );
-  const featured = heroFestivals[0];
-  const second = heroFestivals[1];
-  const urgentBenefit =
-    closingSoonBenefits[0] ||
-    sortBenefitsHome(data.benefits.filter((b) => !isBenefitExpired(b.deadline, todayKST)), todayKST)[0];
-  const urgentDday = urgentBenefit ? getDDayLabel(urgentBenefit.deadline, todayKST) : "";
-
   // ── 탐색(브라우즈)용 — 지역/카테고리 필터 적용 ──
   const filteredFestivals = sortFestivals(
     (filter === "전체" ? data.festivals : data.festivals.filter(f => f.region === filter))
@@ -197,11 +169,8 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
       : data.benefits.filter(b => b.region === filter || b.region === "전국"))
       .filter(b => !isBenefitExpired(b.deadline, todayKST))
       .filter(b => {
-        if (benefitFilter === "LH/SH 주거 지원") {
-          return (b.title + " " + b.target).match(/주거|청년안심|LH|SH|전세|월세|임대/);
-        }
-        if (benefitFilter === "소상공인") {
-          return (b.title + " " + b.target).match(/소상공인|자영업|창업/);
+        if (benefitFilter === "주거/임대 지원") {
+          return (b.title + " " + b.target).match(/주거|청년안심|LH|SH|GH|전세|월세|임대|행복주택|국민임대/);
         }
         return true;
       }),
@@ -246,87 +215,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
         </section>
 
         <CustomBanner config={bannerConfig} />
-
-        {/* ── 이번 주 픽 (벤토 그리드) ── */}
-        {(featured || urgentBenefit) && (
-          <section className="space-y-5">
-            <div className="flex flex-wrap items-center justify-between gap-2 px-1">
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">🔥 이번 주 픽</h2>
-              {todayUpdates?.date && (
-                <span className="inline-flex items-center gap-1 bg-cyan-50 text-brand-dark px-3 py-1 rounded-full text-xs font-bold">
-                  📅 {todayUpdates.date.replace(/-/g, '.')} 업데이트
-                </span>
-              )}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[210px] gap-4">
-              {/* 대표 축제 (크게) */}
-              {featured && (
-                <Link
-                  href={`/festival/${featured.id}/`}
-                  className="group relative md:col-span-2 md:row-span-2 rounded-[1.75rem] overflow-hidden bg-slate-100 min-h-[340px] md:min-h-0"
-                >
-                  <img
-                    src={featured.image || FALLBACK_IMG}
-                    alt={featured.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG; }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
-                  <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                    <span className="bg-white/90 backdrop-blur-sm text-brand-dark px-3 py-1 rounded-full text-xs font-black shadow-sm">{featured.region}</span>
-                    <span className="bg-neon-blue text-white px-3 py-1 rounded-full text-xs font-black shadow-sm">이번 주 대표</span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-2xl md:text-3xl font-black leading-tight line-clamp-2 drop-shadow">{featured.title}</h3>
-                    <p className="text-white/85 text-sm font-bold mt-2">📅 {featured.date}</p>
-                  </div>
-                </Link>
-              )}
-
-              {/* 두 번째 축제 (작게) */}
-              {second && (
-                <Link
-                  href={`/festival/${second.id}/`}
-                  className="group relative rounded-[1.75rem] overflow-hidden bg-slate-100 min-h-[200px]"
-                >
-                  <img
-                    src={second.image || FALLBACK_IMG}
-                    alt={second.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG; }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-white/90 backdrop-blur-sm text-brand-dark px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm">{second.region}</span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                    <h3 className="text-base font-black leading-tight line-clamp-2 drop-shadow">{second.title}</h3>
-                  </div>
-                </Link>
-              )}
-
-              {/* 마감 임박 지원금 (텍스트 타일) */}
-              {urgentBenefit && (
-                <Link
-                  href={`/benefit/${urgentBenefit.id}/`}
-                  className="group rounded-[1.75rem] p-5 bg-rose-50 border border-rose-100 flex flex-col justify-between min-h-[200px] hover:border-rose-300 hover:shadow-[0_4px_18px_rgba(244,63,94,0.12)] hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  <div className="space-y-2">
-                    <span className="inline-flex items-center gap-1 text-xs font-black text-rose-600">🚨 마감 임박 지원금</span>
-                    <h3 className="font-black text-slate-900 leading-snug line-clamp-3 group-hover:text-rose-600 transition-colors">{urgentBenefit.title}</h3>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-500">{urgentBenefit.deadline}</span>
-                    {urgentDday && (
-                      <span className="px-2.5 py-1 rounded-full bg-rose-500 text-white text-xs font-black">{urgentDday}</span>
-                    )}
-                  </div>
-                </Link>
-              )}
-            </div>
-          </section>
-        )}
 
         {/* ── 상황별 진입 타일 (wayfinding) ── */}
         {situations && situations.length > 0 && (
@@ -420,7 +308,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
               <SectionHeading title="내 돈 찾는 지원금" accentColor="#33FF99" moreHref="/benefits/" />
 
               <div className="flex gap-2 px-2 overflow-x-auto pb-1 scrollbar-hide">
-                {["전체 보기", "LH/SH 주거 지원", "소상공인"].map((tab) => (
+                {["전체 보기", "주거/임대 지원"].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setBenefitFilter(tab)}
@@ -463,12 +351,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
                   </Link>
                 ))}
               </div>
-              <Link
-                href="/benefits/"
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-[1.75rem] border-2 border-dashed border-emerald-300 text-emerald-700 text-sm font-black hover:bg-emerald-50 hover:border-emerald-400 transition-all duration-300"
-              >
-                더보기 →
-              </Link>
             </aside>
           </div>
         </div>
