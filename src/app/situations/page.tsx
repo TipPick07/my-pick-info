@@ -56,6 +56,17 @@ export default function SituationsIndexPage() {
           ))}
         </div>
 
+        {/* 전체 지원금 — 상황 분류에 없는 혜택까지 한 번에 */}
+        <div className="mt-10 text-center">
+          <Link
+            href="/benefits/"
+            className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-[#00AACC] transition-colors"
+          >
+            찾는 혜택이 없나요? 전체 지원금 목록·지역별 검색 보기
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
       </main>
       <Footer />
     </div>
