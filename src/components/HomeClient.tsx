@@ -51,6 +51,15 @@ interface TodayUpdates {
   date?: string;
 }
 
+interface SituationTile {
+  key: string;
+  emoji: string;
+  label: string;
+  tagline: string;
+  benefits: number;
+  posts: number;
+}
+
 // ── 지원금 만료 체크 ─────────────────────────────────────────────────────────
 function parseBenefitEndDate(deadline: string): Date | null {
   if (!deadline) return null;
@@ -146,7 +155,9 @@ function sortFestivals<T extends { date: string }>(list: T[], today: Date): T[] 
 }
 // ────────────────────────────────────────────────────────────────────────────
 
-export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, bannerConfig }: { data: Data, posts: PostData[], weatherApiKey: string, todayUpdates?: TodayUpdates, bannerConfig?: { isActive: boolean; imageUrl: string; linkUrl: string } }) {
+const FALLBACK_IMG = '/images/blogs/korea-welfare-benefit-322.png';
+
+export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, situations, bannerConfig }: { data: Data, posts: PostData[], weatherApiKey: string, todayUpdates?: TodayUpdates, situations?: SituationTile[], bannerConfig?: { isActive: boolean; imageUrl: string; linkUrl: string } }) {
   const [filter, setFilter] = useState("전체");
   const [benefitFilter, setBenefitFilter] = useState("전체 보기");
 
@@ -161,6 +172,19 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
     return diff >= 0 && diff <= 7;
   });
 
+  // ── 벤토(이번 주 픽)용 — 지역 필터와 무관한 전역 대표 콘텐츠 ──
+  const heroFestivals = sortFestivals(
+    data.festivals.filter((f: Festival) => !isFestivalExpired(f.date, todayKST)),
+    todayKST
+  );
+  const featured = heroFestivals[0];
+  const second = heroFestivals[1];
+  const urgentBenefit =
+    closingSoonBenefits[0] ||
+    sortBenefitsHome(data.benefits.filter((b) => !isBenefitExpired(b.deadline, todayKST)), todayKST)[0];
+  const urgentDday = urgentBenefit ? getDDayLabel(urgentBenefit.deadline, todayKST) : "";
+
+  // ── 탐색(브라우즈)용 — 지역/카테고리 필터 적용 ──
   const filteredFestivals = sortFestivals(
     (filter === "전체" ? data.festivals : data.festivals.filter(f => f.region === filter))
       .filter((f: Festival) => !isFestivalExpired(f.date, todayKST)),
@@ -190,25 +214,17 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
       <Header />
 
-      <main className="max-w-6xl mx-auto w-full px-4 md:px-6 py-10 space-y-12">
+      <main className="max-w-6xl mx-auto w-full px-4 md:px-6 py-10 space-y-14">
 
         {/* ── Hero Section ── */}
-        <section className="text-center space-y-8 py-4">
-          {/* 로고 */}
+        <section className="text-center space-y-7 py-2">
           <div className="flex justify-center">
-            <div className="relative w-24 h-24 rounded-[2rem] overflow-hidden shadow-[0_8px_30px_rgba(0,204,255,0.18)]">
-              <Image
-                src="/images/logo-tippick.png"
-                alt="팁픽 로고"
-                fill
-                className="object-cover"
-                priority
-              />
+            <div className="relative w-20 h-20 rounded-[1.75rem] overflow-hidden shadow-[0_8px_30px_rgba(0,204,255,0.18)]">
+              <Image src="/images/logo-tippick.png" alt="팁픽 로고" fill className="object-cover" priority />
             </div>
           </div>
-
-          <div className="space-y-5">
-            <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+          <div className="space-y-4">
+            <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
               당신의 일상에{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-emerald-500">
                 혜택과 즐거움
@@ -218,7 +234,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
             <p className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
               나열된 공고문 대신, 에디터가 직접 분석한 지원금/축제 총정리와 실무 팁을 확인하세요.
             </p>
-            {/* CTA */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
               <Button href="/benefits/" variant="primary" className="text-base md:text-lg px-9 py-4">
                 💡 에디터 추천 큐레이션 보기
@@ -230,113 +245,113 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
           </div>
         </section>
 
-        {/* 직접 광고 영업용 고정 배너 영역 */}
         <CustomBanner config={bannerConfig} />
 
-        {/* ── D-Day 위젯 Section ── */}
-        {closingSoonBenefits.length > 0 && (
-          <section className="bg-rose-50/60 rounded-[1.75rem] p-6 border border-rose-100">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="bg-rose-500 text-white w-11 h-11 flex items-center justify-center rounded-2xl shrink-0">
-                <span className="text-xl">🚨</span>
-              </div>
-              <h2 className="text-base md:text-lg font-black text-slate-900">
-                서두르세요! 이번 주 마감되는 혜택이 총{" "}
-                <span className="text-rose-500">{closingSoonBenefits.length}건</span> 있습니다.
-              </h2>
-            </div>
-            <div className="flex flex-col gap-2">
-              {closingSoonBenefits.slice(0, 2).map((benefit) => {
-                const dday = getDDayLabel(benefit.deadline, todayKST);
-                return (
-                  <Link
-                    key={benefit.id}
-                    href={`/benefit/${benefit.id}/`}
-                    className="group bg-white p-4 rounded-2xl border border-rose-100 hover:border-rose-300 hover:shadow-[0_4px_16px_rgba(244,63,94,0.12)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-3"
-                  >
-                    <span className="text-slate-800 font-bold group-hover:text-rose-600 transition-colors text-sm line-clamp-1 flex-1">
-                      {benefit.title}
-                    </span>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-slate-400 text-xs font-medium">{benefit.deadline}</span>
-                      <span className={`px-3 py-1 rounded-full text-xs font-black ${dday === "D-Day" ? "bg-rose-500 text-white" : "bg-rose-100 text-rose-600"}`}>
-                        {dday}
-                      </span>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        )}
-
-        {/* ── 오늘자 업데이트 요약 위젯 ── */}
-        {todayUpdates && (todayUpdates.festivals.length > 0 || todayUpdates.benefits.length > 0) && (
-          <section className="bg-cyan-50/50 rounded-[1.75rem] p-6 border border-cyan-100">
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                <span className="bg-cyan-500 text-white px-3 py-1 rounded-full text-xs font-black">
-                  오늘의 신규 Pick
+        {/* ── 이번 주 픽 (벤토 그리드) ── */}
+        {(featured || urgentBenefit) && (
+          <section className="space-y-5">
+            <div className="flex flex-wrap items-center justify-between gap-2 px-1">
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">🔥 이번 주 픽</h2>
+              {todayUpdates?.date && (
+                <span className="inline-flex items-center gap-1 bg-cyan-50 text-brand-dark px-3 py-1 rounded-full text-xs font-bold">
+                  📅 {todayUpdates.date.replace(/-/g, '.')} 업데이트
                 </span>
-                {todayUpdates.date && (
-                  <span className="inline-flex items-center gap-1 bg-white text-slate-500 px-3 py-1 rounded-full text-xs font-bold border border-slate-200">
-                    📅 {todayUpdates.date.replace(/-/g, '.')} 업데이트
-                  </span>
-                )}
-                <h2 className="text-slate-800 font-bold text-base md:text-lg">
-                  {todayUpdates.isToday ? '오늘 아침 새로운 소식을 추가했어요!' : '최근 새로운 소식을 추가했어요!'}
-                </h2>
-              </div>
-              <div className={`grid gap-4 ${todayUpdates.festivals.length > 0 && todayUpdates.benefits.length > 0 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
+              )}
+            </div>
 
-                {/* 축제/행사 요약 박스 — 항목 있을 때만 노출 */}
-                {todayUpdates.festivals.length > 0 && (
-                  <div className="bg-white rounded-2xl p-4 border border-slate-100">
-                    <h3 className="font-black text-slate-800 mb-2 flex items-center gap-1">
-                      🎉 축제/행사
-                    </h3>
-                    <ul className="space-y-1.5">
-                      {todayUpdates.festivals.slice(0, 3).map((f) => (
-                        <li key={f.slug} className="text-sm text-slate-600 truncate font-medium">
-                          <Link href={`/blog/${f.slug}/`} className="hover:text-brand-dark transition-colors">
-                            · {f.title}
-                          </Link>
-                        </li>
-                      ))}
-                      {todayUpdates.festivals.length > 3 && (
-                        <li className="text-xs text-slate-400 pt-1">외 {todayUpdates.festivals.length - 3}건 더보기...</li>
-                      )}
-                    </ul>
+            <div className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[210px] gap-4">
+              {/* 대표 축제 (크게) */}
+              {featured && (
+                <Link
+                  href={`/festival/${featured.id}/`}
+                  className="group relative md:col-span-2 md:row-span-2 rounded-[1.75rem] overflow-hidden bg-slate-100 min-h-[340px] md:min-h-0"
+                >
+                  <img
+                    src={featured.image || FALLBACK_IMG}
+                    alt={featured.title}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG; }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+                  <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                    <span className="bg-white/90 backdrop-blur-sm text-brand-dark px-3 py-1 rounded-full text-xs font-black shadow-sm">{featured.region}</span>
+                    <span className="bg-neon-blue text-white px-3 py-1 rounded-full text-xs font-black shadow-sm">이번 주 대표</span>
                   </div>
-                )}
-
-                {/* 혜택/지원금 요약 박스 — 항목 있을 때만 노출 */}
-                {todayUpdates.benefits.length > 0 && (
-                  <div className="bg-white rounded-2xl p-4 border border-slate-100">
-                    <h3 className="font-black text-slate-800 mb-2 flex items-center gap-1">
-                      💰 혜택/지원금
-                    </h3>
-                    <ul className="space-y-1.5">
-                      {todayUpdates.benefits.slice(0, 3).map((b) => (
-                        <li key={b.slug} className="text-sm text-slate-600 truncate font-medium">
-                          <Link href={`/blog/${b.slug}/`} className="hover:text-emerald-600 transition-colors">
-                            · {b.title}
-                          </Link>
-                        </li>
-                      ))}
-                      {todayUpdates.benefits.length > 3 && (
-                        <li className="text-xs text-slate-400 pt-1">외 {todayUpdates.benefits.length - 3}건 더보기...</li>
-                      )}
-                    </ul>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-2xl md:text-3xl font-black leading-tight line-clamp-2 drop-shadow">{featured.title}</h3>
+                    <p className="text-white/85 text-sm font-bold mt-2">📅 {featured.date}</p>
                   </div>
-                )}
+                </Link>
+              )}
 
-              </div>
+              {/* 두 번째 축제 (작게) */}
+              {second && (
+                <Link
+                  href={`/festival/${second.id}/`}
+                  className="group relative rounded-[1.75rem] overflow-hidden bg-slate-100 min-h-[200px]"
+                >
+                  <img
+                    src={second.image || FALLBACK_IMG}
+                    alt={second.title}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG; }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute top-3 left-3">
+                    <span className="bg-white/90 backdrop-blur-sm text-brand-dark px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm">{second.region}</span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                    <h3 className="text-base font-black leading-tight line-clamp-2 drop-shadow">{second.title}</h3>
+                  </div>
+                </Link>
+              )}
+
+              {/* 마감 임박 지원금 (텍스트 타일) */}
+              {urgentBenefit && (
+                <Link
+                  href={`/benefit/${urgentBenefit.id}/`}
+                  className="group rounded-[1.75rem] p-5 bg-rose-50 border border-rose-100 flex flex-col justify-between min-h-[200px] hover:border-rose-300 hover:shadow-[0_4px_18px_rgba(244,63,94,0.12)] hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  <div className="space-y-2">
+                    <span className="inline-flex items-center gap-1 text-xs font-black text-rose-600">🚨 마감 임박 지원금</span>
+                    <h3 className="font-black text-slate-900 leading-snug line-clamp-3 group-hover:text-rose-600 transition-colors">{urgentBenefit.title}</h3>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-500">{urgentBenefit.deadline}</span>
+                    {urgentDday && (
+                      <span className="px-2.5 py-1 rounded-full bg-rose-500 text-white text-xs font-black">{urgentDday}</span>
+                    )}
+                  </div>
+                </Link>
+              )}
             </div>
           </section>
         )}
 
-        {/* ── 지역 필터 바 — 거르는 콘텐츠(축제·지원금) 바로 위에 배치 ── */}
+        {/* ── 상황별 진입 타일 (wayfinding) ── */}
+        {situations && situations.length > 0 && (
+          <section className="space-y-5">
+            <div className="flex items-center justify-between px-1">
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">🎯 내 상황에 맞는 혜택</h2>
+              <Link href="/situations/" className="text-sm font-bold text-brand-dark hover:text-brand transition-colors">전체 보기 →</Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              {situations.map((s) => (
+                <Link
+                  key={s.key}
+                  href={`/situations/${s.key}/`}
+                  className="group bg-white rounded-2xl border border-slate-100 p-4 text-center hover:-translate-y-1 hover:border-brand/30 hover:shadow-[0_6px_24px_rgba(0,204,255,0.12)] transition-all duration-300"
+                >
+                  <div className="text-3xl mb-2">{s.emoji}</div>
+                  <p className="font-black text-slate-900 text-sm leading-tight group-hover:text-brand-dark transition-colors">{s.label}</p>
+                  <p className="mt-2 text-[11px] font-black text-emerald-600">지원금 {s.benefits}건</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── 탐색: 지역 필터 + 축제·지원금 2-Column ── */}
         <div className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white rounded-[1.75rem] border border-slate-100 shadow-sm px-6 py-5">
             <div className="flex items-center gap-2.5">
@@ -362,7 +377,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
             </div>
           </div>
 
-          {/* ── 메인 컨텐츠 (2-Column) ── */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
             {/* 축제/행사 (2/3) */}
@@ -371,15 +385,12 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
                 {filteredFestivals.slice(0, 4).map((f) => (
                   <Link key={f.id} href={`/festival/${f.id}/`} className="group cursor-pointer">
-                    {/* 이미지 16:9 */}
                     <div className="relative aspect-[16/9] overflow-hidden rounded-[1.75rem] mb-3 bg-slate-100">
                       <img
-                        src={f.image || '/images/blogs/korea-welfare-benefit-322.png'}
+                        src={f.image || FALLBACK_IMG}
                         alt={f.title}
                         className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                        onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
-                        }}
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG; }}
                       />
                       <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-brand-dark shadow-sm">
                         {f.region}
@@ -408,7 +419,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
             <aside className="space-y-6">
               <SectionHeading title="내 돈 찾는 지원금" accentColor="#33FF99" moreHref="/benefits/" />
 
-              {/* ── 지원금 고가치 필터 탭 ── */}
               <div className="flex gap-2 px-2 overflow-x-auto pb-1 scrollbar-hide">
                 {["전체 보기", "LH/SH 주거 지원", "소상공인"].map((tab) => (
                   <button
@@ -453,7 +463,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
                   </Link>
                 ))}
               </div>
-              {/* 더보기 버튼 */}
               <Link
                 href="/benefits/"
                 className="flex items-center justify-center gap-2 w-full py-3 rounded-[1.75rem] border-2 border-dashed border-emerald-300 text-emerald-700 text-sm font-black hover:bg-emerald-50 hover:border-emerald-400 transition-all duration-300"
@@ -464,7 +473,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
           </div>
         </div>
 
-        {/* ── 팁픽 가이드 (블로그) 섹션 — 핵심 콘텐츠 아래 보조 콘텐츠 ── */}
+        {/* ── 팁픽 가이드 (블로그) — 보조 콘텐츠 ── */}
         <section className="space-y-6 pt-2">
           <div className="flex items-center justify-between px-2">
             <div className="flex items-center gap-3">
@@ -487,22 +496,18 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
                 href={`/blog/${post.slug}/`}
                 className="group flex items-stretch bg-white rounded-[1.75rem] overflow-hidden border border-slate-100 shadow-sm hover:-translate-y-0.5 hover:border-brand/25 hover:shadow-[0_4px_20px_rgba(0,204,255,0.10)] transition-all duration-300"
               >
-                {/* 왼쪽 이미지 */}
                 <div className="relative w-32 shrink-0 overflow-hidden bg-slate-100">
                   <img
-                    src={post.image || '/images/blogs/korea-welfare-benefit-322.png'}
+                    src={post.image || FALLBACK_IMG}
                     alt={post.title}
                     className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
-                    }}
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG; }}
                   />
                   <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black text-brand-dark shadow border border-white/50 tracking-wider">
                     {({ festival: '축제', benefit: '지원금', benefits: '지원금', election: '선거', info: '정보' } as Record<string, string>)[post.category ?? ''] ?? post.category}
                   </div>
                 </div>
 
-                {/* 오른쪽 텍스트 */}
                 <div className="flex-1 px-5 py-4 flex flex-col justify-center gap-1.5">
                   <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400">
                     <span>💡 팁픽 큐레이션</span>
@@ -536,8 +541,6 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
 
         {/* Ad Banner */}
         <AdBanner />
-
-        {/* 메인 화면 중간 카카오 애드핏 광고 */}
         <AdFit width="320" height="100" />
       </main>
 

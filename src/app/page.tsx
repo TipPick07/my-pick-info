@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
 import { getSortedPostsData } from "@/lib/posts";
+import { SITUATIONS, getSituationCounts } from "@/lib/situations";
 import HomeClient from "@/components/HomeClient";
 import bannerConfig from "@/data/banner-config.json";
 
@@ -38,6 +39,12 @@ export default function Home() {
     date: latestDate,
   };
 
+  // 상황별 진입 타일용 (직렬화 가능한 요약 — RegExp 제외)
+  const situations = SITUATIONS.map((s) => {
+    const counts = getSituationCounts(s);
+    return { key: s.key, emoji: s.emoji, label: s.label, tagline: s.tagline, benefits: counts.benefits, posts: counts.posts };
+  });
+
   const eventSchema = data.festivals.map((f: any) => ({
     "@context": "https://schema.org",
     "@type": "Event",
@@ -73,7 +80,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(benefitSchema) }}
       />
-      <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} todayUpdates={todayUpdates} bannerConfig={bannerConfig} />
+      <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} todayUpdates={todayUpdates} situations={situations} bannerConfig={bannerConfig} />
     </>
   );
 }
