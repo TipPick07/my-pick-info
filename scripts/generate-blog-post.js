@@ -631,7 +631,7 @@ ${publishCategory === '축제/행사'
 5. E-E-A-T 충족을 위해 경험적 묘사와 전문적 해석, 함정/주의사항을 반드시 포함할 것.
 6. 분량 강제: **공백 제외 반드시 1,500자 이상** 작성. 짧은 단답을 피하고 상세한 스토리텔링과 실용적 팁을 담을 것.
 7. officialDetails: 데이터의 사실 정보를 바탕으로 반드시 3문단 이상·최소 300자의 정보성 텍스트로 직접 작성. 마케팅·감성 표현 완전 금지. ①지원 대상 ②지원 금액/내용 ③신청 방법 3단 구조 유지.
-8. officialTip: 반드시 3~5개 번호 매기기 리스트(1. 내용 / 2. 내용 형식)로 신청 실전 팁 작성. 감상문·홍보 문구 금지.
+8. officialTip: 신청 실전 팁을 1~2문장의 간결한 평문으로 작성. 번호 매기기·별표(**)·마크다운 사용 금지(페이지가 평문으로 표시함). 감상문·홍보 문구 금지.
 9. officialCurationNote: "이런 분께 강력 추천합니다: [대상]" 형식으로 구체적 수치(금액·기한) 포함 1~2문장으로 작성.
 
 ${coupangPromptSection}${coupangDisclosureSection}아래 형식으로만 출력. YAML Frontmatter 포함. 다른 설명 제외.
@@ -655,7 +655,7 @@ officialCurationNote: (이런 분께 강력 추천합니다: [구체적 대상].
 officialRequirements: ${JSON.stringify(targetItems[0].requirements || [])}
 officialHowToApply: ${JSON.stringify(targetItems[0].howToApply || [])}
 officialEligibilityQuiz: ${JSON.stringify(targetItems[0].eligibilityQuiz || [])}
-officialTip: (반드시 3~5개 번호 매기기 리스트. 형식: "1. 팁내용 2. 팁내용 3. 팁내용". 서류 준비·기한 확인·온오프라인 선택·자주 하는 실수 등 실전 정보. 홍보 문구 금지.)
+officialTip: (1~2문장의 간결한 평문으로 작성. 번호 매기기·별표(**)·마크다운 금지. 서류 준비·기한 확인·온오프라인 선택·자주 하는 실수 중 가장 중요한 것 위주로 실전 정보. 홍보 문구 금지.)
 ---
 
 (본문 시작 — 도입부는 매번 다른 방식으로. E-E-A-T 기준 충족. 1,500자 이상.)`
@@ -734,8 +734,12 @@ officialTip: (반드시 3~5개 번호 매기기 리스트. 형식: "1. 팁내용
     mdContent = mdContent.replace(/Let me break down[\s\S]*?(?=따뜻한|새로운|봄|이번|서울|경기|인천)/g, '');
     mdContent = mdContent.replace(/\*\*1\. YAML[\s\S]*?(?=따뜻한|새로운|봄|이번|서울|경기|인천)/g, '');
 
+    // 표 구분선 대시 폭주 정리: Gemini가 수십~수만 개 대시를 토하는 사고 방지 (연속 대시 40개 이상 → 표준 '---')
+    mdContent = mdContent.replace(/-{40,}/g, '---');
     // 표 행에서 셀 내용이 500자 이상인 행 전체 제거
     mdContent = mdContent.replace(/^\|[^\n]{500,}\|$/gm, '');
+    // 닫는 파이프 없이 비정상적으로 길어진(런어웨이) 표 행 제거 (셀 내부 파이프 없는 200자+ 단일 셀)
+    mdContent = mdContent.replace(/^\|[^\n|]{200,}$/gm, '');
 
     // 프롬프트 에코 감지: Gemini가 프롬프트 내용을 출력에 포함시킨 경우 제거
     // 프론트매터 이후 본문에서만 적용
@@ -789,12 +793,20 @@ officialTip: (반드시 3~5개 번호 매기기 리스트. 형식: "1. 팁내용
       }
     );
 
-    // officialTip: Gemini가 번호 앞에 '- ' 불릿을 붙이는 경우가 있는데,
-    // YAML은 '- '로 시작하는 평문 스칼라를 시퀀스로 오인해 파싱 에러가 난다.
-    // 6/1 규칙(번호만: "1. … 2. …")에 맞게 번호 앞 대시 불릿을 제거한다.
+    // officialTip 정규화: 블로그 페이지가 officialTip을 마크다운이 아닌 plain text(<p>)로 렌더한다.
+    // 따라서 '**'(별표)나 "1. … 2. …" 번호 리스트가 들어오면 그대로 노출되거나 한 줄로 뭉쳐 깨진다.
+    // 6/1 글처럼 간결한 평문이 되도록 별표·대시불릿·번호 마커를 제거한다.
     mdContent = mdContent.replace(
       /^(officialTip):[ \t]*(.+)$/gm,
-      (_, key, value) => `${key}: ${value.replace(/(^|\s)-\s+(?=\d+\.)/g, '$1').trim()}`
+      (_, key, value) => {
+        const v = value
+          .replace(/\*\*/g, '')                  // 볼드 마커 제거 (그대로 노출되어 깨짐)
+          .replace(/(^|\s)-\s+(?=\d+\.)/g, '$1')  // 번호 앞 '- ' 불릿 제거 (YAML 시퀀스 오인 방지)
+          .replace(/(^|\s)\d+\.\s+/g, '$1')       // "1. " "2. " 등 번호 마커 제거 → 평문화
+          .replace(/\s{2,}/g, ' ')                // 중복 공백 정리
+          .trim();
+        return `${key}: ${v}`;
+      }
     );
 
     mdContent = mdContent.replace(
