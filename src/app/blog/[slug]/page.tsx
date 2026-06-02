@@ -91,7 +91,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
     : ['⬇ 아래에서 자세한 내용 확인'];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-indigo-100">
       {/* BlogPosting JSON-LD */}
       <script
         type="application/ld+json"
@@ -149,9 +149,9 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             {({ festival: '축제', festivals: '축제', benefit: '지원금', benefits: '지원금', election: '선거', info: '정보' } as Record<string, string>)[post.category ?? ''] ?? post.category}
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
             {post.title}
-          </h2>
+          </h1>
 
           <div className="flex items-center justify-center gap-4 text-sm font-medium text-slate-400">
             <span>{post.date}</span>

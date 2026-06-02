@@ -91,7 +91,7 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
   if (!benefit) return <div className="flex items-center justify-center h-screen font-bold text-slate-400 text-xl">혜택 정보를 불러오고 있습니다...</div>;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
       {/* BreadcrumbList JSON-LD */}
       <script
         type="application/ld+json"
@@ -124,7 +124,7 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
         </nav>
 
         {/* 메인 프리미엄 카드 */}
-        <article className="bg-white rounded-[2.5rem] border-2 border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
+        <article className="bg-white rounded-[2.5rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
 
           {/* 카드 내부 패딩 */}
           <div className="p-8 md:p-14">

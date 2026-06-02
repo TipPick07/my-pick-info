@@ -128,7 +128,7 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
       {/* Event JSON-LD */}
       <script
         type="application/ld+json"
@@ -162,7 +162,7 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
         </Link>
 
         {/* 메인 콘텐츠 카드 */}
-        <article className="bg-white rounded-[2.5rem] border-2 border-slate-100 shadow-sm overflow-hidden p-8 md:p-14 space-y-12">
+        <article className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden p-8 md:p-14 space-y-12">
 
           {/* 상단 태그 및 타이틀 */}
           <header className="space-y-6">
