@@ -18,21 +18,18 @@ export default function BlogListPage() {
   const posts = getSortedPostsData();
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-cyan-100">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
       <Header />
 
-      <main className="container mx-auto px-6 py-12 space-y-10">
+      <main className="max-w-3xl mx-auto w-full px-4 md:px-6 py-12 space-y-10">
 
         {/* Page Hero */}
         <section className="text-center space-y-6 max-w-3xl mx-auto py-8">
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest rounded-full border"
-            style={{ background: "rgba(0,204,255,0.08)", color: "#00AACC", borderColor: "rgba(0,204,255,0.25)" }}
-          >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest rounded-full border border-cyan-200 bg-cyan-50 text-brand-dark">
             💡 팁픽 인사이트
           </div>
 
-          <h2 className="text-5xl md:text-6xl tracking-tight leading-[1.15]">
+          <h1 className="text-5xl md:text-6xl tracking-tight leading-[1.15]">
             <span className="font-black text-slate-900">팁픽</span>{" "}
             <span
               className="font-serif italic font-semibold text-transparent bg-clip-text"
@@ -40,7 +37,7 @@ export default function BlogListPage() {
             >
               인사이트
             </span>
-          </h2>
+          </h1>
 
           <p className="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto">
             수도권 생활의 질을 높이는 한 끗 차이,{" "}

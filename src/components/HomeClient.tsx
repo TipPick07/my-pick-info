@@ -211,6 +211,13 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
                 이번 주 나들이 보기
               </Button>
             </div>
+            {todayUpdates?.date && (
+              <div className="pt-1">
+                <span className="inline-flex items-center gap-1.5 bg-cyan-50 text-brand-dark px-3.5 py-1.5 rounded-full text-xs font-bold">
+                  📅 {todayUpdates.date.replace(/-/g, '.')} 업데이트 · 매일 갱신
+                </span>
+              </div>
+            )}
           </div>
         </section>
 

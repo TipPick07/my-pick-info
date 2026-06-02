@@ -39,7 +39,7 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
         <Link
           key={post.slug}
           href={`/blog/${post.slug}/`}
-          className="group flex items-center bg-white rounded-[2rem] overflow-hidden border-2 border-slate-100 shadow-sm hover:shadow-[0_4px_24px_rgba(0,204,255,0.14)] hover:border-[rgba(0,204,255,0.3)] transition-all duration-300 hover:-translate-y-0.5"
+          className="group flex items-center bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-[0_4px_24px_rgba(0,204,255,0.12)] hover:border-brand/30 transition-all duration-300 hover:-translate-y-0.5"
         >
           {/* 왼쪽 정방형 썸네일 */}
           <div className="relative w-36 h-36 md:w-44 md:h-44 shrink-0 overflow-hidden bg-slate-100">
@@ -47,19 +47,11 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
               src={post.image || '/images/blogs/korea-welfare-benefit-322.png'}
               alt={post.title}
               className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-              style={{ filter: "saturate(1.05) brightness(0.96)" }}
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).src = '/images/blogs/korea-welfare-benefit-322.png';
               }}
             />
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{ background: "rgba(0,204,255,0.07)" }}
-            />
-            <div
-              className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black shadow border border-white/50 tracking-wider"
-              style={{ color: "#00CCFF" }}
-            >
+            <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black text-brand-dark shadow border border-white/50 tracking-wider">
               {({ festival: '축제', benefit: '지원금', benefits: '지원금', election: '선거', info: '정보' } as Record<string, string>)[post.category ?? ''] ?? post.category}
             </div>
           </div>
@@ -68,10 +60,10 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
           <div className="flex-1 px-6 py-5 flex flex-col justify-between gap-2 min-h-[144px] md:min-h-[176px]">
             <div className="space-y-2">
               <div className="flex items-center justify-between text-[10px] font-bold text-slate-400">
-                <span style={{ color: "#00AACC" }}>💡 팁픽 큐레이션</span>
+                <span className="text-brand-dark">💡 팁픽 큐레이션</span>
                 <span>{post.date}</span>
               </div>
-              <h3 className="text-base md:text-lg font-black text-slate-800 line-clamp-2 leading-snug transition-colors group-hover:text-[#00CCFF]">
+              <h3 className="text-base md:text-lg font-black text-slate-800 line-clamp-2 leading-snug transition-colors group-hover:text-brand-dark">
                 {post.title}
               </h3>
               <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">
@@ -82,8 +74,7 @@ export default function BlogListClient({ posts }: { posts: PostData[] }) {
               {post.tags.slice(0, 5).map(tag => (
                 <span
                   key={tag}
-                  className="text-[9px] px-2 py-0.5 rounded-md"
-                  style={{ background: "rgba(0,204,255,0.08)", color: "#00AACC" }}
+                  className="text-[9px] px-2 py-0.5 rounded-md bg-cyan-50 text-brand-dark"
                 >
                   #{tag}
                 </span>

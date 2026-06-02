@@ -2,6 +2,7 @@
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import type { Components } from 'react-markdown';
 import type { ReactNode } from 'react';
 
@@ -55,7 +56,7 @@ const components: Components = {
 
 export default function MdContent({ children }: { children: string }) {
   return (
-    <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={components}>
       {children}
     </ReactMarkdown>
   );
