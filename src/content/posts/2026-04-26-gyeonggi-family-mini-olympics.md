@@ -1,5 +1,5 @@
 ---
-title: "2026 성남 꼬마영웅 올림픽 11월 — 탄천종합운동장 어린이 미니올림픽 총정리"
+title: "2026 성남 꼬마영웅 올림픽 11월 — 탄천종합운동장 어린이 미니올림픽"
 originalTitle: 우리가족 꼬마영웅 올림픽
 link: https://www.seongnam.go.kr
 officialTarget: 경기 성남·분당 거주 어린이 동반 가족, 수도권 가을 나들이객

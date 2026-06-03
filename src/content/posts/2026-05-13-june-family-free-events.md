@@ -1,5 +1,5 @@
 ---
-title: "서울·경기 6월 가족 무료 행사 총정리 2026"
+title: "서울·경기 6월 가족 무료 행사 2026"
 originalTitle: 서울·경기 6월 가족 무료 행사 총정리 2026
 link: https://festival.seoul.go.kr
 officialTarget: 수도권 거주 가족 (영유아·초등 자녀 가정)

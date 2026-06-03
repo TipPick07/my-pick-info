@@ -1,5 +1,5 @@
 ---
-title: "수도권 6월 무료 축제 캘린더 총정리 2026"
+title: "수도권 6월 무료 축제 캘린더 2026"
 originalTitle: 수도권 6월 무료 축제 캘린더 총정리 2026
 link: "https://festival.seoul.go.kr"
 officialTarget: "서울·인천·경기 거주 시민, 가족 단위 나들이객"

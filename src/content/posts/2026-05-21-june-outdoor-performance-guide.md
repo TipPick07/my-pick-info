@@ -1,5 +1,5 @@
 ---
-title: "수도권 6월 야외공연·무료 공연 달력 총정리 2026"
+title: "수도권 6월 야외공연·무료 공연 달력 2026"
 originalTitle: 수도권 6월 야외공연·무료 공연 달력 총정리 2026
 link: https://culture.seoul.go.kr
 officialDetails: 서울시 및 수도권 지자체가 운영하는 6월 무료 야외공연·상설공연 일정 및 장소 안내

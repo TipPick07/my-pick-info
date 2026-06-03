@@ -1188,6 +1188,29 @@ function pickThemedFestivalImage(title, usedBasenames) {
   return `/images/blogs/${choice}`;
 }
 
+// ─── 축제 제목 SEO 정규화 (결정적·무비용) ─────────────────────────────────────
+// 문화행사 API(서울/경기/인천/KTO) 원본 제목은 [지역]태그·연도가 없어 SEO 포맷이 들쑥날쑥.
+// 모든 축제 제목을 "[지역] 행사명 연도" 로 통일 + 강한 클리셰 제거(키워드는 보존).
+function seoFestivalTitle(rawTitle, region, date) {
+  let name = String(rawTitle || '').trim();
+  if (!name) return name;
+  const REGION = ['서울', '인천', '경기', '전국'];
+  const tag = REGION.includes(region) ? region : '전국';
+  let cityPrefix = '';
+  const m = name.match(/^\[([^\]]+)\]\s*/);
+  if (m) {
+    name = name.slice(m[0].length).trim();
+    const extra = m[1].replace(/서울특별시|인천광역시|경기도|서울|인천|경기|전국/g, '').trim();
+    if (extra) cityPrefix = extra + ' '; // 도시/주최명은 이름 앞에 보존
+  }
+  name = name.replace(/\s*(완벽\s*가이드|완벽\s*분석|완벽\s*정리|총정리|A-?Z|한방에)\s*$/i, '').trim();
+  name = name.replace(/[\s\-–—,&·]+$/, '').trim();
+  name = (cityPrefix + name).replace(/\s{2,}/g, ' ').trim();
+  const yr = (String(date || '').match(/20\d\d/) || [])[0];
+  if (yr && !/20\d\d/.test(name)) name = `${name} ${yr}`;
+  return `[${tag}] ${name}`.replace(/\s{2,}/g, ' ').trim();
+}
+
 async function main() {
   const DRY_RUN = process.env.DRY_RUN === 'true';
   if (DRY_RUN) console.log('[DRY RUN] 테스트 모드 — pick-info.json에 데이터를 저장하지 않습니다.');
@@ -1887,6 +1910,7 @@ ${JSON.stringify(selectedData)}`;
         geminiApiKey
       );
       for (const item of festSupplements) {
+        item.title = seoFestivalTitle(item.title, item.region, item.date); // SEO 제목 정규화
         if (!isFestivalDuplicate(item, existingData.festivals)) {
           const _festId = sid('gemini-fest', item.title);
           const _festFallbackNum = pickFallback(_festId, 'festival', usedFestFallbacks);
@@ -1912,8 +1936,9 @@ ${JSON.stringify(selectedData)}`;
       // ──────────────────────────────────────────────────────────────────────────────
 
       for (const fest of allFestItems) {
-        const title = (fest.title || '').trim();
+        const title = seoFestivalTitle(fest.title, fest.region, fest.date); // SEO 제목 정규화
         if (!title) continue;
+        fest.title = title; // 중복검사·콘텐츠생성·저장 모두 정규화 제목으로 일관
 
         if (isFestivalDuplicate(fest, existingData.festivals)) {
           console.log(`  ✗ [축제] 유사 중복 스킵: ${title}`);

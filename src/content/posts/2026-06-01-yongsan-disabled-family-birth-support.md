@@ -1,5 +1,5 @@
 ---
-title: 용산구 장애인가정 출산지원금, 최대 100만원 초기 양육비 부담 확 줄이는 꿀팁 총정리 (2026년 최신)
+title: 용산구 장애인가정 출산지원금, 최대 100만원 초기 양육비 부담 확 줄이는 꿀팁 (2026년 최신)
 originalTitle: "[서울 용산구] 장애인가정 출산지원금 신청 자격 및 혜택 총정리 외 0건"
 link: https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000980&wlfareInfoReldBztpCd=02
 officialTarget: 장애인

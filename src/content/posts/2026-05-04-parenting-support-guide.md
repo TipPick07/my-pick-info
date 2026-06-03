@@ -1,5 +1,5 @@
 ---
-title: "수도권 육아가정 놓치면 손해인 지원금 총정리 2026 — 서울·경기·인천"
+title: "수도권 육아가정 놓치면 손해인 지원금 2026 — 서울·경기·인천"
 originalTitle: 서울·경기·인천 양육지원금 2026년 총정리
 link: https://www.gov.kr/portal/main
 officialTarget: 수도권 거주 0~9세 자녀를 둔 육아가정, 맞벌이 가정, 한부모 가정

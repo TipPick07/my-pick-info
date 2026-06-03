@@ -1,5 +1,5 @@
 ---
-title: "2026 여의도 한강 야경투어 — 5월~9월 낭만 야간 나들이 완벽 가이드"
+title: "2026 여의도 한강 야경투어 — 5월~9월 낭만 야간 나들이"
 originalTitle: 한강야경투어
 link: https://hangang.seoul.go.kr
 officialTarget: 서울·수도권 거주 커플·친구·가족, 야간 나들이 계획 중인 시민

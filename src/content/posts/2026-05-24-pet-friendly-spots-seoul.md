@@ -1,5 +1,5 @@
 ---
-title: "서울 반려동물 동반 공원·카페·애견 동반 명소 총정리 2026 — 견주 필독 완벽 가이드"
+title: "서울 반려동물 동반 공원·카페·애견 동반 명소 2026 — 견주 필독"
 originalTitle: 서울 반려동물 동반 공원·카페·애견 동반 명소 총정리 2026
 link: https://korean.visitseoul.net/tours/%ED%95%A8%EA%BB%98-%EC%82%AC%EB%8A%94-%EB%8F%84%EC%8B%9C-%EC%84%9C%EC%9A%B8_/28765
 officialTarget: 서울 수도권 거주 반려견·반려동물 보호자

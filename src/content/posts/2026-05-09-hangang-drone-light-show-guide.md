@@ -1,5 +1,5 @@
 ---
-title: "한강 드론라이트쇼 무료 관람 꿀팁 2026 — 위치·시간·주차·명당 총정리"
+title: "한강 드론라이트쇼 무료 관람 꿀팁 2026 — 위치·시간·주차·명당"
 originalTitle: 2026 한강 불빛 공연 드론라이트쇼 관람 가이드
 link: https://www.seouldroneshow.com
 officialTarget: 서울·수도권 거주 시민, 가족·커플·나들이객

@@ -1,5 +1,5 @@
 ---
-title: "인천 임산부 친환경 농산물 꾸러미 지원 — 신청 방법·대상·꿀팁 총정리"
+title: "인천 임산부 친환경 농산물 꾸러미 지원 — 신청 방법·대상·꿀팁"
 originalTitle: 임산부 친환경 농산물 꾸러미 지원
 link: https://www.incheon.go.kr
 officialTarget: 인천 거주 임산부 전체

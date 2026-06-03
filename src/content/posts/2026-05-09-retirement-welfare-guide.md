@@ -1,5 +1,5 @@
 ---
-title: "은퇴 후 꼭 챙겨야 할 건강보험료·노인 일자리 완벽 가이드 2026"
+title: "은퇴 후 꼭 챙겨야 할 건강보험료·노인 일자리 2026"
 originalTitle: 은퇴·노후 대비 복지 총정리
 link: https://www.nhis.or.kr
 officialTarget: 만 60세 이상 수도권 거주 은퇴자 및 은퇴 준비자

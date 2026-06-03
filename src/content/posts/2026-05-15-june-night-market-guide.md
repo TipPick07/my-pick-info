@@ -1,5 +1,5 @@
 ---
-title: "수도권 6월 야시장·야외 푸드마켓 총정리 2026"
+title: "수도권 6월 야시장·야외 푸드마켓 2026"
 originalTitle: 수도권 6월 야시장·야외 푸드마켓 총정리 2026
 link: "https://bamdokkaebi.org"
 officialTarget: "수도권 거주 시민, 커플, 가족, 직장인"

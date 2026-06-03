@@ -1,5 +1,5 @@
 ---
-title: "한강 피크닉 공원별 완벽 가이드 2026 — 그늘·주차·맛집·혼잡도 비교"
+title: "한강 피크닉 공원별 2026 — 그늘·주차·맛집·혼잡도 비교"
 originalTitle: 한강 피크닉 공원별 완벽 가이드 2026
 link: https://hangang.seoul.go.kr
 officialTarget: 서울 수도권 거주 시민, 한강 피크닉 계획 중인 가족·커플·친구 모임

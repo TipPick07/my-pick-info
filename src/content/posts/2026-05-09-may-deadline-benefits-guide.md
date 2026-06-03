@@ -1,5 +1,5 @@
 ---
-title: "5월 마감 임박! 수도권 놓치면 후회하는 지원금 총정리 (D-22 이내)"
+title: "5월 마감 임박! 수도권 놓치면 후회하는 지원금 (D-22 이내)"
 originalTitle: 5월 마감 임박 지원금 총정리
 link: https://www.bokjiro.go.kr
 officialTarget: 수도권 거주 근로자·청년·저소득 가구

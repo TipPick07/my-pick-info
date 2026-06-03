@@ -1,5 +1,5 @@
 ---
-title: "2026 수도권 여름 캠핑장 예약 오픈 총정리"
+title: "2026 수도권 여름 캠핑장 예약 오픈"
 originalTitle: 2026 수도권 여름 캠핑장 예약 오픈 총정리
 link: "https://yeyak.seoul.go.kr"
 officialTarget: "서울·인천·경기 거주 캠핑족, 가족 단위 여름 캠퍼"

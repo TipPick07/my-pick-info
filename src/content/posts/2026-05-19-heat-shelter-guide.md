@@ -1,5 +1,5 @@
 ---
-title: "2026 수도권 무더위 쉼터 신청 방법 + 개방일 총정리"
+title: "2026 수도권 무더위 쉼터 신청 방법 + 개방일"
 originalTitle: 수도권 무더위 쉼터 신청 방법 + 개방일 총정리
 link: "https://safekorea.go.kr/idsiSFK/neo/sfk/cs/sfc/htw/htweaiList.html?menuSeq=862"
 officialTarget: 수도권 거주 전 시민 (특히 어르신·영유아 가정·이동노동자)

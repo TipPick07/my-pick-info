@@ -1,5 +1,5 @@
 ---
-title: "2026 한강 수영장·물놀이장 개장일·요금·꿀팁 총정리"
+title: "2026 한강 수영장·물놀이장 개장일·요금·꿀팁"
 originalTitle: 2026 한강 수영장·물놀이장 개장일·요금·꿀팁 총정리
 link: "https://hangang.seoul.go.kr/www/contents/774.do?mid=505"
 officialTarget: 서울 거주 시민, 수도권 당일 나들이 가족·커플

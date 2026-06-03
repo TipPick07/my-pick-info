@@ -1,5 +1,5 @@
 ---
-title: "수도권 야외수영장·물놀이장 총정리 2026 — 개장일·요금·혼잡도 완벽 비교"
+title: "수도권 야외수영장·물놀이장 2026 — 개장일·요금·혼잡도 완벽 비교"
 originalTitle: 수도권 야외수영장 물놀이장 총정리 2026
 link: "https://hangang.seoul.go.kr/www/contents/774.do?mid=505"
 officialTarget: "수도권 거주 가족·커플·개인 (여름 물놀이 계획 중인 모든 시민)"

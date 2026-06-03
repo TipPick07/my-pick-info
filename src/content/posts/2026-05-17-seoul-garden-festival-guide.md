@@ -1,5 +1,5 @@
 ---
-title: "2026 서울가든페스티벌 완벽 가이드 — 라인업·예약·교통 꿀팁 총정리"
+title: "2026 서울가든페스티벌 — 라인업·예약·교통 꿀팁"
 originalTitle: 2026 서울가든페스티벌 서울숲 라인업·예약·교통 꿀팁 총정리
 link: https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S260420150701261795
 officialTarget: 서울·수도권 거주 시민, 나들이·공연 관심 가족·커플·직장인

@@ -1,5 +1,5 @@
 ---
-title: "수도권 6월 플리마켓·핸드메이드 마켓 총정리 2026"
+title: "수도권 6월 플리마켓·핸드메이드 마켓 2026"
 originalTitle: 수도권 6월 플리마켓·핸드메이드 마켓 총정리 2026
 link: https://culture.seoul.go.kr
 officialDetails: 2026년 6월 서울·수도권에서 열리는 플리마켓·핸드메이드 마켓 장소·일정·특징 안내

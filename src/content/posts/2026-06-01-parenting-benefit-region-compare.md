@@ -1,5 +1,5 @@
 ---
-title: "수도권 출산·육아 지원금 지역별 총정리 — 서울·경기·인천, 내 동네는 얼마 받나"
+title: "수도권 출산·육아 지원금 지역별 — 서울·경기·인천, 내 동네는 얼마 받나"
 originalTitle: 수도권 출산육아 지원금 지역 비교
 link: https://www.bokjiro.go.kr
 officialTarget: 임신·출산 예정이거나 영유아를 양육하는 수도권 가정

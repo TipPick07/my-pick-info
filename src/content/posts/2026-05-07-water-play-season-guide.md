@@ -1,5 +1,5 @@
 ---
-title: "수도권 6월 물놀이 계곡 2026: 개장일, 요금 총정리"
+title: "수도권 6월 물놀이 계곡 2026: 개장일, 요금"
 originalTitle: 수도권 6월 물놀이·계곡 개장일 총정리 2026
 link: https://hangang.seoul.go.kr/www/contents/774.do?mid=505
 officialTarget: 서울·인천·경기 거주 가족, 육아가정, 여름 피서 준비 시민

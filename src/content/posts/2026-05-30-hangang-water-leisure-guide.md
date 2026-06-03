@@ -1,5 +1,5 @@
 ---
-title: "황금연휴에 즐기는 한강 수상레저 완벽 가이드 2026 — 카약·패들보드·수상스키·요트 예약·요금 총정리"
+title: "황금연휴에 즐기는 한강 수상레저 2026 — 카약·패들보드·수상스키·요트 예약·요금"
 originalTitle: 한강 수상레저 완벽 가이드 2026
 link: "https://hangang.seoul.go.kr/www/facility/typeDashBoard.do?mid=526&opt3=WATER"
 officialTarget: "수도권 거주 액티비티 관심자, 커플, 친구 모임"

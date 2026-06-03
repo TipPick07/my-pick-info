@@ -1,5 +1,5 @@
 ---
-title: "서울·경기에서만 받는 독자 복지 혜택 총정리 2026 — 국가 지원금 그 이상"
+title: "서울·경기에서만 받는 독자 복지 혜택 2026 — 국가 지원금 그 이상"
 originalTitle: 수도권 특화 복지 혜택 총정리
 link: https://welfare.seoul.go.kr
 officialTarget: 서울·경기 거주 시민 전반 (청년·중장년·가족·고령층)

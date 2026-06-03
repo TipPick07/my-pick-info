@@ -1,5 +1,5 @@
 ---
-title: "부천 백만송이 장미축제 2026 — 6월 7일까지! 주차·혼잡도·꿀팁 총정리"
+title: "부천 백만송이 장미축제 2026 — 6월 7일까지! 주차·혼잡도·꿀팁"
 originalTitle: 수도권 장미축제 총정리 2026
 link: https://www.jungnang.go.kr
 officialTarget: 수도권 거주 가족·커플·나들이족

@@ -1,5 +1,5 @@
 ---
-title: "근로장려금 + 자녀장려금 같이 받는 법 총정리 2026 — 최대 630만원"
+title: "근로장려금 + 자녀장려금 같이 받는 법 2026 — 최대 630만원"
 originalTitle: 근로·자녀장려금 동시 신청 완전 가이드
 link: https://www.hometax.go.kr
 officialTarget: 수도권 거주 저소득 근로자·사업자 가구, 18세 미만 자녀가 있는 가정
