@@ -24,14 +24,6 @@ interface Data {
 }
 
 // ── 날짜 파싱 유틸 ────────────────────────────────────────────────────────────
-function parseStartDate(deadline: string): Date | null {
-  if (!deadline) return null;
-  const matches = [...deadline.matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)];
-  if (matches.length === 0) return null;
-  const first = matches[0];
-  return new Date(parseInt(first[1]), parseInt(first[2]) - 1, parseInt(first[3]));
-}
-
 function parseEndDate(deadline: string): Date | null {
   if (!deadline) return null;
   const matches = [...deadline.matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)];
@@ -59,13 +51,6 @@ function calcDDay(deadline: string, today: Date): number | null {
   const end = parseEndDate(deadline);
   if (!end) return null;
   return Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-}
-
-function isBenefitOngoing(deadline: string, today: Date): boolean {
-  if (isBenefitAlways(deadline)) return true;
-  const start = parseStartDate(deadline);
-  const end = parseEndDate(deadline);
-  return (!start || start <= today) && (!end || end >= today);
 }
 
 // 등록일 추출: addedAt 우선, 없으면 id에 박힌 13자리 ms 타임스탬프로 폴백
@@ -152,20 +137,26 @@ function amountValue(b: Benefit): number {
 type SortKey = "마감임박순" | "최신등록순" | "금액높은순";
 const SORT_OPTIONS: SortKey[] = ["마감임박순", "최신등록순", "금액높은순"];
 
-function statusOrder(deadline: string, today: Date): number {
-  if (getBenefitStatus(deadline, today) === "마감") return 2;
-  if (isBenefitOngoing(deadline, today)) return 0;
-  return 1;
+// 정렬용 마감 버킷: 0 = 마감일 있는 진행 항목, 1 = 상시(마감일 없음), 2 = 마감(종료)
+// ※ 배지(getBenefitStatus)·D-Day와 동일하게 '마감일(end)' 기준만 사용.
+//    단일 날짜 공고(예: 2026.06.30)를 시작일로 오판해 '미시작'으로 빠지는 문제를 막기 위해
+//    시작일 비교(isBenefitOngoing)는 정렬에 쓰지 않는다.
+function deadlineBucket(deadline: string, today: Date): number {
+  if (isBenefitAlways(deadline)) return 1;
+  const end = parseEndDate(deadline);
+  if (end && end < today) return 2;
+  return 0;
 }
 
 function sortBenefits(list: Benefit[], today: Date, sortKey: SortKey): Benefit[] {
   const arr = [...list];
+  // 종료(마감) 항목은 어떤 정렬에서도 항상 맨 뒤
+  const expiredRank = (deadline: string) => (deadlineBucket(deadline, today) === 2 ? 1 : 0);
+
   if (sortKey === "최신등록순") {
-    // 마감은 항상 뒤로, 그 안에서 등록일 최신순
     return arr.sort((a, b) => {
-      const ao = statusOrder(a.deadline, today) === 2 ? 1 : 0;
-      const bo = statusOrder(b.deadline, today) === 2 ? 1 : 0;
-      if (ao !== bo) return ao - bo;
+      const e = expiredRank(a.deadline) - expiredRank(b.deadline);
+      if (e !== 0) return e;
       const ad = getAddedDate(a)?.getTime() ?? -Infinity;
       const bd = getAddedDate(b)?.getTime() ?? -Infinity;
       return bd - ad;
@@ -173,17 +164,16 @@ function sortBenefits(list: Benefit[], today: Date, sortKey: SortKey): Benefit[]
   }
   if (sortKey === "금액높은순") {
     return arr.sort((a, b) => {
-      const ao = statusOrder(a.deadline, today) === 2 ? 1 : 0;
-      const bo = statusOrder(b.deadline, today) === 2 ? 1 : 0;
-      if (ao !== bo) return ao - bo;
+      const e = expiredRank(a.deadline) - expiredRank(b.deadline);
+      if (e !== 0) return e;
       return amountValue(b) - amountValue(a);
     });
   }
-  // 마감임박순 (기본): 진행 우선 → 마감일 가까운 순
+  // 마감임박순 (기본): 마감일 있는 진행 항목(가까운 순) → 상시 → 종료
   return arr.sort((a, b) => {
-    const aOrder = statusOrder(a.deadline, today);
-    const bOrder = statusOrder(b.deadline, today);
-    if (aOrder !== bOrder) return aOrder - bOrder;
+    const ba = deadlineBucket(a.deadline, today);
+    const bb = deadlineBucket(b.deadline, today);
+    if (ba !== bb) return ba - bb;
     const aEnd = parseEndDate(a.deadline);
     const bEnd = parseEndDate(b.deadline);
     return (aEnd ? aEnd.getTime() : Infinity) - (bEnd ? bEnd.getTime() : Infinity);
