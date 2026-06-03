@@ -139,7 +139,7 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-[9999] md:bottom-6 md:right-6">
+    <div id="tippick-chatbot" className="fixed bottom-4 right-4 z-[9999] transition-[bottom] duration-300 md:bottom-6 md:right-6">
       {/* 챗봇 플로팅 버튼 */}
       <button
         onClick={() => setIsOpen(!isOpen)}

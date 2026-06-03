@@ -69,6 +69,19 @@ body {
   transition: box-shadow 0.3s ease;
 }
 
+/* ── 고정 하단 CTA 바 노출 시: 본문 하단 여백 + ChatBot 버튼 들어올리기 ── */
+body.cta-bar-visible {
+  padding-bottom: 68px;
+}
+body.cta-bar-visible #tippick-chatbot {
+  bottom: calc(1rem + 64px);
+}
+@media (min-width: 768px) {
+  body.cta-bar-visible #tippick-chatbot {
+    bottom: calc(1.5rem + 64px);
+  }
+}
+
 /* Neon text glow */
 .text-glow-blue {
   color: var(--neon-blue);
