@@ -869,6 +869,24 @@ officialTip: (1~2문장의 간결한 평문으로 작성. 번호 매기기·별�
       mdContent = mdContent.replace(/^(image:.+)$/m, `$1\nogImage: "${computedOgImage}"`);
     }
 
+    // ─── ★ 생성 후 최종 제목 중복 재검사 ──────────────────────────────────────
+    // 1차 게이트(unpostedItems 필터)는 '크롤링 원본 제목(item.title)' 기준으로만 돈다.
+    // 소스 레코드가 서로 달라 1차를 통과했더라도, Gemini가 둘을 '동일 제도'로 재작성하면
+    // 최종 제목이 기존 글과 충돌한다(2026-06-04 용산 자립준비청년 생활보조수당 재탕 사고).
+    // → 여기서 '최종 title'을 기존 전체(posts/drafts/review)와 다시 대조해 차단한다.
+    const finalTitleMatch = mdContent.match(/^title:\s*(.+)$/m);
+    if (finalTitleMatch) {
+      const finalTitle = finalTitleMatch[1].replace(/^["']|["']$/g, '').trim();
+      const finalNorm = normTitle(finalTitle);
+      const finalKeywords = new Set(extractKeywords(finalTitle));
+      const finalPrograms = extractProgramNames(finalTitle);
+      if (isDuplicate(finalNorm, finalKeywords, finalPrograms, allExistingPosts)) {
+        console.warn(`[중복 차단·생성후] 최종 제목이 기존 글과 중복 → 발행 취소: "${finalTitle}"`);
+        return;
+      }
+    }
+    // ──────────────────────────────────────────────────────────────────────────
+
     const finalPath = path.join(postsDir, filename);
     if (DRY_RUN) {
       console.log(`[DRY RUN] 파일 저장 건너뜀: ${filename}`);
