@@ -2,6 +2,22 @@ const fs = require('fs');
 const path = require('path');
 const fallbacks = require('../src/lib/image-fallbacks.json');
 
+// ─── 결정적(안정) ID 생성 ────────────────────────────────────────────────────
+// URL churn 방지: 같은 행사/지원금은 재수집돼도 항상 같은 ID(=같은 URL)를 갖도록
+// 원본 안정 키(제목·서비스명·source 고유번호)에서 결정적으로 ID를 만든다.
+// Date.now()/random은 안정 키가 전혀 없을 때만 마지막 폴백으로 사용.
+function _hashKey(str) {
+  let h = 5381;
+  const s = String(str == null ? '' : str);
+  for (let i = 0; i < s.length; i++) h = (((h << 5) + h) + s.charCodeAt(i)) >>> 0; // djb2
+  return h.toString(36);
+}
+function sid(prefix, key) {
+  const k = String(key == null ? '' : key).trim();
+  if (!k) return `${prefix}-${Date.now().toString(36)}`; // 안정 키 없을 때만(드묾) 비안정 폴백
+  return `${prefix}-${_hashKey(k)}`;
+}
+
 // ─── 네이버 DataLab + 계절 키워드 ─────────────────────────────────────────
 const SEASONAL_KEYWORDS = {
   1: { festival: ['설날행사', '겨울축제', '눈꽃축제'], benefit: ['난방비지원', '에너지바우처', '설맞이지원금'] },
@@ -534,7 +550,7 @@ async function fetchSeoulEvents(apiKey) {
       const dateStr = startDate && endDate && startDate !== endDate ? `${startDate}~${endDate}` : startDate || '상시';
       results.push({
         _source: '서울',
-        id: `fest-seoul-${Buffer.from(item.TITLE).toString('base64url').slice(0, 8)}-${Date.now()}`,
+        id: sid('fest-seoul', item.TITLE),
         region: '서울',
         title: item.TITLE,
         date: dateStr,
@@ -584,7 +600,7 @@ async function fetchGyeonggiEvents(apiKey) {
       const dateStr = startDate && endDate && startDate !== endDate ? `${startDate}~${endDate}` : startDate || '상시';
       results.push({
         _source: '경기',
-        id: `fest-gg-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+        id: sid('fest-gg', title),
         region: '경기',
         title,
         date: dateStr,
@@ -638,7 +654,7 @@ async function fetchIncheonEvents(apiKey) {
       const dateStr = item.period || '상시';
       results.push({
         _source: '인천',
-        id: `fest-ic-${item.idx || Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+        id: sid('fest-ic', item.idx || item.title),
         region: '인천',
         title: item.title || '',
         date: dateStr,
@@ -1323,7 +1339,7 @@ async function main() {
         const isPrefixDup = normPrefix.length >= 4 && [...existingBenefitNorm].some(n => n.startsWith(normPrefix));
         const semDup = findBenefitDuplicate(item.title, existingBenefitTitles);
         if (!existingTitles.has(item.title) && !existingBenefitNorm.has(norm) && !isPrefixDup && !semDup && !isProgramTerminated(item)) {
-          const _benefitId = item.id || `gemini-benefit-${Date.now()}`;
+          const _benefitId = sid('gemini-benefit', item.title);
           const _benefitFallbackNum = pickFallback(_benefitId, 'benefit', usedBenefitFallbacks);
           existingData.benefits.unshift({
             id: _benefitId,
@@ -1544,8 +1560,10 @@ ${JSON.stringify(selectedData)}`;
           }
         }
 
-        // Gemini가 생성한 id는 충돌 위험 → 항상 서버 타임스탬프 기반으로 생성
-        const newId = `${Date.now()}-${index}-${Math.random().toString(36).slice(2, 6)}`;
+        // Gemini가 생성한 id는 충돌 위험 → 원본 공공데이터의 안정 키(서비스명+소관기관명)로
+        // 결정적 ID 생성. 같은 제도는 재수집돼도 같은 URL을 유지(churn 방지).
+        const _stableKey = `${selectedData.서비스명 || ''}|${selectedData.소관기관명 || ''}`;
+        const newId = sid(parsedParams.type === 'festival' ? 'fest' : 'b', _stableKey);
         const seed = Math.floor(Math.random() * 1000) + index;
         let rawPrompt = (parsedParams.imagePrompt || parsedParams.title);
 
@@ -1768,7 +1786,7 @@ ${JSON.stringify(selectedData)}`;
         : '';
       return {
         _source: 'KTO',
-        id: `fest-${fest.contentid || Date.now()}`,
+        id: fest.contentid ? `fest-${fest.contentid}` : sid('fest', title),
         region: fest._region || '전국',
         title,
         date: formatFestivalDate(fest.eventstartdate, fest.eventenddate),
@@ -1819,7 +1837,7 @@ ${JSON.stringify(selectedData)}`;
       );
       for (const item of festSupplements) {
         if (!isFestivalDuplicate(item, existingData.festivals)) {
-          const _festId = item.id || `gemini-fest-${Date.now()}`;
+          const _festId = sid('gemini-fest', item.title);
           const _festFallbackNum = pickFallback(_festId, 'festival', usedFestFallbacks);
           existingData.festivals.unshift({
             id: _festId,
@@ -1909,7 +1927,7 @@ ${JSON.stringify(selectedData)}`;
         );
 
         const newFest = {
-          id: fest.id || `fest-${Date.now()}`,
+          id: fest.id || sid('fest', fest.title),
           region: fest.region || '전국',
           title,
           date: fest.date || '상시',

@@ -107,6 +107,11 @@ PASS / WARN / FAIL 로 보고해줘. 문제가 있으면 수정안을 먼저 제
 ■ [F] 라우팅·정합성
 - 과거 삭제한 블로그 슬러그 6종 재생성 0 / public/_redirects 규칙 유지 /
   benefits·festivals 카운트 및 situations 허브별 매칭 건수 갱신 정상 / sitemap.xml 정상.
+- URL 안정성(churn 추적): 신규 benefit/festival id 가 결정적 형식인지 확인
+  (b-, fest-, fest-seoul-, fest-gg-, fest-ic-, gemini-* + 해시). id 안에 13자리
+  타임스탬프(Date.now)나 난수 꼬리표가 보이면 회귀 — 같은 제도가 매일 새 URL을 만들어
+  GSC 404가 누적되므로 즉시 보고. (참고: GSC '페이지' 보고서의 404/리디렉션 추세가
+  주는 줄어들어야 정상.)
 
 ■ [G] '어제 작업이 오늘 라이브에 반영됐는지' 확인
 - origin/main HEAD == 실제 배포 커밋(빌드 기준)과 동기화.

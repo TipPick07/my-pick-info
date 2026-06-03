@@ -11,6 +11,16 @@ https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 /blog/2026-incheon-childrens-day /blog/ 301
 /blog/2026-seoul-gyeonggi-childrens-day /blog/ 301
 /blog/2026-royal-culture-festival-guide /blog/ 301
+# 위 3건 슬래시 변형 보정 (GSC 리디렉션 오류: trailingSlash 308 → 무매칭 404 방지)
+/blog/2026-incheon-childrens-day/ /blog/ 301
+/blog/2026-seoul-gyeonggi-childrens-day/ /blog/ 301
+/blog/2026-royal-culture-festival-guide/ /blog/ 301
+
+# /election 라우트 삭제 (선거 기능 제거) → /blog/ 301
+/election/2026-05-06-seoul-election-pledge /blog/ 301
+/election/2026-05-06-seoul-election-pledge/ /blog/ 301
+/election/2026-05-06-gyeonggi-election-pledge /blog/ 301
+/election/2026-05-06-gyeonggi-election-pledge/ /blog/ 301
 
 /blog/2026-05-06-seoul-youth-rent-support   /blog/   301
 /blog/2026-05-06-seoul-youth-rent-support/  /blog/   301
