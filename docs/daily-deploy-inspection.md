@@ -81,6 +81,13 @@ PASS / WARN / FAIL 로 보고해줘. 문제가 있으면 수정안을 먼저 제
 - 기업/홍보/정치/선거성 항목 유입 0.
 - benefit 필수 필드 채움: faq / rejectionReasons / addedAt / simulation 존재. highlight 권장.
 - 깨진 표 0 (festival·benefit 본문): 구분선에 설명문이 섞인 깨진 블록 없는지.
+- 카드 이미지 중복/generic 점검: 축제(festivals) image 필드를 전수 집계.
+  · fallback-festival-1~5 또는 동일 unsplash URL이 여러 카드에 반복되면 회귀 — 보고.
+  · 특히 경기·인천처럼 원본 이미지 미제공 출처의 신규 축제가 같은 이미지로 몰리지 않는지.
+  · 정상 동작 시: 이미지 없는 축제는 pickThemedFestivalImage가 로컬 테마 풀
+    (festival-* 이미지)에서 제목 주제에 맞는 '고유' 이미지를 배정함(무비용·외부호출 없음).
+    image 값이 fallback-festival-N 로 떨어진 신규 축제가 있으면 풀 고갈/주제 미스이므로
+    원인 보고(테마 풀 보강 또는 키워드 매핑 추가 제안).
 
 ■ [C] ⚠️ 형식·엣지 변종 탐지 (매일 새 주제에서 튀어나옴 — 적극적으로 찾아낼 것)
 신규 + 전체를 스캔해 우리 로직의 가정을 깨는 패턴을 능동적으로 탐지:

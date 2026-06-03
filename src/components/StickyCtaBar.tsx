@@ -36,7 +36,7 @@ export default function StickyCtaBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [dismissed]);
 
-  // 3) body 클래스 토글 → ChatBot 들어올리기 + 본문 하단 여백(globals.css)
+  // 3) body 클래스 토글 → 본문 하단 여백 확보(globals.css)
   useEffect(() => {
     const show = visible && !dismissed;
     document.body.classList.toggle("cta-bar-visible", show);

@@ -1141,6 +1141,53 @@ function getFallbackPath(num, type) {
   return `/images/blogs/fallback-${type}-${num}.${ext}`;
 }
 
+// ─── 테마 매칭 폴백 (무비용): 이미지가 없을 때 generic fallback-festival-N 대신
+//     레포의 기존 festival 이미지 풀에서 '제목 주제'에 맞는 미사용 이미지를 골라 배정.
+//     경기/인천 등 이미지 미제공 출처의 카드가 동일 이미지로 중복되는 문제를 차단한다.
+let _festThemePool = null;
+function festThemePool() {
+  if (_festThemePool) return _festThemePool;
+  try {
+    _festThemePool = fs.readdirSync(path.join(__dirname, '../public/images/blogs'))
+      .filter(f => /^festival-/i.test(f) && !/^fallback-festival-\d/i.test(f) && /\.(png|webp|jpe?g)$/i.test(f));
+  } catch { _festThemePool = []; }
+  return _festThemePool;
+}
+const FEST_THEME_MAP = [
+  [/뮤지컬|음악극|오케스트라|콘서트|합창|독주회|밴드|락페|음악|가요|포크|재즈|관현악/, ['오케스트라', '뮤지컬', '음악극', '합창', '독주회', '락페', '펜타포트', '피아노', '바이올린', '클라리넷', 'rapbeat']],
+  [/불꽃|미디어아트|빛축제|빛의|야경|루나/, ['미디어아트', '빛과모래', '석조전', '창경궁야연']],
+  [/영화|다큐/, ['디아스포라영', '영화']],
+  [/연극|거리공연|거리극|공연예술/, ['거리극', '거리공연', '수원연극축제']],
+  [/반려|유기견|입양/, ['우리동네사람들', '동물']],
+  [/튤립|가든|꽃|숲|정원|산나물|임산물|수목|자연/, ['벚꽃', '정원학교', '산나물', '임산물숲']],
+  [/능행차|정조|효문화|왕실|문화제|역사|남사당|바우덕이|산성|구석기|풍물|국악|정약용|포은|회암사|동학|종묘|선농/, ['수원화성문화제', '회암사지왕실', '왕가의산책', '국악', '구석기', '선농대제', '풍물', '정순왕후문화제', '종묘', '동학농민']],
+  [/콩|장터|특산물|식품|먹거리|5일장|수확|걷이|빵|요리|도자|시장|마켓/, ['빈티지마켓', '빵지자랑', '수라간시식', '캠핑요리', '도자기', '꼬마농부', '산나물']],
+  [/어린이|꼬마|올림픽|학생|청소년|걷기|가족|놀터|동요|유아|동아리|키즈/, ['가족의달어린이', '어린이', '유아', '까치까치', '꼬마농부', '동화', '어린이철도', '어린이과학관']],
+  [/책|도서|독서|북앤|출판|일러스트/, ['도서관', '출판도시', '일러스트']],
+  [/수상|마린|뱃놀이|물놀이|갯골|물빛|호수/, ['뱃놀이', '갯골']],
+  [/어울림|화합|복지|한마당|시민/, ['지구촌어울림', '우리동네사람들', '어울']],
+];
+function pickThemedFestivalImage(title, usedBasenames) {
+  const pool = festThemePool();
+  if (!pool.length) return null;
+  const t = String(title || '');
+  let kws = [];
+  for (const [re, list] of FEST_THEME_MAP) if (re.test(t)) { kws = list; break; }
+  // 1) 주제 키워드 매칭(미사용 우선)
+  for (const kw of kws) {
+    const hit = pool.find(f => !usedBasenames.has(f) && f.toLowerCase().includes(kw.toLowerCase()));
+    if (hit) { usedBasenames.add(hit); return `/images/blogs/${hit}`; }
+  }
+  // 2) 주제 없음/소진 → 제목 해시로 결정적 고유 선택
+  const avail = pool.filter(f => !usedBasenames.has(f));
+  if (!avail.length) return null; // 풀 고갈 → 호출측 generic fallback 사용
+  let h = 5381;
+  for (let i = 0; i < t.length; i++) h = (((h << 5) + h) + t.charCodeAt(i)) >>> 0;
+  const choice = avail[h % avail.length];
+  usedBasenames.add(choice);
+  return `/images/blogs/${choice}`;
+}
+
 async function main() {
   const DRY_RUN = process.env.DRY_RUN === 'true';
   if (DRY_RUN) console.log('[DRY RUN] 테스트 모드 — pick-info.json에 데이터를 저장하지 않습니다.');
@@ -1207,6 +1254,10 @@ async function main() {
     const validRegions = ['서울', '인천', '경기'];
     const usedBenefitFallbacks = new Set();
     const usedFestFallbacks = new Set();
+    // 테마 매칭 폴백에서 이미 배정된(또는 기존 데이터에서 사용 중인) 이미지를 추적 → 카드 간 중복 방지
+    const usedFestImages = new Set(
+      (existingData.festivals || []).map(f => (f.image ? path.basename(f.image) : '')).filter(Boolean)
+    );
 
     // 중복 체크를 위한 기존 타이틀 셋 구성
     const existingTitles = new Set([
@@ -1642,7 +1693,7 @@ ${JSON.stringify(selectedData)}`;
               } else {
                 console.log(`이미지 저장 후 파일 없음 — 폴백 사용: ${localImagePath}`);
                 const _verifyFallback = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
-                finalImageUrl = getFallbackPath(_verifyFallback, parsedParams.type === 'festival' ? 'festival' : 'benefit');
+                finalImageUrl = (parsedParams.type === 'festival' ? pickThemedFestivalImage(parsedParams.title, usedFestImages) : null) || getFallbackPath(_verifyFallback, parsedParams.type === 'festival' ? 'festival' : 'benefit');
               }
             } else {
               console.log(`[DRY RUN] 이미지 저장 건너뜀: ${localImagePath}`);
@@ -1650,12 +1701,12 @@ ${JSON.stringify(selectedData)}`;
           } else {
             console.log(`이미지 생성 실패(Type: ${contentType}), 폴백 이미지로 대체`);
             const _fallbackNum1 = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
-            finalImageUrl = getFallbackPath(_fallbackNum1, parsedParams.type === 'festival' ? 'festival' : 'benefit');
+            finalImageUrl = (parsedParams.type === 'festival' ? pickThemedFestivalImage(parsedParams.title, usedFestImages) : null) || getFallbackPath(_fallbackNum1, parsedParams.type === 'festival' ? 'festival' : 'benefit');
           }
         } catch (e) {
           console.log('이미지 처리 중 간헐적 오류 발생, 폴백 이미지로 대체:', e.message);
           const _fallbackNum2 = pickFallback(newId, parsedParams.type, parsedParams.type === 'festival' ? usedFestFallbacks : usedBenefitFallbacks);
-          finalImageUrl = getFallbackPath(_fallbackNum2, parsedParams.type === 'festival' ? 'festival' : 'benefit');
+          finalImageUrl = (parsedParams.type === 'festival' ? pickThemedFestivalImage(parsedParams.title, usedFestImages) : null) || getFallbackPath(_fallbackNum2, parsedParams.type === 'festival' ? 'festival' : 'benefit');
         }
 
         // Gemini가 변환한 제목으로 한 번 더 중복 검사 (원본 API 제목과 달라진 경우 대비)
@@ -1845,7 +1896,7 @@ ${JSON.stringify(selectedData)}`;
             title: item.title,
             date: item.date || '상시',
             tag: item.tag || '신규',
-            image: getFallbackPath(_festFallbackNum, 'festival'),
+            image: pickThemedFestivalImage(item.title, usedFestImages) || getFallbackPath(_festFallbackNum, 'festival'),
             location: item.location || '',
             description: item.description || '',
             link: item.link || '',
@@ -1912,12 +1963,12 @@ ${JSON.stringify(selectedData)}`;
             }
           } catch (e) {
             console.warn(`[축제] 이미지 다운로드 실패, 폴백 사용: ${e.message}`);
-            finalImageUrl = getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
+            finalImageUrl = pickThemedFestivalImage(title, usedFestImages) || getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
           }
         } else if (imageUrl) {
           finalImageUrl = imageUrl; // 이미 로컬 경로인 경우
         } else {
-          finalImageUrl = getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
+          finalImageUrl = pickThemedFestivalImage(title, usedFestImages) || getFallbackPath(pickFallback(fest.id || fest.servId || title, 'festival', usedFestFallbacks), 'festival');
         }
 
         const generatedContent = await generateFestivalContent(

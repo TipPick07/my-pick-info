@@ -44,7 +44,6 @@ export const metadata: Metadata = {
   },
 };
 
-import ChatBot from "@/components/ChatBot";
 import StickyCtaBar from "@/components/StickyCtaBar";
 
 export default function RootLayout({
@@ -80,7 +79,6 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         {children}
-        <ChatBot />
         <StickyCtaBar />
         {/* Google Analytics GA4 */}
         <Script
