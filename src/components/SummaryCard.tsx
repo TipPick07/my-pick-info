@@ -53,7 +53,7 @@ export default function SummaryCard({ category, rows, badges, className = '' }: 
             <div className={`mt-[0.45rem] w-2 h-2 rounded-full ${cfg.dotColor} shrink-0`} />
             <div className="space-y-1 min-w-0">
               <p className="text-sm font-bold text-slate-400">{row.label}</p>
-              <p className="text-base font-bold text-slate-800 leading-snug whitespace-pre-line break-words">{row.value}</p>
+              <p className="text-base font-medium text-slate-700 leading-relaxed whitespace-pre-line break-words">{row.value}</p>
             </div>
           </div>
         ))}

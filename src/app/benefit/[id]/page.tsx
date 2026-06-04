@@ -95,10 +95,20 @@ export async function generateStaticParams() {
   }));
 }
 
+// 원본 데이터의 '줄 맨 앞 불릿 기호(○ ▷ ■ ◦ ● ▪ ※ □ ◆)'와 앞뒤 공백·trailing 줄바꿈만 제거.
+// 문장 내부 가운뎃점 '·'은 보존(제거 대상 아님).
+function cleanBulletPrefix(s: string | undefined | null): string {
+  return (s || '')
+    .replace(/^[\s○▷■◦●▪※□◆]+/, '')
+    .trim();
+}
+
 async function getBenefit(id: string) {
   const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
   const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-  return data.benefits.find((b: Benefit) => b.id === id);
+  const b = data.benefits.find((bb: Benefit) => bb.id === id);
+  if (b && b.target) b.target = cleanBulletPrefix(b.target);
+  return b;
 }
 
 function isValidUrl(url: string | undefined | null): boolean {
