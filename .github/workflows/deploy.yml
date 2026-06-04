@@ -48,6 +48,8 @@ jobs:
           SEOUL_API_KEY: ${{ secrets.SEOUL_API_KEY }}
           GYEONGGI_API_KEY: ${{ secrets.GYEONGGI_API_KEY }}
           INCHEON_API_KEY: ${{ secrets.INCHEON_API_KEY }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
 
       - name: Commit and Push Changes
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'

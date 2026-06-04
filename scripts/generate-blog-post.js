@@ -483,6 +483,12 @@ async function main() {
     let categoryFilteredItems = unpostedItems;
     let publishCategory = postType === 'festival' ? '축제/행사' : '일반 지원금';
 
+    // 축제: 미발행 후보가 임계치 미만이면 품질 유지를 위해 발행 건너뜀 (benefit 2분할 게이트와 동일 기준)
+    if (postType === 'festival' && unpostedItems.length < PUBLISH_THRESHOLD) {
+      console.log(`[축제] 미발행 후보 ${unpostedItems.length}건 < ${PUBLISH_THRESHOLD}건 → 발행 건너뜀`);
+      return;
+    }
+
     if (postType === 'benefit') {
       // 지원금 탭 "주거/임대 지원" 필터(BenefitsClient)와 동일 기준으로 선별
       const housingKws = ['주거', '청년안심', 'LH', 'SH', 'GH', '전세', '월세', '임대', '행복주택', '국민임대'];

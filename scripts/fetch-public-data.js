@@ -787,8 +787,8 @@ function normalizeItem(item, source) {
   return {
     서비스명: item.서비스명 || item.svcNm || item.servNm || item.pbanc_nm || item.pbancNm || item.지원사업명 || item.biz_nm || '',
     서비스목적요약: item.서비스목적요약 || item.svcPurposSumry || item.svcPurps || item.servDgst || item.srvPvsnM || item.jiwon_cntnt || item.지원내용 || item.biz_cn || '',
-    지원대상: item.지원대상 || item.trgter || trgter || item.aply_trgt || item.aplyTrgt || item.trgt_nm || '',
-    소관기관명: item.소관부처명 || item.소관기관명 || item.bizChrDeptNm || item.blnfcInsttNm || item.excl_instt_nm || item.exclInsttNm || item.기관명 || item.sprt_instt_nm || '',
+    지원대상: item.지원대상 || item.trgter || trgter || item.trgterIndvdlArray || item.lifeArray || item.aply_trgt || item.aplyTrgt || item.trgt_nm || '',
+    소관기관명: item.소관부처명 || item.소관기관명 || item.bizChrDeptNm || item.jurMnofNm || item.jurOrgNm || item.blnfcInsttNm || item.excl_instt_nm || item.exclInsttNm || item.기관명 || item.sprt_instt_nm || '',
     지원내용: item.지원내용 || item.givBnfCn || item.servDgst || item.jiwon_cntnt || item.biz_cn || '',
     신청URL: item.신청URL || item.aplyUrl || item.servDtlLink || item.dtl_url || item.dtlUrl || item.pbanc_url || '',
     신청기한: item.신청기한 || item.aplyEndDt || item.pbanc_rcept_end_dt || item.pbancRceptEndDt || item.rcept_end_de || '',
@@ -811,10 +811,11 @@ function extractItems(json) {
 // B554287 API 기본 반환 포맷이 XML — <item> 블록에서 모든 필드를 추출
 function parseXmlItems(xml) {
   const items = [];
-  const itemRx = /<item>([\s\S]*?)<\/item>/g;
+  // <item>(기존 소스) + <servList>(복지로 중앙부처 V001) 양쪽 래퍼 지원
+  const itemRx = /<(item|servList)>([\s\S]*?)<\/\1>/g;
   let m;
   while ((m = itemRx.exec(xml)) !== null) {
-    const block = m[1];
+    const block = m[2];
     const obj = {};
     const fieldRx = /<([^/>\s]+?)>([^<]*)<\/\1>/g;
     let f;
@@ -904,17 +905,14 @@ function buildDataGoKrUrl(base, serviceKey, params) {
 // 기본 포맷 XML — JSON 응답이면 extractItems, XML 응답이면 parseXmlItems 사용
 async function fetchBokjiroCentral(apiKey) {
   const results = [];
-  const reqOptions = { headers: { 'Accept': 'application/json' } };
+  // V001은 JSON 요청 시 EFWSV00001 에러 → Accept 헤더 없이 XML로 수신
+  const reqOptions = {};
   const safeKey = /%[0-9A-Fa-f]{2}/.test(apiKey) ? apiKey : encodeURIComponent(apiKey);
 
   const endpoints = [
     {
-      name: 'V1',
-      url: `https://apis.data.go.kr/B554287/NationalWelfareInformations/getNationalWelfarelist?serviceKey=${safeKey}&pageNo=1&numOfRows=20&callTp=L&_type=json`,
-    },
-    {
-      name: 'V2',
-      url: `https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/getNationalWelfarelistV2?serviceKey=${safeKey}&pageNo=1&numOfRows=20&_type=json`,
+      name: 'V001',
+      url: `https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfarelistV001?serviceKey=${safeKey}&callTp=L&srchKeyCode=003&pageNo=1&numOfRows=20`,
     },
   ];
 
@@ -989,40 +987,6 @@ async function fetchBokjiroLocal(apiKey) {
     } catch (err) {
       console.log(`[복지로지자체:${region}] 네트워크 오류: ${err.message}`);
     }
-  }
-  return results;
-}
-
-// ─── 1순위: 기업마당 중소기업 지원사업 공고 (bizinfo.go.kr 직접 API) ─────────
-// ※ bizinfo.go.kr은 data.go.kr과 별개 시스템 → BIZINFO_API_KEY(crtfcKey) 필요
-//   BIZINFO_API_KEY 없는 경우 이 함수는 빈 배열 반환 (gov24 fallback으로 처리)
-// API: https://www.bizinfo.go.kr/openapi/getOpenAnnouncementList.do
-async function fetchBizinfo(apiKey) {
-  const results = [];
-  const biziKey = process.env.BIZINFO_API_KEY;
-  if (!biziKey) {
-    console.log('[기업마당] BIZINFO_API_KEY 환경변수 없음 — bizinfo.go.kr은 data.go.kr과 별개 키 필요. gov24 fallback 사용.');
-    return results;
-  }
-  // bizinfo.go.kr OpenAPI (crtfcKey 사용, 별도 키이므로 encodeURIComponent 적용)
-  const url = `https://www.bizinfo.go.kr/openapi/getOpenAnnouncementList.do?crtfcKey=${encodeURIComponent(biziKey)}&dataType=json&pageUnit=10&pageIndex=1`;
-  try {
-    const res = await fetchWithRetry(url);
-    const { raw, json } = await readAndParse('기업마당', res);
-    if (!res.ok) {
-      console.log(`[기업마당] HTTP ${res.status} — 위 RAW 참조`);
-      return results;
-    }
-    if (!json) return results;
-    // bizinfo 응답 구조: { resultCode, pbancList: [ { pbanc_nm, jiwon_cntnt, ... } ] }
-    const items = json?.pbancList || json?.items || extractItems(json);
-    for (const item of items) {
-      const norm = normalizeItem(item, '기업마당');
-      if (norm.서비스명) results.push(norm);
-    }
-    if (items.length > 0) console.log(`[기업마당] ${items.length}건 수집`);
-  } catch (err) {
-    console.log(`[기업마당] 네트워크 오류: ${err.message}`);
   }
   return results;
 }
@@ -1343,20 +1307,17 @@ async function main() {
       console.log(`  소계: ${newItems.length}건`);
     }
 
-    // ① 1순위: 복지로 중앙부처 — 현재 500 에러로 비활성화, 지자체로 대체
-    // addItems(await fetchBokjiroCentral(govApiKey));
+    // ① 1순위: 복지로 중앙부처 (한국사회보장정보원 V001)
+    if (newItems.length < DAILY_LIMIT) {
+      console.log('\n[지원금] 1순위 수집 - 복지로 중앙부처...');
+      addItems(await fetchBokjiroCentral(govApiKey));
+      console.log(`  소계: ${newItems.length}건`);
+    }
 
     // ① 1순위: 복지로 지자체 (서울·인천·경기, 중장년·노년)
     if (newItems.length < DAILY_LIMIT) {
       console.log('\n[지원금] 1순위 수집 - 복지로 지자체...');
       addItems(await fetchBokjiroLocal(govApiKey));
-      console.log(`  소계: ${newItems.length}건`);
-    }
-
-    // ① 1순위: 기업마당 (소상공인·자영업자 등)
-    if (newItems.length < DAILY_LIMIT) {
-      console.log('\n[지원금] 1순위 수집 - 기업마당...');
-      addItems(await fetchBizinfo(govApiKey));
       console.log(`  소계: ${newItems.length}건`);
     }
 
