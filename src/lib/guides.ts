@@ -1,0 +1,32 @@
+/**
+ * 플래그십 가이드 매니페스트 (SSOT)
+ *
+ * ▷ 각 가이드는 src/app/guides/<slug>/page.tsx 독립 정적 라우트입니다.
+ *   posts/*.md(블로그)도 public/data/pick-info.json(크롤링)도 거치지 않습니다.
+ * ▷ /guides 허브(목록)와 sitemap이 이 배열 하나를 공유합니다(중복 정의 방지).
+ *
+ * ⚠️ 새 가이드 추가 시 — 수동 동기화 필수:
+ *    ① src/app/guides/<slug>/page.tsx 신설
+ *    ② 아래 GUIDES 배열에 한 줄 추가 (slug 는 폴더명과 동일하게)
+ */
+
+export interface Guide {
+  slug: string;        // 폴더명 = URL 경로 (/guides/<slug>/)
+  title: string;       // 허브 카드 제목
+  description: string; // 허브 카드 설명
+  category: string;    // 생애주기·상황 분류
+  emoji: string;       // 카드 아이콘
+  image?: string;      // 카드 썸네일(해당 가이드 자체 이미지). 없으면 생략
+}
+
+export const GUIDES: Guide[] = [
+  {
+    slug: "parenting-family-benefits",
+    title: "0세~초등 입학 전, 수도권 육아·가족 지원금 한눈에 (2026)",
+    description:
+      "아동수당·부모급여·보육료·양육수당·유아학비를 나이 × 돌봄 형태로 정리한 에버그린 가이드.",
+    category: "임신·출산·육아",
+    emoji: "👶",
+    image: "/images/og/parenting-family-benefits.png",
+  },
+];

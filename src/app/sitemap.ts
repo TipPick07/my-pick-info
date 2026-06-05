@@ -5,6 +5,7 @@ import { MetadataRoute } from 'next';
 import fs from 'fs';
 import path from 'path';
 import { SITUATIONS } from '@/lib/situations';
+import { GUIDES } from '@/lib/guides';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://tip-pick.com';
@@ -12,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 1. 기본 정적 경로 (trailingSlash: true 설정에 맞춰 trailing slash 포함)
   const staticRoutes = [
     '/', '/festivals/', '/benefits/', '/blog/',
-    '/situations/', '/eligibility/',
+    '/situations/', '/eligibility/', '/guides/',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -25,6 +26,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/situations/${s.key}/`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
+
+  // 1-c. 가이드 상세 페이지 (GUIDES 매니페스트 = SSOT)
+  const guideRoutes = GUIDES.map((g) => ({
+    url: `${baseUrl}/guides/${g.slug}/`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
 
@@ -60,5 +69,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     }));
 
-  return [...staticRoutes, ...situationRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes];
+  return [...staticRoutes, ...situationRoutes, ...guideRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes];
 }
