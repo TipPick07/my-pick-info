@@ -133,6 +133,8 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-05 | [문서] 일일점검 가이드에 블로그 표 무결성 점검 2항목 추가 — ①신규 글 표 3패턴(헤더누락·행간 빈줄·`|`/`:---` 평문노출) 0건 확인 ②ensureTableHeader WARN 글 합성라벨 육안확인. 어제 표 게이트(dropTableInnerBlanks·ensureTableHeader)의 점검 사각지대 차단 | 배포됨 | docs/daily-deploy-inspection.md, commit 7e759d4
+- 2026-06-05 | [블로그/인프라] 블로그 표 깨짐 근본수정 — ①6/5 꽃축제글 헤더 합성·표 중간 빈줄 제거 응급복구 ②생성스크립트 표행삭제를 table-aware로 교체(표 내 행 삭제 금지·긴 셀만 절단, 478자 폭표 시뮬 검증) ③검증 게이트에 dropTableInnerBlanks·ensureTableHeader 신설(블로그·축제 양경로 체이닝) ④Gemini 표 프롬프트 5제약(컬럼 3~4·헤더 필수·500자 금지 등) | 배포됨 | generate-blog-post.js, validate-content.js, 2026-06-05-gyeonggi-festival-flower-healing.md, commit 1403412
 - 2026-06-04 | [점검] 축제·블로그 상세 본문 가독성 점검 — 둘 다 Markdown 정식 렌더(MdContent / prose-lg)+넉넉한 행간이라 지원금 같은 밀집 이슈 없음. 코드 변경 없이 이상 없음 확인 | 완료 | (조사만)
 - 2026-06-04 | [UI/콘텐츠] 지원금 상세 '지원 내용' 가독성 개선 — 행간 확대+본문 굵기 완화(SummaryCard 공유, 축제·블로그 동시 적용), 원본 불릿(○) 렌더 시점 정제, Gemini 프롬프트를 소제목(■)+짧은문단 400~600자 구조로 변경(일반·주거·보완 3곳) | 배포됨 | SummaryCard.tsx, benefit/[id]/page.tsx, fetch-public-data.js
 - 2026-06-04 | [인프라] 데이터랩 활성화 + 복지로 중앙부처(V001) 복구 + 축제 발행 3건 게이트 + 죽은 코드(기상청·기업마당) 정리 + 점검가이드 3항목 추가 | 배포됨 | deploy.yml, fetch-public-data.js, generate-blog-post.js, weather.ts(삭제), docs/daily-deploy-inspection.md
