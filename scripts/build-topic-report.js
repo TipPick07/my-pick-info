@@ -112,19 +112,29 @@ function normTitle(title) {
     .toLowerCase();
 }
 
-// 5개 생애주기 분류 (⚠️ 동기화 필수 — src/lib/situations.ts SITUATIONS[].match 와 일치).
-// 분류를 새로 만들지 않고 기존 SSOT 정규식을 그대로 미러. 대상 = title + target + details.
+// 5개 생애주기 분류 (⚠️ 동기화 필수 — src/lib/situations.ts SITUATIONS[].titleStem/compound 와 1:1 일치).
+// 다중소속(독립 판정)·우선순위 없음. 소속은 '제목'에서: titleStem은 제목에만, compound는 본문(target+details)까지.
 const LIFECYCLE = [
-  { key: 'parenting', label: '임신·출산·육아', emoji: '👶', match: /육아|출산|영유아|아동|돌봄|부모급여|자녀|어린이|임산부|양육|유아|보육|누리/ },
-  { key: 'youth', label: '청년', emoji: '🧑‍🎓', match: /청년|대학생|취준|사회초년생|기본소득|미래.?저축|도약계좌|학자금/ },
-  { key: 'senior', label: '중장년·은퇴', emoji: '🧓', match: /중장년|신중년|어르신|노인|은퇴|퇴직|고령|4060|국민연금|노후|중년/ },
-  { key: 'housing', label: '주거·전월세', emoji: '🏠', match: /주거|월세|전세|임대|보증금|이사|전월세|주택|LH|SH/ },
-  { key: 'disability', label: '장애인·돌봄', emoji: '♿', match: /장애/ },
+  { key: 'parenting', label: '임신·출산·육아', emoji: '👶',
+    titleStem: /육아|출산|영유아|아동|부모급여|자녀|어린이|임산부|양육|유아|보육|누리|한부모/,
+    compound: /가족돌봄|아이돌봄|돌봄수당|돌봄비|아동수당|양육수당|출산축하금|출산장려금|육아휴직|보육료|유아학비/ },
+  { key: 'youth', label: '청년', emoji: '🧑‍🎓',
+    titleStem: /청년|대학생|취준|사회초년생|기본소득|미래.?저축|도약계좌|학자금/,
+    compound: /청년월세|청년수당|청년내일채움|청년도약/ },
+  { key: 'senior', label: '중장년·은퇴', emoji: '🧓',
+    titleStem: /중장년|신중년|어르신|노인|은퇴|퇴직|고령|4060|국민연금|노후|중년/,
+    compound: /기초연금|노인일자리/ },
+  { key: 'housing', label: '주거·전월세', emoji: '🏠',
+    titleStem: /주거|월세|전세|임대|보증금|이사|전월세|주택|LH|SH/,
+    compound: /전세자금|전세대출|월세대출|월세지원|임대주택|공공임대|국민임대|영구임대|행복주택|매입임대|전세임대|보증금지원/ },
+  { key: 'disability', label: '장애인·돌봄', emoji: '♿',
+    titleStem: /장애/,
+    compound: /장애인연금|활동지원/ },
 ];
-function classifyBenefit(b) {
-  const text = `${b.title} ${b.target || ''} ${b.details || ''}`;
-  const hit = LIFECYCLE.find((l) => l.match.test(text));
-  return hit ? hit.key : 'etc';
+// 다중소속: 한 지원금이 0~다수 situation에 동시 소속. (situations.ts benefitBelongsTo 미러)
+function situationsOf(b) {
+  const all = `${b.title || ''} ${b.target || ''} ${b.details || ''}`;
+  return LIFECYCLE.filter((l) => l.titleStem.test(b.title || '') || l.compound.test(all)).map((l) => l.key);
 }
 
 // ─── 만료/마감 판정 ───────────────────────────────────────────────────────────
@@ -214,7 +224,7 @@ async function main() {
     .filter((b) => !isExpired(b.deadline, today))
     .map((b) => ({
       title: b.title, region: b.region, period: b.deadline, id: b.id, target: b.target,
-      bucket: classifyBenefit(b),
+      buckets: situationsOf(b),
       score: calcHotScore({ title: b.title, description: b.details }, bk.keywords),
       isNew: b.addedAt === today || b.addedAt === yest,
       written: written(b.title),
@@ -251,13 +261,17 @@ async function main() {
   if (festCand.length === 0) L.push(`| – | – | (진행 중 축제 후보 없음) | – | – | – | – | – |`);
   L.push('');
 
-  // 지원금 표 (생애주기 버킷, 임신·출산·육아 최상단)
+  // 지원금 표 (생애주기 페이지별 노출 건수·다중소속, 임신·출산·육아 최상단)
   L.push(`## 💸 지원금 후보 (${benCand.length}건)`);
   L.push('');
+  L.push(`> 분류는 **페이지별 노출 건수·다중소속**입니다 — 한 지원금이 여러 생애주기 페이지에 동시 노출될 수 있어 섹션 합계가 후보 ${benCand.length}건을 초과할 수 있습니다(우선순위 없이 독립 판정).`);
+  L.push('');
   const order = ['parenting', 'youth', 'senior', 'housing', 'disability', 'etc'];
-  const labelOf = (k) => (LIFECYCLE.find((l) => l.key === k) || { label: '기타', emoji: '📌' });
+  const labelOf = (k) => (LIFECYCLE.find((l) => l.key === k) || { label: '기타(미분류)', emoji: '📌' });
   for (const key of order) {
-    const group = benCand.filter((b) => b.bucket === key);
+    const group = key === 'etc'
+      ? benCand.filter((b) => b.buckets.length === 0)
+      : benCand.filter((b) => b.buckets.includes(key));
     if (group.length === 0) continue;
     const meta = labelOf(key);
     L.push(`### ${meta.emoji} ${meta.label} (${group.length}건)`);

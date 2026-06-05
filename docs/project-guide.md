@@ -197,6 +197,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-06 | [데이터/분류] situations.ts 생애주기 분류 다중소속 전환 + 미러 동기화 — match(단일·parenting선점) → titleStem(제목)+compound(본문 복합어) 2필드, benefitBelongsTo로 독립판정(다중소속). 제목기준+복합어 화이트리스트로 boilerplate bleed 제거('돌봄'bare→복합어, '한부모'추가, housing compound에서 '주거비'제외). build-topic-report.js 미러 단일버킷→situationsOf 1:1 동기화, 분포 라벨 '버킷 합32'→'페이지별 노출 건수(합32 초과 가능)'. 빌드1회 통과·게이트 PASS(진짜9/4 보존·오매칭6 제거·출산가구주거비∈parenting∩housing·housing 라이브 0→4). 실측 분포 parenting14·youth4·senior3·housing4·disability3·etc9(합37) | 배포대기(커밋 전) | src/lib/situations.ts, scripts/build-topic-report.js, docs/daily-deploy-inspection.md, docs/project-guide.md
 - 2026-06-05 | [문서] 일일점검 가이드 갱신 — 자동발행 셸브 반영: 블로그 발행 관련 점검 7곳 '⏸ 비활성(이력 보존)' 표시, [H] 일일 후보 보고서 점검 신설(생성·실패가드·판정일치·DataLab 2회·콜아웃·버킷오분류 건수), 크롤 점검은 유지 | 완료 | docs/daily-deploy-inspection.md
 - 2026-06-05 | [문서/콘텐츠] 육아·가족 롱테일 키워드 지도(docs/keyword-map-parenting.md) 신설 — 6클러스터·40키워드, /guides 작업 큐 겸 내부링크 설계도, 금액은 복지로 SSOT로 미기재 | 완료 | docs/keyword-map-parenting.md
 - 2026-06-05 | [인프라/콘텐츠] 일일 후보 보고서(docs/daily-topic-report.md) 신설 — 크롤·dedup된 축제·지원금 후보를 기존 핫스코어 알고리즘(SSOT 미러)으로 랭킹한 읽기전용 보고서, 크론+수동 양 경로, ≥3 판정·마감임박(0~7일)/이벤트성 콜아웃 포함, DataLab 자체호출 2회(B안)·계절 폴백, 가드(실패허용 exit0·만료 보수판정·생애주기 situations.ts 미러), 자동발행 미활성·posts/pick-info 미접촉 | 배포됨 | scripts/build-topic-report.js, .github/workflows/deploy.yml, commit 7c6000d
@@ -256,13 +257,29 @@
     ※ §4-8(렌더층 빈-content 폴백 박스)과 **같은 사슬의 다른 층위**(이건 생성층) — 8은 JSON오류뿐 아니라
     키부재·HTTP실패 등 모든 빈-content 포괄이라 별도 유지.
 
-12. **situations.ts 생애주기 분류 오분류 정리** — 일일 후보 보고서(2026-06-05) 구현 중,
-    situations.ts SITUATIONS[].match 정규식이 노숙인 웰빙보조비·브레인핏45 등을
-    '임신·출산·육아' 버킷에 오분류함이 드러남(target/details의 '돌봄' 등 광범위 키워드 매칭).
-    이는 보고서 버그가 아니라 SSOT 자체 결함이며, 라이브 /situations/parenting에도 동일 노출 중
-    → 부모 유입자에게 무관한 항목이 섞여 사이트 신뢰도 저하. 점검표 [B] 카테고리 편중 감시와 직결.
-    수정 시 situations.ts 정규식을 정밀화(예: '돌봄' 단독 매칭 제한, 음성 키워드 추가)하고
-    사이트 빌드 재검증 필요. 보고서 미러도 함께 동기화. (우선순위는 데이터 며칠 관찰 후 판단.)
+12. **situations.ts 생애주기 분류 오분류 정리 — ✅ 수정 적용 완료(2026-06-06)**.
+    (배경) match 정규식이 노숙인 웰빙보조비·브레인핏45 등을 '임신·출산·육아'에 오분류(target/details의
+    '아동·주거' 등 광범위 stem이 boilerplate에 우연히 박혀 매칭) + 단일버킷 첫매칭이 housing을 0으로 만듦.
+    (수정) SITUATIONS를 `match` → **`titleStem`(제목에만) + `compound`(본문까지 허용하는 구체 복합어)**
+    2필드로 전환, benefitBelongsTo로 **다중소속·우선순위 제거**(parenting 선점 폐기). build-topic-report.js
+    미러도 1:1 동기화(단일버킷→situationsOf). '돌봄'(bare) 제거·복합어화, '한부모' 추가, '주거비'(boilerplate)
+    는 housing compound에서 의도 제외. 게이트(진짜9/4 보존·오매칭6 제거·출산가구주거비 다중소속) 전부 PASS,
+    housing 라이브 0→4 복원. 분포는 '단일 합32'에서 **다중소속 페이지별 노출 건수**로 바뀜(§3 로그 참조).
+
+13. **details 복붙 오염(데이터 무결성, fetch/Gemini 생성층 의심)** — 2026-06-06 분류 진단 중 발견.
+    노숙인 웰빙보조비·사립학교 퇴직 일시금·해양사고 국선변론·브레인핏45 치매·고독사 중장년 안부확인
+    **5건의 benefit `details` 본문이 전부 동일한 "[서울 용산구] 자립준비청년 생활보조수당…" 텍스트로 복붙**
+    돼 있음(제목과 무관). 분류 오매칭의 한 원인이었고(분류는 §4-12로 해소), 분류와 별개로 **상세페이지
+    본문이 잘못 표시되는 데이터 버그**가 남아 있음. 생성층(fetch-public-data.js generateBenefit/Gemini)
+    의심. 우선순위는 데이터 며칠 관찰 후 판단(상세페이지 신뢰도 직결).
+
+14. **상세페이지 '함께 챙기면 좋은 ○○' 위젯 대표 생애주기 선점(사소, 후순위)** — getSituationForBenefit
+    (situations.ts:143, getRelatedBenefits→benefit/[id]/page.tsx:126 단일 호출)이 SITUATIONS 배열순
+    (parenting 최선두) find-first라, 다중소속 항목이 항상 parenting을 대표로 노출. 실측: 장애인 출산지원금
+    2건(894723105·48175923)이 disability 대신, 출산가구 주거비(1778274811700)가 housing 대신 parenting
+    섹션으로 뜸. breadcrumb·sitemap·canonical 미사용 = SEO·라우팅 영향 0, 위젯 1개 한정. 제목 출산 기준
+    parenting이 거짓은 아니나 더 구체적 소속(disability/housing) 우선 또는 제목매칭 우선 휴리스틱 검토.
+    데이터 관찰 후 우선순위 판단. (다중소속 카드 분류는 2026-06-06 완료, 이건 대표 1개 선정만 남은 잔재.)
 
 ---
 
