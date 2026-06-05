@@ -1,0 +1,305 @@
+#!/usr/bin/env node
+'use strict';
+/**
+ * 일일 후보 보고서 생성기 — docs/daily-topic-report.md '하나만' 쓰는 읽기전용 도구.
+ *
+ * 목적: 크롤·dedup된 축제·지원금 후보를 기존 핫스코어 알고리즘으로 랭킹해, 운영자가
+ *       손글 .md 글감을 직접 고르도록 돕는다. ★ 이 스크립트는 글을 발행하지 않는다.
+ *
+ * ── 절대 금지 ─────────────────────────────────────────────────────────────────
+ *   · posts/ 쓰기 금지 · public/data/pick-info.json 쓰기 금지
+ *   · generate-blog-post.js(자동발행) 호출/활성화 금지
+ *   이 스크립트가 쓰는 파일은 docs/daily-topic-report.md 단 하나뿐이다.
+ *
+ * ── 크론 안전(가드1) ──────────────────────────────────────────────────────────
+ *   치명 오류(pick-info 파싱 실패 등)에도 throw로 죽지 않고, 보고서에 "생성 실패: <이유>"
+ *   한 줄을 쓴 뒤 exit 0 으로 정상 종료한다. deploy.yml 본류(fetch→dedup→validate→deploy)를
+ *   절대 막지 않는다.
+ *
+ * 실행: node scripts/build-topic-report.js   (크론·수동 동일)
+ */
+
+const fs = require('fs');
+const path = require('path');
+try { require('dotenv').config({ path: '.env.local' }); } catch (_) { /* dotenv 없거나 키 없어도 무방 */ }
+const matter = require('gray-matter');
+const { isFestivalExpired, parseFestivalEndDate } = require('./lib/festival-date');
+
+const ROOT = path.join(__dirname, '..');
+const DATA = path.join(ROOT, 'public/data/pick-info.json');
+const POSTS_DIR = path.join(ROOT, 'src/content/posts');
+const OUT = path.join(ROOT, 'docs/daily-topic-report.md');
+
+// ─── 계절 키워드 (⚠️ 동기화 필수 — scripts/fetch-public-data.js SEASONAL_KEYWORDS 와 일치) ───
+const SEASONAL_KEYWORDS = {
+  1: { festival: ['설날행사', '겨울축제', '눈꽃축제'], benefit: ['난방비지원', '에너지바우처', '설맞이지원금'] },
+  2: { festival: ['봄맞이축제', '매화축제', '실내전시'], benefit: ['청년취업지원', '복지급여', '근로장려금신청준비'] },
+  3: { festival: ['벚꽃축제', '봄꽃축제', '봄나들이'], benefit: ['청년창업지원', '소상공인지원', '취업성공패키지'] },
+  4: { festival: ['벚꽃축제', '튤립축제', '봄축제'], benefit: ['근로장려금', '자녀장려금', '청년주거지원'] },
+  5: { festival: ['어린이날행사', '장미축제', '연등회'], benefit: ['근로장려금신청', '자녀장려금신청', '가정의달지원금'] },
+  6: { festival: ['여름축제', '물축제', '한강축제'], benefit: ['청년지원금', '에너지바우처', '취업지원'] },
+  7: { festival: ['여름축제', '물놀이행사', '워터페스티벌'], benefit: ['에너지취약계층지원', '청년주거지원', '여름방학지원'] },
+  8: { festival: ['여름축제', '해변축제', '별빛축제'], benefit: ['개학맞이지원', '주거급여', '저소득층지원'] },
+  9: { festival: ['추석행사', '가을축제', '단풍축제'], benefit: ['추석명절지원금', '복지급여', '노인복지혜택'] },
+  10: { festival: ['단풍축제', '핼러윈행사', '문화행사'], benefit: ['난방비지원신청', '에너지바우처신청', '노후준비지원'] },
+  11: { festival: ['빛축제', '크리스마스마켓', '겨울준비행사'], benefit: ['에너지바우처', '난방비지원', '연말정산준비'] },
+  12: { festival: ['크리스마스행사', '연말축제', '겨울빛축제'], benefit: ['연말정산', '겨울난방지원', '신년복지혜택'] },
+};
+
+// ─── DataLab 핫키워드 (⚠️ 동기화 필수 — fetch-public-data.js getTodayHotKeywords 와 동일 산식) ───
+// (g·f 결정 B안) 이 보고서는 fetch와 별개 프로세스라 fetch가 부른 키워드를 재사용할 수 없어
+// DataLab을 자체 호출한다(festival·benefit 2회/일 = 정상). 키 없거나 오류면 계절 키워드 폴백.
+async function getTodayHotKeywords(type) {
+  const month = new Date().getMonth() + 1;
+  const seasonal = (SEASONAL_KEYWORDS[month] || SEASONAL_KEYWORDS[5])[type] || [];
+
+  const clientId = process.env.NAVER_CLIENT_ID;
+  const clientSecret = process.env.NAVER_CLIENT_SECRET;
+  if (!clientId || !clientSecret) {
+    console.log(`[DataLab] API 키 없음 → 계절 키워드만 사용 (${type})`);
+    return { keywords: seasonal, source: 'seasonal' };
+  }
+  try {
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+    const endDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+    const startDate = `${weekAgo.getFullYear()}-${pad(weekAgo.getMonth() + 1)}-${pad(weekAgo.getDate())}`;
+    const keywordGroups = type === 'festival'
+      ? [{ groupName: '축제', keywords: ['축제'] }, { groupName: '행사', keywords: ['행사'] }, { groupName: '나들이', keywords: ['나들이'] }, { groupName: '공연', keywords: ['공연'] }]
+      : [{ groupName: '지원금', keywords: ['지원금'] }, { groupName: '혜택', keywords: ['혜택'] }, { groupName: '복지', keywords: ['복지'] }, { groupName: '보조금', keywords: ['보조금'] }];
+
+    const res = await fetch('https://openapi.naver.com/v1/datalab/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Naver-Client-Id': clientId, 'X-Naver-Client-Secret': clientSecret },
+      body: JSON.stringify({ startDate, endDate, timeUnit: 'date', keywordGroups }),
+    });
+    if (!res.ok) { console.warn(`[DataLab] 오류(${res.status}) → 계절 키워드만 사용 (${type})`); return { keywords: seasonal, source: 'seasonal(api-error)' }; }
+    const json = await res.json();
+    const scored = json.results.map((g) => {
+      const recent = g.data.slice(-3);
+      const avg = recent.length ? recent.reduce((s, d) => s + d.ratio, 0) / recent.length : 0;
+      return { name: g.title, score: avg };
+    }).sort((a, b) => b.score - a.score);
+    const hot = scored.slice(0, 2).map((g) => g.name);
+    console.log(`[DataLab] 핫 키워드 TOP2 (${type}): ${hot.join(', ')}`);
+    return { keywords: [...new Set([...hot, ...seasonal])], source: 'datalab' };
+  } catch (err) {
+    console.warn(`[DataLab] 호출 실패 → 계절 키워드만 사용 (${type}):`, err.message);
+    return { keywords: seasonal, source: 'seasonal(exception)' };
+  }
+}
+
+// 후보별 점수 (⚠️ 동기화 필수 — fetch-public-data.js calcHotScore 와 동일). 저장된 점수가 없어
+// fetch가 정렬에 쓴 것과 같은 알고리즘으로 '재계산'한다(pick-info엔 hotScore 미저장).
+function calcHotScore(item, hotKeywords) {
+  let score = 0;
+  const text = [item.title, item.description, item.서비스명, item.서비스목적요약].filter(Boolean).join(' ');
+  hotKeywords.forEach((kw, idx) => {
+    const weight = idx < 2 ? 30 : 15;
+    if ((item.title || item.서비스명 || '').includes(kw)) score += weight;
+    if (text.includes(kw)) score += Math.floor(weight / 2);
+  });
+  return score;
+}
+
+// 제목 정규화 (⚠️ 동기화 필수 — fetch-public-data.js normTitle 와 일치). '이미 작성됨' 매칭용.
+function normTitle(title) {
+  return (title || '')
+    .replace(/^\[[^\]]+\]\s*/, '')
+    .replace(/\d{4}년?/g, '')
+    .replace(/[^가-힣a-zA-Z0-9]/g, '')
+    .toLowerCase();
+}
+
+// 5개 생애주기 분류 (⚠️ 동기화 필수 — src/lib/situations.ts SITUATIONS[].match 와 일치).
+// 분류를 새로 만들지 않고 기존 SSOT 정규식을 그대로 미러. 대상 = title + target + details.
+const LIFECYCLE = [
+  { key: 'parenting', label: '임신·출산·육아', emoji: '👶', match: /육아|출산|영유아|아동|돌봄|부모급여|자녀|어린이|임산부|양육|유아|보육|누리/ },
+  { key: 'youth', label: '청년', emoji: '🧑‍🎓', match: /청년|대학생|취준|사회초년생|기본소득|미래.?저축|도약계좌|학자금/ },
+  { key: 'senior', label: '중장년·은퇴', emoji: '🧓', match: /중장년|신중년|어르신|노인|은퇴|퇴직|고령|4060|국민연금|노후|중년/ },
+  { key: 'housing', label: '주거·전월세', emoji: '🏠', match: /주거|월세|전세|임대|보증금|이사|전월세|주택|LH|SH/ },
+  { key: 'disability', label: '장애인·돌봄', emoji: '♿', match: /장애/ },
+];
+function classifyBenefit(b) {
+  const text = `${b.title} ${b.target || ''} ${b.details || ''}`;
+  const hit = LIFECYCLE.find((l) => l.match.test(text));
+  return hit ? hit.key : 'etc';
+}
+
+// ─── 만료/마감 판정 ───────────────────────────────────────────────────────────
+// (가드2) 혜택 deadline에 festival-date.js를 적용할 때 '확실히 과거로 파싱된 것만' 제외한다.
+// isFestivalExpired는 종료일이 실제 파싱되고 오늘 이전일 때만 true; 파싱불가·'상시'류·애매한
+// 표기('매년 5.1.~5.31.' 등 연도 없는 것)는 null→false(만료 아님)로 후보에 남는다. → 보수적.
+function isExpired(dateStr, today) {
+  return isFestivalExpired(dateStr, today);
+}
+const RECURRING = /상시|수시|연중|매월|매년|정기|모집중/; // '상시류' = 종료일 없는 지속/반복
+// 마감임박: deadline이 파싱돼 오늘부터 7일 이내(0~7일). 이벤트성: 상시류가 아니며 종료일이 실재하는 단발.
+function deadlineInfo(dateStr, today) {
+  const end = parseFestivalEndDate(dateStr);
+  const recurring = RECURRING.test(dateStr || '');
+  if (!end) return { hasEnd: false, recurring, daysLeft: null, imminent: false, eventLike: false };
+  const t = today ? new Date(today) : new Date();
+  t.setHours(0, 0, 0, 0);
+  const e = new Date(end); e.setHours(0, 0, 0, 0);
+  const daysLeft = Math.round((e - t) / (24 * 60 * 60 * 1000));
+  const imminent = daysLeft >= 0 && daysLeft <= 7;
+  const eventLike = !recurring; // 종료일 실재 + 상시류 아님 = 단발 이벤트성
+  return { hasEnd: true, recurring, daysLeft, imminent, eventLike };
+}
+
+// ─── 보조 ────────────────────────────────────────────────────────────────────
+function todayStr() { return new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }); }
+function yesterdayStr() {
+  const d = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  return d.toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
+}
+function loadPostNorms() {
+  if (!fs.existsSync(POSTS_DIR)) return new Set();
+  const set = new Set();
+  for (const f of fs.readdirSync(POSTS_DIR)) {
+    if (!f.endsWith('.md')) continue;
+    try {
+      const fm = matter(fs.readFileSync(path.join(POSTS_DIR, f), 'utf8'));
+      if (fm.data && fm.data.title) set.add(normTitle(String(fm.data.title)));
+      if (fm.data && fm.data.originalTitle) set.add(normTitle(String(fm.data.originalTitle)));
+    } catch (_) { /* 한 글이 깨져도 전체 중단 금지 */ }
+  }
+  return set;
+}
+const esc = (s) => String(s == null ? '' : s).replace(/\|/g, '\\|').replace(/\n/g, ' ').trim();
+
+function writeFailure(reason) {
+  const md = `# 팁픽 일일 후보 보고서\n\n> ${todayStr()} 생성\n\n**생성 실패: ${reason}**\n\n` +
+    `이 보고서는 읽기전용이며 본 배포(fetch→dedup→validate→deploy)에는 영향이 없습니다. 다음 실행에서 자동 재시도됩니다.\n`;
+  try { fs.writeFileSync(OUT, md, 'utf8'); } catch (e) { console.error('보고서 실패 기록도 실패:', e.message); }
+  console.log(`[report] 생성 실패 기록 후 정상 종료: ${reason}`);
+}
+
+async function main() {
+  const today = todayStr();
+  const yest = yesterdayStr();
+
+  let data;
+  try {
+    data = JSON.parse(fs.readFileSync(DATA, 'utf8'));
+  } catch (e) {
+    writeFailure(`pick-info.json 파싱 실패 — ${e.message}`);
+    process.exit(0);
+  }
+  const festivals = Array.isArray(data.festivals) ? data.festivals : [];
+  const benefits = Array.isArray(data.benefits) ? data.benefits : [];
+
+  // 핫키워드 (B안: 자체 DataLab 2회 + 계절 폴백)
+  const fk = await getTodayHotKeywords('festival');
+  const bk = await getTodayHotKeywords('benefit');
+
+  const postNorms = loadPostNorms();
+  const written = (title) => postNorms.has(normTitle(title));
+
+  // ── 축제 후보: 만료 제외(festival-date SSOT), 수도권 전량 신뢰 ──
+  const festCand = festivals
+    .filter((f) => !isExpired(f.date, today))
+    .map((f) => ({
+      title: f.title, region: f.region, period: f.date, id: f.id,
+      score: calcHotScore({ title: f.title, description: f.description }, fk.keywords),
+      written: written(f.title),
+      dl: deadlineInfo(f.date, today),
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  // ── 지원금 후보: 만료 제외 + 5생애주기 분류 ──
+  const benCand = benefits
+    .filter((b) => !isExpired(b.deadline, today))
+    .map((b) => ({
+      title: b.title, region: b.region, period: b.deadline, id: b.id, target: b.target,
+      bucket: classifyBenefit(b),
+      score: calcHotScore({ title: b.title, description: b.details }, bk.keywords),
+      isNew: b.addedAt === today || b.addedAt === yest,
+      written: written(b.title),
+      dl: deadlineInfo(b.deadline, today),
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  // ── 상단 판정 ──
+  const verdict = (festCand.length >= 3 || benCand.length >= 3)
+    ? `✅ **쓸 거리 있음** — 축제 ${festCand.length}건 · 지원금 ${benCand.length}건 (한쪽이라도 ≥3)`
+    : `⏸️ **오늘은 패스 권장** — 축제 ${festCand.length}건 · 지원금 ${benCand.length}건 (양쪽 <3, 케이던스 원칙상 강제 아님)`;
+
+  // ── 마크다운 작성 ──
+  const L = [];
+  L.push(`# 팁픽 일일 후보 보고서`);
+  L.push('');
+  L.push(`> ${today} 생성 · 읽기전용(글 발행 안 함) · 손글 .md 글감 선별용`);
+  L.push('');
+  L.push(verdict);
+  L.push('');
+  L.push(`- **상대점수**: pick-info에 저장된 점수가 없어, fetch가 정렬에 쓴 것과 동일 알고리즘(\`calcHotScore\` × DataLab/계절 핫키워드)으로 **재계산**한 값입니다. 절대치가 아니라 **후보군 내 상대 비교용**입니다.`);
+  L.push(`- 핫키워드 출처 — 축제: \`${fk.source}\` (${fk.keywords.slice(0, 4).join(', ')}) / 지원금: \`${bk.source}\` (${bk.keywords.slice(0, 4).join(', ')})`);
+  L.push(`- **NEW**: 지원금은 \`addedAt\`(오늘/어제) 기준. 축제는 pick-info에 등록일 필드가 없어 NEW 판정 불가(—).`);
+  L.push('');
+
+  // 축제 표
+  L.push(`## 🎪 축제·행사 후보 (${festCand.length}건)`);
+  L.push('');
+  L.push(`| 순위 | 점수 | 주제 | 지역 | 기간 | 상세 | 권장형태 | 이미작성 |`);
+  L.push(`|---:|---:|---|---|---|---|---|---|`);
+  festCand.forEach((c, i) => {
+    L.push(`| ${i + 1} | ${c.score} | ${esc(c.title)} | ${esc(c.region)} | ${esc(c.period)} | [/festival/${esc(c.id)}/](https://tip-pick.com/festival/${esc(c.id)}/) | 가벼운 .md | ${c.written ? '✅' : ''} |`);
+  });
+  if (festCand.length === 0) L.push(`| – | – | (진행 중 축제 후보 없음) | – | – | – | – | – |`);
+  L.push('');
+
+  // 지원금 표 (생애주기 버킷, 임신·출산·육아 최상단)
+  L.push(`## 💸 지원금 후보 (${benCand.length}건)`);
+  L.push('');
+  const order = ['parenting', 'youth', 'senior', 'housing', 'disability', 'etc'];
+  const labelOf = (k) => (LIFECYCLE.find((l) => l.key === k) || { label: '기타', emoji: '📌' });
+  for (const key of order) {
+    const group = benCand.filter((b) => b.bucket === key);
+    if (group.length === 0) continue;
+    const meta = labelOf(key);
+    L.push(`### ${meta.emoji} ${meta.label} (${group.length}건)`);
+    L.push('');
+    L.push(`| 순위 | 점수 | 주제 | 지역 | 마감 | 상세 | 권장형태 | NEW | 이미작성 |`);
+    L.push(`|---:|---:|---|---|---|---|---|:-:|:-:|`);
+    group.forEach((c, i) => {
+      const rec = c.score >= 30 ? '플래그십 후보' : '가벼운 .md';
+      L.push(`| ${i + 1} | ${c.score} | ${esc(c.title)} | ${esc(c.region)} | ${esc(c.period)} | [/benefit/${esc(c.id)}/](https://tip-pick.com/benefit/${esc(c.id)}/) | ${rec} | ${c.isNew ? '🆕' : ''} | ${c.written ? '✅' : ''} |`);
+    });
+    L.push('');
+  }
+  if (benCand.length === 0) { L.push(`(만료 제외 후 지원금 후보 없음)`); L.push(''); }
+
+  // 콜아웃: 마감임박·이벤트성
+  L.push(`## ⏰ 마감임박 · 이벤트성 지원금 (매일 발행/패스 판단용)`);
+  L.push('');
+  L.push(`> 기준 — **마감임박**: deadline이 파싱돼 오늘부터 7일 이내(0~7일). **이벤트성**: '상시·수시·연중·매월·매년·정기'류가 아니며 종료일이 실재하는 단발.`);
+  L.push('');
+  const imminent = benCand.filter((b) => b.dl.imminent);
+  const eventLike = benCand.filter((b) => b.dl.eventLike && b.dl.hasEnd && !b.dl.imminent);
+  L.push(`**🔥 마감임박 (${imminent.length}건)**`);
+  L.push('');
+  if (imminent.length) {
+    imminent.sort((a, b) => a.dl.daysLeft - b.dl.daysLeft).forEach((c) => {
+      L.push(`- D-${c.dl.daysLeft} · ${esc(c.title)} (${esc(c.region)}, ${esc(c.period)})`);
+    });
+  } else { L.push(`- (7일 이내 마감 후보 없음)`); }
+  L.push('');
+  L.push(`**🎟️ 이벤트성·단발 (${eventLike.length}건)**`);
+  L.push('');
+  if (eventLike.length) {
+    eventLike.forEach((c) => { L.push(`- ${esc(c.title)} (${esc(c.region)}, ${esc(c.period)}${c.dl.daysLeft != null ? ` · D-${c.dl.daysLeft}` : ''})`); });
+  } else { L.push(`- (상시류 외 단발 이벤트성 후보 없음)`); }
+  L.push('');
+
+  fs.writeFileSync(OUT, L.join('\n') + '\n', 'utf8');
+  console.log(`[report] 생성 완료 → ${path.relative(ROOT, OUT)} (축제 ${festCand.length} · 지원금 ${benCand.length})`);
+}
+
+// 가드1: 어떤 예외도 본 배포를 막지 않게 — 보고서에 실패 기록 후 exit 0
+main().catch((e) => {
+  writeFailure(`예기치 못한 오류 — ${e && e.message ? e.message : e}`);
+  process.exit(0);
+});

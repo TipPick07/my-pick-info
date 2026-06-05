@@ -35,6 +35,8 @@ jobs:
         run: |
           node scripts/fetch-public-data.js
           node scripts/dedup-festivals-v2.js
+          # 일일 후보 보고서(docs/daily-topic-report.md) 생성 — 읽기전용·글 미발행. 실패해도 본류 막지 않음.
+          node scripts/build-topic-report.js || true
           # ── [SHELVED 2026-06-05] 블로그 자동발행 중지(thin→손글 전환). fetch·dedup·validate는 유지. 되살리려면 아래 4줄 주석 해제.
           # node scripts/generate-blog-post.js
           # echo "Gemini 과부하 방지를 위해 3분 대기 중..."
