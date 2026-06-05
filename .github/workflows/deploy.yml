@@ -35,10 +35,11 @@ jobs:
         run: |
           node scripts/fetch-public-data.js
           node scripts/dedup-festivals-v2.js
-          node scripts/generate-blog-post.js
-          echo "Gemini 과부하 방지를 위해 3분 대기 중..."
-          sleep 180
-          POST_TYPE=festival node scripts/generate-blog-post.js
+          # ── [SHELVED 2026-06-05] 블로그 자동발행 중지(thin→손글 전환). fetch·dedup·validate는 유지. 되살리려면 아래 4줄 주석 해제.
+          # node scripts/generate-blog-post.js
+          # echo "Gemini 과부하 방지를 위해 3분 대기 중..."
+          # sleep 180
+          # POST_TYPE=festival node scripts/generate-blog-post.js
           echo "콘텐츠 검증 게이트 실행 (자동 정규화 + 깨진 글 격리)..."
           node scripts/validate-content.js --fix --quarantine
         env:
@@ -57,7 +58,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "자동 업데이트: 공공데이터 수집 및 블로그 글 생성" && git pull --rebase && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "자동 업데이트: 공공데이터 수집" && git pull --rebase && git push)
 
       - name: Build Project
         run: npm run build
