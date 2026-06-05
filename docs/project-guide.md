@@ -6,11 +6,12 @@
 > **운영 원칙(절대 불변)**: ① 수정은 승인 후 ② 커밋·푸시는 지시 시에만 ③ 빌드 검증은 모든 점검·수정이
 > 끝난 뒤 한 번만 ④ 질문에는 답만 하고, 다음 단계로 임의로 넘어가지 않는다 ⑤ 무언가를 추가·변경할 때는
 > 반드시 기존 규칙과 충돌하지 않는지 먼저 검토하고, 깨지면 무엇이 어떻게 깨지는지 보고한다
-> ⑥ 엔드포인트 등 외부 사이트에서 직접 확인해야 정확한 것은 운영자에게 별도 요청한다(추측 금지).
+> ⑥ 사실·상태값은 추측이나 인수인계 문구로 단정하지 않고, 안티그래비티에 시켜 실제 결과값(코드·실응답·
+> 데이터)을 받은 뒤 판단·기록한다. 외부 사이트에서 직접 확인해야 정확한 것은 운영자에게 별도 요청한다.
 >
 > **소통 방식**: 한국어. 직접적·단계별 안내, 각 단계마다 명시적 확인. 여러 옵션 나열보다 하나씩 진행.
 
-작성/갱신: 2026-06-04 | tip-pick.com | 운영자: 록
+작성/갱신: 2026-06-05 | tip-pick.com | 운영자: 록
 
 ---
 
@@ -52,9 +53,21 @@
 
 ### 콘텐츠 철학
 - **'매일 글 2개' 트레드밀 폐기.** 목표는 완전·최신 지원금 DB + 가치 높은 깊은 가이드.
+- **자동 블로그 발행 셸브 → 손글 주력 (2026-06-05).** 크론의 블로그 자동생성은 중지(상세·되살리는 법은 §2).
+  콘텐츠는 사람이 직접 쓴다. 단, **데이터 크롤(fetch·dedup·validate)은 자동 유지** — 손글 글감의 최신 재고를 끊지 않는다.
 - **데이터 부족하면 억지로 글 만들지 않는다(패스).** 신뢰가 가장 중요. ← 운영자 핵심 가치.
+- **케이던스 원칙(할당량 아님).** "써야 해서"가 아니라 "쓸 거리·시간 있을 때만." 가벼운 글 5~10분
+  (사실검증은 Claude) / 플래그십 가이드 1~2주 1편 수준. 못 쓰는 주가 있어도 정상 — 억지 양산이 신뢰를 깎는다.
 - 크롤링 원본 상세페이지도 방문객이 보는 콘텐츠 → 형식·규칙에 맞춰 가치 있게 작성(블로그와 별개).
-- 원본 글 3~4개 쌓이면 축제/지원금 블로그 1편씩. 단 데이터 충분할 때만.
+
+### 콘텐츠 타입 3종 (손글 기준 — 무엇을·어디에·어떤 형식)
+- **축제(가족 나들이) = `.md` 블로그 (반자동).** 크롤로 갱신된 데이터 위에 사람이 가볍게 작성.
+  경로 `src/content/posts/`, 파일명 `YYYY-MM-DD-english-name.md`. 케이던스: 가벼운 글.
+- **플래그십 가이드 = `/guides/<slug>/` 라우트 (파일 `src/app/guides/<slug>/page.tsx`, JSX 독립).**
+  깊고 오래 가는 핵심 콘텐츠(예: 육아·가족 지원금 pillar). posts·pick-info 미경유 = 자동발행 충돌 0,
+  날짜 없음. 케이던스: 1~2주 1편.
+- **이벤트성 지원금 = `.md` 블로그.** 마감 있는 단발·한시 지원금. 형식은 축제와 같은 .md 규칙.
+- 3종의 상세 '규칙+형식' 템플릿은 추후 별도 레퍼런스 .md로 정의(손글 양산 가속용).
 
 ### 인기 기반 큐레이션 (방향)
 - "의미 없는 광대한 축제·지원금"보다 **사람들이 실제로 검색하는 인기 주제**에 깊이를 몰아준다.
@@ -64,9 +77,12 @@
 - 데이터랩은 절대 검색량이 아니라 0~100 상대 트렌드 → "카테고리·후보군 내 상대 순위"로 설계.
 
 ### 유통·역할 (현실 직시)
-- **트래픽 엔진은 SEO가 아니라 운영자 소셜 유통**(오픈채팅·인스타·쓰레드·네이버)이다. 이 모델의
-  방문수는 운영자 마케팅에 직접 비례한다(사이트가 검색으로 자동 유입을 끄는 그림은 단기 아님).
-  짠한경제학 유튜브 루프는 현재 휴지 상태이며, 재가동 시에도 40~60대 audience라 사이트의 부모
+- **단기 트래픽 주력 = 운영자 소셜 유통**(오픈채팅·인스타·쓰레드·네이버). 신생 사이트라 검색 상단까지
+  보통 수개월 → 단기 방문수는 운영자 마케팅에 직접 비례한다.
+- **SEO는 끄는 게 아니라 켜둔 채 토대를 쌓는다.** sitemap·robots·canonical·FAQ JSON-LD·정확한 수치·
+  H2 구조는 계속 챙긴다. 자동 thin 글을 멈춘 것 자체가 SEO 플러스(빈약한 글이 많으면 사이트 전체 평가가
+  깎임). 지금 효과가 느릴 뿐, 장기 유입은 이 토대 위에 붙는다.
+- 짠한경제학 유튜브 루프는 현재 휴지 상태이며, 재가동 시에도 40~60대 audience라 사이트의 부모
   audience와는 별개 트랙으로 본다.
 - **지원금의 역할 정정**: 자기 지원금을 아는 사람은 직접 검색하므로 '고관여 검색용'이 아니라,
   이미 들어온 부모에게 "이런 것도 있어요"를 보여주는 **'발견용'**이다.
@@ -79,15 +95,19 @@
 
 ---
 
-## 2. 기술 구조 · 소스 현황 (2026-06-04 기준)
+## 2. 기술 구조 · 소스 현황 (2026-06-05 기준)
 
 ### 스택
 - 개발: 바이브코딩 (Antigravity IDE + Claude Code). 운영자는 코딩 비전공.
 - 프론트: **Next.js(App Router) 기반, 정적 export.** 블로그 본문은 react-markdown + remark-gfm로 렌더
   (축제 상세는 별도 `MdContent` 컴포넌트 = remark-gfm + rehype-raw). 콘텐츠: 블로그 글 `src/content/posts/`(.md),
-  라우트 `src/app/.../page.tsx`. (근거: package.json `next build`, AGENTS.md가 next 문서 참조 — Astro 흔적 없음.)
+  라우트 `src/app/.../page.tsx`. **플래그십 가이드는 `src/app/guides/<slug>/page.tsx` 독립 JSX 라우트
+  (posts·pick-info 미경유 = 자동발행 충돌 0).** (근거: package.json `next build`, AGENTS.md가 next 문서 참조 — Astro 흔적 없음.)
 - 버전관리/배포: GitHub → Cloudflare Pages 자동 배포.
-- 자동화: GitHub Actions 크론(매일 **05:23 KST**). fetch → dedup → 블로그 생성(혜택/축제) → validate → build → deploy.
+- 자동화: GitHub Actions 크론(매일 **05:23 KST**, `'23 20 * * *'`). 실행 단계 =
+  **fetch → dedup → validate → build → deploy**(데이터 갱신 전용). ⚠️ **블로그 자동생성(혜택/축제)은
+  2026-06-05 셸브** — deploy.yml의 `[SHELVED 2026-06-05]` 주석 블록(generate-blog-post 2회 + echo +
+  sleep 180). if·env·fetch·dedup·validate 미변경(데이터층 보존). 되살리려면 그 4줄 주석 해제.
 - 데이터 원천 1개: `public/data/pick-info.json` (benefits + festivals).
 - 레포 경로(로컬): `c:/Users/Administrator/Desktop/my-pick-info`
 - **날짜 처리 SSOT**: 축제 만료 판정은 `scripts/lib/festival-date.js` 단일 소스로 통일(컴팩트 YYYYMMDD·점·
@@ -99,7 +119,7 @@
 ### 파일명 규칙 (절대 불변)
 블로그 포스트: `YYYY-MM-DD-english-name.md` (예: `2026-05-06-election-day-holiday-trip.md`). 다른 형식 금지.
 
-### 데이터 소스 현황 (오늘 정리 결과)
+### 데이터 소스 현황 (2026-06-05 기준)
 
 **지원금 스파인 (data.go.kr, 단일 키 `PUBLIC_DATA_API_KEY`)**
 - 복지로 **지자체**(LocalGovernmentWelfareInformations) — ✅ 동작(JSON). 핵심.
@@ -109,15 +129,24 @@
   · ⚠️ 목록 API에 마감일 필드 없음 → central 항목은 '상시' 취급(정상).
   · ⚠️ 첫 페이지 20건 고정 + srchKeyCode=003 → 장애인·보훈 편중 가능성(점검 중).
 - gov24(행안부, odcloud) — ✅ 2·3순위 폴백.
-- 마이홈포털 임대주택 — ✅ 주거 카테고리.
+- 마이홈포털 임대주택 — ⚠️ **실수집 0건(검증 2026-06-05, 실응답 대조) — 원인 확정·미수정.**
+  API·인증은 정상(resultCode 00, 경기 호출에 totalCount 297). 0건 원인은 코드측 2개:
+  ① 래퍼 경로 불일치 — 코드가 `body.items.item`을 읽으나 실제는 `body.item`(fetch-public-data.js:1013)
+  → raw=[]. ② 필드명 불일치 — 코드가 `HOUSE_NM`류를 찾으나 실제는 `pblancNm·houseTyNm·endDe·pcUrl`류
+  → houseName/houseType 빈값으로 1027행 skip(2차 차단). 별개로 ③ `srhRegion`이 무효(41 전송에도
+  전국 반환) → ①② 수정 후 지역필터 재설계 필요(올바른 파라미터명은 참고문서 xlsx 확인).
+  Base `/HWSPR02/rsdtRcritNtcList`는 정확. (수정 항목 = §4-10)
 
 **축제 유입 (별도 키)**
 - 한국관광공사 TourAPI — ✅ 축제 본체.
 - 서울 열린데이터광장 / 경기데이터드림 / 인천문화재단 — ✅ 문화행사(인천은 XML이면 건너뜀).
 
 **수요 나침반**
-- 네이버 DataLab — **2026-06-04 활성화**(deploy.yml env 추가). 인기 키워드로 블로그 후보 점수화.
-  · 키 없으면/실패 시 계절 키워드 폴백으로 안전 회귀. 배포당 최대 4회 호출.
+- 네이버 DataLab — **2026-06-04 활성화 / 용도 정정(검증 2026-06-05).** 크론에서 **계속 실행**되는
+  쪽은 `getTodayHotKeywords`(fetch-public-data.js:38) → 수집 데이터 **핫스코어 정렬**(지원금·축제 둘 다)
+  + Gemini 보완후보 전달. deploy.yml NAVER env 유지, 키 없거나 실패 시 계절 키워드 폴백.
+  ⚠️ 구 지침서의 "블로그 후보 점수화"는 셸브된 `getNaverDataLabKeywords`(generate-blog-post.js:70)
+  설명이라 **현재 미실행** → 혼동 방지로 정정. (구 줄의 '배포당 최대 4회'는 셸브 전 합산치로 보여 검증 안 됨 → 뺌.)
 
 **날씨**
 - Open-Meteo(무인증) — 위젯 동작. (기상청 weather.ts는 2026-06-04 삭제 = 죽은 코드였음)
@@ -168,6 +197,10 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-05 | [소스/버그] 마이홈포털 임대주택 0건 근본수정 — 응답 래퍼 body.items.item→body.item(미존재라 raw=[]였음)·필드명 실제키(pblancNm·suplyTyNm·suplyInsttNm·brtcNm·endDe·pcUrl)로 교체·areaName region.name 폴백 제거(비수도권 metro 둔갑 차단)·서비스목적요약 하드코딩 "수도권" 제거(수도권 외 필터 무력화 해소). 드라이런 0→60수집/필터후 수도권30/비수도권잔존0/신청기한 포맷 정상 검증. srhRegion 무효는 미해결(백로그 잔류) | 배포됨(push ee23d40, 다음 크론 반영) | scripts/fetch-public-data.js
+- 2026-06-05 | [문서/검증] 지침서 갱신 — 발행 메커니즘 피벗 본문 반영 + 진단 4건으로 미검증 항목 교정. §1: 콘텐츠 철학에 자동발행 셸브·손글 주력·케이던스 원칙(할당량 아님) 추가, 콘텐츠 타입 3종(축제 .md/플래그십 /guides/ JSX/이벤트지원금 .md) 신설, 유통 문장 정정(SEO는 끄지 않고 토대 축적). §2: 크론 흐름 정정(blog-gen 셸브를 [SHELVED] 마커로), DataLab 용도 정정(실행 중인 건 getTodayHotKeywords 핫스코어 정렬 — '블로그 후보 점수화'는 셸브된 getNaverDataLabKeywords였음), 마이홈포털 0건 원인 확정(래퍼 body.item·필드 pblancNm류·srhRegion 무효, 실응답 totalCount 297로 검증), /guides/ 라우트 명시. §4: 백로그 3건(thin 정리·마이홈 수정·축제 content 안정성) 추가. 인수인계의 'srhRegion 버그'·'Gemini JSON 오류'는 미검증 단정이라 실측으로 교정 | 완료 | docs/project-guide.md
+- 2026-06-05 | [인프라/전략] 자동 블로그 발행 셸브 — deploy.yml 38~41행(generate-blog-post 혜택·축제 2회+sleep) 주석 처리(if·env·fetch·dedup·validate 미변경, 데이터층 보존). 크롤은 데이터 갱신용 유지, 콘텐츠는 손글 전환. 수동실행(#525)으로 데이터 갱신 O·새 블로그 글 0 검증. 되살리려면 4줄 주석 해제 | 배포됨 | .github/workflows/deploy.yml(commit 767b7f0)
+- 2026-06-05 | [가이드/콘텐츠] 육아·가족 돈 pillar 1편 — '0세~취학전 수도권 육아·가족 지원금' 독립 정적 가이드(src/app/guides/parenting-family-benefits) 신설. 2026 검증수치로 보편레이어→나이×돌봄→5종 비교표→FAQ(JSON-LD)→신청→발견CTA. posts·pick-info 미경유라 충돌 0. og·twitter 메타 포함, 금융고리 자리만 | 배포됨 | src/app/guides/parenting-family-benefits/page.tsx, public/images/og/parenting-family-benefits.png
 - 2026-06-05 | [문서] 지침서 대개정 — §1 전략을 '육아·가족 중심'으로 전환(수익 타깃 청년→가족·축제=유입자석/지원금·금융=수익레이어·유통은 소셜 기반), §2 스택 표기 정정(Astro→Next.js), 검증 게이트·날짜 SSOT 반영, 유지보수 원칙 3개(SSOT·게이트↔점검 짝·원인재현 증명) 신설 | 완료 | docs/project-guide.md
 - 2026-06-05 | [축제/인프라] 만료 축제 누락 근본수정 — date가 구분자없는 컴팩트(YYYYMMDD)라 만료판정 정규식 3곳 0매칭→'만료아님' 통과하던 버그. 공용 파서 SSOT(scripts/lib/festival-date.js) 신설해 서버·블로그가드·프론트 통일, /festivals null→완료 분류로 '진행중' 오분류 차단, 만료 40건(154→114) pick-info 제거(참조 0건 확인), validate에 만료 감시 추가. search-index churn 제외 | 배포됨 | scripts/lib/festival-date.js, fetch-public-data.js, generate-blog-post.js, validate-content.js, FestivalsClient.tsx, pick-info.json, commit 213b064
 - 2026-06-05 | [문서] 일일점검 가이드에 블로그 표 무결성 점검 2항목 추가 — ①신규 글 표 3패턴(헤더누락·행간 빈줄·`|`/`:---` 평문노출) 0건 확인 ②ensureTableHeader WARN 글 합성라벨 육안확인. 어제 표 게이트(dropTableInnerBlanks·ensureTableHeader)의 점검 사각지대 차단 | 배포됨 | docs/daily-deploy-inspection.md, commit 7e759d4
@@ -183,6 +216,7 @@
 ## 4. 다음 작업 후보 (백로그)
 
 > 우선순위는 **오늘 배포한 변경이 며칠 돌아간 로그·데이터를 보고** 판단한다(서두르지 않는다).
+> 번호는 등록 순서일 뿐 우선순위가 아니다.
 
 1. **블로그 ↔ 원본 상세페이지 역할 분리** — 원본=거래형(제도명·신청·금액), 블로그=비교/가이드형으로
    검색 의도를 갈라 카니발리제이션 방지. **후보 A(진단: 카니발 중복이 실제 있는지 읽기전용 분석)부터** 시작.
@@ -200,6 +234,23 @@
 8. **축제 content 빈 경우 generic '추천 포인트' 하드코딩 박스 대체**(festival/[id]/page.tsx:222-243) —
    가독성 아닌 콘텐츠 품질 이슈. content 없는 축제는 영혼 없는 기본 박스가 노출됨. 데이터 부족 시
    처리 방식 재검토(억지 채움 대신 다른 방식).
+   ※ 빈-content의 생성층 원인은 §4-11(축제 content 생성 안정성) 참조. 이 박스는 그 모든 원인의 렌더층 폴백.
+9. **기존 thin 블로그 글 정리(CLEANUP, 후순위)** — 자동발행 시절 양산된 빈약한 글 정리.
+   규모·대상은 착수 시 validate-content.js WARN 카운트로 실측해 확정(핸드오프 추정치 ~42건은 미검증).
+   손글 전환 후 사이트 신뢰·SEO 토대 정리 차원, 급하지 않음.
+10. **마이홈포털 srhRegion 정상화(커버리지·효율, 후순위)** — 2026-06-05 응답 래퍼(body.item)·필드매핑
+    (pblancNm·suplyTyNm·suplyInsttNm·brtcNm·endDe·pcUrl)·서비스목적요약 "수도권" 제거 완료(commit ee23d40)
+    → 0건 해소, 수도권 임대주택 정상 수집·비수도권 차단 0. **남은 것**: srhRegion이 무효라 서울·인천·경기
+    3회 호출이 동일 전국 리스트를 반환 → dedup 후 고유 소수(오늘 2건). 올바른 지역 파라미터명을 참고문서
+    (요청 파라미터 코드_260331.xlsx)에서 확인해 API단 수도권 한정 → 중복 호출 제거 + 수도권 고유 공고 폭 확대.
+    (노출 정확도는 이미 정상, 이건 커버리지·효율 개선.)
+11. **축제 content 생성 안정성(현상 미재현, 후순위)** — generateFestivalContent(fetch-public-data.js:270)가
+    Gemini로 축제 `content`(마크다운)를 생성, JSON.parse(321행) 실패 시 3회 재시도 후 `''` 폴백(죽지 않음,
+    catch 324행 `[content 생성] … 오류` 로그). 핸드오프의 'Gemini JSON 오류'는 **현재 미재현** — pick-info
+    114건 전부 content 정상·빈/깨진 0건. 즉 SSOT에 박을 활성 버그 아님. 다만 폴백이 조용해서(빈값+경고만)
+    과거 산발 실패가 묻혔을 수 있음 → 의심되면 GitHub Actions 런 로그의 위 문구로 빈도 확인.
+    ※ §4-8(렌더층 빈-content 폴백 박스)과 **같은 사슬의 다른 층위**(이건 생성층) — 8은 JSON오류뿐 아니라
+    키부재·HTTP실패 등 모든 빈-content 포괄이라 별도 유지.
 
 ---
 
