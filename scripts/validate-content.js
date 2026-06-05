@@ -95,6 +95,54 @@ function fixTableCells(text) {
   return out.join('\n');
 }
 
+// 헤더 누락 표 합성 시 사용할 일반 라벨(문맥 유추 불가 시 기본값)
+const GENERIC_LABELS = ['구분', '기간', '장소', '대상', '내용', '비고'];
+
+// (i) 표 블록 안(헤더·구분선·데이터 행 사이)에 낀 빈 줄 제거 — GFM 표가 끊겨 평문화되는 사고 방지 (결정적·안전한 AUTO 교정)
+// 단, 서로 다른 두 표 사이의 빈 줄(다음 줄이 '새 표의 헤더')은 보존해 표가 병합되지 않게 한다.
+function dropTableInnerBlanks(text) {
+  if (!text || !text.includes('|')) return text;
+  const lines = String(text).split('\n');
+  const isPipe = l => /^\s*\|/.test(l || '');
+  const out = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].trim() === '') {
+      let j = i; while (j < lines.length && lines[j].trim() === '') j++; // 연속 빈 줄 묶음 건너뛰기
+      const prevPipe = isPipe(lines[i - 1]);
+      const nextPipe = j < lines.length && isPipe(lines[j]);
+      const nextIsNewTableHeader = nextPipe && isSepRow(lines[j + 1]); // 다음이 '헤더→구분선' 시작 = 새 표
+      if (prevPipe && nextPipe && !nextIsNewTableHeader) { continue; } // 표 내부 빈 줄 → 삭제
+    }
+    out.push(lines[i]);
+  }
+  return out.join('\n');
+}
+
+// (ii) 헤더 없는 표(구분선 ':---'으로 시작) 감지 → 컬럼 수에 맞는 헤더 행 합성 삽입.
+// 라벨은 문맥 유추가 어려워 일반 라벨을 쓰므로, 합성할 때마다 WARN으로 크게 로그(조용히 통과 금지).
+function ensureTableHeader(text, { onWarn } = {}) {
+  if (!text || !text.includes('|')) return text;
+  const lines = String(text).split('\n');
+  const isPipe = l => /^\s*\|/.test(l || '');
+  const out = [];
+  for (let i = 0; i < lines.length; i++) {
+    const cur = lines[i];
+    // 실제 파이프(|)가 있는 GFM 표 구분선만 대상 — 수평선('---' thematic break) 오인 방지
+    if (cur.includes('|') && isSepRow(cur)) {
+      const prev = out.length ? out[out.length - 1] : '';
+      const prevIsHeader = isPipe(prev) && !isSepRow(prev); // 바로 위가 헤더 행이면 정상 표
+      if (!prevIsHeader) {
+        const cols = cellCount(cur);
+        const header = '| ' + Array.from({ length: cols }, (_, k) => GENERIC_LABELS[k] || `항목${k + 1}`).join(' | ') + ' |';
+        out.push(header);
+        if (onWarn) onWarn(`헤더 없는 표 감지 → ${cols}컬럼 일반 헤더 합성 (라벨 검토 권장)`);
+      }
+    }
+    out.push(cur);
+  }
+  return out.join('\n');
+}
+
 // 깨진 표 복구: 구분선 행에 설명문이 통째로 박힌 패턴 교정
 // 예) "| :--- | :---<U>축제설명…</U><br>… |"  ← AI가 첫 표를 잘못 생성하고 본문이 구분선에 병합됨.
 // → 오염된 구분선 행 + 바로 위 헤더 행을 제거(보통 직후에 정상 표가 중복으로 따라옴) + 연속 중복 헤딩 정리.
@@ -180,6 +228,14 @@ function checkPost(file) {
       out.push(cur);
     }
     if (touched) body = out.join('\n');
+  }
+
+  // (AUTO) 표 내부 빈 줄 제거 + (WARN) 헤더 누락 표 합성
+  {
+    const before = body;
+    body = dropTableInnerBlanks(body);
+    if (body !== before) logFix(where, '표 내부 빈 줄 제거(표 끊김 방지)');
+    body = ensureTableHeader(body, { onWarn: m => logWarn(where, m) });
   }
 
   // (AUTO) officialTip 평문화 (프론트매터)
@@ -338,8 +394,12 @@ function checkPickInfo() {
   // 축제 content: 표 셀 줄바꿈으로 깨진 마크다운 표 교정 (AUTO)
   for (const f of (data.festivals || [])) {
     if (typeof f.content === 'string' && f.content.includes('|')) {
-      const fixed = fixTableCells(repairBrokenTables(f.content));
-      if (fixed !== f.content) { f.content = fixed; logFix('pick-info', `festival '${(f.title || '').slice(0, 20)}' 표 셀 줄바꿈 교정`); changed = true; }
+      const ft = (f.title || '').slice(0, 20);
+      const fixed = ensureTableHeader(
+        dropTableInnerBlanks(fixTableCells(repairBrokenTables(f.content))),
+        { onWarn: m => logWarn('pick-info', `festival '${ft}' ${m}`) }
+      );
+      if (fixed !== f.content) { f.content = fixed; logFix('pick-info', `festival '${ft}' 표 구조 교정(셀 줄바꿈/내부 빈줄/헤더)`); changed = true; }
     }
   }
 
