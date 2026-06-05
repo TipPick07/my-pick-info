@@ -197,6 +197,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-05 | [문서] 일일점검 가이드 갱신 — 자동발행 셸브 반영: 블로그 발행 관련 점검 7곳 '⏸ 비활성(이력 보존)' 표시, [H] 일일 후보 보고서 점검 신설(생성·실패가드·판정일치·DataLab 2회·콜아웃·버킷오분류 건수), 크롤 점검은 유지 | 완료 | docs/daily-deploy-inspection.md
 - 2026-06-05 | [문서/콘텐츠] 육아·가족 롱테일 키워드 지도(docs/keyword-map-parenting.md) 신설 — 6클러스터·40키워드, /guides 작업 큐 겸 내부링크 설계도, 금액은 복지로 SSOT로 미기재 | 완료 | docs/keyword-map-parenting.md
 - 2026-06-05 | [인프라/콘텐츠] 일일 후보 보고서(docs/daily-topic-report.md) 신설 — 크롤·dedup된 축제·지원금 후보를 기존 핫스코어 알고리즘(SSOT 미러)으로 랭킹한 읽기전용 보고서, 크론+수동 양 경로, ≥3 판정·마감임박(0~7일)/이벤트성 콜아웃 포함, DataLab 자체호출 2회(B안)·계절 폴백, 가드(실패허용 exit0·만료 보수판정·생애주기 situations.ts 미러), 자동발행 미활성·posts/pick-info 미접촉 | 배포됨 | scripts/build-topic-report.js, .github/workflows/deploy.yml, commit 7c6000d
 - 2026-06-05 | [UI/SEO] 가이드 허브(/guides) + 내비 "가이드" 메뉴 신설 — GUIDES 매니페스트 SSOT(허브·sitemap 공유), parenting-family-benefits 고아 페이지 내부링크·sitemap 연결 해소(가이드 상세도 그동안 sitemap 누락이던 것 함께 해소), 추가형이라 자동발행·데이터층 영향 0, 허브 og:image는 공용 이미지 부재로 보류 | 배포됨 | src/lib/guides.ts, src/app/guides/page.tsx, src/components/Header.tsx, src/app/sitemap.ts, commit 14a6641
