@@ -197,6 +197,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-06 | [문서/콘텐츠] 콘텐츠 플레이북(docs/content-playbook.md) 신설 — 1:1 금지 원칙, 축제 시기묶음 자동발행 규칙(21일·5~8개·주1·완전자동·시기제목+직전id제외), 지원금 3종 분류(상시pillar/단발블로그/비교가이드), 가이드 클러스터 운영을 SSOT로 확정. §4에 구현 백로그 2건 등재 | 완료 | docs/content-playbook.md, docs/project-guide.md
 - 2026-06-06 | [데이터/분류] situations.ts 생애주기 분류 다중소속 전환 + 미러 동기화 — match(단일·parenting선점) → titleStem(제목)+compound(본문 복합어) 2필드, benefitBelongsTo로 독립판정(다중소속). 제목기준+복합어 화이트리스트로 boilerplate bleed 제거('돌봄'bare→복합어, '한부모'추가, housing compound에서 '주거비'제외). build-topic-report.js 미러 단일버킷→situationsOf 1:1 동기화, 분포 라벨 '버킷 합32'→'페이지별 노출 건수(합32 초과 가능)'. 빌드1회 통과·게이트 PASS(진짜9/4 보존·오매칭6 제거·출산가구주거비∈parenting∩housing·housing 라이브 0→4). 실측 분포 parenting14·youth4·senior3·housing4·disability3·etc9(합37) | 배포대기(커밋 전) | src/lib/situations.ts, scripts/build-topic-report.js, docs/daily-deploy-inspection.md, docs/project-guide.md
 - 2026-06-05 | [문서] 일일점검 가이드 갱신 — 자동발행 셸브 반영: 블로그 발행 관련 점검 7곳 '⏸ 비활성(이력 보존)' 표시, [H] 일일 후보 보고서 점검 신설(생성·실패가드·판정일치·DataLab 2회·콜아웃·버킷오분류 건수), 크롤 점검은 유지 | 완료 | docs/daily-deploy-inspection.md
 - 2026-06-05 | [문서/콘텐츠] 육아·가족 롱테일 키워드 지도(docs/keyword-map-parenting.md) 신설 — 6클러스터·40키워드, /guides 작업 큐 겸 내부링크 설계도, 금액은 복지로 SSOT로 미기재 | 완료 | docs/keyword-map-parenting.md
@@ -280,6 +281,15 @@
     섹션으로 뜸. breadcrumb·sitemap·canonical 미사용 = SEO·라우팅 영향 0, 위젯 1개 한정. 제목 출산 기준
     parenting이 거짓은 아니나 더 구체적 소속(disability/housing) 우선 또는 제목매칭 우선 휴리스틱 검토.
     데이터 관찰 후 우선순위 판단. (다중소속 카드 분류는 2026-06-06 완료, 이건 대표 1개 선정만 남은 잔재.)
+
+15. **축제 묶음 자동발행 구현** — generate-blog-post.js의 1:1 축제 생성을 '시기 묶음' 생성으로 재설계.
+    21일내 시작 축제 점수상위 5~8개를 한 글로, 주1 완전자동, 제목에 시기 박기+직전묶음 id 제외 가드,
+    5개미만 스킵. 설계 SSOT=docs/content-playbook.md §1. (셸브된 옛 코드 되살리기 아님 — 묶음 방식 신규.)
+
+16. **일일 보고서 3종 분류 개편** — build-topic-report.js 지원금 섹션에 종류1(상시→pillar)/종류2(단발→블로그)
+    /종류3(금융비교→가이드) 자동 태깅. deadline 파싱으로 1·2 분리(이미 이벤트성 잡음), 금융 키워드(키워드지도
+    C5·C6)로 3을 '가이드 후보' 힌트. 축제엔 시의성 딱지(21일내=추천/한달이상=🌱재료보관/진행끝=마감임박).
+    설계 SSOT=docs/content-playbook.md §1·2.
 
 ---
 
