@@ -197,6 +197,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-05 | [인프라/콘텐츠] 일일 후보 보고서(docs/daily-topic-report.md) 신설 — 크롤·dedup된 축제·지원금 후보를 기존 핫스코어 알고리즘(SSOT 미러)으로 랭킹한 읽기전용 보고서, 크론+수동 양 경로, ≥3 판정·마감임박(0~7일)/이벤트성 콜아웃 포함, DataLab 자체호출 2회(B안)·계절 폴백, 가드(실패허용 exit0·만료 보수판정·생애주기 situations.ts 미러), 자동발행 미활성·posts/pick-info 미접촉 | 배포됨 | scripts/build-topic-report.js, .github/workflows/deploy.yml, commit 7c6000d
 - 2026-06-05 | [UI/SEO] 가이드 허브(/guides) + 내비 "가이드" 메뉴 신설 — GUIDES 매니페스트 SSOT(허브·sitemap 공유), parenting-family-benefits 고아 페이지 내부링크·sitemap 연결 해소(가이드 상세도 그동안 sitemap 누락이던 것 함께 해소), 추가형이라 자동발행·데이터층 영향 0, 허브 og:image는 공용 이미지 부재로 보류 | 배포됨 | src/lib/guides.ts, src/app/guides/page.tsx, src/components/Header.tsx, src/app/sitemap.ts, commit 14a6641
 - 2026-06-05 | [소스/버그] 마이홈포털 임대주택 0건 근본수정 — 응답 래퍼 body.items.item→body.item(미존재라 raw=[]였음)·필드명 실제키(pblancNm·suplyTyNm·suplyInsttNm·brtcNm·endDe·pcUrl)로 교체·areaName region.name 폴백 제거(비수도권 metro 둔갑 차단)·서비스목적요약 하드코딩 "수도권" 제거(수도권 외 필터 무력화 해소). 드라이런 0→60수집/필터후 수도권30/비수도권잔존0/신청기한 포맷 정상 검증. srhRegion 무효는 미해결(백로그 잔류) | 배포됨(push ee23d40, 다음 크론 반영) | scripts/fetch-public-data.js
 - 2026-06-05 | [문서/검증] 지침서 갱신 — 발행 메커니즘 피벗 본문 반영 + 진단 4건으로 미검증 항목 교정. §1: 콘텐츠 철학에 자동발행 셸브·손글 주력·케이던스 원칙(할당량 아님) 추가, 콘텐츠 타입 3종(축제 .md/플래그십 /guides/ JSX/이벤트지원금 .md) 신설, 유통 문장 정정(SEO는 끄지 않고 토대 축적). §2: 크론 흐름 정정(blog-gen 셸브를 [SHELVED] 마커로), DataLab 용도 정정(실행 중인 건 getTodayHotKeywords 핫스코어 정렬 — '블로그 후보 점수화'는 셸브된 getNaverDataLabKeywords였음), 마이홈포털 0건 원인 확정(래퍼 body.item·필드 pblancNm류·srhRegion 무효, 실응답 totalCount 297로 검증), /guides/ 라우트 명시. §4: 백로그 3건(thin 정리·마이홈 수정·축제 content 안정성) 추가. 인수인계의 'srhRegion 버그'·'Gemini JSON 오류'는 미검증 단정이라 실측으로 교정 | 완료 | docs/project-guide.md
@@ -252,6 +253,14 @@
     과거 산발 실패가 묻혔을 수 있음 → 의심되면 GitHub Actions 런 로그의 위 문구로 빈도 확인.
     ※ §4-8(렌더층 빈-content 폴백 박스)과 **같은 사슬의 다른 층위**(이건 생성층) — 8은 JSON오류뿐 아니라
     키부재·HTTP실패 등 모든 빈-content 포괄이라 별도 유지.
+
+12. **situations.ts 생애주기 분류 오분류 정리** — 일일 후보 보고서(2026-06-05) 구현 중,
+    situations.ts SITUATIONS[].match 정규식이 노숙인 웰빙보조비·브레인핏45 등을
+    '임신·출산·육아' 버킷에 오분류함이 드러남(target/details의 '돌봄' 등 광범위 키워드 매칭).
+    이는 보고서 버그가 아니라 SSOT 자체 결함이며, 라이브 /situations/parenting에도 동일 노출 중
+    → 부모 유입자에게 무관한 항목이 섞여 사이트 신뢰도 저하. 점검표 [B] 카테고리 편중 감시와 직결.
+    수정 시 situations.ts 정규식을 정밀화(예: '돌봄' 단독 매칭 제한, 음성 키워드 추가)하고
+    사이트 빌드 재검증 필요. 보고서 미러도 함께 동기화. (우선순위는 데이터 며칠 관찰 후 판단.)
 
 ---
 
