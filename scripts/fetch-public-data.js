@@ -1010,19 +1010,18 @@ async function fetchMyHomeData(apiKey) {
       if (!res.ok) { console.log(`[마이홈포털:${region.name}] HTTP ${res.status} — 위 RAW 참조`); continue; }
 
       const raw = json
-        ? (json?.response?.body?.items?.item || json?.items || json?.data || [])
+        ? (json?.response?.body?.item || json?.response?.body?.items?.item || json?.items || json?.data || [])
         : (xmlItems || []);
       const items = Array.isArray(raw) ? raw : (raw && typeof raw === 'object' ? [raw] : []);
 
       let regionCount = 0;
       for (const item of items) {
-        const houseName   = item.HOUSE_NM      || item.houseNm      || item.house_nm      || '';
-        const houseType   = item.HOUSE_SECD_NM || item.houseSecdNm  || item.house_secd_nm
-                         || item.HOUSE_TY      || item.houseTy      || item.house_ty      || '';
-        const bizName     = item.BSNS_MBY_NM   || item.bsnsMbyNm   || item.bsns_mby_nm   || '';
-        const areaName    = item.SUBSCRPT_AREA_CODE_NM || item.subscrptAreaCodeNm || region.name;
-        const rceptEnd    = item.RCEPT_ENDDE    || item.rceptEndde   || item.rcept_endde   || '';
-        const hmpgAdres   = item.HMPG_ADRES     || item.hmpgAdres    || item.hmpg_adres    || 'https://www.myhome.go.kr';
+        const houseName   = item.pblancNm || item.hsmpNm || '';
+        const houseType   = item.suplyTyNm || item.houseTyNm || '';
+        const bizName     = item.suplyInsttNm || '';
+        const areaName    = [item.brtcNm, item.signguNm].filter(Boolean).join(' ');
+        const rceptEnd    = item.endDe || item.rcritPblancDe || '';
+        const hmpgAdres   = item.pcUrl || item.url || item.mobileUrl || 'https://www.myhome.go.kr';
 
         if (!houseName && !houseType) continue;
 
@@ -1036,7 +1035,7 @@ async function fetchMyHomeData(apiKey) {
 
         results.push({
           서비스명: title.trim(),
-          서비스목적요약: `${houseType || '주거 지원'} 수도권 모집 공고. 무주택 세대구성원 대상 임대주택 공급.`,
+          서비스목적요약: `${houseType || '주거 지원'} 모집 공고. 무주택 세대구성원 대상 임대주택 공급.`,
           지원대상: '무주택 세대구성원',
           소관기관명: bizName || '마이홈포털',
           지원내용: `${houseType || '임대주택'} 공급 모집`,
