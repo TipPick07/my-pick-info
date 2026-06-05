@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const fallbacks = require('../src/lib/image-fallbacks.json');
+const { isFestivalExpired: _isFestivalExpired } = require('./lib/festival-date');
 
 // ─── 결정적(안정) ID 생성 ────────────────────────────────────────────────────
 // URL churn 방지: 같은 행사/지원금은 재수집돼도 항상 같은 ID(=같은 URL)를 갖도록
@@ -332,15 +333,10 @@ async function generateFestivalContent(fest, geminiApiKey, geminiModel) {
 // ──────────────────────────────────────────────────────────────────────────────
 
 // 마감일 만료 여부 확인 (날짜 범위의 마지막 날짜 기준)
+// 공용 파서(scripts/lib/festival-date.js)에 위임 — 컴팩트(YYYYMMDD)·점·하이픈 모두 처리.
+// (기존 정규식은 구분자 필수라 컴팩트 날짜를 0매칭→'만료 아님' 오통과시키던 버그가 있었음)
 function isDeadlineExpired(deadline) {
-  if (!deadline) return false;
-  const matches = [...String(deadline).matchAll(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/g)];
-  if (matches.length === 0) return false;
-  const last = matches[matches.length - 1];
-  const endDate = new Date(parseInt(last[1]), parseInt(last[2]) - 1, parseInt(last[3]));
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return endDate < today;
+  return _isFestivalExpired(deadline, new Date());
 }
 
 // 신규 접수가 끝난(종료/폐지 안내) 제도를 걸러낸다.

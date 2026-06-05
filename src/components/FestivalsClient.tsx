@@ -64,12 +64,20 @@ function getWeatherIcon(code: number): LucideIcon {
 }
 
 // ── 축제 날짜 유틸 ──────────────────────────────────────────────────────────
+// ⚠️ 동기화 필수: 이 로직은 scripts/lib/festival-date.js(parseDateToken)의 미러다.
+// 브라우저 번들이라 require가 불가해 동일 로직을 복제했다. 한쪽 고치면 반드시 같이 고칠 것.
+// 컴팩트(YYYYMMDD)·점(YYYY.MM.DD)·하이픈·슬래시를 '모두' 파싱한다(과거엔 점만 처리해 컴팩트 날짜를
+// null→상시/진행중으로 오분류하던 버그가 있었음).
 function parseFestivalDates(dateStr: string): { start: Date | null; end: Date | null } {
   if (!dateStr || dateStr === '상시') return { start: null, end: null };
   const parts = dateStr.split('~');
   const parse = (s: string) => {
-    const m = s.trim().match(/(\d{4})\.(\d{1,2})\.(\d{1,2})/);
-    return m ? new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3])) : null;
+    const str = s.trim();
+    let m = str.match(/(\d{4})[.\-/](\d{1,2})[.\-/](\d{1,2})/); // 구분자 있는 형식
+    if (m) return new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]));
+    m = str.match(/(\d{4})(\d{2})(\d{2})/); // 구분자 없는 컴팩트 YYYYMMDD
+    if (m) return new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]));
+    return null;
   };
   return { start: parse(parts[0]), end: parse(parts[parts.length - 1]) };
 }
@@ -80,19 +88,12 @@ function isFestivalExpired(dateStr: string, today: Date): boolean {
   return end < today;
 }
 
-function isFestivalOngoing(dateStr: string, today: Date): boolean {
-  const { start, end } = parseFestivalDates(dateStr);
-  if (!start && !end) return true; // 상시
-  const startOk = !start || start <= today;
-  const endOk = !end || end >= today;
-  return startOk && endOk;
-}
-
 function sortFestivals<T extends { date: string }>(list: T[], today: Date): T[] {
+  // 정렬 버킷을 뱃지(getFestivalStatus)와 같은 기준으로 통일 — 파싱 불가(상시 아님) 건이
+  // '진행중(0)'으로 최상단에 뜨지 않도록 '완료(2)'로 내린다.
   const getOrder = (dateStr: string) => {
-    if (isFestivalExpired(dateStr, today)) return 2;
-    if (isFestivalOngoing(dateStr, today)) return 0;
-    return 1; // 예정
+    const st = getFestivalStatus(dateStr, today);
+    return st === "진행중" ? 0 : st === "예정" ? 1 : 2;
   };
 
   return [...list].sort((a, b) => {
@@ -125,8 +126,10 @@ function getPaginationRange(current: number, total: number): (number | '...')[] 
 type StatusFilter = "전체" | "진행중" | "예정" | "완료";
 
 function getFestivalStatus(dateStr: string, today: Date): "진행중" | "예정" | "완료" {
+  const isSangsi = !dateStr || dateStr === '상시';
   const { start, end } = parseFestivalDates(dateStr);
-  if (!start && !end) return "진행중"; // 상시
+  if (isSangsi) return "진행중"; // 진짜 상시(날짜 없음)만 진행중
+  if (!start && !end) return "완료"; // 상시 아닌데 파싱 불가 → 진행중 오분류 차단(상단 정렬 금지)
   if (end && end < today) return "완료";
   if (start && start > today) return "예정";
   return "진행중";

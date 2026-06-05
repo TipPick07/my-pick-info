@@ -17,6 +17,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const { isFestivalExpired } = require('./lib/festival-date');
 let yaml;
 try { yaml = require('js-yaml'); } catch { yaml = null; }
 
@@ -400,6 +401,20 @@ function checkPickInfo() {
         { onWarn: m => logWarn('pick-info', `festival '${ft}' ${m}`) }
       );
       if (fixed !== f.content) { f.content = fixed; logFix('pick-info', `festival '${ft}' 표 구조 교정(셀 줄바꿈/내부 빈줄/헤더)`); changed = true; }
+    }
+  }
+
+  // (WARN) 만료 축제 재발 감시 — 종료일이 지난 축제는 /festivals 목록에 그대로 노출되고
+  // 매일 발행 후보로도 잡히므로 0이어야 한다. 공용 파서(scripts/lib/festival-date.js)로 검사.
+  // (배경: 컴팩트 YYYYMMDD 날짜를 못 거르던 버그로 한때 40건이 잔존했음 — 근본수정 후 재발 감시)
+  {
+    const now = new Date();
+    const expired = (data.festivals || []).filter(f => isFestivalExpired(f.date, now));
+    if (expired.length > 0) {
+      logWarn('pick-info', `종료일 지난 축제 ${expired.length}건 잔존 (만료 필터 회귀 의심 — /festivals 노출·발행후보 위험)`);
+      for (const f of expired.slice(0, 10)) {
+        logWarn('pick-info', `  · 만료 축제: "${(f.title || '').slice(0, 40)}" | date=${f.date}`);
+      }
     }
   }
 

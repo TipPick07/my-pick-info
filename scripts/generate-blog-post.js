@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const fallbacks = require('../src/lib/image-fallbacks.json');
+const { isFestivalExpired } = require('./lib/festival-date');
 
 // ─── 방법3: 월별 계절 키워드 자동 주입 ────────────────────────────────────
 const SEASONAL_KEYWORDS = {
@@ -461,14 +462,9 @@ async function main() {
         return false;
       }
       if (postType === 'festival') {
-        const dateMatches = [...String(item.date || '').matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
-        if (dateMatches.length > 0) {
-          const last = dateMatches[dateMatches.length - 1];
-          const endDate = new Date(parseInt(last[1]), parseInt(last[2]) - 1, parseInt(last[3]));
-          const todayKST = new Date();
-          todayKST.setHours(0, 0, 0, 0);
-          if (endDate < todayKST) return false;
-        }
+        // 종료된 축제는 발행 후보에서 제외 — 공용 파서(scripts/lib/festival-date.js)로 컴팩트(YYYYMMDD)까지 처리.
+        // (기존 인라인 정규식은 구분자 필수라 컴팩트 날짜를 못 걸러 끝난 축제가 발행되던 버그가 있었음)
+        if (isFestivalExpired(item.date, new Date())) return false;
       }
       return true;
     });
