@@ -36,7 +36,9 @@ export default function Home() {
     benefits: todayBenefits,
     totalCount: recentPosts.length,
     isToday: latestDate === todayStr,
-    date: latestDate,
+    // 히어로 '업데이트 날짜'는 데이터(pick-info) 갱신 기반 = 빌드일(KST). 크론이 매일 fetch→build 하므로
+    // 빌드일 = 데이터 갱신일. (옛 'latestDate(최신 블로그 글 date)'는 자동발행 셸브 후 6/4에 고정되는 버그였음.)
+    date: todayStr,
   };
 
   // 상황별 진입 타일용 (직렬화 가능한 요약 — RegExp 제외)

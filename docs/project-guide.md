@@ -197,6 +197,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-06 | [UI/버그] 히어로 '업데이트 날짜' 출처를 최신블로그글 date→데이터(pick-info) 갱신 기반(빌드일 KST)으로 교체 — page.tsx todayUpdates.date를 latestDate→todayStr로 변경(다른 필드·블로그 목록 로직 불변). 자동발행 셸브(6/5) 후 새 글이 없어 6/4에 고정되던 부작용 해소, '매일 갱신' 문구와 정합. pick-info엔 generatedAt 필드 없어 빌드시각 채택(크론 fetch→build라 빌드일=갱신일). 빌드1회 통과·히어로 실측 2026.06.06 확인 | 배포대기(커밋 전) | src/app/page.tsx, docs/project-guide.md
 - 2026-06-06 | [콘텐츠/도구] 일일 후보 보고서 3종 분류 개편(§4-16) — build-topic-report.js에 지원금 [용도](📝블로그/📚pillar)·축제 [시의성](✅추천/🌱재료보관/⏳마감임박) 컬럼 + 맨 위 '⭐ 오늘의 추천 글감'(📝 마감순 상위3 / 🎪 ✅ 묶음 5개기준) 신설. 기존 deadlineInfo·festival-date.js 재활용(병렬 파서 0), situationsOf·calcHotScore·발행 파이프라인 미접촉. 스크립트 1회 실행·게이트 PASS(스팟 용도7/7·시의성5/5). 실측(6/6): 용도 📝3·📚29, 시의성 ✅44·🌱60·⏳13(미파싱 0), 📝후보 마감순·축제✅44≥5 묶음제안 | 배포대기(커밋 전) | scripts/build-topic-report.js, docs/daily-deploy-inspection.md, docs/project-guide.md
 - 2026-06-06 | [문서/콘텐츠] 콘텐츠 플레이북(docs/content-playbook.md) 신설 — 1:1 금지 원칙, 축제 시기묶음 자동발행 규칙(21일·5~8개·주1·완전자동·시기제목+직전id제외), 지원금 3종 분류(상시pillar/단발블로그/비교가이드), 가이드 클러스터 운영을 SSOT로 확정. §4에 구현 백로그 2건 등재 | 완료 | docs/content-playbook.md, docs/project-guide.md
 - 2026-06-06 | [데이터/분류] situations.ts 생애주기 분류 다중소속 전환 + 미러 동기화 — match(단일·parenting선점) → titleStem(제목)+compound(본문 복합어) 2필드, benefitBelongsTo로 독립판정(다중소속). 제목기준+복합어 화이트리스트로 boilerplate bleed 제거('돌봄'bare→복합어, '한부모'추가, housing compound에서 '주거비'제외). build-topic-report.js 미러 단일버킷→situationsOf 1:1 동기화, 분포 라벨 '버킷 합32'→'페이지별 노출 건수(합32 초과 가능)'. 빌드1회 통과·게이트 PASS(진짜9/4 보존·오매칭6 제거·출산가구주거비∈parenting∩housing·housing 라이브 0→4). 실측 분포 parenting14·youth4·senior3·housing4·disability3·etc9(합37) | 배포대기(커밋 전) | src/lib/situations.ts, scripts/build-topic-report.js, docs/daily-deploy-inspection.md, docs/project-guide.md
@@ -305,6 +306,13 @@
     상설). 상설은 '지금 시의성'이 약해 묶음 후보를 흐림. 개선: 시작~종료 폭이 일정일(예: 60~90일) 이상이면
     ✅에서 제외하거나 별도 딱지(🔄상설)로 분리 → ✅는 '시작 임박 단발'에 한정. 추천 섹션 묶음은 점수순이라
     0점 상설이 상위로 오진 않으나, ✅ 카운트 정확도·'묶음 알참' 신호 신뢰도 위해 정밀화. SSOT=content-playbook §1.
+
+18. **자동발행 셸브 부작용 — '블로그 글 존재 전제' 로직 잔재 점검(후순위)** — 2026-06-05 자동발행 셸브로
+    매일 새 .md가 안 생기면서, '최신 블로그 글'을 오늘로 가정하던 로직들이 어긋남. ⓐ 히어로 업데이트 날짜
+    (6/4 고정)는 2026-06-06 수정 완료(page.tsx date→빌드일). ⓑ 남은 것: todayUpdates의 totalCount·festivals·
+    benefits가 여전히 latestDate(최신 글 날짜) 기준 '글 묶음'이라, 글 없으면 0/옛값 표시 가능 → 히어로 '신규
+    N건'류가 실제와 어긋날 수 있음. ⓒ 그 외 블로그글 존재 전제 가능 지점(sitemap lastmod·푸터·priority 등)
+    일괄 grep 점검 권장. 수정 시 '오늘 신규'의 정의를 데이터(pick-info addedAt) 기준으로 재설계할지 판단.
 
 ---
 
