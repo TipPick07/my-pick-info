@@ -53,6 +53,3 @@ link_check_result.txt
 boost_benefits_*.py
 
 coupang-replace.js
-
-# 일일 후보 보고서: 크론/수동 생성물 — 소스는 scripts/build-topic-report.js (생성물은 버전관리 제외)
-docs/daily-topic-report.md
