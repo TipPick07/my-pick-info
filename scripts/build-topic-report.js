@@ -23,7 +23,7 @@ const fs = require('fs');
 const path = require('path');
 try { require('dotenv').config({ path: '.env.local' }); } catch (_) { /* dotenv 없거나 키 없어도 무방 */ }
 const matter = require('gray-matter');
-const { isFestivalExpired, parseFestivalEndDate } = require('./lib/festival-date');
+const { isFestivalExpired, parseFestivalStartDate, parseFestivalEndDate } = require('./lib/festival-date');
 
 const ROOT = path.join(__dirname, '..');
 const DATA = path.join(ROOT, 'public/data/pick-info.json');
@@ -159,6 +159,29 @@ function deadlineInfo(dateStr, today) {
   return { hasEnd: true, recurring, daysLeft, imminent, eventLike };
 }
 
+// ─── §4-16 콘텐츠 플레이북 딱지 (기존 파서 재활용 — 병렬 파서 신설 금지) ───────────
+// [용도] 지원금: 📝블로그 = 실재 미래 종료일 파싱 AND 정기류 아님(deadlineInfo 재활용). 그 외 전부 📚pillar(보수 기본값).
+function benefitUsage(dl) {
+  return (dl.hasEnd && !dl.recurring) ? '📝' : '📚';
+}
+// [시의성] 축제: festival-date.js(시작·종료 SSOT)로 오늘 기준 판정. 첫 매치 우선.
+function festTimeliness(dateStr, today) {
+  const start = parseFestivalStartDate(dateStr);
+  const end = parseFestivalEndDate(dateStr);
+  const t = today ? new Date(today) : new Date();
+  t.setHours(0, 0, 0, 0);
+  const DAY = 24 * 60 * 60 * 1000;
+  const diff = (d) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return Math.round((x - t) / DAY); };
+  const dStart = start ? diff(start) : null;
+  const dEnd = end ? diff(end) : null;
+  if (start === null && end === null) return { tag: '🌱', unparsed: true, dStart, dEnd }; // 미파싱 → 보수(추천 제외)
+  if (dEnd !== null && dEnd >= 0 && dEnd <= 7) return { tag: '⏳', unparsed: false, dStart, dEnd }; // 마감임박
+  const ongoing = (dStart !== null && dStart <= 0) && (dEnd === null || dEnd >= 0);                  // 진행 중
+  const startingSoon = (dStart !== null && dStart >= 0 && dStart <= 21);                              // 21일 내 시작
+  if (ongoing || startingSoon) return { tag: '✅', unparsed: false, dStart, dEnd };                   // 추천
+  return { tag: '🌱', unparsed: false, dStart, dEnd };                                                // 재료보관(미래)
+}
+
 // ─── 보조 ────────────────────────────────────────────────────────────────────
 function todayStr() { return new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }); }
 function yesterdayStr() {
@@ -216,6 +239,7 @@ async function main() {
       score: calcHotScore({ title: f.title, description: f.description }, fk.keywords),
       written: written(f.title),
       dl: deadlineInfo(f.date, today),
+      tl: festTimeliness(f.date, today),
     }))
     .sort((a, b) => b.score - a.score);
 
@@ -229,6 +253,7 @@ async function main() {
       isNew: b.addedAt === today || b.addedAt === yest,
       written: written(b.title),
       dl: deadlineInfo(b.deadline, today),
+      usage: benefitUsage(deadlineInfo(b.deadline, today)),
     }))
     .sort((a, b) => b.score - a.score);
 
@@ -245,6 +270,40 @@ async function main() {
   L.push('');
   L.push(verdict);
   L.push('');
+
+  // ── ⭐ 오늘의 추천 글감 (플레이북 §1·2) ──
+  L.push(`## ⭐ 오늘의 추천 글감`);
+  L.push('');
+  // 📝 지원금 블로그 후보: 용도=📝 중 '마감 가까운 순'(점수순 아님) 상위 3
+  const blogPicks = benCand
+    .filter((b) => b.usage === '📝')
+    .sort((a, b) => (a.dl.daysLeft ?? 9e9) - (b.dl.daysLeft ?? 9e9))
+    .slice(0, 3);
+  L.push(`**📝 지원금 블로그 후보** (마감 가까운 순)`);
+  L.push('');
+  if (blogPicks.length) {
+    blogPicks.forEach((c) => {
+      const dday = c.dl.daysLeft != null ? `D-${c.dl.daysLeft}` : '마감미상';
+      L.push(`- ${esc(c.title)} (${esc(c.region)}, 마감 ${esc(c.period)} · ${dday}) — [/benefit/${esc(c.id)}/](https://tip-pick.com/benefit/${esc(c.id)}/) · **이 주제로 블로그 글 작성할까요?**`);
+    });
+  } else {
+    L.push(`- 오늘 마감 임박 단발 없음 — 상시 제도는 pillar로.`);
+  }
+  L.push('');
+  // 🎪 축제 묶음 후보: 시의성=✅ 을 점수순으로(상록 0점이 자리 차지 안 하게), 5개 이상이면 묶음 제안
+  const festPicks = festCand.filter((c) => c.tl.tag === '✅').sort((a, b) => b.score - a.score);
+  L.push(`**🎪 축제 묶음 후보** (✅ 추천 ${festPicks.length}건)`);
+  L.push('');
+  if (festPicks.length >= 5) {
+    L.push(`- **이 묶음으로 블로그 1편 작성할까요?** (점수 상위 ${Math.min(festPicks.length, 8)}개 구성)`);
+    festPicks.slice(0, 8).forEach((c) => {
+      L.push(`  - ${esc(c.title)} (${esc(c.region)}, ${esc(c.period)})`);
+    });
+  } else {
+    L.push(`- 이번 주 묶음 기준 미달(✅ ${festPicks.length}건) — 플레이북 §1상 5개 미만 스킵.`);
+  }
+  L.push('');
+
   L.push(`- **상대점수**: pick-info에 저장된 점수가 없어, fetch가 정렬에 쓴 것과 동일 알고리즘(\`calcHotScore\` × DataLab/계절 핫키워드)으로 **재계산**한 값입니다. 절대치가 아니라 **후보군 내 상대 비교용**입니다.`);
   L.push(`- 핫키워드 출처 — 축제: \`${fk.source}\` (${fk.keywords.slice(0, 4).join(', ')}) / 지원금: \`${bk.source}\` (${bk.keywords.slice(0, 4).join(', ')})`);
   L.push(`- **NEW**: 지원금은 \`addedAt\`(오늘/어제) 기준. 축제는 pick-info에 등록일 필드가 없어 NEW 판정 불가(—).`);
@@ -253,18 +312,21 @@ async function main() {
   // 축제 표
   L.push(`## 🎪 축제·행사 후보 (${festCand.length}건)`);
   L.push('');
-  L.push(`| 순위 | 점수 | 주제 | 지역 | 기간 | 상세 | 권장형태 | 이미작성 |`);
-  L.push(`|---:|---:|---|---|---|---|---|---|`);
+  L.push(`> 시의성(오늘 기준) — ✅ 추천(진행 중 또는 21일 내 시작) · 🌱 재료보관(21일 초과 미래) · ⏳ 마감임박(종료 7일 이내).`);
+  L.push('');
+  L.push(`| 순위 | 점수 | 시의성 | 주제 | 지역 | 기간 | 상세 | 권장형태 | 이미작성 |`);
+  L.push(`|---:|---:|:-:|---|---|---|---|---|---|`);
   festCand.forEach((c, i) => {
-    L.push(`| ${i + 1} | ${c.score} | ${esc(c.title)} | ${esc(c.region)} | ${esc(c.period)} | [/festival/${esc(c.id)}/](https://tip-pick.com/festival/${esc(c.id)}/) | 가벼운 .md | ${c.written ? '✅' : ''} |`);
+    L.push(`| ${i + 1} | ${c.score} | ${c.tl.tag} | ${esc(c.title)} | ${esc(c.region)} | ${esc(c.period)} | [/festival/${esc(c.id)}/](https://tip-pick.com/festival/${esc(c.id)}/) | 가벼운 .md | ${c.written ? '✅' : ''} |`);
   });
-  if (festCand.length === 0) L.push(`| – | – | (진행 중 축제 후보 없음) | – | – | – | – | – |`);
+  if (festCand.length === 0) L.push(`| – | – | – | (진행 중 축제 후보 없음) | – | – | – | – | – |`);
   L.push('');
 
   // 지원금 표 (생애주기 페이지별 노출 건수·다중소속, 임신·출산·육아 최상단)
   L.push(`## 💸 지원금 후보 (${benCand.length}건)`);
   L.push('');
   L.push(`> 분류는 **페이지별 노출 건수·다중소속**입니다 — 한 지원금이 여러 생애주기 페이지에 동시 노출될 수 있어 섹션 합계가 후보 ${benCand.length}건을 초과할 수 있습니다(우선순위 없이 독립 판정).`);
+  L.push(`> 용도 — 📝 블로그(실재 미래 마감의 단발·시즌) · 📚 pillar(상시·정기·마감 모호 → /guides 상시 제도). 비교가이드 주제(자녀적금·대출·보험 등)는 크롤 재고가 아니라 기획 — \`docs/keyword-map-parenting.md\` §3 큐 참조.`);
   L.push('');
   const order = ['parenting', 'youth', 'senior', 'housing', 'disability', 'etc'];
   const labelOf = (k) => (LIFECYCLE.find((l) => l.key === k) || { label: '기타(미분류)', emoji: '📌' });
@@ -276,11 +338,11 @@ async function main() {
     const meta = labelOf(key);
     L.push(`### ${meta.emoji} ${meta.label} (${group.length}건)`);
     L.push('');
-    L.push(`| 순위 | 점수 | 주제 | 지역 | 마감 | 상세 | 권장형태 | NEW | 이미작성 |`);
-    L.push(`|---:|---:|---|---|---|---|---|:-:|:-:|`);
+    L.push(`| 순위 | 점수 | 용도 | 주제 | 지역 | 마감 | 상세 | 권장형태 | NEW | 이미작성 |`);
+    L.push(`|---:|---:|:-:|---|---|---|---|---|:-:|:-:|`);
     group.forEach((c, i) => {
       const rec = c.score >= 30 ? '플래그십 후보' : '가벼운 .md';
-      L.push(`| ${i + 1} | ${c.score} | ${esc(c.title)} | ${esc(c.region)} | ${esc(c.period)} | [/benefit/${esc(c.id)}/](https://tip-pick.com/benefit/${esc(c.id)}/) | ${rec} | ${c.isNew ? '🆕' : ''} | ${c.written ? '✅' : ''} |`);
+      L.push(`| ${i + 1} | ${c.score} | ${c.usage} | ${esc(c.title)} | ${esc(c.region)} | ${esc(c.period)} | [/benefit/${esc(c.id)}/](https://tip-pick.com/benefit/${esc(c.id)}/) | ${rec} | ${c.isNew ? '🆕' : ''} | ${c.written ? '✅' : ''} |`);
     });
     L.push('');
   }

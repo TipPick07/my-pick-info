@@ -197,6 +197,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-06 | [콘텐츠/도구] 일일 후보 보고서 3종 분류 개편(§4-16) — build-topic-report.js에 지원금 [용도](📝블로그/📚pillar)·축제 [시의성](✅추천/🌱재료보관/⏳마감임박) 컬럼 + 맨 위 '⭐ 오늘의 추천 글감'(📝 마감순 상위3 / 🎪 ✅ 묶음 5개기준) 신설. 기존 deadlineInfo·festival-date.js 재활용(병렬 파서 0), situationsOf·calcHotScore·발행 파이프라인 미접촉. 스크립트 1회 실행·게이트 PASS(스팟 용도7/7·시의성5/5). 실측(6/6): 용도 📝3·📚29, 시의성 ✅44·🌱60·⏳13(미파싱 0), 📝후보 마감순·축제✅44≥5 묶음제안 | 배포대기(커밋 전) | scripts/build-topic-report.js, docs/daily-deploy-inspection.md, docs/project-guide.md
 - 2026-06-06 | [문서/콘텐츠] 콘텐츠 플레이북(docs/content-playbook.md) 신설 — 1:1 금지 원칙, 축제 시기묶음 자동발행 규칙(21일·5~8개·주1·완전자동·시기제목+직전id제외), 지원금 3종 분류(상시pillar/단발블로그/비교가이드), 가이드 클러스터 운영을 SSOT로 확정. §4에 구현 백로그 2건 등재 | 완료 | docs/content-playbook.md, docs/project-guide.md
 - 2026-06-06 | [데이터/분류] situations.ts 생애주기 분류 다중소속 전환 + 미러 동기화 — match(단일·parenting선점) → titleStem(제목)+compound(본문 복합어) 2필드, benefitBelongsTo로 독립판정(다중소속). 제목기준+복합어 화이트리스트로 boilerplate bleed 제거('돌봄'bare→복합어, '한부모'추가, housing compound에서 '주거비'제외). build-topic-report.js 미러 단일버킷→situationsOf 1:1 동기화, 분포 라벨 '버킷 합32'→'페이지별 노출 건수(합32 초과 가능)'. 빌드1회 통과·게이트 PASS(진짜9/4 보존·오매칭6 제거·출산가구주거비∈parenting∩housing·housing 라이브 0→4). 실측 분포 parenting14·youth4·senior3·housing4·disability3·etc9(합37) | 배포대기(커밋 전) | src/lib/situations.ts, scripts/build-topic-report.js, docs/daily-deploy-inspection.md, docs/project-guide.md
 - 2026-06-05 | [문서] 일일점검 가이드 갱신 — 자동발행 셸브 반영: 블로그 발행 관련 점검 7곳 '⏸ 비활성(이력 보존)' 표시, [H] 일일 후보 보고서 점검 신설(생성·실패가드·판정일치·DataLab 2회·콜아웃·버킷오분류 건수), 크롤 점검은 유지 | 완료 | docs/daily-deploy-inspection.md
@@ -286,10 +287,18 @@
     21일내 시작 축제 점수상위 5~8개를 한 글로, 주1 완전자동, 제목에 시기 박기+직전묶음 id 제외 가드,
     5개미만 스킵. 설계 SSOT=docs/content-playbook.md §1. (셸브된 옛 코드 되살리기 아님 — 묶음 방식 신규.)
 
-16. **일일 보고서 3종 분류 개편** — build-topic-report.js 지원금 섹션에 종류1(상시→pillar)/종류2(단발→블로그)
-    /종류3(금융비교→가이드) 자동 태깅. deadline 파싱으로 1·2 분리(이미 이벤트성 잡음), 금융 키워드(키워드지도
-    C5·C6)로 3을 '가이드 후보' 힌트. 축제엔 시의성 딱지(21일내=추천/한달이상=🌱재료보관/진행끝=마감임박).
-    설계 SSOT=docs/content-playbook.md §1·2.
+16. **일일 보고서 3종 분류 개편 — ✅ 수정 적용 완료(2026-06-06)**. build-topic-report.js에 지원금 [용도]
+    컬럼(📝블로그=실재 미래 마감 단발 / 📚pillar=상시·정기·미파싱, deadlineInfo 재활용)·축제 [시의성]
+    컬럼(✅추천=진행중·21일내 시작 / 🌱재료보관=21일 초과 미래 / ⏳마감임박=종료 7일내, festival-date.js
+    재활용)·맨 위 '⭐ 오늘의 추천 글감'(📝 마감순 상위3 / 🎪 ✅ 묶음 5개기준) 추가. 기존 deadline 파서·
+    festival-date.js 재활용(병렬 파서 신설 0), situationsOf·calcHotScore·발행 파이프라인 미접촉, 읽기전용.
+    금융비교(종류3)는 크롤 재고 아닌 기획이라 keyword-map §3 큐 포인터로 안내. (설계 SSOT=content-playbook §1·2.)
+
+17. **보고서 ✅추천 판정에서 연중상설 축제 분리(정밀화, 후순위)** — 현재 ✅ 판정의 '현재 진행 중(시작≤오늘≤종료)'
+    조건에 연중 상설축제(1/1~12/31류, 시작·종료 폭 큰 것)가 전부 걸려 ✅가 부풀려짐(6/6 실측 ✅44 중 상당수가
+    상설). 상설은 '지금 시의성'이 약해 묶음 후보를 흐림. 개선: 시작~종료 폭이 일정일(예: 60~90일) 이상이면
+    ✅에서 제외하거나 별도 딱지(🔄상설)로 분리 → ✅는 '시작 임박 단발'에 한정. 추천 섹션 묶음은 점수순이라
+    0점 상설이 상위로 오진 않으나, ✅ 카운트 정확도·'묶음 알참' 신호 신뢰도 위해 정밀화. SSOT=content-playbook §1.
 
 ---
 
