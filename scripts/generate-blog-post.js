@@ -232,6 +232,8 @@ function readLatestFestivalSourceIds(dir) {
 async function main() {
   const DRY_RUN = process.env.DRY_RUN === 'true';
   const BUNDLE_DRY = process.env.BUNDLE_DRY === 'true';
+  // (Phase 3a-3) PREVIEW_DIR 설정 시: 실제 Gemini 생성하되 posts 대신 이 경로에 쓰고 종료(라이브 발행 0).
+  const previewDir = process.env.PREVIEW_DIR ? path.resolve(process.cwd(), process.env.PREVIEW_DIR) : null;
   if (DRY_RUN) {
     console.log('[DRY RUN] 테스트 모드 — 글 생성 없이 키워드/스코어만 확인합니다.');
   }
@@ -274,6 +276,9 @@ async function main() {
     }
     if (!fs.existsSync(reviewDir)) {
       fs.mkdirSync(reviewDir, { recursive: true });
+    }
+    if (previewDir && !fs.existsSync(previewDir)) {
+      fs.mkdirSync(previewDir, { recursive: true });
     }
 
     // 3개 폴더 전체에서 제목 수집 → 중복 판단용
@@ -794,18 +799,34 @@ officialTip: (1~2문장의 간결한 평문으로 작성. 번호 매기기·별�
     // 소스 레코드가 서로 달라 1차를 통과했더라도, Gemini가 둘을 '동일 제도'로 재작성하면
     // 최종 제목이 기존 글과 충돌한다(2026-06-04 용산 자립준비청년 생활보조수당 재탕 사고).
     // → 여기서 '최종 title'을 기존 전체(posts/drafts/review)와 다시 대조해 차단한다.
-    const finalTitleMatch = mdContent.match(/^title:\s*(.+)$/m);
-    if (finalTitleMatch) {
-      const finalTitle = finalTitleMatch[1].replace(/^["']|["']$/g, '').trim();
-      const finalNorm = normTitle(finalTitle);
-      const finalKeywords = new Set(extractKeywords(finalTitle));
-      const finalPrograms = extractProgramNames(finalTitle);
-      if (isDuplicate(finalNorm, finalKeywords, finalPrograms, allExistingPosts)) {
-        console.warn(`[중복 차단·생성후] 최종 제목이 기존 글과 중복 → 발행 취소: "${finalTitle}"`);
-        return;
+    // PREVIEW 모드는 육안 검수용이라 중복 게이트를 우회(충돌해도 강제 출력). 발행(posts) 경로는 그대로 검사.
+    if (!previewDir) {
+      const finalTitleMatch = mdContent.match(/^title:\s*(.+)$/m);
+      if (finalTitleMatch) {
+        const finalTitle = finalTitleMatch[1].replace(/^["']|["']$/g, '').trim();
+        const finalNorm = normTitle(finalTitle);
+        const finalKeywords = new Set(extractKeywords(finalTitle));
+        const finalPrograms = extractProgramNames(finalTitle);
+        if (isDuplicate(finalNorm, finalKeywords, finalPrograms, allExistingPosts)) {
+          console.warn(`[중복 차단·생성후] 최종 제목이 기존 글과 중복 → 발행 취소: "${finalTitle}"`);
+          return;
+        }
       }
     }
     // ──────────────────────────────────────────────────────────────────────────
+
+    // (Phase 3a-3) PREVIEW 모드: posts 대신 PREVIEW_DIR에만 쓰고 종료(라이브 발행 0).
+    if (previewDir) {
+      const previewPath = path.join(previewDir, filename);
+      // posts 보호: 출력 경로가 반드시 PREVIEW_DIR 하위인지 단언.
+      const rel = path.relative(previewDir, previewPath);
+      if (rel.startsWith('..') || path.isAbsolute(rel)) {
+        throw new Error(`[PREVIEW] 출력 경로가 PREVIEW_DIR 밖이라 중단: ${previewPath}`);
+      }
+      fs.writeFileSync(previewPath, mdContent, 'utf8');
+      console.log(`[PREVIEW] 미리보기 글 작성(posts 미기록): ${path.resolve(previewPath)}`);
+      return;
+    }
 
     const finalPath = path.join(postsDir, filename);
     if (DRY_RUN) {
