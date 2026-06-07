@@ -186,7 +186,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             />
 
             <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
+              remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
               components={{
                 img: ({ src, alt }) => (
                   // eslint-disable-next-line @next/next/no-img-element

@@ -56,7 +56,7 @@ const components: Components = {
 
 export default function MdContent({ children }: { children: string }) {
   return (
-    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={components}>
+    <ReactMarkdown remarkPlugins={[[remarkGfm, { singleTilde: false }]]} rehypePlugins={[rehypeRaw]} components={components}>
       {children}
     </ReactMarkdown>
   );
