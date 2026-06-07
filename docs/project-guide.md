@@ -199,6 +199,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-07 | [점검/문서] 축제 묶음 자동발행 점검 게이트(§4-15 Phase 4 = §4-15 완료) — daily-deploy-inspection.md [E]를 '블로그 품질(⏸셸브)'→'축제 묶음 자동발행 점검(활성)'으로 재작성, 신규 9항목(발행요일 정합·묶음↔본문 누수감시·직전제외·sourceIds 유효성·시기제목·상설 미혼입·쿠팡0·비교표 완전성·dedup 경로). [A]·맥락 프롬프트 1줄씩 목요일 발행 정합으로 정정(목요일=1편/그외=0). 1:1 시절 무관 ⏸가드는 '필요시 재방문'으로 보존. §5.2 게이트↔점검 짝 충족 | 배포대기(커밋 전) | docs/daily-deploy-inspection.md, docs/project-guide.md
 - 2026-06-07 | [발행/인프라] 축제 묶음 자동발행 활성화(§4-15 Phase 3b, 라이브 ON 코드·푸시 시 발효) — deploy.yml "Fetch…" step에 KST 목요일 가드 발행 라인 추가(SHELVED 4줄 그대로 유지, build-topic-report 後·validate 前). $(TZ=Asia/Seoul date +%u)=4일 때만 POST_TYPE=festival generate-blog-post 실행(UTC 러너라 TZ 필수)·그 외 스킵, 5건 미만이면 스크립트 자체 스킵. 발행 라인 if:schedule step 내부라 push 트리거 미발화. 검증: js-yaml 파싱·step7 정상·SHELVED 4줄 보존·Build/Deploy 미변경·오늘 date +%u=7로 발행 0. 푸시 후 다음 KST 목요일(6/11)부터 첫 자동발행 | 배포대기(커밋 전) | .github/workflows/deploy.yml, docs/project-guide.md
 - 2026-06-07 | [발행/정리] 생성기 쿠팡 제거 + 죽은 import 정리(§4-15 Phase 3a-6, 발행 OFF) — generate-blog-post.js에서 쿠팡 전부 삭제(extractCoupangKeyword·getCoupangProduct 함수·호출부·coupangPromptSection·coupangDisclosureSection·프롬프트 주입 토큰·주석헤더), 죽은 import 3개(crypto=쿠팡HMAC전용·COUPANG env·isFestivalExpired=셀렉터전환 미사용) 정리. 쿠팡은 festival/benefit 공통부라 양쪽서 제거(전체 일관성 의도). 검증: node --check 통과·잔여참조 0, PREVIEW 글 쿠팡 흔적 0·시기제목/sourceIds8/1분퀴즈/H2/결론 정상·비교표 8/8(이번 생성은 충족, 단 flash 비보장)·본문 5996자, posts 변화 0. 본문밖 쿠팡(AffiliateBanner·go리다이렉트·법적고지·기존posts10건)은 범위밖 미접촉 | 배포대기(커밋 전) | scripts/generate-blog-post.js, docs/project-guide.md
 - 2026-06-07 | [발행/정합] 묶음 제목 dedup 면제 완결(§4-15 Phase 3a-5, 발행 OFF) — isDuplicate의 skipProgramDedup→bundleMode 일반화: 묶음(true)은 rule1(완전일치)만 수행·rule2~5(포함·앞10자·Jaccard·program) 면제, 1:1/benefit(false)은 rule1~5 전부 유지. festival 최종재검사에 bundleMode=true 전달. 검증 단위 4/4: 묶음 2주vs1주(Jaccard0.6) 통과·완전동일 차단·program공유 통과 / 1:1 2주vs1주 차단(보호 불변). 3a-4 rule5-only가 rule4에 막히던 것 해소→주간발행 가능. PREVIEW posts 변화 0. 중복관리는 sourceIds 직전제외+rule1 안전망 | 배포대기(커밋 전) | scripts/generate-blog-post.js, docs/project-guide.md
@@ -298,13 +299,14 @@
     parenting이 거짓은 아니나 더 구체적 소속(disability/housing) 우선 또는 제목매칭 우선 휴리스틱 검토.
     데이터 관찰 후 우선순위 판단. (다중소속 카드 분류는 2026-06-06 완료, 이건 대표 1개 선정만 남은 잔재.)
 
-15. **축제 묶음 자동발행 구현** — generate-blog-post.js의 1:1 축제 생성을 '시기 묶음' 생성으로 재설계.
-    21일내 시작 축제 점수상위 5~8개를 한 글로, 주1 완전자동, 제목에 시기 박기+직전묶음 id 제외 가드,
-    5개미만 스킵. 설계 SSOT=docs/content-playbook.md §1. (셸브된 옛 코드 되살리기 아님 — 묶음 방식 신규.)
-    · 진행(2026-06-07): Phase 1·2a·2b·3a·3a-2①·3a-3~6·3b(목요일 가드 발행 라인, 라이브 ON 코드) 완료.
-    남은 것: Phase 4(자동발행 점검 게이트 — §5.2 발행 켜기 전 항목화) → 전체 1회 푸시(=발행 발효) → 6/11(목)
-    첫 자동발행 라이브 직접 확인(가)·문제시 가드 1줄 주석 롤백. 쿠팡 후속(3a-7·3a-8)·3a-2②·비교표 완전성은
-    발행과 독립 백로그. 라이브 발행 푸시 전까지 OFF.
+15. **축제 묶음 자동발행 — ✅ 완료(2026-06-07)**. (설계 SSOT) content-playbook §1. (구현) Phase 1 §4-17
+    연중상설 분리(festivalSpanDays·🔄). 2a calcScore lib 추출+날짜 SSOT 통일. 2b selectFestivalBundle
+    신설(만료·상설 제외+시작임박 dStart0~21+calcScore순 상위5~8·5미만 스킵)+보고서 통일. 3a 묶음전환+
+    BUNDLE_DRY+시기제목+sourceIds. 3a-2① 핫키워드 lib(generate·report SSOT). 3a-3 PREVIEW 검수. 3a-4 본문
+    N건 정합(누수 차단). 3a-5 묶음 dedup 면제(rule1만, rule2~5 면제로 주간발행 가능). 3a-6 쿠팡 제거+죽은
+    import 정리. 3b deploy.yml KST 목요일 가드(SHELVED 미변경, 별도 활성 라인). 4 일일점검 [E] 활성+9항목.
+    (라이브) 푸시 시 발효, 6/11(목) 첫 자동발행. (잔여 백로그) 쿠팡 후속 3a-7(AffiliateBanner·법적고지)·
+    3a-8(기존posts10건), 3a-2②(fetch 키워드 lib), 비교표 완전성(flash 비보장·코드조립 후보) — 전부 발행과 독립.
 
 16. **일일 보고서 3종 분류 개편 — ✅ 수정 적용 완료(2026-06-06)**. build-topic-report.js에 지원금 [용도]
     컬럼(📝블로그=실재 미래 마감 단발 / 📚pillar=상시·정기·미파싱, deadlineInfo 재활용)·축제 [시의성]
