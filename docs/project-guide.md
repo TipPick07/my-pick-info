@@ -197,6 +197,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-07 | [키워드/인프라] 핫키워드 SSOT 통합 generate·report(§4-15 Phase 3a-2①) — scripts/lib/hot-keywords.js 신설(SEASONAL_KEYWORDS 12개월 단일본=fetch=report 기준 각3개·getTodayHotKeywords 단일 함수·반환형 {keywords,source}·DataLab+seasonal 병합·폴백 내장). generate-blog-post.js 로컬 4함수(SEASONAL/getSeasonal/getNaverDataLab/getTodayHot) 제거→import, build-topic-report.js 로컬 2개 제거→import. generate의 이탈 키워드(12개월 슈퍼셋, 6월 '야외공연' 등) 불채택(기준=둘이 합의된 fetch=report). 검증(BUNDLE_DRY): 6월 키워드 generate·report 동일(야외공연 제거)·묶음 8/8 동점경계까지 일치·source 표기 보존·node --check 3파일 통과. fetch-public-data.js 미접촉(자체 복제본 유지+lib에 '동기화 필수' 주석, →3a-2②). 미리보기=발행 키워드 레벨 확정 | 배포대기(커밋 전) | scripts/lib/hot-keywords.js, scripts/generate-blog-post.js, scripts/build-topic-report.js, docs/project-guide.md
 - 2026-06-07 | [발행/인프라] festival 묶음 전환 + BUNDLE_DRY(§4-15 Phase 3a, 발행 OFF) — generate-blog-post.js festival 경로의 targetPersona 그룹핑→selectFestivalBundle 호출 교체(benefit 경로 else로 원형 보존). readLatestFestivalSourceIds(gray-matter)로 직전 festival 글 sourceIds 제외, seasonalBundleTitle 헬퍼+후처리 정규식으로 시기 제목 덮어쓰기·sourceIds 주입, topThemeName→'시기 묶음'·톤'임박 주말 중심'. BUNDLE_DRY=true면 Gemini·쓰기 전 묶음후보만 출력 후 return. 파편수정: data.festivals.reverse() 제자리 변형→[...].reverse()로 원본순서 복원(보고서와 tie-break 일치 보장). 검증(BUNDLE_DRY): 시기제목 '6월 1주' 정확·묶음 8/8 보고서 일치·score 147~90 일치·직전제외 동작(기존글 sourceIds 없어 0, 정상)·skipped=false. 일반 실행 안 함(posts 오염 0) | 배포대기(커밋 전) | scripts/generate-blog-post.js, docs/project-guide.md
 - 2026-06-07 | [선정/보고서] 묶음 셀렉터 SSOT 신설 + 보고서 연결(§4-15 Phase 2b) — scripts/lib/festival-bundle.js 신설(selectFestivalBundle: 만료·상설 제외 + 시작임박 dStart 0~21 + calcScore순 상위8, 5미만 skipped). festival-date.js에 RECURRING·isRecurring 헬퍼 추가(상시 판정 SSOT, 보고서 로컬 정규식 제거·import 전환). build-topic-report.js festPicks→셀렉터 호출, 🎪표 score를 calcHotScore→calcScore 통일(festival 한정·정렬도)·시의성 태그(✅/🌱/⏳/🔄) 보존. 검증: ⭐묶음=셀렉터(적격33·상설15제외·skipped=false), calcScore 정렬로 순서 재배열(서울국악 1→7위, 시작근접·주말 반영), 표 score=묶음 score 정합, 묶음 내 🔄 0건. benefit 경로·calcHotScore(benefit) 미접촉. 보고서가 발행 예고와 일치 | 배포대기(커밋 전) | scripts/lib/festival-date.js, scripts/lib/festival-bundle.js, scripts/build-topic-report.js, docs/project-guide.md
 - 2026-06-07 | [점수/인프라] calcScore lib 추출 + 날짜 SSOT 통일(§4-15 Phase 2a) — generate-blog-post.js의 calcScore(:230-288)를 scripts/lib/festival-score.js로 추출·export, 시그니처에 today 인자화(재현성). festival 시작일 처리를 인라인 정규식(./- 만, 컴팩트·~범위 누락 버그)→parseFestivalStartDate(festival-date SSOT)로 교체. generate-blog-post.js는 import로 전환(호출부 3곳·.md 생성·게이트 불변). 검증: 점/하이픈 샘플 3건 추출 전후 점수 동일(회귀 0), 컴팩트 날짜(20260610~12) 30→105로 시작근접·주말 보너스 정상 반영(옛 0 폴백 해소), node --check 양 파일 통과. §4-13·만료축제와 동일 인라인 날짜 버그를 발행 점수 경로서도 제거 | 배포대기(커밋 전) | scripts/lib/festival-score.js, scripts/generate-blog-post.js, docs/project-guide.md
@@ -294,10 +295,10 @@
 15. **축제 묶음 자동발행 구현** — generate-blog-post.js의 1:1 축제 생성을 '시기 묶음' 생성으로 재설계.
     21일내 시작 축제 점수상위 5~8개를 한 글로, 주1 완전자동, 제목에 시기 박기+직전묶음 id 제외 가드,
     5개미만 스킵. 설계 SSOT=docs/content-playbook.md §1. (셸브된 옛 코드 되살리기 아님 — 묶음 방식 신규.)
-    · 진행(2026-06-07): Phase 1(§4-17 상설분리)·2a(calcScore lib+날짜SSOT)·2b(셀렉터+보고서 통일)·
-    3a(묶음전환+BUNDLE_DRY, 발행 OFF) 완료. 남은 것: SEASONAL_KEYWORDS 드리프트 해소(발행4 vs 보고서3,
-    동점경계 미리보기≠발행 위험) → 3a-2, 그 뒤 3b(목요일 셸가드로 실제 ON)·Phase 4(점검게이트).
-    라이브 자동발행은 3b 전까지 OFF.
+    · 진행(2026-06-07): Phase 1·2a·2b·3a·3a-2①(키워드 SSOT generate·report 통합) 완료. 남은 것:
+    3a-2②(fetch-public-data.js를 hot-keywords lib로 전환, 데이터층이라 회귀 깐깐히)·3a-3(임시경로 실제 글
+    1편 품질 육안)·3b(목요일 셸가드 ON)·Phase 4(점검게이트). 라이브 자동발행 3b 전까지 OFF. fetch는 report와
+    이미 동기 상태라 미리보기=발행엔 영향 없음(②는 정합성 정리).
 
 16. **일일 보고서 3종 분류 개편 — ✅ 수정 적용 완료(2026-06-06)**. build-topic-report.js에 지원금 [용도]
     컬럼(📝블로그=실재 미래 마감 단발 / 📚pillar=상시·정기·미파싱, deadlineInfo 재활용)·축제 [시의성]

@@ -10,145 +10,9 @@ const { isFestivalExpired } = require('./lib/festival-date');
 const { calcScore } = require('./lib/festival-score');
 const { selectFestivalBundle } = require('./lib/festival-bundle');
 
-// ─── 방법3: 월별 계절 키워드 자동 주입 ────────────────────────────────────
-const SEASONAL_KEYWORDS = {
-  1: {
-    festival: ['설날행사', '겨울축제', '눈꽃축제', '얼음축제', '신년행사'],
-    benefit: ['난방비지원', '에너지바우처', '설맞이지원금', '취업지원금', '청년수당']
-  },
-  2: {
-    festival: ['봄맞이축제', '매화축제', '겨울끝자락', '실내전시'],
-    benefit: ['청년취업지원', '설연휴혜택', '복지급여', '근로장려금신청준비']
-  },
-  3: {
-    festival: ['벚꽃축제', '봄꽃축제', '개나리축제', '봄나들이'],
-    benefit: ['청년창업지원', '소상공인지원', '봄학기장학금', '취업성공패키지']
-  },
-  4: {
-    festival: ['벚꽃축제', '봄축제', '튤립축제', '어린이날준비행사'],
-    benefit: ['근로장려금', '자녀장려금', '봄맞이지원금', '청년주거지원']
-  },
-  5: {
-    festival: ['어린이날행사', '장미축제', '가정의달축제', '봄꽃축제', '연등회'],
-    benefit: ['근로장려금신청', '자녀장려금신청', '어린이날혜택', '가정의달지원금']
-  },
-  6: {
-    festival: ['여름축제', '물축제', '한강축제', '야외공연'],
-    benefit: ['청년지원금', '에너지바우처', '여름방학프로그램', '취업지원']
-  },
-  7: {
-    festival: ['여름축제', '물놀이행사', '워터페스티벌', '야외영화제'],
-    benefit: ['에너지취약계층지원', '여름방학지원', '청년주거지원', '소상공인여름지원']
-  },
-  8: {
-    festival: ['여름축제', '해변축제', '피서지행사', '별빛축제'],
-    benefit: ['개학맞이지원', '청년지원금', '주거급여', '저소득층지원']
-  },
-  9: {
-    festival: ['추석행사', '가을축제', '단풍축제', '한가위문화행사'],
-    benefit: ['추석명절지원금', '복지급여', '가을학기장학금', '노인복지혜택']
-  },
-  10: {
-    festival: ['단풍축제', '핼러윈행사', '가을꽃축제', '문화행사'],
-    benefit: ['난방비지원신청', '에너지바우처신청', '복지급여', '노후준비지원']
-  },
-  11: {
-    festival: ['겨울준비행사', '김장축제', '빛축제', '크리스마스마켓'],
-    benefit: ['에너지바우처', '난방비지원', '연말정산준비', '겨울복지지원']
-  },
-  12: {
-    festival: ['크리스마스행사', '연말축제', '겨울빛축제', '새해맞이행사'],
-    benefit: ['연말정산', '연말지원금', '겨울난방지원', '신년복지혜택']
-  }
-};
-
-function getSeasonalKeywords(postType) {
-  const month = new Date().getMonth() + 1;
-  const keywords = SEASONAL_KEYWORDS[month] || SEASONAL_KEYWORDS[5];
-  return postType === 'festival' ? keywords.festival : keywords.benefit;
-}
-// ──────────────────────────────────────────────────────────────────────────────
-
-// ─── 방법1: 네이버 DataLab 연동 ──────────────────────────────────────────────
-async function getNaverDataLabKeywords(postType) {
-  const clientId = process.env.NAVER_CLIENT_ID;
-  const clientSecret = process.env.NAVER_CLIENT_SECRET;
-
-  if (!clientId || !clientSecret) {
-    console.log('[DataLab] 네이버 API 키 없음 → 계절 키워드만 사용');
-    return [];
-  }
-
-  try {
-    const now = new Date();
-    const pad = n => String(n).padStart(2, '0');
-    const endDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-    const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
-    const startDate = `${weekAgo.getFullYear()}-${pad(weekAgo.getMonth() + 1)}-${pad(weekAgo.getDate())}`;
-
-    const keywordGroups = postType === 'festival'
-      ? [
-        { groupName: '축제', keywords: ['축제'] },
-        { groupName: '행사', keywords: ['행사'] },
-        { groupName: '나들이', keywords: ['나들이'] },
-        { groupName: '공연', keywords: ['공연'] }
-      ]
-      : [
-        { groupName: '지원금', keywords: ['지원금'] },
-        { groupName: '혜택', keywords: ['혜택'] },
-        { groupName: '복지', keywords: ['복지'] },
-        { groupName: '보조금', keywords: ['보조금'] }
-      ];
-
-    const body = {
-      startDate,
-      endDate,
-      timeUnit: 'date',
-      keywordGroups: keywordGroups
-    };
-
-    const response = await fetch('https://openapi.naver.com/v1/datalab/search', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Naver-Client-Id': clientId,
-        'X-Naver-Client-Secret': clientSecret
-      },
-      body: JSON.stringify(body)
-    });
-
-    if (!response.ok) {
-      console.warn(`[DataLab] API 응답 오류 (${response.status}) → 계절 키워드만 사용`);
-      return [];
-    }
-
-    const result = await response.json();
-
-    const scored = result.results.map(group => {
-      const recent = group.data.slice(-3);
-      const avg = recent.reduce((sum, d) => sum + d.ratio, 0) / recent.length;
-      return { name: group.title, score: avg };
-    });
-
-    scored.sort((a, b) => b.score - a.score);
-    const hotKeywords = scored.slice(0, 2).map(g => g.name);
-    console.log(`[DataLab] 핫 키워드 TOP2: ${hotKeywords.join(', ')}`);
-    return hotKeywords;
-
-  } catch (err) {
-    console.warn('[DataLab] 호출 실패 → 계절 키워드만 사용:', err.message);
-    return [];
-  }
-}
-
-async function getTodayHotKeywords(postType) {
-  const seasonal = getSeasonalKeywords(postType);
-  const datalab = await getNaverDataLabKeywords(postType);
-
-  const merged = [...new Set([...datalab, ...seasonal])];
-  console.log(`[핫 키워드] 오늘의 키워드 (${postType}): ${merged.slice(0, 5).join(', ')}`);
-  return merged;
-}
+// ─── 핫키워드: scripts/lib/hot-keywords.js(SSOT)로 추출(Phase 3a-2). 반환 { keywords, source }. ───
+// SEASONAL_KEYWORDS·DataLab 호출·병합 산식 일체를 보고서와 공유(드리프트 해소).
+const { getTodayHotKeywords } = require('./lib/hot-keywords');
 // ──────────────────────────────────────────────────────────────────────────────
 
 // ─── 쿠팡 파트너스 연동 ──────────────────────────────────────────────────────
@@ -396,8 +260,8 @@ async function main() {
       return;
     }
 
-    // ─── 오늘의 핫 키워드 수집 (방법1 + 방법3) ───────────────────────────
-    const hotKeywords = await getTodayHotKeywords(postType);
+    // ─── 오늘의 핫 키워드 수집 (lib SSOT — DataLab TOP2 + 계절 키워드 병합) ───────────────────────────
+    const { keywords: hotKeywords } = await getTodayHotKeywords(postType);
     // ──────────────────────────────────────────────────────────────────────
 
     // ─── 3개 폴더 중복 스캔: posts / drafts / review ──────────────────────
