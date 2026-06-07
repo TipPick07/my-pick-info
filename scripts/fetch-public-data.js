@@ -1711,6 +1711,7 @@ ${JSON.stringify(selectedData)}`;
             description: parsedParams.summary || '',
             targetPersona: parsedParams.targetPersona || '누구나',
             coreValue: parsedParams.coreValue || '유용한 정보',
+            addedAt: new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }),
             practicalTip: parsedParams.practicalTip || ''
           });
           existingTitles.add(_transformedTitle);
@@ -1880,6 +1881,7 @@ ${JSON.stringify(selectedData)}`;
             location: item.location || '',
             description: item.description || '',
             link: item.link || '',
+            addedAt: new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }),
           });
           existingFestTitles.add(item.title);
           existingFestNorm.add(normTitle(item.title));
@@ -1971,6 +1973,7 @@ ${JSON.stringify(selectedData)}`;
           mapx: fest.mapx || '',
           mapy: fest.mapy || '',
           content: generatedContent,
+          addedAt: new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }),
         };
 
         const festLocDateKey = (newFest.location && newFest.date) ? `${newFest.location.trim()}|${newFest.date.trim()}` : null;

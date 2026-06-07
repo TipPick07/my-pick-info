@@ -190,6 +190,8 @@ async function main() {
       title: f.title, region: f.region, period: f.date, id: f.id,
       // (Phase 2b) 축제 점수는 calcScore(festival-score)로 통일 — 시작근접·주말·키워드 반영. benefit은 calcHotScore 유지.
       score: calcFestScore(f, 'festival', fk.keywords, today),
+      // (§4-21 21-b) addedAt 오늘/어제 = 새로 크롤된 축제. benefit isNew(아래 :206)와 동일 today/yest 미러.
+      isNew: f.addedAt === today || f.addedAt === yest,
       written: written(f.title),
       dl: deadlineInfo(f.date, today),
       tl: festTimeliness(f.date, today),
@@ -276,6 +278,23 @@ async function main() {
     L.push(`| ${i + 1} | ${c.score} | ${c.tl.tag} | ${esc(c.title)} | ${esc(c.region)} | ${esc(c.period)} | [/festival/${esc(c.id)}/](https://tip-pick.com/festival/${esc(c.id)}/) | 가벼운 .md | ${c.written ? '✅' : ''} |`);
   });
   if (festCand.length === 0) L.push(`| – | – | – | (진행 중 축제 후보 없음) | – | – | – | – | – |`);
+  L.push('');
+
+  // 🆕 신규 축제 (§4-21 21-b) — addedAt 오늘/어제 = 새로 크롤된 축제. 수동 카톡·인스타 공유 픽.
+  //   isNew는 festCand에서 benefit(:206)과 동일 today/yest로 판정. 점수=calcScore(c.score), 핫키워드=fk.keywords 단순 포함표기.
+  L.push(`## 🆕 오늘 새로 크롤된 축제 (수동 공유용)`);
+  L.push('');
+  L.push(`> addedAt(오늘/어제) 기준 신규 축제 — 카톡·인스타 공유 픽. 기존 축제는 미소급이라 addedAt 적재 전엔 안 잡힘(내일 이후 점차 누적).`);
+  L.push('');
+  const festNew = festCand.filter((c) => c.isNew);
+  if (festNew.length) {
+    festNew.forEach((c) => {
+      const matched = fk.keywords.filter((kw) => (c.title || '').includes(kw));
+      L.push(`- ${esc(c.title)} · [/festival/${esc(c.id)}/](https://tip-pick.com/festival/${esc(c.id)}/) · score=${c.score} · 핫키워드: ${matched.length ? esc(matched.join(', ')) : '—'}`);
+    });
+  } else {
+    L.push(`- 🆕 오늘 신규 축제 없음(addedAt 적재 전 기존 축제는 미표기)`);
+  }
   L.push('');
 
   // 지원금 표 (생애주기 페이지별 노출 건수·다중소속, 임신·출산·육아 최상단)

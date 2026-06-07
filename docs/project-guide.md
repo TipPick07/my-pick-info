@@ -199,6 +199,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-08 | [발행/보고서] 신규 축제 매일 공유 트랙(§4-21 완료) — 21-a: fetch-public-data.js festival unshift 3곳(:1714/:1883/:1974)에 addedAt(sv-SE KST) 1줄 추가(benefit :1396/:1763 미러, 추가형·기존 116건 미소급). 21-b: build-topic-report.js에 🆕 신규 축제 섹션(:280-296)+festCand isNew(:194, benefit :208 미러), today/yest·calcScore(festival-score)·hot-keywords·esc 전부 재사용(신규 0). 읽기전용 보고서, 발행·dedup·merge 무접촉. 오늘 0건 정상(미소급, 내일 크론부터 누적). node --check 양파일 통과·순수삽입(fetch 3줄/report 19줄). 3a-2②(fetch→hot-keywords lib)는 치환형·반환shape 비호환이라 분리(별도 후속) | 배포대기(커밋 전) | scripts/fetch-public-data.js, scripts/build-topic-report.js, docs/project-guide.md
 - 2026-06-07 | [점검/문서] 축제 묶음 자동발행 점검 게이트(§4-15 Phase 4 = §4-15 완료) — daily-deploy-inspection.md [E]를 '블로그 품질(⏸셸브)'→'축제 묶음 자동발행 점검(활성)'으로 재작성, 신규 9항목(발행요일 정합·묶음↔본문 누수감시·직전제외·sourceIds 유효성·시기제목·상설 미혼입·쿠팡0·비교표 완전성·dedup 경로). [A]·맥락 프롬프트 1줄씩 목요일 발행 정합으로 정정(목요일=1편/그외=0). 1:1 시절 무관 ⏸가드는 '필요시 재방문'으로 보존. §5.2 게이트↔점검 짝 충족 | 배포대기(커밋 전) | docs/daily-deploy-inspection.md, docs/project-guide.md
 - 2026-06-07 | [발행/인프라] 축제 묶음 자동발행 활성화(§4-15 Phase 3b, 라이브 ON 코드·푸시 시 발효) — deploy.yml "Fetch…" step에 KST 목요일 가드 발행 라인 추가(SHELVED 4줄 그대로 유지, build-topic-report 後·validate 前). $(TZ=Asia/Seoul date +%u)=4일 때만 POST_TYPE=festival generate-blog-post 실행(UTC 러너라 TZ 필수)·그 외 스킵, 5건 미만이면 스크립트 자체 스킵. 발행 라인 if:schedule step 내부라 push 트리거 미발화. 검증: js-yaml 파싱·step7 정상·SHELVED 4줄 보존·Build/Deploy 미변경·오늘 date +%u=7로 발행 0. 푸시 후 다음 KST 목요일(6/11)부터 첫 자동발행 | 배포대기(커밋 전) | .github/workflows/deploy.yml, docs/project-guide.md
 - 2026-06-07 | [발행/정리] 생성기 쿠팡 제거 + 죽은 import 정리(§4-15 Phase 3a-6, 발행 OFF) — generate-blog-post.js에서 쿠팡 전부 삭제(extractCoupangKeyword·getCoupangProduct 함수·호출부·coupangPromptSection·coupangDisclosureSection·프롬프트 주입 토큰·주석헤더), 죽은 import 3개(crypto=쿠팡HMAC전용·COUPANG env·isFestivalExpired=셀렉터전환 미사용) 정리. 쿠팡은 festival/benefit 공통부라 양쪽서 제거(전체 일관성 의도). 검증: node --check 통과·잔여참조 0, PREVIEW 글 쿠팡 흔적 0·시기제목/sourceIds8/1분퀴즈/H2/결론 정상·비교표 8/8(이번 생성은 충족, 단 flash 비보장)·본문 5996자, posts 변화 0. 본문밖 쿠팡(AffiliateBanner·go리다이렉트·법적고지·기존posts10건)은 범위밖 미접촉 | 배포대기(커밋 전) | scripts/generate-blog-post.js, docs/project-guide.md
@@ -353,6 +354,13 @@
     build-topic-report.js에 🆕 신규 축제 섹션(addedAt 오늘/어제 필터, 각 [제목·/festival 링크·calcScore·
     핫키워드 매칭] 한 줄) 추가. (주의) 21-a는 매일 도는 크롤 핵심 파일이라 읽기전용 조사 선행·회귀 신중.
     이번에 미룬 3a-2②(fetch를 hot-keywords lib로 전환)도 같은 파일이라 함께 진행 후보.
+22. **지원금 dedup 제도명 사전 보강(재유입 차단) — 신규(2026-06-08 등재)**. (배경) 깡충깡충 중복(6/8 점검
+    최우선★)이 제목 꼬리말 차이로 findBenefitDuplicate(자치구 가드+bigram Jaccard 0.42+포함률)를 통과.
+    567890123 삭제는 현 중복만 해소 — 복지로 재서빙+게이트 재실패 시 다른 새 id로 재유입 가능(567890123
+    자체는 랜덤숫자라 재등장 불가). (선행, 읽기전용) findBenefitDuplicate가 블로그 isDuplicate처럼 '제도·
+    행사명 공유 차단'을 갖는지 확인(지침서 §2 기준 benefit 게이트엔 미기재 → 신설일 가능성) — 없으면 신설,
+    있으면 '깡충깡충 성장양육지원금' 정규화 키 추가. (충돌 가드) 정규화 키가 서로 다른 자치구의 동일 제도명을
+    거짓 병합하지 않게 자치구 가드와 AND 유지. 우선순위 미정.
 
 ## 5. 이 문서 사용법
 
