@@ -48,6 +48,12 @@ function isFestivalExpired(dateStr, today) {
   return end < t;
 }
 
+// '상시류'(종료일 없는 지속/반복) 표기 패턴 — 연중상설 식별의 텍스트 신호. SSOT.
+const RECURRING = /상시|수시|연중|매월|매년|정기|모집중/;
+function isRecurring(dateStr) {
+  return RECURRING.test(dateStr || '');
+}
+
 // 행사 기간 폭(일수) = 종료 − 시작. 둘 다 파싱돼야 산정(하나라도 null이면 null).
 // 단일 날짜는 시작=종료라 0. 연중상설 식별(폭 ≥ N일) 등에 쓰는 SSOT.
 function festivalSpanDays(dateStr) {
@@ -65,4 +71,6 @@ module.exports = {
   parseFestivalEndDate,
   isFestivalExpired,
   festivalSpanDays,
+  RECURRING,
+  isRecurring,
 };

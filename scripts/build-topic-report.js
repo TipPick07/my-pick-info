@@ -23,7 +23,9 @@ const fs = require('fs');
 const path = require('path');
 try { require('dotenv').config({ path: '.env.local' }); } catch (_) { /* dotenv 없거나 키 없어도 무방 */ }
 const matter = require('gray-matter');
-const { isFestivalExpired, parseFestivalStartDate, parseFestivalEndDate, festivalSpanDays } = require('./lib/festival-date');
+const { isFestivalExpired, parseFestivalStartDate, parseFestivalEndDate, festivalSpanDays, isRecurring } = require('./lib/festival-date');
+const { calcScore: calcFestScore } = require('./lib/festival-score');
+const { selectFestivalBundle } = require('./lib/festival-bundle');
 
 const ROOT = path.join(__dirname, '..');
 const DATA = path.join(ROOT, 'public/data/pick-info.json');
@@ -144,11 +146,11 @@ function situationsOf(b) {
 function isExpired(dateStr, today) {
   return isFestivalExpired(dateStr, today);
 }
-const RECURRING = /상시|수시|연중|매월|매년|정기|모집중/; // '상시류' = 종료일 없는 지속/반복
+// '상시류' 판정은 festival-date.js의 isRecurring(SSOT)을 사용 — 패턴 미러 금지.
 // 마감임박: deadline이 파싱돼 오늘부터 7일 이내(0~7일). 이벤트성: 상시류가 아니며 종료일이 실재하는 단발.
 function deadlineInfo(dateStr, today) {
   const end = parseFestivalEndDate(dateStr);
-  const recurring = RECURRING.test(dateStr || '');
+  const recurring = isRecurring(dateStr);
   if (!end) return { hasEnd: false, recurring, daysLeft: null, imminent: false, eventLike: false };
   const t = today ? new Date(today) : new Date();
   t.setHours(0, 0, 0, 0);
@@ -180,7 +182,7 @@ function festTimeliness(dateStr, today) {
   if (dEnd !== null && dEnd >= 0 && dEnd <= 7) return { tag: '⏳', unparsed: false, dStart, dEnd }; // 마감임박
   // (§4-17) 상설 분리: 기간 폭 ≥ 임계 또는 상시류 텍스트면 🔄(상설) — ✅ 추천/묶음 집계에서 제외.
   const span = festivalSpanDays(dateStr);
-  const perennial = (span !== null && span >= PERENNIAL_SPAN_DAYS) || RECURRING.test(dateStr || '');
+  const perennial = (span !== null && span >= PERENNIAL_SPAN_DAYS) || isRecurring(dateStr);
   if (perennial) return { tag: '🔄', unparsed: false, dStart, dEnd };                                // 상설(연중 운영)
   const ongoing = (dStart !== null && dStart <= 0) && (dEnd === null || dEnd >= 0);                  // 진행 중
   const startingSoon = (dStart !== null && dStart >= 0 && dStart <= 21);                              // 21일 내 시작
@@ -242,7 +244,8 @@ async function main() {
     .filter((f) => !isExpired(f.date, today))
     .map((f) => ({
       title: f.title, region: f.region, period: f.date, id: f.id,
-      score: calcHotScore({ title: f.title, description: f.description }, fk.keywords),
+      // (Phase 2b) 축제 점수는 calcScore(festival-score)로 통일 — 시작근접·주말·키워드 반영. benefit은 calcHotScore 유지.
+      score: calcFestScore(f, 'festival', fk.keywords, today),
       written: written(f.title),
       dl: deadlineInfo(f.date, today),
       tl: festTimeliness(f.date, today),
@@ -296,23 +299,24 @@ async function main() {
     L.push(`- 오늘 마감 임박 단발 없음 — 상시 제도는 pillar로.`);
   }
   L.push('');
-  // 🎪 축제 묶음 후보: 시의성=✅ 을 점수순으로(상록 0점이 자리 차지 안 하게), 5개 이상이면 묶음 제안
-  // (§4-17) 🔄(상설)은 ✅ 집계·묶음에서 제외하고 별도 카운트만 둔다.
-  const festPicks = festCand.filter((c) => c.tl.tag === '✅').sort((a, b) => b.score - a.score);
+  // 🎪 축제 묶음 후보: 발행과 공유하는 셀렉터(festival-bundle SSOT)로 산출.
+  //   적격 = 만료·상설 제외 + 시작 임박(0~21일), 정렬 = calcScore, 상위 8, 5건 미만이면 스킵.
+  // (§4-17) 🔄(상설)은 셀렉터가 제외하고, 표시는 festTimeliness 태그로 별도 카운트만 둔다.
   const festPerennial = festCand.filter((c) => c.tl.tag === '🔄');
-  L.push(`**🎪 축제 묶음 후보** (✅ 추천 ${festPicks.length}건 · 🔄 상설 ${festPerennial.length}건 제외)`);
+  const bundle = selectFestivalBundle(festivals, today, fk.keywords);
+  L.push(`**🎪 축제 묶음 후보** (시작 임박 적격 ${bundle.eligibleCount}건 · 🔄 상설 ${festPerennial.length}건 제외)`);
   L.push('');
-  if (festPicks.length >= 5) {
-    L.push(`- **이 묶음으로 블로그 1편 작성할까요?** (점수 상위 ${Math.min(festPicks.length, 8)}개 구성)`);
-    festPicks.slice(0, 8).forEach((c) => {
-      L.push(`  - ${esc(c.title)} (${esc(c.region)}, ${esc(c.period)})`);
+  if (!bundle.skipped) {
+    L.push(`- **이 묶음으로 블로그 1편 작성할까요?** (calcScore 상위 ${bundle.items.length}개 구성)`);
+    bundle.items.forEach((c) => {
+      L.push(`  - ${esc(c.title)} (${esc(c.region)}, ${esc(c.date)}) · ${c.score}점`);
     });
   } else {
-    L.push(`- 이번 주 묶음 기준 미달(✅ ${festPicks.length}건) — 플레이북 §1상 5개 미만 스킵.`);
+    L.push(`- 이번 주 묶음 기준 미달(시작 임박 ${bundle.eligibleCount}건 < 5) — 플레이북 §1상 5개 미만 스킵.`);
   }
   L.push('');
 
-  L.push(`- **상대점수**: pick-info에 저장된 점수가 없어, fetch가 정렬에 쓴 것과 동일 알고리즘(\`calcHotScore\` × DataLab/계절 핫키워드)으로 **재계산**한 값입니다. 절대치가 아니라 **후보군 내 상대 비교용**입니다.`);
+  L.push(`- **상대점수**: pick-info에 저장된 점수가 없어 재계산한 값(절대치 아님, 후보군 내 상대 비교용). 축제는 발행과 동일한 \`calcScore\`(시작근접·주말·DataLab/계절 핫키워드), 지원금은 \`calcHotScore\`(키워드) 기준입니다.`);
   L.push(`- 핫키워드 출처 — 축제: \`${fk.source}\` (${fk.keywords.slice(0, 4).join(', ')}) / 지원금: \`${bk.source}\` (${bk.keywords.slice(0, 4).join(', ')})`);
   L.push(`- **NEW**: 지원금은 \`addedAt\`(오늘/어제) 기준. 축제는 pick-info에 등록일 필드가 없어 NEW 판정 불가(—).`);
   L.push('');
