@@ -147,13 +147,20 @@ function normTitle(title) {
 }
 
 // existingPosts: readPostTitlesFromDir() 반환 배열 (norm + keywords + programs 포함)
-function isDuplicate(newNorm, newKeywords, newPrograms, existingPosts) {
+// bundleMode: 축제 '시기 묶음' 글 전용. 묶음 글은 제목이 매주 고정 라벨('주말 수도권 가족축제')+주차라
+//   의도적으로 서로 유사하다 — 제목 유사도 검사(rule2 포함·rule3 앞10자·rule4 Jaccard·rule5 program)는
+//   1:1 글 전용이라 묶음엔 부적합(둘째 주부터 오차단). 묶음 중복방지는 sourceIds 직전제외(셀렉터)가
+//   담당하므로(플레이북 §1), 묶음 모드에선 rule1(normTitle 완전일치)만 '같은 주 중복발행' 안전망으로
+//   유지하고 rule2~5는 전부 건너뛴다. 1:1 글·benefit 경로(bundleMode=false)는 rule1~5 전부 수행(현행).
+function isDuplicate(newNorm, newKeywords, newPrograms, existingPosts, bundleMode = false) {
   if (!newNorm || newNorm.length < 4) return false;
   for (const existing of existingPosts) {
     const existNorm = existing.norm;
     if (!existNorm || existNorm.length < 4) continue;
-    // 1. 정규화 제목 완전 일치
+    // 1. 정규화 제목 완전 일치 (묶음·1:1 공통 — 같은 주 중복발행 안전망)
     if (newNorm === existNorm) return true;
+    // ↓ rule2~5는 제목 유사도 기반 = 1:1 전용. 묶음(bundleMode)은 의도적 유사라 면제.
+    if (bundleMode) continue;
     // 2. 포함 관계
     if (newNorm.includes(existNorm) || existNorm.includes(newNorm)) return true;
     // 3. 앞 10자 일치
@@ -465,7 +472,7 @@ async function main() {
 
 이 글은 ${publishCategory} 테마별 비교·분석 큐레이션 블로그 포스트입니다.
 당신은 수도권 생활 정보 큐레이션 서비스 '수도권 팁픽(Tip-Pick)'의 전문 에디터이자 SEO 전문가입니다.
-아래 제공된 3~4개의 공공서비스 데이터 세트를 바탕으로, 구글/네이버 검색 상위 노출이 가능한 프리미엄 비교/분석 큐레이션 블로그 글을 작성해줘.
+아래 제공된 ${targetItems.length}개의 공공서비스 데이터 세트를 바탕으로, 구글/네이버 검색 상위 노출이 가능한 프리미엄 비교/분석 큐레이션 블로그 글을 작성해줘.
 
 선정된 테마(페르소나): ${topThemeName}
 정보 데이터 세트(배열): ${JSON.stringify(targetItems, null, 2)}
@@ -487,7 +494,8 @@ ${publishCategory === '축제/행사'
    - 서론 직후에 독자가 본인의 대상 여부를 확인할 수 있도록 마크다운 체크박스('- [ ]')를 사용한 O/X 퀴즈 영역을 반드시 만드세요.
    - 제공된 데이터의 'eligibilityQuiz' 배열 항목들을 활용해 인터랙티브하게 구성하세요.
 3. 본론 (Body - 비교 및 분석 큐레이션):
-   - 3~4개의 데이터를 단순 나열하지 마세요. 각 항목이 어떤 점이 좋고, 누가 신청/방문하면 좋을지 서로 **비교·분석**하는 형태로 서술하세요.
+   - ⚠️ 제공된 ${targetItems.length}개 데이터를 **하나도 빠짐없이 전부** 다뤄라. 상위 일부만 쓰지 말 것. ${targetItems.length}개 각각에 대해 **개별 소개 문단(또는 소제목 블록)을 ${targetItems.length}개** 작성하라.
+   - 단순 나열은 금지 — 각 항목이 어떤 점이 좋고, 누가 신청/방문하면 좋을지 서로 **비교·분석**하는 형태로 서술하세요.
    - 각 데이터의 'targetPersona', 'coreValue'를 활용하여 명확한 타겟팅을 제시하세요.
    - 데이터에 'simulation' 내용이 있다면 (예: 연간 120만원 절약) 이를 시각적으로 눈에 띄게 배치하여 기대 효용을 극대화하세요.
    - 데이터에 'practicalTip' 내용이 있다면 (예: 서류 발급 꿀팁, 주차 꿀팁) 실무적인 팁으로 강조해서 서술하세요.
@@ -502,7 +510,7 @@ ${publishCategory === '축제/행사'
 1. 핵심 키워드는 제목 1회, 본문 첫 문단 1회, 소제목 1회 이내로만 사용. 3회 이상 반복 금지.
 2. LSI 키워드(연관 키워드) 전략: 핵심 키워드 대신 '혜택', '보조금', '신청' 등 다양한 표현 사용.
 3. 메타 디스크립션(summary)은 150자 이내, 클릭 유도형 문장 사용 (수치/날짜 필수).
-4. 표(Table) 1개 이상 필수 포함 (3~4개 데이터의 핵심 정보 비교표 권장). 단, 아래 표 작성 규칙을 반드시 지킬 것:
+4. 표(Table) 1개 이상 필수 — 비교표에 제공된 **${targetItems.length}개 데이터 행을 모두 포함**(누락 금지, 행 수 = ${targetItems.length}). 단, 아래 표 작성 규칙을 반드시 지킬 것:
    - 표는 컬럼 3~4개 이내로 제한(6개 이상 금지).
    - 각 셀은 짧은 핵심 어구로만 작성. 긴 쉼표 나열(프로그램 목록·대상 상세 설명 등)은 셀에 넣지 말고, 표 아래 문단이나 불릿(-)으로 풀어 쓸 것.
    - 표에는 반드시 **헤더 행**을 포함하고, 그 아래 구분선(| :--- | :--- |), 그 아래 데이터 행 순서로 작성. 헤더 없이 구분선부터 시작 금지.
@@ -807,7 +815,8 @@ officialTip: (1~2문장의 간결한 평문으로 작성. 번호 매기기·별�
         const finalNorm = normTitle(finalTitle);
         const finalKeywords = new Set(extractKeywords(finalTitle));
         const finalPrograms = extractProgramNames(finalTitle);
-        if (isDuplicate(finalNorm, finalKeywords, finalPrograms, allExistingPosts)) {
+        // 축제 묶음(postType==='festival')은 bundleMode — 제목 유사도(rule2~5) 면제, rule1 완전일치만. 중복은 sourceIds가 담당.
+        if (isDuplicate(finalNorm, finalKeywords, finalPrograms, allExistingPosts, postType === 'festival')) {
           console.warn(`[중복 차단·생성후] 최종 제목이 기존 글과 중복 → 발행 취소: "${finalTitle}"`);
           return;
         }

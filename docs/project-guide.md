@@ -197,6 +197,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-07 | [발행/정합] 묶음 제목 dedup 면제 완결(§4-15 Phase 3a-5, 발행 OFF) — isDuplicate의 skipProgramDedup→bundleMode 일반화: 묶음(true)은 rule1(완전일치)만 수행·rule2~5(포함·앞10자·Jaccard·program) 면제, 1:1/benefit(false)은 rule1~5 전부 유지. festival 최종재검사에 bundleMode=true 전달. 검증 단위 4/4: 묶음 2주vs1주(Jaccard0.6) 통과·완전동일 차단·program공유 통과 / 1:1 2주vs1주 차단(보호 불변). 3a-4 rule5-only가 rule4에 막히던 것 해소→주간발행 가능. PREVIEW posts 변화 0. 중복관리는 sourceIds 직전제외+rule1 안전망 | 배포대기(커밋 전) | scripts/generate-blog-post.js, docs/project-guide.md
 - 2026-06-07 | [발행/검수] PREVIEW_DIR 모드 + 첫 글 품질 검수(§4-15 Phase 3a-3, 발행 OFF) — generate-blog-post.js에 PREVIEW_DIR 추가(설정 시 posts 대신 임시폴더 write, isDuplicate 우회, 출력경로 PREVIEW_DIR 하위 단언, mkdir 보장). 모드순위 BUNDLE_DRY→PREVIEW→DRY_RUN→일반. 검증: 글이 scripts/_preview/에만 생성·posts 변화 0(git status), GEMINI 실호출 성공, 시기제목/originalTitle/sourceIds8/category/비교표/1분퀴즈/쿠팡고지 정상. 본문 골격 합격. 발견 2건(3b 차단막)→3a-4: ①묶음8 vs 본문4 불일치(프롬프트 '3~4개' 잔존, sourceIds엔 8건이라 다음주 직전제외 시 미작성 4건 누수) ②'가족축제' 프로그램토큰 isDuplicate 충돌(주2회차 차단). benefit·DRY_RUN·BUNDLE_DRY 불변 | 배포대기(커밋 전) | scripts/generate-blog-post.js, docs/project-guide.md
 - 2026-06-07 | [키워드/인프라] 핫키워드 SSOT 통합 generate·report(§4-15 Phase 3a-2①) — scripts/lib/hot-keywords.js 신설(SEASONAL_KEYWORDS 12개월 단일본=fetch=report 기준 각3개·getTodayHotKeywords 단일 함수·반환형 {keywords,source}·DataLab+seasonal 병합·폴백 내장). generate-blog-post.js 로컬 4함수(SEASONAL/getSeasonal/getNaverDataLab/getTodayHot) 제거→import, build-topic-report.js 로컬 2개 제거→import. generate의 이탈 키워드(12개월 슈퍼셋, 6월 '야외공연' 등) 불채택(기준=둘이 합의된 fetch=report). 검증(BUNDLE_DRY): 6월 키워드 generate·report 동일(야외공연 제거)·묶음 8/8 동점경계까지 일치·source 표기 보존·node --check 3파일 통과. fetch-public-data.js 미접촉(자체 복제본 유지+lib에 '동기화 필수' 주석, →3a-2②). 미리보기=발행 키워드 레벨 확정 | 배포대기(커밋 전) | scripts/lib/hot-keywords.js, scripts/generate-blog-post.js, scripts/build-topic-report.js, docs/project-guide.md
 - 2026-06-07 | [발행/인프라] festival 묶음 전환 + BUNDLE_DRY(§4-15 Phase 3a, 발행 OFF) — generate-blog-post.js festival 경로의 targetPersona 그룹핑→selectFestivalBundle 호출 교체(benefit 경로 else로 원형 보존). readLatestFestivalSourceIds(gray-matter)로 직전 festival 글 sourceIds 제외, seasonalBundleTitle 헬퍼+후처리 정규식으로 시기 제목 덮어쓰기·sourceIds 주입, topThemeName→'시기 묶음'·톤'임박 주말 중심'. BUNDLE_DRY=true면 Gemini·쓰기 전 묶음후보만 출력 후 return. 파편수정: data.festivals.reverse() 제자리 변형→[...].reverse()로 원본순서 복원(보고서와 tie-break 일치 보장). 검증(BUNDLE_DRY): 시기제목 '6월 1주' 정확·묶음 8/8 보고서 일치·score 147~90 일치·직전제외 동작(기존글 sourceIds 없어 0, 정상)·skipped=false. 일반 실행 안 함(posts 오염 0) | 배포대기(커밋 전) | scripts/generate-blog-post.js, docs/project-guide.md
@@ -296,9 +297,10 @@
 15. **축제 묶음 자동발행 구현** — generate-blog-post.js의 1:1 축제 생성을 '시기 묶음' 생성으로 재설계.
     21일내 시작 축제 점수상위 5~8개를 한 글로, 주1 완전자동, 제목에 시기 박기+직전묶음 id 제외 가드,
     5개미만 스킵. 설계 SSOT=docs/content-playbook.md §1. (셸브된 옛 코드 되살리기 아님 — 묶음 방식 신규.)
-    · 진행(2026-06-07): Phase 1·2a·2b·3a·3a-2①·3a-3(PREVIEW 글 검수, 골격 합격) 완료. 3b 전 필수 =
-    3a-4(①묶음 N건 본문 정합으로 누수 차단 ②묶음 program-dedup 면제, sourceIds로만 중복관리). 이후
-    3b(목요일 셸가드 ON)·Phase 4(점검게이트)·3a-2②(fetch 키워드 lib 전환, 데이터층). 라이브 자동발행 3b 전까지 OFF.
+    · 진행(2026-06-07): Phase 1·2a·2b·3a·3a-2①·3a-3·3a-4·3a-5(묶음 dedup 완결, 주간발행 가능) 완료 —
+    dedup 3b차단막 해소. 다음 = 3a-6(쿠팡 파트너스 제거: 일관성·형식 정합 위해 당분간 묶음 본문서 제외,
+    isFestivalExpired 죽은 import도 정리)·이후 3b(목요일 셸가드 ON)·Phase 4(점검게이트). 비차단 백로그:
+    비교표 N행 완전성(flash 부분준수)·3a-2②(fetch 키워드 lib). 라이브 발행 3b 전까지 OFF.
 
 16. **일일 보고서 3종 분류 개편 — ✅ 수정 적용 완료(2026-06-06)**. build-topic-report.js에 지원금 [용도]
     컬럼(📝블로그=실재 미래 마감 단발 / 📚pillar=상시·정기·미파싱, deadlineInfo 재활용)·축제 [시의성]
