@@ -3,95 +3,14 @@ dotenv.config({ path: '.env.local' });
 
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 const fallbacks = require('../src/lib/image-fallbacks.json');
 const matter = require('gray-matter');
-const { isFestivalExpired } = require('./lib/festival-date');
 const { calcScore } = require('./lib/festival-score');
 const { selectFestivalBundle } = require('./lib/festival-bundle');
 
 // ─── 핫키워드: scripts/lib/hot-keywords.js(SSOT)로 추출(Phase 3a-2). 반환 { keywords, source }. ───
 // SEASONAL_KEYWORDS·DataLab 호출·병합 산식 일체를 보고서와 공유(드리프트 해소).
 const { getTodayHotKeywords } = require('./lib/hot-keywords');
-// ──────────────────────────────────────────────────────────────────────────────
-
-// ─── 쿠팡 파트너스 연동 ──────────────────────────────────────────────────────
-function extractCoupangKeyword(title) {
-  return (title || '')
-    .replace(/\d{4}/g, '')
-    .replace(/서울특별시|서울시|서울|인천광역시|인천시|인천|경기도|경기|수도권/g, '')
-    .replace(/가이드|총정리|완벽|정보|안내|꿀팁|추천|비교|일정|방법|신청/g, '')
-    .trim()
-    .split(/[\s·\-\/—]/)
-    .filter(w => w.length >= 2)
-    .slice(0, 2)
-    .join(' ')
-    .trim();
-}
-
-async function getCoupangProduct(keyword) {
-  const accessKey = process.env.COUPANG_ACCESS_KEY;
-  const secretKey = process.env.COUPANG_SECRET_KEY;
-
-  if (!accessKey || !secretKey) {
-    console.log('[쿠팡] API 키 없음 → 제휴 링크 생략');
-    return null;
-  }
-
-  const searchKeyword = keyword || '베스트셀러';
-
-  try {
-    const method = 'GET';
-    const domain = 'https://api-gateway.coupang.com';
-    const apiPath = '/v2/providers/affiliate_open_api/apis/openapi/v1/products/search';
-    const queryString = `keyword=${encodeURIComponent(searchKeyword)}&limit=1`;
-
-    const now = new Date();
-    const pad = n => String(n).padStart(2, '0');
-    const yy = String(now.getUTCFullYear()).slice(2);
-    const mm = pad(now.getUTCMonth() + 1);
-    const dd = pad(now.getUTCDate());
-    const hh = pad(now.getUTCHours());
-    const mi = pad(now.getUTCMinutes());
-    const ss = pad(now.getUTCSeconds());
-    const datetime = `${yy}${mm}${dd}T${hh}${mi}${ss}Z`;
-    const message = datetime + method + apiPath + queryString;
-    const signature = crypto.createHmac('sha256', secretKey).update(message).digest('hex');
-    const authorization = `CEA algorithm=HmacSHA256, access-key=${accessKey}, signed-date=${datetime}, signature=${signature}`;
-
-    const response = await fetch(`${domain}${apiPath}?${queryString}`, {
-      method,
-      headers: {
-        'Authorization': authorization,
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    });
-
-    if (!response.ok) {
-      console.warn(`[쿠팡] API 응답 오류 (${response.status}) → 제휴 링크 생략`);
-      return null;
-    }
-
-    const result = await response.json();
-
-    if (result.rCode !== '0' || !result.data?.productData?.length) {
-      console.log(`[쿠팡] "${searchKeyword}" 검색 결과 없음 → 제휴 링크 생략`);
-      return null;
-    }
-
-    const product = result.data.productData[0];
-    console.log(`[쿠팡] 연결 상품 발견: "${product.productName}"`);
-    return {
-      name: product.productName,
-      url: product.productUrl,
-      price: product.productPrice
-    };
-
-  } catch (err) {
-    console.warn('[쿠팡] 호출 실패 → 제휴 링크 생략:', err.message);
-    return null;
-  }
-}
 // ──────────────────────────────────────────────────────────────────────────────
 
 // ─── 후보 점수: scripts/lib/festival-score.js로 추출(Phase 2a) ────────────────
@@ -441,27 +360,6 @@ async function main() {
       }
     }
 
-    // ─── 쿠팡 파트너스 제휴 상품 검색 (메인 아이템 기준) ───────────────────
-    const mainTitleForCoupang = targetItems[0].title;
-    const coupangKeyword = extractCoupangKeyword(mainTitleForCoupang);
-    const coupangProduct = await getCoupangProduct(coupangKeyword);
-
-    // 쿠팡 상품이 있을 때만 프롬프트에 주입할 섹션 구성
-    const coupangPromptSection = coupangProduct ? `
-[쿠팡 파트너스 제휴 상품 링크 - 반드시 포함]
-아래 버튼 링크를 본문에서 가장 자연스러운 위치(준비물·추천 상품·쇼핑 안내 이후 등)에 한 번만 삽입하세요:
-[👉 ${coupangProduct.name} — 쿠팡에서 확인하기](${coupangProduct.url})
-
-` : '';
-
-    const coupangDisclosureSection = coupangProduct ? `
-[공정위 고시 문구 - 반드시 포함]
-브랜드 문구("매일 아침...") 바로 다음 줄에 이탤릭체로 추가하세요:
-*이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.*
-
-` : '';
-    // ──────────────────────────────────────────────────────────────────────
-
     // 2. Gemini AI로 블로그 글 생성
     const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
     const prompt = {
@@ -522,7 +420,7 @@ ${publishCategory === '축제/행사'
 8. officialTip: 신청 실전 팁을 1~2문장의 간결한 평문으로 작성. 번호 매기기·별표(**)·마크다운 사용 금지(페이지가 평문으로 표시함). 감상문·홍보 문구 금지.
 9. officialCurationNote: "이런 분께 강력 추천합니다: [대상]" 형식으로 구체적 수치(금액·기한) 포함 1~2문장으로 작성.
 
-${coupangPromptSection}${coupangDisclosureSection}아래 형식으로만 출력. YAML Frontmatter 포함. 다른 설명 제외.
+아래 형식으로만 출력. YAML Frontmatter 포함. 다른 설명 제외.
 **응답 첫 번째 줄에 반드시** 아래 형식으로 파일명을 출력할 것 (이 줄이 없으면 응답 전체가 무효 처리됨):
 FILENAME: YYYY-MM-DD-영문-키워드-슬러그 (예: FILENAME: 2026-06-01-seoul-yongsan-disabled-birth-support)
 ---
