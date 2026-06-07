@@ -23,7 +23,7 @@ const fs = require('fs');
 const path = require('path');
 try { require('dotenv').config({ path: '.env.local' }); } catch (_) { /* dotenv 없거나 키 없어도 무방 */ }
 const matter = require('gray-matter');
-const { isFestivalExpired, parseFestivalStartDate, parseFestivalEndDate } = require('./lib/festival-date');
+const { isFestivalExpired, parseFestivalStartDate, parseFestivalEndDate, festivalSpanDays } = require('./lib/festival-date');
 
 const ROOT = path.join(__dirname, '..');
 const DATA = path.join(ROOT, 'public/data/pick-info.json');
@@ -165,6 +165,8 @@ function benefitUsage(dl) {
   return (dl.hasEnd && !dl.recurring) ? '📝' : '📚';
 }
 // [시의성] 축제: festival-date.js(시작·종료 SSOT)로 오늘 기준 판정. 첫 매치 우선.
+// (§4-17) 연중상설 임계 — 기간 폭이 이 일수 이상이면 단발 행사가 아니라 상시 운영처로 보고 추천(✅)에서 분리.
+const PERENNIAL_SPAN_DAYS = 90;
 function festTimeliness(dateStr, today) {
   const start = parseFestivalStartDate(dateStr);
   const end = parseFestivalEndDate(dateStr);
@@ -176,6 +178,10 @@ function festTimeliness(dateStr, today) {
   const dEnd = end ? diff(end) : null;
   if (start === null && end === null) return { tag: '🌱', unparsed: true, dStart, dEnd }; // 미파싱 → 보수(추천 제외)
   if (dEnd !== null && dEnd >= 0 && dEnd <= 7) return { tag: '⏳', unparsed: false, dStart, dEnd }; // 마감임박
+  // (§4-17) 상설 분리: 기간 폭 ≥ 임계 또는 상시류 텍스트면 🔄(상설) — ✅ 추천/묶음 집계에서 제외.
+  const span = festivalSpanDays(dateStr);
+  const perennial = (span !== null && span >= PERENNIAL_SPAN_DAYS) || RECURRING.test(dateStr || '');
+  if (perennial) return { tag: '🔄', unparsed: false, dStart, dEnd };                                // 상설(연중 운영)
   const ongoing = (dStart !== null && dStart <= 0) && (dEnd === null || dEnd >= 0);                  // 진행 중
   const startingSoon = (dStart !== null && dStart >= 0 && dStart <= 21);                              // 21일 내 시작
   if (ongoing || startingSoon) return { tag: '✅', unparsed: false, dStart, dEnd };                   // 추천
@@ -291,8 +297,10 @@ async function main() {
   }
   L.push('');
   // 🎪 축제 묶음 후보: 시의성=✅ 을 점수순으로(상록 0점이 자리 차지 안 하게), 5개 이상이면 묶음 제안
+  // (§4-17) 🔄(상설)은 ✅ 집계·묶음에서 제외하고 별도 카운트만 둔다.
   const festPicks = festCand.filter((c) => c.tl.tag === '✅').sort((a, b) => b.score - a.score);
-  L.push(`**🎪 축제 묶음 후보** (✅ 추천 ${festPicks.length}건)`);
+  const festPerennial = festCand.filter((c) => c.tl.tag === '🔄');
+  L.push(`**🎪 축제 묶음 후보** (✅ 추천 ${festPicks.length}건 · 🔄 상설 ${festPerennial.length}건 제외)`);
   L.push('');
   if (festPicks.length >= 5) {
     L.push(`- **이 묶음으로 블로그 1편 작성할까요?** (점수 상위 ${Math.min(festPicks.length, 8)}개 구성)`);
@@ -312,7 +320,7 @@ async function main() {
   // 축제 표
   L.push(`## 🎪 축제·행사 후보 (${festCand.length}건)`);
   L.push('');
-  L.push(`> 시의성(오늘 기준) — ✅ 추천(진행 중 또는 21일 내 시작) · 🌱 재료보관(21일 초과 미래) · ⏳ 마감임박(종료 7일 이내).`);
+  L.push(`> 시의성(오늘 기준) — ✅ 추천(진행 중 또는 21일 내 시작) · 🌱 재료보관(21일 초과 미래) · ⏳ 마감임박(종료 7일 이내) · 🔄 상설(기간 ${PERENNIAL_SPAN_DAYS}일 이상 또는 상시류 — 추천·묶음 제외).`);
   L.push('');
   L.push(`| 순위 | 점수 | 시의성 | 주제 | 지역 | 기간 | 상세 | 권장형태 | 이미작성 |`);
   L.push(`|---:|---:|:-:|---|---|---|---|---|---|`);

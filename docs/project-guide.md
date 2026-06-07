@@ -197,6 +197,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-07 | [보고서/콘텐츠] 연중상설 축제 ✅ 분리(§4-17 해소) — festival-date.js에 festivalSpanDays() SSOT 헬퍼 추가, build-topic-report.js festTimeliness에 상설 검사(span≥90 || RECURRING → 🔄) 삽입, festPicks·범례·헤더가 🔄를 ✅서 제외. 실측 ✅38→23(🔄15 분리), ⭐묶음 상위8 전부 6월 단발로 정상화(페인터즈·진연·구석구석·서울광장 등 상설 제외). 점수 함수·발행 파이프 미접촉·읽기전용 보고서 한정. §4-15 묶음 자동발행이 읽을 깨끗한 ✅ 풀 확보 | 배포대기(커밋 전) | scripts/lib/festival-date.js, scripts/build-topic-report.js, docs/project-guide.md
 - 2026-06-07 | [렌더/콘텐츠] 블로그 마크다운 렌더 3종 깨짐 수정 — ①단일틸드 취소선 오파싱(remark-gfm singleTilde 기본 true) → 두 렌더러(blog/[slug]/page.tsx, MdContent.tsx)에 {singleTilde:false}로 site-wide 수정, 금액 범위(20~30류 541곳) 평문 정상화·의도적 ~~ 취소선(한강글) 보존 ②자립청년 글 한글 인접 볼드 1곳(닫는 ** 뒤 한글 붙어 flanking 미성립) 공백 추가 ③같은 글 [cite: 본문 데이터] 평문 잔재 4곳(L39·55·65·81) 제거. next build 통과·out/ 실측(장애글 del 0·한강 del 2 보존·자립글 cite/볼드/del 0·금액 평문). 자립청년 글 존폐는 §4-9 후보(오프타깃·청년주제) | 배포대기(커밋 전) | src/app/blog/[slug]/page.tsx, src/components/MdContent.tsx, src/content/posts/2026-06-03-seoul-yongsan-youth-independence-support.md, docs/project-guide.md
 - 2026-06-07 | [데이터/무결성] 오염된 fixed- benefit 6건 제거(§4-13 해소) — 본문 6필드(details·detailedExplanation·simulation·tip·coreValue·targetPersona)가 6/3 용산 자립준비청년 글로 오염, 메타(title·target·link·region·deadline)만 정확. 진단상 fetch/Gemini 산물 아님 = 레포에 코드 없는 수기 fixed- 교정 배치(보존형 merge라 방치 시 영구 잔존). 올바른 본문 소스 부재라 삭제 선택(benefits 32→26), search-index·sitemap·정적페이지 6건 전부 소거·next build 통과. §4-12 오매칭 유발한 …265/266 배치 잔재도 동시 제거 | 배포됨 | public/data/pick-info.json, docs/project-guide.md
 - 2026-06-06 | [UI/버그] 히어로 '업데이트 날짜' 출처를 최신블로그글 date→데이터(pick-info) 갱신 기반(빌드일 KST)으로 교체 — page.tsx todayUpdates.date를 latestDate→todayStr로 변경(다른 필드·블로그 목록 로직 불변). 자동발행 셸브(6/5) 후 새 글이 없어 6/4에 고정되던 부작용 해소, '매일 갱신' 문구와 정합. pick-info엔 generatedAt 필드 없어 빌드시각 채택(크론 fetch→build라 빌드일=갱신일). 빌드1회 통과·히어로 실측 2026.06.06 확인 | 배포대기(커밋 전) | src/app/page.tsx, docs/project-guide.md
@@ -298,11 +299,12 @@
     festival-date.js 재활용(병렬 파서 신설 0), situationsOf·calcHotScore·발행 파이프라인 미접촉, 읽기전용.
     금융비교(종류3)는 크롤 재고 아닌 기획이라 keyword-map §3 큐 포인터로 안내. (설계 SSOT=content-playbook §1·2.)
 
-17. **보고서 ✅추천 판정에서 연중상설 축제 분리(정밀화, 후순위)** — 현재 ✅ 판정의 '현재 진행 중(시작≤오늘≤종료)'
-    조건에 연중 상설축제(1/1~12/31류, 시작·종료 폭 큰 것)가 전부 걸려 ✅가 부풀려짐(6/6 실측 ✅44 중 상당수가
-    상설). 상설은 '지금 시의성'이 약해 묶음 후보를 흐림. 개선: 시작~종료 폭이 일정일(예: 60~90일) 이상이면
-    ✅에서 제외하거나 별도 딱지(🔄상설)로 분리 → ✅는 '시작 임박 단발'에 한정. 추천 섹션 묶음은 점수순이라
-    0점 상설이 상위로 오진 않으나, ✅ 카운트 정확도·'묶음 알참' 신호 신뢰도 위해 정밀화. SSOT=content-playbook §1.
+17. **보고서 ✅ 연중상설 분리 — ✅ 완료(2026-06-07)**. (조치) festival-date.js에 festivalSpanDays(dateStr)
+    SSOT 헬퍼 신설(시작~종료 폭 일수, 단일날짜 0, 미파싱 null). build-topic-report.js festTimeliness에 ✅ 판정
+    직전 상설 검사 삽입 — span≥PERENNIAL_SPAN_DAYS(90, 상수) 또는 RECURRING 매치 시 🔄(상설) 태그로 ✅서
+    제외. festPicks·헤더·범례 동기화(🔄 별도 카운트). (실측) ✅38→23·🔄15·🌱60·⏳18, 38−15=23 정합. 스팟
+    7/7(페인터즈·구석구석·진연·서울광장=🔄 / 서울국악·평택마토·와인뮤직=✅). ⭐묶음 상위8 전부 6월 단발로
+    정상화. 점수·발행 파이프 미접촉. §4-15가 읽을 깨끗한 ✅ 풀 확보가 목적.
 
 18. **자동발행 셸브 부작용 — '블로그 글 존재 전제' 로직 잔재 점검(후순위)** — 2026-06-05 자동발행 셸브로
     매일 새 .md가 안 생기면서, '최신 블로그 글'을 오늘로 가정하던 로직들이 어긋남. ⓐ 히어로 업데이트 날짜

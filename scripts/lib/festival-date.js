@@ -48,9 +48,21 @@ function isFestivalExpired(dateStr, today) {
   return end < t;
 }
 
+// 행사 기간 폭(일수) = 종료 − 시작. 둘 다 파싱돼야 산정(하나라도 null이면 null).
+// 단일 날짜는 시작=종료라 0. 연중상설 식별(폭 ≥ N일) 등에 쓰는 SSOT.
+function festivalSpanDays(dateStr) {
+  const start = parseFestivalStartDate(dateStr);
+  const end = parseFestivalEndDate(dateStr);
+  if (!start || !end) return null;
+  const s = new Date(start); s.setHours(0, 0, 0, 0);
+  const e = new Date(end); e.setHours(0, 0, 0, 0);
+  return Math.round((e - s) / (24 * 60 * 60 * 1000));
+}
+
 module.exports = {
   parseDateToken,
   parseFestivalStartDate,
   parseFestivalEndDate,
   isFestivalExpired,
+  festivalSpanDays,
 };
