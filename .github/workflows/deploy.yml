@@ -42,6 +42,13 @@ jobs:
           # echo "Gemini 과부하 방지를 위해 3분 대기 중..."
           # sleep 180
           # POST_TYPE=festival node scripts/generate-blog-post.js
+          # ── [3b 2026-06-07] 축제 묶음 자동발행: KST 목요일만. 위 SHELVED(1:1)는 폐기, 아래가 현행.
+          if [ "$(TZ=Asia/Seoul date +%u)" = "4" ]; then
+            echo "[묶음 발행] KST 목요일 — 축제 묶음 생성 시작"
+            POST_TYPE=festival node scripts/generate-blog-post.js
+          else
+            echo "[묶음 발행] 목요일 아님 — 발행 스킵(매일 fetch/배포는 유지)"
+          fi
           echo "콘텐츠 검증 게이트 실행 (자동 정규화 + 깨진 글 격리)..."
           node scripts/validate-content.js --fix --quarantine
         env:

@@ -105,9 +105,11 @@
   (posts·pick-info 미경유 = 자동발행 충돌 0).** (근거: package.json `next build`, AGENTS.md가 next 문서 참조 — Astro 흔적 없음.)
 - 버전관리/배포: GitHub → Cloudflare Pages 자동 배포.
 - 자동화: GitHub Actions 크론(매일 **05:23 KST**, `'23 20 * * *'`). 실행 단계 =
-  **fetch → dedup → validate → build → deploy**(데이터 갱신 전용). ⚠️ **블로그 자동생성(혜택/축제)은
-  2026-06-05 셸브** — deploy.yml의 `[SHELVED 2026-06-05]` 주석 블록(generate-blog-post 2회 + echo +
-  sleep 180). if·env·fetch·dedup·validate 미변경(데이터층 보존). 되살리려면 그 4줄 주석 해제.
+  **fetch → dedup → report → validate → build → deploy**(매일). ⚠️ **블로그 자동생성(혜택/축제 1:1)은
+  2026-06-05 셸브** — deploy.yml의 `[SHELVED 2026-06-05]` 주석 블록(미변경, 옛 1:1 코드). **2026-06-07 [3b]
+  그 아래에 '축제 묶음 자동발행' 활성**: KST 목요일(`$(TZ=Asia/Seoul date +%u)=4`)만 `POST_TYPE=festival
+  generate-blog-post` 실행(묶음=selectFestivalBundle 상위5~8·5미만 스킵·시기제목·sourceIds 직전제외).
+  매일 fetch·dedup·report·validate·build·deploy는 유지, 발행만 목요일. 옛 SHELVED 1:1은 폐기(되살리지 말 것).
 - 데이터 원천 1개: `public/data/pick-info.json` (benefits + festivals).
 - 레포 경로(로컬): `c:/Users/Administrator/Desktop/my-pick-info`
 - **날짜 처리 SSOT**: 축제 만료 판정은 `scripts/lib/festival-date.js` 단일 소스로 통일(컴팩트 YYYYMMDD·점·
@@ -197,6 +199,7 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-07 | [발행/인프라] 축제 묶음 자동발행 활성화(§4-15 Phase 3b, 라이브 ON 코드·푸시 시 발효) — deploy.yml "Fetch…" step에 KST 목요일 가드 발행 라인 추가(SHELVED 4줄 그대로 유지, build-topic-report 後·validate 前). $(TZ=Asia/Seoul date +%u)=4일 때만 POST_TYPE=festival generate-blog-post 실행(UTC 러너라 TZ 필수)·그 외 스킵, 5건 미만이면 스크립트 자체 스킵. 발행 라인 if:schedule step 내부라 push 트리거 미발화. 검증: js-yaml 파싱·step7 정상·SHELVED 4줄 보존·Build/Deploy 미변경·오늘 date +%u=7로 발행 0. 푸시 후 다음 KST 목요일(6/11)부터 첫 자동발행 | 배포대기(커밋 전) | .github/workflows/deploy.yml, docs/project-guide.md
 - 2026-06-07 | [발행/정리] 생성기 쿠팡 제거 + 죽은 import 정리(§4-15 Phase 3a-6, 발행 OFF) — generate-blog-post.js에서 쿠팡 전부 삭제(extractCoupangKeyword·getCoupangProduct 함수·호출부·coupangPromptSection·coupangDisclosureSection·프롬프트 주입 토큰·주석헤더), 죽은 import 3개(crypto=쿠팡HMAC전용·COUPANG env·isFestivalExpired=셀렉터전환 미사용) 정리. 쿠팡은 festival/benefit 공통부라 양쪽서 제거(전체 일관성 의도). 검증: node --check 통과·잔여참조 0, PREVIEW 글 쿠팡 흔적 0·시기제목/sourceIds8/1분퀴즈/H2/결론 정상·비교표 8/8(이번 생성은 충족, 단 flash 비보장)·본문 5996자, posts 변화 0. 본문밖 쿠팡(AffiliateBanner·go리다이렉트·법적고지·기존posts10건)은 범위밖 미접촉 | 배포대기(커밋 전) | scripts/generate-blog-post.js, docs/project-guide.md
 - 2026-06-07 | [발행/정합] 묶음 제목 dedup 면제 완결(§4-15 Phase 3a-5, 발행 OFF) — isDuplicate의 skipProgramDedup→bundleMode 일반화: 묶음(true)은 rule1(완전일치)만 수행·rule2~5(포함·앞10자·Jaccard·program) 면제, 1:1/benefit(false)은 rule1~5 전부 유지. festival 최종재검사에 bundleMode=true 전달. 검증 단위 4/4: 묶음 2주vs1주(Jaccard0.6) 통과·완전동일 차단·program공유 통과 / 1:1 2주vs1주 차단(보호 불변). 3a-4 rule5-only가 rule4에 막히던 것 해소→주간발행 가능. PREVIEW posts 변화 0. 중복관리는 sourceIds 직전제외+rule1 안전망 | 배포대기(커밋 전) | scripts/generate-blog-post.js, docs/project-guide.md
 - 2026-06-07 | [발행/검수] PREVIEW_DIR 모드 + 첫 글 품질 검수(§4-15 Phase 3a-3, 발행 OFF) — generate-blog-post.js에 PREVIEW_DIR 추가(설정 시 posts 대신 임시폴더 write, isDuplicate 우회, 출력경로 PREVIEW_DIR 하위 단언, mkdir 보장). 모드순위 BUNDLE_DRY→PREVIEW→DRY_RUN→일반. 검증: 글이 scripts/_preview/에만 생성·posts 변화 0(git status), GEMINI 실호출 성공, 시기제목/originalTitle/sourceIds8/category/비교표/1분퀴즈/쿠팡고지 정상. 본문 골격 합격. 발견 2건(3b 차단막)→3a-4: ①묶음8 vs 본문4 불일치(프롬프트 '3~4개' 잔존, sourceIds엔 8건이라 다음주 직전제외 시 미작성 4건 누수) ②'가족축제' 프로그램토큰 isDuplicate 충돌(주2회차 차단). benefit·DRY_RUN·BUNDLE_DRY 불변 | 배포대기(커밋 전) | scripts/generate-blog-post.js, docs/project-guide.md
@@ -298,10 +301,10 @@
 15. **축제 묶음 자동발행 구현** — generate-blog-post.js의 1:1 축제 생성을 '시기 묶음' 생성으로 재설계.
     21일내 시작 축제 점수상위 5~8개를 한 글로, 주1 완전자동, 제목에 시기 박기+직전묶음 id 제외 가드,
     5개미만 스킵. 설계 SSOT=docs/content-playbook.md §1. (셸브된 옛 코드 되살리기 아님 — 묶음 방식 신규.)
-    · 진행(2026-06-07): Phase 1·2a·2b·3a·3a-2①·3a-3·3a-4·3a-5·3a-6(생성기 쿠팡 제거+죽은import 정리) 완료.
-    쿠팡 후속(범위 결정 대기): 3a-7(전역 AffiliateBanner·go리다이렉트·법적고지)·3a-8(기존 posts 10건 쿠팡
-    제거) — 본문 밖이라 별도. 3b 전 잔여: 위 쿠팡 후속 범위 확정. 이후 3b(목요일 셸가드 ON)·Phase 4(점검게이트)·
-    3a-2②(fetch 키워드 lib). 비차단: 비교표 N행 완전성(flash 비보장, 라이브서 빈도 관찰). 라이브 발행 3b 전까지 OFF.
+    · 진행(2026-06-07): Phase 1·2a·2b·3a·3a-2①·3a-3~6·3b(목요일 가드 발행 라인, 라이브 ON 코드) 완료.
+    남은 것: Phase 4(자동발행 점검 게이트 — §5.2 발행 켜기 전 항목화) → 전체 1회 푸시(=발행 발효) → 6/11(목)
+    첫 자동발행 라이브 직접 확인(가)·문제시 가드 1줄 주석 롤백. 쿠팡 후속(3a-7·3a-8)·3a-2②·비교표 완전성은
+    발행과 독립 백로그. 라이브 발행 푸시 전까지 OFF.
 
 16. **일일 보고서 3종 분류 개편 — ✅ 수정 적용 완료(2026-06-06)**. build-topic-report.js에 지원금 [용도]
     컬럼(📝블로그=실재 미래 마감 단발 / 📚pillar=상시·정기·미파싱, deadlineInfo 재활용)·축제 [시의성]
