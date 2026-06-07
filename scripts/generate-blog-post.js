@@ -6,6 +6,7 @@ const path = require('path');
 const crypto = require('crypto');
 const fallbacks = require('../src/lib/image-fallbacks.json');
 const { isFestivalExpired } = require('./lib/festival-date');
+const { calcScore } = require('./lib/festival-score');
 
 // ─── 방법3: 월별 계절 키워드 자동 주입 ────────────────────────────────────
 const SEASONAL_KEYWORDS = {
@@ -227,65 +228,8 @@ async function getCoupangProduct(keyword) {
 }
 // ──────────────────────────────────────────────────────────────────────────────
 
-function calcScore(item, postType, hotKeywords = []) {
-  let score = 0;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const text = [item.title, item.details, item.description, item.target, item.summary, item.deadline, item.date].join(' ');
-
-  hotKeywords.forEach((kw, idx) => {
-    const weight = idx < 2 ? 30 : 15;
-    if (item.title?.includes(kw)) score += weight;
-    if (text.includes(kw)) score += Math.floor(weight / 2);
-  });
-
-  if (postType === 'festival') {
-    const dateMatches = [...String(item.date || '').matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
-    if (dateMatches.length > 0) {
-      const first = dateMatches[0];
-      const startDate = new Date(parseInt(first[1]), parseInt(first[2]) - 1, parseInt(first[3]));
-      const diffDays = Math.ceil((startDate - today) / (1000 * 60 * 60 * 24));
-
-      if (diffDays >= 0 && diffDays <= 3) score += 60;
-      else if (diffDays >= 0 && diffDays <= 7) score += 50;
-      else if (diffDays < 0 && diffDays >= -14) score += 40;
-      else if (diffDays > 7 && diffDays <= 14) score += 20;
-
-      const tempDate = new Date(startDate);
-      for (let i = 0; i < 7; i++) {
-        const day = tempDate.getDay();
-        if (day === 0 || day === 6) { score += 20; break; }
-        tempDate.setDate(tempDate.getDate() + 1);
-      }
-    } else {
-      score += 5;
-    }
-
-    if (text.includes('무료')) score += 15;
-    if (text.includes('서울')) score += 10;
-    if (text.includes('인천') || text.includes('경기')) score += 5;
-
-  } else {
-    const deadlineMatches = [...String(item.deadline || item.date || '').matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
-    if (deadlineMatches.length > 0) {
-      const last = deadlineMatches[deadlineMatches.length - 1];
-      const deadlineDate = new Date(parseInt(last[1]), parseInt(last[2]) - 1, parseInt(last[3]));
-      const diffDays = Math.ceil((deadlineDate - today) / (1000 * 60 * 60 * 24));
-
-      if (diffDays >= 0 && diffDays <= 7) score += 60;
-      else if (diffDays >= 0 && diffDays <= 30) score += 30;
-      else if (diffDays > 30) score += 10;
-    } else {
-      score += 5;
-    }
-
-    if (text.includes('서울')) score += 10;
-    if (text.includes('인천') || text.includes('경기')) score += 5;
-    if (item.isEmergency) score += 20;
-  }
-
-  return score;
-}
+// ─── 후보 점수: scripts/lib/festival-score.js로 추출(Phase 2a) ────────────────
+// calcScore(item, postType, hotKeywords, today)는 import. festival 시작일 파싱은 festival-date SSOT 사용.
 
 // ─── 중복 방지 유틸 (Jaccard 유사도 기반 강화) ────────────────────────────────
 const DEDUP_STOP_WORDS = new Set([
