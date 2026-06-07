@@ -5,8 +5,10 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const fallbacks = require('../src/lib/image-fallbacks.json');
+const matter = require('gray-matter');
 const { isFestivalExpired } = require('./lib/festival-date');
 const { calcScore } = require('./lib/festival-score');
+const { selectFestivalBundle } = require('./lib/festival-bundle');
 
 // ─── 방법3: 월별 계절 키워드 자동 주입 ────────────────────────────────────
 const SEASONAL_KEYWORDS = {
@@ -336,8 +338,36 @@ function readPostTitlesFromDir(dir) {
 }
 // ──────────────────────────────────────────────────────────────────────────────
 
+// ─── §4-15 Phase 3a: 시기 묶음 보조 ──────────────────────────────────────────
+// 시기 제목 라벨: "M월 W주 주말 수도권 가족축제" (W = 그 달 몇째 주, 1일~7일=1주).
+function seasonalBundleTitle(d) {
+  const month = d.getMonth() + 1;
+  const week = Math.ceil(d.getDate() / 7);
+  return `${month}월 ${week}주 주말 수도권 가족축제`;
+}
+
+// 직전 festival 글의 sourceIds 읽기(재탕 방지). posts에서 category=festival인 .md 중
+// 파일명 날짜(YYYY-MM-DD) 최신 1편을 골라 frontmatter.sourceIds를 반환. 없으면 ids:[].
+function readLatestFestivalSourceIds(dir) {
+  if (!fs.existsSync(dir)) return { ids: [], file: null };
+  const fest = [];
+  for (const f of fs.readdirSync(dir)) {
+    if (!f.endsWith('.md')) continue;
+    try {
+      const data = matter(fs.readFileSync(path.join(dir, f), 'utf8')).data || {};
+      if (data.category === 'festival' || data.category === 'festivals') fest.push({ file: f, data });
+    } catch (_) { /* 깨진 글 1개가 전체 막지 않게 */ }
+  }
+  if (!fest.length) return { ids: [], file: null };
+  fest.sort((a, b) => b.file.localeCompare(a.file)); // 파일명 'YYYY-MM-DD…' 사전순 = 시간순
+  const latest = fest[0];
+  const ids = Array.isArray(latest.data.sourceIds) ? latest.data.sourceIds.map(String) : [];
+  return { ids, file: latest.file };
+}
+
 async function main() {
   const DRY_RUN = process.env.DRY_RUN === 'true';
+  const BUNDLE_DRY = process.env.BUNDLE_DRY === 'true';
   if (DRY_RUN) {
     console.log('[DRY RUN] 테스트 모드 — 글 생성 없이 키워드/스코어만 확인합니다.');
   }
@@ -397,39 +427,70 @@ async function main() {
 
     // ──────────────────────────────────────────────────────────────────────
 
-    const unpostedItems = allItems.filter(item => {
-      const normItem = normTitle(item.title);
-      const itemKeywords = new Set(extractKeywords(item.title));
-      const itemPrograms = extractProgramNames(item.title);
-      if (isDuplicate(normItem, itemKeywords, itemPrograms, allExistingPosts)) {
-        console.log(`  [중복 스킵] ${item.title}`);
-        return false;
+    let targetItems, topThemeName, publishCategory;
+    let bundleTitleLabel = null;   // festival 전용: 시기 제목 라벨(후처리에서 title 덮어쓰기)
+    let bundleSourceIds = [];      // festival 전용: 묶음 id(후처리에서 sourceIds 주입)
+
+    if (postType === 'festival') {
+      // ─── §4-15 Phase 3a: 시기 묶음 셀렉터(발행·보고서 공유 SSOT) ──────────────
+      const nowKst = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+      // 직전 festival 글의 sourceIds 제외(재탕 방지). 직전 글/필드 없으면 제외 0.
+      const prev = readLatestFestivalSourceIds(postsDir);
+      // allItems(:위 reverse)가 data.festivals를 in-place .reverse() 했으므로, 보고서(원본 파일 순서)와
+      // 점수 동점 tie-break까지 동일한 묶음을 내려면 원본 순서를 복원해 셀렉터에 넘긴다.
+      const festSource = [...(data.festivals || [])].reverse();
+      const pool = festSource.filter(f => !prev.ids.includes(String(f.id)));
+      const bundle = selectFestivalBundle(pool, nowKst, hotKeywords);
+      bundleTitleLabel = seasonalBundleTitle(nowKst);
+
+      if (BUNDLE_DRY) {
+        console.log('\n===== [BUNDLE_DRY] 발행 OFF — 묶음 미리보기(파일·네트워크 0) =====');
+        console.log(`① 시기 제목 라벨: ${bundleTitleLabel}`);
+        console.log(`② skipped=${bundle.skipped} · eligibleCount=${bundle.eligibleCount}`);
+        console.log(`③ 묶일 items (${bundle.items.length}건, calcScore 순):`);
+        bundle.items.forEach((c, i) => console.log(`   ${i + 1}. [${c.score}점] ${c.title} (${c.date}) id=${c.id}`));
+        console.log(`④ 직전 글(${prev.file || '없음'}) 제외 id: ${prev.ids.length ? prev.ids.join(', ') : '(없음)'}`);
+        console.log('================================================================\n');
+        return;
       }
-      if (postType === 'festival') {
-        // 종료된 축제는 발행 후보에서 제외 — 공용 파서(scripts/lib/festival-date.js)로 컴팩트(YYYYMMDD)까지 처리.
-        // (기존 인라인 정규식은 구분자 필수라 컴팩트 날짜를 못 걸러 끝난 축제가 발행되던 버그가 있었음)
-        if (isFestivalExpired(item.date, new Date())) return false;
+
+      if (bundle.skipped) {
+        console.log(`[축제] 시작 임박 ${bundle.eligibleCount}건(<5) → 이번 주 발행 스킵`);
+        return;
       }
-      return true;
-    });
 
-    if (unpostedItems.length === 0) {
-      console.log('모든 데이터가 이미 블로그에 작성되었습니다.');
-      return;
-    }
+      targetItems = bundle.items;
+      bundleSourceIds = bundle.items.map(t => String(t.id));
+      topThemeName = '시기 묶음(이번 주말 수도권 가족 나들이)';
+      publishCategory = '축제/행사';
 
-    // ─── Step 3: 3분할 카테고리 분기 (축제/행사 · 주거/임대 지원 · 일반 지원금) ──
-    const PUBLISH_THRESHOLD = 3;
-    let categoryFilteredItems = unpostedItems;
-    let publishCategory = postType === 'festival' ? '축제/행사' : '일반 지원금';
+      console.log(`[블로그] 시기 묶음: "${bundleTitleLabel}" (적격 ${bundle.eligibleCount}건 중 상위 ${targetItems.length})`);
+      console.log(`[블로그] 선정된 데이터 세트 (총 ${targetItems.length}건):`);
+      targetItems.forEach((t, i) => console.log(`  ${i + 1}. [${t.score}점] ${t.title}`));
 
-    // 축제: 미발행 후보가 임계치 미만이면 품질 유지를 위해 발행 건너뜀 (benefit 2분할 게이트와 동일 기준)
-    if (postType === 'festival' && unpostedItems.length < PUBLISH_THRESHOLD) {
-      console.log(`[축제] 미발행 후보 ${unpostedItems.length}건 < ${PUBLISH_THRESHOLD}건 → 발행 건너뜀`);
-      return;
-    }
+    } else {
+      // ─── benefit: 기존 로직(중복 제외 → 3분할 → 페르소나 그룹핑 → 상위 4) ──────
+      const unpostedItems = allItems.filter(item => {
+        const normItem = normTitle(item.title);
+        const itemKeywords = new Set(extractKeywords(item.title));
+        const itemPrograms = extractProgramNames(item.title);
+        if (isDuplicate(normItem, itemKeywords, itemPrograms, allExistingPosts)) {
+          console.log(`  [중복 스킵] ${item.title}`);
+          return false;
+        }
+        return true;
+      });
 
-    if (postType === 'benefit') {
+      if (unpostedItems.length === 0) {
+        console.log('모든 데이터가 이미 블로그에 작성되었습니다.');
+        return;
+      }
+
+      // ─── Step 3: 2분할 카테고리 분기 (주거/임대 지원 · 일반 지원금) ──
+      const PUBLISH_THRESHOLD = 3;
+      let categoryFilteredItems = unpostedItems;
+      publishCategory = '일반 지원금';
+
       // 지원금 탭 "주거/임대 지원" 필터(BenefitsClient)와 동일 기준으로 선별
       const housingKws = ['주거', '청년안심', 'LH', 'SH', 'GH', '전세', '월세', '임대', '행복주택', '국민임대'];
       const housingItems = unpostedItems.filter(item =>
@@ -467,33 +528,32 @@ async function main() {
       }
 
       console.log(`[3분할] 발행 선택: ${publishCategory} (${categoryFilteredItems.length}건)`);
+
+      // ─── 핫 키워드 반영 스코어링 및 테마별 묶음 추출 ──────────────────────
+      const scoredItems = categoryFilteredItems.map(item => ({ item, score: calcScore(item, postType, hotKeywords) }));
+
+      // 그룹핑: targetPersona(페르소나) 기준으로 묶기 (없으면 tag 기준)
+      const grouped = {};
+      for (const { item, score } of scoredItems) {
+        const themeKey = item.targetPersona || item.tag || '공통 혜택';
+        if (!grouped[themeKey]) grouped[themeKey] = { score: 0, items: [] };
+        grouped[themeKey].items.push(item);
+        grouped[themeKey].score += score; // 그룹 전체 핫 키워드 점수 합산
+      }
+
+      // 최우수 테마 선정 (점수 가장 높은 그룹)
+      const sortedGroups = Object.entries(grouped).sort((a, b) => b[1].score - a[1].score);
+      topThemeName = sortedGroups[0][0];
+      const topThemeGroup = sortedGroups[0][1];
+
+      // 해당 테마 내에서 개별 점수가 높은 순으로 정렬 후 3~4개 추출
+      topThemeGroup.items.sort((a, b) => calcScore(b, postType, hotKeywords) - calcScore(a, postType, hotKeywords));
+      targetItems = topThemeGroup.items.slice(0, 4);
+
+      console.log(`[블로그] 큐레이션 최우수 테마: "${topThemeName}" (그룹 총점: ${topThemeGroup.score}점)`);
+      console.log(`[블로그] 선정된 데이터 세트 (총 ${targetItems.length}건):`);
+      targetItems.forEach((t, i) => console.log(`  ${i + 1}. ${t.title}`));
     }
-    // ───────────────────────────────────────────────────────────────────────
-
-    // ─── 핫 키워드 반영 스코어링 및 테마별 묶음 추출 ──────────────────────
-    const scoredItems = categoryFilteredItems.map(item => ({ item, score: calcScore(item, postType, hotKeywords) }));
-
-    // 그룹핑: targetPersona(페르소나) 기준으로 묶기 (없으면 tag 기준)
-    const grouped = {};
-    for (const { item, score } of scoredItems) {
-      const themeKey = item.targetPersona || item.tag || '공통 혜택';
-      if (!grouped[themeKey]) grouped[themeKey] = { score: 0, items: [] };
-      grouped[themeKey].items.push(item);
-      grouped[themeKey].score += score; // 그룹 전체 핫 키워드 점수 합산
-    }
-
-    // 최우수 테마 선정 (점수 가장 높은 그룹)
-    const sortedGroups = Object.entries(grouped).sort((a, b) => b[1].score - a[1].score);
-    const topThemeName = sortedGroups[0][0];
-    const topThemeGroup = sortedGroups[0][1];
-
-    // 해당 테마 내에서 개별 점수가 높은 순으로 정렬 후 3~4개 추출
-    topThemeGroup.items.sort((a, b) => calcScore(b, postType, hotKeywords) - calcScore(a, postType, hotKeywords));
-    const targetItems = topThemeGroup.items.slice(0, 4);
-
-    console.log(`[블로그] 큐레이션 최우수 테마: "${topThemeName}" (그룹 총점: ${topThemeGroup.score}점)`);
-    console.log(`[블로그] 선정된 데이터 세트 (총 ${targetItems.length}건):`);
-    targetItems.forEach((t, i) => console.log(`  ${i + 1}. ${t.title}`));
     // ──────────────────────────────────────────────────────────────────────
 
     // 이미지 보정 (각 아이템별 처리)
@@ -545,7 +605,7 @@ async function main() {
 
 [타겟 및 톤앤매너]
 ${publishCategory === '축제/행사'
-              ? '- 타겟: 전 연령층\n- 말투: 밝고 경쾌하게\n- 주제: 나들이, 즐거움'
+              ? '- 타겟: 수도권 가족(영유아·초등 자녀 동반) 중심, 연인·나들이객 포함\n- 말투: 밝고 경쾌하게\n- 주제: 이번 주말~다가오는 주에 갈 만한 임박 행사 중심(먼 미래 아님). 지금 당장 계획 가능한 가족 나들이'
               : publishCategory === '주거/임대 지원'
               ? '- 타겟: 무주택 청년·신혼부부·서민 가구\n- 말투: 신뢰감 있고 전문적으로\n- 주제: 주거 안정, 임대료 절감, 청약 전략'
               : '- 타겟: 40~60대 중장년층\n- 말투: 신뢰감 있고 따뜻하게\n- 주제: 경제적 이득, 생활 안정'}
@@ -679,6 +739,19 @@ officialTip: (1~2문장의 간결한 평문으로 작성. 번호 매기기·별�
     let mdContent = fullText.replace(/FILENAME:.*$/im, '').trim();
     mdContent = mdContent.replace(/^```[a-z]*\n/i, '').replace(/```$/g, '').trim();
     mdContent = mdContent.replace(/^date:.*$/m, `date: ${today}`);
+
+    // (Phase 3a) 축제 시기 묶음: title을 시기 라벨로 덮고(originalTitle은 보존), sourceIds(묶음 id)를 주입.
+    if (postType === 'festival' && bundleTitleLabel) {
+      mdContent = mdContent.replace(/^title:.*$/m, `title: "${bundleTitleLabel}"`);
+    }
+    if (postType === 'festival' && bundleSourceIds.length) {
+      const idsLine = `sourceIds: ${JSON.stringify(bundleSourceIds)}`;
+      if (/^sourceIds:.*$/m.test(mdContent)) {
+        mdContent = mdContent.replace(/^sourceIds:.*$/m, idsLine);
+      } else {
+        mdContent = mdContent.replace(/^(date:.*)$/m, `$1\n${idsLine}`);
+      }
+    }
 
     // Gemini 내부 reasoning 텍스트 제거 (멀티라인 포함)
     mdContent = mdContent.replace(/The user wants[\s\S]*?(?=따뜻한|새로운|봄|이번|서울|경기|인천)/g, '');
