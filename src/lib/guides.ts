@@ -29,4 +29,13 @@ export const GUIDES: Guide[] = [
     emoji: "👶",
     image: "/images/og/parenting-family-benefits.png",
   },
+  {
+    slug: "parenting-family-finance",
+    title: "출산 가구 주택 대출 — 신생아 특례 디딤돌·버팀목 한눈에 (2026)",
+    description:
+      "2년 내 출산이면 시중금리 절반대로 집 구입(디딤돌)·전세(버팀목). 소득·순자산·한도·금리·특례기간을 한 표로 비교한 에버그린 가이드.",
+    category: "임신·출산·육아",
+    emoji: "🏦",
+    image: "/images/og/parenting-family-finance.png",
+  },
 ];
