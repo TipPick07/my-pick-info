@@ -86,6 +86,9 @@
   audience와는 별개 트랙으로 본다.
 - **지원금의 역할 정정**: 자기 지원금을 아는 사람은 직접 검색하므로 '고관여 검색용'이 아니라,
   이미 들어온 부모에게 "이런 것도 있어요"를 보여주는 **'발견용'**이다.
+- **소셜 유통 리듬(2026-06-09 합의)**: 목요일 축제 묶음 = 고정 주력 / 평일 개별 축제 = 일일 후보
+  보고서 score 보고 선별(주 0~2건, 0건도 정상) / 가이드 = 발행 시 1회 푸시 + 상시 내부링크.
+  지원금 가이드는 소셜 메인 푸시가 아닌 발견 레이어. 랜딩이 얇아도 카톡·인스타 캡션이 신뢰를 만든다.
 
 ### 수익화 현황
 애드센스 재신청 이력(직전 거절: low-value/thin content). 네이버·쿠팡 제휴 키 보유(콘텐츠 아님, 수익 레이어).
@@ -199,6 +202,9 @@
 > 작업 완료 시 Claude가 이 형식의 '복붙용 한 줄'을 제공하면, 운영자는 그대로 로그에 추가하거나
 > 안티그래비티에 "이 줄을 docs/project-guide.md 작업 로그 맨 위에 추가해"라고 지시한다.
 
+- 2026-06-09 | [UI/메인] 메인 첫 화면 가이드 섹션 신설 + 블로그 섹션명 정정(2단계) — HomeClient.tsx에 상황별 타일↔축제 사이 형제 <section> 추가: 1단계 GuideCard로 GUIDES 3편 렌더(허브 동일 grid-cols-1 md:grid-cols-2 gap-5, 헤더 패턴ⓑ '전체 보기 →'→/guides/). 정렬/slice 없이 배열 그대로. 동시에 이름만 '가이드'·실제 블로그(posts→/blog) 렌더하던 5번 섹션 제목을 '팁픽 가이드'→'팁픽 인사이트'(배지·h3 2곳)로 정정(데이터·링크·마크업 무변경). space-y-14 리듬·bg-white 유지, 새 디자인 0. next build 통과(254p). | 배포대기 | src/components/HomeClient.tsx
+- 2026-06-09 | [리팩터/UI] 가이드 카드 공용 컴포넌트 추출(1단계) — src/app/guides/page.tsx 인라인 카드(구 60–94행)를 src/components/GuideCard.tsx로 순수 이동(마크업·className·next/image 조건·hover 그림자·"가이드 보기 →" byte 동일), 허브는 GUIDES.map→<GuideCard {...g}/>로 교체+미사용 Image import 제거. 시각/DOM 변화 0(추출만), 메인 재사용(2단계) 준비. guides.ts·메인 무접촉. next build 통과(/guides 정적, 카드 3). | 배포대기 | src/components/GuideCard.tsx, src/app/guides/page.tsx
+- 2026-06-09 | [UI/전환] 구독/전환 CTA 문구·링크 교체 — 옛 1:1 시절 "매일 2건/매일 아침" 빈도약속 제거 + 두 CTA 역할 분리. KakaoChannelBanner(푸터=구독): 헤드라인·설명·배지를 '수도권 육아·가족 혜택/수도권 전용·무료'로(카톡·인스타 링크 유지). StickyCtaBar(전 페이지=전환): 텍스트를 '내 혜택 찾기/우리 집 육아·가족 혜택+가이드 보기/혜택·가이드 보기'로, 버튼 링크를 카톡 채널 외부URL→내부 /guides 로 전환(target/rel 제거, 반응형 분기 구조 유지), aria-label도 동작에 맞게 정정. 메타·OG·JSON-LD·히어로 '매일 업데이트' 문구·chat-data.json 무접촉. next build 통과. | 배포대기 | src/components/KakaoChannelBanner.tsx, src/components/StickyCtaBar.tsx
 - 2026-06-09 | [가이드/콘텐츠] /guides 3편 '어린이집·유치원 신청 가이드'(daycare-admission) — keyword-map §3 큐③ C2 거래형 하위가이드. 유보통합포털(2024.11.1 개통·enter.childinfo.go.kr, 아이사랑+처음학교로 통합) 한 창구에서 어린이집(점수제·연중 수시 대기)과 유치원(연1회·11월 추첨)의 선발방식 차이를 비교표+DepthCard 2섹션+한장 체크리스트+FAQ5(JSON-LD)+시점주의 박스로. 검증수치: 어린이집 1순위100·맞벌이/3자녀 각200·맞벌이+3자녀300·2순위50·2순위만으론 1순위 불가·동일순위는 신청순(법제처 2026 보육사업안내), 입소대기 미재원3/재원2개소·만0~5세(장애12); 유치원 우선모집(저소득·보훈·북한이탈)→일반(사전+본)→추가모집·희망순 무작위추첨·중복선발 제한·등록마감 미준수시 자동취소. 전량 공식 1차출처(교육부 유보통합포털·아이사랑·법제처·처음학교로) 손글, 추가 크롤 0. 비용(보육료·유아학비·누리과정) 문구 1편(parenting-family-benefits) 내부링크. 제휴 미포함. C5 토큰·DepthCard·FAQPage JSON-LD·breadcrumb·SectionTitle 그대로 재사용(변경0), posts·pick-info·situations·자동발행 미경유(충돌0). guides.ts 허브 카드 2→3·OG 1장(1200×630, sharp 생성). | 배포대기(커밋 전) | src/app/guides/daycare-admission/page.tsx, src/lib/guides.ts, public/images/og/daycare-admission.png, docs/project-guide.md
 - 2026-06-08 | [가이드/콘텐츠] /guides 2편 '신생아 특례 대출 가이드'(parenting-family-finance) — keyword-map §3 큐② C5 대출중심 손글 플래그십. 디딤돌(구입)·버팀목(전세) 공식 검증수치(국토부 마이홈포털 2026 기준: 소득 1.3억/맞벌이2억·순자산 5.11억/3.45억·한도 4억/2.4억·금리 1.8~4.5%/1.3~4.3%·특례 15년/12년·25.6.27 한도경계·2026.12.31 일몰)로 비교표+깊이+FAQ5(JSON-LD)+시점주의 박스. pick-info 크롤 비대상이라 전량 외부 1차출처 손글, 모든 수치 '2026 기준'+공식링크+면책. 제휴 미포함(정보 가이드). 1편 디자인 재사용+DepthCard 헬퍼, guides.ts 등재(허브 카드 1→2)·OG 생성. posts·pick-info 미경유(자동발행 충돌 0). 다자녀특공·C6(적금/청약/보험)는 후속 | 배포대기(커밋 전) | src/app/guides/parenting-family-finance/page.tsx, src/lib/guides.ts, public/images/og/parenting-family-finance.png, docs/project-guide.md
 - 2026-06-08 | [발행/보고서] 신규 축제 매일 공유 트랙(§4-21 완료) — 21-a: fetch-public-data.js festival unshift 3곳(:1714/:1883/:1974)에 addedAt(sv-SE KST) 1줄 추가(benefit :1396/:1763 미러, 추가형·기존 116건 미소급). 21-b: build-topic-report.js에 🆕 신규 축제 섹션(:280-296)+festCand isNew(:194, benefit :208 미러), today/yest·calcScore(festival-score)·hot-keywords·esc 전부 재사용(신규 0). 읽기전용 보고서, 발행·dedup·merge 무접촉. 오늘 0건 정상(미소급, 내일 크론부터 누적). node --check 양파일 통과·순수삽입(fetch 3줄/report 19줄). 3a-2②(fetch→hot-keywords lib)는 치환형·반환shape 비호환이라 분리(별도 후속) | 배포대기(커밋 전) | scripts/fetch-public-data.js, scripts/build-topic-report.js, docs/project-guide.md
