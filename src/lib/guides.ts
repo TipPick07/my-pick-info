@@ -47,4 +47,13 @@ export const GUIDES: Guide[] = [
     emoji: "🧸",
     image: "/images/og/daycare-admission.png",
   },
+  {
+    slug: "parenting-family-savings",
+    title: "아이 이름의 돈 — 자녀 적금·청약·보험 3축 가이드 (2026)",
+    description:
+      "모으기(적금·증여 비과세 10년 2천만원), 앞당기기(청약 만 14세부터 5년 인정), 지키기(보장형 보험). 자녀 미래자금을 세 갈래로 설계한 에버그린 가이드.",
+    category: "임신·출산·육아",
+    emoji: "🌱",
+    // image: "/images/og/parenting-family-savings.png", // OG 후속 — 1200×630 생성 후 활성화
+  },
 ];
