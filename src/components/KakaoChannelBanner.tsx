@@ -5,13 +5,13 @@ export default function KakaoChannelBanner() {
         {/* 카피 */}
         <div className="flex-1 space-y-2">
           <h3 className="text-lg sm:text-xl font-black text-slate-900 leading-snug">
-            📢 매일 아침, 수도권 축제·지원금을 카톡으로 받아보세요
+            📢 수도권 육아·가족 혜택, 카톡으로 챙기세요
           </h3>
           <p className="text-sm text-slate-600 leading-relaxed">
-            서울·경기·인천 나들이부터 놓치면 손해인 지원금까지 — 찾지 말고 무료로 받아보세요.
+            놓치면 손해인 지원금부터 나들이 소식까지 — 찾지 말고 무료로 받아보세요.
           </p>
           <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">
-            매일 2건 · 무료
+            수도권 전용 · 무료
           </span>
         </div>
 
