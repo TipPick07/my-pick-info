@@ -38,4 +38,13 @@ export const GUIDES: Guide[] = [
     emoji: "🏦",
     image: "/images/og/parenting-family-finance.png",
   },
+  {
+    slug: "daycare-admission",
+    title: "어린이집·유치원 신청 — 유보통합포털 입소대기·입학 (2027학년도)",
+    description:
+      "어린이집은 점수제·연중 대기, 유치원은 11월 추첨. 통합된 유보통합포털 한 곳에서 입소대기·입학을 어떻게 신청하는지 한 표로 정리한 가이드.",
+    category: "임신·출산·육아",
+    emoji: "🧸",
+    image: "/images/og/daycare-admission.png",
+  },
 ];
