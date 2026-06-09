@@ -11,6 +11,8 @@ import AdFit from "@/components/AdFit";
 import CustomBanner from "@/components/CustomBanner";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import GuideCard from "@/components/GuideCard";
+import { GUIDES } from "@/lib/guides";
 
 interface Weather {
   region: string;
@@ -187,6 +189,19 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
           </section>
         )}
 
+        {/* ── 팁픽 가이드 (에버그린) — GuideCard 공용 카드 ── */}
+        <section className="space-y-5">
+          <div className="flex items-center justify-between px-1">
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">📘 육아·가족 깊이 있는 가이드</h2>
+            <Link href="/guides/" className="text-sm font-bold text-brand-dark hover:text-brand transition-colors">전체 보기 →</Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {GUIDES.map((g) => (
+              <GuideCard key={g.slug} {...g} />
+            ))}
+          </div>
+        </section>
+
         {/* ── 탐색: 지역 필터 + 축제·지원금 2-Column ── */}
         <div className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white rounded-[1.75rem] border border-slate-100 shadow-sm px-6 py-5">
@@ -254,10 +269,10 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
           <div className="flex items-center justify-between px-2">
             <div className="flex items-center gap-3">
               <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-black uppercase tracking-widest rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700">
-                💡 팁픽 가이드
+                💡 팁픽 인사이트
               </span>
               <h3 className="text-xl font-black text-slate-900 tracking-tight">
-                팁픽(Tip-Pick) 가이드
+                팁픽(Tip-Pick) 인사이트
               </h3>
             </div>
             <Link href="/blog/" className="text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-colors">
