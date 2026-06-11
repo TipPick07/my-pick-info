@@ -53,3 +53,6 @@ link_check_result.txt
 boost_benefits_*.py
 
 coupang-replace.js
+
+# 게이트 격리 리포트(CI Issue 본문용 아티팩트 — 커밋 금지)
+quarantine-report.txt

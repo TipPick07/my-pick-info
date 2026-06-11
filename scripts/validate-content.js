@@ -176,10 +176,58 @@ function repairBrokenTables(text) {
 }
 
 // ── 결과 수집 ──────────────────────────────────────────────────────
-const report = { fixed: [], blocked: [], warned: [], ok: 0, files: 0, willFix: 0 };
+const report = { fixed: [], blocked: [], warned: [], ok: 0, files: 0, willFix: 0, quarantined: [] };
 function logFix(where, msg) { report.fixed.push(`[FIX] ${where}: ${msg}`); }
 function logBlock(where, msg) { report.blocked.push(`[BLOCK] ${where}: ${msg}`); }   // 치명: 발행 차단
 function logWarn(where, msg) { report.warned.push(`[WARN] ${where}: ${msg}`); }       // 비치명: 품질 경고
+
+// ── 본문 미완 종료 검출 (P1-① 2026-06-11, R2 블랙리스트 재설계) ───────────
+// 생성 단계 토큰 컷오프/절단으로 본문이 도중에 끊긴 글을 BLOCK. 검출 전용(FIX 경로 없음).
+// 대상: frontmatter 제외 본문(CRLF 허용). 판정은 '마지막 비공백 줄' L 기준.
+//   R1 L이 헤딩(^##+ )        → BLOCK (헤딩 직후 절단)
+//   R2 구조행(표·이미지·리스트·해시태그·수평선·인용/볼드·닫는괄호) 이면 즉시 통과.
+//      구조행 아닌 '산문 줄'만 종결 판정 — 종결신호(문장부호 ‖ 한국어 종결어미) 없으면 BLOCK.
+//   R3 마지막 H2 섹션 본문 공백제외 < 80자 → WARN (절단 의심, BLOCK 아님 — 추후 승격 검토)
+const ENDING_PUNCT = /[.!?…。〜~%]["”'’)\]]*\s*$/u;                                          // 문장부호 종결
+const ENDING_KO = /(다|요|죠|함|음|까|네|세요|십시오|십시다|랍니다|냅니다|습니다|됩니다)[.!?…]?\s*$/u; // 한국어 종결어미
+const ENDING_CLOSE = /[)\]）】」』》]\s*$/u;                                                  // 닫는 괄호·링크 끝) 흡수
+function checkIncompleteEnding(body) {
+  const lines = String(body).replace(/\r\n/g, '\n').split('\n');
+  let lastIdx = -1;
+  for (let i = lines.length - 1; i >= 0; i--) { if (lines[i].trim() !== '') { lastIdx = i; break; } }
+  if (lastIdx === -1) return { block: false, warn: false, last40: '', rule: null };
+  const L = lines[lastIdx].trim();
+  const last40 = L.slice(-40);
+
+  // R1: 헤딩 직후 절단
+  if (/^#{2,}\s/.test(L)) return { block: true, warn: false, last40, rule: 'R1' };
+
+  // R2(반전): 구조행이면 통과(정상으로 간주)
+  const isHashtagLine = /^#[^\s#]/.test(L) && L.split(/\s+/).every(t => t.startsWith('#'));
+  const isStruct =
+    /^\|/.test(L) ||                                          // a 표 행
+    /^!\[.*\)\s*$/.test(L) ||                                 // b 이미지
+    /^([-*+]|\d+[.)]|[-*+]\s*\[[ xX]\])\s/.test(L) ||         // c 리스트(번호·불릿·체크박스)
+    /^\p{Extended_Pictographic}/u.test(L) ||                  // c 선두 이모지 불릿
+    isHashtagLine ||                                          // d 해시태그 줄
+    /^(-{3,}|\*{3,}|_{3,})\s*$/.test(L) ||                    // e 수평선
+    /^>/.test(L) || /^\*\*/.test(L) ||                        // f 인용/볼드라벨
+    ENDING_CLOSE.test(L);                                     // g 닫는 괄호·링크 끝
+  if (!isStruct) {
+    // 산문 줄 — 종결 신호(문장부호 ‖ 한국어 종결어미) 없으면 절단 의심
+    const ended = ENDING_PUNCT.test(L) || ENDING_KO.test(L);
+    if (!ended) return { block: true, warn: false, last40, rule: 'R2' };
+  }
+
+  // R3: 마지막 H2 섹션 본문 길이(절단 의심 WARN)
+  let warn = false;
+  const h2 = []; lines.forEach((l, i) => { if (/^##\s/.test(l)) h2.push(i); });
+  if (h2.length) {
+    const sect = lines.slice(h2[h2.length - 1] + 1).join('').replace(/\s/g, '');
+    if (sect.length < 80) warn = true;
+  }
+  return { block: false, warn, last40, rule: warn ? 'R3' : null };
+}
 
 // ── 1) 블로그 글 검사 ───────────────────────────────────────────────
 function checkPost(file) {
@@ -302,6 +350,13 @@ function checkPost(file) {
   const h2Count = (body.match(/^##\s/gm) || []).length;
   if (h2Count < 3) logWarn(where, `본문 H2 섹션 ${h2Count}개 (권장 3개 이상: 배경·핵심내용·주의사항 등)`);
 
+  // (BLOCK) 본문 미완 종료 — 토큰 컷오프/절단 글 차단(검출 전용, FIX 없음)
+  {
+    const end = checkIncompleteEnding(body);
+    if (end.block) { logBlock(where, `본문 미완 종료 의심 — 마지막 줄: "${end.last40}"`); blocking = true; }
+    else if (end.warn) { logWarn(where, `마지막 H2 섹션 본문 80자 미만 — 절단 의심(마지막 줄: "${end.last40}")`); }
+  }
+
   // 실제 교정이 있을 때만 기록
   const next = head + body;
   if (next !== orig) {
@@ -312,6 +367,8 @@ function checkPost(file) {
     if (!fs.existsSync(QUAR_DIR)) fs.mkdirSync(QUAR_DIR, { recursive: true });
     fs.renameSync(fp, path.join(QUAR_DIR, file));
     report.blocked.push(`  → 격리됨: ${file} → _quarantine/`);
+    const reasons = report.blocked.filter(s => s.startsWith(`[BLOCK] ${file}:`)).map(s => s.replace(`[BLOCK] ${file}: `, ''));
+    report.quarantined.push({ file, reasons });
   }
   return { blocking };
 }
@@ -423,7 +480,10 @@ function checkPickInfo() {
 }
 
 // ── 실행 ───────────────────────────────────────────────────────────
+const QUAR_REPORT = 'quarantine-report.txt';
 function main() {
+  // 직전 실행의 stale 격리 리포트 제거 — 이번 실행에서 격리 0이면 파일 미생성 보장
+  try { if (fs.existsSync(QUAR_REPORT)) fs.unlinkSync(QUAR_REPORT); } catch {}
   const posts = fs.existsSync(POSTS_DIR) ? fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md')) : [];
   report.files = posts.length;
   let blockingCount = 0;
@@ -438,6 +498,14 @@ function main() {
   if (report.blocked.length) { console.log(`\n[발행 차단 ${report.blocked.length}건]`); report.blocked.forEach(s => console.log('  ' + s)); }
   if (!report.fixed.length && !report.blocked.length && !report.warned.length) console.log('✓ 위반 없음 — 전부 규격 통과');
 
+  // 격리 발생 시 quarantine-report.txt 기록(격리 0이면 미생성) — CI에서 Issue 본문으로 사용
+  if (report.quarantined.length) {
+    const out = `[게이트 격리] ${report.quarantined.length}건 발행 무산\n\n` +
+      report.quarantined.map(q => `- ${q.file}\n` + q.reasons.map(r => `    · ${r}`).join('\n')).join('\n\n') + '\n';
+    fs.writeFileSync(QUAR_REPORT, out, 'utf8');
+    console.log(`\n[격리 리포트] ${QUAR_REPORT} 기록 (${report.quarantined.length}건)`);
+  }
+
   // 차단 오류가 남으면 비정상 종료 (FIX 모드에서 격리까지 했으면 0)
   const hardBlock = report.blocked.filter(s => s.startsWith('[BLOCK]')).length;
   if (hardBlock > 0 && !(QUARANTINE && FIX)) {
@@ -446,4 +514,6 @@ function main() {
   }
   console.log('\n✓ 게이트 통과');
 }
-main();
+// CLI 직접 실행 시에만 게이트 가동. require(테스트·재사용) 시엔 함수만 노출.
+if (require.main === module) main();
+module.exports = { checkIncompleteEnding };

@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  issues: write   # 게이트 격리 발생 시 알림 Issue 생성용
 
 jobs:
   deploy:
@@ -51,7 +52,13 @@ jobs:
           fi
           echo "콘텐츠 검증 게이트 실행 (자동 정규화 + 깨진 글 격리)..."
           node scripts/validate-content.js --fix --quarantine
+          # 격리 발생 시 알림 Issue 생성(배포는 계속 진행). 격리 0이면 리포트 파일 미생성 → 스킵.
+          if [ -s quarantine-report.txt ]; then
+            echo "[격리 감지] 발행 무산 Issue 생성"
+            gh issue create --title "[게이트 격리] $(TZ=Asia/Seoul date +%F) 발행 무산" --body-file quarantine-report.txt || echo "Issue 생성 실패(배포는 계속)"
+          fi
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLIC_DATA_API_KEY: ${{ secrets.PUBLIC_DATA_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-2.5-flash
