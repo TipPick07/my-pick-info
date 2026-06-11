@@ -56,3 +56,6 @@ coupang-replace.js
 
 # 게이트 격리 리포트(CI Issue 본문용 아티팩트 — 커밋 금지)
 quarantine-report.txt
+
+# 묶음 프리뷰 산출물(무발행 검증 — 커밋 금지)
+preview-bundle/

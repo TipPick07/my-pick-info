@@ -7,6 +7,7 @@ const fallbacks = require('../src/lib/image-fallbacks.json');
 const matter = require('gray-matter');
 const { calcScore } = require('./lib/festival-score');
 const { selectFestivalBundle } = require('./lib/festival-bundle');
+const { parseFestivalStartDate, parseFestivalEndDate } = require('./lib/festival-date');
 
 // ─── 핫키워드: scripts/lib/hot-keywords.js(SSOT)로 추출(Phase 3a-2). 반환 { keywords, source }. ───
 // SEASONAL_KEYWORDS·DataLab 호출·병합 산식 일체를 보고서와 공유(드리프트 해소).
@@ -15,6 +16,154 @@ const { getTodayHotKeywords } = require('./lib/hot-keywords');
 
 // ─── 후보 점수: scripts/lib/festival-score.js로 추출(Phase 2a) ────────────────
 // calcScore(item, postType, hotKeywords, today)는 import. festival 시작일 파싱은 festival-date SSOT 사용.
+
+// ════════════════════════════════════════════════════════════════════════════
+// (P1-② 2026-06-11) 축제 묶음(bundleMode) 전용 헬퍼 — benefit 경로와 완전 분리.
+//   변경 2 buildBundlePrompt / 변경 3 frontmatter 코드주입 / 변경 4 요일 후처리.
+// ════════════════════════════════════════════════════════════════════════════
+const KO_DOW = ['일', '월', '화', '수', '목', '금', '토'];
+
+// 입력 슬림화(변경 2): 화이트리스트 필드만. content·mapx/mapy·image·id·tag 등은 제외(입력 비대·환각원 차단).
+function slimBundleItems(items) {
+  return items.map((it) => {
+    const desc = String(it.description || '').split(/\r?\n/)[0];
+    const desc1line = (desc.match(/^[^.!?。]*[.!?。]?/) || [''])[0].trim().slice(0, 120);
+    return {
+      title: it.title || '',
+      date: it.date || '',
+      region: it.region || '',
+      location: it.location || '',
+      link: it.link || '',
+      targetPersona: it.targetPersona || '',
+      coreValue: it.coreValue || '',
+      practicalTip: it.practicalTip || '',
+      desc1line,
+    };
+  });
+}
+
+// 요일 후처리 주입(변경 4): 본문·표의 'M.D'/'M.D~M.D' 날짜 토큰을 date 기반 요일로 보강.
+// LLM은 요일을 안 적게(날짜만) 지시받으므로, 여기서 코드가 정확한 요일을 채운다.
+function injectBundleWeekday(body, items) {
+  let out = body;
+  const esc = (d) => `${d.getMonth() + 1}\\.${d.getDate()}`;
+  const plain = (d) => `${d.getMonth() + 1}.${d.getDate()}`;
+  // 1) 범위 먼저: "6.12~6.14" → "6.12(금)~6.14(일)"
+  for (const it of items) {
+    const s = parseFestivalStartDate(it.date), e = parseFestivalEndDate(it.date);
+    if (!s || !e || e.getTime() === s.getTime()) continue;
+    const re = new RegExp(`(?<!\\d)${esc(s)}\\s*~\\s*${esc(e)}(?!\\d)(?!\\s*\\()`, 'g');
+    out = out.replace(re, `${plain(s)}(${KO_DOW[s.getDay()]})~${plain(e)}(${KO_DOW[e.getDay()]})`);
+  }
+  // 2) 단일일: "6.14" → "6.14(일)" (이미 '(' 또는 '~'가 뒤따르면 건드리지 않음)
+  for (const it of items) {
+    const s = parseFestivalStartDate(it.date), e = parseFestivalEndDate(it.date);
+    if (!s || (e && e.getTime() !== s.getTime())) continue;
+    const re = new RegExp(`(?<!\\d)${esc(s)}(?!\\d)(?!\\s*[(~])`, 'g');
+    out = out.replace(re, `${plain(s)}(${KO_DOW[s.getDay()]})`);
+  }
+  return out;
+}
+
+// 묶음 본문 프롬프트(변경 2·5). 본문 마크다운만 출력(frontmatter는 변경 3에서 코드가 생성).
+function buildBundlePrompt({ slim, today, hotKeywords, weekendCount, nextWeekCount, freeCount, applyCount, satLabel, sunLabel }) {
+  const total = slim.length;
+  const text = `절대로 내부 사고 과정·계획·분석을 출력하지 마세요. 오직 완성된 마크다운 본문만 출력하세요.
+
+당신은 수도권 생활정보 큐레이션 '수도권 팁픽(Tip-Pick)'의 전문 에디터입니다.
+아래 ${total}개 수도권 가족축제 데이터를 바탕으로, 이번 주말 나들이를 돕는 실용 비교 글을 작성하세요.
+오늘은 ${today}(목)이며, "이번 주말"은 이번 주 토요일(${satLabel})·일요일(${sunLabel})입니다.
+
+[데이터(JSON — 이 안의 사실만 사용)]
+${JSON.stringify(slim, null, 2)}
+
+핫 키워드(참고): ${hotKeywords.slice(0, 5).join(', ')}
+
+[본문 골격 — 아래 순서·H2를 그대로]
+1. 도입 2~3문장: "이번 주말 바로 갈 ${weekendCount}곳 + 다음 주 시작 ${nextWeekCount}곳, 모두 ${total}곳. 무료 ${freeCount}곳, 사전신청 필요 ${applyCount}곳" 식의 실용 요약. 감성 과장·상투구 금지.
+2. ## 10초 결정 가이드 — 페르소나별 한 줄 추천(데이터에 맞춰: 반려가족/무계획/먹거리/동네 산책/이미 주말 꽉 참 등). 죽은 체크박스 퀴즈('- [ ]') 금지.
+3. ## 한눈에 비교 — 표 정확히 4컬럼: \`행사 | 일정 | 장소 | 요금·신청\`. 헤더+구분선(| :--- |)+데이터행 순서, ${total}개 행 전부 누락 없이. 각 셀은 짧은 어구. 표 행 사이 빈 줄 금지.
+4. ## 이번 주말 바로 가는 ${weekendCount}곳 — 이번 주 토·일(${satLabel}~${sunLabel})에 진행하는 행사만. 각 ### 블록: 무엇을·누구에게·요금/신청·교통 한 줄 팁. 링크가 있으면 본문에 자연스럽게 [텍스트](URL)로.
+5. ## 다음 주에 미리 찜할 ${nextWeekCount}곳 — 차주 시작 행사. 4번보다 짧게.
+6. ## 가기 전 체크 — 자주 하는 실수(사전신청 누락·유료 행사·날짜별 장소 변경·주차) 불릿 5개 내외.
+7. ## 마무리 — 2~3문장 요약 + "다음 주 목요일 새 묶음" 한 줄.
+
+[주말 분류 규칙]
+각 행사 date를 보고 이번 주 토·일(${satLabel}~${sunLabel})에 걸치면 4번에, 그 이후 시작이면 5번에 배치하세요.
+
+[정확성 — 매우 중요]
+· 제공된 필드(JSON)에 없는 사실(구체 장소명·전화번호·출연자·프로그램 세부)은 절대 지어내지 마세요. 없으면 비우거나 "공식 안내 확인"으로 두세요.
+· 요일을 직접 적지 마세요. 날짜는 'M.D'(예: 6.14) 또는 'M.D~M.D'(예: 6.12~6.14) 형식 숫자만 쓰고, 요일 괄호는 비워 두세요(요일은 시스템이 자동 주입).
+· 유·무료를 표 '요금·신청' 셀에 반드시 명시. 알 수 없으면 "요금 미공지".
+
+[톤] 밝고 실용적. "강력 추천!" 반복·"잊지 못할 추억" 류 상투구 금지. 같은 칭찬을 여러 번 반복하지 마세요.
+[분량] 표 제외 본문 공백 제외 2,500~4,000자(${total}건 기준).
+
+[출력] 본문 마크다운만. YAML frontmatter(---)는 출력하지 마세요(시스템이 별도 생성).
+응답 첫 줄에 반드시: FILENAME: ${today}-영문-슬러그 (예: FILENAME: ${today}-seoul-gyeonggi-weekend-family-festival)`;
+  return {
+    contents: [{ parts: [{ text }] }],
+    tools: [{ googleSearch: {} }],
+    generationConfig: { temperature: 0.7, maxOutputTokens: 16384 },
+  };
+}
+
+// 묶음 메타 5종 — 입력 통계만으로 결정적 생성(P1-② ⓒ: LLM JSON 호출 폐기).
+//   배경: responseMimeType:json 2번째 호출이 조기 truncation/과부하로 신뢰 불가(3/3 실패)였고,
+//   frontmatter는 어차피 코드 통제라 LLM 메타 이득이 작아 결정적 경로로 일원화. Gemini 호출은 '본문 1회'만.
+function deterministicBundleMeta({ items, weekendCount, nextWeekCount, freeCount, applyCount, satLabel, sunLabel }) {
+  const total = items.length;
+  const weekendDate = (satLabel && sunLabel) ? `(${satLabel}~${sunLabel})` : '';   // 주말 날짜 — summary·details에 주입
+  const freePhrase = freeCount > 0 ? `${freeCount}곳 무료` : '요금은 행사별 상이';
+  const summary = `이번 주말${weekendDate} ${weekendCount}곳 등 수도권 가족축제 ${total}곳 비교 — ${freePhrase}, 지금 확인하세요!`.slice(0, 100);
+  const feeClause = freeCount > 0 ? `${total}곳 중 ${freeCount}곳이 무료이며, ` : '요금은 행사별로 다르며, ';
+  const applyClause = applyCount > 0 ? `${applyCount}곳은 사전 신청이 필요합니다. ` : '';
+  const officialDetails = `이번 주말${weekendDate} 바로 갈 수 있는 수도권 가족축제 ${weekendCount}곳과 다음 주 시작 ${nextWeekCount}곳을 비교했습니다. ${feeClause}${applyClause}모두 서울·경기·인천 수도권 행사이며, 행사별 날짜·장소·요금은 본문 비교표에서 확인하세요.`.slice(0, 200);
+  const officialCurationNote = `이런 분께 추천합니다: 이번 주말 아이와 갈 곳을 아직 못 정한 수도권 가족. 한 번에 ${total}곳을 비교해 동선과 취향에 맞게 고를 수 있습니다.`;
+  const tipApply = applyCount > 0 ? `사전 신청이 필요한 곳이 ${applyCount}곳 있으니 방문 전 확인하세요. ` : '';
+  const officialTip = `${tipApply}야외 행사가 많아 주말 주차가 혼잡하니 대중교통과 돗자리를 권합니다.`;
+  return { summary, officialDetails, officialCurationNote, officialTip };
+}
+
+// 묶음 frontmatter 코드 생성(변경 3): items[0] 직접 박기 전면 제거, 고정값 + 메타만.
+function buildBundleFrontmatter({ items, today, bundleTitleLabel, bundleSourceIds, meta }) {
+  const q = (s) => `"${String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\r?\n/g, ' ').trim()}"`;
+  const tags = ['서울 축제', '경기 축제', '가족 나들이', '주말 축제', '수도권 행사'];
+  return [
+    '---',
+    `title: ${q(bundleTitleLabel)}`,
+    `originalTitle: ${q(`${items[0].title} 외 ${items.length - 1}건`)}`,
+    `link: ""`,
+    `officialTarget: ${q('수도권에서 주말 나들이를 계획하는 가족 (영유아·초등 자녀, 반려가족 포함)')}`,
+    `officialDetails: ${q(meta.officialDetails)}`,
+    `officialDeadline: ${q('행사별 상이 · 본문 표 참고')}`,
+    `date: ${today}`,
+    `sourceIds: ${JSON.stringify(bundleSourceIds)}`,
+    `summary: ${q(meta.summary)}`,
+    `description: ${q(meta.summary)}`,
+    `category: festival`,
+    `image: ${items[0].image || ''}`,
+    `ogImage: ""`,
+    `tags: [${tags.join(', ')}]`,
+    `officialCurationNote: ${q(meta.officialCurationNote)}`,
+    `officialRequirements: []`,
+    `officialHowToApply: []`,
+    `officialEligibilityQuiz: []`,
+    `officialTip: ${q(meta.officialTip)}`,
+    '---',
+  ].join('\n');
+}
+
+// 묶음 문서 조립(변경 3·4): LLM 본문에서 frontmatter 제거 → 요일 주입 → 코드 frontmatter 결합.
+function assembleBundleDocument(rawBody, opts) {
+  let body = rawBody;
+  const fmMatch = body.match(/^\s*---\r?\n[\s\S]*?\r?\n---\r?\n?/);
+  if (fmMatch) body = body.slice(fmMatch[0].length);  // LLM이 frontmatter를 냈으면 첫 블록 제거(본문만)
+  body = injectBundleWeekday(body.trim(), opts.items);
+  const meta = deterministicBundleMeta(opts);   // ⓒ: 결정적 정식 경로(LLM 메타 호출 없음)
+  const fm = buildBundleFrontmatter({ items: opts.items, today: opts.today, bundleTitleLabel: opts.bundleTitleLabel, bundleSourceIds: opts.bundleSourceIds, meta });
+  return `${fm}\n\n${body}\n`;   // 끝 개행 보장(F9 가드·POSIX 관례)
+}
 
 // ─── 중복 방지 유틸 (Jaccard 유사도 기반 강화) ────────────────────────────────
 const DEDUP_STOP_WORDS = new Set([
@@ -225,6 +374,8 @@ async function main() {
     let targetItems, topThemeName, publishCategory;
     let bundleTitleLabel = null;   // festival 전용: 시기 제목 라벨(후처리에서 title 덮어쓰기)
     let bundleSourceIds = [];      // festival 전용: 묶음 id(후처리에서 sourceIds 주입)
+    // (P1-②) 묶음 통계·주말 경계 — 프롬프트/메타/요일 후처리에서 공유.
+    let bundleWeekend = 0, bundleNext = 0, bundleFree = 0, bundleApply = 0, bundleSatLabel = '', bundleSunLabel = '';
 
     if (postType === 'festival') {
       // ─── §4-15 Phase 3a: 시기 묶음 셀렉터(발행·보고서 공유 SSOT) ──────────────
@@ -258,6 +409,22 @@ async function main() {
       bundleSourceIds = bundle.items.map(t => String(t.id));
       topThemeName = '시기 묶음(이번 주말 수도권 가족 나들이)';
       publishCategory = '축제/행사';
+
+      // (P1-②) 이번 주말(발행 목요일 기준 그 주 토·일) 경계 + 주말/차주·유무료·사전신청 카운트
+      const pubW = new Date(nowKst); pubW.setHours(0, 0, 0, 0);
+      const sat = new Date(pubW); sat.setDate(pubW.getDate() + ((6 - pubW.getDay() + 7) % 7));
+      const sun = new Date(sat); sun.setDate(sat.getDate() + 1);
+      bundleSatLabel = `${sat.getMonth() + 1}.${sat.getDate()}`;
+      bundleSunLabel = `${sun.getMonth() + 1}.${sun.getDate()}`;
+      const isWeekendItem = (it) => {
+        const s = parseFestivalStartDate(it.date); if (!s) return false;
+        const e = parseFestivalEndDate(it.date) || s;
+        return s <= sun && e >= sat;   // 이번 주말과 기간이 겹치면 '이번 주말'
+      };
+      bundleWeekend = targetItems.filter(isWeekendItem).length;
+      bundleNext = targetItems.length - bundleWeekend;
+      bundleFree = targetItems.filter(it => it.tag === '무료' || /무료/.test(`${it.title || ''}${it.description || ''}`)).length;
+      bundleApply = targetItems.filter(it => /사전\s*신청|선착순|예약\s*필수|신청\s*필수|신청\s*필요/.test(`${it.description || ''}${it.content || ''}${it.practicalTip || ''}`)).length;
 
       console.log(`[블로그] 시기 묶음: "${bundleTitleLabel}" (적격 ${bundle.eligibleCount}건 중 상위 ${targetItems.length})`);
       console.log(`[블로그] 선정된 데이터 세트 (총 ${targetItems.length}건):`);
@@ -362,7 +529,14 @@ async function main() {
 
     // 2. Gemini AI로 블로그 글 생성
     const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
-    const prompt = {
+    // (P1-②) 프롬프트 분기: festival 묶음은 전용 슬림 프롬프트(buildBundlePrompt). benefit은 기존 공용 프롬프트 불변.
+    const prompt = (postType === 'festival' && bundleTitleLabel)
+      ? buildBundlePrompt({
+          slim: slimBundleItems(targetItems), today, hotKeywords,
+          weekendCount: bundleWeekend, nextWeekCount: bundleNext, freeCount: bundleFree, applyCount: bundleApply,
+          satLabel: bundleSatLabel, sunLabel: bundleSunLabel,
+        })
+      : {
       contents: [{
         parts: [{
           text: `절대로 내부 사고 과정, 계획, 분석 내용을 출력하지 마세요.
@@ -513,6 +687,17 @@ officialTip: (1~2문장의 간결한 평문으로 작성. 번호 매기기·별�
 
     let mdContent = fullText.replace(/FILENAME:.*$/im, '').trim();
     mdContent = mdContent.replace(/^```[a-z]*\n/i, '').replace(/```$/g, '').trim();
+
+    // (P1-②) 축제 묶음: LLM은 본문만 생성 → frontmatter는 코드가 통째 주입(변경 3) + 요일 후처리(변경 4).
+    //   items[0] 직접 박기·LLM frontmatter 오염 경로를 원천 제거. benefit 경로는 이 블록을 타지 않음.
+    if (postType === 'festival' && bundleTitleLabel) {
+      mdContent = assembleBundleDocument(mdContent, {
+        items: targetItems, today, bundleTitleLabel, bundleSourceIds,
+        weekendCount: bundleWeekend, nextWeekCount: bundleNext, freeCount: bundleFree, applyCount: bundleApply,
+        satLabel: bundleSatLabel, sunLabel: bundleSunLabel,
+      });
+    }
+
     mdContent = mdContent.replace(/^date:.*$/m, `date: ${today}`);
 
     // (Phase 3a) 축제 시기 묶음: title을 시기 라벨로 덮고(originalTitle은 보존), sourceIds(묶음 id)를 주입.
