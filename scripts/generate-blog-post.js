@@ -23,7 +23,33 @@ const { getTodayHotKeywords } = require('./lib/hot-keywords');
 // ════════════════════════════════════════════════════════════════════════════
 const KO_DOW = ['일', '월', '화', '수', '목', '금', '토'];
 
+// fee 값을 표 셀 1줄로 안전화(수정4): <br>·HTML 태그·개행·파이프 제거, 공백 축약. 금액 정보는 절단하지 않음.
+function normalizeFee(val) {
+  if (!val) return null;
+  let s = String(val);
+  s = s.replace(/<br\s*\/?>/gi, ' '); // 1) <br>,<br/>,<br /> → 공백
+  s = s.replace(/<[^>]*>/g, '');       // 2) 그 외 HTML 태그 잔재 제거
+  s = s.replace(/[\r\n\t]+/g, ' ');    // 3) 개행/탭 → 공백
+  s = s.replace(/\|/g, '/');           // 4) '|' → '/' (표 파이프 깨짐 방지)
+  s = s.replace(/\s+/g, ' ').trim();   // 5) 연속 공백 1칸 + 양끝 trim
+  return s ? s : null;                 // 6) 빈 문자열이면 null
+}
+
+// content 마크다운 표에서 '입장료' 셀의 값만 추출(요금 SSOT). content 원문은 주입하지 않고 이 짧은 값만 슬림에 싣는다.
+function extractFeeFromContent(content) {
+  if (!content) return null;
+  for (const line of String(content).split(/\r?\n/)) {
+    if (!(line.includes('입장료') && line.includes('|'))) continue;
+    const cells = line.split('|').map((c) => c.trim());
+    const idx = cells.findIndex((c) => c.includes('입장료'));
+    if (idx === -1) continue;
+    return normalizeFee(cells[idx + 1]);
+  }
+  return null;
+}
+
 // 입력 슬림화(변경 2): 화이트리스트 필드만. content·mapx/mapy·image·id·tag 등은 제외(입력 비대·환각원 차단).
+//   fee는 content 입장료 셀에서 추출한 '짧은 값'만 실어 요금 정확성 확보(content 원문은 여전히 미주입).
 function slimBundleItems(items) {
   return items.map((it) => {
     const desc = String(it.description || '').split(/\r?\n/)[0];
@@ -38,6 +64,7 @@ function slimBundleItems(items) {
       coreValue: it.coreValue || '',
       practicalTip: it.practicalTip || '',
       desc1line,
+      fee: extractFeeFromContent(it.content) ?? null,
     };
   });
 }
@@ -66,7 +93,7 @@ function injectBundleWeekday(body, items) {
 }
 
 // 묶음 본문 프롬프트(변경 2·5). 본문 마크다운만 출력(frontmatter는 변경 3에서 코드가 생성).
-function buildBundlePrompt({ slim, today, hotKeywords, weekendCount, nextWeekCount, freeCount, applyCount, satLabel, sunLabel }) {
+function buildBundlePrompt({ slim, today, hotKeywords, weekendCount, nextWeekCount, applyCount, satLabel, sunLabel }) {
   const total = slim.length;
   const text = `절대로 내부 사고 과정·계획·분석을 출력하지 마세요. 오직 완성된 마크다운 본문만 출력하세요.
 
@@ -80,7 +107,7 @@ ${JSON.stringify(slim, null, 2)}
 핫 키워드(참고): ${hotKeywords.slice(0, 5).join(', ')}
 
 [본문 골격 — 아래 순서·H2를 그대로]
-1. 도입 2~3문장: "이번 주말 바로 갈 ${weekendCount}곳 + 다음 주 시작 ${nextWeekCount}곳, 모두 ${total}곳. 무료 ${freeCount}곳, 사전신청 필요 ${applyCount}곳" 식의 실용 요약. 감성 과장·상투구 금지.
+1. 도입 2~3문장: "이번 주말 바로 갈 ${weekendCount}곳 + 다음 주 시작 ${nextWeekCount}곳, 모두 ${total}곳. 사전신청 필요 ${applyCount}곳" 식의 실용 요약. 감성 과장·상투구 금지.
 2. ## 10초 결정 가이드 — 페르소나별 한 줄 추천(데이터에 맞춰: 반려가족/무계획/먹거리/동네 산책/이미 주말 꽉 참 등). 죽은 체크박스 퀴즈('- [ ]') 금지.
 3. ## 한눈에 비교 — 표 정확히 4컬럼: \`행사 | 일정 | 장소 | 요금·신청\`. 헤더+구분선(| :--- |)+데이터행 순서, ${total}개 행 전부 누락 없이. 각 셀은 짧은 어구. 표 행 사이 빈 줄 금지.
 4. ## 이번 주말 바로 가는 ${weekendCount}곳 — 이번 주 토·일(${satLabel}~${sunLabel})에 진행하는 행사만. 각 ### 블록: 무엇을·누구에게·요금/신청·교통 한 줄 팁. 링크가 있으면 본문에 자연스럽게 [텍스트](URL)로.
@@ -94,7 +121,8 @@ ${JSON.stringify(slim, null, 2)}
 [정확성 — 매우 중요]
 · 제공된 필드(JSON)에 없는 사실(구체 장소명·전화번호·출연자·프로그램 세부)은 절대 지어내지 마세요. 없으면 비우거나 "공식 안내 확인"으로 두세요.
 · 요일을 직접 적지 마세요. 날짜는 'M.D'(예: 6.14) 또는 'M.D~M.D'(예: 6.12~6.14) 형식 숫자만 쓰고, 요일 괄호는 비워 두세요(요일은 시스템이 자동 주입).
-· 유·무료를 표 '요금·신청' 셀에 반드시 명시. 알 수 없으면 "요금 미공지".
+· 각 행사 '요금·신청' 셀의 요금 부분은 주어진 fee 값을 그대로 표기할 것. fee가 비어 있을 때만 "요금 미공지"로 쓸 것. 요금을 임의로 추정·생성하지 말 것. 사전 예매/신청 안내는 기존대로 link·practicalTip 근거로 덧붙임.
+· 도입부·본문 산문에서 무료/유료 행사의 '개수'를 세어 말하지 말 것(예: "무료 N곳" 금지). 요금 안내는 표를 가리킬 것(예: "요금은 행사별 상이, 아래 표 참고").
 
 [톤] 밝고 실용적. "강력 추천!" 반복·"잊지 못할 추억" 류 상투구 금지. 같은 칭찬을 여러 번 반복하지 마세요.
 [분량] 표 제외 본문 공백 제외 2,500~4,000자(${total}건 기준).
@@ -111,12 +139,12 @@ ${JSON.stringify(slim, null, 2)}
 // 묶음 메타 5종 — 입력 통계만으로 결정적 생성(P1-② ⓒ: LLM JSON 호출 폐기).
 //   배경: responseMimeType:json 2번째 호출이 조기 truncation/과부하로 신뢰 불가(3/3 실패)였고,
 //   frontmatter는 어차피 코드 통제라 LLM 메타 이득이 작아 결정적 경로로 일원화. Gemini 호출은 '본문 1회'만.
-function deterministicBundleMeta({ items, weekendCount, nextWeekCount, freeCount, applyCount, satLabel, sunLabel }) {
+function deterministicBundleMeta({ items, weekendCount, nextWeekCount, applyCount, satLabel, sunLabel }) {
   const total = items.length;
   const weekendDate = (satLabel && sunLabel) ? `(${satLabel}~${sunLabel})` : '';   // 주말 날짜 — summary·details에 주입
-  const freePhrase = freeCount > 0 ? `${freeCount}곳 무료` : '요금은 행사별 상이';
+  const freePhrase = '요금은 행사별 상이';   // 요금 개수 산출 폐기(요금은 표 참고) — 무조건 행사별 상이로 안내
   const summary = `이번 주말${weekendDate} ${weekendCount}곳 등 수도권 가족축제 ${total}곳 비교 — ${freePhrase}, 지금 확인하세요!`.slice(0, 100);
-  const feeClause = freeCount > 0 ? `${total}곳 중 ${freeCount}곳이 무료이며, ` : '요금은 행사별로 다르며, ';
+  const feeClause = '요금은 행사별로 다르며, ';   // 요금 개수 산출 폐기(요금은 표 참고) — 무조건 행사별 상이로 안내
   const applyClause = applyCount > 0 ? `${applyCount}곳은 사전 신청이 필요합니다. ` : '';
   const officialDetails = `이번 주말${weekendDate} 바로 갈 수 있는 수도권 가족축제 ${weekendCount}곳과 다음 주 시작 ${nextWeekCount}곳을 비교했습니다. ${feeClause}${applyClause}모두 서울·경기·인천 수도권 행사이며, 행사별 날짜·장소·요금은 본문 비교표에서 확인하세요.`.slice(0, 200);
   const officialCurationNote = `이런 분께 추천합니다: 이번 주말 아이와 갈 곳을 아직 못 정한 수도권 가족. 한 번에 ${total}곳을 비교해 동선과 취향에 맞게 고를 수 있습니다.`;
@@ -375,7 +403,7 @@ async function main() {
     let bundleTitleLabel = null;   // festival 전용: 시기 제목 라벨(후처리에서 title 덮어쓰기)
     let bundleSourceIds = [];      // festival 전용: 묶음 id(후처리에서 sourceIds 주입)
     // (P1-②) 묶음 통계·주말 경계 — 프롬프트/메타/요일 후처리에서 공유.
-    let bundleWeekend = 0, bundleNext = 0, bundleFree = 0, bundleApply = 0, bundleSatLabel = '', bundleSunLabel = '';
+    let bundleWeekend = 0, bundleNext = 0, bundleApply = 0, bundleSatLabel = '', bundleSunLabel = '';
 
     if (postType === 'festival') {
       // ─── §4-15 Phase 3a: 시기 묶음 셀렉터(발행·보고서 공유 SSOT) ──────────────
@@ -423,7 +451,7 @@ async function main() {
       };
       bundleWeekend = targetItems.filter(isWeekendItem).length;
       bundleNext = targetItems.length - bundleWeekend;
-      bundleFree = targetItems.filter(it => it.tag === '무료' || /무료/.test(`${it.title || ''}${it.description || ''}`)).length;
+      // 요금 개수(freeCount) 산출 폐기 — 요금은 fee 기반 표로만 안내. (구 bundleFree 계산 제거)
       bundleApply = targetItems.filter(it => /사전\s*신청|선착순|예약\s*필수|신청\s*필수|신청\s*필요/.test(`${it.description || ''}${it.content || ''}${it.practicalTip || ''}`)).length;
 
       console.log(`[블로그] 시기 묶음: "${bundleTitleLabel}" (적격 ${bundle.eligibleCount}건 중 상위 ${targetItems.length})`);
@@ -533,7 +561,7 @@ async function main() {
     const prompt = (postType === 'festival' && bundleTitleLabel)
       ? buildBundlePrompt({
           slim: slimBundleItems(targetItems), today, hotKeywords,
-          weekendCount: bundleWeekend, nextWeekCount: bundleNext, freeCount: bundleFree, applyCount: bundleApply,
+          weekendCount: bundleWeekend, nextWeekCount: bundleNext, applyCount: bundleApply,
           satLabel: bundleSatLabel, sunLabel: bundleSunLabel,
         })
       : {
@@ -693,7 +721,7 @@ officialTip: (1~2문장의 간결한 평문으로 작성. 번호 매기기·별�
     if (postType === 'festival' && bundleTitleLabel) {
       mdContent = assembleBundleDocument(mdContent, {
         items: targetItems, today, bundleTitleLabel, bundleSourceIds,
-        weekendCount: bundleWeekend, nextWeekCount: bundleNext, freeCount: bundleFree, applyCount: bundleApply,
+        weekendCount: bundleWeekend, nextWeekCount: bundleNext, applyCount: bundleApply,
         satLabel: bundleSatLabel, sunLabel: bundleSunLabel,
       });
     }
