@@ -153,7 +153,7 @@ export default async function BenefitDetail({ params }: { params: Promise<{ id: 
             "@type": "BreadcrumbList",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://tip-pick.com" },
-              { "@type": "ListItem", "position": 2, "name": "지원금/혜택", "item": "https://tip-pick.com/benefits" },
+              { "@type": "ListItem", "position": 2, "name": "지원금/혜택", "item": "https://tip-pick.com/benefits/" },
               { "@type": "ListItem", "position": 3, "name": benefit.title, "item": `https://tip-pick.com/benefit/${benefit.id}/` }
             ]
           })

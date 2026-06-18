@@ -143,7 +143,7 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
             "@type": "BreadcrumbList",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://tip-pick.com" },
-              { "@type": "ListItem", "position": 2, "name": "축제/행사", "item": "https://tip-pick.com/festivals" },
+              { "@type": "ListItem", "position": 2, "name": "축제/행사", "item": "https://tip-pick.com/festivals/" },
               { "@type": "ListItem", "position": 3, "name": festival.title, "item": `https://tip-pick.com/festival/${festival.id}/` }
             ]
           })

@@ -123,8 +123,8 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             "@type": "BreadcrumbList",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://tip-pick.com" },
-              { "@type": "ListItem", "position": 2, "name": "블로그", "item": "https://tip-pick.com/blog" },
-              { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://tip-pick.com/blog/${post.slug}` }
+              { "@type": "ListItem", "position": 2, "name": "블로그", "item": "https://tip-pick.com/blog/" },
+              { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://tip-pick.com/blog/${post.slug}/` }
             ]
           })
         }}

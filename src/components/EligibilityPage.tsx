@@ -48,7 +48,7 @@ function BenefitCard({ benefit, query }: { benefit: Benefit; query: string }) {
 
   return (
     <Link
-      href={`/benefit/${benefit.id}`}
+      href={`/benefit/${benefit.id}/`}
       className="group block bg-white border border-slate-100 hover:border-indigo-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all"
     >
       <div className="flex items-start justify-between gap-3 mb-3">

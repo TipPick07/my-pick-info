@@ -71,7 +71,7 @@ export default function Header() {
           })}
           
           {/* CTA 버튼 */}
-          <Link href="/eligibility" className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-5 rounded-full hover:scale-105 transition-transform shadow-md flex items-center gap-2">
+          <Link href="/eligibility/" className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-5 rounded-full hover:scale-105 transition-transform shadow-md flex items-center gap-2">
             🔍 1분 맞춤 혜택 찾기
           </Link>
         </nav>
@@ -110,7 +110,7 @@ export default function Header() {
           })}
           
           {/* 모바일 CTA 버튼 */}
-          <Link href="/eligibility" onClick={() => setIsMenuOpen(false)} className="mt-4 w-full bg-indigo-600 text-white font-bold py-3 rounded-full hover:bg-indigo-700 flex items-center justify-center gap-2 shadow-md active:scale-[0.98] transition-transform">
+          <Link href="/eligibility/" onClick={() => setIsMenuOpen(false)} className="mt-4 w-full bg-indigo-600 text-white font-bold py-3 rounded-full hover:bg-indigo-700 flex items-center justify-center gap-2 shadow-md active:scale-[0.98] transition-transform">
             🔍 1분 맞춤 혜택 찾기
           </Link>
         </nav>

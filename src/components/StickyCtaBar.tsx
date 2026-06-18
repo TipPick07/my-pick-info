@@ -70,7 +70,7 @@ export default function StickyCtaBar() {
             <span className="hidden sm:inline">🔔 우리 집 육아·가족 혜택 + 가이드 보기</span>
           </p>
           <a
-            href="/guides"
+            href="/guides/"
             className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-full bg-[#FEE500] px-4 py-2.5 text-sm font-black text-[#3C1E1E] transition-transform hover:scale-[1.03] active:scale-95"
           >
             혜택·가이드 보기 →

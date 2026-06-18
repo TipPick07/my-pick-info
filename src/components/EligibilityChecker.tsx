@@ -239,7 +239,7 @@ function BenefitMatcher({ benefitPool }: { benefitPool: BenefitQuestion[] }) {
             </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Link
-                href={`/benefit/${matched.id}`}
+                href={`/benefit/${matched.id}/`}
                 className="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-black px-6 py-3.5 rounded-2xl transition-colors shadow-sm"
               >
                 상세 보기 <ArrowRight className="w-4 h-4" />
@@ -276,7 +276,7 @@ function BenefitMatcher({ benefitPool }: { benefitPool: BenefitQuestion[] }) {
                 <RotateCcw className="w-4 h-4" /> 다시 찾기
               </button>
               <Link
-                href="/benefit"
+                href="/benefits/"
                 className="inline-flex items-center justify-center gap-2 bg-white border-2 border-indigo-100 hover:border-indigo-400 text-indigo-700 font-black px-6 py-3.5 rounded-2xl transition-colors"
               >
                 전체 혜택 보기 <ArrowRight className="w-4 h-4" />
