@@ -37,12 +37,12 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     title: `${post?.title} | 팁픽(Tip-Pick)`,
     description,
     alternates: {
-      canonical: `https://tip-pick.com/blog/${slug}`,
+      canonical: `https://tip-pick.com/blog/${slug}/`,
     },
     openGraph: {
       title: post?.title,
       description,
-      url: `https://tip-pick.com/blog/${slug}`,
+      url: `https://tip-pick.com/blog/${slug}/`,
       siteName: '수도권 팁픽',
       locale: 'ko_KR',
       type: 'article',
