@@ -59,3 +59,4 @@ quarantine-report.txt
 
 # 묶음 프리뷰 산출물(무발행 검증 — 커밋 금지)
 preview-bundle/
+scripts/_preview/
