@@ -1,6 +1,6 @@
 # 팁픽 일일 후보 보고서
 
-> 2026-06-23 생성 · 읽기전용(글 발행 안 함) · 손글 .md 글감 선별용
+> 2026-06-24 생성 · 읽기전용(글 발행 안 함) · 손글 .md 글감 선별용
 
 ✅ **쓸 거리 있음** — 축제 103건 · 지원금 25건 (한쪽이라도 ≥3)
 
@@ -8,21 +8,21 @@
 
 **📝 지원금 블로그 후보** (마감 가까운 순)
 
-- [경기] 2026년 2분기 청년기본소득 (경기, 마감 2026.06.30 · D-7) — [/benefit/gemini-1780285821460/](https://tip-pick.com/benefit/gemini-1780285821460/) · **이 주제로 블로그 글 작성할까요?**
-- [서울] 출산가구 주거비 지원사업 (서울, 마감 2026.06.30 · D-7) — [/benefit/gemini-1778274811700/](https://tip-pick.com/benefit/gemini-1778274811700/) · **이 주제로 블로그 글 작성할까요?**
-- [전국] 2026년 에너지바우처 지원 (전국, 마감 2026.12.31 · D-191) — [/benefit/gemini-1780353313951/](https://tip-pick.com/benefit/gemini-1780353313951/) · **이 주제로 블로그 글 작성할까요?**
+- [경기] 2026년 2분기 청년기본소득 (경기, 마감 2026.06.30 · D-6) — [/benefit/gemini-1780285821460/](https://tip-pick.com/benefit/gemini-1780285821460/) · **이 주제로 블로그 글 작성할까요?**
+- [서울] 출산가구 주거비 지원사업 (서울, 마감 2026.06.30 · D-6) — [/benefit/gemini-1778274811700/](https://tip-pick.com/benefit/gemini-1778274811700/) · **이 주제로 블로그 글 작성할까요?**
+- [전국] 2026년 에너지바우처 지원 (전국, 마감 2026.12.31 · D-190) — [/benefit/gemini-1780353313951/](https://tip-pick.com/benefit/gemini-1780353313951/) · **이 주제로 블로그 글 작성할까요?**
 
 **🎪 축제 묶음 후보** (시작 임박 적격 26건 · 🔄 상설 15건 제외)
 
 - **이 묶음으로 블로그 1편 작성할까요?** (calcScore 상위 8개 구성)
   - [서울] 다미앵 잘레X코헤이 나와 <플래닛 [방랑자]> 2026 - 시각예술 현대무용 공연 예매 가이드 (서울, 2026.06.24~2026.06.26) · 135점
+  - [경기] 평택 6월 마토예술제 2026 - 썸머 크리스마스 물놀이, 공연, 체험 (경기, 2026.06.27) · 130점
   - [경기] 와인뮤직페스티발 2026 - 프리미엄 와인, 라이브 공연 (경기, 2026.06.25~2026.06.28) · 130점
-  - [경기] 평택 6월 마토예술제 2026 - 썸머 크리스마스 물놀이, 공연, 체험 (경기, 2026.06.27) · 120점
   - [서울] 2026년 제2회 서울브라보발레페스티벌(SEOUL BRAVO BALLET FESTIVAL) (서울, 2026.06.26~2026.06.28) · 105점
   - [서울] 한일공동창작극 [조세이탄광 - 살고 싶었다] 2026 (서울, 2026.06.26~2026.06.28) · 105점
   - [경기] 세미원 연꽃문화제 2026 (경기, 2026.06.26~2026.08.17) · 100점
+  - [서울] 더 아카이브: 뮤지컬의 순간들 2026 (서울, 2026.06.27~2026.06.28) · 90점
   - [서울] 예술가의집 제28회 작곡가의방 [이홍석] 2026 (서울, 2026.06.24) · 90점
-  - [경기] 양평수박축제 2026 (경기, 2026.07.04~2026.07.05) · 90점
 
 - **상대점수**: pick-info에 저장된 점수가 없어 재계산한 값(절대치 아님, 후보군 내 상대 비교용). 축제는 발행과 동일한 `calcScore`(시작근접·주말·DataLab/계절 핫키워드), 지원금은 `calcHotScore`(키워드) 기준입니다.
 - 핫키워드 출처 — 축제: `datalab` (축제, 공연, 여름축제, 물축제) / 지원금: `datalab` (지원금, 혜택, 청년지원금, 에너지바우처)
@@ -36,8 +36,8 @@
 |---:|---:|:-:|---|---|---|---|---|---|
 | 1 | 135 | ⏳ | [서울] 다미앵 잘레X코헤이 나와 <플래닛 [방랑자]> 2026 - 시각예술 현대무용 공연 예매 가이드 | 서울 | 2026.06.24~2026.06.26 | [/festival/fest-seoul-W-uLpOuv-1777411345367/](https://tip-pick.com/festival/fest-seoul-W-uLpOuv-1777411345367/) | 가벼운 .md |  |
 | 2 | 130 | 🌱 | [경기] 정자동 놀터축제 2026 - 가을 가족 나들이 & 무료 공연 체험 | 경기 | 2026.10.01~2026.10.31 | [/festival/fest-gg-1776985198049-5cys/](https://tip-pick.com/festival/fest-gg-1776985198049-5cys/) | 가벼운 .md |  |
-| 3 | 130 | ⏳ | [경기] 와인뮤직페스티발 2026 - 프리미엄 와인, 라이브 공연 | 경기 | 2026.06.25~2026.06.28 | [/festival/fest-2976568/](https://tip-pick.com/festival/fest-2976568/) | 가벼운 .md |  |
-| 4 | 120 | ⏳ | [경기] 평택 6월 마토예술제 2026 - 썸머 크리스마스 물놀이, 공연, 체험 | 경기 | 2026.06.27 | [/festival/fest-gg-1776985198049-a5hl/](https://tip-pick.com/festival/fest-gg-1776985198049-a5hl/) | 가벼운 .md |  |
+| 3 | 130 | ⏳ | [경기] 평택 6월 마토예술제 2026 - 썸머 크리스마스 물놀이, 공연, 체험 | 경기 | 2026.06.27 | [/festival/fest-gg-1776985198049-a5hl/](https://tip-pick.com/festival/fest-gg-1776985198049-a5hl/) | 가벼운 .md |  |
+| 4 | 130 | ⏳ | [경기] 와인뮤직페스티발 2026 - 프리미엄 와인, 라이브 공연 | 경기 | 2026.06.25~2026.06.28 | [/festival/fest-2976568/](https://tip-pick.com/festival/fest-2976568/) | 가벼운 .md |  |
 | 5 | 115 | 🌱 | [경기] 모두모여모란 2026 - 모란 5일장 가을 축제, 공연과 먹거리 | 경기 | 2026.10.01~2026.10.31 | [/festival/fest-gg-1776985198049-cpxr/](https://tip-pick.com/festival/fest-gg-1776985198049-cpxr/) | 가벼운 .md |  |
 | 6 | 115 | 🌱 | [경기] 제20회 시흥갯골축제 2026 - 수도권 유일 갯골 생태 체험 & 공연 | 경기 | 2026.09.18~2026.09.20 | [/festival/fest-gg-1776141319925-s2hq/](https://tip-pick.com/festival/fest-gg-1776141319925-s2hq/) | 가벼운 .md |  |
 | 7 | 115 | 🌱 | [경기] 파주페어 북앤컬처 2026 - 가을 독서 축제, 공연 전시 | 경기 | 2026.10.09~2026.10.11 | [/festival/fest-gg-1776638945527-54tt/](https://tip-pick.com/festival/fest-gg-1776638945527-54tt/) | 가벼운 .md |  |
@@ -47,52 +47,52 @@
 | 11 | 105 | ⏳ | [서울] 2026년 제2회 서울브라보발레페스티벌(SEOUL BRAVO BALLET FESTIVAL) | 서울 | 2026.06.26~2026.06.28 | [/festival/fest-seoul-MjAyNuuF-1780353735639/](https://tip-pick.com/festival/fest-seoul-MjAyNuuF-1780353735639/) | 가벼운 .md |  |
 | 12 | 105 | ⏳ | [서울] 한일공동창작극 [조세이탄광 - 살고 싶었다] 2026 | 서울 | 2026.06.26~2026.06.28 | [/festival/fest-seoul-7ZWc7J28-1780190388329/](https://tip-pick.com/festival/fest-seoul-7ZWc7J28-1780190388329/) | 가벼운 .md |  |
 | 13 | 100 | ✅ | [경기] 세미원 연꽃문화제 2026 | 경기 | 2026.06.26~2026.08.17 | [/festival/gemini-fest-1whx3j/](https://tip-pick.com/festival/gemini-fest-1whx3j/) | 가벼운 .md |  |
-| 14 | 90 | ⏳ | [서울] 예술가의집 제28회 작곡가의방 [이홍석] 2026 | 서울 | 2026.06.24 | [/festival/fest-seoul-r9w4nd/](https://tip-pick.com/festival/fest-seoul-r9w4nd/) | 가벼운 .md |  |
-| 15 | 90 | ✅ | [경기] 양평수박축제 2026 | 경기 | 2026.07.04~2026.07.05 | [/festival/fest-3499540/](https://tip-pick.com/festival/fest-3499540/) | 가벼운 .md |  |
-| 16 | 90 | ⏳ | [서울] 2026 서울국제도서전 | 서울 | 2026.06.24~2026.06.28 | [/festival/fest-228985/](https://tip-pick.com/festival/fest-228985/) | 가벼운 .md |  |
-| 17 | 90 | ⏳ | [서울] 마포문화재단 2026 MAC 모닝 콘서트 ＃4 | 서울 | 2026.06.24 | [/festival/fest-seoul-W-uniO2P-1778275199136/](https://tip-pick.com/festival/fest-seoul-W-uniO2P-1778275199136/) | 가벼운 .md |  |
-| 18 | 90 | 🔄 | [서울] 서울거리공연 구석구석라이브 2026 - 무료 버스킹 공연 일정 및 장소 | 서울 | 2026.05.01~2026.12.31 | [/festival/fest-2720203/](https://tip-pick.com/festival/fest-2720203/) | 가벼운 .md |  |
-| 19 | 90 | 🔄 | [서울] 문화가 흐르는 서울광장 2026 - 시즌별 다채로운 무료 공연 | 서울 | 2026.05.06~2026.12.31 | [/festival/fest-2598331/](https://tip-pick.com/festival/fest-2598331/) | 가벼운 .md |  |
-| 20 | 85 | 🌱 | [경기] 제5회 정자동 놀터축제 및 작품발표회 2026 | 경기 | 20261001~20261031 | [/festival/fest-gg-6jdq19/](https://tip-pick.com/festival/fest-gg-6jdq19/) | 가벼운 .md |  |
-| 21 | 85 | ⏳ | [서울] 강서구 오구오구 어린이 버스킹 2026 | 서울 | 2026.06.17~2026.06.25 | [/festival/fest-seoul-W-qwleyE-1780190388329/](https://tip-pick.com/festival/fest-seoul-W-qwleyE-1780190388329/) | 가벼운 .md |  |
-| 22 | 85 | ⏳ | [경기] MyK FESTA(마이케이 페스타) 2026 | 경기 | 2026.06.25~2026.06.28 | [/festival/fest-3488940/](https://tip-pick.com/festival/fest-3488940/) | 가벼운 .md |  |
-| 23 | 85 | 🌱 | [경기] 파주장단콩축제 2026 - 직거래 장터 & 체험 행사 | 경기 | 2026.11.27~2026.11.29 | [/festival/fest-gg-1776638945527-l40v/](https://tip-pick.com/festival/fest-gg-1776638945527-l40v/) | 가벼운 .md |  |
-| 24 | 85 | 🌱 | [경기] 파주포크페스티벌 2026 - 가을 음악 축제 라인업 & 예매 가이드 | 경기 | 2026.09.05 | [/festival/fest-gg-1776638945527-rari/](https://tip-pick.com/festival/fest-gg-1776638945527-rari/) | 가벼운 .md |  |
-| 25 | 85 | 🌱 | [경기] 2025 화성 학생동아리 축제 | 경기 | 2026.10.24 | [/festival/fest-gg-1778447210028-8ke4/](https://tip-pick.com/festival/fest-gg-1778447210028-8ke4/) | 가벼운 .md |  |
-| 26 | 85 | 🌱 | [경기] 제3회 화성 루나 빛 축제 2026 | 경기 | 2026.10.31 | [/festival/fest-gg-1778447210028-u3q2/](https://tip-pick.com/festival/fest-gg-1778447210028-u3q2/) | 가벼운 .md |  |
-| 27 | 85 | 🌱 | [경기] 용인시민의 날 연계 조아용 축제 2026 - 무료 체험 행사 & 가족 나들이 | 경기 | 2026.10.03~2026.10.04 | [/festival/fest-gg-1777842260698-tm1g/](https://tip-pick.com/festival/fest-gg-1777842260698-tm1g/) | 가벼운 .md |  |
-| 28 | 85 | 🌱 | [경기] 평택 원평나루 억새축제 2026 - 가을 노을 명소 & 인생샷 | 경기 | 2026.10.31 | [/festival/fest-gg-1776985198049-xtro/](https://tip-pick.com/festival/fest-gg-1776985198049-xtro/) | 가벼운 .md |  |
-| 29 | 85 | 🌱 | [경기] 광릉숲축제 2026 - 가을 숲길 걷기 & 자연 체험 | 경기 | 2026.10.24~2026.10.25 | [/festival/fest-gg-1777244004855-twl7/](https://tip-pick.com/festival/fest-gg-1777244004855-twl7/) | 가벼운 .md |  |
-| 30 | 80 | ⏳ | [서울] 더 아카이브: 뮤지컬의 순간들 2026 | 서울 | 2026.06.27~2026.06.28 | [/festival/fest-seoul-hatus7/](https://tip-pick.com/festival/fest-seoul-hatus7/) | 가벼운 .md |  |
-| 31 | 80 | ✅ | [서울] 성동문화재단 2026 두모포 뮤지컬 페스티벌 | 서울 | 2026.07.04 | [/festival/fest-seoul-1iv08pp/](https://tip-pick.com/festival/fest-seoul-1iv08pp/) | 가벼운 .md |  |
-| 32 | 80 | ⏳ | [서울] 영등포아트스퀘어 배우 문정희 북콘서트 [금빛 동행, 마누 이야기] 2026 | 서울 | 2026.06.27 | [/festival/fest-seoul-1e0rd6q/](https://tip-pick.com/festival/fest-seoul-1e0rd6q/) | 가벼운 .md |  |
-| 33 | 80 | ✅ | [서울] 관악문화재단 2026 꿈다락문화예술학교 [관악 어린이 건축가들] | 서울 | 2026.06.27~2026.07.26 | [/festival/fest-seoul-t9qclw/](https://tip-pick.com/festival/fest-seoul-t9qclw/) | 가벼운 .md |  |
-| 34 | 80 | ⏳ | [서울] 동작문화재단 본동어울마당 아트홀 '본동 세레나데' [제이에스브라스 콜렉티브의 쇼 마칭 브라스 밴드] 2026 | 서울 | 2026.06.27 | [/festival/fest-seoul-W-uPmeye-1780190388329/](https://tip-pick.com/festival/fest-seoul-W-uPmeye-1780190388329/) | 가벼운 .md |  |
-| 35 | 80 | ⏳ | [서울] 관악문화재단 음악공장 노올량 [플레이리스트 : 세대별 아리랑] 2026 | 서울 | 2026.06.27 | [/festival/fest-seoul-W-q0gOyV-1778275199136/](https://tip-pick.com/festival/fest-seoul-W-q0gOyV-1778275199136/) | 가벼운 .md |  |
-| 36 | 75 | 🔄 | [서울] 페인터즈 2026 - 압도적인 넌버벌 퍼포먼스 공연 | 서울 | 2022.11.01~2026.12.31 | [/festival/fest-3481597/](https://tip-pick.com/festival/fest-3481597/) | 가벼운 .md |  |
-| 37 | 75 | 🔄 | [서울] 국악공연 진연 2026 - 인사동 연중 상설 전통 국악 관람 가이드 | 서울 | 2026.01.01~2026.12.31 | [/festival/fest-4060434/](https://tip-pick.com/festival/fest-4060434/) | 가벼운 .md |  |
-| 38 | 70 | 🌱 | [경기] 김포 라베니체축제 2026 - 불꽃쇼, 콘서트, 체험 프로그램 | 경기 | 2026.10.17 | [/festival/fest-gg-1776985198049-yisy/](https://tip-pick.com/festival/fest-gg-1776985198049-yisy/) | 가벼운 .md |  |
-| 39 | 70 | 🌱 | [경기] 김포 해병대문화축제 2026 - 상륙작전 시연 & 밀리터리 체험 | 경기 | 2026.10.31 | [/festival/fest-gg-1776638945527-al5h/](https://tip-pick.com/festival/fest-gg-1776638945527-al5h/) | 가벼운 .md |  |
-| 40 | 70 | 🌱 | [경기] 마토예술제 2026 - 10월 뮤지컬 공연 체험 | 경기 | 2026.10.24 | [/festival/fest-gg-1777842260698-fnew/](https://tip-pick.com/festival/fest-gg-1777842260698-fnew/) | 가벼운 .md |  |
-| 41 | 70 | 🌱 | [경기] 고양행주한우 숯불구이축제 2026 | 경기 | 2026.10.31~2026.11.01 | [/festival/fest-3383613/](https://tip-pick.com/festival/fest-3383613/) | 가벼운 .md |  |
-| 42 | 70 | ✅ | [서울] 2026 N서울타워 글로벌 나이트워크 | 서울 | 2026.06.13~2026.07.11 | [/festival/fest-4065756/](https://tip-pick.com/festival/fest-4065756/) | 가벼운 .md |  |
-| 43 | 70 | 🌱 | [경기] 파주 운정호수공원 불꽃축제 2026 - 제8회 환상 불꽃쇼 & 빛 축제 명당 | 경기 | 2026.10.31~2026.12.31 | [/festival/fest-gg-1776638945527-r0cg/](https://tip-pick.com/festival/fest-gg-1776638945527-r0cg/) | 가벼운 .md |  |
-| 44 | 70 | 🌱 | [경기] 제3회 도농 어울림 축제 2026 | 경기 | 2026.09.19~2026.09.20 | [/festival/fest-gg-1778447210028-f6hm/](https://tip-pick.com/festival/fest-gg-1778447210028-f6hm/) | 가벼운 .md |  |
-| 45 | 70 | 🌱 | [경기] 복사골청소년예술제 2026 - 청소년 경연대회 & 다채로운 예술 공연 | 경기 | 2026.10.09 | [/festival/fest-gg-1776985198049-8kud/](https://tip-pick.com/festival/fest-gg-1776985198049-8kud/) | 가벼운 .md |  |
-| 46 | 70 | 🌱 | [경기] 평택 평택뮤직페스티벌 2026 - 전국 밴드 경연 & 인기 가수 축하공연 | 경기 | 2026.07.25 | [/festival/fest-gg-1776985198049-f0ia/](https://tip-pick.com/festival/fest-gg-1776985198049-f0ia/) | 가벼운 .md |  |
-| 47 | 70 | 🌱 | [인천] 부평풍물대축제 2026 | 인천 | 2026.10.02~2026.10.04 | [/festival/fest-1266642/](https://tip-pick.com/festival/fest-1266642/) | 가벼운 .md |  |
-| 48 | 70 | 🌱 | [경기] 여주 여주오곡나루축제 2026 - 가을 제철 먹거리 & 전통 체험 | 경기 | 2026.10.23~2026.10.25 | [/festival/fest-gg-1776141319925-7zoq/](https://tip-pick.com/festival/fest-gg-1776141319925-7zoq/) | 가벼운 .md |  |
-| 49 | 70 | 🌱 | [경기] 수원화성문화제 2026 - 정조대왕의 꿈! 세계문화유산 축제 | 경기 | 2026.10.04~2026.10.11 | [/festival/fest-gg-1776638945527-vv83/](https://tip-pick.com/festival/fest-gg-1776638945527-vv83/) | 가벼운 .md |  |
-| 50 | 70 | 🌱 | [경기] 하남 이성산성문화축제 2026 - 고대 역사 퍼포먼스 & 이색 음식 체험 | 경기 | 2026.09.19~2026.09.20 | [/festival/fest-gg-1776985198049-184b/](https://tip-pick.com/festival/fest-gg-1776985198049-184b/) | 가벼운 .md |  |
-| 51 | 70 | 🌱 | [경기] 부천 제18회 시민어울림한마당 2026 - 퍼레이드 콘테스트 & 가족 참여 축제 가이드 | 경기 | 2026.10.08 | [/festival/fest-gg-1776985198049-eh13/](https://tip-pick.com/festival/fest-gg-1776985198049-eh13/) | 가벼운 .md |  |
-| 52 | 70 | 🌱 | [경기] 정약용문화제 2026 - 다산 정약용 정신 기리는 역사문화축제 \| 가을 가족 나들이 추천 | 경기 | 2026.10.17~2026.10.18 | [/festival/fest-gg-1777244004855-b7aj/](https://tip-pick.com/festival/fest-gg-1777244004855-b7aj/) | 가벼운 .md |  |
-| 53 | 70 | 🔄 | [경기] 안성 남사당 바우덕이 풍물단 상설 공연 2026 - '곰뱅이텄다' 주말 전통 예술 가이드 | 경기 | 2026.04.04~2026.11.29 | [/festival/fest-293030/](https://tip-pick.com/festival/fest-293030/) | 가벼운 .md |  |
-| 54 | 65 | ✅ | [서울] 2026 제17회 대한민국오페라페스티벌 [헨젤과 그레텔] | 서울 | 2026.07.03~2026.07.05 | [/festival/fest-seoul-14nslc8/](https://tip-pick.com/festival/fest-seoul-14nslc8/) | 가벼운 .md |  |
-| 55 | 65 | ✅ | [서울] 관악문화재단 FOUR PIANOS [앙상블 클라비어 x 피아노 오케스트라] 2026 | 서울 | 2026.07.04 | [/festival/fest-seoul-f5zan6/](https://tip-pick.com/festival/fest-seoul-f5zan6/) | 가벼운 .md |  |
-| 56 | 55 | 🌱 | [경기] 파크콘서트 2026 - 중앙공원 야외 무료 음악회 | 경기 | 2026.09.01~2026.09.30 | [/festival/fest-gg-1776985198049-a68i/](https://tip-pick.com/festival/fest-gg-1776985198049-a68i/) | 가벼운 .md |  |
-| 57 | 50 | ✅ | [서울] 강서구 2026 우장산 그린빛페스타 | 서울 | 2026.07.04 | [/festival/fest-seoul-1489r6w/](https://tip-pick.com/festival/fest-seoul-1489r6w/) | 가벼운 .md |  |
-| 58 | 50 | ✅ | [서울] 마포문화재단 마포 골목 문화예술교육 [취향도감] 2026 | 서울 | 2026.07.07~2026.09.09 | [/festival/fest-seoul-gpqbkk/](https://tip-pick.com/festival/fest-seoul-gpqbkk/) | 가벼운 .md |  |
-| 59 | 50 | ✅ | [서울] 아시아프 (ASYAAF 100) 2026 | 서울 | 2026.07.01~2026.08.05 | [/festival/fest-1829696/](https://tip-pick.com/festival/fest-1829696/) | 가벼운 .md |  |
+| 14 | 90 | ⏳ | [서울] 더 아카이브: 뮤지컬의 순간들 2026 | 서울 | 2026.06.27~2026.06.28 | [/festival/fest-seoul-hatus7/](https://tip-pick.com/festival/fest-seoul-hatus7/) | 가벼운 .md |  |
+| 15 | 90 | ⏳ | [서울] 예술가의집 제28회 작곡가의방 [이홍석] 2026 | 서울 | 2026.06.24 | [/festival/fest-seoul-r9w4nd/](https://tip-pick.com/festival/fest-seoul-r9w4nd/) | 가벼운 .md |  |
+| 16 | 90 | ⏳ | [서울] 영등포아트스퀘어 배우 문정희 북콘서트 [금빛 동행, 마누 이야기] 2026 | 서울 | 2026.06.27 | [/festival/fest-seoul-1e0rd6q/](https://tip-pick.com/festival/fest-seoul-1e0rd6q/) | 가벼운 .md |  |
+| 17 | 90 | ✅ | [서울] 관악문화재단 2026 꿈다락문화예술학교 [관악 어린이 건축가들] | 서울 | 2026.06.27~2026.07.26 | [/festival/fest-seoul-t9qclw/](https://tip-pick.com/festival/fest-seoul-t9qclw/) | 가벼운 .md |  |
+| 18 | 90 | ✅ | [경기] 양평수박축제 2026 | 경기 | 2026.07.04~2026.07.05 | [/festival/fest-3499540/](https://tip-pick.com/festival/fest-3499540/) | 가벼운 .md |  |
+| 19 | 90 | ⏳ | [서울] 동작문화재단 본동어울마당 아트홀 '본동 세레나데' [제이에스브라스 콜렉티브의 쇼 마칭 브라스 밴드] 2026 | 서울 | 2026.06.27 | [/festival/fest-seoul-W-uPmeye-1780190388329/](https://tip-pick.com/festival/fest-seoul-W-uPmeye-1780190388329/) | 가벼운 .md |  |
+| 20 | 90 | ⏳ | [서울] 2026 서울국제도서전 | 서울 | 2026.06.24~2026.06.28 | [/festival/fest-228985/](https://tip-pick.com/festival/fest-228985/) | 가벼운 .md |  |
+| 21 | 90 | ⏳ | [서울] 마포문화재단 2026 MAC 모닝 콘서트 ＃4 | 서울 | 2026.06.24 | [/festival/fest-seoul-W-uniO2P-1778275199136/](https://tip-pick.com/festival/fest-seoul-W-uniO2P-1778275199136/) | 가벼운 .md |  |
+| 22 | 90 | ⏳ | [서울] 관악문화재단 음악공장 노올량 [플레이리스트 : 세대별 아리랑] 2026 | 서울 | 2026.06.27 | [/festival/fest-seoul-W-q0gOyV-1778275199136/](https://tip-pick.com/festival/fest-seoul-W-q0gOyV-1778275199136/) | 가벼운 .md |  |
+| 23 | 90 | 🔄 | [서울] 서울거리공연 구석구석라이브 2026 - 무료 버스킹 공연 일정 및 장소 | 서울 | 2026.05.01~2026.12.31 | [/festival/fest-2720203/](https://tip-pick.com/festival/fest-2720203/) | 가벼운 .md |  |
+| 24 | 90 | 🔄 | [서울] 문화가 흐르는 서울광장 2026 - 시즌별 다채로운 무료 공연 | 서울 | 2026.05.06~2026.12.31 | [/festival/fest-2598331/](https://tip-pick.com/festival/fest-2598331/) | 가벼운 .md |  |
+| 25 | 85 | 🌱 | [경기] 제5회 정자동 놀터축제 및 작품발표회 2026 | 경기 | 20261001~20261031 | [/festival/fest-gg-6jdq19/](https://tip-pick.com/festival/fest-gg-6jdq19/) | 가벼운 .md |  |
+| 26 | 85 | ⏳ | [서울] 강서구 오구오구 어린이 버스킹 2026 | 서울 | 2026.06.17~2026.06.25 | [/festival/fest-seoul-W-qwleyE-1780190388329/](https://tip-pick.com/festival/fest-seoul-W-qwleyE-1780190388329/) | 가벼운 .md |  |
+| 27 | 85 | ⏳ | [경기] MyK FESTA(마이케이 페스타) 2026 | 경기 | 2026.06.25~2026.06.28 | [/festival/fest-3488940/](https://tip-pick.com/festival/fest-3488940/) | 가벼운 .md |  |
+| 28 | 85 | 🌱 | [경기] 파주장단콩축제 2026 - 직거래 장터 & 체험 행사 | 경기 | 2026.11.27~2026.11.29 | [/festival/fest-gg-1776638945527-l40v/](https://tip-pick.com/festival/fest-gg-1776638945527-l40v/) | 가벼운 .md |  |
+| 29 | 85 | 🌱 | [경기] 파주포크페스티벌 2026 - 가을 음악 축제 라인업 & 예매 가이드 | 경기 | 2026.09.05 | [/festival/fest-gg-1776638945527-rari/](https://tip-pick.com/festival/fest-gg-1776638945527-rari/) | 가벼운 .md |  |
+| 30 | 85 | 🌱 | [경기] 2025 화성 학생동아리 축제 | 경기 | 2026.10.24 | [/festival/fest-gg-1778447210028-8ke4/](https://tip-pick.com/festival/fest-gg-1778447210028-8ke4/) | 가벼운 .md |  |
+| 31 | 85 | 🌱 | [경기] 제3회 화성 루나 빛 축제 2026 | 경기 | 2026.10.31 | [/festival/fest-gg-1778447210028-u3q2/](https://tip-pick.com/festival/fest-gg-1778447210028-u3q2/) | 가벼운 .md |  |
+| 32 | 85 | 🌱 | [경기] 용인시민의 날 연계 조아용 축제 2026 - 무료 체험 행사 & 가족 나들이 | 경기 | 2026.10.03~2026.10.04 | [/festival/fest-gg-1777842260698-tm1g/](https://tip-pick.com/festival/fest-gg-1777842260698-tm1g/) | 가벼운 .md |  |
+| 33 | 85 | 🌱 | [경기] 평택 원평나루 억새축제 2026 - 가을 노을 명소 & 인생샷 | 경기 | 2026.10.31 | [/festival/fest-gg-1776985198049-xtro/](https://tip-pick.com/festival/fest-gg-1776985198049-xtro/) | 가벼운 .md |  |
+| 34 | 85 | 🌱 | [경기] 광릉숲축제 2026 - 가을 숲길 걷기 & 자연 체험 | 경기 | 2026.10.24~2026.10.25 | [/festival/fest-gg-1777244004855-twl7/](https://tip-pick.com/festival/fest-gg-1777244004855-twl7/) | 가벼운 .md |  |
+| 35 | 80 | ✅ | [서울] 성동문화재단 2026 두모포 뮤지컬 페스티벌 | 서울 | 2026.07.04 | [/festival/fest-seoul-1iv08pp/](https://tip-pick.com/festival/fest-seoul-1iv08pp/) | 가벼운 .md |  |
+| 36 | 80 | ✅ | [서울] 아시아프 (ASYAAF 100) 2026 | 서울 | 2026.07.01~2026.08.05 | [/festival/fest-1829696/](https://tip-pick.com/festival/fest-1829696/) | 가벼운 .md |  |
+| 37 | 75 | 🔄 | [서울] 페인터즈 2026 - 압도적인 넌버벌 퍼포먼스 공연 | 서울 | 2022.11.01~2026.12.31 | [/festival/fest-3481597/](https://tip-pick.com/festival/fest-3481597/) | 가벼운 .md |  |
+| 38 | 75 | 🔄 | [서울] 국악공연 진연 2026 - 인사동 연중 상설 전통 국악 관람 가이드 | 서울 | 2026.01.01~2026.12.31 | [/festival/fest-4060434/](https://tip-pick.com/festival/fest-4060434/) | 가벼운 .md |  |
+| 39 | 70 | 🌱 | [경기] 김포 라베니체축제 2026 - 불꽃쇼, 콘서트, 체험 프로그램 | 경기 | 2026.10.17 | [/festival/fest-gg-1776985198049-yisy/](https://tip-pick.com/festival/fest-gg-1776985198049-yisy/) | 가벼운 .md |  |
+| 40 | 70 | 🌱 | [경기] 김포 해병대문화축제 2026 - 상륙작전 시연 & 밀리터리 체험 | 경기 | 2026.10.31 | [/festival/fest-gg-1776638945527-al5h/](https://tip-pick.com/festival/fest-gg-1776638945527-al5h/) | 가벼운 .md |  |
+| 41 | 70 | 🌱 | [경기] 마토예술제 2026 - 10월 뮤지컬 공연 체험 | 경기 | 2026.10.24 | [/festival/fest-gg-1777842260698-fnew/](https://tip-pick.com/festival/fest-gg-1777842260698-fnew/) | 가벼운 .md |  |
+| 42 | 70 | 🌱 | [경기] 고양행주한우 숯불구이축제 2026 | 경기 | 2026.10.31~2026.11.01 | [/festival/fest-3383613/](https://tip-pick.com/festival/fest-3383613/) | 가벼운 .md |  |
+| 43 | 70 | ✅ | [서울] 2026 N서울타워 글로벌 나이트워크 | 서울 | 2026.06.13~2026.07.11 | [/festival/fest-4065756/](https://tip-pick.com/festival/fest-4065756/) | 가벼운 .md |  |
+| 44 | 70 | 🌱 | [경기] 파주 운정호수공원 불꽃축제 2026 - 제8회 환상 불꽃쇼 & 빛 축제 명당 | 경기 | 2026.10.31~2026.12.31 | [/festival/fest-gg-1776638945527-r0cg/](https://tip-pick.com/festival/fest-gg-1776638945527-r0cg/) | 가벼운 .md |  |
+| 45 | 70 | 🌱 | [경기] 제3회 도농 어울림 축제 2026 | 경기 | 2026.09.19~2026.09.20 | [/festival/fest-gg-1778447210028-f6hm/](https://tip-pick.com/festival/fest-gg-1778447210028-f6hm/) | 가벼운 .md |  |
+| 46 | 70 | 🌱 | [경기] 복사골청소년예술제 2026 - 청소년 경연대회 & 다채로운 예술 공연 | 경기 | 2026.10.09 | [/festival/fest-gg-1776985198049-8kud/](https://tip-pick.com/festival/fest-gg-1776985198049-8kud/) | 가벼운 .md |  |
+| 47 | 70 | 🌱 | [경기] 평택 평택뮤직페스티벌 2026 - 전국 밴드 경연 & 인기 가수 축하공연 | 경기 | 2026.07.25 | [/festival/fest-gg-1776985198049-f0ia/](https://tip-pick.com/festival/fest-gg-1776985198049-f0ia/) | 가벼운 .md |  |
+| 48 | 70 | 🌱 | [인천] 부평풍물대축제 2026 | 인천 | 2026.10.02~2026.10.04 | [/festival/fest-1266642/](https://tip-pick.com/festival/fest-1266642/) | 가벼운 .md |  |
+| 49 | 70 | 🌱 | [경기] 여주 여주오곡나루축제 2026 - 가을 제철 먹거리 & 전통 체험 | 경기 | 2026.10.23~2026.10.25 | [/festival/fest-gg-1776141319925-7zoq/](https://tip-pick.com/festival/fest-gg-1776141319925-7zoq/) | 가벼운 .md |  |
+| 50 | 70 | 🌱 | [경기] 수원화성문화제 2026 - 정조대왕의 꿈! 세계문화유산 축제 | 경기 | 2026.10.04~2026.10.11 | [/festival/fest-gg-1776638945527-vv83/](https://tip-pick.com/festival/fest-gg-1776638945527-vv83/) | 가벼운 .md |  |
+| 51 | 70 | 🌱 | [경기] 하남 이성산성문화축제 2026 - 고대 역사 퍼포먼스 & 이색 음식 체험 | 경기 | 2026.09.19~2026.09.20 | [/festival/fest-gg-1776985198049-184b/](https://tip-pick.com/festival/fest-gg-1776985198049-184b/) | 가벼운 .md |  |
+| 52 | 70 | 🌱 | [경기] 부천 제18회 시민어울림한마당 2026 - 퍼레이드 콘테스트 & 가족 참여 축제 가이드 | 경기 | 2026.10.08 | [/festival/fest-gg-1776985198049-eh13/](https://tip-pick.com/festival/fest-gg-1776985198049-eh13/) | 가벼운 .md |  |
+| 53 | 70 | 🌱 | [경기] 정약용문화제 2026 - 다산 정약용 정신 기리는 역사문화축제 \| 가을 가족 나들이 추천 | 경기 | 2026.10.17~2026.10.18 | [/festival/fest-gg-1777244004855-b7aj/](https://tip-pick.com/festival/fest-gg-1777244004855-b7aj/) | 가벼운 .md |  |
+| 54 | 70 | 🔄 | [경기] 안성 남사당 바우덕이 풍물단 상설 공연 2026 - '곰뱅이텄다' 주말 전통 예술 가이드 | 경기 | 2026.04.04~2026.11.29 | [/festival/fest-293030/](https://tip-pick.com/festival/fest-293030/) | 가벼운 .md |  |
+| 55 | 65 | ✅ | [서울] 2026 제17회 대한민국오페라페스티벌 [헨젤과 그레텔] | 서울 | 2026.07.03~2026.07.05 | [/festival/fest-seoul-14nslc8/](https://tip-pick.com/festival/fest-seoul-14nslc8/) | 가벼운 .md |  |
+| 56 | 65 | ✅ | [서울] 관악문화재단 FOUR PIANOS [앙상블 클라비어 x 피아노 오케스트라] 2026 | 서울 | 2026.07.04 | [/festival/fest-seoul-f5zan6/](https://tip-pick.com/festival/fest-seoul-f5zan6/) | 가벼운 .md |  |
+| 57 | 55 | 🌱 | [경기] 파크콘서트 2026 - 중앙공원 야외 무료 음악회 | 경기 | 2026.09.01~2026.09.30 | [/festival/fest-gg-1776985198049-a68i/](https://tip-pick.com/festival/fest-gg-1776985198049-a68i/) | 가벼운 .md |  |
+| 58 | 50 | ✅ | [서울] 강서구 2026 우장산 그린빛페스타 | 서울 | 2026.07.04 | [/festival/fest-seoul-1489r6w/](https://tip-pick.com/festival/fest-seoul-1489r6w/) | 가벼운 .md |  |
+| 59 | 50 | ✅ | [서울] 마포문화재단 마포 골목 문화예술교육 [취향도감] 2026 | 서울 | 2026.07.07~2026.09.09 | [/festival/fest-seoul-gpqbkk/](https://tip-pick.com/festival/fest-seoul-gpqbkk/) | 가벼운 .md |  |
 | 60 | 45 | 🌱 | [서울] 성동문화재단 판타지 발레 [구미호] 2026 | 서울 | 2026.07.25 | [/festival/fest-seoul-180f0kv/](https://tip-pick.com/festival/fest-seoul-180f0kv/) | 가벼운 .md |  |
 | 61 | 45 | 🌱 | [서울] 남산국악당 소나기 Project 20th [삼채 三彩] 2026 | 서울 | 2026.07.18 | [/festival/fest-seoul-1rpraiv/](https://tip-pick.com/festival/fest-seoul-1rpraiv/) | 가벼운 .md |  |
 | 62 | 45 | 🌱 | [서울] 영등포문화재단 클래식 입문 시리즈 [여름밤 클래식] 2026 | 서울 | 2026.08.04~2026.08.22 | [/festival/fest-seoul-1yuzl3a/](https://tip-pick.com/festival/fest-seoul-1yuzl3a/) | 가벼운 .md |  |
@@ -215,10 +215,10 @@
 
 **🔥 마감임박 (2건)**
 
-- D-7 · [경기] 2026년 2분기 청년기본소득 (경기, 2026.06.30)
-- D-7 · [서울] 출산가구 주거비 지원사업 (서울, 2026.06.30)
+- D-6 · [경기] 2026년 2분기 청년기본소득 (경기, 2026.06.30)
+- D-6 · [서울] 출산가구 주거비 지원사업 (서울, 2026.06.30)
 
 **🎟️ 이벤트성·단발 (1건)**
 
-- [전국] 2026년 에너지바우처 지원 (전국, 2026.12.31 · D-191)
+- [전국] 2026년 에너지바우처 지원 (전국, 2026.12.31 · D-190)
 
