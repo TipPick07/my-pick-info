@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import { SITUATIONS, getSituationCounts, getSituationPreview } from '@/lib/situations';
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: false },
   title: '상황별 맞춤 혜택 모음 | 내 상황에 딱 맞는 지원금 - 팁픽(Tip-Pick)',
   description: '육아·청년·중장년·주거·장애인 등 내 상황에 맞는 수도권 지원금과 가이드를 한곳에 모았습니다. 흩어진 혜택을 상황별로 큐레이션했습니다.',
   alternates: { canonical: 'https://tip-pick.com/situations/' },

@@ -19,9 +19,10 @@ export async function generateMetadata({ params }: { params: Promise<{ key: stri
   const { key } = await params;
   const sit = getSituation(key);
   if (!sit) {
-    return { title: '맞춤 혜택 모음 | 팁픽(Tip-Pick)' };
+    return { robots: { index: false, follow: false }, title: '맞춤 혜택 모음 | 팁픽(Tip-Pick)' };
   }
   return {
+    robots: { index: false, follow: false },
     title: sit.metaTitle,
     description: sit.metaDescription,
     openGraph: {

@@ -22,7 +22,7 @@ export interface Guide {
 export const GUIDES: Guide[] = [
   {
     slug: "parenting-family-benefits",
-    title: "0세~초등 입학 전, 수도권 육아·가족 지원금 한눈에 (2026)",
+    title: "0세~초등 입학 전, 육아·가족 지원금 한눈에 (2026)",
     description:
       "아동수당·부모급여·보육료·양육수당·유아학비를 나이 × 돌봄 형태로 정리한 에버그린 가이드.",
     category: "임신·출산·육아",

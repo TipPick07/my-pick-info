@@ -1,18 +1,15 @@
 name: Deploy to Cloudflare Pages
 
+# 공공데이터 크롤·자동발행 중지(2026-06-27, 잡블로그 전환).
+# 더 이상 스케줄 크롤을 돌리지 않으며, main 푸시 또는 수동 실행 시에만 빌드·배포한다.
 on:
   push:
     branches:
       - main
-  schedule:
-    # GitHub 스케줄러는 '정시 근처'에 부하가 몰려 실행이 지연·누락(drop)됨 → 어정쩡한 분(分)으로 회피
-    - cron: '23 20 * * *' # 한국시간 05:23 (UTC 20:23)
-  # 📌 5/31 자동배포 재개 / 6/2 누락 대응: 혼잡시간 회피
   workflow_dispatch:
 
 permissions:
-  contents: write
-  issues: write   # 게이트 격리 발생 시 알림 Issue 생성용
+  contents: read
 
 jobs:
   deploy:
@@ -31,56 +28,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Fetch Public Data and Generate Blog Post
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: |
-          node scripts/fetch-public-data.js
-          node scripts/dedup-festivals-v2.js
-          # 일일 후보 보고서(docs/daily-topic-report.md) 생성 — 읽기전용·글 미발행. 실패해도 본류 막지 않음.
-          node scripts/build-topic-report.js || true
-          # ── [SHELVED 2026-06-05] 블로그 자동발행 중지(thin→손글 전환). fetch·dedup·validate는 유지. 되살리려면 아래 4줄 주석 해제.
-          # node scripts/generate-blog-post.js
-          # echo "Gemini 과부하 방지를 위해 3분 대기 중..."
-          # sleep 180
-          # POST_TYPE=festival node scripts/generate-blog-post.js
-          # ── [3b 2026-06-07] 축제 묶음 자동발행: KST 목요일만. 위 SHELVED(1:1)는 폐기, 아래가 현행.
-          if [ "$(TZ=Asia/Seoul date +%u)" = "4" ]; then
-            echo "[묶음 발행] KST 목요일 — 축제 묶음 생성 시작"
-            POST_TYPE=festival node scripts/generate-blog-post.js
-          else
-            echo "[묶음 발행] 목요일 아님 — 발행 스킵(매일 fetch/배포는 유지)"
-          fi
-          echo "콘텐츠 검증 게이트 실행 (자동 정규화 + 깨진 글 격리)..."
-          node scripts/validate-content.js --fix --quarantine
-          # 격리 발생 시 알림 Issue 생성(배포는 계속 진행). 격리 0이면 리포트 파일 미생성 → 스킵.
-          if [ -s quarantine-report.txt ]; then
-            echo "[격리 감지] 발행 무산 Issue 생성"
-            gh issue create --title "[게이트 격리] $(TZ=Asia/Seoul date +%F) 발행 무산" --body-file quarantine-report.txt || echo "Issue 생성 실패(배포는 계속)"
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLIC_DATA_API_KEY: ${{ secrets.PUBLIC_DATA_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: gemini-2.5-flash
-          SEOUL_API_KEY: ${{ secrets.SEOUL_API_KEY }}
-          GYEONGGI_API_KEY: ${{ secrets.GYEONGGI_API_KEY }}
-          INCHEON_API_KEY: ${{ secrets.INCHEON_API_KEY }}
-          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
-          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
-
-      - name: Commit and Push Changes
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "자동 업데이트: 공공데이터 수집" && git pull --rebase && git push)
-
       - name: Build Project
         run: npm run build
 
       - name: Deploy to Cloudflare Pages
-        run: npx wrangler pages deploy out --project-name=my-pick-info --commit-message="Auto deploy"
+        run: npx wrangler pages deploy out --project-name=my-pick-info --commit-message="Deploy"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

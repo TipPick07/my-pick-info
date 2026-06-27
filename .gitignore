@@ -60,3 +60,6 @@ quarantine-report.txt
 # 묶음 프리뷰 산출물(무발행 검증 — 커밋 금지)
 preview-bundle/
 scripts/_preview/
+
+# Threads 액세스 토큰(비밀) — 절대 커밋 금지
+.threads-token.json

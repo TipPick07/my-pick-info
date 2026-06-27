@@ -90,9 +90,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export async function generateStaticParams() {
   const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
   const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-  return data.benefits.map((b: { id: string }) => ({
+  const params = data.benefits.map((b: { id: string }) => ({
     id: b.id.toString(),
   }));
+  // output: export 모드에서 빈 배열이면 빌드 오류 — placeholder 보장
+  return params.length > 0 ? params : [{ id: 'placeholder' }];
 }
 
 // 원본 데이터의 '줄 맨 앞 불릿 기호(○ ▷ ■ ◦ ● ▪ ※ □ ◆)'와 앞뒤 공백·trailing 줄바꿈만 제거.

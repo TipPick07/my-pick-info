@@ -2,8 +2,10 @@ import { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
 import FestivalsClient from "@/components/FestivalsClient";
+import { isCategoryLive } from "@/config/categories";
 
 export const metadata: Metadata = {
+  ...(isCategoryLive('festivals') ? {} : { robots: { index: false, follow: false } }),
   title: "이번 주말 어디 가? | 수도권 축제·행사 가이드 - 팁픽(Tip-Pick)",
   description: "서울, 인천, 경기 지역의 이번 주말 축제와 행사 정보를 확인하세요. 팁픽이 엄선한 최고의 나들이 장소들입니다.",
   openGraph: {

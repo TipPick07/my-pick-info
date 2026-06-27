@@ -3,12 +3,13 @@ import fs from 'fs';
 import path from 'path';
 import { getSortedPostsData } from "@/lib/posts";
 import { SITUATIONS, getSituationCounts } from "@/lib/situations";
+import { isPostCategoryLive, isCategoryLive } from "@/config/categories";
 import HomeClient from "@/components/HomeClient";
 import bannerConfig from "@/data/banner-config.json";
 
 export const metadata: Metadata = {
-  title: "수도권 팁픽 (TIP-PICK) | 내 돈 찾는 지원금 & 축제 가이드",
-  description: "오늘 당신이 놓칠 뻔한 현금 혜택, 팁픽이 대신 골라드립니다! 서울·인천·경기 지역 지원금, 축제, 행사 정보를 매일 업데이트합니다.",
+  title: "팁픽 (TIP-PICK) | 정부 지원금·경제·생활정보 가이드",
+  description: "정부 지원금부터 경제·세금, 실생활 계산기까지. 돈 되는 정보를 비전문가 눈높이로 쉽게 정리해 드립니다.",
 };
 
 export default function Home() {
@@ -17,7 +18,7 @@ export default function Home() {
   const data = JSON.parse(fileContents);
 
   const allPosts = getSortedPostsData();
-  const posts = allPosts.slice(0, 3);
+  const posts = allPosts.filter((p) => isPostCategoryLive(p.category)).slice(0, 4);
   const weatherApiKey = process.env.PUBLIC_DATA_API_KEY || "";
 
   const kstNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
@@ -47,7 +48,7 @@ export default function Home() {
     return { key: s.key, emoji: s.emoji, label: s.label, tagline: s.tagline, benefits: counts.benefits, posts: counts.posts };
   });
 
-  const eventSchema = data.festivals.map((f: any) => ({
+  const eventSchema = (isCategoryLive('festivals') ? data.festivals : []).map((f: any) => ({
     "@context": "https://schema.org",
     "@type": "Event",
     "name": f.title,

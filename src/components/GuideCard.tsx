@@ -1,54 +1,28 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import type { Guide } from "@/lib/guides";
 
 /**
- * 가이드 카드 — /guides 허브와 메인 첫 화면에서 공유하는 공용 카드.
- *
- * ▷ src/app/guides/page.tsx 인라인 카드(구 60–94행)를 마크업·className 변경 없이 그대로 추출한 것.
- *   DOM 구조·hover 그림자·rounded·next/image 설정·"가이드 보기 →" 전부 추출 전과 동일.
- * ▷ 클라이언트 훅 없음 → 서버 컴포넌트(허브와 동일 경계). props는 guides.ts의 Guide 항목 단위.
+ * 가이드 카드 — /guides 허브와 메인에서 공유하는 공용 카드.
+ * 통일·경량화(2026-06-27): 제각각이던 OG 이미지 썸네일을 제거하고,
+ * 이모지 + 카테고리 + 제목 + 설명의 컴팩트 리스트형 카드로 통일.
  */
-export default function GuideCard({
-  slug,
-  title,
-  description,
-  category,
-  emoji,
-  image,
-}: Guide) {
+export default function GuideCard({ slug, title, description, category, emoji }: Guide) {
   return (
     <Link
       href={`/guides/${slug}/`}
-      className="group block bg-white rounded-[2rem] border-2 border-slate-100 overflow-hidden hover:border-[#00CCFF]/40 hover:shadow-[0_6px_28px_rgba(0,204,255,0.14)] transition-all hover:-translate-y-1"
+      className="group flex items-stretch bg-white rounded-2xl border border-slate-100 shadow-sm hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-[0_4px_20px_rgba(0,204,255,0.10)] transition-all duration-300"
     >
-      {image && (
-        <div className="relative w-full aspect-[1200/630] bg-slate-50">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
-          />
-        </div>
-      )}
-      <div className="p-8">
-        <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-black rounded-full">
-          {emoji} {category}
+      <div className="w-16 shrink-0 flex items-center justify-center text-3xl bg-indigo-50/60">
+        {emoji}
+      </div>
+      <div className="flex-1 px-5 py-4 flex flex-col justify-center gap-1.5 min-w-0">
+        <span className="inline-block w-fit px-2.5 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-black rounded-full">
+          {category}
         </span>
-        <h2 className="mt-4 text-2xl font-black text-slate-900 group-hover:text-[#00AACC] transition-colors leading-snug">
+        <h3 className="text-base font-black text-slate-900 group-hover:text-brand-dark transition-colors leading-snug line-clamp-2">
           {title}
-        </h2>
-        <p className="mt-2 text-slate-600 font-medium leading-relaxed">{description}</p>
-
-        <div className="mt-5 flex items-center justify-end">
-          <span className="inline-flex items-center gap-1 text-sm font-bold text-slate-400 group-hover:text-[#00AACC] transition-colors">
-            가이드 보기
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </span>
-        </div>
+        </h3>
+        <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">{description}</p>
       </div>
     </Link>
   );

@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata = {
-  title: "이용약관 | 수도권 팁픽(Tip-Pick)",
+  title: "이용약관 | 팁픽(Tip-Pick)",
   description: "팁픽(Tip-Pick) 서비스 이용약관을 확인하세요.",
 };
 
@@ -26,7 +26,7 @@ export default function TermsPage() {
           <section className="space-y-3">
             <h2 className="text-xl font-black text-slate-900 border-l-4 pl-3" style={{ borderColor: "#00CCFF" }}>제1조 (목적)</h2>
             <p>
-              본 약관은 수도권 팁픽(이하 &quot;팁픽&quot; 또는 &quot;사이트&quot;)이 제공하는 정보 큐레이션 서비스의
+              본 약관은 팁픽(이하 &quot;팁픽&quot; 또는 &quot;사이트&quot;)이 제공하는 정보 큐레이션 서비스의
               이용과 관련하여 팁픽과 이용자 사이의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.
             </p>
           </section>
@@ -34,12 +34,12 @@ export default function TermsPage() {
           <section className="space-y-3">
             <h2 className="text-xl font-black text-slate-900 border-l-4 pl-3" style={{ borderColor: "#00CCFF" }}>제2조 (서비스의 내용)</h2>
             <p>
-              팁픽은 공공데이터포털(data.go.kr) 및 각 지방자치단체의 공식 API를 활용하여
-              수도권(서울·인천·경기) 지역의 축제·행사, 지원금·혜택 정보를 제공합니다.
+              팁픽은 정부·지자체의 공식 자료를 바탕으로
+              정부 지원금·복지, 경제·생활 정보를 제공합니다.
             </p>
             <p>팁픽이 제공하는 정보는 다음을 포함합니다.</p>
             <ul className="list-disc pl-6 space-y-1 text-slate-600">
-              <li>수도권 문화행사 및 축제 정보</li>
+              <li>경제·세금·생활 정보</li>
               <li>정부·지자체 지원금 및 혜택 정보</li>
               <li>마감 임박 지원금 알림</li>
               <li>블로그 형태의 생활 정보 콘텐츠</li>
@@ -75,7 +75,7 @@ export default function TermsPage() {
             <h2 className="text-xl font-black text-slate-900 border-l-4 pl-3" style={{ borderColor: "#00CCFF" }}>제5조 (지식재산권)</h2>
             <p>
               팁픽이 작성한 블로그 콘텐츠, 디자인, 로고 등 모든 저작물의 지식재산권은
-              팁픽에 귀속됩니다. 단, 공공데이터포털에서 제공하는 공공데이터는 해당 기관의
+              팁픽에 귀속됩니다. 단, 공공기관이 제공하는 공공데이터는 해당 기관의
               이용 정책을 따릅니다.
             </p>
           </section>

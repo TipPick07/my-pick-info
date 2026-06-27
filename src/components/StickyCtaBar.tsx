@@ -58,7 +58,7 @@ export default function StickyCtaBar() {
   return (
     <div
       role="region"
-      aria-label="육아·가족 혜택·가이드 보기"
+      aria-label="실생활 계산기·정보 보기"
       className={`fixed inset-x-0 bottom-0 z-40 transition-transform duration-300 ease-out ${
         visible ? "translate-y-0" : "translate-y-full"
       }`}
@@ -66,14 +66,14 @@ export default function StickyCtaBar() {
       <div className="border-t border-slate-200 bg-white/95 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center gap-2.5 px-4 py-3 sm:gap-3">
           <p className="min-w-0 flex-1 truncate text-sm font-black text-slate-800">
-            <span className="sm:hidden">🔔 내 혜택 찾기</span>
-            <span className="hidden sm:inline">🔔 우리 집 육아·가족 혜택 + 가이드 보기</span>
+            <span className="sm:hidden">🔔 계산기 보기</span>
+            <span className="hidden sm:inline">🔔 연봉·대출 계산기 무료로 써보기</span>
           </p>
           <a
-            href="/guides/"
+            href="/tools/"
             className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-full bg-[#FEE500] px-4 py-2.5 text-sm font-black text-[#3C1E1E] transition-transform hover:scale-[1.03] active:scale-95"
           >
-            혜택·가이드 보기 →
+            계산기 써보기 →
           </a>
           <button
             type="button"

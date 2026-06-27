@@ -524,12 +524,12 @@ export default function DaycareAdmissionGuide() {
               </span>
             </a>
             <Link
-              href="/situations/parenting/"
+              href="/benefits/"
               className="flex flex-col rounded-2xl border border-slate-200 bg-white px-5 py-5 text-slate-800 transition-colors hover:border-indigo-200 hover:bg-indigo-50/40"
             >
               <span className="text-sm font-bold">임신·출산·육아 지원 전체 보기 →</span>
               <span className="mt-1 text-xs text-slate-500">
-                수도권 부모를 위한 지원금·나들이 모음
+                부모를 위한 지원금 모음
               </span>
             </Link>
           </section>

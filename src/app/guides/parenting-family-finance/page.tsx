@@ -542,21 +542,21 @@ export default function ParentingFamilyFinanceGuide() {
               className="flex flex-col rounded-2xl bg-indigo-600 px-5 py-5 text-white transition-colors hover:bg-indigo-700"
             >
               <span className="text-sm font-bold">
-                수도권 출산·주거 지원금 보기 →
+                출산·주거 지원금 보기 →
               </span>
               <span className="mt-1 text-xs text-indigo-100">
                 마감 있는 현금성 지원·주거비 사업을 한눈에
               </span>
             </Link>
             <Link
-              href="/situations/parenting/"
+              href="/benefits/"
               className="flex flex-col rounded-2xl border border-slate-200 bg-white px-5 py-5 text-slate-800 transition-colors hover:border-indigo-200 hover:bg-indigo-50/40"
             >
               <span className="text-sm font-bold">
                 임신·출산·육아 지원 전체 보기 →
               </span>
               <span className="mt-1 text-xs text-slate-500">
-                수도권 부모를 위한 지원금·나들이 모음
+                부모를 위한 지원금 모음
               </span>
             </Link>
           </section>

@@ -4,27 +4,27 @@ import Footer from "@/components/Footer";
 import { Mail, Megaphone, Handshake, Newspaper } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "광고 및 제휴 문의 | 수도권 팁픽(Tip-Pick)",
-  description: "수도권 팁픽과 함께하실 광고주 및 제휴 파트너를 모집합니다.",
+  title: "광고 및 제휴 문의 | 팁픽(Tip-Pick)",
+  description: "팁픽과 함께하실 광고주 및 제휴 파트너를 모집합니다.",
 };
 
 const adTypes = [
   {
     icon: Megaphone,
     title: "배너 광고",
-    desc: "메인 페이지 및 블로그 페이지에 배너 광고를 게재합니다. 매일 업데이트되는 콘텐츠와 함께 수도권 생활 정보에 관심 있는 독자에게 효과적으로 노출됩니다.",
+    desc: "메인 페이지 및 블로그 페이지에 배너 광고를 게재합니다. 지원금·경제·생활 정보에 관심 있는 독자에게 효과적으로 노출됩니다.",
     color: "cyan",
   },
   {
     icon: Handshake,
     title: "콘텐츠 제휴",
-    desc: "지역 행사, 축제, 이벤트 홍보 콘텐츠를 팁픽 에디터가 직접 작성하여 게재합니다. 서울·인천·경기 지역 주민들에게 자연스럽게 행사 정보를 전달합니다.",
+    desc: "지원금·금융·생활 관련 홍보 콘텐츠를 팁픽 에디터가 직접 작성하여 게재합니다. 관심 있는 독자에게 자연스럽게 정보를 전달합니다.",
     color: "emerald",
   },
   {
     icon: Newspaper,
     title: "뉴스레터 제휴",
-    desc: "팁픽 구독자 대상 뉴스레터를 통한 제휴 광고를 제공합니다. 생활 정보에 관심 높은 수도권 독자층에게 직접 메시지를 전달할 수 있습니다.",
+    desc: "팁픽 구독자 대상 뉴스레터를 통한 제휴 광고를 제공합니다. 지원금·생활 정보에 관심 높은 독자층에게 직접 메시지를 전달할 수 있습니다.",
     color: "violet",
   },
 ];
@@ -67,11 +67,11 @@ export default function ContactPage() {
           </div>
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.15]">
             함께 만들어가는<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-emerald-500">수도권 생활 정보</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-emerald-500">지원금·생활 정보</span>
           </h1>
           <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
-            팁픽은 매일 업데이트되는 수도권 생활 정보 큐레이션 서비스로,{" "}
-            <span className="font-black text-slate-800">서울·인천·경기 지역 주민</span>들에게
+            팁픽은 지원금·경제·생활 정보 큐레이션 서비스로,{" "}
+            <span className="font-black text-slate-800">정보가 필요한 분</span>들에게
             지원금, 축제, 행사 정보를 제공합니다.
           </p>
         </section>

@@ -4,29 +4,27 @@ export const revalidate = false;
 import { MetadataRoute } from 'next';
 import fs from 'fs';
 import path from 'path';
-import { SITUATIONS } from '@/lib/situations';
 import { GUIDES } from '@/lib/guides';
+import { visibleCategories, isCategoryLive, isPostCategoryLive } from '@/config/categories';
+import { getSortedPostsData } from '@/lib/posts';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://tip-pick.com';
 
   // 1. 기본 정적 경로 (trailingSlash: true 설정에 맞춰 trailing slash 포함)
-  const staticRoutes = [
-    '/', '/festivals/', '/benefits/', '/blog/',
-    '/situations/', '/eligibility/', '/guides/',
-  ].map((route) => ({
+  //    기존 자산(festivals 등) 유지 + 카테고리 SSOT의 공개 카테고리·계산기 추가.
+  //    승인 모드에선 숨김 카테고리(/hot·/tips)가 visibleCategories에서 자동 제외됨.
+  const basePaths = [
+    '/', '/benefits/', '/blog/', '/guides/',
+    '/tools/', '/tools/salary/', '/tools/loan/',
+    '/tools/income-tax/', '/tools/insurance/',
+  ];
+  const categoryPaths = visibleCategories().map((c) => c.href);
+  const staticRoutes = Array.from(new Set([...basePaths, ...categoryPaths])).map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'daily' as const,
     priority: route === '/' ? 1 : 0.8,
-  }));
-
-  // 1-b. 상황별 허브 페이지
-  const situationRoutes = SITUATIONS.map((s) => ({
-    url: `${baseUrl}/situations/${s.key}/`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
   }));
 
   // 1-c. 가이드 상세 페이지 (GUIDES 매니페스트 = SSOT)
@@ -42,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const fileContents = fs.readFileSync(dataPath, 'utf8');
   const data = JSON.parse(fileContents);
 
-  const festivalRoutes = data.festivals.map((f: any) => ({
+  const festivalRoutes = (isCategoryLive('festivals') ? data.festivals : []).map((f: any) => ({
     url: `${baseUrl}/festival/${f.id}/`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
@@ -56,18 +54,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // 3. 블로그 마크다운 파일에서 동적 경로 가져오기
-  const postsDir = path.join(process.cwd(), 'src/content/posts');
-  const blogFiles = fs.existsSync(postsDir) ? fs.readdirSync(postsDir) : [];
-
-  const blogRoutes = blogFiles
-    .filter(file => file.endsWith('.md'))
-    .map(file => ({
-      url: `${baseUrl}/blog/${file.replace('.md', '')}/`,
+  // 3. 블로그 동적 경로 (승인 모드면 숨김 카테고리 글 제외)
+  const blogRoutes = getSortedPostsData()
+    .filter((bp) => isPostCategoryLive(bp.category))
+    .map((bp) => ({
+      url: `${baseUrl}/blog/${bp.slug}/`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.5,
     }));
 
-  return [...staticRoutes, ...situationRoutes, ...guideRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes];
+  return [...staticRoutes, ...guideRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes];
 }

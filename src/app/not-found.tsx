@@ -28,17 +28,17 @@ export default function NotFound() {
 
         <div className="flex items-center gap-6 text-sm">
           <Link
-            href="/festivals/"
+            href="/benefits/"
             className="font-semibold text-slate-500 hover:text-[#00CCFF] transition-colors"
           >
-            이번 주말 어디 가? →
+            정부 지원금 →
           </Link>
           <span className="text-slate-300">|</span>
           <Link
             href="/blog/"
             className="font-semibold text-slate-500 hover:text-[#00CCFF] transition-colors"
           >
-            팁픽 인사이트 →
+            전체 글 →
           </Link>
         </div>
       </main>

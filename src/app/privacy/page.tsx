@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata = {
-  title: "개인정보처리방침 | 수도권 팁픽(Tip-Pick)",
+  title: "개인정보처리방침 | 팁픽(Tip-Pick)",
   description: "팁픽(Tip-Pick) 개인정보처리방침을 확인하세요.",
 };
 
@@ -24,7 +24,7 @@ export default function PrivacyPage() {
         <div className="bg-white rounded-[2rem] border border-slate-100 p-10 space-y-8 text-slate-700 text-[15px] leading-relaxed">
 
           <p>
-            수도권 팁픽(이하 &quot;팁픽&quot; 또는 &quot;사이트&quot;)은 이용자의 개인정보를 중요하게 생각하며,
+            팁픽(이하 &quot;팁픽&quot; 또는 &quot;사이트&quot;)은 이용자의 개인정보를 중요하게 생각하며,
             「개인정보 보호법」 및 관련 법령에 따라 아래와 같이 개인정보처리방침을 수립·공개합니다.
           </p>
 
@@ -127,7 +127,7 @@ export default function PrivacyPage() {
                 jeepno1ykr1@gmail.com
               </a>
             </p>
-            <p className="text-slate-500">운영자: 수도권 팁픽 (tip-pick.com)</p>
+            <p className="text-slate-500">운영자: 팁픽 (tip-pick.com)</p>
           </section>
 
         </div>

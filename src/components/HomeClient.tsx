@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import GuideCard from "@/components/GuideCard";
 import { GUIDES } from "@/lib/guides";
+import { visibleCategories, isCategoryLive } from "@/config/categories";
+import PostRow from "@/components/PostRow";
 
 interface Weather {
   region: string;
@@ -137,21 +139,21 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
           </div>
           <div className="space-y-4">
             <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
-              당신의 일상에{" "}
+              복잡한 정보,{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-emerald-500">
-                혜택과 즐거움
+                꼭 필요한 것만
               </span>
-              을 픽(Pick)하세요!
+              {" "}골라드려요
             </h1>
             <p className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-              나열된 공고문 대신, 에디터가 직접 분석한 지원금/축제 총정리와 실무 팁을 확인하세요.
+              정부 지원금부터 경제·세금, 실생활 계산기까지 — 돈 되는 정보를 비전문가 눈높이로 정리합니다.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-              <Button href="/situations/" variant="primary" className="text-base md:text-lg px-9 py-4">
-                🎯 상황별 맞춤 혜택 보기
+              <Button href="/benefits/" variant="primary" className="text-base md:text-lg px-9 py-4">
+                🏛️ 정부 지원금 보기
               </Button>
-              <Button href="/festivals/" variant="secondary" className="text-base md:text-lg px-9 py-4">
-                이번 주 나들이 보기
+              <Button href="/tools/" variant="secondary" className="text-base md:text-lg px-9 py-4">
+                🧮 실생활 계산기
               </Button>
             </div>
             {todayUpdates?.date && (
@@ -166,33 +168,41 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
 
         <CustomBanner config={bannerConfig} />
 
-        {/* ── 상황별 진입 타일 (wayfinding) ── */}
-        {situations && situations.length > 0 && (
-          <section className="space-y-5">
-            <div className="flex items-center justify-between px-1">
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">🎯 내 상황에 맞는 혜택</h2>
-              <Link href="/situations/" className="text-sm font-bold text-brand-dark hover:text-brand transition-colors">전체 보기 →</Link>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-              {situations.map((s) => (
-                <Link
-                  key={s.key}
-                  href={`/situations/${s.key}/`}
-                  className="group bg-white rounded-2xl border border-slate-100 p-4 text-center hover:-translate-y-1 hover:border-brand/30 hover:shadow-[0_6px_24px_rgba(0,204,255,0.12)] transition-all duration-300"
-                >
-                  <div className="text-3xl mb-2">{s.emoji}</div>
-                  <p className="font-black text-slate-900 text-sm leading-tight group-hover:text-brand-dark transition-colors">{s.label}</p>
-                  <p className="mt-2 text-[11px] font-black text-emerald-600">지원금 {s.benefits}건</p>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* ── 카테고리 바로가기 (잡블로그 IA, 승인 모드 반영) ── */}
+        <section className="space-y-5">
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight px-1">무엇을 찾고 계세요?</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {visibleCategories().map((c) => (
+              <Link
+                key={c.key}
+                href={c.href}
+                className="group bg-white rounded-2xl border border-slate-100 p-5 hover:-translate-y-1 hover:shadow-[0_6px_24px_rgba(0,0,0,0.06)] transition-all duration-300"
+                style={{ borderTopWidth: 3, borderTopColor: c.accent }}
+              >
+                <div className="text-3xl mb-2">{c.emoji}</div>
+                <p className="font-black text-slate-900 text-base group-hover:text-brand-dark transition-colors">{c.label}</p>
+                <p className="text-xs text-slate-500 mt-1 leading-snug">{c.short}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 실생활 계산기 바로가기 (체류시간·고단가) ── */}
+        <section className="bg-gradient-to-br from-slate-50 to-cyan-50/40 rounded-[1.75rem] border border-slate-100 p-6 md:p-8 space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-black text-slate-900">🧮 실생활 계산기</h2>
+            <Link href="/tools/" className="text-sm font-bold text-brand-dark hover:text-brand transition-colors">전체 보기 →</Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Link href="/tools/salary/" className="bg-white rounded-xl border border-slate-100 px-5 py-4 font-bold text-slate-800 hover:border-brand hover:text-brand-dark transition-colors flex items-center gap-2">💸 연봉 실수령액 계산기</Link>
+            <Link href="/tools/loan/" className="bg-white rounded-xl border border-slate-100 px-5 py-4 font-bold text-slate-800 hover:border-brand hover:text-brand-dark transition-colors flex items-center gap-2">🏦 대출 이자 계산기</Link>
+          </div>
+        </section>
 
         {/* ── 팁픽 가이드 (에버그린) — GuideCard 공용 카드 ── */}
         <section className="space-y-5">
           <div className="flex items-center justify-between px-1">
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">📘 육아·가족 깊이 있는 가이드</h2>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">📘 깊이 있는 금융·생활 가이드</h2>
             <Link href="/guides/" className="text-sm font-bold text-brand-dark hover:text-brand transition-colors">전체 보기 →</Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -202,7 +212,8 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
           </div>
         </section>
 
-        {/* ── 탐색: 지역 필터 + 축제·지원금 2-Column ── */}
+        {/* ── 탐색: 지역 필터 + 축제 (전국 나들이 카테고리 공개 시에만 노출) ── */}
+        {isCategoryLive("festivals") && (
         <div className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white rounded-[1.75rem] border border-slate-100 shadow-sm px-6 py-5">
             <div className="flex items-center gap-2.5">
@@ -263,71 +274,26 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
             </div>
           </section>
         </div>
+        )}
 
-        {/* ── 팁픽 가이드 (블로그) — 보조 콘텐츠 ── */}
+        {/* ── 최신 글 (경제·지원금 통합 피드, 카테고리 배지로 구분) ── */}
         <section className="space-y-6 pt-2">
-          <div className="flex items-center justify-between px-2">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-black uppercase tracking-widest rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700">
-                💡 팁픽 인사이트
-              </span>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">
-                팁픽(Tip-Pick) 인사이트
-              </h3>
-            </div>
-            <Link href="/blog/" className="text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-colors">
-              전체 보기 →
-            </Link>
+          <div className="flex items-center justify-between px-1">
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">📝 최신 글</h2>
+            <Link href="/blog/" className="text-sm font-bold text-brand-dark hover:text-brand transition-colors">전체 보기 →</Link>
           </div>
 
-          <div className="space-y-3">
-            {posts.slice(0, 3).map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}/`}
-                className="group flex items-stretch bg-white rounded-[1.75rem] overflow-hidden border border-slate-100 shadow-sm hover:-translate-y-0.5 hover:border-brand/25 hover:shadow-[0_4px_20px_rgba(0,204,255,0.10)] transition-all duration-300"
-              >
-                <div className="relative w-32 shrink-0 overflow-hidden bg-slate-100">
-                  <img
-                    src={post.image || FALLBACK_IMG}
-                    alt={post.title}
-                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG; }}
-                  />
-                  <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-0.5 rounded-lg text-[9px] font-black text-brand-dark shadow border border-white/50 tracking-wider">
-                    {({ festival: '축제', benefit: '지원금', benefits: '지원금', election: '선거', info: '정보' } as Record<string, string>)[post.category ?? ''] ?? post.category}
-                  </div>
-                </div>
-
-                <div className="flex-1 px-5 py-4 flex flex-col justify-center gap-1.5">
-                  <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400">
-                    <span>💡 팁픽 큐레이션</span>
-                    <span>·</span>
-                    <span>{post.date}</span>
-                  </div>
-                  <h3 className="text-sm font-black text-slate-800 group-hover:text-brand-dark transition-colors line-clamp-2 leading-snug">
-                    {post.title}
-                  </h3>
-                  <p className="text-slate-500 text-xs leading-relaxed line-clamp-1">
-                    {post.summary}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 pt-0.5">
-                    {post.tags.slice(0, 4).map((tag: string) => (
-                      <span key={tag} className="text-[9px] bg-cyan-50 text-brand-dark px-2 py-0.5 rounded-md">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {posts.map((post) => (
+              <PostRow key={post.slug} post={post} />
             ))}
-            {posts.length === 0 && (
-              <div className="py-16 text-center space-y-4">
-                <div className="text-5xl text-slate-200">💡</div>
-                <p className="text-slate-400">아직 등록된 팁픽 가이드가 없습니다.</p>
-              </div>
-            )}
           </div>
+          {posts.length === 0 && (
+            <div className="py-16 text-center space-y-4">
+              <div className="text-5xl text-slate-200">💡</div>
+              <p className="text-slate-400">아직 등록된 글이 없습니다.</p>
+            </div>
+          )}
         </section>
 
         {/* Ad Banner */}

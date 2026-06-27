@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { isCategoryLive } from "@/config/categories";
 import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   if (!festival) {
     return {
+      ...(isCategoryLive('festivals') ? {} : { robots: { index: false, follow: false } }),
       title: '축제 정보 | 팁픽(Tip-Pick)',
       description: '서울, 인천, 경기 지역의 즐거운 축제와 행사를 확인하세요.',
     };
@@ -48,6 +50,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const description = festival.description ? festival.description.slice(0, 160) : '축제 상세 정보입니다.';
 
   return {
+    ...(isCategoryLive('festivals') ? {} : { robots: { index: false, follow: false } }),
     title: `${festival.title} | 팁픽(Tip-Pick)`,
     description: description,
     alternates: {

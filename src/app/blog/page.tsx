@@ -3,19 +3,20 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getSortedPostsData } from "@/lib/posts";
 import BlogListClient from "@/components/BlogListClient";
+import { isPostCategoryLive } from "@/config/categories";
 
 export const metadata: Metadata = {
-  title: "팁픽 인사이트 | 스마트한 수도권 생활 가이드 - 팁픽(Tip-Pick)",
-  description: "데이터는 공공기관이, 꿀팁은 팁픽이. 팁픽 에디터가 전하는 생생한 혜택 정보와 생활 꿀팁을 확인하세요.",
+  title: "전체 글 — 경제·지원금·생활정보 | 팁픽(Tip-Pick)",
+  description: "팁픽의 모든 글 — 정부 지원금, 경제·세금, 실생활 정보를 한곳에서 확인하세요.",
   openGraph: {
-    title: "팁픽 인사이트 | 스마트한 수도권 생활 가이드 - 팁픽(Tip-Pick)",
-    description: "팁픽 에디터가 엄선한 유용한 생활 정보와 인사이트를 만나보세요.",
+    title: "전체 글 — 경제·지원금·생활정보 | 팁픽(Tip-Pick)",
+    description: "정부 지원금·경제·생활정보를 한곳에서 확인하세요.",
     url: "https://tip-pick.com/blog/",
   }
 };
 
 export default function BlogListPage() {
-  const posts = getSortedPostsData();
+  const posts = getSortedPostsData().filter((p) => isPostCategoryLive(p.category));
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
@@ -26,22 +27,16 @@ export default function BlogListPage() {
         {/* Page Hero */}
         <section className="text-center space-y-6 max-w-3xl mx-auto py-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest rounded-full border border-cyan-200 bg-cyan-50 text-brand-dark">
-            💡 팁픽 인사이트
+            📝 전체 글
           </div>
 
-          <h1 className="text-5xl md:text-6xl tracking-tight leading-[1.15]">
-            <span className="font-black text-slate-900">팁픽</span>{" "}
-            <span
-              className="font-serif italic font-semibold text-transparent bg-clip-text"
-              style={{ backgroundImage: "linear-gradient(135deg, #00CCFF 0%, #33FF99 100%)" }}
-            >
-              인사이트
-            </span>
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
+            전체 글
           </h1>
 
           <p className="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto">
-            수도권 생활의 질을 높이는 한 끗 차이,{" "}
-            <span className="font-black text-slate-700">팁픽이 엄선한 진짜 정보들</span>만 모았습니다.
+            경제·지원금·생활정보 —{" "}
+            <span className="font-black text-slate-700">팁픽이 엄선한 진짜 정보</span>만 모았습니다.
           </p>
 
           <div className="flex items-center justify-center gap-3">

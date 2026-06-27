@@ -4,18 +4,20 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { visibleCategories } from "@/config/categories";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // 네비 = 카테고리 SSOT(승인 모드면 경제·지원금·계산기만 노출)
+  const cats = visibleCategories();
+  const tools = cats.find((c) => c.key === "tools");
   const navLinks = [
-    { href: "/festivals/", label: "이번 주 나들이" },
-    { href: "/situations/", label: "상황별 혜택" },
+    ...cats.filter((c) => c.key !== "tools").map((c) => ({ href: c.href, label: c.label })),
     { href: "/guides/", label: "가이드" },
-    { href: "/blog/", label: "팁픽 인사이트" },
+    ...(tools ? [{ href: tools.href, label: tools.label }] : []),
   ];
-
 
   const normalize = (p: string) => p.replace(/\/$/, "") || "/";
   const isActive = (href: string) => {
@@ -33,20 +35,19 @@ export default function Header() {
           <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-[0_0_12px_rgba(0,204,255,0.35)] group-hover:shadow-[0_0_22px_rgba(0,204,255,0.55)] transition-shadow duration-300">
             <Image
               src="/images/logo-tippick.png"
-              alt="수도권 팁픽 로고"
+              alt="팁픽 로고"
               fill
               className="object-cover"
             />
           </div>
 
           <div className="flex flex-col leading-none">
-            <span className="text-xs text-slate-400 font-medium tracking-wide">수도권</span>
             <span className="text-xl font-bold text-slate-900 tracking-tight">팁픽</span>
           </div>
         </Link>
 
         {/* ── 데스크톱 네비게이션 ── */}
-        <nav className="hidden md:flex items-center gap-8 text-sm">
+        <nav className="hidden md:flex items-center gap-7 text-sm">
           {navLinks.map((link) => {
             const active = isActive(link.href);
             return (
@@ -69,11 +70,6 @@ export default function Header() {
               </Link>
             );
           })}
-          
-          {/* CTA 버튼 */}
-          <Link href="/eligibility/" className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-5 rounded-full hover:scale-105 transition-transform shadow-md flex items-center gap-2">
-            🔍 1분 맞춤 혜택 찾기
-          </Link>
         </nav>
 
         {/* ── 모바일 햄버거 버튼 ── */}
@@ -108,11 +104,6 @@ export default function Header() {
               </Link>
             );
           })}
-          
-          {/* 모바일 CTA 버튼 */}
-          <Link href="/eligibility/" onClick={() => setIsMenuOpen(false)} className="mt-4 w-full bg-indigo-600 text-white font-bold py-3 rounded-full hover:bg-indigo-700 flex items-center justify-center gap-2 shadow-md active:scale-[0.98] transition-transform">
-            🔍 1분 맞춤 혜택 찾기
-          </Link>
         </nav>
       </div>
     </header>

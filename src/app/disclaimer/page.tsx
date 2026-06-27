@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata = {
-  title: "면책공고 | 수도권 팁픽(Tip-Pick)",
+  title: "면책공고 | 팁픽(Tip-Pick)",
   description: "팁픽(Tip-Pick) 서비스 면책공고를 확인하세요.",
 };
 
@@ -30,7 +30,7 @@ export default function DisclaimerPage() {
             ⚠️ 모든 신청 전 공식 공고문을 반드시 확인하세요.
           </p>
           <p className="text-slate-600 leading-relaxed">
-            팁픽이 제공하는 정보는 공공데이터 API 기반으로, 실제 공고와 내용이 다를 수 있습니다.
+            팁픽이 제공하는 정보는 참고용이며, 실제 공고와 내용이 다를 수 있습니다.
             지원금 신청 등 중요한 사안은 반드시 해당 기관의 원문 공고를 재확인 후 진행해 주세요.
           </p>
         </div>
@@ -39,7 +39,7 @@ export default function DisclaimerPage() {
 
           <section className="space-y-3">
             <h2 className="text-xl font-black text-slate-900 border-l-4 pl-3" style={{ borderColor: "#00CCFF" }}>정보의 정확성</h2>
-            <p>팁픽은 공공데이터포털(data.go.kr) 및 각 지방자치단체의 공식 API를 통해 정보를 수집하며, 정확한 정보 제공을 위해 최선을 다합니다. 그러나 원천 데이터 오류, 지연 업데이트, API 응답 오류 등으로 인해 제공되는 정보와 실제 공고 간 차이가 발생할 수 있습니다.</p>
+            <p>팁픽은 정부·지자체의 공식 자료를 바탕으로 정보를 정리하며, 정확한 정보 제공을 위해 최선을 다합니다. 그러나 원천 자료의 변경이나 시점 차이로 제공되는 정보와 실제 공고 간 차이가 발생할 수 있습니다.</p>
           </section>
 
           <section className="space-y-3">

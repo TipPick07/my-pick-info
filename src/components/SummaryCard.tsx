@@ -43,23 +43,23 @@ const CATEGORY_CONFIG = {
 export default function SummaryCard({ category, rows, badges, className = '' }: SummaryCardProps) {
   const cfg = CATEGORY_CONFIG[category];
   return (
-    <div className={`${cfg.bg} rounded-[2rem] border ${cfg.border} p-8 md:p-10 ${className}`}>
-      <p className={`text-xs font-black ${cfg.textColor} uppercase tracking-widest mb-5`}>
+    <div className={`${cfg.bg} rounded-2xl border ${cfg.border} p-6 ${className}`}>
+      <p className={`text-xs font-black ${cfg.textColor} uppercase tracking-widest mb-4`}>
         {cfg.icon} {cfg.title}
       </p>
-      <div className="grid gap-6">
+      <div className="grid gap-4">
         {rows.map((row, i) => (
           <div key={i} className="flex gap-4">
             <div className={`mt-[0.45rem] w-2 h-2 rounded-full ${cfg.dotColor} shrink-0`} />
             <div className="space-y-1 min-w-0">
               <p className="text-sm font-bold text-slate-400">{row.label}</p>
-              <p className="text-base font-medium text-slate-700 leading-relaxed whitespace-pre-line break-words">{row.value}</p>
+              <p className="text-sm font-medium text-slate-700 leading-relaxed whitespace-pre-line break-words">{row.value}</p>
             </div>
           </div>
         ))}
       </div>
       {badges && badges.length > 0 && (
-        <div className={`flex flex-wrap gap-2 pt-5 mt-5 border-t ${cfg.border}`}>
+        <div className={`flex flex-wrap gap-2 pt-4 mt-4 border-t ${cfg.border}`}>
           {badges.map((badge, i) => (
             <span key={i} className={`text-xs font-bold px-3 py-1.5 rounded-full border ${cfg.badgeBg}`}>
               {badge}

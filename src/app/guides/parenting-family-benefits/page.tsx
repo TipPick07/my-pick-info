@@ -19,12 +19,12 @@ const UPDATED = "2026-06-05"; // 사실 최종 확인일
 
 // 절대 URL로 지정 → layout의 metadataBase 유무와 무관하게 og:image가 안전하게 해석됨
 const OG_IMAGE = `${SITE}/images/og/parenting-family-benefits.png`;
-const OG_TITLE = "0세~초등 입학 전, 수도권 육아·가족 지원금 한눈에 (2026)";
+const OG_TITLE = "0세~초등 입학 전, 육아·가족 지원금 한눈에 (2026)";
 const OG_DESC =
   "아동수당·부모급여·보육료·양육수당·유아학비 — 나이 × 돌봄 형태로 한눈에 정리한 2026 육아 지원금 가이드.";
 
 export const metadata: Metadata = {
-  title: "0세~초등 입학 전, 수도권 육아·가족 지원금 한눈에 (2026) | 팁픽",
+  title: "0세~초등 입학 전, 육아·가족 지원금 한눈에 (2026) | 팁픽",
   description:
     "아동수당·부모급여·보육료·양육수당·유아학비까지 — 우리 아이 나이와 돌봄 형태(집·어린이집·유치원)에 따라 무엇을 받는지 2026년 기준으로 한 페이지에 정리했습니다.",
   alternates: { canonical: `${SITE}${PATH}` },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "0세~초등 입학 전 수도권 육아·가족 지원금 한눈에",
+        alt: "0세~초등 입학 전 육아·가족 지원금 한눈에",
       },
     ],
   },
@@ -213,7 +213,7 @@ export default function ParentingFamilyBenefitsGuide() {
         <section className="border-b border-slate-100 bg-gradient-to-b from-indigo-50/60 to-white">
           <div className="mx-auto max-w-3xl px-5 py-12 sm:py-16">
             <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white px-3 py-1 text-xs font-semibold text-indigo-700">
-              2026년 기준 · 수도권 부모용
+              2026년 기준 · 부모용
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl">
               0세부터 초등 입학 전까지,
@@ -464,14 +464,14 @@ export default function ParentingFamilyBenefitsGuide() {
               </span>
             </Link>
             <Link
-              href="/situations/parenting/"
+              href="/benefits/"
               className="flex flex-col rounded-2xl border border-slate-200 bg-white px-5 py-5 text-slate-800 transition-colors hover:border-indigo-200 hover:bg-indigo-50/40"
             >
               <span className="text-sm font-bold">
                 임신·출산·육아 지원 전체 보기 →
               </span>
               <span className="mt-1 text-xs text-slate-500">
-                수도권 부모를 위한 지원금·나들이 모음
+                부모를 위한 지원금 모음
               </span>
             </Link>
           </section>

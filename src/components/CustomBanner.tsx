@@ -59,7 +59,7 @@ export default function CustomBanner({ config }: CustomBannerProps) {
                     SPONSORSHIP
                   </span>
                   <span className="text-slate-700 font-bold text-sm md:text-base">
-                    📢 수도권 팁픽의 파트너가 되어주세요!
+                    📢 팁픽의 파트너가 되어주세요!
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 font-medium">
