@@ -98,6 +98,7 @@ function sortFestivals<T extends { date: string }>(list: T[], today: Date): T[] 
 // ────────────────────────────────────────────────────────────────────────────
 
 const FALLBACK_IMG = '/images/blogs/korea-welfare-benefit-322.png';
+const KAKAO_OPENCHAT_URL = "https://open.kakao.com/o/gdb5gJsi"; // 카카오 오픈채팅: 팁픽 | 정부 지원금·경제·생활정보
 
 export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, bannerConfig }: { data: Data, posts: PostData[], weatherApiKey: string, todayUpdates?: TodayUpdates, bannerConfig?: { isActive: boolean; imageUrl: string; linkUrl: string } }) {
   const [filter, setFilter] = useState("전체");
@@ -285,6 +286,27 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
               <p className="text-slate-400">아직 등록된 글이 없습니다.</p>
             </div>
           )}
+        </section>
+
+        {/* ── 카카오톡 오픈채팅 CTA ── */}
+        <section>
+          <a
+            href={KAKAO_OPENCHAT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col sm:flex-row items-center justify-between gap-4 rounded-[1.75rem] border border-[#FEE500] bg-gradient-to-r from-[#FEE500]/40 to-[#FEE500]/10 px-6 py-6 transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(254,229,0,0.30)]"
+          >
+            <div className="flex items-center gap-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FEE500] text-2xl">💬</span>
+              <div>
+                <p className="text-lg md:text-xl font-black text-slate-900">새 글·지원금 소식, 카톡으로 가장 먼저</p>
+                <p className="mt-0.5 text-sm text-slate-600">지원금·경제·계산기 업데이트를 오픈채팅으로 받아보세요</p>
+              </div>
+            </div>
+            <span className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-[#3C1E1E] px-5 py-2.5 text-sm font-black text-[#FEE500] transition-colors group-hover:bg-black">
+              카카오톡 오픈채팅 입장 →
+            </span>
+          </a>
         </section>
 
         {/* Ad Banner */}

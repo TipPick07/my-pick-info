@@ -86,6 +86,18 @@ officialCurationNote: "..."   # ⭐ 에디터 한마디(선택)
 
 ## 9. 작업 로그 (최신이 위)
 
+### 2026-06-28 (20차) — OG 디폴트 이미지 생성·연결 (링크 공유 썸네일)
+- 원인: `layout.tsx`가 OG로 `/og-image.png`(public 루트)를 가리키는데 **그 파일이 없어서** 홈·가이드·계산기 링크 공유 시 썸네일이 안 떴음. (`images/og-default.png`는 blog용으로만 존재)
+- 생성: `public/og-image.png` + `public/images/og-default.png`(갱신). 1200×630, 팁픽 로고 + "팁픽" + "정부 지원금·경제·생활정보 가이드" + tip-pick.com + 브랜드 그라데이션 바. Pillow + Noto Sans CJK KR.
+- 가이드 OG 보강: `house`·`youth`·가이드 허브가 `openGraph.images`를 비워 둬 layout 디폴트를 못 받음(Next shallow merge) → 각 metadata의 openGraph·twitter에 `${SITE}/og-image.png` 추가.
+- tsc 0, NUL 0(.tsx는 Python 치환). ⚠️ 배포 후 카카오/SNS는 OG를 캐시하므로, 기존 링크는 카카오 디버거 등으로 캐시 갱신해야 새 이미지가 보일 수 있음.
+
+### 2026-06-28 (19차) — 메인에 카카오 오픈채팅 입장 CTA 추가
+- `HomeClient`의 **최신 글 섹션 바로 아래**(광고 배너 앞)에 카카오 오픈채팅 입장 CTA 배너 추가. 카카오 브랜드 컬러(#FEE500) + 말풍선 + 다크 버튼. (처음엔 가이드 아래였으나 흐름 끊김 지적으로 최신 글 아래로 이동)
+- 문구: "새 글·지원금 소식, 카톡으로 가장 먼저" / "지원금·경제·계산기 업데이트를 오픈채팅으로 받아보세요" / 버튼 "카카오톡 오픈채팅 입장 →".
+- ✅ `KAKAO_OPENCHAT_URL` = 실제 오픈채팅 링크(`https://open.kakao.com/o/gdb5gJsi`) 적용 완료.
+- .tsx라 Python 치환, NUL 0, src tsc 0.
+
 ### 2026-06-28 (18차) — GSC 404 322건 → _redirects 301 일괄 정리
 - GSC '찾을 수 없음(404)' 322건 분석: benefit 154·festival 123·blog 25·election 15·기타 5(favicon·_next·cdn-cgi).
 - benefit/festival/election(292건)은 크롤 자동생성·삭제 라우트이고 **상세 라우트가 data=0이라 빌드 0개** → 와일드카드 안전: `/benefit/*→/benefits/`, `/festival/*→/blog/`, `/election/*→/blog/` 일괄 301.
