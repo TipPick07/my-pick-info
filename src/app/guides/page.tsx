@@ -71,10 +71,10 @@ export default function GuidesIndexPage() {
         {/* 지원금 전체로 연결 */}
         <div className="mt-10 text-center">
           <Link
-            href="/benefits/"
+            href="/blog/"
             className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-[#00AACC] transition-colors"
           >
-            찾는 주제가 없나요? 정부 지원금 전체 보기
+            찾는 주제가 없나요? 전체 글 보기
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

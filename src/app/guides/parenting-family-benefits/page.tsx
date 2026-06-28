@@ -450,25 +450,54 @@ export default function ParentingFamilyBenefitsGuide() {
             </div>
           </section>
 
-          {/* 7. 발견 CTA — 독립 라우트라 블로그 자동 관련글이 안 붙으므로 수동 배치 */}
+          {/* 7. 관련 가이드 (짧게 · 풀섹션 아님) */}
+          <section>
+            <SectionTitle kicker="함께 보면 좋은" title="관련 가이드" />
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <Link
+                href="/guides/daycare-admission/"
+                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-indigo-200 hover:bg-indigo-50/40"
+              >
+                <p className="text-sm font-bold text-slate-900">
+                  어린이집·유치원 신청 가이드 →
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                  점수제·추첨으로 갈리는 입소대기·입학 절차를 유보통합포털 한 곳에서 신청하는 법.
+                </p>
+              </Link>
+              <Link
+                href="/guides/parenting-family-finance/"
+                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-indigo-200 hover:bg-indigo-50/40"
+              >
+                <p className="text-sm font-bold text-slate-900">
+                  출산 가구 주택 대출 가이드 →
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                  신생아 특례 디딤돌·버팀목 — 소득·순자산·한도·금리를 한 표로 비교.
+                </p>
+              </Link>
+            </div>
+          </section>
+
+          {/* 8. 발견 CTA — 독립 라우트라 블로그 자동 관련글이 안 붙으므로 수동 배치 */}
           <section className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <Link
-              href="/eligibility/"
+            <a
+              href="https://www.bokjiro.go.kr"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex flex-col rounded-2xl bg-indigo-600 px-5 py-5 text-white transition-colors hover:bg-indigo-700"
             >
-              <span className="text-sm font-bold">
-                내 상황에 맞는 혜택만, 1분 진단 →
-              </span>
+              <span className="text-sm font-bold">복지로에서 신청하기 →</span>
               <span className="mt-1 text-xs text-indigo-100">
-                나이·지역 입력하면 받을 수 있는 지원 추려드립니다
+                bokjiro.go.kr · 정부24·읍면동 주민센터에서도 신청
               </span>
-            </Link>
+            </a>
             <Link
               href="/benefits/"
               className="flex flex-col rounded-2xl border border-slate-200 bg-white px-5 py-5 text-slate-800 transition-colors hover:border-indigo-200 hover:bg-indigo-50/40"
             >
               <span className="text-sm font-bold">
-                임신·출산·육아 지원 전체 보기 →
+                정부 지원금 전체 보기 →
               </span>
               <span className="mt-1 text-xs text-slate-500">
                 부모를 위한 지원금 모음

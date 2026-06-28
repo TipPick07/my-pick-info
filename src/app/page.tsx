@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
 import { getSortedPostsData } from "@/lib/posts";
-import { SITUATIONS, getSituationCounts } from "@/lib/situations";
 import { isPostCategoryLive, isCategoryLive } from "@/config/categories";
 import HomeClient from "@/components/HomeClient";
 import bannerConfig from "@/data/banner-config.json";
@@ -18,7 +17,7 @@ export default function Home() {
   const data = JSON.parse(fileContents);
 
   const allPosts = getSortedPostsData();
-  const posts = allPosts.filter((p) => isPostCategoryLive(p.category)).slice(0, 4);
+  const posts = allPosts.filter((p) => isPostCategoryLive(p.category)).slice(0, 6);
   const weatherApiKey = process.env.PUBLIC_DATA_API_KEY || "";
 
   const kstNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
@@ -41,12 +40,6 @@ export default function Home() {
     // push·수동 배포일과 같다. (옛 'latestDate(최신 블로그 글 date)'는 자동발행 셸브 후 6/4에 고정되는 버그였음.)
     date: todayStr,
   };
-
-  // 상황별 진입 타일용 (직렬화 가능한 요약 — RegExp 제외)
-  const situations = SITUATIONS.map((s) => {
-    const counts = getSituationCounts(s);
-    return { key: s.key, emoji: s.emoji, label: s.label, tagline: s.tagline, benefits: counts.benefits, posts: counts.posts };
-  });
 
   const eventSchema = (isCategoryLive('festivals') ? data.festivals : []).map((f: any) => ({
     "@context": "https://schema.org",
@@ -83,7 +76,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(benefitSchema) }}
       />
-      <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} todayUpdates={todayUpdates} situations={situations} bannerConfig={bannerConfig} />
+      <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} todayUpdates={todayUpdates} bannerConfig={bannerConfig} />
     </>
   );
 }

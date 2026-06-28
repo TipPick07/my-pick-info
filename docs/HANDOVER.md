@@ -50,6 +50,8 @@
 - 빌드 스크립트: `scripts/validate-content.js`(콘텐츠 검증), `scripts/build-search-index.js`(검색 색인) — prebuild에서 실행
 
 ## 5. 새 글 쓰는 규칙
+> ⭐ **카테고리별 상세 양식·체크리스트·표준 예시 파일은 `docs/WRITING-GUIDE.md`가 SSOT**다. 어떤 툴·어디서든 그 문서 + 이 인수인계서를 따르면 양식이 유지된다. 아래는 핵심 요약.
+
 `src/content/posts/YYYY-MM-DD-english-name.md` 생성. frontmatter:
 ```
 title / date / summary / description
@@ -63,9 +65,9 @@ officialCurationNote: "..."   # ⭐ 에디터 한마디(선택)
 - **(절대 규칙) 같은 카테고리 기존 글 형식을 그대로 따른다.** 새 형식을 만들지 말 것. 경제 글 = 도입 → `## 한눈에 비교`(표) → `##` 섹션 → `## 자주 묻는 질문` → `## 마무리`(내부링크) → 면책.
 - **(체류시간 규칙) 글 안에서 관련 글로 자연스럽게 넘어가는 내부 링크(글→글 루프)를 넣는다.** `## 마무리`에 형제 글 1~2개 + 본문 맥락 링크. 하단 '함께 읽으면 좋은 글'(자동, 같은 category 우선) 루프 유지.
 
-## 6. 현재 콘텐츠 현황 (2026-06-27)
-- 글 52편: 지원금 26 · 정보(지원금) 16 · 경제 8 · 기타 2
-- 가이드 4편(육아 금융), 계산기 4개(연봉·대출·종합소득세·4대보험)
+## 6. 현재 콘텐츠 현황 (2026-06-28)
+- 글 54편(지원금 benefit·경제 중심) — 상세 양식은 `docs/WRITING-GUIDE.md` §6
+- 가이드 6편(육아 4 + 양도세 + 청년), 계산기 8종(연봉·대출·종소세·4대보험·퇴직금·시급주휴·자동차세·예적금이자)
 - **애드센스 권장(15~20편) 충족.** /money(경제)만 더 채우면 균형이 좋아짐.
 
 ## 7. 운영·배포 규칙
@@ -75,13 +77,88 @@ officialCurationNote: "..."   # ⭐ 에디터 한마디(선택)
 
 ## 8. 다음 할 일 (백로그)
 1. **애드센스 신청**(지금 구조·콘텐츠로 충분) → 승인 후 `APPROVAL_MODE=false`.
-2. ~~계산기 추가: 4대보험·종합소득세~~ ✅완료(2026-06-27). 양도세는 변수(주택수·조정지역·비과세·중과)가 많아 범용 계산기 부정확 위험 → 보류, 추후 '가이드 글'로 다루기 권장.
+2. ~~계산기 추가: 4대보험·종합소득세~~ ✅완료(2026-06-27). 양도세는 변수(주택수·조정지역·비과세·중과)가 많아 범용 계산기 부정확 위험 → ~~보류, 추후 '가이드 글'로 다루기 권장~~ ✅가이드 작성 완료(2026-06-28, `/guides/house-capital-gains-tax`).
 3. 경제 글 더(고단가): ~~청약통장~~ ✅ / ~~신용점수~~ ✅(2026-06-28) / 퇴직금 등. 대출 묶음(스트레스 DSR·고정vs변동·신용점수) 완성됨.
-4. 소소한 정리(급하지 않음): ~~히어로 "매일 갱신" 배지~~ ✅(2026-06-28 "최근 업데이트 {빌드일}"로 변경), 약관 공공데이터 IP 조항, 숨긴 옛 기능(situations 등) 내부 문구.
+4. 소소한 정리(급하지 않음): ~~히어로 "매일 갱신" 배지~~ ✅(2026-06-28 "최근 업데이트 {빌드일}"로 변경), 약관 공공데이터 IP 조항, 숨긴 옛 기능 → ✅가이드 하단 CTA 통일(6차)·situations·eligibility 삭제+301(7차). festival 단수 라우트만 잔여.
+5. **기존 지원금 글 43편 일괄 SEO 정리**(2026-06-28 점검): ① 제목 35자 이내·핵심 키워드 앞배치(현재 35편이 초과, 일부 50~56자) ② officialDeadline 마감임박/만료형 → '상시' 또는 제거(에버그린화, 현재 41편 보유) ③ category '정보'→'benefit' 통일 ④ 잔재 필드(image·ogImage·originalTitle) 제거 ⑤ 초기(4월) 글 분량 보강. 양 많아 단계적 진행 권장.
 
 ---
 
 ## 9. 작업 로그 (최신이 위)
+
+### 2026-06-28 (15차) — 글 작성 양식 SSOT 신설(docs/WRITING-GUIDE.md)
+- **어떤 툴(코워크·안티그래비티)·어디서든** 기존 양식을 벗어나지 않게, 글 작성 양식을 단일 문서로 집약: **`docs/WRITING-GUIDE.md`**. 담은 것 — 3종(블로그 글·가이드·계산기)별 frontmatter·H2 구조·category 규칙·금지사항·표준 예시 파일·공통 기술규칙(.tsx는 Python 전용)·"오늘 ○○ 글 써줘" 워크플로우·현황.
+- `CLAUDE.md`(작업 시작 규칙)에 WRITING-GUIDE 참조를 추가 → 레포를 여는 모든 AI 툴이 자동으로 같은 양식을 따름. HANDOVER §5 참조·§6 현황 갱신.
+- 사용 시나리오: 안티그래비티 챗에서 "오늘 ○○ 글 1편 써줘" → AI가 CLAUDE.md → HANDOVER → WRITING-GUIDE를 읽고 해당 카테고리 양식 그대로 작성.
+
+### 2026-06-28 (14차) — 가이드 신규: 청년 지원 총정리 (6번째 가이드)
+- 가이드 1편 추가: `src/app/guides/youth-support-guide/page.tsx` + `guides.ts` 등록(허브·sitemap 자동). 카테고리 '청년'(🧑‍🎓). 흩어진 청년 정책을 **목적별 3축(자산형성·주거·취업)**으로 정리한 허브형 가이드.
+- **사실검증**: 청년 월세 한시 특별지원(월 최대 20만 × 24개월=480만, **2026 상시 사업 전환·청약통장 요건 폐지**), 국민취업지원제도(구직촉진수당 **월 50만→60만 인상**, 청년특례 만 18~34·재산 5억·취업경험 무관), 청년미래적금(2026.6 출시·기여금 6~12%·청년도약계좌 후속). 출처: 복지로·국토부·work24·온통청년(youth.go.kr).
+- 형식: daycare/house 토큰(HERO·비교표·DepthCard 3·체크리스트·주의박스·FAQ·관련글·CTA·면책·JSON-LD). 내부 루프(청년미래적금·청년월세·도약vs미래 글·/benefits), 외부 CTA(온통청년·work24).
+- src tsc 에러 0, NUL 0, 내부링크 4/4 유효. (dev 서버 실행 중이라 `rm -rf .next` 부분 실패 — `tsc | grep -v '^.next/'`로 src만 검증)
+
+### 2026-06-28 (13차) — 실생활 계산기 4종 추가 (퇴직금·시급주휴·자동차세·예적금이자)
+- 에버그린·롱테일·**정확 계산 가능**한 4종만 신설. 변수 많아 부정확해질 양도세·증여세·종부세는 의도적 제외(저품질 방지).
+- **퇴직금**(`/tools/retirement-pay/` + `RetirementPayCalculator`): 평균임금×30×재직일수/365, 상여·연차 3/12 안분. 검산 1200만/3개월92일 → 13,658,130원.
+- **시급·주휴수당**(`/tools/hourly-wage/` + `HourlyWageCalculator`): 2026 최저시급 10,320원, 주휴 min(8, 주근로/40×8). 검산 40h → 주급 495,360, 20h → 주휴 4h.
+- **자동차세**(`/tools/car-tax/` + `CarTaxCalculator`): 비영업 승용 cc단가 80/140/200 + 교육세 30% + 차령경감(3년차 5%~12년↑ 50%). 검산 2000cc 신차 52만·12년 26만.
+- **예적금 이자**(`/tools/savings-interest/` + `SavingsInterestCalculator`): 예금 단리/월복리·적금 단리, 이자세 15.4%. 검산 예금단리 이자 30만·월복리 304,160·적금단리 97,500.
+- 각 위젯(client) + page(server, SEO article 포함) + 허브 `tools/page.tsx` TOOLS 4카드 + `sitemap.ts` 4경로. 신규 .tsx는 Write 생성(NUL 0 확인), 허브·sitemap 기존 수정은 Python. **node 검산 전 항목 일치**, tsc EXIT 0(.next stale 캐시 정리 후).
+- ⚠️ tsc 시 `.next/dev/types`(Next 자동생성) stale 에러가 날 수 있음 → `rm -rf .next` 후 재실행하면 해소(src 무관).
+
+### 2026-06-28 (12차) — 지원금 글 신규: 긴급복지지원제도 (표준 뼈대 2편째)
+- 기초연금과 동일한 표준 뼈대로 지원금 글 1편 추가: `2026-06-28-emergency-welfare-support.md`. category benefit, `officialDeadline: 상시`(에버그린), `officialEligibilityQuiz: []`(1분 진단 위젯 미표시), 잔재 필드(image/ogImage/originalTitle) 없음.
+- **사실검증**(보건복지부): 2026 생계지원 4인 월 최대 199만 원, 소득 기준 중위소득 75%(1인 약 192만·4인 약 487만), 재산 대도시 2.4억·중소도시 1.52억·농어촌 1.3억 이하, 위기사유(주소득자 사망·실직·중한 질병·휴폐업·가정폭력·재난), 의료 최대 300만, 신청 129·시군구·행정복지센터, **선지원 후조사** 원칙.
+- 내부 루프: 기초연금·저소득 노인 지원·/benefits. 게이트 통과, NUL 0, category 매핑 정상('지원금' 라벨). 메인 최신글 6편에 기초연금·긴급복지 모두 포함 확인.
+
+### 2026-06-28 (11차) — fallback '정보' 잔여 1편 + 메인 최신글에 새 글 누락 수정
+- **fallback 잔여**: `2026-04-29-2026-may-sudogwon-benefit-guide.md` category가 '가이드'(어느 카테고리에도 미매핑)라 10차 trim 후에도 fallback '정보' 표시 → 'benefit'으로 변경. 전수 재점검 결과 매칭 안 되는(fallback) 글 **0**.
+- **메인 최신글 누락**: 오늘(06-28) 글 5편(경제4+기초연금1) 중 최신글 `slice(0,4)`로 잘려 기초연금(benefit)이 5번째로 밀려 누락(경제만 노출). 정렬도 `a.date<b.date?1:-1`라 동date 불안정.
+  - 조치 ① `lib/posts` 정렬 안정화: `b.date.localeCompare(a.date) || b.slug.localeCompare(a.slug)`(date desc + 동date slug desc). ② `page.tsx` 최신글 `slice(0,4)→slice(0,6)`(같은 날 글 다 포함). → 상위 6편에 기초연금 포함 확인.
+- 참고: **양도세는 가이드(.tsx 독립 라우트)**라 '최신 글'(.md 피드)이 아니라 메인 '깊이 있는 가이드' 섹션(GUIDES.slice(0,6))에 노출됨(정상). 최신글이 경제 위주인 것은 최근 경제 글을 많이 발행한 결과(순수 최신순)이며, 다른 카테고리 글 발행 시 자연히 섞임.
+- tsc EXIT 0, NUL 0(.tsx/.ts Python 치환).
+
+### 2026-06-28 (10차) — '정보' 썸네일 라벨/목록 누락 근본 수정 (CRLF \r 원인)
+- 증상: 전체글·목록 일부 글 썸네일이 '지원금'(🏛️) 대신 fallback '정보'(📄)로 표시.
+- 원인: 해당 글들이 **CRLF 파일**이라 gray-matter가 `category`를 `정보\r`로 파싱 → `PostRow`/`CategoryLanding`의 `postCategories.includes()` 매칭 실패 → 썸네일 fallback + **benefits 목록에서도 누락**.
+- 해결: `lib/posts.ts` 2곳(getSortedPostsData·getPostData)의 `category`에 `.trim()` 추가 → category 정규화. '정보'→benefits 매핑 정상('지원금' 라벨), benefits 목록 포함. (로직 검증: `'정보\r'.trim()` → benefits 매칭 True) tsc EXIT 0.
+- 참고: category 값 자체 '정보'→'benefit' 통일은 별개 SEO 백로그(§8-5 ③). 이번 trim으로 표시·목록 기능은 정상화.
+
+### 2026-06-28 (9차) — 가이드 CTA 문구 정정·blog 목록 페이지네이션 제거(통일)
+- 가이드 4편(육아) 하단 CTA: '임신·출산·육아 지원 전체 보기'(목적지 /benefits와 범위 불일치) → **'정부 지원금 전체 보기'**로 통일. 부제('부모를 위한 지원금 모음') 유지.
+- /blog 목록 `BlogListClient`: 10개씩 페이지네이션 제거 → 카테고리 페이지(`CategoryLanding`)와 동일하게 **전체 한 화면 표시**(일관성 통일).
+- ⚠️ **교훈 확대**: Edit뿐 아니라 **Write 도구도** 기존 .tsx 덮어쓰기 시 파일 끝을 NUL로 채워 깨짐(BlogListClient에서 발생, line 끝 NUL 2390B → TS1127). → .tsx는 **Edit·Write 모두 금지, Python `open(...,encoding='utf-8',newline='\\n').write()` 만 사용**. tsc EXIT 0. [[crlf-tsx-edit-caution]]
+
+### 2026-06-28 (8차) — 메인/가이드 중복·노출 개수 정리
+- **/benefits featuredGuideSlugs 제거**(7차에 추가한 것 롤백): 가이드가 메인·가이드페이지·지원금페이지 3중 노출되던 중복 해소. 지원금 페이지는 글 목록에 집중. (중복의 직접 원인은 featured였음. 육아 가이드 4편의 '임신·출산·육아 지원 전체 보기' CTA(/benefits)는 가이드→지원금 허브 정상 동선이라 유지.)
+- **홈 '깊이 있는 가이드'** `GUIDES.slice(0, 6)` 상한(현재 5편 다 노출). ⚠️ 현 GUIDES 배열은 끝이 최신(house)이라 7편째부터는 **새 가이드를 배열 맨 앞에 추가**해야 홈에 최신이 노출됨(slice는 앞 6편).
+- **홈 '최신 글'**: 기존 `slice(0, 4)` 유지(적정).
+- **가이드 허브 하단 CTA**: '정부 지원금 전체 보기'(/benefits) → **'전체 글 보기'(/blog)**. 가이드가 지원금 외 경제·세금(양도세)도 포함하므로 포괄적 동선.
+- 확인: 새 지원금 글(기초연금)은 `officialEligibilityQuiz: []`라 '1분 자격진단' 위젯 **미표시**(기존 글의 자격진단 위젯은 그대로 유지). tsc EXIT 0, NUL 0(.tsx는 Python 치환).
+
+### 2026-06-28 (7차) — 옛 라우트(situations·eligibility) 삭제·지원금 페이지 개선·기초연금 글 신규
+- **폐기 라우트 삭제**: `situations`(목록+[key])·`eligibility` 라우트, `EligibilityPage.tsx` 삭제. `public/_redirects`에 → /benefits/ 301 개별 추가(상황 5종+슬래시 변형, 와일드카드 금지 준수). 홈 `page.tsx`·`HomeClient`의 situations 잔재 prop·SituationTile interface 제거(홈 화면 무변화 — 이미 미렌더 상태였음). `lib/situations`·`benefit/[id]`는 유지(빌드 0개·무해).
+- **/benefits 랜딩**: `featuredGuideSlugs`(현금성 지원·주택대출 가이드) 추가 → 상단 '깊이 있는 가이드' 노출. (`CategoryLanding`이 이미 지원하던 미사용 기능 활성화)
+- **category 오타** 'benefits'→'benefit' 1편(metropolitan-4060) 수정.
+- **지원금 글 표준 뼈대 확정 + 새 글 1편**: `2026-06-28-basic-pension-guide.md`(기초연금). 정제 뼈대 = official* 필드(blog 상세 공식정보 블록용)는 채우되 잔재 필드(image/ogImage/originalTitle) 제외 + `officialDeadline: 상시`(에버그린)·제목 30자. 사실검증(보건복지부): 2026 선정기준 단독 247·부부 395.2만, 단독 최대 349,360원, 부부 각 20% 감액, 국민연금 연계감액, 만 65세 생일 1개월 전 상시신청.
+- 검증: tsc EXIT 0, 콘텐츠 게이트 통과, 활성 페이지 깨진링크 0.
+- ⚠️ **교훈 재확인**: .tsx는 **LF여도** Edit 도구가 NUL을 섞음(HomeClient에서 재발, `file`이 "Java source"로 오판). → `git show HEAD:<경로>`로 원본 추출 후 Python 바이트 치환으로 복구. **앞으로 모든 .tsx 수정은 Edit 금지, Python 치환만.** [[crlf-tsx-edit-caution]]
+
+### 2026-06-28 (6차) — 가이드 하단 링크 정리(숨은 메뉴 제거)·CTA 기준 형식 통일
+- 기존 가이드 하단이 **숨은/삭제 메뉴로 링크**하던 문제 정리. 가이드 5편 전부 `[외부 공식 신청·조회 사이트 + 공개 카테고리 허브]` 기준 CTA로 통일.
+- `parenting-family-benefits`: CTA `/eligibility/`(숨김 옛 기능 '1분 진단') → **복지로**(bokjiro.go.kr) 외부 신청으로 교체. + '관련 가이드' 섹션 신설(어린이집·유치원/주택대출)로 다른 4편과 형식 일치.
+- `parenting-family-finance`: CTA 2개가 둘 다 `/benefits/`(중복)+옛 문구('마감 있는…') → 왼쪽을 **기금e든든**(enhuf.molit.go.kr) 외부 신청으로, 오른쪽 `/benefits/` 유지.
+- `parenting-family-savings`: 동일(중복+옛 문구) → 왼쪽 **청약홈**(applyhome.co.kr)으로, 오른쪽 `/benefits/` 유지.
+- `daycare-admission`·`house-capital-gains-tax`: 이미 기준 형식(외부+허브) → 무변경. 공개 허브는 육아 4편 `/benefits/`, 세금 1편 `/money/`.
+- 검증: 가이드 5편 숨은링크(eligibility·situations·hot·festivals·tips) **0건**, tsc EXIT 0, NUL 0(전부 CRLF라 Python 바이트 치환). [[crlf-tsx-edit-caution]]
+- ⚠️ 잔여(범위 밖): 숨김 옛 페이지 **자체**(`/situations/[key]`, `/festival/[id]`)가 내부적으로 eligibility/festivals를 링크(3건). 메뉴·sitemap 비노출이라 영향 작음 → 근본 정리는 라우트 삭제/리다이렉트로 별도 처리 권장(§8-4).
+
+### 2026-06-28 (5차) — 가이드 신규: 집 팔 때 양도소득세(1세대 1주택 비과세)
+- 새 가이드 1편 `src/app/guides/house-capital-gains-tax/page.tsx` + `src/lib/guides.ts` SSOT 등록(허브·sitemap 자동 반영). 백로그 §8-2(양도세=범용 계산기 대신 가이드 권장) 이행. 첫 '부동산·세금' 카테고리 가이드.
+- **사실 검증**: 1주택 비과세=2년 보유+(2017.8.3 이후 조정지역 취득분)2년 거주+양도가액 12억 이하(초과분만 과세). 장특공=일반 연2%(최대30%)/1주택 보유4%+거주4%(최대80%). 세율=1년미만70%·1~2년60%·2년이상 기본세율 6~45%(누진공제 종소세 계산기와 동일값·전 구간 검산 일치). **다주택 중과 유예 2026.5.9 종료**(정책브리핑 2026.2.12 관계부처합동)→조정지역 2주택+20%p·3주택+30%p 부활. 일시적2주택 1-2-3(신규취득 후 3년내 종전양도). 출처: 국세청·정책브리핑(korea.kr)·국토부.
+- 형식: daycare-admission 토큰 그대로(HERO·비교표·DepthCard·세율표·체크리스트·주의박스·FAQ·관련가이드·CTA·면책+출처·FAQ/Breadcrumb JSON-LD). 내부 루프 링크(주택대출 가이드·전세vs월세vs매매·종합소득세 계산기·/money). tsc EXIT 0, 콘텐츠 게이트 통과(신규 경고 0), 내부링크 4/4 유효.
+- ⚠️ OG 이미지 미생성 → metadata images 비움(허브 전례, 임의 차용 금지). GuideCard는 이모지라 허브/메인 무영향. 추후 `/images/og/house-capital-gains-tax.png` 생성 시 page.tsx openGraph/twitter·guides.ts image에 추가.
+- ⚠️ guides.ts는 CRLF → Edit 도구 대신 Python 바이트 삽입으로 등록(NUL 0 확인). [[crlf-tsx-edit-caution]]
 
 ### 2026-06-28 (4차) — 히어로 배지 문구 정정('매일 갱신' 제거)
 - 홈 히어로 배지: `{빌드일} 업데이트 · 매일 갱신` → `최근 업데이트 {빌드일}`로 변경(크론 제거로 더는 매일 갱신 아님). `src/components/HomeClient.tsx`. 날짜값(빌드일)은 그대로 유지.

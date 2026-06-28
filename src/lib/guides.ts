@@ -56,4 +56,20 @@ export const GUIDES: Guide[] = [
     emoji: "🌱",
     image: "/images/og/parenting-family-savings.png",
   },
+  {
+    slug: "house-capital-gains-tax",
+    title: "집 팔 때 양도소득세 — 1주택 비과세·세율 한눈에 (2026)",
+    description:
+      "1세대 1주택은 2년 보유(조정지역 취득은 2년 거주)·양도가액 12억까지 비과세. 장기보유특별공제 최대 80%, 다주택 중과 부활(2026.5)까지 한 표로 정리한 가이드.",
+    category: "부동산·세금",
+    emoji: "🏠",
+  },
+  {
+    slug: "youth-support-guide",
+    title: "청년 지원 총정리 — 자산·주거·취업 한눈에 (2026)",
+    description:
+      "청년미래적금·청년 월세 지원·국민취업지원까지, 흩어진 청년 정책을 목돈·주거·취업 세 갈래로 묶은 에버그린 가이드.",
+    category: "청년",
+    emoji: "🧑‍🎓",
+  },
 ];

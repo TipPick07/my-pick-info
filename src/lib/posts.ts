@@ -81,7 +81,7 @@ export function getSortedPostsData(dirName = 'posts'): PostData[] {
         author: matterResult.data.author || '팁픽(Tip-Pick)',
         date: dateStr,
         summary: matterResult.data.summary || '',
-        category: matterResult.data.category || '',
+        category: (matterResult.data.category || '').trim(),
         tags: matterResult.data.tags || [],
         officialRequirements: matterResult.data.officialRequirements || [],
         officialHowToApply: matterResult.data.officialHowToApply || [],
@@ -93,7 +93,7 @@ export function getSortedPostsData(dirName = 'posts'): PostData[] {
     });
 
   // Sort posts by date
-  return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return allPostsData.sort((a, b) => b.date.localeCompare(a.date) || b.slug.localeCompare(a.slug));
 }
 
 export function getPostData(slug: string, dirName = 'posts'): PostData | null {
@@ -134,7 +134,7 @@ export function getPostData(slug: string, dirName = 'posts'): PostData | null {
     author: matterResult.data.author || '팁픽(Tip-Pick)',
     date: dateStr,
     summary: matterResult.data.summary || '',
-    category: matterResult.data.category || '',
+    category: (matterResult.data.category || '').trim(),
     tags: matterResult.data.tags || [],
     officialRequirements: matterResult.data.officialRequirements || [],
     officialHowToApply: matterResult.data.officialHowToApply || [],

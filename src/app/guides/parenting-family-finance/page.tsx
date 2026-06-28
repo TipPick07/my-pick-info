@@ -537,23 +537,23 @@ export default function ParentingFamilyFinanceGuide() {
 
           {/* 8. 발견 CTA — 1편 CTA 패턴 동일 · 제휴/은행 링크 없음 */}
           <section className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <Link
-              href="/benefits/"
+            <a
+              href={SRC_APPLY}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex flex-col rounded-2xl bg-indigo-600 px-5 py-5 text-white transition-colors hover:bg-indigo-700"
             >
-              <span className="text-sm font-bold">
-                출산·주거 지원금 보기 →
-              </span>
+              <span className="text-sm font-bold">기금e든든에서 신청하기 →</span>
               <span className="mt-1 text-xs text-indigo-100">
-                마감 있는 현금성 지원·주거비 사업을 한눈에
+                enhuf.molit.go.kr · 디딤돌·버팀목 대출 신청
               </span>
-            </Link>
+            </a>
             <Link
               href="/benefits/"
               className="flex flex-col rounded-2xl border border-slate-200 bg-white px-5 py-5 text-slate-800 transition-colors hover:border-indigo-200 hover:bg-indigo-50/40"
             >
               <span className="text-sm font-bold">
-                임신·출산·육아 지원 전체 보기 →
+                정부 지원금 전체 보기 →
               </span>
               <span className="mt-1 text-xs text-slate-500">
                 부모를 위한 지원금 모음

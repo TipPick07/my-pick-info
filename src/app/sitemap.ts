@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/', '/benefits/', '/blog/', '/guides/',
     '/tools/', '/tools/salary/', '/tools/loan/',
     '/tools/income-tax/', '/tools/insurance/',
+    '/tools/retirement-pay/', '/tools/hourly-wage/', '/tools/car-tax/', '/tools/savings-interest/',
   ];
   const categoryPaths = visibleCategories().map((c) => c.href);
   const staticRoutes = Array.from(new Set([...basePaths, ...categoryPaths])).map((route) => ({

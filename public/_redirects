@@ -172,3 +172,19 @@ https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 /benefit/578392   /benefits/  301
 /benefit/987654/  /benefits/  301
 /benefit/987654   /benefits/  301
+
+# 폐기 라우트 situations·eligibility (옛 '맞춤 진단' 기능 삭제, 2026-06-28) → /benefits/ 301
+/situations/  /benefits/  301
+/situations   /benefits/  301
+/situations/parenting/  /benefits/  301
+/situations/parenting   /benefits/  301
+/situations/youth/  /benefits/  301
+/situations/youth   /benefits/  301
+/situations/senior/  /benefits/  301
+/situations/senior   /benefits/  301
+/situations/housing/  /benefits/  301
+/situations/housing   /benefits/  301
+/situations/disability/  /benefits/  301
+/situations/disability   /benefits/  301
+/eligibility/  /benefits/  301
+/eligibility   /benefits/  301

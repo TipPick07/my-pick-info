@@ -52,6 +52,38 @@ const TOOLS: Tool[] = [
     accent: "#0EA5E9",
     ready: true,
   },
+  {
+    href: "/tools/retirement-pay/",
+    emoji: "💼",
+    title: "퇴직금 계산기",
+    desc: "평균임금 기준 예상 퇴직금 계산",
+    accent: "#DC2626",
+    ready: true,
+  },
+  {
+    href: "/tools/hourly-wage/",
+    emoji: "⏰",
+    title: "시급·주휴수당 계산기",
+    desc: "주휴 포함 주급·월급, 최저임금 비교",
+    accent: "#EA580C",
+    ready: true,
+  },
+  {
+    href: "/tools/car-tax/",
+    emoji: "🚗",
+    title: "자동차세 계산기",
+    desc: "배기량·차령별 연간 자동차세",
+    accent: "#0891B2",
+    ready: true,
+  },
+  {
+    href: "/tools/savings-interest/",
+    emoji: "🐷",
+    title: "예금·적금 이자 계산기",
+    desc: "세후 만기 수령액(단리·복리)",
+    accent: "#CA8A04",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {

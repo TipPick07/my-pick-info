@@ -8,7 +8,7 @@ officialDeadline: 2026.12.31
 date: 2026-05-08
 summary: "수도권 4060 중장년층을 위한 서울, 인천, 경기 지자체별 일자리·교육·생활 지원 혜택을 한눈에 비교하고 내게 맞는 정책을 지금 바로 확인하세요."
 description: "서울 50플러스·인천 고령사회대응센터·경기 베이비부머 지원 중 내 지역 혜택이 가장 많은 곳은? 지자체별 중장년 복지 정책을 한눈에 비교합니다."
-category: benefits
+category: benefit
 image: /images/blogs/a-group-of-happy-elderly-peopl-375.png
 ogImage: "https://tip-pick.com/images/blogs/a-group-of-happy-elderly-peopl-375.png"
 tags: [중장년지원금, 50플러스, 베이비부머, 4060복지, 중장년일자리, 재취업지원, 서울복지, 인천복지, 경기복지, 은퇴준비]

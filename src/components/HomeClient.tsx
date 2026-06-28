@@ -55,15 +55,6 @@ interface TodayUpdates {
   date?: string;
 }
 
-interface SituationTile {
-  key: string;
-  emoji: string;
-  label: string;
-  tagline: string;
-  benefits: number;
-  posts: number;
-}
-
 // ── 축제 날짜 유틸 ──────────────────────────────────────────────────────────
 function parseFestivalDates(dateStr: string): { start: Date | null; end: Date | null } {
   if (!dateStr || dateStr === '상시') return { start: null, end: null };
@@ -108,7 +99,7 @@ function sortFestivals<T extends { date: string }>(list: T[], today: Date): T[] 
 
 const FALLBACK_IMG = '/images/blogs/korea-welfare-benefit-322.png';
 
-export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, situations, bannerConfig }: { data: Data, posts: PostData[], weatherApiKey: string, todayUpdates?: TodayUpdates, situations?: SituationTile[], bannerConfig?: { isActive: boolean; imageUrl: string; linkUrl: string } }) {
+export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, bannerConfig }: { data: Data, posts: PostData[], weatherApiKey: string, todayUpdates?: TodayUpdates, bannerConfig?: { isActive: boolean; imageUrl: string; linkUrl: string } }) {
   const [filter, setFilter] = useState("전체");
 
   // KST 기준 오늘 날짜
@@ -206,7 +197,7 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, s
             <Link href="/guides/" className="text-sm font-bold text-brand-dark hover:text-brand transition-colors">전체 보기 →</Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {GUIDES.map((g) => (
+            {GUIDES.slice(0, 6).map((g) => (
               <GuideCard key={g.slug} {...g} />
             ))}
           </div>
