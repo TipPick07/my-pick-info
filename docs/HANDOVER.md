@@ -86,6 +86,24 @@ officialCurationNote: "..."   # ⭐ 에디터 한마디(선택)
 
 ## 9. 작업 로그 (최신이 위)
 
+### 2026-06-28 (18차) — GSC 404 322건 → _redirects 301 일괄 정리
+- GSC '찾을 수 없음(404)' 322건 분석: benefit 154·festival 123·blog 25·election 15·기타 5(favicon·_next·cdn-cgi).
+- benefit/festival/election(292건)은 크롤 자동생성·삭제 라우트이고 **상세 라우트가 data=0이라 빌드 0개** → 와일드카드 안전: `/benefit/*→/benefits/`, `/festival/*→/blog/`, `/election/*→/blog/` 일괄 301.
+- blog 16건(기존 미처리분)은 **개별** 301: earned-child→`earned-income-child-tax-credit-guide`, disabled-pension→`disability-pension-additional-support`, family-care-guide→`seoul-family-care-youth-self-care-benefit`, 나머지 → `/blog/`.
+- ⚠️ **`/blog/*` 와일드카드는 글 54편 실존이라 절대 금지**(개별만). `_redirects` 맨 위 주석 갱신(와일드카드 규칙 정교화 — blog만 금지, 삭제된 동적 라우트는 허용).
+- 효과: 배포(push) 후 구글 재크롤 시 404 → 301 전환(수일~수주). 7/1·7/5 리마인더 때 404 감소 확인. 기타 5건(자산/시스템)은 구글 자동 정리.
+
+### 2026-06-28 (17차) — GSC·애드센스 현황 진단 + 신청 타이밍 판단
+- GSC/애드센스 캡처 진단: ① 실적 5/23 이후 급락(유입원이던 축제 글을 삭제) ② 404 **322**·리디렉션 387·크롤링됨-색인안됨 117(어제 대량 삭제 후유증) ③ ads.txt **"찾을 수 없음"** ④ 애드센스 **"가치가 별로 없는 콘텐츠"로 4회 거부**.
+- **판단: 지금 재신청은 비권장(5번째 거부 위험).** 순서 — 배포 → ads.txt 정상화(tip-pick.com/ads.txt 접속 확인) → 404 정리 + 새 글 색인 → 2~3주 안정화 → **빨라야 7월 중순 신청**.
+- `docs/SEO-CHECKLIST.md`를 절대 날짜별(6/28·7/1·7/5·7/12)로 갱신: 항목별 "정상 기준" 명시(404·리디렉션은 시간 지나며 감소가 정상, 색인 페이지는 새 글로 증가, ads.txt는 '승인됨'으로 전환).
+- 후속 가능: GSC에서 404 목록 내보내 의미 있는 옛 URL만 `_redirects` 301 추가(와일드카드 금지).
+
+### 2026-06-28 (16차) — 애드센스 전 크롤링 위생 점검 + GSC 체크리스트
+- **죽은 페이지·크롤 문제 전수 점검(양호)**: robots.txt(전체 크롤 허용+sitemap 명시), sitemap(공개 전부·숨김/삭제 제외, 계산기 8·가이드 6 포함), noindex(숨김 카테고리·삭제 라우트만/공개는 index), 활성 깨진링크 0, 삭제 라우트(situations·eligibility 등) 301, ads.txt 퍼블리셔ID 존재.
+- **배포 후 날짜별 확인 메모 신설**: `docs/SEO-CHECKLIST.md` (D0/D+2~3/D+7/D+14 GSC 작업 + 애드센스 신청·승인 후 APPROVAL_MODE=false).
+- ⚠️ 운영자 확인 필요: `ads.txt`의 `pub-8471539268153543`이 본인 애드센스 ID인지. 숨김 카테고리(hot·tips·festivals) 빈 페이지는 noindex+메뉴/sitemap 비노출이라 애드센스 심사 무해(승인 후 오픈 전략 유지).
+
 ### 2026-06-28 (15차) — 글 작성 양식 SSOT 신설(docs/WRITING-GUIDE.md)
 - **어떤 툴(코워크·안티그래비티)·어디서든** 기존 양식을 벗어나지 않게, 글 작성 양식을 단일 문서로 집약: **`docs/WRITING-GUIDE.md`**. 담은 것 — 3종(블로그 글·가이드·계산기)별 frontmatter·H2 구조·category 규칙·금지사항·표준 예시 파일·공통 기술규칙(.tsx는 Python 전용)·"오늘 ○○ 글 써줘" 워크플로우·현황.
 - `CLAUDE.md`(작업 시작 규칙)에 WRITING-GUIDE 참조를 추가 → 레포를 여는 모든 AI 툴이 자동으로 같은 양식을 따름. HANDOVER §5 참조·§6 현황 갱신.

@@ -1,4 +1,4 @@
-# ⚠️ 주의: 와일드카드(*) 리다이렉트 금지
+# ⚠️ 와일드카드(*) 규칙: /blog/* 는 글 실존(54편) → 절대 금지. /benefit·/festival·/election/* 는 크롤 중단으로 상세 0개라 2026-06-28부터 허용(파일 하단 섹션).
 # /festival/* /benefit/* /blog/* 등 기존 라우트와 겹치는
 # 와일드카드 규칙은 상세 페이지를 막으므로 절대 추가하지 말 것.
 # GSC 오류 대응 시 정확한 URL만 개별 지정할 것.
@@ -188,3 +188,27 @@ https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 /situations/disability   /benefits/  301
 /eligibility/  /benefits/  301
 /eligibility   /benefits/  301
+
+# === 2026-06-28: GSC 404(322건) 대응 ===
+# 크롤 중단으로 상세 페이지가 0개가 된 동적 라우트 → 허브로 301 (상세 0개라 와일드카드 안전)
+# ⚠️ /blog/* 는 글 54편이 실존하므로 절대 와일드카드 금지 — blog는 아래에서 개별 지정
+/benefit/*  /benefits/  301
+/festival/*  /blog/  301
+/election/*  /blog/  301
+# 삭제된 블로그 글 → 관련 생존글 또는 /blog/ (개별)
+/blog/2026-04-09-earned-child-tax-credit/  /blog/2026-05-10-earned-income-child-tax-credit-guide/  301
+/blog/2026-04-25-disabled-pension-additional-benefit/  /blog/2026-04-20-disability-pension-additional-support/  301
+/blog/2026-04-16-employment-creation-incentive-end/  /blog/  301
+/blog/2026-04-21-jongno-health-insurance-support/  /blog/  301
+/blog/2026-04-23-seoul-selfemployed-paternity-leave-benefit/  /blog/  301
+/blog/2026-04-24-seoul-junggu-health-insurance-support/  /blog/  301
+/blog/2026-04-28-oil-subsidy-2nd  /blog/  301
+/blog/2026-04-28-oil-subsidy-2nd/  /blog/  301
+/blog/2026-04-28-seoul-rose-festival/  /blog/  301
+/blog/2026-05-04-icheon-local-currency-cashback-event  /blog/  301
+/blog/2026-05-04-icheon-local-currency-cashback-event/  /blog/  301
+/blog/2026-05-06-election-day-holiday-trip  /blog/  301
+/blog/2026-05-06-election-day-holiday-trip/  /blog/  301
+/blog/2026-05-09-seoul-jungnang-rose-festival-guide/  /blog/  301
+/blog/2026-05-10-seoul-family-care-youth-self-care-benefit-guide/  /blog/2026-05-08-seoul-family-care-youth-self-care-benefit/  301
+/blog/2026-06-05-gyeonggi-festival-flower-healing/  /blog/  301
