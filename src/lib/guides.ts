@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "comprehensive-income-tax-filing",
+    title: "프리랜서·N잡러 종합소득세 신고 — 5월 신고·환급 한눈에 (2026)",
+    description:
+      "3.3% 떼인 프리랜서·부수입 직장인은 5월 종합소득세 대상. 신고 대상·경비(단순/기준경비율)·세율·환급·가산세를 한 표로 정리한 에버그린 가이드.",
+    category: "세금·절세",
+    emoji: "🧾",
+  },
+  {
     slug: "parenting-family-benefits",
     title: "0세~초등 입학 전, 육아·가족 지원금 한눈에 (2026)",
     description:

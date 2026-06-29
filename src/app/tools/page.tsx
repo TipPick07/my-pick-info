@@ -84,6 +84,14 @@ const TOOLS: Tool[] = [
     accent: "#CA8A04",
     ready: true,
   },
+  {
+    href: "/tools/rent-conversion/",
+    emoji: "🔄",
+    title: "전월세 전환 계산기",
+    desc: "전세·월세 전환(법정 전환율) 월세·보증금 환산",
+    accent: "#0D9488",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {
