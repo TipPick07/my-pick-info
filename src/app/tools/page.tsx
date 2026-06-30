@@ -92,6 +92,14 @@ const TOOLS: Tool[] = [
     accent: "#0D9488",
     ready: true,
   },
+  {
+    href: "/tools/brokerage-fee/",
+    emoji: "🏠",
+    title: "부동산 중개보수 계산기",
+    desc: "매매·전세·월세 복비를 법정 상한요율로 계산",
+    accent: "#9333EA",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {
