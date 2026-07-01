@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "overseas-stock-capital-gains-tax",
+    title: "해외주식 양도소득세 — 250만 공제·22%·5월 신고 (2026)",
+    description:
+      "미국·중국 등 해외주식은 소액이라도 이익 250만원 넘으면 다음 해 5월 직접 신고. 22% 세율·손익통산 절세·계산기까지 묶은 에버그린 가이드.",
+    category: "투자·세금",
+    emoji: "📈",
+  },
+  {
     slug: "unemployment-benefit-guide",
     title: "실업급여·고용보험 완전정복 — 수급조건·금액·일수 (2026)",
     description:

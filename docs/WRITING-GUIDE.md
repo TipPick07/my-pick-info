@@ -152,11 +152,11 @@ HERO(배지 + H1 + 도입 + 요약박스 3개)
 
 ---
 
-## 6. 현재 콘텐츠 현황 (2026-06-29)
+## 6. 현재 콘텐츠 현황 (2026-07-02)
 
-- **블로그 글 61편** (경제·지원금, 경제 14편)
-- **가이드 9편**: `unemployment-benefit-guide`, `three-pillar-pension`, `comprehensive-income-tax-filing`, `parenting-family-benefits`, `parenting-family-finance`, `parenting-family-savings`, `daycare-admission`, `house-capital-gains-tax`, `youth-support-guide`
-- **계산기 11종**: 연봉 실수령액(`salary`), 대출 이자(`loan`), 종합소득세(`income-tax`), 4대보험(`insurance`), 퇴직금(`retirement-pay`), 시급·주휴수당(`hourly-wage`), 자동차세(`car-tax`), 예금·적금 이자(`savings-interest`), 전월세 전환(`rent-conversion`), 부동산 중개보수(`brokerage-fee`), 연차수당(`annual-leave-allowance`)
+- **블로그 글 63편** (경제·지원금, 경제 16편)
+- **가이드 10편**: `overseas-stock-capital-gains-tax`, `unemployment-benefit-guide`, `three-pillar-pension`, `comprehensive-income-tax-filing`, `parenting-family-benefits`, `parenting-family-finance`, `parenting-family-savings`, `daycare-admission`, `house-capital-gains-tax`, `youth-support-guide`
+- **계산기 12종**: 연봉 실수령액(`salary`), 대출 이자(`loan`), 종합소득세(`income-tax`), 4대보험(`insurance`), 퇴직금(`retirement-pay`), 시급·주휴수당(`hourly-wage`), 자동차세(`car-tax`), 예금·적금 이자(`savings-interest`), 전월세 전환(`rent-conversion`), 부동산 중개보수(`brokerage-fee`), 연차수당(`annual-leave-allowance`), 해외주식 양도세(`overseas-stock-tax`)
 
 > 새 글/가이드/계산기를 추가하면 이 현황도 함께 갱신한다.
 

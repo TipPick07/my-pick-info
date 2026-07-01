@@ -108,6 +108,14 @@ const TOOLS: Tool[] = [
     accent: "#16A34A",
     ready: true,
   },
+  {
+    href: "/tools/overseas-stock-tax/",
+    emoji: "📈",
+    title: "해외주식 양도세 계산기",
+    desc: "연간 실현손익 → 250만 공제 후 양도세(22%)",
+    accent: "#4F46E5",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {
