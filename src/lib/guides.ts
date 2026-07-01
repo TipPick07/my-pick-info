@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "unemployment-benefit-guide",
+    title: "실업급여·고용보험 완전정복 — 수급조건·금액·일수 (2026)",
+    description:
+      "고용보험 180일·비자발 이직이면 평균임금 60%(1일 상한 68,100·하한 66,048원)를 120~270일 받는 실업급여. 국민취업지원제도·내일배움카드까지 한 표로 묶은 가이드.",
+    category: "고용·취업",
+    emoji: "💼",
+  },
+  {
     slug: "three-pillar-pension",
     title: "노후 3층 연금 — 국민·퇴직·개인연금 한눈에 (2026)",
     description:

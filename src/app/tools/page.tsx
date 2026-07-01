@@ -100,6 +100,14 @@ const TOOLS: Tool[] = [
     accent: "#9333EA",
     ready: true,
   },
+  {
+    href: "/tools/annual-leave-allowance/",
+    emoji: "🌴",
+    title: "연차수당 계산기",
+    desc: "미사용 연차 × 1일 통상임금 자동 계산",
+    accent: "#16A34A",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {
