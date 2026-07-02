@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "inheritance-gift-tax",
+    title: "상속·증여세 — 10억 공제·10년 증여 플랜 한눈에 (2026)",
+    description:
+      "배우자·자녀가 있으면 10억까지 상속세 0원. 일괄공제 5억·배우자공제와 10년마다 리셋되는 증여공제(배우자 6억·자녀 5천만)로 미리 설계하는 절세 가이드.",
+    category: "상속·증여",
+    emoji: "🎁",
+  },
+  {
     slug: "overseas-stock-capital-gains-tax",
     title: "해외주식 양도소득세 — 250만 공제·22%·5월 신고 (2026)",
     description:
