@@ -1,16 +1,13 @@
 ---
-title: "[수도권] 2026년 중장년(4060) 복지 정책: 서울·인천·경기 일자리·교육·생활 지원 혜택 비교"
-originalTitle: 수도권 4060 복지정책 서울·인천·경기 비교
+title: "중장년(4060) 복지 — 일자리·교육·생활 지원 비교"
 link: https://50plus.or.kr
 officialTarget: 수도권 거주 40~60대, 은퇴 준비 중장년, 재취업 희망자
 officialDetails: 서울 50플러스 재단, 인천 고령사회대응센터, 경기도 베이비부머 지원 프로그램의 일자리·교육·생활 지원 혜택을 지자체별로 비교 정리한 가이드
-officialDeadline: 2026.12.31
+officialDeadline: 상시
 date: 2026-05-08
 summary: "수도권 4060 중장년층을 위한 서울, 인천, 경기 지자체별 일자리·교육·생활 지원 혜택을 한눈에 비교하고 내게 맞는 정책을 지금 바로 확인하세요."
 description: "서울 50플러스·인천 고령사회대응센터·경기 베이비부머 지원 중 내 지역 혜택이 가장 많은 곳은? 지자체별 중장년 복지 정책을 한눈에 비교합니다."
 category: benefit
-image: /images/blogs/a-group-of-happy-elderly-peopl-375.png
-ogImage: "https://tip-pick.com/images/blogs/a-group-of-happy-elderly-peopl-375.png"
 tags: [중장년지원금, 50플러스, 베이비부머, 4060복지, 중장년일자리, 재취업지원, 서울복지, 인천복지, 경기복지, 은퇴준비]
 officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 40~60대, 은퇴 준비 중장년, 재취업 희망자. 12.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
@@ -93,3 +90,9 @@ officialTip: "거주 지역 상관없이 서울 50플러스 캠퍼스 프로그�
 1. 거주지 기관 홈페이지에서 현재 모집 중인 프로그램 확인
 2. 국민내일배움카드 동시 발급 (고용센터 또는 HRD-Net)
 3. 동 주민센터 방문 상담 — 숨은 소규모 사업 확인
+
+## 마무리
+
+노후 준비는 제도 여러 개를 겹쳐 쓸 때 효과가 커집니다. 이어서 [국민내일배움카드](/blog/2026-07-01-national-tomorrow-learning-card/), [노후 3층 연금 가이드](/guides/three-pillar-pension/)를 보면 전체 그림이 잡힙니다. 다른 지원 제도는 [정부 지원금 전체](/benefits/)에 모아 두었습니다.
+
+> 본 글은 2026년 기준 공식 자료를 바탕으로 정리한 정보입니다. 세부 조건과 금액은 변경될 수 있으니, 신청 전 공식 사이트에서 최신 기준을 확인하세요.

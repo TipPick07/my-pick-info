@@ -1,16 +1,13 @@
 ---
-title: "서울·경기에서만 받는 독자 복지 혜택 2026 — 국가 지원금 그 이상"
-originalTitle: 수도권 특화 복지 혜택 총정리
+title: "서울·경기에서만 받는 복지 혜택 — 지역 독자 지원"
 link: https://welfare.seoul.go.kr
 officialTarget: 서울·경기 거주 시민 전반 (청년·중장년·가족·고령층)
 officialDetails: 서울시와 경기도가 자체 예산으로 운영하는 독자적 복지 제도 비교 및 신청 안내. 청년수당, 안심소득, 청년기본소득, 공공산후조리원, 어르신 교통비, 청소년 교통비 환급 등 포함.
-officialDeadline: 2026.12.31
+officialDeadline: 상시
 date: 2026-05-09
 summary: "전국 공통 국가 지원금 말고, 서울·경기 거주자만 받을 수 있는 독자 복지 제도를 한 곳에 정리했습니다. 모르면 그냥 지나치는 혜택들입니다."
 description: "전국 어디서나 받는 국가 지원금 말고, 서울·경기 거주자만 받을 수 있는 독자 복지 제도를 한 곳에 정리했습니다."
 category: benefit
-image: /images/blogs/korea-welfare-benefit-175.png
-ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-175.png"
 tags: [서울복지, 경기복지, 수도권혜택, 청년수당, 안심소득, 경기청년기본소득, 지역복지, 특화혜택, 공공산후조리원, 청소년교통비]
 officialCurationNote: "이런 분께 강력 추천합니다: 서울, 경기 거주 시민 전반. 12.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
@@ -18,8 +15,6 @@ officialHowToApply: ["서울복지포털(welfare.seoul.go.kr) 온라인 신청",
 officialEligibilityQuiz: []
 officialTip: "서울·경기 동시 거주 불가 — 주민등록 주소지 기준으로 한 곳 지원금만 신청 가능합니다"
 ---
-
-# 서울·경기에서만 받는 독자 복지 혜택 총정리 2026 — 국가 지원금 그 이상
 
 대한민국 어디서나 받을 수 있는 국가 지원금 외에, **서울시와 경기도는 자체 예산으로 별도의 복지 제도**를 운영하고 있습니다. 이른바 '지자체 독자 복지'입니다. 전국 17개 광역지자체 중 서울과 경기는 재정 규모가 크고 인구가 많아 가장 다양한 독자 복지를 시행하고 있습니다.
 
@@ -114,3 +109,9 @@ officialTip: "서울·경기 동시 거주 불가 — 주민등록 주소지 기
 2. **서울 복지포털** (welfare.seoul.go.kr) → 생애주기별·유형별 검색
 3. **경기도 복지 포털** (gg.go.kr/welfare) → 대상자 필터 적용
 4. **주민센터 방문** → 복지 플래너 상담 요청 (무료)
+
+## 마무리
+
+복지 제도는 몰라서 못 받는 경우가 가장 많습니다. 관련 정보인 [서울 안심소득(디딤돌소득)](/blog/2026-05-13-seoul-ansimsodeuk-guide/)과(와) [경기도 청년기본소득](/blog/2026-04-08-gyeonggi-youth-basic-income/)도 함께 확인해 보세요. 전체 목록은 [정부 지원금 전체](/benefits/)에 있습니다.
+
+> 본 글은 2026년 기준 공식 자료를 바탕으로 정리한 정보입니다. 세부 조건과 금액은 변경될 수 있으니, 신청 전 공식 사이트에서 최신 기준을 확인하세요.

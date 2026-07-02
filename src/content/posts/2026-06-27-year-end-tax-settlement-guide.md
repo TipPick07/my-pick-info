@@ -1,11 +1,9 @@
 ---
-title: "연말정산 환급 많이 받는 법 — '13월의 월급' 이것만 챙기세요 (2026)"
+title: "연말정산 환급 많이 받는 법 — 핵심 공제 정리"
 date: 2026-06-27
 summary: "같은 연봉인데 누구는 돌려받고 누구는 토해냅니다. 차이는 '공제'예요. 소득공제와 세액공제의 차이부터 환급을 늘리는 5가지 포인트까지, 비전문가도 이해하게 정리했습니다."
 description: "2026 연말정산 환급 가이드. 소득공제·세액공제 차이, 체크카드·연금저축·월세·의료비 공제 전략과 맞벌이 몰아주기까지 한눈에 정리했습니다."
 category: 경제
-image: /images/blogs/earned-income-tax.png
-ogImage: "https://tip-pick.com/images/blogs/earned-income-tax.png"
 tags: [연말정산, 세액공제, 소득공제, 13월의월급, 연금저축, 환급]
 officialCurationNote: "내 월급에서 세금이 얼마나 빠지는지부터 궁금하다면, 본문 아래 '연봉 실수령액 계산기'를 먼저 써보세요."
 ---

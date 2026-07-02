@@ -1,16 +1,13 @@
 ---
 title: "[서울] 서울형 아이돌봄비, 든든한 육아지원 혜택"
-originalTitle: "[서울] 서울형 아이돌봄비 지원사업 신청 (양육 조력 서비스)"
 link: https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005097&wlfareInfoReldBztpCd=02
 officialTarget: 자녀 양육에 어려움을 겪는 양육공백 가정
 officialDetails: 서울시가 바쁜 부모님들을 위해 '서울형 아이돌봄비'를 지원합니다. 양육 공백으로 아이 돌봄에 어려움을 겪는 가정이라면, 실질적인 조력 서비스를 받을 수 있습니다. 이 사업을 통해 부모님의 양육 부담을 덜고, 아이들이 건강하게 성장할 수 있는 환경을 조성하는 데 기여합니다. 지금 바로 신청하여 가정의 돌봄 걱정을 덜어보세요.
-officialDeadline: 상시 신청
+officialDeadline: 상시
 date: 2026-04-28
 summary: "양육에 어려움을 겪는 서울 가정에 서울형 아이돌봄비 지원! 양육 부담을 덜고 가계 경제 안정 혜택을 지금 바로 확인하세요."
-description: 서울시가 자녀 양육에 어려움을 겪는 가정을 위해 서울형 아이돌봄비를 지원합니다. 복지로 웹사이트에서 상시 신청 가능하며, 양육 부담을 덜고 **가계 경제** 안정에 기여하는 실질적인 혜택을 놓치지 마세요!
-category: 정보
-image: /images/blogs/korea-welfare-benefit-278.png
-ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-278.png"
+description: 서울형 아이돌봄비 — 지원 대상·금액·신청 방법 정리. 복지로에서 상시 신청할 수 있는 양육 지원 혜택입니다.
+category: benefit
 tags: [서울형아이돌봄비, 육아지원, 자녀장려금, 복지로, 가족지원, 생활안정, 가계경제]
 officialCurationNote: "이런 분께 강력 추천합니다: 자녀 양육에 어려움을 겪는 양육공백 가정. 신청 기간을 놓치면 다음 기회를 기다려야 하니 오늘 바로 자격 조건을 확인하고 신청하세요."
 officialRequirements: ["신청서","주민등록등본","가족관계증명서 등 상세 필요서류는 사업 공고 확인"]
@@ -53,3 +50,9 @@ officialTip: 아이돌봄비 지원은 가구 소득, 자녀 수 등 구체적�
 두 가지 모두 해당된다면 신청 자격이 될 가능성이 높습니다. 복지로에서 상세 요건을 확인하세요.
 
 **공식 신청 바로가기:** [복지로 서울형 아이돌봄비](https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005097&wlfareInfoReldBztpCd=02)
+
+## 마무리
+
+아이 키우는 집이라면 이런 지원은 시기를 놓치지 않고 챙기는 게 핵심입니다. 관련 정보인 [어린이집 입소 가이드](/guides/daycare-admission/)과(와) [누리과정 유아학비 지원](/blog/2026-04-08-childcare-tuition-support/)도 함께 확인해 보세요. 전체 목록은 [정부 지원금 전체](/benefits/)에 있습니다.
+
+> 본 글은 2026년 기준 공식 자료를 바탕으로 정리한 정보입니다. 세부 조건과 금액은 변경될 수 있으니, 신청 전 공식 사이트에서 최신 기준을 확인하세요.

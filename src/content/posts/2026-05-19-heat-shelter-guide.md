@@ -1,16 +1,13 @@
 ---
 title: "2026 수도권 무더위 쉼터 신청 방법 + 개방일"
-originalTitle: 수도권 무더위 쉼터 신청 방법 + 개방일 총정리
 link: "https://safekorea.go.kr/idsiSFK/neo/sfk/cs/sfc/htw/htweaiList.html?menuSeq=862"
 officialTarget: 수도권 거주 전 시민 (특히 어르신·영유아 가정·이동노동자)
 officialDetails: 폭염 대책 기간(5~9월) 동안 수도권 전역에서 운영되는 무더위 쉼터의 유형·위치·이용법을 총정리한 안내. 서울 3,770여 곳, 경기·인천 주요 시설 포함.
-officialDeadline: "2026.09.30"
+officialDeadline: 매년 여름철
 date: 2026-05-19
 summary: 여름 폭염 전에 미리 알아두면 든든한 무더위 쉼터 — 수도권 유형별 위치 찾는 법, 운영시간, 폭염특보 시 연장 운영까지 한 번에 정리했습니다.
 description: 여름 폭염 전에 미리 알아두면 든든한 무더위 쉼터 — 수도권 유형별 위치 찾는 법, 운영시간, 폭염특보 시 연장 운영까지 한 번에 정리했습니다.
 category: benefit
-image: /images/blogs/fallback-benefit-1.png
-ogImage: "https://tip-pick.com/images/blogs/fallback-benefit-1.png"
 tags: [무더위쉼터, 폭염대피소, 수도권무더위쉼터, 서울무더위쉼터, 경기무더위쉼터, 폭염대책, 안전디딤돌앱, 국민재난안전포털, 폭염특보, 이동노동자쉼터, 여름지원, 무료시설]
 officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 전 시민. 09.30이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
@@ -122,3 +119,9 @@ officialTip: "폭염특보 발효 시 구청사·청소년센터 등이 야간·
 ## 팁픽 에디터 한줄 정리
 
 무더위 쉼터는 **별도 신청 없이 누구나 무료**로 이용할 수 있는 제도입니다. 폭염이 본격화되기 전인 지금, 스마트폰에 '안전디딤돌' 앱 하나만 설치해 두세요. 실시간으로 가장 가까운 쉼터를 찾을 수 있고, 폭염특보 알림도 함께 받을 수 있습니다.
+
+## 마무리
+
+복지 제도는 몰라서 못 받는 경우가 가장 많습니다. 함께 보면 좋은 [에너지바우처 냉방비 지원](/blog/2026-05-29-energy-voucher-cooling-support/)과(와) [긴급복지지원제도](/blog/2026-06-28-emergency-welfare-support/)도 정리해 두었습니다. 더 많은 제도는 [정부 지원금 전체](/benefits/)에서 확인하세요.
+
+> 본 글은 2026년 기준 공식 자료를 바탕으로 정리한 정보입니다. 세부 조건과 금액은 변경될 수 있으니, 신청 전 공식 사이트에서 최신 기준을 확인하세요.

@@ -1,6 +1,5 @@
 ---
-title: "서울 기후동행카드: 월 6만 2천원으로 대중교통 무제한 이용 가이드"
-originalTitle: 기후동행카드 신청 및 충전 혜택
+title: "서울 기후동행카드 — 월 6만 2천원 대중교통 무제한"
 link: https://news.seoul.go.kr
 officialTarget: 서울시 대중교통 이용 시민
 officialDetails: 서울 내 지하철과 버스를 무제한으로 이용할 수 있는 정기권 카드. 실물 카드 또는 모바일 앱으로 충전해 사용. 따릉이 포함 옵션(월 65,000원) 선택 가능.
@@ -8,9 +7,7 @@ officialDeadline: 상시
 date: 2026-04-07
 summary: "서울 기후동행카드로 월 62,000원에 지하철, 버스 무제한! 출퇴근, 여가 비용 절약 혜택을 지금 확인하세요."
 description: 서울 지하철과 버스를 무제한으로! 월 6만 2천 원으로 스마트한 출퇴근과 여가 생활을 누리는 기후동행카드, 신청 방법과 꿀팁을 정리했습니다.
-category: 정보
-image: /images/blogs/climate-companion-card-seoul-transportation-456.png?v=2
-ogImage: "https://tip-pick.com/images/blogs/climate-companion-card-seoul-transportation-456.png?v=2"
+category: benefit
 tags: [기후동행카드, 서울대중교통, 무제한교통, 교통비절약, 따릉이, 서울시혜택, 수도권팁픽]
 officialCurationNote: "이런 분께 강력 추천합니다: 서울시 대중교통 이용 시민. 2천원 혜택을 상시 신청할 수 있으며, 조건에 해당된다면 지금 바로 신청하세요."
 officialTip: "모바일 기후동행카드는 안드로이드폰 전용 — 아이폰 사용자는 실물 카드를 편의점에서 구매하세요. 환승 할인이 적용되므로 버스+지하철 환승 루트를 적극 활용하세요. 따릉이 이용이 잦다면 월 65,000원 포함 옵션이 유리합니다. 월 초 충전이 가장 효율적 — 부분 충전 시 사용 기간이 짧아집니다."
@@ -64,3 +61,9 @@ officialHowToApply: ["모바일: 안드로이드폰에서 모바일 T-money 앱 
 1. 편의점에서 기후동행카드 구매 (3,000원)
 2. 모바일 T-money 앱 또는 홈페이지에서 카드 등록
 3. 원하는 권종으로 충전 후 사용
+
+## 마무리
+
+생활비 절약은 카드·바우처 혜택을 조합할 때 체감이 큽니다. 이어서 [K-패스·기후동행·인천e음 비교](/blog/2026-05-08-k-pass-transit-daytrip-guide/), [문화누리카드 사용법](/blog/2026-05-17-culture-voucher-nuri-card-guide/)를 보면 전체 그림이 잡힙니다. 다른 지원 제도는 [정부 지원금 전체](/benefits/)에 모아 두었습니다.
+
+> 본 글은 2026년 기준 공식 자료를 바탕으로 정리한 정보입니다. 세부 조건과 금액은 변경될 수 있으니, 신청 전 공식 사이트에서 최신 기준을 확인하세요.

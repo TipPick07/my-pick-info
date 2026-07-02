@@ -1,16 +1,13 @@
 ---
-title: "근로장려금 + 자녀장려금 같이 받는 법 2026 — 최대 630만원"
-originalTitle: 근로·자녀장려금 동시 신청 완전 가이드
+title: "근로장려금·자녀장려금 같이 받는 법 — 최대 630만원"
 link: https://www.hometax.go.kr
 officialTarget: 수도권 거주 저소득 근로자·사업자 가구, 18세 미만 자녀가 있는 가정
 officialDetails: 2025년 귀속 근로·자녀장려금 정기신청 자격·금액·동시수령 방법 총정리. 근로장려금 최대 330만원 + 자녀장려금 최대 300만원, 합계 최대 630만원 수령 가능.
-officialDeadline: "2026.05.31"
+officialDeadline: 매년 5월(정기신청)
 date: 2026-05-10
 summary: "근로장려금과 자녀장려금, 동시에 신청하면 최대 630만원. 5월 31일~6월 1일 마감 전에 두 가지 모두 챙기는 법을 정리했습니다."
 description: "근로장려금과 자녀장려금, 동시에 신청하면 최대 630만원. 5월 31일 마감 전에 두 가지 모두 챙기는 법을 정리했습니다."
 category: benefit
-image: /images/blogs/korea-welfare-benefit-194.png
-ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-194.png"
 tags: [근로장려금, 자녀장려금, 장려금신청, 지원금, 국세청, 홈택스, 수도권지원금, 5월지원금, 육아지원, 생활비지원]
 officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 저소득 근로자, 사업자 가구, 18세 미만 자녀가 있는 가정. 최대 330만원 혜택을 05.31까지 신청할 수 있으니, 자격 조건을 지금 바로 확인하고 놓치지 마세요."
 officialRequirements: []
@@ -18,8 +15,6 @@ officialHowToApply: ["홈택스(hometax.go.kr) 접속 후 신청", "손택스 �
 officialEligibilityQuiz: []
 officialTip: "근로장려금 탈락해도 자녀장려금 소득 기준(7,000만원)은 훨씬 높아 신청 가능한 경우가 많습니다. 두 가지 반드시 따로 확인하세요."
 ---
-
-# 근로장려금 + 자녀장려금 같이 받는 법 총정리 2026 — 최대 630만원
 
 "근로장려금은 알겠는데, 자녀장려금은 따로 신청해야 하나요?"
 
@@ -119,3 +114,9 @@ officialTip: "근로장려금 탈락해도 자녀장려금 소득 기준(7,000�
 - ☐ 손택스 앱 안내대상자 여부 조회
 - ☐ 홈택스 모의계산기로 예상 수령액 확인
 - ☐ 계좌 등록 완료 (미등록 시 지급 지연)
+
+## 마무리
+
+장려금·환급은 신청해야만 받을 수 있는 대표적인 제도입니다. 이어서 [근로장려금 신청 조건](/blog/2026-05-07-national-earned-income-tax-credit-application/), [자녀장려금 신청 방법](/blog/2026-05-05-national-child-benefit-application/)를 보면 전체 그림이 잡힙니다. 다른 지원 제도는 [정부 지원금 전체](/benefits/)에 모아 두었습니다.
+
+> 본 글은 2026년 기준 공식 자료를 바탕으로 정리한 정보입니다. 세부 조건과 금액은 변경될 수 있으니, 신청 전 공식 사이트에서 최신 기준을 확인하세요.

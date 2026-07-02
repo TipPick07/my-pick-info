@@ -1,16 +1,13 @@
 ---
-title: "5월 마감 임박! 수도권 놓치면 후회하는 지원금 (D-22 이내)"
-originalTitle: 5월 마감 임박 지원금 총정리
+title: "신청 기한 있는 지원금 모음 — 놓치지 않는 법"
 link: https://www.bokjiro.go.kr
 officialTarget: 수도권 거주 근로자·청년·저소득 가구
 officialDetails: 2026년 5월 중 신청 마감되는 정부·지자체 지원금 및 복지 혜택 정리
-officialDeadline: 2026.05.31
+officialDeadline: 상시(공고 확인)
 date: 2026-05-09
 summary: "5월 31일이면 사라지는 수도권 지원금들, 지금 당장 확인하세요. 근로장려금·자녀장려금부터 서울·경기 지역 한정 혜택까지 마감일 순으로 정리했습니다."
 description: "5월 31일이면 사라지는 수도권 지원금들, 지금 당장 확인하세요. 근로장려금·자녀장려금부터 서울·경기 지역 한정 혜택까지 마감일 순으로 정리했습니다."
 category: benefit
-image: /images/blogs/korea-welfare-benefit-174.png
-ogImage: "https://tip-pick.com/images/blogs/korea-welfare-benefit-174.png"
 tags: [지원금, 마감임박, 근로장려금, 자녀장려금, 서울복지, 경기복지, 5월혜택, 복지신청]
 officialCurationNote: "이런 분께 강력 추천합니다: 수도권 거주 근로자, 청년, 저소득 가구. 05.31이 마감이니 지금 바로 신청 조건을 확인하고 서두르세요."
 officialRequirements: []
@@ -80,3 +77,9 @@ officialTip: "5월 31일 자정이 마감 — 오늘 신청 여부 확인이 곧
 3. 대상이면 바로 신청 진행
 
 손택스(앱)에서는 카카오·네이버·PASS 간편인증으로 로그인 후 바로 신청 가능하다.
+
+## 마무리
+
+복지 제도는 몰라서 못 받는 경우가 가장 많습니다. 이어서 [근로장려금·자녀장려금 같이 받는 법](/blog/2026-05-10-earned-income-child-tax-credit-guide/), [문화누리카드 사용법](/blog/2026-05-17-culture-voucher-nuri-card-guide/)를 보면 전체 그림이 잡힙니다. 다른 지원 제도는 [정부 지원금 전체](/benefits/)에 모아 두었습니다.
+
+> 본 글은 2026년 기준 공식 자료를 바탕으로 정리한 정보입니다. 세부 조건과 금액은 변경될 수 있으니, 신청 전 공식 사이트에서 최신 기준을 확인하세요.
