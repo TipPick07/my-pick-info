@@ -8,3 +8,6 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://tip-pick.com/sitemap.xml
+
+# Daum WebMaster Tool - site verification
+#DaumWebMasterTool:1fcb2c8ca10bd83e70210a8b19f5b709d37213b316ee0236528f7d9496e03b9f:PoPCeXjb4fhYqpIIC4bygQ==

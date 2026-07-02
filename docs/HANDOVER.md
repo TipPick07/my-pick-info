@@ -89,6 +89,11 @@ officialCurationNote: "..."   # ⭐ 에디터 한마디(선택)
 
 ## 9. 작업 로그 (최신이 위)
 
+### 2026-07-02 (7) — 다음(Daum) 웹마스터도구 등록: robots.txt에 소유확인 코드 추가
+- webmaster.daum.net Beta 등록 진행. PIN 발급 후 소유확인용 로봇룰(`#DaumWebMasterTool:...`)을 `public/robots.txt` **하단에 추가**(정적 export라 FTP 없이 저장소 파일 수정 → 배포 방식). plain text라 Edit 사용, 실파일 반영·NUL 0 확인(⚠️ bash 마운트는 stale 캐시라 옛 내용 보임 — Read 도구로 검증).
+- ⚠️ 등록 URL은 반드시 **https://tip-pick.com**(config·robots·sitemap 전부 이 도메인). 캡처엔 www.tipmoapick.com이 찍혀 있었으나 실사이트와 불일치 → tip-pick.com으로 등록해야 인증됨.
+- 남은 순서(운영자): **push→Cloudflare 배포** → `tip-pick.com/robots.txt` 반영 확인(로봇룰 테스트) → 웹마스터도구 [인증 시작하기](URL+PIN) → 이후 [수집요청]에 `sitemap.xml` 제출. **push는 운영자 지시 대기.**
+
 ### 2026-07-02 (6) — 승인 후 수익화 실행 매뉴얼 신설: docs/ADSENSE-PLAYBOOK.md
 - 승인 메일 받는 날 여는 **실행 문서**: D-Day 체크리스트(APPROVAL_MODE=false·자동광고/앵커/전면 ON·GA4 연결·지급정보) → 자동광고 2주 데이터 수집 → 수동 인아티클 배치 지도(글 템플릿 5개 위치·계산기는 최대 2개·오클릭 배치 금지) → 2주 단위 조정 루프(페이지 RPM×이탈률, 한 번에 하나만 변경).
 - 포함: 정책 안전수칙(자가클릭·클릭유도·트래픽구매 금지 = 계정 정지 방지), 광고 30:콘텐츠 70 밀도 원칙, 고단가 발행 비중(금융 글 ≥ 절반), **월별 계절 캘린더**(5월 종소세·장려금, 12월 연금 막차 등 피크 2~3주 전 대응), 수익 다변화 4단계(쿠팡 파트너스는 월 1만 방문부터·표기 의무), 운영 루틴(일 1분/주 10분/격주 15분/월 30분/연 1회 세율 갱신), 실측 기록표, 기술 메모(.tsx Python 규칙·광고 슬롯 삽입 위치).
