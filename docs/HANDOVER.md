@@ -92,7 +92,9 @@ officialCurationNote: "..."   # ⭐ 에디터 한마디(선택)
 ### 2026-07-02 (7) — 다음(Daum) 웹마스터도구 등록: robots.txt에 소유확인 코드 추가
 - webmaster.daum.net Beta 등록 진행. PIN 발급 후 소유확인용 로봇룰(`#DaumWebMasterTool:...`)을 `public/robots.txt` **하단에 추가**(정적 export라 FTP 없이 저장소 파일 수정 → 배포 방식). plain text라 Edit 사용, 실파일 반영·NUL 0 확인(⚠️ bash 마운트는 stale 캐시라 옛 내용 보임 — Read 도구로 검증).
 - ⚠️ 등록 URL은 반드시 **https://tip-pick.com**(config·robots·sitemap 전부 이 도메인). 캡처엔 www.tipmoapick.com이 찍혀 있었으나 실사이트와 불일치 → tip-pick.com으로 등록해야 인증됨.
-- 남은 순서(운영자): **push→Cloudflare 배포** → `tip-pick.com/robots.txt` 반영 확인(로봇룰 테스트) → 웹마스터도구 [인증 시작하기](URL+PIN) → 이후 [수집요청]에 `sitemap.xml` 제출. **push는 운영자 지시 대기.**
+- ✅ **완료(2026-07-02)**: push→Cloudflare 배포 → 소유확인 인증 성공(대시보드 응답코드 200·서버연결/수집상태 가능) → [수집요청] > **수집 Seed URL 등록(사이트맵)** 칸에 `https://tip-pick.com/sitemap.xml` 제출. 수집·색인 반영은 수일~(문서량 따라 최대 수개월) 소요.
+- ⚠️ 함정 2개(다음에 참고): ① **Cloudflare 엣지 캐시** — 배포해도 `tip-pick.com/robots.txt`가 옛 파일을 계속 서빙(쿼리스트링 `?v=` 붙이면 새 파일 보임 → 캐시 확진). Caching > Purge(단일 파일 또는 Everything) 해야 Daum이 로봇룰 인식. ② **Seed URL 칸 2개** — 사이트맵은 반드시 아래 '사이트맵' 칸에 넣어야 함(위 RSS·Atom·리스트 칸 아님). 같은 URL을 두 칸/연속 제출하면 '중복 URL·과도한 호출' 에러 → 잘못된 칸 비우고 잠시 후 올바른 칸에 재제출.
+- 후속(선택): [검색최적화] 메뉴에서 검색결과용 사이트명·설명 설정. GSC·네이버 서치어드바이저와 함께 3대 검색 채널 커버.
 
 ### 2026-07-02 (6) — 승인 후 수익화 실행 매뉴얼 신설: docs/ADSENSE-PLAYBOOK.md
 - 승인 메일 받는 날 여는 **실행 문서**: D-Day 체크리스트(APPROVAL_MODE=false·자동광고/앵커/전면 ON·GA4 연결·지급정보) → 자동광고 2주 데이터 수집 → 수동 인아티클 배치 지도(글 템플릿 5개 위치·계산기는 최대 2개·오클릭 배치 금지) → 2주 단위 조정 루프(페이지 RPM×이탈률, 한 번에 하나만 변경).
