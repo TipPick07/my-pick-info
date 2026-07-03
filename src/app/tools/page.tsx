@@ -116,6 +116,14 @@ const TOOLS: Tool[] = [
     accent: "#4F46E5",
     ready: true,
   },
+  {
+    href: "/tools/median-income/",
+    emoji: "📊",
+    title: "기준 중위소득 계산기",
+    desc: "가구원수별 생계·주거급여 선정기준",
+    accent: "#DB2777",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {
