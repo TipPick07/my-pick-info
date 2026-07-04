@@ -1,6 +1,6 @@
 ---
 title: "LTV·DTI·DSR — 대출 한도 정하는 3가지 (2026)"
-date: 2026-07-04
+date: 2026-07-05
 summary: 주택담보대출 한도는 LTV·DTI·DSR 세 가지 규제가 함께 정합니다. 집값 기준(LTV), 소득 기준(DTI), 모든 빚 기준(DSR)의 차이와 2026년 한도, 요즘 한도를 가르는 DSR 이야기를 쉽게 정리했습니다.
 description: LTV·DTI·DSR의 차이와 2026년 주택담보대출 한도를 정리. 생애최초 LTV 80%, 스트레스 DSR 3단계까지 쉽게 설명합니다.
 category: 경제
@@ -53,7 +53,7 @@ officialCurationNote: "대출 한도는 집값(LTV)만이 아니라 내 소득�
 
 대출 한도는 **집값(LTV) × 소득(DTI) × 모든 빚(DSR)** 중 가장 낮은 값으로 정해집니다. 2026년엔 DSR이 열쇠이니, 다른 빚부터 정리하고 정책대출을 함께 살펴보세요.
 
-- 정책대출부터 확인 → **[내집마련 정책대출 비교](/blog/2026-07-04-policy-mortgage-loan/)**
+- 정책대출부터 확인 → **[내집마련 정책대출 비교](/blog/2026-07-05-policy-mortgage-loan/)**
 - 처음 사는 집이라면 → **[생애최초 주택구입 완전정복](/guides/first-home-purchase/)**
 - 스트레스 DSR 상세 → **[스트레스 DSR 3단계](/blog/2026-06-28-stress-dsr-loan-limit-2026/)**
 - 더 많은 돈 이야기 → **[돈이 되는 경제](/money/)**

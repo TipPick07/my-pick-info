@@ -8,9 +8,9 @@ import Footer from "@/components/Footer";
  *
  * ▷ 독립 정적 라우트. posts/*.md·pick-info.json 무접촉. JSX 직접 배치.
  * ▷ house-capital-gains-tax와 동일 토큰(SectionTitle·DepthCard 인라인).
- * ▷ 짝: 정책대출 비교 글 + LTV·DTI·DSR 글 (2026-07-04).
+ * ▷ 짝: 정책대출 비교 글 + LTV·DTI·DSR 글 (2026-07-05).
  *
- * [사실 검증 2026-07-04]
+ * [사실 검증 2026-07-05]
  * - 정책대출: 디딤돌(소득 부부 6천만·생애최초/신혼 8.5천, 주택 5억·신혼2자녀 6억, 한도 생애최초 2억~신혼2자녀 3.2억, 최저금리, 중도상환수수료 2026말 면제)
  *   / 보금자리론(소득 부부 7천만~1억, 주택 6억, 한도 3.6억·생애최초 LTV80% 4.2억, 고정금리).
  * - LTV: 생애최초 규제지역서도 최대 80%(수도권 대출상한 6억). DSR 40%(은행)·스트레스DSR 3단계 전면시행.
@@ -22,10 +22,10 @@ import Footer from "@/components/Footer";
 
 const SITE = "https://tip-pick.com";
 const PATH = "/guides/first-home-purchase/";
-const UPDATED = "2026-07-04";
+const UPDATED = "2026-07-05";
 
-const SRC_POLICY = "/blog/2026-07-04-policy-mortgage-loan/";
-const SRC_DSR = "/blog/2026-07-04-ltv-dti-dsr-guide/";
+const SRC_POLICY = "/blog/2026-07-05-policy-mortgage-loan/";
+const SRC_DSR = "/blog/2026-07-05-ltv-dti-dsr-guide/";
 const SRC_SUBSCRIBE = "/blog/2026-06-28-housing-subscription-account/";
 const SRC_HOUSETAX = "/guides/house-capital-gains-tax/";
 const SRC_MONEY = "/money/";
