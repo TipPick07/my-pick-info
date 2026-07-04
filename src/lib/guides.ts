@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "first-home-purchase",
+    title: "생애최초 주택구입 — 정책대출·취득세·청약 한눈에 (2026)",
+    description:
+      "처음 집 살 때 챙길 3대 혜택 — 디딤돌·보금자리론 정책대출, 생애최초 LTV 80%, 취득세 최대 200만원 감면과 청약 특별공급까지 순서대로 정리한 가이드.",
+    category: "내집마련",
+    emoji: "🔑",
+  },
+  {
     slug: "inheritance-gift-tax",
     title: "상속·증여세 — 10억 공제·10년 증여 플랜 한눈에 (2026)",
     description:
