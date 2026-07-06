@@ -124,6 +124,14 @@ const TOOLS: Tool[] = [
     accent: "#DB2777",
     ready: true,
   },
+  {
+    href: "/tools/parental-leave-pay/",
+    emoji: "👶",
+    title: "육아휴직급여 계산기",
+    desc: "통상임금 기준 예상 육아휴직급여(6+6 반영)",
+    accent: "#F59E0B",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {
