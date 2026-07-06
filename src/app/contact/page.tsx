@@ -5,6 +5,7 @@ import { Mail, Megaphone, Handshake, Newspaper } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "광고 및 제휴 문의 | 팁픽(Tip-Pick)",
+  alternates: { canonical: "/contact/" },
   description: "팁픽과 함께하실 광고주 및 제휴 파트너를 모집합니다.",
 };
 

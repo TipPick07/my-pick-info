@@ -125,7 +125,7 @@ export default async function FestivalDetail({ params }: { params: Promise<{ id:
     },
     "organizer": {
       "@type": "Organization",
-      "name": "수도권 팁픽(Tip-Pick)",
+      "name": "팁픽(Tip-Pick)",
       "url": "https://tip-pick.com"
     }
   };

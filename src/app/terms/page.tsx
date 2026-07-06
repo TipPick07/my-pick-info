@@ -4,6 +4,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "이용약관 | 팁픽(Tip-Pick)",
+  alternates: { canonical: "/terms/" },
   description: "팁픽(Tip-Pick) 서비스 이용약관을 확인하세요.",
 };
 

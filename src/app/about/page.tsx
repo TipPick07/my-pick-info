@@ -5,6 +5,7 @@ import { CheckCircle2, Lightbulb } from "lucide-react";
 
 export const metadata = {
   title: "팁픽은 왜 만들었나 | 팁픽(Tip-Pick)",
+  alternates: { canonical: "/about/" },
   description: "지원금·경제·세금·생활정보를 비전문가도 이해하게 쉽게 정리하는 팁픽입니다.",
 };
 

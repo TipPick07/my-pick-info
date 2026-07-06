@@ -8,6 +8,7 @@ import bannerConfig from "@/data/banner-config.json";
 
 export const metadata: Metadata = {
   title: "팁픽 (TIP-PICK) | 정부 지원금·경제·생활정보 가이드",
+  alternates: { canonical: "/" },
   description: "정부 지원금부터 경제·세금, 실생활 계산기까지. 돈 되는 정보를 비전문가 눈높이로 쉽게 정리해 드립니다.",
 };
 

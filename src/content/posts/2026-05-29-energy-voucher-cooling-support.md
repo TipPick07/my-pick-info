@@ -127,7 +127,7 @@ officialTip: "기존 수급자는 세대원·주소 변경 없으면 자동 갱�
 ## 🔗 공식 신청 링크
 
 - 복지로 온라인 신청: [www.bokjiro.go.kr](https://www.bokjiro.go.kr)
-- 에너지바우처 공식 사업 안내: [www.energyv.or.kr](http://www.energyv.or.kr)
+- 에너지바우처 공식 사업 안내: [www.energyv.or.kr](https://www.energyv.or.kr)
 
 ## 마무리
 

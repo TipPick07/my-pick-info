@@ -7,6 +7,7 @@ import { isPostCategoryLive } from "@/config/categories";
 
 export const metadata: Metadata = {
   title: "전체 글 — 경제·지원금·생활정보 | 팁픽(Tip-Pick)",
+  alternates: { canonical: "/blog/" },
   description: "팁픽의 모든 글 — 정부 지원금, 경제·세금, 실생활 정보를 한곳에서 확인하세요.",
   openGraph: {
     title: "전체 글 — 경제·지원금·생활정보 | 팁픽(Tip-Pick)",

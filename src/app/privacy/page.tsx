@@ -4,6 +4,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "개인정보처리방침 | 팁픽(Tip-Pick)",
+  alternates: { canonical: "/privacy/" },
   description: "팁픽(Tip-Pick) 개인정보처리방침을 확인하세요.",
 };
 

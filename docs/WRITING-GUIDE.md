@@ -80,7 +80,7 @@ link: "https://www.bokjiro.go.kr"        # 공식 신청 사이트
 ### 1-5. 절대 금지 / 필수
 - ❌ `image`·`ogImage`·`originalTitle` 필드 넣지 말 것(미사용 잔재. 썸네일은 카테고리 색 자동).
 - ❌ 지역명·운영자 이름·"공공데이터" 문구.
-- ❌ 시점성 표현("곧 출시", "마감 임박", "이번 달") → **에버그린**으로.
+- ❌ 시점성 표현("곧 출시", "마감 임박", "이번 달") → **에버그린**으로. 제목·summary·description(검색 노출면)에는 재촉·낚시 어투("서두르세요", "놓치지 마세요!") **절대 금지**, 본문에서도 지양.
 - ✅ 수치·사실은 공식 자료로 확인, 불확실하면 단정 금지.
 - ✅ 내부링크 루프(글→글, 계산기, 카테고리) 필수 — 마무리에 형제 글 1~2 + 본문 맥락 링크.
 
@@ -135,6 +135,7 @@ HERO(배지 + H1 + 도입 + 요약박스 3개)
 - 커밋·푸시는 **운영자 지시 시에만**(자동 금지). 빌드는 운영자 PC/CI(`npm run build`).
 - 검증: `npx tsc --noEmit`(EXIT 0) — `.next/dev` stale 에러는 `tsc 2>&1 | grep -v '^.next/'`로 src만 보거나 `rm -rf .next` 후 재실행 / `node scripts/validate-content.js`(게이트 통과) / 계산기 node 검산 / 내부링크 대상 파일 존재 확인.
 - 카테고리 노출 스위치는 `src/config/categories.ts`의 `APPROVAL_MODE`(현재 true: 경제·지원금·계산기만 공개, 핫이슈·나들이·꿀팁 숨김).
+- **SEO 필수(2026-07-06 전수 보정 완료 상태 유지)**: 새 페이지(page.tsx)에는 `alternates: { canonical: "/<경로>/" }`를 반드시 넣는다. 내부 링크(본문·컴포넌트)는 항상 **trailing slash**(`/tools/salary/`처럼) — no-slash는 크롤러에 308 홉을 만든다. 외부 링크는 https만.
 
 ---
 

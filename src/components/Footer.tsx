@@ -16,11 +16,11 @@ export default function Footer() {
     { href: "/blog/", label: "전체 글" },
   ];
   const siteLinks = [
-    { href: "/about", label: "소개" },
-    { href: "/terms", label: "이용약관" },
-    { href: "/privacy", label: "개인정보처리방침" },
-    { href: "/disclaimer", label: "면책공고" },
-    { href: "/contact", label: "문의" },
+    { href: "/about/", label: "소개" },
+    { href: "/terms/", label: "이용약관" },
+    { href: "/privacy/", label: "개인정보처리방침" },
+    { href: "/disclaimer/", label: "면책공고" },
+    { href: "/contact/", label: "문의" },
   ];
   const colLink = (active: boolean) =>
     `transition-colors ${active ? "text-brand-dark font-semibold" : "text-slate-500 hover:text-brand-dark"}`;

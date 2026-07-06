@@ -58,7 +58,7 @@ export default function RedirectClient({ targetUrl }: RedirectClientProps) {
             안전하게 이동 중입니다
           </h2>
           <p className="text-sm text-slate-400 font-medium leading-relaxed max-w-xs mx-auto">
-            수도권 팁픽(Tip-Pick) 가이드가 추천하는<br />
+            팁픽(Tip-Pick) 가이드가 추천하는<br />
             유용한 정보 사이트로 안전하게 연결하고 있습니다.
           </p>
         </div>

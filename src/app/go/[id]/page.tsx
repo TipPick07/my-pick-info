@@ -3,6 +3,10 @@ import RedirectClient from "@/components/RedirectClient";
 import { redirect } from "next/navigation";
 
 // 타입 안전성을 위해 JSON 데이터를 매핑형(Record)으로 지정합니다.
+export const metadata = {
+  robots: { index: false, follow: false },
+};
+
 const redirectMap = redirects as Record<string, string>;
 
 interface PageProps {

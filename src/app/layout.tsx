@@ -70,6 +70,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
+              "alternateName": ["TIP-PICK", "Tip-Pick", "tip-pick", "tippick"],
               "name": "팁픽",
               "url": "https://tip-pick.com",
               "description": "정부 지원금·경제·세금·생활정보를 비전문가 눈높이로 정리하는 생활정보 가이드"
