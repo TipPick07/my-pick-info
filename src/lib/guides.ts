@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "self-employed-freelancer-tax",
+    title: "개인사업자·프리랜서 세금 — 부가세·종소세·3.3% 한눈에 (2026)",
+    description:
+      "사업자 세금은 달력이 반 — 1월·7월 부가세, 5월 종합소득세, 프리랜서 3.3% 환급까지. 일반·간이·프리랜서 유형별로 언제 무엇을 신고하는지 한 표로 정리한 가이드.",
+    category: "사업자·세금",
+    emoji: "🧾",
+  },
+  {
     slug: "first-home-purchase",
     title: "생애최초 주택구입 — 정책대출·취득세·청약 한눈에 (2026)",
     description:
