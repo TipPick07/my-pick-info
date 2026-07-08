@@ -18,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/', '/benefits/', '/blog/', '/guides/',
     '/tools/', '/tools/salary/', '/tools/loan/',
     '/tools/income-tax/', '/tools/insurance/',
-    '/tools/retirement-pay/', '/tools/hourly-wage/', '/tools/car-tax/', '/tools/savings-interest/', '/tools/rent-conversion/', '/tools/brokerage-fee/', '/tools/annual-leave-allowance/', '/tools/overseas-stock-tax/', '/tools/median-income/', '/tools/parental-leave-pay/',
+    '/tools/retirement-pay/', '/tools/hourly-wage/', '/tools/car-tax/', '/tools/savings-interest/', '/tools/rent-conversion/', '/tools/brokerage-fee/', '/tools/annual-leave-allowance/', '/tools/overseas-stock-tax/', '/tools/median-income/', '/tools/parental-leave-pay/', '/tools/electricity-bill/',
   ];
   const categoryPaths = visibleCategories().map((c) => c.href);
   const staticRoutes = Array.from(new Set([...basePaths, ...categoryPaths])).map((route) => ({

@@ -132,6 +132,14 @@ const TOOLS: Tool[] = [
     accent: "#F59E0B",
     ready: true,
   },
+  {
+    href: "/tools/electricity-bill/",
+    emoji: "⚡",
+    title: "전기요금 계산기",
+    desc: "주택용 누진제 월 요금(하계 구간 반영)",
+    accent: "#EAB308",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {
