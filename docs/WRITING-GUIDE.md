@@ -153,10 +153,10 @@ HERO(배지 + H1 + 도입 + 요약박스 3개)
 
 ---
 
-## 6. 현재 콘텐츠 현황 (2026-07-08)
+## 6. 현재 콘텐츠 현황 (2026-07-09)
 
-- **블로그 글 75편** (benefit 53 · 경제 22) — 7/2 전 글 SEO 규격 통일 완료(제목≤35자·설명≤90자·에버그린 마감·내부 루프·게이트 경고 0). **신규 글도 이 규격 필수.**
-- **가이드 13편**: `self-employed-freelancer-tax`, `first-home-purchase`, `inheritance-gift-tax`, `overseas-stock-capital-gains-tax`, `unemployment-benefit-guide`, `three-pillar-pension`, `comprehensive-income-tax-filing`, `parenting-family-benefits`, `parenting-family-finance`, `parenting-family-savings`, `daycare-admission`, `house-capital-gains-tax`, `youth-support-guide`
+- **블로그 글 77편** (benefit 53 · 경제 24) — 7/2 전 글 SEO 규격 통일 완료(제목≤35자·설명≤90자·에버그린 마감·내부 루프·게이트 경고 0). **신규 글도 이 규격 필수.**
+- **가이드 14편**: `property-holding-tax`, `self-employed-freelancer-tax`, `first-home-purchase`, `inheritance-gift-tax`, `overseas-stock-capital-gains-tax`, `unemployment-benefit-guide`, `three-pillar-pension`, `comprehensive-income-tax-filing`, `parenting-family-benefits`, `parenting-family-finance`, `parenting-family-savings`, `daycare-admission`, `house-capital-gains-tax`, `youth-support-guide`
 - **계산기 15종**: 연봉 실수령액(`salary`), 대출 이자(`loan`), 종합소득세(`income-tax`), 4대보험(`insurance`), 퇴직금(`retirement-pay`), 시급·주휴수당(`hourly-wage`), 자동차세(`car-tax`), 예금·적금 이자(`savings-interest`), 전월세 전환(`rent-conversion`), 부동산 중개보수(`brokerage-fee`), 연차수당(`annual-leave-allowance`), 해외주식 양도세(`overseas-stock-tax`), 기준 중위소득(`median-income`), 육아휴직급여(`parental-leave-pay`), 전기요금(`electricity-bill`)
 
 > 새 글/가이드/계산기를 추가하면 이 현황도 함께 갱신한다.

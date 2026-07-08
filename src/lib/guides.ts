@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "property-holding-tax",
+    title: "부동산 보유세 — 재산세·종부세 한눈에 (2026)",
+    description:
+      "집 가진 해마다 내는 세금 두 층 — 모두가 내는 재산세(7월·9월, 1주택 특례 43~45%)와 공시 9억(1주택 12억) 초과만 내는 종부세(12월). 계산 구조와 보유세 달력을 한 표로 정리한 가이드.",
+    category: "부동산·세금",
+    emoji: "🏛️",
+  },
+  {
     slug: "self-employed-freelancer-tax",
     title: "개인사업자·프리랜서 세금 — 부가세·종소세·3.3% 한눈에 (2026)",
     description:
