@@ -140,6 +140,14 @@ const TOOLS: Tool[] = [
     accent: "#EAB308",
     ready: true,
   },
+  {
+    href: "/tools/unemployment-benefit/",
+    emoji: "🧭",
+    title: "실업급여 계산기",
+    desc: "1일 구직급여 × 소정급여일수 예상 수령액",
+    accent: "#E11D48",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {
