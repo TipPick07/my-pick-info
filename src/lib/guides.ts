@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "insurance-checkup",
+    title: "내 보험 점검 — 실손 세대·중복 정리·리모델링 한눈에 (2026)",
+    description:
+      "해지부터 하면 손해. 내보험찾아줌 조회 → 실손 1~5세대 확인 → 중복 정리 → 감액완납 등 대안 → 해지 순서로, 손해 없이 보험을 정리하는 에버그린 가이드.",
+    category: "보험",
+    emoji: "🛡️",
+  },
+  {
     slug: "property-holding-tax",
     title: "부동산 보유세 — 재산세·종부세 한눈에 (2026)",
     description:
