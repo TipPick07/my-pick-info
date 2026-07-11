@@ -148,6 +148,14 @@ const TOOLS: Tool[] = [
     accent: "#E11D48",
     ready: true,
   },
+  {
+    href: "/tools/k-pass-refund/",
+    emoji: "🚌",
+    title: "K-패스 환급 계산기",
+    desc: "월 교통비 × 유형별 환급률(20~53.3%)",
+    accent: "#2563EB",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {
