@@ -14,11 +14,11 @@ import { useMemo, useState } from "react";
 // ─────────────────────────────────────────────────────────────
 // 2026년 기준(요율 변동 시 이 상수만 수정)
 // ─────────────────────────────────────────────────────────────
-const RATE_PENSION = 0.045; // 국민연금 4.5%(근로자 부담)
+const RATE_PENSION = 0.0475; // 국민연금 4.75%(근로자 부담)
 const PENSION_BASE_CAP = 6_370_000; // 국민연금 기준소득월액 상한(2025.7~2026.6) — 초과분 미부과
 const PENSION_BASE_FLOOR = 400_000; // 국민연금 기준소득월액 하한(2025.7~2026.6)
-const RATE_HEALTH = 0.03545; // 건강보험 3.545%(근로자 부담)
-const RATE_LONGTERM = 0.1295; // 장기요양보험 = 건강보험료 × 12.95%
+const RATE_HEALTH = 0.03595; // 건강보험 3.595%(근로자 부담)
+const RATE_LONGTERM = 0.1314; // 장기요양보험 = 건강보험료 × 13.14%
 const RATE_EMPLOYMENT = 0.009; // 고용보험 0.9%(근로자 부담)
 const RATE_LOCAL_INCOME = 0.1; // 지방소득세 = 소득세 × 10%
 
@@ -165,8 +165,8 @@ export default function SalaryCalculator() {
   }, [annualManwon, nonTax, dependents, children]);
 
   const deductionRows: ReadonlyArray<{ label: string; value: number }> = [
-    { label: "국민연금 (4.5%)", value: result.pension },
-    { label: "건강보험 (3.545%)", value: result.health },
+    { label: "국민연금 (4.75%)", value: result.pension },
+    { label: "건강보험 (3.595%)", value: result.health },
     { label: "장기요양보험", value: result.longterm },
     { label: "고용보험 (0.9%)", value: result.employment },
     { label: "소득세 (근사)", value: result.incomeTax },

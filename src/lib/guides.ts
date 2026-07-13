@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "health-insurance-saving",
+    title: "건강보험료 줄이는 법 — 직장·지역·피부양자 한눈에 (2026)",
+    description:
+      "같은 소득이라도 자격(직장·지역·피부양자)에 따라 0원~수십만 원. 지역 산정 구조(연금 50%·금융 1,000만·재산공제 1억)와 임의계속가입·조정신청까지, 건보료 절감 루트를 한 표로 정리한 가이드.",
+    category: "보험",
+    emoji: "🏥",
+  },
+  {
     slug: "insurance-checkup",
     title: "내 보험 점검 — 실손 세대·중복 정리·리모델링 한눈에 (2026)",
     description:
