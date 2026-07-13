@@ -212,3 +212,22 @@ https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 /blog/2026-05-09-seoul-jungnang-rose-festival-guide/  /blog/  301
 /blog/2026-05-10-seoul-family-care-youth-self-care-benefit-guide/  /blog/2026-05-08-seoul-family-care-youth-self-care-benefit/  301
 /blog/2026-06-05-gyeonggi-festival-flower-healing/  /blog/  301
+
+# === 2026-07-13: 애드센스 5차 거부 대응 통폐합 (일회성·하이퍼로컬·한시성 글 삭제, 개별 301) ===
+/blog/2026-04-28-seoul-platform-p-lecture/  /benefits/  301
+/blog/2026-04-28-seoul-platform-p-lecture   /benefits/  301
+/blog/2026-04-14-yeongdeungpo-childcare-qualification/  /benefits/  301
+/blog/2026-04-14-yeongdeungpo-childcare-qualification   /benefits/  301
+/blog/2026-04-25-eunpyeonggu-mid-senior-single-household-support/  /benefits/  301
+/blog/2026-04-25-eunpyeonggu-mid-senior-single-household-support   /benefits/  301
+/blog/2026-04-23-seongbuk-health-insurance-support/  /benefits/  301
+/blog/2026-04-23-seongbuk-health-insurance-support   /benefits/  301
+/blog/2026-04-06-incheon-moms-eco-food/  /benefits/  301
+/blog/2026-04-06-incheon-moms-eco-food   /benefits/  301
+/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit/  /benefits/  301
+/blog/2026-04-27-seoul-gyeonggi-incheon-oil-support-benefit   /benefits/  301
+/blog/2026-05-01-seoul-single-household-support/  /benefits/  301
+/blog/2026-05-01-seoul-single-household-support   /benefits/  301
+# 청년미래적금 단독 글 → 비교 글로 흡수 (주제 동일, 에쿼티 보존)
+/blog/2026-05-25-youth-future-savings-guide/  /blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/  301
+/blog/2026-05-25-youth-future-savings-guide   /blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/  301

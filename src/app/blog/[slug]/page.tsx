@@ -100,9 +100,11 @@ export default async function BlogPostPage({ params }: PostPageProps) {
             "@type": "BlogPosting",
             "headline": post.title,
             "datePublished": post.date,
+            "dateModified": post.date,
             "description": post.summary,
-            "author": { "@type": "Organization", "name": "팁픽(Tip-Pick)" },
+            "author": { "@type": "Organization", "name": "팁픽(Tip-Pick)", "url": "https://tip-pick.com/about/" },
             "publisher": { "@type": "Organization", "name": "팁픽(Tip-Pick)", "url": "https://tip-pick.com" },
+            "mainEntityOfPage": `https://tip-pick.com/blog/${post.slug}/`,
           }),
         }}
       />
@@ -142,8 +144,12 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           <div className="flex items-center gap-3 text-sm font-medium text-slate-400">
             <span>{post.date}</span>
             <span className="w-1 h-1 bg-slate-200 rounded-full" />
-            <span className="text-indigo-600 font-bold">TIP PICK</span>
+            <Link href="/about/" className="text-indigo-600 font-bold hover:underline underline-offset-4">팁픽 에디터</Link>
           </div>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            <span className="text-emerald-500 font-bold">✓</span> 정부·공공기관 공식 자료를 직접 확인해 작성하고, 수치에는 기준 시점과 출처를 함께 밝힙니다.{' '}
+            <Link href="/about/" className="font-bold underline underline-offset-2 hover:text-indigo-600">검증 원칙 보기</Link>
+          </p>
           <p className="text-base text-slate-500 leading-relaxed border-l-4 border-indigo-100 pl-4 py-1">
             {post.summary}
           </p>

@@ -23,7 +23,7 @@ const PATH = "/guides/youth-support-guide/";
 const UPDATED = "2026-06-28";
 
 // 내부 루프 링크
-const SRC_SAVINGS = "/blog/2026-05-25-youth-future-savings-guide/"; // 청년미래적금
+const SRC_SAVINGS = "/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/"; // 청년미래적금 vs 도약계좌 비교
 const SRC_RENT = "/blog/2026-04-30-youth-rent-support/"; // 청년 월세
 const SRC_COMPARE = "/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/"; // 도약 vs 미래
 const SRC_BENEFITS = "/benefits/";
@@ -58,7 +58,7 @@ const COMPARE = [
 const ASSET = [
   {
     k: "청년미래적금",
-    v: "청년도약계좌(2025년 신규 종료)의 후속으로 2026년 6월 출시됩니다. 만 19~34세, 3년 만기, 정부 기여금 6~12% + 비과세로 시중 적금보다 훨씬 유리합니다. 연 2회(6·12월)만 모집하니 가입 시기를 놓치지 마세요.",
+    v: "청년도약계좌(2025년 신규 종료)의 후속으로 2026년 6월 출시됐습니다. 만 19~34세, 3년 만기, 정부 기여금 6~12% + 비과세로 시중 적금보다 훨씬 유리합니다. 연 2회(6·12월)만 모집하니 가입 시기를 놓치지 마세요.",
     accent: true,
   },
   {
