@@ -9,7 +9,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 > 이 파일(AGENTS.md)만 읽는 툴도 아래 6줄만 따르면 어디서든 동일한 품질로 작업할 수 있다.
 
 1. **새 작업 전 `docs/HANDOVER.md`를 먼저 읽는다** — 프로젝트 정체성·현황·백로그가 전부 거기 있다.
-2. **글·가이드·계산기 작성은 `docs/WRITING-GUIDE.md`(양식 SSOT) 그대로** — 새 형식을 만들지 않는다. 복붙 시작 프롬프트는 WRITING-GUIDE §8.
+2. **글·가이드·계산기 작성은 `docs/WRITING-GUIDE.md`(양식 SSOT) 그대로** — 새 형식을 만들지 않는다. 복붙 시작 프롬프트는 WRITING-GUIDE §8. **⭐ 특히 §1-6 원본성 규칙(자체 계산 예시 필수, 신규·보강 공통)이 최우선 — 공식 자료 재정리만 한 글은 발행 금지.**
 3. **`.tsx`·`.ts`는 Edit/Write 도구 금지(NUL 깨짐) → Python으로만** 생성·수정한다. `.md`는 자유.
 4. 수치·사실은 공식 자료로 확인하고, 확실하지 않으면 단정하지 않는다(계산기·세금은 검산 필수).
 5. **커밋·푸시는 운영자가 명시적으로 지시할 때만** 한다(자동 금지).
