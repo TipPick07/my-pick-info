@@ -14,27 +14,31 @@
 
 ## 일자별 배정 (완료 시 ✅date 표기)
 
-### D1 — 7/20 (월, 5개) ※ 신규 2건(청년내일저축 글·계산기)은 아침에 요청 완료
-1. [ ] https://tip-pick.com/blog/2026-06-01-parenting-benefit-region-compare/ — T1 통합 승계(육아)
-2. [ ] https://tip-pick.com/blog/2026-05-09-may-deadline-benefits-guide/ — T1 통합 승계(기한형)
-3. [ ] https://tip-pick.com/blog/2026-07-12-telecom-fee-discount/ — T1 크롤됨-색인안됨·A등급
-4. [ ] https://tip-pick.com/blog/2026-07-09-comprehensive-real-estate-tax/ — T1 크롤됨-색인안됨·완산 보강
-5. [ ] https://tip-pick.com/blog/2026-07-10-early-reemployment-allowance/ — T1 크롤됨-색인안됨·A등급
+### D1 — 7/20 (월) ✅ 3/5 완료 후 일일 한도 초과 — 잔여 2건 D2 이월
+1. [x] ✅7/20 https://tip-pick.com/blog/2026-06-01-parenting-benefit-region-compare/ — T1 통합 승계(육아) · 색인+수집 완료
+2. [x] ✅7/20 https://tip-pick.com/blog/2026-05-09-may-deadline-benefits-guide/ — T1 통합 승계(기한형) · 색인+수집 완료
+3. [x] ✅7/20 https://tip-pick.com/blog/2026-07-12-telecom-fee-discount/ — T1 크롤됨-색인안됨·A등급 · 색인+수집 완료
+4. [→D2] https://tip-pick.com/blog/2026-07-09-comprehensive-real-estate-tax/ — 한도 초과로 이월
+5. [→D2] https://tip-pick.com/blog/2026-07-10-early-reemployment-allowance/ — 한도 초과로 이월
 
-### D2 — 7/21 (화, 백로그 5)
+### D2 — 7/21 (화, 5개 = 이월 2 + 신규 배정 3)
+4. [ ] https://tip-pick.com/blog/2026-07-09-comprehensive-real-estate-tax/ — T1 크롤됨-색인안됨·완산 보강 (이월)
+5. [ ] https://tip-pick.com/blog/2026-07-10-early-reemployment-allowance/ — T1 크롤됨-색인안됨·A등급 (이월)
 6. [ ] https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/ — T1 크롤됨-색인안됨·FAQ 직접답 보강
 7. [ ] https://tip-pick.com/blog/2026-07-08-energy-cashback-guide/ — T1 크롤됨-색인안됨·단가 보강
 8. [ ] https://tip-pick.com/blog/2026-07-09-property-tax-payment-guide/ — T1 크롤됨-색인안됨·A등급
-9. [ ] https://tip-pick.com/tools/electricity-bill/ — T1 크롤됨-색인안됨 계산기
-10. [ ] https://tip-pick.com/tools/unemployment-benefit/ — T1 크롤됨-색인안됨 계산기
 
 ### D3 — 7/22 (수, 백로그 5)
+9. [ ] https://tip-pick.com/tools/electricity-bill/ — T1 크롤됨-색인안됨 계산기
+10. [ ] https://tip-pick.com/tools/unemployment-benefit/ — T1 크롤됨-색인안됨 계산기
 11. [ ] https://tip-pick.com/guides/property-holding-tax/ — T1 크롤됨-색인안됨·메타 정비
 12. [ ] https://tip-pick.com/blog/2026-06-28-basic-pension-guide/ — T2 리라이트(소득인정액 계산)
 13. [ ] https://tip-pick.com/blog/2026-06-28-emergency-welfare-support/ — T2 리라이트(4관문 판정)
+
+### D4 이후로 밀린 분 (순서 유지)
 14. [ ] https://tip-pick.com/blog/2026-07-04-housing-benefit-guide/ — T2 리라이트(기준임대료 표 교정)
 15. [ ] https://tip-pick.com/blog/2026-05-09-metropolitan-exclusive-benefits/ — T2 리라이트 + 구 큐 미요청분
-16. [ ] (발행일이면 12~15 중 2개는 다음 날로 이월)
+16. [ ] (발행일 7/23 목은 신규 2 + 백로그 3으로 조정)
 
 ### D4 — 7/23 (목=발행일, 신규 2 + 백로그 3)
 17. [ ] https://tip-pick.com/blog/2026-06-28-credit-score-guide/ — T2 리라이트(1%p 이자 차 계산)
@@ -76,3 +80,6 @@
 |---|---|---|
 | 7/20 | /blog/2026-07-20-youth-tomorrow-savings-account-guide/ | 신규(아침 완료) |
 | 7/20 | /tools/youth-savings-account/ | 신규(아침 완료) |
+| 7/20 | /blog/2026-06-01-parenting-benefit-region-compare/ | 통합 승계 · 색인+수집 |
+| 7/20 | /blog/2026-05-09-may-deadline-benefits-guide/ | 통합 승계 · 색인+수집 |
+| 7/20 | /blog/2026-07-12-telecom-fee-discount/ | 색인+수집 · 이후 일일 한도 초과 |
