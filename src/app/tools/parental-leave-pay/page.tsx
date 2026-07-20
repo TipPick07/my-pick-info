@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ParentalLeavePayCalculator from "@/components/ParentalLeavePayCalculator";
@@ -76,25 +77,25 @@ export default function ParentalLeavePayToolPage() {
             </p>
           </section>
 
+          <section className="space-y-3">
+            <h3 className="text-xl font-black text-slate-900">함께 챙기면 좋은 지원</h3>
+            <p>
+              출산·육아 시기에는 매달 받는{" "}
+              <Link href="/blog/2026-07-06-parental-allowance-guide/" className="text-brand-dark font-bold underline underline-offset-2">부모급여</Link>
+              , 출생 시 목돈인{" "}
+              <Link href="/blog/2026-07-06-birth-support-benefits/" className="text-brand-dark font-bold underline underline-offset-2">첫만남이용권·출산 지원금</Link>
+              도 함께 챙기세요. 정부 지원금 전체는{" "}
+              <Link href="/benefits/" className="text-brand-dark font-bold underline underline-offset-2">정부 지원금</Link>{" "}
+              페이지에서 볼 수 있습니다.
+            </p>
+          </section>
+
           <p className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-sm text-slate-500">
             ※ 본 계산기는 통상임금 기반의{" "}
             <strong className="text-slate-700">참고용 근사치</strong>입니다. 실제 급여는 통상임금
             산정·근무일수·고용보험 가입 기간에 따라 달라질 수 있으며, 정확한 금액은 고용24
             (work24.go.kr)와 고용센터에서 확인하시기 바랍니다.
           </p>
-
-          <section className="space-y-3">
-            <h3 className="text-xl font-black text-slate-900">함께 챙기면 좋은 지원</h3>
-            <p>
-              출산·육아 시기에는 매달 받는{" "}
-              <a href="/blog/2026-07-06-parental-allowance-guide/" className="text-brand-dark font-bold underline underline-offset-2">부모급여</a>
-              , 출생 시 목돈인{" "}
-              <a href="/blog/2026-07-06-birth-support-benefits/" className="text-brand-dark font-bold underline underline-offset-2">첫만남이용권·출산 지원금</a>
-              도 함께 챙기세요. 정부 지원금 전체는{" "}
-              <a href="/benefits/" className="text-brand-dark font-bold underline underline-offset-2">정부 지원금</a>{" "}
-              페이지에서 볼 수 있습니다.
-            </p>
-          </section>
         </article>
       </main>
       <Footer />

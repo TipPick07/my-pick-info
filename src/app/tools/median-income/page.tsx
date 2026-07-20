@@ -75,6 +75,45 @@ export default function MedianIncomeToolPage() {
             </p>
           </section>
 
+          <section className="space-y-3">
+            <h2 className="text-2xl font-black text-slate-900">2026년 가구원수별 기준 중위소득 (1~4인)</h2>
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+              <table className="w-full min-w-[360px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-600">
+                    <th className="px-4 py-3 font-semibold">가구원수</th>
+                    <th className="px-4 py-3 font-semibold">기준 중위소득 (월, 100%)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  <tr>
+                    <td className="px-4 py-3 font-semibold text-slate-700">1인 가구</td>
+                    <td className="px-4 py-3 text-slate-600">2,564,238원</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-semibold text-slate-700">2인 가구</td>
+                    <td className="px-4 py-3 text-slate-600">4,199,292원</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-semibold text-slate-700">3인 가구</td>
+                    <td className="px-4 py-3 text-slate-600">5,359,036원</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-semibold text-slate-700">4인 가구</td>
+                    <td className="px-4 py-3 text-slate-600">6,494,738원</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              복지사업 공고에 자주 나오는 &quot;중위 ○○% 이하&quot;는 위 표의 100% 값에 비율을 곱하면
+              바로 나옵니다. 예를 들어{" "}
+              <strong className="text-slate-800">3인 가구 중위 150%</strong>는 5,359,036원 × 1.5 ={" "}
+              <strong className="text-slate-800">8,038,554원</strong>입니다. 5인 이상 가구는 위
+              계산기에서 바로 확인하세요.
+            </p>
+          </section>
+
           <p className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-sm text-slate-500">
             ※ 본 계산기는 2026년 기준 중위소득 고시값에 급여별 비율을 적용한{" "}
             <strong className="text-slate-700">참고용</strong>입니다. 실제 자격은 소득인정액(근로소득공제·재산

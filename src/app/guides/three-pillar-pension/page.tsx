@@ -44,7 +44,7 @@ const SRC_NTS = "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7875
 const OG_TITLE =
   "노후 3층 연금 — 국민·퇴직·개인연금 한눈에 (2026)";
 const OG_DESC =
-  "국민연금(1층)·퇴직연금(2층)·개인연금(3층)을 한 표로. 국민연금 수급연령·더 받는 법, 퇴직연금 연금수령 세금 감면, 연금저축·IRP 세액공제 900만원까지 정리한 에버그린 가이드.";
+  "국민연금·퇴직연금·개인연금 3층을 한 표로 — 수급연령, 연금수령 세금 감면, 세액공제 900만원과 월급 400만 시뮬레이션까지 2026년 기준 정리.";
 
 export const metadata: Metadata = {
   title: "노후 3층 연금 — 국민·퇴직·개인연금 한눈에 (2026) | 팁픽",
@@ -575,6 +575,88 @@ export default function ThreePillarPensionGuide() {
                 ISA·연금저축·IRP 비교
               </Link>
               에서 이어집니다.
+            </p>
+          </section>
+
+          {/* 4.5 계산 예시 — 월급 400만 직장인의 3층 합산 시뮬레이션 */}
+          <section>
+            <SectionTitle
+              kicker="직접 계산해 보면"
+              title="월급 400만 직장인, 3층을 합치면 월 얼마일까"
+            />
+            <p className="mb-5 text-sm leading-relaxed text-slate-600">
+              <strong className="text-slate-800">
+                만 30세, 세전 월급 400만원(총급여 4,800만원)이 60세까지 30년간
+                유지되고, 임금 상승·물가·운용수익은 0%로 단순화하며, 연금은
+                65세부터 20년(240개월)간 나눠 받는다고 가정
+              </strong>
+              한 시뮬레이션입니다.
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+              <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-600">
+                    <th className="px-4 py-3 font-semibold">층</th>
+                    <th className="px-4 py-3 font-semibold">계산 (가정 포함)</th>
+                    <th className="px-4 py-3 font-semibold">예상 월연금</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">
+                      1층 국민연금
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      30년 가입 기준 월 90만원으로 가정 — 실제 값은 소득
+                      이력에 따라 다르니 공단 &lsquo;내 연금 알아보기&rsquo;에서
+                      확인
+                    </td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">
+                      약 90만원 (가정)
+                    </td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">
+                      2층 퇴직연금
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      DB 가정: 평균임금 400만원 × 근속 30년 = 1억 2,000만원 →
+                      240개월 분할
+                    </td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">
+                      월 50만원
+                    </td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">
+                      3층 개인연금
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      연금저축에 연 600만원(월 50만원)씩 30~54세 25년 납입 =
+                      1억 5,000만원 → 240개월 분할
+                    </td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">
+                      월 62.5만원
+                    </td>
+                  </tr>
+                  <tr className="bg-indigo-50/40 align-top">
+                    <td className="px-4 py-3 font-bold text-indigo-700">합산</td>
+                    <td className="px-4 py-3 text-slate-600">
+                      90만 + 50만 + 62.5만
+                    </td>
+                    <td className="px-4 py-3 font-bold text-indigo-700">
+                      월 약 202.5만원
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-slate-500">
+              ※ 세전·명목 기준 자체 계산 예시입니다. 총급여 5,500만원 이하
+              구간이라 3층 납입분 600만원에는 매년 16.5%인 99만원의 세액공제
+              환급이 별도로 붙고, 수령 시에는 연금소득세(3.3~5.5%)가
+              차감됩니다. 내 실제 예상액은 통합연금포털 &lsquo;내 연금
+              한눈에&rsquo;에서 확인하세요.
             </p>
           </section>
 

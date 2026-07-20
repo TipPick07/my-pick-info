@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SavingsInterestCalculator from "@/components/SavingsInterestCalculator";
@@ -55,12 +56,45 @@ export default function SavingsInterestToolPage() {
           <section className="space-y-3">
             <h2 className="text-2xl font-black text-slate-900">이자에서 세금은 얼마나 떼나요?</h2>
             <p>
-              이자에는 <strong className="text-slate-800">이자소득세 15.4%</strong>(소득세 14% +
+              이자에는 2026년 기준 <strong className="text-slate-800">이자소득세 15.4%</strong>(소득세 14% +
               지방소득세 1.4%)가 부과됩니다. 예를 들어 세전 이자가 30만 원이라면 약 46,200원이
               세금으로 빠지고 253,800원이 실제 이자로 남습니다. 위 계산기는 이 세금을 자동으로
               빼고 &quot;세후 만기 수령액&quot;을 보여 줍니다. 비과세·세금우대 상품(청년 우대형 등)은
               이 세금이 면제되거나 줄어들 수 있습니다.
             </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-2xl font-black text-slate-900">관련 도구·글</h2>
+            <ul className="list-disc pl-5 space-y-1.5">
+              <li>
+                <Link
+                  href="/tools/youth-savings-account/"
+                  className="font-bold text-brand-dark underline underline-offset-2"
+                >
+                  청년내일저축계좌 계산기
+                </Link>{" "}
+                — 정부지원금까지 더한 3년 만기 수령액 계산
+              </li>
+              <li>
+                <Link
+                  href="/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/"
+                  className="font-bold text-brand-dark underline underline-offset-2"
+                >
+                  청년미래적금 vs 청년도약계좌 비교
+                </Link>{" "}
+                — 두 청년 자산형성 상품의 조건·혜택 비교
+              </li>
+              <li>
+                <Link
+                  href="/blog/2026-06-29-parking-account-cma-guide/"
+                  className="font-bold text-brand-dark underline underline-offset-2"
+                >
+                  파킹통장·CMA 비상금 굴리는 법
+                </Link>{" "}
+                — 만기 전 여윳돈을 하루 단위로 굴리는 방법
+              </li>
+            </ul>
           </section>
 
           <p className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-sm text-slate-500">

@@ -21,6 +21,10 @@ import Footer from "@/components/Footer";
  * - 전자세금계산서 의무: 직전 공급가액(면세 포함) 8,000만원 이상 개인.
  * - 프리랜서(인적용역) 부가세 면세, 3.3%(소득세 3%+지방 0.3%) 원천징수 = 선납,
  *   다음해 5월 종합소득세 확정신고로 정산(경비·공제 반영, 환급 다수).
+ * - 계산 예시(자체): 연매출 6,000만 카페, 매입 3,300만(부가세 포함) 가정 —
+ *   일반 600만−300만=300만 vs 간이(음식점 부가가치율 15%) 6,000만×15%×10%=90만, 차이 210만.
+ * - 계산 예시(자체): 연매출 6,000만 카페, 매입 3,300만(부가세 포함) 가정 —
+ *   일반 600만−300만=300만 vs 간이(음식점 부가가치율 15%) 6,000만×15%×10%=90만, 차이 210만.
  * 출처: 국세청 부가가치세 신고납부기한·기본정보(nts.go.kr), 부가가치세법 §46·§48, 홈택스.
  */
 
@@ -382,6 +386,100 @@ export default function SelfEmployedFreelancerTaxGuide() {
             <p className="mt-3 text-xs leading-relaxed text-slate-500">
               간이과세 기준은 직전 연도 매출(공급대가) 1억 400만 원 미만(과세유흥장소·부동산임대업은
               4,800만 원 미만)이며, 일부 업종·지역은 간이과세가 배제됩니다.
+            </p>
+          </section>
+
+          {/* 1.5 계산 예시 — 간이 vs 일반 숫자로 */}
+          <section>
+            <SectionTitle
+              kicker="숫자로 확인"
+              title="연매출 6,000만 원 카페 — 간이 vs 일반, 부가세는 얼마나 다른가"
+            />
+            <p className="mb-4 text-sm leading-relaxed text-slate-600">
+              표만으로는 감이 안 옵니다. <strong>연매출(공급대가) 6,000만 원 카페</strong>가 원두·임차료
+              등으로 연간 매입 3,300만 원(부가세 포함)을 쓰고, 전액 세금계산서·사업용 카드로 증빙했다고
+              가정해 봅니다 — 공급가액 3,000만 원 + 매입세액 300만 원입니다.
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+              <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-600">
+                    <th className="px-4 py-3 font-semibold">구분</th>
+                    <th className="px-4 py-3 font-semibold text-indigo-700">일반과세자</th>
+                    <th className="px-4 py-3 font-semibold text-slate-800">간이과세자 (음식점업 15%)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">계산식</td>
+                    <td className="px-4 py-3 text-slate-600">
+                      매출세액 600만(6,000만 × 10%) − 매입세액 300만
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      6,000만 × 부가가치율 15% × 10%
+                    </td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">연간 부가세</td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">약 300만 원</td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">약 90만 원</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-slate-500">
+              같은 매출인데 이 사례에서는 간이과세가 연 210만 원가량 유리합니다. 다만 이는 업종별
+              부가가치율(음식점업 15%)과 매입 규모를 단순화한 가정 계산으로, 신용카드매출전표 발행
+              세액공제(1.3%) 등을 반영하면 격차는 달라집니다. 반대로 개업 첫해 인테리어·설비 투자처럼
+              매입세액이 매출세액보다 큰 해에는 일반과세자만 차액을 환급받을 수 있어(간이는 환급 불가)
+              초기 투자가 큰 사업은 일반과세가 오히려 나을 수 있습니다.
+            </p>
+          </section>
+
+          {/* 1.5 계산 예시 — 간이 vs 일반 숫자로 */}
+          <section>
+            <SectionTitle
+              kicker="숫자로 확인"
+              title="연매출 6,000만 원 카페 — 간이 vs 일반, 부가세는 얼마나 다른가"
+            />
+            <p className="mb-4 text-sm leading-relaxed text-slate-600">
+              표만으로는 감이 안 옵니다. <strong>연매출(공급대가) 6,000만 원 카페</strong>가 원두·임차료
+              등으로 연간 매입 3,300만 원(부가세 포함)을 쓰고, 전액 세금계산서·사업용 카드로 증빙했다고
+              가정해 봅니다 — 공급가액 3,000만 원 + 매입세액 300만 원입니다.
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+              <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-600">
+                    <th className="px-4 py-3 font-semibold">구분</th>
+                    <th className="px-4 py-3 font-semibold text-indigo-700">일반과세자</th>
+                    <th className="px-4 py-3 font-semibold text-slate-800">간이과세자 (음식점업 15%)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">계산식</td>
+                    <td className="px-4 py-3 text-slate-600">
+                      매출세액 600만(6,000만 × 10%) − 매입세액 300만
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      6,000만 × 부가가치율 15% × 10%
+                    </td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">연간 부가세</td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">약 300만 원</td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">약 90만 원</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-slate-500">
+              같은 매출인데 이 사례에서는 간이과세가 연 210만 원가량 유리합니다. 다만 이는 업종별
+              부가가치율(음식점업 15%)과 매입 규모를 단순화한 가정 계산으로, 신용카드매출전표 발행
+              세액공제(1.3%) 등을 반영하면 격차는 달라집니다. 반대로 개업 첫해 인테리어·설비 투자처럼
+              매입세액이 매출세액보다 큰 해에는 일반과세자만 차액을 환급받을 수 있어(간이는 환급 불가)
+              초기 투자가 큰 사업은 일반과세가 오히려 나을 수 있습니다.
             </p>
           </section>
 

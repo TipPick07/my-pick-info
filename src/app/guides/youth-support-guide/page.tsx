@@ -15,17 +15,21 @@ import Footer from "@/components/Footer";
  *   2026년 상시 사업 전환(청약통장 요건 폐지), 복지로 신청.
  * - 국민취업지원제도: 구직촉진수당 월 60만(2026 인상) × 6개월(최대 1년), 청년특례(만 18~34·재산 5억·취업경험 무관), work24.
  * - 청년미래적금: 2026.6 출시, 3년, 정부기여금 6~12%(청년도약계좌 후속).
+ * - 만기 계산(05-29 글 검증): 월 50만×36=원금 1,800만, 기여금 108만(6%)/216만(12%),
+ *   연 4% 가정 이자 약 111만 → 만기 약 2,019만(일반형)/약 2,127만(우대형). 도약계좌 5년 약 3,443만.
+ * - 청년내일저축계좌(07-20 글 검증): 월 10만 저축 + 정부 월 30만 매칭 → 3년 1,440만(+이자),
+ *   2026 신규는 중위소득 50% 이하, 연 1회(봄) 모집.
  * 출처: 복지로·국토부, 고용노동부 work24, 온통청년(youth.go.kr).
  */
 
 const SITE = "https://tip-pick.com";
 const PATH = "/guides/youth-support-guide/";
-const UPDATED = "2026-06-28";
+const UPDATED = "2026-07-20";
 
 // 내부 루프 링크
 const SRC_SAVINGS = "/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/"; // 청년미래적금 vs 도약계좌 비교
 const SRC_RENT = "/blog/2026-04-30-youth-rent-support/"; // 청년 월세
-const SRC_COMPARE = "/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/"; // 도약 vs 미래
+const SRC_TOMORROW = "/blog/2026-07-20-youth-tomorrow-savings-account-guide/"; // 청년내일저축계좌
 const SRC_BENEFITS = "/benefits/";
 
 // 공식 출처
@@ -47,11 +51,13 @@ export const metadata: Metadata = {
 
 /* ─────────────────────────  본문 데이터  ───────────────────────── */
 
-// ★ 핵심 비교표 — 목적별 대표 청년 지원
+// ★ 핵심 비교표 — 대표 청년 지원 5가지 (수치는 각 상세 글의 검증값)
 const COMPARE = [
-  { axis: "목돈 모으기", program: "청년미래적금 · 청년주택드림 청약", point: "정부기여금 6~12% · 청약 우대금리", accent: true },
-  { axis: "주거", program: "청년 월세 지원 · 청년 전세대출", point: "월 20만 × 24개월(최대 480만) · 저금리 전세", accent: true },
-  { axis: "취업·생활", program: "국민취업지원제도", point: "구직촉진수당 월 60만 (6개월)" },
+  { axis: "청년미래적금", program: "3년 · 월 50만 한도 · 기여금 6%(우대형 12%)", point: "월 50만·연 4% 가정 만기 약 2,019만~2,127만 · 연 2회(6·12월) 모집", accent: true },
+  { axis: "청년도약계좌", program: "5년 · 월 70만 한도 · 기여금 월 최대 3만 3천 원", point: "월 50만·연 4% 가정 만기 약 3,443만 · 매월 신청" },
+  { axis: "청년내일저축계좌", program: "3년 · 월 10만 저축에 정부 월 30만 매칭", point: "만기 1,440만(+이자) · 중위소득 50% 이하 · 연 1회(봄) 모집", accent: true },
+  { axis: "청년 월세 지원", program: "월 최대 20만 × 24개월 = 총 480만", point: "청년가구 중위 60% 이하 · 2026년 상시 신청 전환", accent: true },
+  { axis: "국민취업지원제도", program: "구직촉진수당 월 60만 × 6개월", point: "청년특례 만 18~34세 · 취업 경험 무관 · work24 신청" },
 ];
 
 // 자산 형성
@@ -229,14 +235,14 @@ export default function YouthSupportGuide() {
         <div className="mx-auto max-w-3xl space-y-16 px-5 py-14">
           {/* 1. 핵심 비교표 */}
           <section>
-            <SectionTitle kicker="한 표로 정리" title="목적별 대표 청년 지원" />
+            <SectionTitle kicker="한 표로 정리" title="대표 청년 지원 5가지 — 숫자로 비교" />
             <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
-              <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+              <table className="w-full min-w-[720px] border-collapse text-left text-sm">
                 <thead>
                   <tr className="bg-slate-50 text-slate-600">
-                    <th className="px-4 py-3 font-semibold">목적</th>
-                    <th className="px-4 py-3 font-semibold text-indigo-700">대표 지원</th>
-                    <th className="px-4 py-3 font-semibold text-slate-800">핵심</th>
+                    <th className="px-4 py-3 font-semibold">제도</th>
+                    <th className="px-4 py-3 font-semibold text-indigo-700">지원 구조</th>
+                    <th className="px-4 py-3 font-semibold text-slate-800">핵심 조건·신청</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -256,6 +262,63 @@ export default function YouthSupportGuide() {
           <section>
             <SectionTitle kicker="① 목돈 모으기" title="자산 형성 — 정부가 보태 준다" />
             <DepthCard tone="indigo" badge="자산형성" title="청년미래적금 + 청년주택드림" sub="정부 기여금·비과세·청약 우대" rows={ASSET} />
+          </section>
+
+          {/* 2.5 자체 계산 — 만기 수령액과 병행 시 연간 총액 */}
+          <section>
+            <SectionTitle kicker="숫자로 확인" title="직접 계산 — 3년 뒤 얼마, 1년에 얼마 받나" />
+            <p className="mb-4 text-sm leading-relaxed text-slate-600">
+              <strong>26세 직장인 C씨(총급여 2,800만 원)</strong>가 청년미래적금에 월 50만 원씩 3년
+              납입한다고 가정해 봅니다(금리 연 4% 가정 · 이자 비과세 — 상세 계산 근거는{" "}
+              <Link href={SRC_SAVINGS} className="font-medium text-indigo-600 underline-offset-2 hover:underline">
+                청년미래적금 vs 도약계좌 비교
+              </Link>{" "}
+              참고).
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+              <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-600">
+                    <th className="px-4 py-3 font-semibold">항목</th>
+                    <th className="px-4 py-3 font-semibold text-indigo-700">일반형 (기여금 6%)</th>
+                    <th className="px-4 py-3 font-semibold text-slate-800">중소기업 우대형 (12%)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">내 납입 원금</td>
+                    <td className="px-4 py-3 text-slate-600">1,800만 원 (50만 × 36개월)</td>
+                    <td className="px-4 py-3 text-slate-600">1,800만 원</td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">정부 기여금</td>
+                    <td className="px-4 py-3 text-slate-600">108만 원 (6%)</td>
+                    <td className="px-4 py-3 text-slate-600">216만 원 (12%)</td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">이자 (연 4% 가정)</td>
+                    <td className="px-4 py-3 text-slate-600">약 111만 원 (비과세)</td>
+                    <td className="px-4 py-3 text-slate-600">약 111만 원 (비과세)</td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">3년 만기 수령액</td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">약 2,019만 원</td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">약 2,127만 원</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              C씨가 부모와 따로 사는 무주택 세입자라{" "}
+              <Link href={SRC_RENT} className="font-medium text-indigo-600 underline-offset-2 hover:underline">
+                청년 월세 지원
+              </Link>
+              (월 최대 20만 원)까지 병행하면, 1년간 정부에서 받는 돈만 월세 240만 원(20만 × 12개월)
+              + 적금 기여금 연 36만 원(3년 108만 원의 연 환산) = <strong>연 276만 원</strong>,
+              우대형이면 연 312만 원(240만 + 72만)입니다. 월세를 24개월 다 받으면 총 480만 원 —
+              적금 기여금까지 합치면 3년간 정부 지원만 588만 원(480만 + 108만, 일반형 기준)입니다.
+              단, 두 제도는 소득 요건이 달라(월세는 청년가구 중위 60% 이하) 각자 자격 확인이 먼저입니다.
+            </p>
           </section>
 
           {/* 3. 주거 */}
@@ -291,7 +354,7 @@ export default function YouthSupportGuide() {
               <h2 className="mt-1 text-xl font-bold text-slate-900">청년 정책은 기준·시기가 자주 바뀝니다</h2>
               <p className="mt-4 text-sm leading-relaxed text-slate-700">
                 청년 지원은 나이·소득 기준과 모집 시기가 매년 바뀌고, 같은 이름이라도 중앙정부와
-                지자체 조건이 다를 수 있습니다. 이 글은 2026년 6월 기준 큰 틀이며, 신청 전{" "}
+                지자체 조건이 다를 수 있습니다. 이 글은 2026년 7월 기준 큰 틀이며, 신청 전{" "}
                 <a href={SRC_YOUTH} target="_blank" rel="noopener noreferrer" className="font-medium text-amber-800 underline underline-offset-2">
                   온통청년(youth.go.kr)
                 </a>
@@ -328,9 +391,9 @@ export default function YouthSupportGuide() {
                 <p className="text-sm font-bold text-slate-900">청년 월세 지원 →</p>
                 <p className="mt-1 text-sm leading-relaxed text-slate-600">월 최대 20만 원, 자격·신청 방법을 자세히.</p>
               </Link>
-              <Link href={SRC_COMPARE} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-indigo-200 hover:bg-indigo-50/40">
-                <p className="text-sm font-bold text-slate-900">청년도약계좌 vs 청년미래적금 →</p>
-                <p className="mt-1 text-sm leading-relaxed text-slate-600">어떤 상품이 내게 유리한지 비교.</p>
+              <Link href={SRC_TOMORROW} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-indigo-200 hover:bg-indigo-50/40">
+                <p className="text-sm font-bold text-slate-900">청년내일저축계좌 — 3년 1,440만 →</p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">월 10만 저축에 정부 30만 매칭 — 자격·만기 수령액 직접 계산.</p>
               </Link>
               <Link href={SRC_BENEFITS} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-indigo-200 hover:bg-indigo-50/40">
                 <p className="text-sm font-bold text-slate-900">정부 지원금 전체 →</p>
@@ -354,7 +417,7 @@ export default function YouthSupportGuide() {
           {/* 면책 + 출처 */}
           <footer className="border-t border-slate-100 pt-6">
             <p className="text-xs leading-relaxed text-slate-400">
-              본 페이지의 금액·요건은 2026년 6월 기준({UPDATED} 확인)으로 정리한 것입니다. 청년
+              본 페이지의 금액·요건은 2026년 7월 기준({UPDATED} 확인)으로 정리한 것입니다. 청년
               지원은 나이·소득 기준과 모집 시기가 자주 바뀌고 지자체별로 다르므로, 신청 전 온통청년
               (youth.go.kr)·복지로·work24와 거주지 지자체에서 최신 기준을 반드시 확인하시기
               바랍니다. 본 내용은 정보 제공을 위한 것입니다.

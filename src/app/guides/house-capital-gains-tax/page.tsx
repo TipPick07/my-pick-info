@@ -41,13 +41,13 @@ const SRC_HOMETAX = "https://hometax.go.kr"; // 홈택스 양도세 모의계산
 const SRC_MOLIT = "https://www.molit.go.kr/policy/stable/sta_b_03.jsp"; // 국토부 조정대상지역 지정현황
 
 const OG_TITLE =
-  "집 팔 때 양도소득세 — 1세대 1주택 12억 비과세·장기보유공제·세율 (2026)";
+  "집 팔 때 양도소득세 — 12억 비과세·장특공 (2026)";
 const OG_DESC =
-  "1세대 1주택은 2년 보유(조정지역 취득은 2년 거주)·양도가액 12억까지 비과세. 장기보유특별공제 최대 80%, 다주택 중과 부활(2026.5)까지 한 표로 정리한 가이드.";
+  "1세대 1주택은 2년 보유(조정지역은 2년 거주)·12억까지 비과세. 장기보유특별공제 80%, 다주택 중과 부활, 15억 계산 예시까지 정리한 가이드.";
 
 export const metadata: Metadata = {
   title:
-    "집 팔 때 양도소득세 — 1세대 1주택 비과세·장기보유공제·세율 한눈에 (2026) | 팁픽",
+    "집 팔 때 양도소득세 — 12억 비과세·장특공 (2026) | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
@@ -577,6 +577,48 @@ export default function HouseCapitalGainsTaxGuide() {
                   국세청 홈택스 양도소득세 모의계산
                 </a>
                 으로 확인하고, 세무사와 상담하시길 권합니다.
+              </p>
+            </div>
+          </section>
+
+          {/* 6.5 계산 예시 — 15억에 판 1세대 1주택 */}
+          <section>
+            <SectionTitle
+              kicker="숫자로 확인"
+              title="계산 예시 — 15억에 판 1세대 1주택"
+            />
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-6">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                가정: 취득가 7억 → 양도가 15억 · 보유·거주 10년 이상(장특공 80%) · 필요경비
+                없음 · 비과세 요건 충족
+              </p>
+              <ul className="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
+                <li>
+                  <strong className="text-slate-800">① 전체 양도차익</strong> — 15억 − 7억 =
+                  8억 원
+                </li>
+                <li>
+                  <strong className="text-slate-800">② 과세 대상 차익</strong> — 12억 초과분
+                  비율만 과세: 8억 × (15억 − 12억) ÷ 15억 = <strong>1억 6,000만 원</strong>
+                  (나머지 6억 4,000만 원은 비과세)
+                </li>
+                <li>
+                  <strong className="text-slate-800">③ 장기보유특별공제 80%</strong> — 1억
+                  6,000만 × 80% = 1억 2,800만 원 공제 → 양도소득금액 3,200만 원
+                </li>
+                <li>
+                  <strong className="text-slate-800">④ 기본공제 250만 원</strong> — 과세표준
+                  3,200만 − 250만 = 2,950만 원
+                </li>
+                <li>
+                  <strong className="text-slate-800">⑤ 산출세액</strong> — 2,950만 × 15% −
+                  누진공제 126만 = <strong>316만 5,000원</strong>
+                </li>
+              </ul>
+              <p className="mt-4 text-xs leading-relaxed text-slate-500">
+                8억이 남는 거래인데 세금은 300만 원대 — 12억 초과분 비율 과세와 장특공 80%가
+                겹친 결과입니다. 같은 조건에서 거주 기간이 짧아 공제율이 낮아지면 과세표준이
+                커져 세금이 크게 늘어나니, 위 수치는 어디까지나 가정에 따른 예시입니다.
               </p>
             </div>
           </section>

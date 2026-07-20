@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CarTaxCalculator from "@/components/CarTaxCalculator";
@@ -68,9 +69,30 @@ export default function CarTaxToolPage() {
             <p>
               자동차세는 보통 6월과 12월에 절반씩 나눠 내지만, 1월에 1년치를 미리 내는{" "}
               <strong className="text-slate-800">연납(일시납)</strong>을 신청하면 일정 비율을
-              할인받을 수 있습니다. 할인율은 매년 조금씩 달라지므로, 정확한 연납 할인액은 위택스
-              (Wetax)나 관할 지자체에서 확인하세요.
+              할인받을 수 있습니다. 2026년 연납 공제율은{" "}
+              <strong className="text-slate-800">연 5%</strong>(지방세법 시행령 기준)이며,
+              납부일 이후 남은 기간에 대해 일할 적용되어 1월에 연납하면 연세액의 약 4.6%가
+              공제됩니다. 신청 기간(1·3·6·9월)과 정확한 공제액은 위택스(wetax.go.kr)에서
+              확인하세요.
             </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-2xl font-black text-slate-900">함께 보면 좋은 도구·글</h2>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                <Link href="/tools/" className="font-bold text-brand-dark underline underline-offset-2">팁픽 계산기 모음</Link>
+                {" "}— 연봉·대출·퇴직금 등 생활 속 계산기를 한곳에서 이용할 수 있습니다.
+              </li>
+              <li>
+                <Link href="/blog/2026-07-01-car-insurance-saving-guide/" className="font-bold text-brand-dark underline underline-offset-2">자동차보험료 절약 가이드</Link>
+                {" "}— 자동차세와 함께 고정비인 보험료를 아끼는 방법을 정리한 글입니다.
+              </li>
+              <li>
+                <Link href="/tools/loan/" className="font-bold text-brand-dark underline underline-offset-2">대출 이자 계산기</Link>
+                {" "}— 차량 구매 할부·오토론의 월 상환금과 총이자를 미리 계산해 보세요.
+              </li>
+            </ul>
           </section>
 
           <p className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-sm text-slate-500">

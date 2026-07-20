@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LoanCalculator from "@/components/LoanCalculator";
@@ -58,7 +59,7 @@ export default function LoanToolPage() {
             <p>
               <strong className="text-slate-800">원리금균등상환</strong>은 매달 갚는 금액(원금
               + 이자)이 처음부터 끝까지 동일한 방식입니다. 매달 나가는 돈이 일정해 자금 계획을
-              세우기 쉽고, 초기 부담이 비교적 작다는 장점이 있어 가장 널리 쓰입니다. 다만 초반에는
+              세우기 쉽고, 초기 부담이 비교적 작다는 장점이 있어 가장 널리 쓰입니다. 2026년 기준으로도 주택담보대출·신용대출 대부분이 이 방식을 기본으로 안내합니다. 다만 초반에는
               상환액 중 이자 비중이 크고 원금은 천천히 줄어듭니다. 반면{" "}
               <strong className="text-slate-800">원금균등상환</strong>은 매달 갚는 원금이 동일하고,
               남은 잔액에 대한 이자만 더해지는 방식입니다. 그래서 첫 달 상환액이 가장 크고 시간이
@@ -92,6 +93,24 @@ export default function LoanToolPage() {
               <strong className="text-slate-800">중도상환수수료</strong>가 붙을 수 있으니 미리
               확인하는 것이 좋습니다.
             </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-2xl font-black text-slate-900">함께 보면 좋은 도구·글</h2>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                <Link href="/tools/rent-conversion/" className="font-bold text-brand-dark underline underline-offset-2">전월세 전환율 계산기</Link>
+                {" "}— 전세 보증금과 월세를 오갈 때 어느 쪽이 유리한지 비교할 수 있습니다.
+              </li>
+              <li>
+                <Link href="/tools/brokerage-fee/" className="font-bold text-brand-dark underline underline-offset-2">부동산 중개보수 계산기</Link>
+                {" "}— 매매·전세·월세 계약 시 중개수수료 상한을 미리 확인해 보세요.
+              </li>
+              <li>
+                <Link href="/blog/2026-06-28-stress-dsr-loan-limit-2026/" className="font-bold text-brand-dark underline underline-offset-2">스트레스 DSR 대출 한도 가이드</Link>
+                {" "}— 2026년 스트레스 DSR 규제에서 내 대출 한도가 얼마나 되는지 정리한 글입니다.
+              </li>
+            </ul>
           </section>
 
           <p className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-sm text-slate-500">

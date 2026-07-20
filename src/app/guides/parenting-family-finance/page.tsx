@@ -30,14 +30,14 @@ const SRC_APPLY = "https://enhuf.molit.go.kr";
 
 // 절대 URL로 지정 → layout의 metadataBase 유무와 무관하게 og:image가 안전하게 해석됨
 const OG_IMAGE = `${SITE}/images/og/parenting-family-finance.png`;
-const OG_TITLE = "출산 가구 주택 대출 — 신생아 특례 디딤돌·버팀목 한눈에 (2026)";
+const OG_TITLE = "신생아 특례 디딤돌·버팀목 — 출산 가구 대출 (2026)";
 const OG_DESC =
-  "2년 내 출산이면 시중금리 절반대로 집 구입(디딤돌)·전세(버팀목). 소득·순자산·한도·금리·특례기간을 한 표로 비교한 2026 가이드.";
+  "신생아 특례 디딤돌(구입)·버팀목(전세) — 2년 내 출산 무주택 가구의 소득·순자산·한도·금리·특례기간을 2026년 기준 한 표로 비교했습니다.";
 
 export const metadata: Metadata = {
-  title: "출산 가구 주택 대출 — 신생아 특례 디딤돌·버팀목 한눈에 (2026) | 팁픽",
+  title: "신생아 특례 디딤돌·버팀목 — 출산 가구 대출 (2026) | 팁픽",
   description:
-    "대출 접수일 기준 2년 내 출산한 무주택 가구라면, 집을 살 때는 디딤돌, 전세로 들어갈 때는 버팀목으로 시중금리 절반대 대출을 받습니다. 소득·순자산·한도·금리·특례기간을 2026년 기준으로 한 페이지에 비교했습니다.",
+    "신생아 특례 디딤돌(구입)·버팀목(전세) — 2년 내 출산 무주택 가구의 소득·순자산·한도·금리·특례기간을 2026년 기준 한 표로 비교했습니다.",
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
     type: "article",
@@ -448,6 +448,69 @@ export default function ParentingFamilyFinanceGuide() {
               >
                 마이홈포털 신생아 특례 버팀목
               </a>
+            </p>
+          </section>
+
+          {/* 4.5 계산 예시 — 특례 1.8% vs 시중 4.0% 5년 이자 차액 */}
+          <section>
+            <SectionTitle
+              kicker="직접 계산해 보면"
+              title="3억 대출, 특례 금리로 5년간 얼마나 아낄까"
+            />
+            <p className="mb-5 text-sm leading-relaxed text-slate-600">
+              <strong className="text-slate-800">
+                디딤돌로 3억원을 만기 30년·원리금균등 상환으로 빌리고, 금리는
+                특례 구간 하단인 1.8%가 특례기간 5년 내내 유지되며, 비교 대상인
+                시중 주택담보대출은 4.0% 고정이라고 가정
+              </strong>
+              한 단순 계산입니다. 실제 금리는 소득·기간 구간별로 다릅니다.
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+              <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-600">
+                    <th className="px-4 py-3 font-semibold">구분</th>
+                    <th className="px-4 py-3 font-semibold text-indigo-700">
+                      특례 1.8% 가정
+                    </th>
+                    <th className="px-4 py-3 font-semibold text-slate-800">
+                      시중 4.0% 가정
+                    </th>
+                    <th className="px-4 py-3 font-semibold">차이</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">
+                      월 상환액
+                    </td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">
+                      약 107.9만원
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">약 143.2만원</td>
+                    <td className="px-4 py-3 font-medium text-slate-800">
+                      월 약 35.3만원
+                    </td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">
+                      5년(60회)간 내는 이자
+                    </td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">
+                      약 2,528만원
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">약 5,728만원</td>
+                    <td className="px-4 py-3 font-bold text-indigo-700">
+                      약 3,200만원 절약
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-slate-400">
+              ※ 자체 계산 예시입니다. 우대금리를 받으면(최종 하한 1.2%) 차이는
+              더 커지고, 특례기간이 끝나면 금리가 전환됩니다(FAQ 참고). 본인
+              조건의 정확한 금리·상환액은 기금e든든에서 확인하세요.
             </p>
           </section>
 

@@ -8,7 +8,7 @@ const SITE = "https://tip-pick.com";
 const PATH = "/tools/youth-savings-account/";
 
 export const metadata: Metadata = {
-  title: "청년내일저축계좌 만기 수령액 계산기 | 팁픽",
+  title: "청년내일저축계좌 계산기 — 정부지원금 만기 수령액 | 팁픽",
   description:
     "청년내일저축계좌 3년 만기 수령액을 바로 계산합니다. 월 저축액·정부 매칭(신규 30만·기존 10만)·이자를 넣으면 본인 원금·정부지원금·이자로 나눠 보여 드립니다.",
   alternates: { canonical: `${SITE}${PATH}` },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${SITE}${PATH}`,
-    title: "청년내일저축계좌 만기 수령액 계산기 | 팁픽",
+    title: "청년내일저축계좌 계산기 — 정부지원금 만기 수령액 | 팁픽",
     description:
       "청년내일저축계좌 3년 만기 수령액을 본인 원금·정부지원금·이자로 나눠 계산합니다.",
   },

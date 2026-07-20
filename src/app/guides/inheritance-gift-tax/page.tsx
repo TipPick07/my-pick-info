@@ -37,13 +37,13 @@ const SRC_NTS = "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=6528&cntnt
 const SRC_HOMETAX = "https://hometax.go.kr";
 
 const OG_TITLE =
-  "상속·증여세 — 10억 공제·10년 증여 플랜·세율 10~50% 한눈에 (2026)";
+  "상속·증여세 — 10억 공제·10년 증여 플랜 (2026)";
 const OG_DESC =
   "배우자와 자녀가 있으면 10억까지 상속세 0원. 일괄공제 5억·배우자공제, 10년마다 리셋되는 증여공제로 미리 나눠 주는 절세 설계까지 한 표로 정리한 가이드.";
 
 export const metadata: Metadata = {
   title:
-    "상속·증여세 — 10억 공제·10년 증여 플랜 한눈에 (2026) | 팁픽",
+    "상속·증여세 — 10억 공제·10년 증여 플랜 (2026) | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
@@ -514,6 +514,40 @@ export default function InheritanceGiftTaxGuide() {
                   국세청 홈택스
                 </a>
                 에서 최신 법령을 확인하고 세무 전문가와 상담하시길 권합니다.
+              </p>
+            </div>
+          </section>
+
+          {/* 6.5 계산 예시 — 상속재산 15억 */}
+          <section>
+            <SectionTitle
+              kicker="숫자로 확인"
+              title="계산 예시 — 상속재산 15억, 배우자+자녀"
+            />
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-6">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                가정: 총 상속재산 15억 · 배우자와 자녀가 함께 상속 · 사전증여 없음 · 기한 내
+                신고
+              </p>
+              <ul className="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
+                <li>
+                  <strong className="text-slate-800">① 공제 차감</strong> — 일괄공제 5억 +
+                  배우자상속공제 최소 5억 = 10억 공제 → 과세표준 15억 − 10억 ={" "}
+                  <strong>5억 원</strong>
+                </li>
+                <li>
+                  <strong className="text-slate-800">② 세율 적용</strong> — 과세표준 5억 이하
+                  구간: 5억 × 20% − 누진공제 1,000만 = 산출세액 <strong>9,000만 원</strong>
+                </li>
+                <li>
+                  <strong className="text-slate-800">③ 신고세액공제 3%</strong> — 6개월 기한 내
+                  신고 시 9,000만 × 3% = 270만 원 차감 → 낼 세금 <strong>8,730만 원</strong>
+                </li>
+              </ul>
+              <p className="mt-4 text-xs leading-relaxed text-slate-500">
+                배우자가 실제로 5억 원 넘게 상속받으면 배우자상속공제가 그만큼 커져(최대
+                30억) 세금이 더 줄어들 수 있습니다. 위 수치는 최소 공제만 적용한 가정의
+                예시이며, 사망 전 10년 내 사전증여가 있으면 합산되어 결과가 달라집니다.
               </p>
             </div>
           </section>

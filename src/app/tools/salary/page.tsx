@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SalaryCalculator from "@/components/SalaryCalculator";
@@ -100,6 +101,24 @@ export default function SalaryToolPage() {
               함께 살펴보는 것이 좋습니다. 위 계산기에서 월 비과세액을 조정해 보면, 실수령액이
               어떻게 달라지는지 직접 확인할 수 있습니다.
             </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-2xl font-black text-slate-900">함께 보면 좋은 도구·글</h2>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                <Link href="/tools/insurance/" className="font-bold text-brand-dark underline underline-offset-2">4대보험 계산기</Link>
+                {" "}— 월급에서 빠지는 국민연금·건강보험·고용보험료만 따로 떼어 확인할 수 있습니다.
+              </li>
+              <li>
+                <Link href="/tools/income-tax/" className="font-bold text-brand-dark underline underline-offset-2">종합소득세 계산기</Link>
+                {" "}— 프리랜서·부업 소득이 있다면 5월 종합소득세 예상 세액도 함께 계산해 보세요.
+              </li>
+              <li>
+                <Link href="/blog/2026-06-27-net-salary-2026-guide/" className="font-bold text-brand-dark underline underline-offset-2">연봉 실수령액 가이드</Link>
+                {" "}— 연봉 구간별 실수령액 표와 공제 구조를 자세히 정리한 글입니다.
+              </li>
+            </ul>
           </section>
 
           <p className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-sm text-slate-500">

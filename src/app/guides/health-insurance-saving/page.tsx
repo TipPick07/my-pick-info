@@ -40,12 +40,12 @@ const SRC_MONEY = "/money/";
 const SRC_NHIS = "https://www.nhis.or.kr"; // 국민건강보험공단
 const SRC_MOHW = "https://www.mohw.go.kr"; // 보건복지부
 
-const OG_TITLE = "건강보험료 줄이는 법 — 직장·지역·피부양자 기준과 절감 루트 (2026)";
+const OG_TITLE = "건강보험료 줄이는 법 — 직장·지역·피부양자 절감 (2026)";
 const OG_DESC =
-  "2026년 건보료 7.19% 시대 — 지역가입자 산정 구조(연금 50%·금융 1,000만·재산공제 1억)와 피부양자 기준(소득 2,000만·재산 5.4억), 임의계속가입·조정신청까지 합법적 절감 루트를 한 표로 정리한 가이드.";
+  "2026 건보료율 7.19% — 지역가입자 산정 구조와 피부양자 기준(소득 2,000만·재산 5.4억), 임의계속가입 등 절감 루트를 정리했습니다.";
 
 export const metadata: Metadata = {
-  title: "건강보험료 줄이는 법 — 직장·지역·피부양자 절감 루트 한눈에 (2026) | 팁픽",
+  title: "건강보험료 줄이는 법 — 직장·지역·피부양자 절감 (2026) | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
@@ -453,6 +453,53 @@ export default function HealthInsuranceSavingGuide() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </section>
+
+          {/* 4.5 자체 계산 예시 — 은퇴자 지역보험료 */}
+          <section>
+            <SectionTitle
+              kicker="숫자로 따라가 보기"
+              title="연금 1,800만·재산 3억 은퇴자 — 월 보험료 예시"
+            />
+            <div className="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-6">
+              <p className="text-sm leading-relaxed text-slate-700">
+                국민연금 연 <strong>1,800만 원</strong>, 재산세 과세표준{" "}
+                <strong>3억 원</strong>(그 외 소득·재산 없음)인 은퇴자가
+                지역가입자일 때, 위 산정 구조를 그대로 대입해 봅니다. 재산 등급별
+                점수는 공단 60등급표로 확인해야 하므로 여기서는{" "}
+                <strong>700점으로 가정</strong>했습니다.
+              </p>
+              <ol className="mt-4 space-y-2 text-sm leading-relaxed text-slate-700">
+                <li>
+                  ① <strong>소득분</strong> — 연금 1,800만 × 50% 반영 = 900만 → 월
+                  75만 × 7.19% = <strong>약 53,925원</strong>
+                </li>
+                <li>
+                  ② <strong>재산분</strong> — 과표 3억 − 기본공제 1억 = 2억 → 점수
+                  환산(700점 가정) × 211.5원 = <strong>약 148,050원</strong>
+                </li>
+                <li>
+                  ③ <strong>합계</strong> — 건강보험료 약 201,975원 + 장기요양
+                  13.14%(약 26,540원) = <strong>월 약 228,500원</strong>
+                </li>
+              </ol>
+              <p className="mt-4 text-sm leading-relaxed text-slate-700">
+                포인트는 이 사례가 <strong>소득 2,000만 이하·재산 과표 5.4억
+                이하</strong>라는 점입니다. 가족 중 직장가입자가 있어 피부양자로
+                등재되면 같은 조건에서 보험료가 <strong>0원</strong>이 되므로, 등재
+                가능 여부 확인이 월 20만 원대 지출을 가르는 첫수입니다. 실제
+                점수·보험료는{" "}
+                <a
+                  href={SRC_NHIS}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-indigo-600 underline-offset-2 hover:underline"
+                >
+                  공단 모의계산
+                </a>
+                으로 검산하세요.
+              </p>
             </div>
           </section>
 

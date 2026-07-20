@@ -21,12 +21,12 @@ const UPDATED = "2026-06-05"; // 사실 최종 확인일
 const OG_IMAGE = `${SITE}/images/og/parenting-family-benefits.png`;
 const OG_TITLE = "0세~초등 입학 전, 육아·가족 지원금 한눈에 (2026)";
 const OG_DESC =
-  "아동수당·부모급여·보육료·양육수당·유아학비 — 나이 × 돌봄 형태로 한눈에 정리한 2026 육아 지원금 가이드.";
+  "아동수당·부모급여·보육료·양육수당·유아학비 — 아이 나이와 돌봄 형태별로 받는 지원금과 0세~초등 입학 누적 수령액까지 2026년 기준 정리.";
 
 export const metadata: Metadata = {
   title: "0세~초등 입학 전, 육아·가족 지원금 한눈에 (2026) | 팁픽",
   description:
-    "아동수당·부모급여·보육료·양육수당·유아학비까지 — 우리 아이 나이와 돌봄 형태(집·어린이집·유치원)에 따라 무엇을 받는지 2026년 기준으로 한 페이지에 정리했습니다.",
+    "아동수당·부모급여·보육료·양육수당·유아학비 — 아이 나이와 돌봄 형태별로 받는 지원금과 0세~초등 입학 누적 수령액까지 2026년 기준 정리.",
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
     type: "article",
@@ -282,7 +282,7 @@ export default function ParentingFamilyBenefitsGuide() {
               <p className="mt-3 rounded-xl bg-white/70 px-4 py-3 text-xs leading-relaxed text-slate-500">
                 2026년 4월부터 대상이 만 8세 → 9세 미만으로 확대됐고, 2030년까지
                 매년 1세씩 만 13세 미만까지 넓어집니다. (비수도권·인구감소지역은
-                10만원보다 더 받습니다.)
+                10만원보다 더 받습니다 — 비수도권 10.5만원, 인구감소지역 최대 13만원.)
               </p>
             </div>
           </section>
@@ -375,6 +375,96 @@ export default function ParentingFamilyBenefitsGuide() {
             <p className="mt-3 text-xs leading-relaxed text-slate-400">
               ※ 보육료는 부모 계좌가 아니라 어린이집·유치원에 직접 지급되는
               바우처입니다. 농어촌·장애아동 가정양육수당은 금액이 다릅니다.
+            </p>
+          </section>
+
+          {/* 3.5 계산 예시 — 0세부터 초등 입학까지 누적 수령액 */}
+          <section>
+            <SectionTitle
+              kicker="직접 계산해 보면"
+              title="0세부터 초등 입학까지, 총 얼마나 받을까"
+            />
+            <p className="mb-5 text-sm leading-relaxed text-slate-600">
+              위 표의 금액만으로, 한 아이가 받는 현금·바우처 총액을 계산해
+              봤습니다.{" "}
+              <strong className="text-slate-800">
+                수도권 첫째 아이를 집에서 키우고(어린이집·유치원 미이용), 생후
+                84개월(만 7세가 되는 해 3월)에 초등학교에 입학하며, 단가는
+                2026년 기준이 유지된다고 가정
+              </strong>
+              한 단순 계산입니다.
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+              <table className="w-full min-w-[520px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-600">
+                    <th className="px-4 py-3 font-semibold">항목</th>
+                    <th className="px-4 py-3 font-semibold">계산 (가정 포함)</th>
+                    <th className="px-4 py-3 font-semibold">합계</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-800">
+                      첫만남이용권
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      첫째 200만원 — 출생 시 1회 (바우처)
+                    </td>
+                    <td className="px-4 py-3 font-medium text-slate-800">
+                      200만원
+                    </td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-800">
+                      부모급여
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      0세 100만원 × 12개월 + 1세 50만원 × 12개월
+                    </td>
+                    <td className="px-4 py-3 font-medium text-slate-800">
+                      1,800만원
+                    </td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-800">
+                      가정양육수당
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      월 10만원 × 60개월 (24~83개월)
+                    </td>
+                    <td className="px-4 py-3 font-medium text-slate-800">
+                      600만원
+                    </td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-800">
+                      아동수당
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      월 10만원 × 84개월 (0~83개월 · 수도권 기준)
+                    </td>
+                    <td className="px-4 py-3 font-medium text-slate-800">
+                      840만원
+                    </td>
+                  </tr>
+                  <tr className="bg-indigo-50/40 align-top">
+                    <td className="px-4 py-3 font-bold text-indigo-700">합계</td>
+                    <td className="px-4 py-3 text-slate-600">
+                      200만 + 1,800만 + 600만 + 840만
+                    </td>
+                    <td className="px-4 py-3 font-bold text-indigo-700">
+                      3,440만원
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-slate-400">
+              ※ 자체 계산 예시입니다. 어린이집·유치원을 이용하면 가정양육수당
+              대신 보육료·유아학비(바우처)로 바뀌고, 비수도권·인구감소지역은
+              아동수당이 더 커집니다. 아동수당은 초등 입학 후에도 만 9세
+              미만까지 계속 나오므로 실제 총액은 이보다 큽니다.
             </p>
           </section>
 

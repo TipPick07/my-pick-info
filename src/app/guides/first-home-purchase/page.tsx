@@ -34,13 +34,13 @@ const SRC_FUND = "https://enhuf.molit.go.kr";
 const SRC_APPLY = "https://www.applyhome.co.kr";
 
 const OG_TITLE =
-  "생애최초 주택구입 — 정책대출·취득세 200만·청약 특공 한눈에 (2026)";
+  "생애최초 주택구입 — 정책대출·취득세·청약 (2026)";
 const OG_DESC =
-  "처음 집 살 때 챙길 3대 혜택 — 디딤돌·보금자리론 정책대출, 생애최초 LTV 80%, 취득세 최대 200만원 감면과 청약 특별공급까지 순서대로 정리한 가이드.";
+  "처음 집 살 때 3대 혜택 — 디딤돌·보금자리론, 생애최초 LTV 80%, 취득세 최대 200만원 감면·청약 특공까지 순서대로 정리했습니다.";
 
 export const metadata: Metadata = {
   title:
-    "생애최초 주택구입 — 정책대출·취득세 감면·청약 특공 한눈에 (2026) | 팁픽",
+    "생애최초 주택구입 — 정책대출·취득세·청약 (2026) | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
@@ -381,6 +381,52 @@ export default function FirstHomePurchaseGuide() {
                 </Link>
                 ). 순서로 보면 <strong>① 청약통장·무주택 관리 → ② 예산·대출 한도 확인(정책대출
                 우선) → ③ 청약 또는 매매 → ④ 취득세 감면 신청</strong>입니다.
+              </p>
+            </div>
+          </section>
+
+          {/* 4.5 자체 계산 예시 — 수도권 4억 주택 */}
+          <section>
+            <SectionTitle
+              kicker="숫자로 따라가 보기"
+              title="수도권 4억 주택 생애최초 — 감면·한도 계산 예시"
+            />
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-6">
+              <p className="text-sm leading-relaxed text-slate-700">
+                무주택 부부가 <strong>수도권 4억 원 주택</strong>을 생애최초로
+                산다고 하고, 이 글의 기준을 그대로 대입해 봅니다.
+              </p>
+              <ol className="mt-4 space-y-2 text-sm leading-relaxed text-slate-700">
+                <li>
+                  ① <strong>대출 상한(LTV 80%)</strong> — 4억 × 80% ={" "}
+                  <strong>3.2억 원</strong> (수도권 대출 상한 6억 이내)
+                </li>
+                <li>
+                  ② <strong>정책대출</strong> — 주택 5억 이하라 디딤돌 대상(생애최초
+                  한도 2억 원). 부족분은 보금자리론(주택 6억 이하·한도 3.6억) 등으로
+                  LTV 상한 3.2억까지 검토
+                </li>
+                <li>
+                  ③ <strong>취득세</strong> — 세율을 1%로 가정하면 산출세액 400만 원
+                  → 200만 원 초과이므로 <strong>감면 200만 원</strong>, 납부는 약
+                  200만 원
+                </li>
+                <li>
+                  ④ <strong>최소 자기자금</strong> — 4억 − 3.2억 ={" "}
+                  <strong>8,000만 원</strong> + 취득세·부대비용
+                </li>
+              </ol>
+              <p className="mt-4 text-sm leading-relaxed text-slate-700">
+                단, 실제 한도는 소득 기준의 <strong>DSR 40%</strong> 심사에서 더
+                깎일 수 있고, 취득세율은 주택 가격·면적에 따라 달라지므로 계약 전
+                관할 시군구와{" "}
+                <Link
+                  href={SRC_DSR}
+                  className="font-medium text-indigo-600 underline-offset-2 hover:underline"
+                >
+                  LTV·DTI·DSR 정리 글
+                </Link>
+                로 내 소득 기준 한도를 먼저 확인하세요.
               </p>
             </div>
           </section>

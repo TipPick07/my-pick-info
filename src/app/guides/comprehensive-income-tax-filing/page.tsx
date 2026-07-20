@@ -41,13 +41,13 @@ const SRC_NTS_RATE = "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2230&
 const SRC_HOMETAX = "https://hometax.go.kr"; // 홈택스 신고
 
 const OG_TITLE =
-  "프리랜서·N잡러 종합소득세 신고 — 대상·경비·세율·환급 (2026)";
+  "프리랜서·N잡러 종합소득세 신고 — 경비·환급 (2026)";
 const OG_DESC =
-  "3.3% 떼인 프리랜서·부수입 직장인은 5월 종합소득세 대상. 신고 대상·단순/기준경비율·세율·환급·가산세를 한 표로 정리한 가이드.";
+  "3.3% 떼인 프리랜서·N잡러의 5월 종합소득세 — 신고 대상·경비율·세율·환급·가산세를 한 표로 정리했습니다.";
 
 export const metadata: Metadata = {
   title:
-    "프리랜서·N잡러 종합소득세 신고 — 5월 신고·경비·환급 한눈에 (2026) | 팁픽",
+    "프리랜서·N잡러 종합소득세 신고 — 경비·환급 (2026) | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
@@ -474,6 +474,54 @@ export default function ComprehensiveIncomeTaxFilingGuide() {
                 <strong>− 세액공제 − 기납부세액</strong>(3.3% 원천징수 등) = 낼 세금 또는
                 환급. 미리 낸 세금이 산출세액보다 많으면 그 차액을 돌려받습니다(보통
                 6월말~7월초 입금).
+              </p>
+            </div>
+          </section>
+
+          {/* 4.5 자체 계산 예시 — 수입 3,000만 프리랜서 */}
+          <section>
+            <SectionTitle
+              kicker="숫자로 따라가 보기"
+              title="수입 3,000만 프리랜서 — 환급 계산 예시"
+            />
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-6">
+              <p className="text-sm leading-relaxed text-slate-700">
+                한 해 수입이 <strong>3,000만 원</strong>인 3.3% 프리랜서를 위 세율표
+                그대로 계산해 봅니다. 단순경비율은 업종마다 다르므로{" "}
+                <strong>60%로 가정</strong>하고, 흐름을 단순하게 보기 위해
+                소득공제·세액공제는 반영하지 않았습니다.
+              </p>
+              <ol className="mt-4 space-y-2 text-sm leading-relaxed text-slate-700">
+                <li>
+                  ① <strong>소득금액</strong> — 3,000만 − 경비 1,800만(3,000만 × 60%) ={" "}
+                  <strong>1,200만 원</strong>
+                </li>
+                <li>
+                  ② <strong>산출세액</strong> — 과세표준 1,200만 원은 1,400만 이하
+                  구간이라 1,200만 × 6% = <strong>72만 원</strong>
+                </li>
+                <li>
+                  ③ <strong>기납부세액</strong> — 원천징수 3.3% 중 소득세분 3%인
+                  3,000만 × 3% = <strong>90만 원</strong>
+                </li>
+                <li>
+                  ④ <strong>정산</strong> — 72만 − 90만 = −18만 →{" "}
+                  <strong>소득세 18만 원 환급</strong>
+                </li>
+              </ol>
+              <p className="mt-4 text-sm leading-relaxed text-slate-700">
+                지방소득세도 같은 구조입니다. 산출세액의 10%인 7.2만 원보다 미리 낸
+                0.3%분 9만 원이 많아 <strong>1.8만 원</strong>이 더 돌아오고, 합계 약{" "}
+                <strong>19.8만 원</strong>을 돌려받는 그림이 됩니다. 실제로는 인적공제
+                같은 소득공제가 과세표준을 더 낮춰 환급이 커지는 경우가 많습니다. 내
+                경비율을 홈택스에서 확인한 뒤{" "}
+                <Link
+                  href={SRC_INCOMETAX}
+                  className="font-medium text-indigo-600 underline-offset-2 hover:underline"
+                >
+                  종합소득세 계산기
+                </Link>
+                에 과세표준을 넣어 직접 검산해 보세요.
               </p>
             </div>
           </section>

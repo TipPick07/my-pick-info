@@ -28,13 +28,13 @@ const SRC_BENEFITS = "/guides/parenting-family-benefits/"; // 비용(보육료·
 // 절대 URL로 지정 → layout의 metadataBase 유무와 무관하게 og:image가 안전하게 해석됨
 const OG_IMAGE = `${SITE}/images/og/daycare-admission.png`;
 const OG_TITLE =
-  "어린이집·유치원 신청 가이드 — 유보통합포털 입소대기·입학 (2027학년도)";
+  "어린이집·유치원 신청 — 유보통합포털 입소·입학 (2027)";
 const OG_DESC =
   "어린이집은 점수제·연중 대기, 유치원은 11월 추첨. 2024년 통합된 유보통합포털 한 곳에서 입소대기·입학을 어떻게 신청하는지 한눈에 정리했습니다.";
 
 export const metadata: Metadata = {
   title:
-    "어린이집·유치원 신청 가이드 — 유보통합포털 입소대기·입학 (2027학년도) | 팁픽",
+    "어린이집·유치원 신청 — 유보통합포털 입소·입학 (2027) | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
@@ -404,6 +404,55 @@ export default function DaycareAdmissionGuide() {
               sub="유보통합포털 · 처음학교로 모집요강"
               rows={KINDER}
             />
+          </section>
+
+          {/* 3.5 자체 계산 예시 — 입소 점수 비교 */}
+          <section>
+            <SectionTitle
+              kicker="점수로 직접 비교"
+              title="맞벌이 2자녀 vs 외벌이 — 점수는 이렇게 갈린다"
+            />
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+              <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-600">
+                    <th className="px-4 py-3 font-semibold">가구</th>
+                    <th className="px-4 py-3 font-semibold text-indigo-700">
+                      해당 항목(배점)
+                    </th>
+                    <th className="px-4 py-3 font-semibold text-slate-800">
+                      합계·순위
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">
+                      A — 맞벌이 · 2자녀 (첫째가 해당 원 재원 중)
+                    </td>
+                    <td className="px-4 py-3 font-medium text-indigo-700">
+                      맞벌이 200점 + 재원 형제자매 100점 (모두 1순위 항목)
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">300점 · 1순위</td>
+                  </tr>
+                  <tr className="align-top">
+                    <td className="px-4 py-3 font-semibold text-slate-700">
+                      B — 외벌이 · 1순위 항목 없음
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">2순위 항목 1개 × 50점</td>
+                    <td className="px-4 py-3 text-slate-600">50점 · 2순위</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-slate-500">
+              위의 배점 규칙을 그대로 대입한 예시입니다. 2자녀는 &lsquo;3자녀
+              이상(200점)&rsquo;에 해당하지 않으므로 A가구는 맞벌이 200점에 재원
+              형제자매 100점을 더해 300점이 됩니다. B가구는 2순위 항목만 있어 점수
+              합계와 무관하게 1순위인 A보다 앞설 수 없고, 같은 300점끼리 경합하면
+              입소대기 신청 순서로 갈립니다. 참고로 맞벌이이면서 3자녀 이상이면 그
+              항목 하나만으로 300점입니다.
+            </p>
           </section>
 
           {/* 4. 한 장 체크리스트 */}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HourlyWageCalculator from "@/components/HourlyWageCalculator";
@@ -62,6 +63,24 @@ export default function HourlyWageToolPage() {
               낮으면 최저임금 위반이므로, 위 계산기에서 시급을 입력하면 최저임금 미달 여부도
               함께 알려 드립니다.
             </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-2xl font-black text-slate-900">함께 보면 좋은 도구·글</h2>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                <Link href="/tools/salary/" className="font-bold text-brand-dark underline underline-offset-2">연봉 실수령액 계산기</Link>
+                {" "}— 정규직 전환이나 연봉 계약 시 세후 월급이 얼마인지 확인해 보세요.
+              </li>
+              <li>
+                <Link href="/tools/annual-leave-allowance/" className="font-bold text-brand-dark underline underline-offset-2">연차수당 계산기</Link>
+                {" "}— 주 15시간 이상 근무라면 연차수당도 챙길 수 있습니다. 미리 계산해 보세요.
+              </li>
+              <li>
+                <Link href="/tools/" className="font-bold text-brand-dark underline underline-offset-2">팁픽 계산기 모음</Link>
+                {" "}— 퇴직금·4대보험·대출 이자 등 생활 속 계산기를 한곳에 모았습니다.
+              </li>
+            </ul>
           </section>
 
           <p className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-sm text-slate-500">

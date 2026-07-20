@@ -34,13 +34,13 @@ const SRC_FIND = "https://cont.insure.or.kr";
 const SRC_FSC = "https://www.fsc.go.kr";
 
 const OG_TITLE =
-  "내 보험 점검 — 실손 세대·중복 정리·리모델링 순서 한눈에 (2026)";
+  "내 보험 점검 — 실손 세대·중복 정리·리모델링 (2026)";
 const OG_DESC =
-  "보험료가 부담될 때 해지부터 하면 손해. 내보험찾아줌 조회 → 실손 세대 확인 → 중복 정리 → 대안 검토 → 해지 순서로, 손해 없이 보험을 정리하는 법을 한 표로 정리한 가이드.";
+  "보험료 부담될 때 해지부터 하면 손해. 내보험찾아줌 조회→실손 세대 확인→중복 정리→대안→해지 순서로 손해 없이 정리하는 법을 계산 예시와 함께 담은 가이드.";
 
 export const metadata: Metadata = {
   title:
-    "내 보험 점검 — 실손 세대·중복 정리·리모델링 한눈에 (2026) | 팁픽",
+    "내 보험 점검 — 실손 세대·중복 정리·리모델링 (2026) | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
@@ -415,6 +415,42 @@ export default function InsuranceCheckupGuide() {
                   금융위원회
                 </a>
                  발표 자료에서 확인할 수 있습니다.
+              </p>
+            </div>
+          </section>
+
+          {/* 5.5 계산 예시 — 도수치료 연 300만 */}
+          <section>
+            <SectionTitle
+              kicker="숫자로 확인"
+              title="계산 예시 — 도수치료 연 300만, 4세대 vs 5세대"
+            />
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-6">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                가정: 도수치료(비중증 비급여) 연 300만 원 이용 · 자기부담률만 단순 비교(회당
+                공제금액·횟수 한도 등 상품별 세부 조건 제외)
+              </p>
+              <ul className="mt-3 space-y-3 text-sm leading-relaxed text-slate-700">
+                <li>
+                  <strong className="text-slate-800">4세대 (비급여 30%)</strong> — 본인 부담
+                  300만 × 30% = <strong>90만 원</strong> / 보험금 210만 원
+                </li>
+                <li>
+                  <strong className="text-slate-800">5세대 (비중증 비급여 50%)</strong> — 본인
+                  부담 300만 × 50% = <strong>150만 원</strong> / 보험금 150만 원 (연 한도
+                  1,000만 원 이내)
+                </li>
+                <li>
+                  <strong className="text-slate-800">차이</strong> — 5세대가 연{" "}
+                  <strong>60만 원</strong> 더 부담. 도수치료·비급여 주사를 자주 쓴다면 4세대
+                  유지가 유리할 수 있고, 병원을 거의 안 간다면 보험료 약 -30%인 5세대 전환이
+                  유리해집니다.
+                </li>
+              </ul>
+              <p className="mt-4 text-xs leading-relaxed text-slate-500">
+                실제 보상액은 회당 공제금액·보장 한도·상품 조건에 따라 달라지는 단순
+                예시입니다. 전환 판단 전 보험사의 전후 비교안내로 내 이용 패턴 기준 실제
+                수치를 확인하세요.
               </p>
             </div>
           </section>

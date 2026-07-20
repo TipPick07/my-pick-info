@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RetirementPayCalculator from "@/components/RetirementPayCalculator";
@@ -73,6 +74,24 @@ export default function RetirementPayToolPage() {
               있으니, 정확한 금액은 회사 인사·급여 담당 부서나 고용노동부 퇴직금 계산기로 함께
               확인하시기 바랍니다.
             </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-2xl font-black text-slate-900">함께 보면 좋은 도구·글</h2>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                <Link href="/tools/annual-leave-allowance/" className="font-bold text-brand-dark underline underline-offset-2">연차수당 계산기</Link>
+                {" "}— 퇴직 시 남은 연차의 수당을 계산해 평균임금 산정에 활용해 보세요.
+              </li>
+              <li>
+                <Link href="/guides/unemployment-benefit-guide/" className="font-bold text-brand-dark underline underline-offset-2">실업급여 가이드</Link>
+                {" "}— 퇴사 후 받을 수 있는 실업급여 조건과 금액을 정리한 가이드입니다.
+              </li>
+              <li>
+                <Link href="/blog/2026-06-29-retirement-pay-lump-vs-pension/" className="font-bold text-brand-dark underline underline-offset-2">퇴직금 일시금 vs 연금 비교</Link>
+                {" "}— 퇴직금을 한 번에 받을지 연금으로 받을지 세금 관점에서 비교한 글입니다.
+              </li>
+            </ul>
           </section>
 
           <p className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-sm text-slate-500">
