@@ -89,7 +89,7 @@ link: "https://www.bokjiro.go.kr"
 
 - 매달 받는 현금 지원 → **[부모급여 — 0·1세 월 최대 100만 원](/blog/2026-07-06-parental-allowance-guide/)**
 - 복직 전 급여가 궁금하다면 → **[육아휴직급여 계산기](/tools/parental-leave-pay/)**
-- 시기별 육아 지원 한눈에 → **[영유아 양육 지원 총정리](/blog/2026-05-04-parenting-support-guide/)**
+- 시기별 육아 지원 한눈에 → **[출산·육아 지원금 지역별 비교](/blog/2026-06-01-parenting-benefit-region-compare/)**
 - 정부 지원금 전체 → **[정부 지원금](/benefits/)**
 
 > 본 글은 2026년 기준으로 보건복지부·국민행복카드 자료를 정리한 것입니다. 지원액·사용 조건은 바뀔 수 있고 다태아·분만취약지·지자체 출산장려금은 별도 기준이 적용되므로, 신청 전 복지로(bokjiro.go.kr)·국민행복카드 포털(voucher.go.kr)에서 최신 기준을 확인하시기 바랍니다.

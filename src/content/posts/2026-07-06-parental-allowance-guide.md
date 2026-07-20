@@ -86,7 +86,7 @@ link: "https://www.bokjiro.go.kr"
 
 - 출생 시 목돈 지원 → **[첫만남이용권·출산 지원금 총정리](/blog/2026-07-06-birth-support-benefits/)**
 - 육아휴직 급여가 궁금하다면 → **[육아휴직급여 계산기](/tools/parental-leave-pay/)**
-- 지역·시기별 육아 지원 한눈에 → **[영유아 양육 지원 총정리](/blog/2026-05-04-parenting-support-guide/)**
+- 지역·시기별 육아 지원 한눈에 → **[출산·육아 지원금 지역별 비교](/blog/2026-06-01-parenting-benefit-region-compare/)**
 - 아동수당만 따로 → **[아동수당 신청 방법](/blog/2026-05-05-national-child-benefit-application/)**
 - 정부 지원금 전체 → **[정부 지원금](/benefits/)**
 

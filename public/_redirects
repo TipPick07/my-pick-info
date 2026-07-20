@@ -231,3 +231,9 @@ https://my-pick-info.pages.dev/* https://tip-pick.com/:splat 301
 # 청년미래적금 단독 글 → 비교 글로 흡수 (주제 동일, 에쿼티 보존)
 /blog/2026-05-25-youth-future-savings-guide/  /blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/  301
 /blog/2026-05-25-youth-future-savings-guide   /blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/  301
+
+# 2026-07-20 카니벌 통합 (운영자 승인): 약한 글 → 승계 글 301
+/blog/2026-05-04-parenting-support-guide /blog/2026-06-01-parenting-benefit-region-compare/ 301
+/blog/2026-05-04-parenting-support-guide/ /blog/2026-06-01-parenting-benefit-region-compare/ 301
+/blog/2026-04-29-2026-may-sudogwon-benefit-guide /blog/2026-05-09-may-deadline-benefits-guide/ 301
+/blog/2026-04-29-2026-may-sudogwon-benefit-guide/ /blog/2026-05-09-may-deadline-benefits-guide/ 301
