@@ -156,6 +156,14 @@ const TOOLS: Tool[] = [
     accent: "#2563EB",
     ready: true,
   },
+  {
+    href: "/tools/youth-savings-account/",
+    emoji: "🌱",
+    title: "청년내일저축계좌 계산기",
+    desc: "월 저축·정부 매칭으로 3년 만기 수령액",
+    accent: "#10B981",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {
