@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "housing-pension",
+    title: "주택연금 — 가입조건·월지급금·2026 개편 한눈에",
+    description:
+      "만 55세 이상·부부 합산 공시가격 12억 이하면 내 집에 살며 평생 월지급금 — 70세·3억 주택이면 월 92만 3천 원. 연령별 월지급금 표와 2026년 3월 개편(월지급금 +3.13%·초기보증료 1.0%)까지 정리한 가이드.",
+    category: "노후·연금",
+    emoji: "🏡",
+  },
+  {
     slug: "health-insurance-saving",
     title: "건강보험료 줄이는 법 — 직장·지역·피부양자 한눈에 (2026)",
     description:
