@@ -21,15 +21,21 @@
 4. [→D2] https://tip-pick.com/blog/2026-07-09-comprehensive-real-estate-tax/ — 한도 초과로 이월
 5. [→D2] https://tip-pick.com/blog/2026-07-10-early-reemployment-allowance/ — 한도 초과로 이월
 
-### D2 — 7/21 (화 = 발행일, 5개 = 신규 2 + 이월 2 + 백로그 1)
-N1. [ ] https://tip-pick.com/blog/2026-07-21-national-pension-boost-strategies/ — 신규(경제, 국민연금)
-N2. [ ] https://tip-pick.com/guides/housing-pension/ — 신규(가이드, 주택연금)
-4. [ ] https://tip-pick.com/blog/2026-07-09-comprehensive-real-estate-tax/ — T1 크롤됨-색인안됨·완산 보강 (이월)
-5. [ ] https://tip-pick.com/blog/2026-07-10-early-reemployment-allowance/ — T1 크롤됨-색인안됨·A등급 (이월)
-6. [ ] https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/ — T1 크롤됨-색인안됨·FAQ 직접답 보강
-(→ D3로 이월: 07-08 에너지캐시백 · 07-09 재산세)
+### D2 — 7/21 (화) ✅ 4/5 완료 후 일일 한도 초과 — 잔여 1건 D3 이월
+N1. [x] ✅7/21 https://tip-pick.com/blog/2026-07-21-national-pension-boost-strategies/ — 신규 · 색인+수집 완료
+N2. [x] ✅7/21 https://tip-pick.com/guides/housing-pension/ — 신규 · 색인+수집 완료
+4. [x] ✅7/21 https://tip-pick.com/blog/2026-07-09-comprehensive-real-estate-tax/ — 색인+수집 완료
+5. [x] ✅7/21 https://tip-pick.com/blog/2026-07-10-early-reemployment-allowance/ — 색인+수집 완료
+6. [→D3] https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/ — 한도 초과로 이월
 
-### D3 — 7/22 (수, 백로그 5)
+### D3 — 7/22 (수 = B형 발행일, 5개 = 신규 2 + 이월 1 + 백로그 2)
+N3. [ ] (7/22 발행 지원금 글 — 발행 후 URL 확정)
+N4. [ ] (7/22 발행 계산기 — 발행 후 URL 확정)
+6. [ ] https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/ — T1 크롤됨-색인안됨·FAQ 직접답 보강 (이월)
+7. [ ] https://tip-pick.com/blog/2026-07-08-energy-cashback-guide/ — T1 크롤됨-색인안됨·단가 보강
+8. [ ] https://tip-pick.com/blog/2026-07-09-property-tax-payment-guide/ — T1 크롤됨-색인안됨·A등급
+
+### D4 — 7/23 이후 대기열 (앞에서부터 소진)
 9. [ ] https://tip-pick.com/tools/electricity-bill/ — T1 크롤됨-색인안됨 계산기
 10. [ ] https://tip-pick.com/tools/unemployment-benefit/ — T1 크롤됨-색인안됨 계산기
 11. [ ] https://tip-pick.com/guides/property-holding-tax/ — T1 크롤됨-색인안됨·메타 정비
@@ -84,3 +90,7 @@ N2. [ ] https://tip-pick.com/guides/housing-pension/ — 신규(가이드, 주�
 | 7/20 | /blog/2026-06-01-parenting-benefit-region-compare/ | 통합 승계 · 색인+수집 |
 | 7/20 | /blog/2026-05-09-may-deadline-benefits-guide/ | 통합 승계 · 색인+수집 |
 | 7/20 | /blog/2026-07-12-telecom-fee-discount/ | 색인+수집 · 이후 일일 한도 초과 |
+| 7/21 | /blog/2026-07-21-national-pension-boost-strategies/ | 신규 · 색인+수집 |
+| 7/21 | /guides/housing-pension/ | 신규 · 색인+수집 |
+| 7/21 | /blog/2026-07-09-comprehensive-real-estate-tax/ | 이월분 · 색인+수집 |
+| 7/21 | /blog/2026-07-10-early-reemployment-allowance/ | 이월분 · 색인+수집 · 이후 한도 초과 |
