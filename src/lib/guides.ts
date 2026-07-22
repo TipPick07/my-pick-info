@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "retirement-pension",
+    title: "퇴직연금 DB·DC·IRP 차이 — 내 유형 확인·갈아타기 (2026)",
+    description:
+      "DB는 회사 책임, DC·IRP는 내 운용 — 2025년 수익률 DB 3.53%·DC 8.47%·IRP 9.44%. 갈아타기 손익분기(수익률=임금상승률이면 동일)를 20년 근속 시나리오로 직접 계산하고, IRP 세액공제 148만 5천 원까지 정리한 가이드.",
+    category: "노후·연금",
+    emoji: "🏦",
+  },
+  {
     slug: "housing-pension",
     title: "주택연금 — 가입조건·월지급금·2026 개편 한눈에",
     description:
