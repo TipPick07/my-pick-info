@@ -164,6 +164,14 @@ const TOOLS: Tool[] = [
     accent: "#10B981",
     ready: true,
   },
+  {
+    href: "/tools/childcare-service/",
+    emoji: "👶",
+    title: "아이돌봄서비스 계산기",
+    desc: "소득유형별 월 본인부담금(2026 단가)",
+    accent: "#F472B6",
+    ready: true,
+  },
 ];
 
 export default function ToolsPage() {

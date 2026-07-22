@@ -29,8 +29,8 @@ N2. [x] ✅7/21 https://tip-pick.com/guides/housing-pension/ — 신규 · 색�
 6. [→D3] https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/ — 한도 초과로 이월
 
 ### D3 — 7/22 (수 = B형 발행일, 5개 = 신규 2 + 이월 1 + 백로그 2)
-N3. [ ] (7/22 발행 지원금 글 — 발행 후 URL 확정)
-N4. [ ] (7/22 발행 계산기 — 발행 후 URL 확정)
+N3. [ ] https://tip-pick.com/blog/2026-07-22-childcare-service-support/ — 신규(지원금, 아이돌봄서비스)
+N4. [ ] https://tip-pick.com/tools/childcare-service/ — 신규(계산기, 아이돌봄 본인부담)
 6. [ ] https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/ — T1 크롤됨-색인안됨·FAQ 직접답 보강 (이월)
 7. [ ] https://tip-pick.com/blog/2026-07-08-energy-cashback-guide/ — T1 크롤됨-색인안됨·단가 보강
 8. [ ] https://tip-pick.com/blog/2026-07-09-property-tax-payment-guide/ — T1 크롤됨-색인안됨·A등급
