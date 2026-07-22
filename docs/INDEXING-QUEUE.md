@@ -28,36 +28,33 @@ N2. [x] ✅7/21 https://tip-pick.com/guides/housing-pension/ — 신규 · 색�
 5. [x] ✅7/21 https://tip-pick.com/blog/2026-07-10-early-reemployment-allowance/ — 색인+수집 완료
 6. [→D3] https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/ — 한도 초과로 이월
 
-### D3 — 7/22 (수 = B형 발행일, 5개 = 신규 2 + 이월 1 + 백로그 2)
-N3. [ ] https://tip-pick.com/blog/2026-07-22-childcare-service-support/ — 신규(지원금, 아이돌봄서비스)
-N4. [ ] https://tip-pick.com/tools/childcare-service/ — 신규(계산기, 아이돌봄 본인부담)
-6. [ ] https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/ — T1 크롤됨-색인안됨·FAQ 직접답 보강 (이월)
-7. [ ] https://tip-pick.com/blog/2026-07-08-energy-cashback-guide/ — T1 크롤됨-색인안됨·단가 보강
-8. [ ] https://tip-pick.com/blog/2026-07-09-property-tax-payment-guide/ — T1 크롤됨-색인안됨·A등급
+### D3 — 7/22 (수 = B형 발행일) ✅ 5/5 전부 완료 — 첫 풀 완료일, 이월 없음
+N3. [x] ✅7/22 https://tip-pick.com/blog/2026-07-22-childcare-service-support/ — 신규(지원금, 아이돌봄서비스) · 색인+수집 완료
+N4. [x] ✅7/22 https://tip-pick.com/tools/childcare-service/ — 신규(계산기, 아이돌봄 본인부담) · 색인+수집 완료
+6. [x] ✅7/22 https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/ — T1 이월분 · 색인+수집 완료
+7. [x] ✅7/22 https://tip-pick.com/blog/2026-07-08-energy-cashback-guide/ — T1 · 색인+수집 완료
+8. [x] ✅7/22 https://tip-pick.com/blog/2026-07-09-property-tax-payment-guide/ — T1 · 색인+수집 완료
 
-### D4 — 7/23 이후 대기열 (앞에서부터 소진)
+### D4 — 7/23 (목 = A형 발행일 예정, 5개 = 신규 2 + 백로그 3)
+N5. [ ] (7/23 A형 경제 글 — 발행 후 URL 확정)
+N6. [ ] (7/23 A형 가이드 — 발행 후 URL 확정)
 9. [ ] https://tip-pick.com/tools/electricity-bill/ — T1 크롤됨-색인안됨 계산기
 10. [ ] https://tip-pick.com/tools/unemployment-benefit/ — T1 크롤됨-색인안됨 계산기
 11. [ ] https://tip-pick.com/guides/property-holding-tax/ — T1 크롤됨-색인안됨·메타 정비
+
+### D5 — 7/24 이후 대기열 (앞에서부터 매일 5개씩 소진, 발행일은 신규 2 + 백로그 3)
 12. [ ] https://tip-pick.com/blog/2026-06-28-basic-pension-guide/ — T2 리라이트(소득인정액 계산)
 13. [ ] https://tip-pick.com/blog/2026-06-28-emergency-welfare-support/ — T2 리라이트(4관문 판정)
-
-### D4 이후로 밀린 분 (순서 유지)
 14. [ ] https://tip-pick.com/blog/2026-07-04-housing-benefit-guide/ — T2 리라이트(기준임대료 표 교정)
 15. [ ] https://tip-pick.com/blog/2026-05-09-metropolitan-exclusive-benefits/ — T2 리라이트 + 구 큐 미요청분
-16. [ ] (발행일 7/23 목은 신규 2 + 백로그 3으로 조정)
-
-### D4 — 7/23 (목=발행일, 신규 2 + 백로그 3)
-17. [ ] https://tip-pick.com/blog/2026-06-28-credit-score-guide/ — T2 리라이트(1%p 이자 차 계산)
-18. [ ] https://tip-pick.com/blog/2026-06-27-year-end-tax-settlement-guide/ — T2 리라이트(전후 세액 비교)
-19. [ ] https://tip-pick.com/blog/2026-06-26-jeonse-wolse-buy-comparison/ — T2 리라이트(5년 총비용)
-
-### D5 — 7/24 (금, 백로그 5)
-20. [ ] https://tip-pick.com/blog/2026-06-25-isa-irp-pension-savings-comparison/ — T2 리라이트
-21. [ ] https://tip-pick.com/blog/2026-07-01-car-insurance-saving-guide/ — T2 리라이트
-22. [ ] https://tip-pick.com/blog/2026-07-01-national-tomorrow-learning-card/ — T2 리라이트
-23. [ ] https://tip-pick.com/blog/2026-07-05-policy-mortgage-loan/ — T2 리라이트(3억 시나리오)
-24. [ ] https://tip-pick.com/blog/2026-05-08-metropolitan-4060-welfare-comparison/ — T2 리라이트 + 구 큐
+16. [ ] https://tip-pick.com/blog/2026-06-28-credit-score-guide/ — T2 리라이트(1%p 이자 차 계산)
+17. [ ] https://tip-pick.com/blog/2026-06-27-year-end-tax-settlement-guide/ — T2 리라이트(전후 세액 비교)
+18. [ ] https://tip-pick.com/blog/2026-06-26-jeonse-wolse-buy-comparison/ — T2 리라이트(5년 총비용)
+19. [ ] https://tip-pick.com/blog/2026-06-25-isa-irp-pension-savings-comparison/ — T2 리라이트
+20. [ ] https://tip-pick.com/blog/2026-07-01-car-insurance-saving-guide/ — T2 리라이트
+21. [ ] https://tip-pick.com/blog/2026-07-01-national-tomorrow-learning-card/ — T2 리라이트
+22. [ ] https://tip-pick.com/blog/2026-07-05-policy-mortgage-loan/ — T2 리라이트(3억 시나리오)
+23. [ ] https://tip-pick.com/blog/2026-05-08-metropolitan-4060-welfare-comparison/ — T2 리라이트 + 구 큐
 
 ### D6 이후 (T3 구 큐 미요청 잔여 → T4 순)
 25. [ ] https://tip-pick.com/blog/2026-05-09-retirement-welfare-guide/ — T3(피부양자 비교 보강)
@@ -94,3 +91,8 @@ N4. [ ] https://tip-pick.com/tools/childcare-service/ — 신규(계산기, 아�
 | 7/21 | /guides/housing-pension/ | 신규 · 색인+수집 |
 | 7/21 | /blog/2026-07-09-comprehensive-real-estate-tax/ | 이월분 · 색인+수집 |
 | 7/21 | /blog/2026-07-10-early-reemployment-allowance/ | 이월분 · 색인+수집 · 이후 한도 초과 |
+| 7/22 | /blog/2026-07-22-childcare-service-support/ | 신규 · 색인+수집 |
+| 7/22 | /tools/childcare-service/ | 신규 · 색인+수집 |
+| 7/22 | /blog/2026-07-08-electricity-welfare-discount/ | 이월분 · 색인+수집 |
+| 7/22 | /blog/2026-07-08-energy-cashback-guide/ | 색인+수집 |
+| 7/22 | /blog/2026-07-09-property-tax-payment-guide/ | 색인+수집 · 5/5 첫 풀 완료 |
