@@ -35,12 +35,12 @@ N4. [x] ✅7/22 https://tip-pick.com/tools/childcare-service/ — 신규(계산�
 7. [x] ✅7/22 https://tip-pick.com/blog/2026-07-08-energy-cashback-guide/ — T1 · 색인+수집 완료
 8. [x] ✅7/22 https://tip-pick.com/blog/2026-07-09-property-tax-payment-guide/ — T1 · 색인+수집 완료
 
-### D4 — 7/23 (목 = A형 발행일, 5개 = 신규 2 + 백로그 3)
-N5. [ ] https://tip-pick.com/blog/2026-07-23-retirement-pension-default-option/ — 신규(경제, 디폴트옵션 등급별 수익률)
-N6. [ ] https://tip-pick.com/guides/retirement-pension/ — 신규(가이드, 퇴직연금 DB·DC·IRP)
-9. [ ] https://tip-pick.com/tools/electricity-bill/ — T1 크롤됨-색인안됨 계산기
-10. [ ] https://tip-pick.com/tools/unemployment-benefit/ — T1 크롤됨-색인안됨 계산기
-11. [ ] https://tip-pick.com/guides/property-holding-tax/ — T1 크롤됨-색인안됨·메타 정비
+### D4 — 7/23 (목 = A형 발행일) ✅ 5/5 전부 완료 — 2일 연속 풀 완료, 이월 없음
+N5. [x] ✅7/23 https://tip-pick.com/blog/2026-07-23-retirement-pension-default-option/ — 신규(경제, 디폴트옵션) · 색인+수집 완료
+N6. [x] ✅7/23 https://tip-pick.com/guides/retirement-pension/ — 신규(가이드, 퇴직연금 DB·DC·IRP) · 색인+수집 완료
+9. [x] ✅7/23 https://tip-pick.com/tools/electricity-bill/ — T1 크롤됨-색인안됨 계산기 · 색인 완료
+10. [x] ✅7/23 https://tip-pick.com/tools/unemployment-benefit/ — T1 크롤됨-색인안됨 계산기 · 색인 완료
+11. [x] ✅7/23 https://tip-pick.com/guides/property-holding-tax/ — T1 크롤됨-색인안됨·메타 정비 · 색인 완료
 
 ### D5 — 7/24 이후 대기열 (앞에서부터 매일 5개씩 소진, 발행일은 신규 2 + 백로그 3)
 12. [ ] https://tip-pick.com/blog/2026-06-28-basic-pension-guide/ — T2 리라이트(소득인정액 계산)
@@ -96,3 +96,8 @@ N6. [ ] https://tip-pick.com/guides/retirement-pension/ — 신규(가이드, �
 | 7/22 | /blog/2026-07-08-electricity-welfare-discount/ | 이월분 · 색인+수집 |
 | 7/22 | /blog/2026-07-08-energy-cashback-guide/ | 색인+수집 |
 | 7/22 | /blog/2026-07-09-property-tax-payment-guide/ | 색인+수집 · 5/5 첫 풀 완료 |
+| 7/23 | /blog/2026-07-23-retirement-pension-default-option/ | 신규 · 색인+수집 |
+| 7/23 | /guides/retirement-pension/ | 신규 · 색인+수집 |
+| 7/23 | /tools/electricity-bill/ | T1 백로그 · 색인 |
+| 7/23 | /tools/unemployment-benefit/ | T1 백로그 · 색인 |
+| 7/23 | /guides/property-holding-tax/ | T1 백로그 · 색인 · 5/5 풀 완료 |
