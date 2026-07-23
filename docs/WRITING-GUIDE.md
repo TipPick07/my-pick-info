@@ -181,9 +181,9 @@ HERO(배지 + H1 + 도입 + 요약박스 3개)
 
 ## 6. 현재 콘텐츠 현황 (2026-07-13)
 
-- **블로그 글 79편** (benefit 49 · 경제 30 — 7/23 퇴직연금 디폴트옵션 추가) — 전 글 SEO 규격 통일(제목≤35자·설명≤90자·에버그린·내부 루프·게이트 경고 0) + 7/20 §1-7 전면 적용. **신규 글도 이 규격 필수.**
+- **블로그 글 80편** (benefit 50 · 경제 30 — 7/24 육아기 근로시간 단축 급여 추가) — 전 글 SEO 규격 통일(제목≤35자·설명≤90자·에버그린·내부 루프·게이트 경고 0) + 7/20 §1-7 전면 적용. **신규 글도 이 규격 필수.**
 - **가이드 18편**: `retirement-pension`, `housing-pension`, `health-insurance-saving`, `insurance-checkup`, `property-holding-tax`, `self-employed-freelancer-tax`, `first-home-purchase`, `inheritance-gift-tax`, `overseas-stock-capital-gains-tax`, `unemployment-benefit-guide`, `three-pillar-pension`, `comprehensive-income-tax-filing`, `parenting-family-benefits`, `parenting-family-finance`, `parenting-family-savings`, `daycare-admission`, `house-capital-gains-tax`, `youth-support-guide`
-- **계산기 18종**: 연봉 실수령액(`salary`), 대출 이자(`loan`), 종합소득세(`income-tax`), 4대보험(`insurance`), 퇴직금(`retirement-pay`), 시급·주휴수당(`hourly-wage`), 자동차세(`car-tax`), 예금·적금 이자(`savings-interest`), 전월세 전환(`rent-conversion`), 부동산 중개보수(`brokerage-fee`), 연차수당(`annual-leave-allowance`), 해외주식 양도세(`overseas-stock-tax`), 기준 중위소득(`median-income`), 육아휴직급여(`parental-leave-pay`), 전기요금(`electricity-bill`), 실업급여(`unemployment-benefit`), K-패스 환급(`k-pass-refund`), 청년내일저축계좌 만기(`youth-savings-account`), 아이돌봄서비스 본인부담(`childcare-service`)
+- **계산기 20종**: 연봉 실수령액(`salary`), 대출 이자(`loan`), 종합소득세(`income-tax`), 4대보험(`insurance`), 퇴직금(`retirement-pay`), 시급·주휴수당(`hourly-wage`), 자동차세(`car-tax`), 예금·적금 이자(`savings-interest`), 전월세 전환(`rent-conversion`), 부동산 중개보수(`brokerage-fee`), 연차수당(`annual-leave-allowance`), 해외주식 양도세(`overseas-stock-tax`), 기준 중위소득(`median-income`), 육아휴직급여(`parental-leave-pay`), 전기요금(`electricity-bill`), 실업급여(`unemployment-benefit`), K-패스 환급(`k-pass-refund`), 청년내일저축계좌 만기(`youth-savings-account`), 아이돌봄서비스 본인부담(`childcare-service`), 육아기 근로시간 단축 급여(`reduced-work-hours-pay`)
 
 > 새 글/가이드/계산기를 추가하면 이 현황도 함께 갱신한다.
 

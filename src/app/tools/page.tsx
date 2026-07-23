@@ -165,6 +165,14 @@ const TOOLS: Tool[] = [
     ready: true,
   },
   {
+    href: "/tools/reduced-work-hours-pay/",
+    emoji: "🕐",
+    title: "육아기 단축급여 계산기",
+    desc: "근무시간 줄일 때 남는 월 실수령액(2026 상한)",
+    accent: "#8B5CF6",
+    ready: true,
+  },
+  {
     href: "/tools/childcare-service/",
     emoji: "👶",
     title: "아이돌봄서비스 계산기",
