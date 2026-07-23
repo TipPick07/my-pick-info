@@ -42,19 +42,21 @@ N6. [x] ✅7/23 https://tip-pick.com/guides/retirement-pension/ — 신규(가�
 10. [x] ✅7/23 https://tip-pick.com/tools/unemployment-benefit/ — T1 크롤됨-색인안됨 계산기 · 색인 완료
 11. [x] ✅7/23 https://tip-pick.com/guides/property-holding-tax/ — T1 크롤됨-색인안됨·메타 정비 · 색인 완료
 
-### D5 — 7/24 (금 = B형 발행일, 5개 = 신규 2 + 백로그 3)
-N7. [ ] https://tip-pick.com/blog/2026-07-24-reduced-work-hours-childcare-pay/ — 신규(지원금, 육아기 근로시간 단축 급여)
-N8. [ ] https://tip-pick.com/tools/reduced-work-hours-pay/ — 신규(계산기, 단축급여 실수령)
-12. [ ] https://tip-pick.com/blog/2026-06-28-basic-pension-guide/ — T2 리라이트(소득인정액 계산)
-13. [ ] https://tip-pick.com/blog/2026-06-28-emergency-welfare-support/ — T2 리라이트(4관문 판정)
-14. [ ] https://tip-pick.com/blog/2026-07-04-housing-benefit-guide/ — T2 리라이트(기준임대료 표 교정)
+### D5 — 7/24 (금 = B형 발행일) ✅ 5/5 전부 완료 — 3일 연속 풀 완료, 이월 없음
+N7. [x] ✅7/24 https://tip-pick.com/blog/2026-07-24-reduced-work-hours-childcare-pay/ — 신규(지원금, 육아기 근로시간 단축) · 색인+수집 완료
+N8. [x] ✅7/24 https://tip-pick.com/tools/reduced-work-hours-pay/ — 신규(계산기, 단축급여 실수령) · 색인+수집 완료
+12. [x] ✅7/24 https://tip-pick.com/blog/2026-06-28-basic-pension-guide/ — T2 리라이트(소득인정액 계산) · 색인 완료
+13. [x] ✅7/24 https://tip-pick.com/blog/2026-06-28-emergency-welfare-support/ — T2 리라이트(4관문 판정) · 색인 완료
+14. [x] ✅7/24 https://tip-pick.com/blog/2026-07-04-housing-benefit-guide/ — T2 리라이트(기준임대료 표) · 색인 완료
 
-### D6 이후 대기열 (앞에서부터 매일 5개씩 소진, 발행일은 신규 2 + 백로그 3)
+### D6 — 7/25 (토, 비발행일 = 백로그 5)
 15. [ ] https://tip-pick.com/blog/2026-05-09-metropolitan-exclusive-benefits/ — T2 리라이트 + 구 큐 미요청분
 16. [ ] https://tip-pick.com/blog/2026-06-28-credit-score-guide/ — T2 리라이트(1%p 이자 차 계산)
 17. [ ] https://tip-pick.com/blog/2026-06-27-year-end-tax-settlement-guide/ — T2 리라이트(전후 세액 비교)
 18. [ ] https://tip-pick.com/blog/2026-06-26-jeonse-wolse-buy-comparison/ — T2 리라이트(5년 총비용)
 19. [ ] https://tip-pick.com/blog/2026-06-25-isa-irp-pension-savings-comparison/ — T2 리라이트
+
+### D7 이후 대기열 (앞에서부터 매일 5개씩 소진, 발행일은 신규 2 + 백로그 3)
 20. [ ] https://tip-pick.com/blog/2026-07-01-car-insurance-saving-guide/ — T2 리라이트
 21. [ ] https://tip-pick.com/blog/2026-07-01-national-tomorrow-learning-card/ — T2 리라이트
 22. [ ] https://tip-pick.com/blog/2026-07-05-policy-mortgage-loan/ — T2 리라이트(3억 시나리오)
@@ -105,3 +107,8 @@ N8. [ ] https://tip-pick.com/tools/reduced-work-hours-pay/ — 신규(계산기,
 | 7/23 | /tools/electricity-bill/ | T1 백로그 · 색인 |
 | 7/23 | /tools/unemployment-benefit/ | T1 백로그 · 색인 |
 | 7/23 | /guides/property-holding-tax/ | T1 백로그 · 색인 · 5/5 풀 완료 |
+| 7/24 | /blog/2026-07-24-reduced-work-hours-childcare-pay/ | 신규 · 색인+수집 |
+| 7/24 | /tools/reduced-work-hours-pay/ | 신규 · 색인+수집 |
+| 7/24 | /blog/2026-06-28-basic-pension-guide/ | T2 · 색인 |
+| 7/24 | /blog/2026-06-28-emergency-welfare-support/ | T2 · 색인 |
+| 7/24 | /blog/2026-07-04-housing-benefit-guide/ | T2 · 색인 · 5/5 풀 완료(3일 연속) |
