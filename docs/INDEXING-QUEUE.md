@@ -49,18 +49,19 @@ N8. [x] ✅7/24 https://tip-pick.com/tools/reduced-work-hours-pay/ — 신규(�
 13. [x] ✅7/24 https://tip-pick.com/blog/2026-06-28-emergency-welfare-support/ — T2 리라이트(4관문 판정) · 색인 완료
 14. [x] ✅7/24 https://tip-pick.com/blog/2026-07-04-housing-benefit-guide/ — T2 리라이트(기준임대료 표) · 색인 완료
 
-### D6 — 7/25 (토, 비발행일 = 백로그 5)
-15. [ ] https://tip-pick.com/blog/2026-05-09-metropolitan-exclusive-benefits/ — T2 리라이트 + 구 큐 미요청분
-16. [ ] https://tip-pick.com/blog/2026-06-28-credit-score-guide/ — T2 리라이트(1%p 이자 차 계산)
-17. [ ] https://tip-pick.com/blog/2026-06-27-year-end-tax-settlement-guide/ — T2 리라이트(전후 세액 비교)
-18. [ ] https://tip-pick.com/blog/2026-06-26-jeonse-wolse-buy-comparison/ — T2 리라이트(5년 총비용)
-19. [ ] https://tip-pick.com/blog/2026-06-25-isa-irp-pension-savings-comparison/ — T2 리라이트
+### D6 — 7/25 (토, 비발행일 = 백로그 5) ✅ 5/5 전부 완료 — 4일 연속 풀 완료, 이월 없음
+15. [x] ✅7/25 https://tip-pick.com/blog/2026-05-09-metropolitan-exclusive-benefits/ — T2 리라이트 + 구 큐 미요청분 · 색인+수집 완료
+16. [x] ✅7/25 https://tip-pick.com/blog/2026-06-28-credit-score-guide/ — T2 리라이트(1%p 이자 차 계산) · 색인+수집 완료
+17. [x] ✅7/25 https://tip-pick.com/blog/2026-06-27-year-end-tax-settlement-guide/ — T2 리라이트(전후 세액 비교) · 색인+수집 완료
+18. [x] ✅7/25 https://tip-pick.com/blog/2026-06-26-jeonse-wolse-buy-comparison/ — T2 리라이트(5년 총비용) · 색인+수집 완료
+19. [x] ✅7/25 https://tip-pick.com/blog/2026-06-25-isa-irp-pension-savings-comparison/ — T2 리라이트 · 색인+수집 완료 → **T2 12편 중 8편 소진**
 
-### D7 이후 대기열 (앞에서부터 매일 5개씩 소진, 발행일은 신규 2 + 백로그 3)
+### D7 — 7/26 (일, 비발행일 = 백로그 5) — 09:00 캡처 게이트 2회차 판정도 별도 진행
 20. [ ] https://tip-pick.com/blog/2026-07-01-car-insurance-saving-guide/ — T2 리라이트
 21. [ ] https://tip-pick.com/blog/2026-07-01-national-tomorrow-learning-card/ — T2 리라이트
 22. [ ] https://tip-pick.com/blog/2026-07-05-policy-mortgage-loan/ — T2 리라이트(3억 시나리오)
-23. [ ] https://tip-pick.com/blog/2026-05-08-metropolitan-4060-welfare-comparison/ — T2 리라이트 + 구 큐
+23. [ ] https://tip-pick.com/blog/2026-05-08-metropolitan-4060-welfare-comparison/ — T2 리라이트 + 구 큐 → **T2 12편 전량 소진 예정**
+24. [ ] (T2 소진 완료 → 5번째는 아래 T3 첫 건 25번으로 당겨 배정)
 
 ### T2 소진 후 (T3 구 큐 미요청 잔여 → T4 순)
 25. [ ] https://tip-pick.com/blog/2026-05-09-retirement-welfare-guide/ — T3(피부양자 비교 보강)
@@ -112,3 +113,8 @@ N8. [x] ✅7/24 https://tip-pick.com/tools/reduced-work-hours-pay/ — 신규(�
 | 7/24 | /blog/2026-06-28-basic-pension-guide/ | T2 · 색인 |
 | 7/24 | /blog/2026-06-28-emergency-welfare-support/ | T2 · 색인 |
 | 7/24 | /blog/2026-07-04-housing-benefit-guide/ | T2 · 색인 · 5/5 풀 완료(3일 연속) |
+| 7/25 | /blog/2026-05-09-metropolitan-exclusive-benefits/ | T2 · 색인+수집 |
+| 7/25 | /blog/2026-06-28-credit-score-guide/ | T2 · 색인+수집 |
+| 7/25 | /blog/2026-06-27-year-end-tax-settlement-guide/ | T2 · 색인+수집 |
+| 7/25 | /blog/2026-06-26-jeonse-wolse-buy-comparison/ | T2 · 색인+수집 |
+| 7/25 | /blog/2026-06-25-isa-irp-pension-savings-comparison/ | T2 · 색인+수집 · 5/5 풀 완료(4일 연속) |
