@@ -56,12 +56,19 @@ N8. [x] ✅7/24 https://tip-pick.com/tools/reduced-work-hours-pay/ — 신규(�
 18. [x] ✅7/25 https://tip-pick.com/blog/2026-06-26-jeonse-wolse-buy-comparison/ — T2 리라이트(5년 총비용) · 색인+수집 완료
 19. [x] ✅7/25 https://tip-pick.com/blog/2026-06-25-isa-irp-pension-savings-comparison/ — T2 리라이트 · 색인+수집 완료 → **T2 12편 중 8편 소진**
 
-### D7 — 7/26 (일, 비발행일 = 백로그 5) — 09:00 캡처 게이트 2회차 판정도 별도 진행
-20. [ ] https://tip-pick.com/blog/2026-07-01-car-insurance-saving-guide/ — T2 리라이트
-21. [ ] https://tip-pick.com/blog/2026-07-01-national-tomorrow-learning-card/ — T2 리라이트
-22. [ ] https://tip-pick.com/blog/2026-07-05-policy-mortgage-loan/ — T2 리라이트(3억 시나리오)
-23. [ ] https://tip-pick.com/blog/2026-05-08-metropolitan-4060-welfare-comparison/ — T2 리라이트 + 구 큐 → **T2 12편 전량 소진 예정**
-24. [ ] (T2 소진 완료 → 5번째는 아래 T3 첫 건 25번으로 당겨 배정)
+### D7 — 7/26 (일, 비발행일 = 백로그 5) ✅ 4/5 완료 후 일일 한도 초과 — 잔여 1건 D8 이월
+20. [x] ✅7/26 https://tip-pick.com/blog/2026-07-01-car-insurance-saving-guide/ — T2 리라이트 · 색인+수집 완료
+21. [x] ✅7/26 https://tip-pick.com/blog/2026-07-01-national-tomorrow-learning-card/ — T2 리라이트 · 색인+수집 완료
+22. [x] ✅7/26 https://tip-pick.com/blog/2026-07-05-policy-mortgage-loan/ — T2 리라이트(3억 시나리오) · 색인+수집 완료
+23. [x] ✅7/26 https://tip-pick.com/blog/2026-05-08-metropolitan-4060-welfare-comparison/ — T2 리라이트 + 구 큐 · 색인+수집 완료 → **T2 12편 전량 소진**
+24. [→D8] https://tip-pick.com/blog/2026-07-01-card-tax-deduction-strategy/ — T3 첫 건 · 한도 초과로 내일(7/27) 이월
+
+### D8 — 7/27 (월 = A형 발행일, 5개 = 신규 2 + 백로그 3)
+N9. [ ] (7/27 A형 경제 글 — 발행 후 URL 확정)
+N10. [ ] (7/27 A형 가이드 — 발행 후 URL 확정)
+25. [ ] https://tip-pick.com/blog/2026-07-01-card-tax-deduction-strategy/ — T3 첫 건(D7 이월분)
+26. [ ] (T3 대기열 2번째 — 아래 목록 순서대로)
+27. [ ] (T3 대기열 3번째)
 
 ### T2 소진 후 (T3 구 큐 미요청 잔여 → T4 순)
 25. [ ] https://tip-pick.com/blog/2026-05-09-retirement-welfare-guide/ — T3(피부양자 비교 보강)
@@ -118,3 +125,7 @@ N8. [x] ✅7/24 https://tip-pick.com/tools/reduced-work-hours-pay/ — 신규(�
 | 7/25 | /blog/2026-06-27-year-end-tax-settlement-guide/ | T2 · 색인+수집 |
 | 7/25 | /blog/2026-06-26-jeonse-wolse-buy-comparison/ | T2 · 색인+수집 |
 | 7/25 | /blog/2026-06-25-isa-irp-pension-savings-comparison/ | T2 · 색인+수집 · 5/5 풀 완료(4일 연속) |
+| 7/26 | /blog/2026-07-01-car-insurance-saving-guide/ | T2 · 색인+수집 |
+| 7/26 | /blog/2026-07-01-national-tomorrow-learning-card/ | T2 · 색인+수집 |
+| 7/26 | /blog/2026-07-05-policy-mortgage-loan/ | T2 · 색인+수집 |
+| 7/26 | /blog/2026-05-08-metropolitan-4060-welfare-comparison/ | T2 · 색인+수집 · T2 전량 소진 · 이후 한도 초과 |
