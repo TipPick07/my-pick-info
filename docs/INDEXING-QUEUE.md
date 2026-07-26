@@ -64,15 +64,13 @@ N8. [x] ✅7/24 https://tip-pick.com/tools/reduced-work-hours-pay/ — 신규(�
 24. [→D8] https://tip-pick.com/blog/2026-07-01-card-tax-deduction-strategy/ — T3 첫 건 · 한도 초과로 내일(7/27) 이월
 
 ### D8 — 7/27 (월 = A형 발행일, 5개 = 신규 2 + 백로그 3)
-N9. [ ] (7/27 A형 경제 글 — 발행 후 URL 확정)
-N10. [ ] (7/27 A형 가이드 — 발행 후 URL 확정)
+N9. [ ] https://tip-pick.com/blog/2026-07-27-deposit-protection-limit/ — 신규(경제, 예금자보호 1억)
+N10. [ ] https://tip-pick.com/guides/deposit-protection/ — 신규(가이드, 예금자보호 완전정리)
 25. [ ] https://tip-pick.com/blog/2026-07-01-card-tax-deduction-strategy/ — T3 첫 건(D7 이월분)
-26. [ ] (T3 대기열 2번째 — 아래 목록 순서대로)
-27. [ ] (T3 대기열 3번째)
+26. [ ] https://tip-pick.com/blog/2026-05-09-retirement-welfare-guide/ — T3(피부양자 비교 보강)
+27. [ ] https://tip-pick.com/blog/2026-05-10-earned-income-child-tax-credit-guide/ — T3
 
-### T2 소진 후 (T3 구 큐 미요청 잔여 → T4 순)
-25. [ ] https://tip-pick.com/blog/2026-05-09-retirement-welfare-guide/ — T3(피부양자 비교 보강)
-26. [ ] https://tip-pick.com/blog/2026-05-10-earned-income-child-tax-credit-guide/ — T3
+### T2 소진 후 (T3 구 큐 미요청 잔여 → T4 순) — D8에서 25·26·27번 소진 예정
 27. [ ] https://tip-pick.com/blog/2026-05-13-seoul-ansimsodeuk-guide/ — T3
 28. [ ] https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/ — T3
 29. [ ] https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/ — T3

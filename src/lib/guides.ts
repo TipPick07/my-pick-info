@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "deposit-protection",
+    title: "예금자보호 완전정리 — 어디까지 얼마까지 (2026)",
+    description:
+      "보호 한도 1억원은 원금이 아니라 원금+이자 합계 — 연 3.5%면 원금 9,661만 원이 안전선. 보호·비보호 상품 구분, 같은 금융사에서도 따로 세는 별도 한도 3종, 5,000만~5억 원 금액대별 예치 설계까지 직접 계산한 가이드.",
+    category: "예금·자산관리",
+    emoji: "💰",
+  },
+  {
     slug: "retirement-pension",
     title: "퇴직연금 DB·DC·IRP 차이 — 내 유형 확인·갈아타기 (2026)",
     description:
