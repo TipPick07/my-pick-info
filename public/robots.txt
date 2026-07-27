@@ -1,9 +1,36 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /_next/
+
+# ⚠️ /_next/ 는 차단하지 않습니다 — Next.js 의 JS·CSS 번들이 이 경로에 있어
+#    차단하면 크롤러가 페이지를 스타일 없이(깨진 화면으로) 렌더링합니다.
+#    (2026-07-27 수정: 기존 Disallow: /_next/ 제거 — robots.txt 는 가장 구체적인 그룹
+#     하나만 적용되므로, 전용 그룹이 없던 애드센스 크롤러가 * 그룹에 걸려 리소스를 못 받던 문제)
 
 User-agent: Googlebot
+Allow: /
+
+# 애드센스 심사·광고 크롤러 — 콘텐츠 평가를 위해 페이지와 리소스 전체 접근 필요
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: Google-Display-Ads-Bot
+Allow: /
+
+# 이미지·네이버·다음 크롤러 (위 * 그룹과 동일하게 전체 허용)
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Yeti
+Allow: /
+
+User-agent: Daum
 Allow: /
 
 # Sitemaps

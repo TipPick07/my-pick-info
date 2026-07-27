@@ -101,6 +101,12 @@ officialCurationNote: "..."   # ⭐ 에디터 한마디(선택)
 
 ## 9. 작업 로그 (최신이 위)
 
+### 2026-07-27 (3) — 기술 점검: robots.txt가 애드센스 크롤러를 막고 있던 문제 수정
+- **발견**: `public/robots.txt`의 `*` 그룹에 `Disallow: /_next/`가 있었음. robots.txt는 **가장 구체적인 UA 그룹 하나만** 적용되므로 전용 그룹이 있는 `Googlebot`은 무사했지만, 전용 그룹이 없던 **`Mediapartners-Google`(애드센스 심사)·`AdsBot-Google`(광고 크롤러)은 `*` 그룹에 걸려 Next.js JS·CSS 번들을 못 받는 상태**였다 → 심사 봇이 스타일 깨진 페이지를 렌더링했을 가능성.
+- **조치**: `Disallow: /_next/` 제거(+ 이유 주석), 애드센스·광고 크롤러 4종(Mediapartners-Google · AdsBot-Google · AdsBot-Google-Mobile · Google-Display-Ads-Bot)과 Googlebot-Image · Yeti · Daum 전용 허용 그룹 추가. `Disallow: /api/`·사이트맵·다음 인증 주석은 유지.
+- **함께 점검(문제 없음 확인)**: ads.txt 정상 서빙(pub-8471539268153543) · 애드센스 스니펫 `<head>` 존재 · 공개 카테고리(/money·/benefits) noindex 아님(숨김 카테고리만 noindex) · `/go/[id]` 단축링크 noindex이며 매핑 전부 내부 URL(제휴·클로킹 없음) · 크롤 잔재 데이터 0건(pick-info.json benefits·festivals 모두 빈 배열 → 얇은 자동 생성 페이지 없음) · sitemap 가이드/계산기 포함 · 404 페이지 존재.
+- **미확인(운영자 자료 필요)**: Cloudflare 봇 차단 설정(Bot Fight Mode·WAF·AI Crawl Control), GSC 크롤링 통계 응답코드 분포, 라이브 테스트의 '차단된 리소스' 목록, 애드센스 거절 메시지 원문. → 배포 후 GSC에서 robots.txt 다시 가져오기 필요.
+
 ### 2026-07-27 (2) — 색인 요청 8일차: 5/5 전부 완료(이월 없음) + 오픈챗 공유 (운영자)
 - 완료(색인+수집): 신규 2(예금자보호 글 + /guides/deposit-protection/) + 이월 1(07-01 카드 소득공제) + T3 2(05-09 은퇴복지 · 05-10 근로장려금) → **T3 진입 3건 소진.** 오픈챗은 예금자보호 글로 공유.
 - 다음 몫(D9, 화 7/28 — B형 발행일 = 신규 2 + 백로그 3): 신규 2(발행 후 URL 확정) + T3 3(05-13 서울안심소득 · 05-17 문화누리카드 · 05-17 경기청년). 대기열 중복 정리·번호 재부여 완료. 상세는 `docs/INDEXING-QUEUE.md`.
