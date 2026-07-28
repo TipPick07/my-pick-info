@@ -68,6 +68,7 @@ ISA는 예금·펀드·주식 등을 한 계좌에서 굴리는 통장입니다.
 
 - 내 월급·세금부터 확인 → **[연봉 실수령액 계산기](/tools/salary/)**
 - 연말정산 환급 늘리는 법 → **[연말정산 가이드](/blog/2026-06-27-year-end-tax-settlement-guide/)**
+- IRP에 넣은 돈이 굴러가는 방식 → **[퇴직연금 디폴트옵션](/blog/2026-07-23-retirement-pension-default-option/)**
 - 내 집 마련 고민이라면 → **[전세 vs 월세 vs 매매](/blog/2026-06-26-jeonse-wolse-buy-comparison/)**
 - 더 많은 돈 이야기 → **[돈이 되는 경제](/money/)**
 

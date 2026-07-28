@@ -110,6 +110,8 @@ DB·DC는 회사를 통해 가입하는 제도이고, **퇴직금을 연금으�
 
 - 내 퇴직금은 얼마? → **[퇴직금 계산기](/tools/retirement-pay/)**
 - IRP·연금저축 세액공제 → **[ISA·연금저축·IRP 비교](/blog/2026-06-25-isa-irp-pension-savings-comparison/)**
+- 내 퇴직연금이 DB인지 DC인지 → **[퇴직연금 DB·DC·IRP 가이드](/guides/retirement-pension/)**
+- 옮긴 돈이 자동으로 굴러가는 방식 → **[디폴트옵션 등급별 수익률](/blog/2026-07-23-retirement-pension-default-option/)**
 - 퇴직 후 건강보험은? → **[은퇴 후 건강보험 정리](/blog/2026-05-08-retirement-health-insurance-benefits-guide/)**
 - 더 많은 돈 이야기 → **[돈이 되는 경제](/money/)**
 
