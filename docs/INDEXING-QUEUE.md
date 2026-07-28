@@ -71,8 +71,8 @@ N10. [x] ✅7/27 https://tip-pick.com/guides/deposit-protection/ — 신규(가�
 27. [x] ✅7/27 https://tip-pick.com/blog/2026-05-10-earned-income-child-tax-credit-guide/ — T3 · 색인+수집 완료
 
 ### D9 — 7/28 (화 = B형 발행일, 5개 = 신규 2 + 백로그 3)
-N11. [ ] (7/28 B형 지원금 글 — 발행 후 URL 확정)
-N12. [ ] (7/28 B형 계산기 — 발행 후 URL 확정)
+N11. [ ] https://tip-pick.com/blog/2026-07-28-medical-cost-cap-refund/ — 신규(지원금, 본인부담상한제)
+N12. [ ] https://tip-pick.com/tools/medical-cost-cap/ — 신규(계산기, 환급 예상액)
 28. [ ] https://tip-pick.com/blog/2026-05-13-seoul-ansimsodeuk-guide/ — T3
 29. [ ] https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/ — T3
 30. [ ] https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/ — T3

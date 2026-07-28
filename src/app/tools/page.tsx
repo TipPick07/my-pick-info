@@ -173,6 +173,14 @@ const TOOLS: Tool[] = [
     ready: true,
   },
   {
+    href: "/tools/medical-cost-cap/",
+    emoji: "🏥",
+    title: "본인부담상한제 계산기",
+    desc: "소득분위별 병원비 환급 예상액(2026 상한액)",
+    accent: "#0EA5E9",
+    ready: true,
+  },
+  {
     href: "/tools/childcare-service/",
     emoji: "👶",
     title: "아이돌봄서비스 계산기",
