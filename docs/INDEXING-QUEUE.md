@@ -70,14 +70,22 @@ N10. [x] ✅7/27 https://tip-pick.com/guides/deposit-protection/ — 신규(가�
 26. [x] ✅7/27 https://tip-pick.com/blog/2026-05-09-retirement-welfare-guide/ — T3(피부양자 비교 보강) · 색인+수집 완료
 27. [x] ✅7/27 https://tip-pick.com/blog/2026-05-10-earned-income-child-tax-credit-guide/ — T3 · 색인+수집 완료
 
-### D9 — 7/28 (화 = B형 발행일, 5개 = 신규 2 + 백로그 3)
-N11. [ ] https://tip-pick.com/blog/2026-07-28-medical-cost-cap-refund/ — 신규(지원금, 본인부담상한제)
-N12. [ ] https://tip-pick.com/tools/medical-cost-cap/ — 신규(계산기, 환급 예상액)
-28. [ ] https://tip-pick.com/blog/2026-05-13-seoul-ansimsodeuk-guide/ — T3
-29. [ ] https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/ — T3
-30. [ ] https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/ — T3
+### D9 — 7/28 (화 = B형 발행일) ✅ 2/5 완료 후 일일 한도 초과 — 잔여 3건 D10 이월
+N11. [x] ✅7/28 https://tip-pick.com/blog/2026-07-28-medical-cost-cap-refund/ — 신규(지원금, 본인부담상한제) · 색인+수집 완료
+N12. [x] ✅7/28 https://tip-pick.com/tools/medical-cost-cap/ — 신규(계산기, 환급 예상액) · 색인+수집 완료
+28. [→D10] https://tip-pick.com/blog/2026-05-13-seoul-ansimsodeuk-guide/ — T3 · 한도 초과로 이월
+29. [→D10] https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/ — T3 · 한도 초과로 이월
+30. [→D10] https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/ — T3 · 한도 초과로 이월
+- ※ 이날 URL 검사(색인 상태 점검) 2건 별도 수행 — 크롤 확인용이라 요청 한도와 무관.
 
-### T3 잔여 대기열 (D10 이후, 앞에서부터 소진)
+### D10 — 7/29 (수 = A형 발행일, 5개 = 신규 2 + 이월 3)
+N13. [ ] (7/29 A형 경제 글 — 발행 후 URL 확정)
+N14. [ ] (7/29 A형 가이드 — 발행 후 URL 확정)
+28. [ ] https://tip-pick.com/blog/2026-05-13-seoul-ansimsodeuk-guide/ — T3 (D9 이월)
+29. [ ] https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/ — T3 (D9 이월)
+30. [ ] https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/ — T3 (D9 이월)
+
+### T3 잔여 대기열 (D11 이후, 앞에서부터 소진)
 31. [ ] https://tip-pick.com/blog/2026-05-18-youth-housing-support-guide/ — T3
 32. [ ] https://tip-pick.com/blog/2026-05-19-heat-shelter-guide/ — T3(보강)
 33. [ ] https://tip-pick.com/blog/2026-05-21-jongso-tax-filing-guide/ — T3
@@ -136,3 +144,5 @@ N12. [ ] https://tip-pick.com/tools/medical-cost-cap/ — 신규(계산기, 환�
 | 7/27 | /blog/2026-07-01-card-tax-deduction-strategy/ | 이월분 T3 · 색인+수집 |
 | 7/27 | /blog/2026-05-09-retirement-welfare-guide/ | T3 · 색인+수집 |
 | 7/27 | /blog/2026-05-10-earned-income-child-tax-credit-guide/ | T3 · 색인+수집 · 5/5 풀 완료 |
+| 7/28 | /blog/2026-07-28-medical-cost-cap-refund/ | 신규 · 색인+수집 |
+| 7/28 | /tools/medical-cost-cap/ | 신규 · 색인+수집 · 이후 한도 초과(잔여 3건 D10 이월) |
