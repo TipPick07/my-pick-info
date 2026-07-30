@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     url: `${SITE}${PATH}`,
     title: "종합소득세 계산기 2026 | 과세표준별 세율·실효세율 | 팁픽",
     description: "과세표준 입력만으로 누진세율(6~45%) 산출세액·지방세·실효세율을 바로 계산.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

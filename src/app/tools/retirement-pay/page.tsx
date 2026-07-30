@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "퇴직금 계산기 2026 | 평균임금 기준 예상 퇴직금 | 팁픽",
     description:
       "입사일·퇴사일과 최근 3개월 급여로 예상 퇴직금을 바로 계산. 상여금·연차수당 반영, 2026년 기준 참고용.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

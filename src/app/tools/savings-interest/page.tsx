@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "예금·적금 이자 계산기 | 세후 만기 수령액 (단리·복리) | 팁픽",
     description:
       "예금·적금 만기 수령액을 세후로 계산. 단리/월복리 선택, 이자소득세 15.4% 반영.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

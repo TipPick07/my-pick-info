@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "육아휴직급여 계산기 2026 | 통상임금 기준 예상액 | 팁픽",
     description:
       "월 통상임금·사용 개월수로 육아휴직급여 예상액을 바로 계산. 6+6 부모육아휴직제 반영, 2026년 기준 참고용.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     title: "대출 이자 계산기 | 원리금·원금균등 월 상환금·총이자 | 팁픽",
     description:
       "원리금균등·원금균등·만기일시 상환 방식별 월 상환금과 총이자를 즉시 계산하는 대출 이자 계산기. 상환 스케줄까지 확인하세요.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "자동차세 계산기 2026 | 배기량·차령별 연간 자동차세 | 팁픽",
     description:
       "배기량·차령으로 비영업용 승용차 연간 자동차세를 바로 계산. cc당 세액·차령 경감 반영, 2026년 기준.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     title: "전체 글 — 경제·지원금·생활정보 | 팁픽(Tip-Pick)",
     description: "정부 지원금·경제·생활정보를 한곳에서 확인하세요.",
     url: "https://tip-pick.com/blog/",
+    images: ["https://tip-pick.com/og-image-v2.png"],
   }
 };
 

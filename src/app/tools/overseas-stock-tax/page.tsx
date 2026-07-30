@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "해외주식 양도세 계산기 2026 | 250만 공제·22% 예상 세액 | 팁픽",
     description:
       "올해 해외주식 실현손익으로 250만 공제 후 양도세(22%)를 바로 계산. 손익통산·세후 손익까지, 2026년 기준 참고용.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

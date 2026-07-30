@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     url: `${SITE}${PATH}`,
     title: "4대보험 계산기 2026 | 근로자 부담 국민연금·건강·고용 | 팁픽",
     description: "월 급여만 입력하면 4대보험 근로자 부담액을 항목별로 바로 계산.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

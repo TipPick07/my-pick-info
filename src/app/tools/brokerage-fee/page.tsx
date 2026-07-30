@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "부동산 중개보수(복비) 계산기 | 매매·전세·월세 | 팁픽",
     description:
       "거래금액별 법정 상한요율로 중개보수를 바로 계산. 월세 환산·한도액·부가세 반영(2026 기준).",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

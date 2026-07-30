@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "청년내일저축계좌 계산기 — 정부지원금 만기 수령액 | 팁픽",
     description:
       "청년내일저축계좌 3년 만기 수령액을 본인 원금·정부지원금·이자로 나눠 계산합니다.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "아이돌봄서비스 본인부담금 계산기 — 소득유형별 (2026) | 팁픽",
     description:
       "아이돌봄서비스 월 본인부담금 계산 — 소득유형·나이·이용시간 기준 정부지원액 분해.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "연차수당 계산기 2026 | 미사용 연차 통상임금 계산 | 팁픽",
     description:
       "월 통상임금과 미사용 연차 일수로 연차수당을 바로 계산. 통상시급·1일 통상임금 자동 산정, 2026년 기준 참고용.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

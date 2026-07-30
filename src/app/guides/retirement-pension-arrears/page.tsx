@@ -56,11 +56,13 @@ export const metadata: Metadata = {
     url: `${SITE}${PATH}`,
     title: OG_TITLE,
     description: OG_DESC,
+    images: [`${SITE}/og-image-v2.png`],
   },
   twitter: {
     card: "summary",
     title: OG_TITLE,
     description: OG_DESC,
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

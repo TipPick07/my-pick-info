@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "기준 중위소득 계산기 2026 | 생계·의료·주거·교육급여 자격선 | 팁픽",
     description:
       "가구원수로 2026 기준 중위소득과 4대 급여(생계·의료·주거·교육) 선정기준을 바로 확인. 기초생활보장 자격 참고용.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

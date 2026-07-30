@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "K-패스 환급 계산기 2026 | 유형별 교통비 환급액 | 팁픽",
     description:
       "월 교통비 × 유형별 환급률(20~53.3%)로 K-패스 월·연 환급액을 바로 계산. 2026년 기준 참고용.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

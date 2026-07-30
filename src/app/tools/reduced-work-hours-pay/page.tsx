@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "육아기 근로시간 단축 급여 계산기 (2026) | 팁픽",
     description:
       "통상임금·단축 시간으로 계산하는 육아기 근로시간 단축 급여와 월 실수령액.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "실업급여 계산기 2026 | 1일 구직급여·소정급여일수·총액 확인 | 팁픽",
     description:
       "월 평균임금·가입기간으로 2026 실업급여 예상 수령액을 바로 확인. 상한 68,100·하한 66,048원, 120~270일 반영.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

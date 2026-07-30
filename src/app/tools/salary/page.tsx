@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     title: "연봉 실수령액 계산기 2026 | 4대보험·세금 공제 후 월급 | 팁픽",
     description:
       "연봉을 입력하면 4대보험과 세금을 뺀 월 실수령액을 바로 계산합니다. 비과세액·부양가족 수까지 반영한 2026년 기준 참고용 계산기.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

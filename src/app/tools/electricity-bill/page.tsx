@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "전기요금 계산기 2026 | 주택용 누진제·여름 요금 바로 확인 | 팁픽",
     description:
       "사용량(kWh)으로 2026 주택용 누진제 전기요금 예상 청구액을 바로 확인. 하계 완화 구간·부가세·전력기금 반영.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

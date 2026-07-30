@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "전월세 전환 계산기 | 전세·월세 환산 (법정 전환율) | 팁픽",
     description:
       "전세·월세 전환 월세·보증금을 양방향으로 계산. 2026년 법정 전환율 4.5% 기준.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

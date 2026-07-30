@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     url: `${SITE}${PATH}`,
     title: "본인부담상한제 환급 계산기 (2026) | 팁픽",
     description: "소득분위별 상한액으로 계산하는 병원비 환급 예상액.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

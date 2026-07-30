@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "시급·주휴수당 계산기 2026 | 최저임금·주휴 포함 주급 | 팁픽",
     description:
       "시급·주 근무시간으로 주휴수당과 주급·월급을 바로 계산. 2026년 최저시급 10,320원 기준 알바·파트타임 계산기.",
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 
