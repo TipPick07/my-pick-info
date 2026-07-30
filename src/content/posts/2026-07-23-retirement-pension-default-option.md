@@ -78,6 +78,6 @@ officialCurationNote: "디폴트옵션은 '안 골랐을 때 살 상품'을 미�
 
 디폴트옵션에서 확인할 것은 두 가지뿐입니다 — **① 내가 뭘 지정해 뒀는지 ② 그 등급이 내 은퇴까지 남은 기간과 맞는지.** 5분이면 끝나는 확인이 30년 복리로 불어납니다.
 
-퇴직연금의 큰 그림이 궁금하다면 [퇴직연금 DB·DC·IRP 가이드](/guides/retirement-pension/)에서 유형별 차이부터 잡고, 연금 전체 설계는 [노후 3층 연금 가이드](/guides/three-pillar-pension/)로 넓혀 보세요. 세액공제 계좌를 고르는 문제라면 [ISA·IRP·연금저축 비교](/blog/2026-06-25-isa-irp-pension-savings-comparison/)가, 퇴직할 때 일시금과 연금 중 무엇이 유리한지는 [퇴직금 일시금 vs 연금 비교](/blog/2026-06-29-retirement-pay-lump-vs-pension/)가 다음 순서입니다. 내 퇴직금이 얼마인지부터 궁금하다면 [퇴직금 계산기](/tools/retirement-pay/)로 확인할 수 있습니다.
+퇴직연금의 큰 그림이 궁금하다면 [퇴직연금 DB·DC·IRP 가이드](/guides/retirement-pension/)에서 유형별 차이부터 잡고, 연금 전체 설계는 [노후 3층 연금 가이드](/guides/three-pillar-pension/)로 넓혀 보세요. 세액공제 계좌를 고르는 문제라면 [ISA·IRP·연금저축 비교](/blog/2026-06-25-isa-irp-pension-savings-comparison/)가, 퇴직할 때 일시금과 연금 중 무엇이 유리한지는 [퇴직금 일시금 vs 연금 비교](/blog/2026-06-29-retirement-pay-lump-vs-pension/)가 다음 순서입니다. 내 퇴직금이 얼마인지부터 궁금하다면 [퇴직금 계산기](/tools/retirement-pay/)로 확인할 수 있습니다. 그런데 계정을 열었더니 지정할 돈 자체가 들어와 있지 않다면 이야기가 달라집니다 — 밀린 부담금에 붙는 [지연이자 계산](/blog/2026-07-30-retirement-pension-unpaid-contribution/)과 [미납 대응 순서](/guides/retirement-pension-arrears/)를 먼저 보세요.
 
 > 본 글의 수익률은 금융감독원 2025년 말 퇴직연금·디폴트옵션 공시 기준이며, 과거 수익률이 미래 수익을 보장하지 않습니다. 30년 계산은 단일 수익률 반복을 가정한 단순 시뮬레이션으로 실제 결과와 다를 수 있습니다. 상품 지정 전 각 금융사의 상품설명서를 확인하시기 바랍니다.

@@ -78,14 +78,18 @@ N12. [x] ✅7/28 https://tip-pick.com/tools/medical-cost-cap/ — 신규(계산�
 30. [→D10] https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/ — T3 · 한도 초과로 이월
 - ※ 이날 URL 검사(색인 상태 점검) 2건 별도 수행 — 크롤 확인용이라 요청 한도와 무관.
 
-### D10 — 7/29 (수 = A형 발행일, 5개 = 신규 2 + 이월 3)
-N13. [ ] (7/29 A형 경제 글 — 발행 후 URL 확정)
-N14. [ ] (7/29 A형 가이드 — 발행 후 URL 확정)
-28. [ ] https://tip-pick.com/blog/2026-05-13-seoul-ansimsodeuk-guide/ — T3 (D9 이월)
-29. [ ] https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/ — T3 (D9 이월)
-30. [ ] https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/ — T3 (D9 이월)
+### D10 — 7/29 (수) ⏸ 미실행 — 일일 한도 소진(운영자 타 사이트)으로 요청 0건, 발행도 7/30으로 이동
+- 이날은 발행 대신 품질 정비(H2 라벨 변주 123건 + 신규 글 역링크 14건) 수행 → 요청할 신규 URL 없음.
+- D9 이월 3건은 그대로 D11로 재이월.
 
-### T3 잔여 대기열 (D11 이후, 앞에서부터 소진)
+### D11 — 7/30 (목 = A형 발행일, 5개 = 신규 2 + 이월 3)
+N13. [ ] https://tip-pick.com/blog/2026-07-30-retirement-pension-unpaid-contribution/ — 신규(경제, 퇴직연금 미납 지연이자)
+N14. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — 신규(가이드, 퇴직연금 미납 대응)
+28. [ ] https://tip-pick.com/blog/2026-05-13-seoul-ansimsodeuk-guide/ — T3 (D9→D10 이월)
+29. [ ] https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/ — T3 (D9→D10 이월)
+30. [ ] https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/ — T3 (D9→D10 이월)
+
+### T3 잔여 대기열 (D12 이후, 앞에서부터 소진)
 31. [ ] https://tip-pick.com/blog/2026-05-18-youth-housing-support-guide/ — T3
 32. [ ] https://tip-pick.com/blog/2026-05-19-heat-shelter-guide/ — T3(보강)
 33. [ ] https://tip-pick.com/blog/2026-05-21-jongso-tax-filing-guide/ — T3

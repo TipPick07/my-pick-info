@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "retirement-pension-arrears",
+    title: "퇴직연금이 안 들어왔을 때 — 확인부터 조치까지 (2026)",
+    description:
+      "DC형 부담금이 밀리면 재직 중에도 연 10%, 퇴직 14일 후부터는 연 20%의 지연이자가 붙습니다. 금융회사 계정에서 미납을 확인하는 법, 다투지 않고 기록을 남기는 법, 진정·고소·민사·대지급금이 각각 무엇을 요구하는 절차인지 순서대로 정리한 가이드.",
+    category: "노후·연금",
+    emoji: "📄",
+  },
+  {
     slug: "deposit-protection",
     title: "예금자보호 완전정리 — 어디까지 얼마까지 (2026)",
     description:

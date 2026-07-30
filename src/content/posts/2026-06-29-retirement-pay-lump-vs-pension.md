@@ -113,6 +113,7 @@ DB·DC는 회사를 통해 가입하는 제도이고, **퇴직금을 연금으�
 - 내 퇴직연금이 DB인지 DC인지 → **[퇴직연금 DB·DC·IRP 가이드](/guides/retirement-pension/)**
 - 옮긴 돈이 자동으로 굴러가는 방식 → **[디폴트옵션 등급별 수익률](/blog/2026-07-23-retirement-pension-default-option/)**
 - 퇴직 후 건강보험은? → **[은퇴 후 건강보험 정리](/blog/2026-05-08-retirement-health-insurance-benefits-guide/)**
+- 회사가 부담금을 안 넣었다면 → **[퇴직연금 미납 지연이자 계산](/blog/2026-07-30-retirement-pension-unpaid-contribution/)**
 - 더 많은 돈 이야기 → **[돈이 되는 경제](/money/)**
 
 > 퇴직소득세·연금소득세율과 감면 기준은 세법 개정·개인 상황에 따라 달라질 수 있습니다(2026년 기준). 정확한 세액은 국세청 홈택스, 가입 중인 퇴직연금 사업자(금융사) 등 공식 채널에서 확인하시기 바랍니다.

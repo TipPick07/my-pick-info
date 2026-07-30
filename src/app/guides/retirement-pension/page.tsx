@@ -34,6 +34,7 @@ const SRC_DEFAULT_OPT = "/blog/2026-07-23-retirement-pension-default-option/"; /
 const SRC_PILLAR = "/guides/three-pillar-pension/"; // 3층 연금 전체 구조
 const SRC_LUMP = "/blog/2026-06-29-retirement-pay-lump-vs-pension/"; // 일시금 vs 연금
 const SRC_ISA = "/blog/2026-06-25-isa-irp-pension-savings-comparison/"; // ISA·IRP·연금저축
+const SRC_ARREARS = "/guides/retirement-pension-arrears/"; // 부담금 미납 대응 가이드
 const SRC_CALC = "/tools/retirement-pay/"; // 퇴직금 계산기
 const SRC_MONEY = "/money/";
 
@@ -668,6 +669,17 @@ export default function RetirementPensionGuide() {
                 </p>
                 <p className="mt-1 text-sm leading-relaxed text-slate-600">
                   평균임금 기준 내 퇴직금이 얼마인지부터 확인.
+                </p>
+              </Link>
+              <Link
+                href={SRC_ARREARS}
+                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-indigo-200 hover:bg-indigo-50/40"
+              >
+                <p className="text-sm font-bold text-slate-900">
+                  부담금이 안 들어왔다면 →
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                  DC 계정이 비어 있을 때 — 확인 경로와 조치 순서, 지연이자 연 10%·20%.
                 </p>
               </Link>
             </div>
