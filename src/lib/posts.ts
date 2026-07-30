@@ -64,7 +64,7 @@ export function getSortedPostsData(dirName = 'posts'): PostData[] {
       // Combine the data with the slug
       const img = matterResult.data.image || '';
       const ogImage = matterResult.data.ogImage ||
-        (img.startsWith('http') ? img : img ? `https://tip-pick.com${img}` : 'https://tip-pick.com/images/og-default.png');
+        (img.startsWith('http') ? img : img ? `https://tip-pick.com${img}` : 'https://tip-pick.com/images/og-default-v2.png');
 
       return {
         slug,
@@ -117,7 +117,7 @@ export function getPostData(slug: string, dirName = 'posts'): PostData | null {
 
   const img = matterResult.data.image || '';
   const ogImage = matterResult.data.ogImage ||
-    (img.startsWith('http') ? img : img ? `https://tip-pick.com${img}` : 'https://tip-pick.com/images/og-default.png');
+    (img.startsWith('http') ? img : img ? `https://tip-pick.com${img}` : 'https://tip-pick.com/images/og-default-v2.png');
 
   return {
     slug,

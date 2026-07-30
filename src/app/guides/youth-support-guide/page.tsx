@@ -45,8 +45,8 @@ export const metadata: Metadata = {
   title: "청년 지원 총정리 — 자산·주거·취업 한눈에 (2026) | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
-  openGraph: { type: "article", url: `${SITE}${PATH}`, title: OG_TITLE, description: OG_DESC, images: [`${SITE}/og-image.png`] },
-  twitter: { card: "summary_large_image", title: OG_TITLE, description: OG_DESC, images: [`${SITE}/og-image.png`] },
+  openGraph: { type: "article", url: `${SITE}${PATH}`, title: OG_TITLE, description: OG_DESC, images: [`${SITE}/og-image-v2.png`] },
+  twitter: { card: "summary_large_image", title: OG_TITLE, description: OG_DESC, images: [`${SITE}/og-image-v2.png`] },
 };
 
 /* ─────────────────────────  본문 데이터  ───────────────────────── */

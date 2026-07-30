@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const post = getPostData(slug);
 
   const description = post?.description || post?.summary || '';
-  const ogImage = post?.ogImage || 'https://tip-pick.com/images/og-default.png';
+  const ogImage = post?.ogImage || 'https://tip-pick.com/images/og-default-v2.png';
 
   return {
     ...(post && !isPostCategoryLive(post.category) ? { robots: { index: false, follow: false } } : {}),

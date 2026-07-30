@@ -11,7 +11,7 @@ import { GUIDES } from "@/lib/guides";
  *
  * ▷ 독립 정적 라우트. posts/*.md · public/data/pick-info.json 미경유 → 자동발행 파이프라인과 무관.
  * ▷ 목록은 src/lib/guides.ts(GUIDES) 단일 SSOT를 map. sitemap도 같은 배열을 사용.
- * ▷ 허브 자체 og:image 는 사이트 공용 이미지(/og-image.png)가 없어 비워둠(임의 차용 금지).
+ * ▷ 허브 자체 og:image 는 사이트 공용 이미지(/og-image-v2.png)가 없어 비워둠(임의 차용 금지).
  *   → 공용 OG 이미지 생성 시 이 파일 openGraph/twitter 에 images 추가.
  */
 
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
     url: `${SITE}${PATH}`,
     title: OG_TITLE,
     description: OG_DESC,
-    images: [`${SITE}/og-image.png`],
+    images: [`${SITE}/og-image-v2.png`],
   },
   twitter: {
     card: "summary_large_image",
     title: OG_TITLE,
     description: OG_DESC,
-    images: [`${SITE}/og-image.png`],
+    images: [`${SITE}/og-image-v2.png`],
   },
 };
 

@@ -25,11 +25,11 @@ export const metadata: Metadata = {
     siteName: "팁픽",
     locale: "ko_KR",
     type: "website",
-    images: [{ url: 'https://tip-pick.com/og-image.png', width: 1200, height: 630, alt: '팁픽 - 정부 지원금·경제·생활정보 가이드' }],
+    images: [{ url: 'https://tip-pick.com/og-image-v2.png', width: 1200, height: 630, alt: '팁픽 - 정부 지원금·경제·생활정보 가이드' }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['https://tip-pick.com/og-image.png'],
+    images: ['https://tip-pick.com/og-image-v2.png'],
   },
   icons: {
     icon: '/images/logo-tippick.png',
