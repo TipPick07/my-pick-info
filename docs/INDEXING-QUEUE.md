@@ -89,19 +89,22 @@ N14. [x] ✅7/30 https://tip-pick.com/guides/retirement-pension-arrears/ — 신
 29. [x] ✅7/30 https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/ — T3 (D9→D10→D11 이월) · 색인+수집 완료
 30. [x] ✅7/30 https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/ — T3 (D9→D10→D11 이월) · 색인+수집 완료
 
-### D12 — 7/31 (금 = B형 발행일, 5개 = 신규 2 + 백로그 3)
-N15. [ ] https://tip-pick.com/blog/2026-07-31-longterm-care-copayment/ — 신규(지원금, 장기요양 본인부담금)
-N16. [ ] https://tip-pick.com/tools/longterm-care-copay/ — 신규(계산기, 등급별 월 부담액)
-31. [ ] https://tip-pick.com/blog/2026-05-18-youth-housing-support-guide/ — T3
-32. [ ] https://tip-pick.com/blog/2026-05-19-heat-shelter-guide/ — T3(보강)
-33. [ ] https://tip-pick.com/blog/2026-05-21-jongso-tax-filing-guide/ — T3
+### D12 — 7/31 (금 = B형 발행일) ✅ 5/5 전부 완료 — 이월 없음, 2일 연속 풀 완료
+N15. [x] ✅7/31 https://tip-pick.com/blog/2026-07-31-longterm-care-copayment/ — 신규(지원금, 장기요양 본인부담금) · 색인+수집 완료
+N16. [x] ✅7/31 https://tip-pick.com/tools/longterm-care-copay/ — 신규(계산기, 등급별 월 부담액) · 색인+수집 완료
+31. [x] ✅7/31 https://tip-pick.com/blog/2026-05-18-youth-housing-support-guide/ — T3 · 색인+수집 완료
+32. [x] ✅7/31 https://tip-pick.com/blog/2026-05-19-heat-shelter-guide/ — T3(보강) · 색인+수집 완료
+33. [x] ✅7/31 https://tip-pick.com/blog/2026-05-21-jongso-tax-filing-guide/ — T3 · 색인+수집 완료
 
-### T3 잔여 대기열 (D13 이후, 앞에서부터 소진)
+### D13 — 8/1 (토, 비발행일 = 백로그 5)
+> 토요일은 오픈챗 공유만 하는 날(§7 루틴) → 신규 없이 백로그 5건.
 34. [ ] https://tip-pick.com/blog/2026-05-29-energy-voucher-cooling-support/ — T3
 35. [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — T3(내일저축 글과 루프)
-36. [ ] https://tip-pick.com/blog/2026-05-31-medical-health-insurance-support/ — T3
+36. [ ] https://tip-pick.com/blog/2026-05-31-medical-health-insurance-support/ — T3(장기요양 글과 루프)
 37. [ ] https://tip-pick.com/blog/2026-06-01-icheon-local-currency-cashback/ — T3
 38. [ ] https://tip-pick.com/blog/2026-06-01-summer-family-benefit-roadmap/ — T3
+
+### T3 잔여 대기열 (D14 이후, 앞에서부터 소진)
 39. [ ] https://tip-pick.com/blog/2026-06-01-yongsan-disabled-family-birth-support/ — T3
 40. [ ] https://tip-pick.com/blog/2026-06-03-seoul-yongsan-youth-independence-support/ — T3
 41. [ ] https://tip-pick.com/guides/youth-support-guide/ — T4 리라이트 가이드
@@ -160,3 +163,8 @@ N16. [ ] https://tip-pick.com/tools/longterm-care-copay/ — 신규(계산기, �
 | 7/30 | /blog/2026-05-13-seoul-ansimsodeuk-guide/ | T3 2일 이월분 · 색인+수집 |
 | 7/30 | /blog/2026-05-17-culture-voucher-nuri-card-guide/ | T3 2일 이월분 · 색인+수집 |
 | 7/30 | /blog/2026-05-17-gyeonggi-youth-support-guide/ | T3 2일 이월분 · 색인+수집 · 5/5 풀 완료, 이월 0 |
+| 7/31 | /blog/2026-07-31-longterm-care-copayment/ | 신규 · 색인+수집 |
+| 7/31 | /tools/longterm-care-copay/ | 신규 · 색인+수집 |
+| 7/31 | /blog/2026-05-18-youth-housing-support-guide/ | T3 · 색인+수집 |
+| 7/31 | /blog/2026-05-19-heat-shelter-guide/ | T3 · 색인+수집 |
+| 7/31 | /blog/2026-05-21-jongso-tax-filing-guide/ | T3 · 색인+수집 · 5/5 풀 완료, 2일 연속 |
