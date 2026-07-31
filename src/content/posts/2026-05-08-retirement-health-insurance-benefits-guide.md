@@ -126,6 +126,6 @@ officialTip: "임의계속가입 기한은 '퇴직일'이 아니라 '지역가�
 
 ## 첫 고지서가 오면 비교부터
 
-퇴직 직후의 건강보험료는 선택지를 아는 사람만 줄입니다. 관련 정보인 [건강보험료 줄이는 법 가이드](/guides/health-insurance-saving/), [퇴직금 일시금 vs 연금](/blog/2026-06-29-retirement-pay-lump-vs-pension/), [4대보험 계산기](/tools/insurance/)도 함께 확인해 보세요. 전체 목록은 [정부 지원금 전체](/benefits/)에 있습니다.
+퇴직 직후의 건강보험료는 선택지를 아는 사람만 줄입니다. 요양이 필요한 시기가 오면 부담 구조가 또 달라지니 [장기요양 본인부담금 계산](/blog/2026-07-31-longterm-care-copayment/)도 미리 봐 두시면 좋습니다. 관련 정보인 [건강보험료 줄이는 법 가이드](/guides/health-insurance-saving/), [퇴직금 일시금 vs 연금](/blog/2026-06-29-retirement-pay-lump-vs-pension/), [4대보험 계산기](/tools/insurance/)도 함께 확인해 보세요. 전체 목록은 [정부 지원금 전체](/benefits/)에 있습니다.
 
 > 본 글은 2026년 기준 공식 자료를 바탕으로 정리한 정보입니다. 세부 조건과 금액은 변경될 수 있으니, 신청 전 공식 사이트에서 최신 기준을 확인하세요.

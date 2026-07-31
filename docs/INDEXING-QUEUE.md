@@ -89,15 +89,16 @@ N14. [x] ✅7/30 https://tip-pick.com/guides/retirement-pension-arrears/ — 신
 29. [x] ✅7/30 https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/ — T3 (D9→D10→D11 이월) · 색인+수집 완료
 30. [x] ✅7/30 https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/ — T3 (D9→D10→D11 이월) · 색인+수집 완료
 
-### D12 — 7/31 (금 = 색인 점검일, 백로그 5)
-> 이날 발행하면(운영자가 날짜 트리거 시 B형) 신규 2 + 백로그 3으로 조정하고 나머지 2건은 D13 이월.
+### D12 — 7/31 (금 = B형 발행일, 5개 = 신규 2 + 백로그 3)
+N15. [ ] https://tip-pick.com/blog/2026-07-31-longterm-care-copayment/ — 신규(지원금, 장기요양 본인부담금)
+N16. [ ] https://tip-pick.com/tools/longterm-care-copay/ — 신규(계산기, 등급별 월 부담액)
 31. [ ] https://tip-pick.com/blog/2026-05-18-youth-housing-support-guide/ — T3
 32. [ ] https://tip-pick.com/blog/2026-05-19-heat-shelter-guide/ — T3(보강)
 33. [ ] https://tip-pick.com/blog/2026-05-21-jongso-tax-filing-guide/ — T3
-34. [ ] https://tip-pick.com/blog/2026-05-29-energy-voucher-cooling-support/ — T3
-35. [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — T3(내일저축 글과 루프)
 
 ### T3 잔여 대기열 (D13 이후, 앞에서부터 소진)
+34. [ ] https://tip-pick.com/blog/2026-05-29-energy-voucher-cooling-support/ — T3
+35. [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — T3(내일저축 글과 루프)
 36. [ ] https://tip-pick.com/blog/2026-05-31-medical-health-insurance-support/ — T3
 37. [ ] https://tip-pick.com/blog/2026-06-01-icheon-local-currency-cashback/ — T3
 38. [ ] https://tip-pick.com/blog/2026-06-01-summer-family-benefit-roadmap/ — T3

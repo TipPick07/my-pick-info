@@ -173,6 +173,14 @@ const TOOLS: Tool[] = [
     ready: true,
   },
   {
+    href: "/tools/longterm-care-copay/",
+    emoji: "🧓",
+    title: "장기요양 본인부담금 계산기",
+    desc: "등급·재가/시설·감경 구분별 한 달 요양 부담액(2026 수가)",
+    accent: "#14B8A6",
+    ready: true,
+  },
+  {
     href: "/tools/medical-cost-cap/",
     emoji: "🏥",
     title: "본인부담상한제 계산기",

@@ -142,6 +142,6 @@ officialTip: "은퇴 직후 지역가입자 전환 전, 자녀·배우자의 피
 
 ## 노후 제도는 겹쳐 쓸 때 커진다
 
-노후 소득은 제도를 겹쳐 쌓을수록 두꺼워집니다. [노후 3층 연금 가이드](/guides/three-pillar-pension/)와 [기초연금 받는 법](/blog/2026-06-28-basic-pension-guide/)으로 뼈대를 잡고, 연금액 자체를 늘리는 방법은 [국민연금 더 받는 법](/blog/2026-07-21-national-pension-boost-strategies/)에, 집을 월 수입으로 바꾸는 선택은 [주택연금 가이드](/guides/housing-pension/)에 정리해 두었습니다. 더 많은 제도는 [정부 지원금 전체](/benefits/)에서 확인하세요.
+노후 소득은 제도를 겹쳐 쌓을수록 두꺼워집니다. [노후 3층 연금 가이드](/guides/three-pillar-pension/)와 [기초연금 받는 법](/blog/2026-06-28-basic-pension-guide/)으로 뼈대를 잡고, 연금액 자체를 늘리는 방법은 [국민연금 더 받는 법](/blog/2026-07-21-national-pension-boost-strategies/)에, 집을 월 수입으로 바꾸는 선택은 [주택연금 가이드](/guides/housing-pension/)에 정리해 두었습니다. 돌봄이 필요해진 뒤의 비용은 [장기요양 본인부담금](/blog/2026-07-31-longterm-care-copayment/)에서 등급별로 계산해 두었고요. 더 많은 제도는 [정부 지원금 전체](/benefits/)에서 확인하세요.
 
 > 본 글은 2026년 기준 공식 자료를 바탕으로 정리한 정보입니다. 세부 조건과 금액은 변경될 수 있으니, 신청 전 공식 사이트에서 최신 기준을 확인하세요.
