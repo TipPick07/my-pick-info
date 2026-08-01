@@ -104,17 +104,25 @@ N16. [x] ✅7/31 https://tip-pick.com/tools/longterm-care-copay/ — 신규(계�
 37. [x] ✅8/1 https://tip-pick.com/blog/2026-06-01-icheon-local-currency-cashback/ — T3 · 색인+수집 완료
 38. [x] ✅8/1 https://tip-pick.com/blog/2026-06-01-summer-family-benefit-roadmap/ — T3 · 색인+수집 완료
 
-### D14 — 8/2 (일, 비발행일 = 백로그 5) — 09:00 캡처 게이트 3회차 판정 + 주간 리포트 분석도 별도 진행
-39. [ ] https://tip-pick.com/blog/2026-06-01-yongsan-disabled-family-birth-support/ — T3
-40. [ ] https://tip-pick.com/blog/2026-06-03-seoul-yongsan-youth-independence-support/ — T3 → **T3 구 큐 잔여 전량 소진**
-41. [ ] https://tip-pick.com/guides/youth-support-guide/ — T4 리라이트 가이드
-42. [ ] https://tip-pick.com/guides/house-capital-gains-tax/ — T4(15억 계산 추가)
-43. [ ] https://tip-pick.com/guides/inheritance-gift-tax/ — T4
+### D14 — 8/2 (일, 비발행일 = 백로그 5) ✅ 5/5 전부 완료 — 4일 연속 풀 완료 · **T3 구 큐 전량 소진, T4 진입**
+39. [x] ✅8/2 https://tip-pick.com/blog/2026-06-01-yongsan-disabled-family-birth-support/ — T3 · 색인+수집 완료
+40. [x] ✅8/2 https://tip-pick.com/blog/2026-06-03-seoul-yongsan-youth-independence-support/ — T3 · 색인+수집 완료 → **T3 구 큐 잔여 전량 소진**
+41. [x] ✅8/2 https://tip-pick.com/guides/youth-support-guide/ — T4 리라이트 가이드 · 색인+수집 완료
+42. [x] ✅8/2 https://tip-pick.com/guides/house-capital-gains-tax/ — T4(15억 계산 추가) · 색인+수집 완료
+43. [x] ✅8/2 https://tip-pick.com/guides/inheritance-gift-tax/ — T4 · 색인+수집 완료
 
-### T4 잔여 대기열 (D15 이후, 앞에서부터 소진)
+### D15 — 8/3 (월 = A형 발행일, 5개 = 신규 2 + 백로그 3)
+N11. [ ] (8/3 A형 경제 글 — 발행 후 URL 확정)
+N12. [ ] (8/3 A형 가이드 — 발행 후 URL 확정)
 44. [ ] https://tip-pick.com/guides/parenting-family-benefits/ — T4(누적 3,440만 계산)
 45. [ ] https://tip-pick.com/tools/median-income/ — T4(중위소득 표 추가)
-46. [ ] 이후: 나머지 B보강 글·가이드·계산기 — 완료 추이 보고 재산정
+46. [ ] https://tip-pick.com/guides/deposit-protection/ — T4(7/27 신규 가이드 재요청 — 색인 확인용)
+
+### T4 잔여 대기열 (D16 이후, 앞에서부터 소진)
+47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(7/30 신규 가이드 재요청 — 색인 확인용)
+48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(7/28 신규 계산기 재요청)
+49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(7/31 신규 계산기 재요청)
+50. [ ] 이후: 나머지 가이드·계산기 — **8/9 캡처의 '크롤됨-색인X 534' 목록 확인 후 재산정**(현행 콘텐츠가 묶여 있으면 그 URL을 최우선 재요청)
 
 ## 완료 기록 (운영자 보고분만 기입)
 | 날짜 | 완료 URL | 비고 |
@@ -175,3 +183,8 @@ N16. [x] ✅7/31 https://tip-pick.com/tools/longterm-care-copay/ — 신규(계�
 | 8/1 | /blog/2026-05-31-medical-health-insurance-support/ | T3 · 색인+수집 |
 | 8/1 | /blog/2026-06-01-icheon-local-currency-cashback/ | T3 · 색인+수집 |
 | 8/1 | /blog/2026-06-01-summer-family-benefit-roadmap/ | T3 · 색인+수집 · 5/5 풀 완료, 3일 연속 |
+| 8/2 | /blog/2026-06-01-yongsan-disabled-family-birth-support/ | T3 · 색인+수집 |
+| 8/2 | /blog/2026-06-03-seoul-yongsan-youth-independence-support/ | T3 · 색인+수집 · T3 구 큐 전량 소진 |
+| 8/2 | /guides/youth-support-guide/ | T4 · 색인+수집 |
+| 8/2 | /guides/house-capital-gains-tax/ | T4 · 색인+수집 |
+| 8/2 | /guides/inheritance-gift-tax/ | T4 · 색인+수집 · 5/5 풀 완료, 4일 연속 |
