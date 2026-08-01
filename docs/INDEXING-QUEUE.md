@@ -96,20 +96,22 @@ N16. [x] ✅7/31 https://tip-pick.com/tools/longterm-care-copay/ — 신규(계�
 32. [x] ✅7/31 https://tip-pick.com/blog/2026-05-19-heat-shelter-guide/ — T3(보강) · 색인+수집 완료
 33. [x] ✅7/31 https://tip-pick.com/blog/2026-05-21-jongso-tax-filing-guide/ — T3 · 색인+수집 완료
 
-### D13 — 8/1 (토, 비발행일 = 백로그 5)
+### D13 — 8/1 (토, 비발행일 = 백로그 5) ✅ 5/5 전부 완료 — 3일 연속 풀 완료, 이월 없음
 > 토요일은 오픈챗 공유만 하는 날(§7 루틴) → 신규 없이 백로그 5건.
-34. [ ] https://tip-pick.com/blog/2026-05-29-energy-voucher-cooling-support/ — T3
-35. [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — T3(내일저축 글과 루프)
-36. [ ] https://tip-pick.com/blog/2026-05-31-medical-health-insurance-support/ — T3(장기요양 글과 루프)
-37. [ ] https://tip-pick.com/blog/2026-06-01-icheon-local-currency-cashback/ — T3
-38. [ ] https://tip-pick.com/blog/2026-06-01-summer-family-benefit-roadmap/ — T3
+34. [x] ✅8/1 https://tip-pick.com/blog/2026-05-29-energy-voucher-cooling-support/ — T3 · 색인+수집 완료
+35. [x] ✅8/1 https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — T3(내일저축 글과 루프) · 색인+수집 완료
+36. [x] ✅8/1 https://tip-pick.com/blog/2026-05-31-medical-health-insurance-support/ — T3(장기요양 글과 루프) · 색인+수집 완료
+37. [x] ✅8/1 https://tip-pick.com/blog/2026-06-01-icheon-local-currency-cashback/ — T3 · 색인+수집 완료
+38. [x] ✅8/1 https://tip-pick.com/blog/2026-06-01-summer-family-benefit-roadmap/ — T3 · 색인+수집 완료
 
-### T3 잔여 대기열 (D14 이후, 앞에서부터 소진)
+### D14 — 8/2 (일, 비발행일 = 백로그 5) — 09:00 캡처 게이트 3회차 판정 + 주간 리포트 분석도 별도 진행
 39. [ ] https://tip-pick.com/blog/2026-06-01-yongsan-disabled-family-birth-support/ — T3
-40. [ ] https://tip-pick.com/blog/2026-06-03-seoul-yongsan-youth-independence-support/ — T3
+40. [ ] https://tip-pick.com/blog/2026-06-03-seoul-yongsan-youth-independence-support/ — T3 → **T3 구 큐 잔여 전량 소진**
 41. [ ] https://tip-pick.com/guides/youth-support-guide/ — T4 리라이트 가이드
 42. [ ] https://tip-pick.com/guides/house-capital-gains-tax/ — T4(15억 계산 추가)
 43. [ ] https://tip-pick.com/guides/inheritance-gift-tax/ — T4
+
+### T4 잔여 대기열 (D15 이후, 앞에서부터 소진)
 44. [ ] https://tip-pick.com/guides/parenting-family-benefits/ — T4(누적 3,440만 계산)
 45. [ ] https://tip-pick.com/tools/median-income/ — T4(중위소득 표 추가)
 46. [ ] 이후: 나머지 B보강 글·가이드·계산기 — 완료 추이 보고 재산정
@@ -168,3 +170,8 @@ N16. [x] ✅7/31 https://tip-pick.com/tools/longterm-care-copay/ — 신규(계�
 | 7/31 | /blog/2026-05-18-youth-housing-support-guide/ | T3 · 색인+수집 |
 | 7/31 | /blog/2026-05-19-heat-shelter-guide/ | T3 · 색인+수집 |
 | 7/31 | /blog/2026-05-21-jongso-tax-filing-guide/ | T3 · 색인+수집 · 5/5 풀 완료, 2일 연속 |
+| 8/1 | /blog/2026-05-29-energy-voucher-cooling-support/ | T3 · 색인+수집 |
+| 8/1 | /blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ | T3 · 색인+수집 |
+| 8/1 | /blog/2026-05-31-medical-health-insurance-support/ | T3 · 색인+수집 |
+| 8/1 | /blog/2026-06-01-icheon-local-currency-cashback/ | T3 · 색인+수집 |
+| 8/1 | /blog/2026-06-01-summer-family-benefit-roadmap/ | T3 · 색인+수집 · 5/5 풀 완료, 3일 연속 |
