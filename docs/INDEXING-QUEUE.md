@@ -111,17 +111,21 @@ N16. [x] ✅7/31 https://tip-pick.com/tools/longterm-care-copay/ — 신규(계�
 42. [x] ✅8/2 https://tip-pick.com/guides/house-capital-gains-tax/ — T4(15억 계산 추가) · 색인+수집 완료
 43. [x] ✅8/2 https://tip-pick.com/guides/inheritance-gift-tax/ — T4 · 색인+수집 완료
 
-### D15 — 8/3 (월 = A형 발행일, 5개 = 신규 2 + 백로그 3)
-N17. [ ] https://tip-pick.com/blog/2026-08-03-hidden-money-refund-deadline/ — 신규(경제, 숨은 돈 창구별 시효)
-N18. [ ] https://tip-pick.com/guides/hidden-money-checkup/ — 신규(가이드, 숨은 돈 통합 조회)
-44. [ ] https://tip-pick.com/guides/parenting-family-benefits/ — T4(누적 3,440만 계산)
-45. [ ] https://tip-pick.com/tools/median-income/ — T4(중위소득 표 추가)
-46. [ ] https://tip-pick.com/guides/deposit-protection/ — T4(7/27 신규 가이드 재요청 — 색인 확인용)
+### D15 — 8/3 (월 = A형 발행일) ✅ 5/5 전부 완료 — **5일 연속 풀 완료**, 이월 없음
+N17. [x] ✅8/3 https://tip-pick.com/blog/2026-08-03-hidden-money-refund-deadline/ — 신규(경제, 숨은 돈 창구별 시효) · 색인+수집 완료
+N18. [x] ✅8/3 https://tip-pick.com/guides/hidden-money-checkup/ — 신규(가이드, 숨은 돈 통합 조회) · 색인+수집 완료
+44. [x] ✅8/3 https://tip-pick.com/guides/parenting-family-benefits/ — T4(누적 3,440만 계산) · 색인+수집 완료
+45. [x] ✅8/3 https://tip-pick.com/tools/median-income/ — T4(중위소득 표 추가) · 색인+수집 완료
+46. [x] ✅8/3 https://tip-pick.com/guides/deposit-protection/ — T4(7/27 신규 가이드 재요청) · 색인+수집 완료
 
-### T4 잔여 대기열 (D16 이후, 앞에서부터 소진)
+### D16 — 8/4 (화 = B형 발행일, 5개 = 신규 2 + 백로그 3)
+N19. [ ] (8/4 B형 지원금 글 — 발행 후 URL 확정)
+N20. [ ] (8/4 B형 계산기 또는 가이드 — 발행 후 URL 확정)
 47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(7/30 신규 가이드 재요청 — 색인 확인용)
 48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(7/28 신규 계산기 재요청)
 49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(7/31 신규 계산기 재요청)
+
+### T4 잔여 대기열 (D17 이후, 앞에서부터 소진)
 50. [ ] 이후: 나머지 가이드·계산기 — **8/9 캡처의 '크롤됨-색인X 534' 목록 확인 후 재산정**(현행 콘텐츠가 묶여 있으면 그 URL을 최우선 재요청)
 
 ## 완료 기록 (운영자 보고분만 기입)
@@ -188,3 +192,8 @@ N18. [ ] https://tip-pick.com/guides/hidden-money-checkup/ — 신규(가이드,
 | 8/2 | /guides/youth-support-guide/ | T4 · 색인+수집 |
 | 8/2 | /guides/house-capital-gains-tax/ | T4 · 색인+수집 |
 | 8/2 | /guides/inheritance-gift-tax/ | T4 · 색인+수집 · 5/5 풀 완료, 4일 연속 |
+| 8/3 | /blog/2026-08-03-hidden-money-refund-deadline/ | 신규 · 색인+수집 |
+| 8/3 | /guides/hidden-money-checkup/ | 신규 · 색인+수집 |
+| 8/3 | /guides/parenting-family-benefits/ | T4 · 색인+수집 |
+| 8/3 | /tools/median-income/ | T4 · 색인+수집 |
+| 8/3 | /guides/deposit-protection/ | T4 재요청(색인 확인용) · 색인+수집 · 5/5 풀 완료, 5일 연속 |
