@@ -112,8 +112,8 @@ N16. [x] ✅7/31 https://tip-pick.com/tools/longterm-care-copay/ — 신규(계�
 43. [x] ✅8/2 https://tip-pick.com/guides/inheritance-gift-tax/ — T4 · 색인+수집 완료
 
 ### D15 — 8/3 (월 = A형 발행일, 5개 = 신규 2 + 백로그 3)
-N11. [ ] (8/3 A형 경제 글 — 발행 후 URL 확정)
-N12. [ ] (8/3 A형 가이드 — 발행 후 URL 확정)
+N17. [ ] https://tip-pick.com/blog/2026-08-03-hidden-money-refund-deadline/ — 신규(경제, 숨은 돈 창구별 시효)
+N18. [ ] https://tip-pick.com/guides/hidden-money-checkup/ — 신규(가이드, 숨은 돈 통합 조회)
 44. [ ] https://tip-pick.com/guides/parenting-family-benefits/ — T4(누적 3,440만 계산)
 45. [ ] https://tip-pick.com/tools/median-income/ — T4(중위소득 표 추가)
 46. [ ] https://tip-pick.com/guides/deposit-protection/ — T4(7/27 신규 가이드 재요청 — 색인 확인용)

@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "hidden-money-checkup",
+    title: "숨은 돈 통합 조회 — 창구별 동선과 준비물 (2026)",
+    description:
+      "미환급금·휴면예금·숨은 보험금·카드포인트는 한 사이트에서 다 되지 않습니다. 여섯 창구를 30분에 도는 순서(시효가 짧은 보험 3년부터, 금액이 큰 세금은 경정청구까지), 창구별 준비물과 화면에서 막히는 지점을 정리한 가이드.",
+    category: "생활금융",
+    emoji: "🔎",
+  },
+  {
     slug: "retirement-pension-arrears",
     title: "퇴직연금이 안 들어왔을 때 — 확인부터 조치까지 (2026)",
     description:
