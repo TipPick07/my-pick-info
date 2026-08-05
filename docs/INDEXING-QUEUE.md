@@ -118,9 +118,10 @@ N18. [x] ✅8/3 https://tip-pick.com/guides/hidden-money-checkup/ — 신규(가
 45. [x] ✅8/3 https://tip-pick.com/tools/median-income/ — T4(중위소득 표 추가) · 색인+수집 완료
 46. [x] ✅8/3 https://tip-pick.com/guides/deposit-protection/ — T4(7/27 신규 가이드 재요청) · 색인+수집 완료
 
-### D16 — 8/4 (화 = B형 발행일, 5개 = 신규 2 + 백로그 3)
-N19. [ ] (8/4 B형 지원금 글 — 발행 후 URL 확정)
-N20. [ ] (8/4 B형 계산기 또는 가이드 — 발행 후 URL 확정)
+### D16 — 8/5 (수 = B형 발행일, 5개 = 신규 2 + 백로그 3)
+> ※ 8/4(화)는 휴무 — 요청 0건, 발행도 없음. 교대 순서는 그대로 유지.
+N19. [ ] https://tip-pick.com/blog/2026-08-05-dormant-deposit-hidden-insurance/ — 신규(경제, 휴면예금·숨은 보험금)
+N20. [ ] https://tip-pick.com/tools/tax-refund-claim/ — 신규(계산기, 경정청구 환급액)
 47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(7/30 신규 가이드 재요청 — 색인 확인용)
 48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(7/28 신규 계산기 재요청)
 49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(7/31 신규 계산기 재요청)

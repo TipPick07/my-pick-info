@@ -173,6 +173,14 @@ const TOOLS: Tool[] = [
     ready: true,
   },
   {
+    href: "/tools/tax-refund-claim/",
+    emoji: "💸",
+    title: "경정청구 환급액 계산기",
+    desc: "놓친 월세·의료비·교육비 공제를 5년 소급하면 얼마",
+    accent: "#F59E0B",
+    ready: true,
+  },
+  {
     href: "/tools/longterm-care-copay/",
     emoji: "🧓",
     title: "장기요양 본인부담금 계산기",

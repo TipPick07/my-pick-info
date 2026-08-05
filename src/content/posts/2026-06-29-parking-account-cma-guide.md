@@ -106,6 +106,7 @@ RP형·발행어음형은 약정 수익률을 주는 구조라 실무상 원금�
 - 옮긴 돈 이자 계산 → **[예적금 이자 계산기](/tools/savings-interest/)**
 - 한 곳에 얼마까지 안전한가 → **[예금자보호 1억, 이자까지 지키는 상한](/blog/2026-07-27-deposit-protection-limit/)**
 - 보호되는 상품과 아닌 상품 → **[예금자보호 가이드](/guides/deposit-protection/)**
+- 안 쓰는 통장에 잠긴 돈이 있다면 → **[휴면예금·숨은 보험금, 예금 5년·보험 3년](/blog/2026-08-05-dormant-deposit-hidden-insurance/)**
 - 목돈은 절세계좌로 → **[ISA·연금저축·IRP 비교](/blog/2026-06-25-isa-irp-pension-savings-comparison/)**
 - 대출 금리가 고민이면 → **[고정금리 vs 변동금리](/blog/2026-06-28-fixed-vs-variable-mortgage-rate/)**
 - 더 많은 돈 이야기 → **[돈이 되는 경제](/money/)**
