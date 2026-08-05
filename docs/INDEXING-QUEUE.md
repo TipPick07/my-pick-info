@@ -118,15 +118,21 @@ N18. [x] ✅8/3 https://tip-pick.com/guides/hidden-money-checkup/ — 신규(가
 45. [x] ✅8/3 https://tip-pick.com/tools/median-income/ — T4(중위소득 표 추가) · 색인+수집 완료
 46. [x] ✅8/3 https://tip-pick.com/guides/deposit-protection/ — T4(7/27 신규 가이드 재요청) · 색인+수집 완료
 
-### D16 — 8/5 (수 = B형 발행일, 5개 = 신규 2 + 백로그 3)
+### D16 — 8/5 (수 = B형 발행일) ✅ 2/5 완료 후 일일 한도 초과 — 잔여 3건 D17 이월
 > ※ 8/4(화)는 휴무 — 요청 0건, 발행도 없음. 교대 순서는 그대로 유지.
-N19. [ ] https://tip-pick.com/blog/2026-08-05-dormant-deposit-hidden-insurance/ — 신규(경제, 휴면예금·숨은 보험금)
-N20. [ ] https://tip-pick.com/tools/tax-refund-claim/ — 신규(계산기, 경정청구 환급액)
-47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(7/30 신규 가이드 재요청 — 색인 확인용)
-48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(7/28 신규 계산기 재요청)
-49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(7/31 신규 계산기 재요청)
+N19. [x] ✅8/5 https://tip-pick.com/blog/2026-08-05-dormant-deposit-hidden-insurance/ — 신규(경제, 휴면예금·숨은 보험금) · 색인+수집 완료
+N20. [x] ✅8/5 https://tip-pick.com/tools/tax-refund-claim/ — 신규(계산기, 경정청구 환급액) · 색인+수집 완료
+47. [→D17] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(7/30 신규 재요청) · 한도 초과로 이월
+48. [→D17] https://tip-pick.com/tools/medical-cost-cap/ — T4(7/28 신규 재요청) · 한도 초과로 이월
+49. [→D17] https://tip-pick.com/tools/longterm-care-copay/ — T4(7/31 신규 재요청) · 한도 초과로 이월
 
-### T4 잔여 대기열 (D17 이후, 앞에서부터 소진)
+### D17 — 8/6 (목, 5개)
+> 발행하면(A형 차례) 신규 2 + 이월 3. 발행이 없으면 이월 3 + T4 2건 추가.
+47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(D16 이월)
+48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(D16 이월)
+49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(D16 이월)
+
+### T4 잔여 대기열 (D18 이후, 앞에서부터 소진)
 50. [ ] 이후: 나머지 가이드·계산기 — **8/9 캡처의 '크롤됨-색인X 534' 목록 확인 후 재산정**(현행 콘텐츠가 묶여 있으면 그 URL을 최우선 재요청)
 
 ## 완료 기록 (운영자 보고분만 기입)
@@ -198,3 +204,6 @@ N20. [ ] https://tip-pick.com/tools/tax-refund-claim/ — 신규(계산기, 경�
 | 8/3 | /guides/parenting-family-benefits/ | T4 · 색인+수집 |
 | 8/3 | /tools/median-income/ | T4 · 색인+수집 |
 | 8/3 | /guides/deposit-protection/ | T4 재요청(색인 확인용) · 색인+수집 · 5/5 풀 완료, 5일 연속 |
+| 8/4 | — | 휴무 · 요청 0건 |
+| 8/5 | /blog/2026-08-05-dormant-deposit-hidden-insurance/ | 신규 · 색인+수집 |
+| 8/5 | /tools/tax-refund-claim/ | 신규 · 색인+수집 · 이후 한도 초과(T4 3건 D17 이월) |
