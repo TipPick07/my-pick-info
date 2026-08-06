@@ -19,7 +19,6 @@ export default function Home() {
 
   const allPosts = getSortedPostsData();
   const posts = allPosts.filter((p) => isPostCategoryLive(p.category)).slice(0, 6);
-  const weatherApiKey = process.env.PUBLIC_DATA_API_KEY || "";
 
   const kstNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
   const kstYear = kstNow.getFullYear();
@@ -77,7 +76,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(benefitSchema) }}
       />
-      <HomeClient data={data} posts={posts} weatherApiKey={weatherApiKey} todayUpdates={todayUpdates} bannerConfig={bannerConfig} />
+      <HomeClient data={data} posts={posts} todayUpdates={todayUpdates} bannerConfig={bannerConfig} />
     </>
   );
 }

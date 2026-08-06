@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import GuideCard from "@/components/GuideCard";
 import { GUIDES } from "@/lib/guides";
+import { TOPICS } from "@/lib/topics";
 import { visibleCategories, isCategoryLive } from "@/config/categories";
 import PostRow from "@/components/PostRow";
 
@@ -100,7 +101,7 @@ function sortFestivals<T extends { date: string }>(list: T[], today: Date): T[] 
 const FALLBACK_IMG = '/images/blogs/korea-welfare-benefit-322.png';
 const KAKAO_OPENCHAT_URL = "https://open.kakao.com/o/gdb5gJsi"; // 카카오 오픈채팅: 팁픽 | 정부 지원금·경제·생활정보
 
-export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, bannerConfig }: { data: Data, posts: PostData[], weatherApiKey: string, todayUpdates?: TodayUpdates, bannerConfig?: { isActive: boolean; imageUrl: string; linkUrl: string } }) {
+export default function HomeClient({ data, posts, todayUpdates, bannerConfig }: { data: Data, posts: PostData[], todayUpdates?: TodayUpdates, bannerConfig?: { isActive: boolean; imageUrl: string; linkUrl: string } }) {
   const [filter, setFilter] = useState("전체");
 
   // KST 기준 오늘 날짜
@@ -185,9 +186,34 @@ export default function HomeClient({ data, posts, weatherApiKey, todayUpdates, b
             <h2 className="text-xl font-black text-slate-900">🧮 실생활 계산기</h2>
             <Link href="/tools/" className="text-sm font-bold text-brand-dark hover:text-brand transition-colors">전체 보기 →</Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <Link href="/tools/salary/" className="bg-white rounded-xl border border-slate-100 px-5 py-4 font-bold text-slate-800 hover:border-brand hover:text-brand-dark transition-colors flex items-center gap-2">💸 연봉 실수령액 계산기</Link>
+            <Link href="/tools/unemployment-benefit/" className="bg-white rounded-xl border border-slate-100 px-5 py-4 font-bold text-slate-800 hover:border-brand hover:text-brand-dark transition-colors flex items-center gap-2">📋 실업급여 계산기</Link>
+            <Link href="/tools/retirement-pay/" className="bg-white rounded-xl border border-slate-100 px-5 py-4 font-bold text-slate-800 hover:border-brand hover:text-brand-dark transition-colors flex items-center gap-2">💼 퇴직금 계산기</Link>
+            <Link href="/tools/income-tax/" className="bg-white rounded-xl border border-slate-100 px-5 py-4 font-bold text-slate-800 hover:border-brand hover:text-brand-dark transition-colors flex items-center gap-2">🧾 종합소득세 계산기</Link>
+            <Link href="/tools/car-tax/" className="bg-white rounded-xl border border-slate-100 px-5 py-4 font-bold text-slate-800 hover:border-brand hover:text-brand-dark transition-colors flex items-center gap-2">🚗 자동차세 계산기</Link>
+            <Link href="/tools/insurance/" className="bg-white rounded-xl border border-slate-100 px-5 py-4 font-bold text-slate-800 hover:border-brand hover:text-brand-dark transition-colors flex items-center gap-2">🛡️ 4대보험 계산기</Link>
             <Link href="/tools/loan/" className="bg-white rounded-xl border border-slate-100 px-5 py-4 font-bold text-slate-800 hover:border-brand hover:text-brand-dark transition-colors flex items-center gap-2">🏦 대출 이자 계산기</Link>
+            <Link href="/tools/median-income/" className="bg-white rounded-xl border border-slate-100 px-5 py-4 font-bold text-slate-800 hover:border-brand hover:text-brand-dark transition-colors flex items-center gap-2">📊 기준 중위소득 계산기</Link>
+          </div>
+        </section>
+
+        {/* ── 주제별 모아보기 (2026-08-06 신설 — 홈에서 토픽 허브로 링크를 뿌린다) ── */}
+        <section className="space-y-5">
+          <div className="flex items-center justify-between px-1">
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">📚 주제별로 모아보기</h2>
+            <Link href="/topics/" className="text-sm font-bold text-brand-dark hover:text-brand transition-colors">전체 보기 →</Link>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {TOPICS.map((t) => (
+              <Link
+                key={t.slug}
+                href={`/topics/${t.slug}/`}
+                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:border-brand hover:text-brand-dark transition-colors"
+              >
+                {t.keyword}
+              </Link>
+            ))}
           </div>
         </section>
 
