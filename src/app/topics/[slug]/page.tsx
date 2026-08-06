@@ -116,11 +116,11 @@ export default async function TopicPage({
             <div className="flex flex-wrap gap-2">
               {topic.tools!.map((t) => (
                 <Link
-                  key={t}
-                  href={`/tools/${t}/`}
+                  key={t.slug}
+                  href={`/tools/${t.slug}/`}
                   className="rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-bold text-brand-dark hover:bg-cyan-100 transition"
                 >
-                  계산기 열기 →
+                  {t.label} →
                 </Link>
               ))}
             </div>

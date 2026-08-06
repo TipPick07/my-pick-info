@@ -18,7 +18,7 @@ export interface Topic {
   intro: string;       // 페이지 도입 — 목록만 있는 페이지가 되지 않도록 직접 작성
   posts: string[];     // src/content/posts/<slug>.md
   guides?: string[];   // src/app/guides/<slug>/
-  tools?: string[];    // src/app/tools/<slug>/
+  tools?: { slug: string; label: string }[]; // src/app/tools/<slug>/ + 버튼에 띄울 이름
 }
 
 export const TOPICS: Topic[] = [
@@ -32,7 +32,7 @@ export const TOPICS: Topic[] = [
       "청년 대상 목돈 상품은 이름이 비슷한데 조건이 전혀 다릅니다. 정부가 얹어 주는 매칭이 있는 것(청년내일저축계좌), 우대금리로 굴리는 것(청년미래적금·청년도약계좌), 세금을 깎아 주는 것(청약통장·절세계좌)이 섞여 있어서 순서를 잘못 잡으면 한 해를 통째로 손해 봅니다. 아래 글들은 모두 만기 수령액을 직접 계산해 비교한 것입니다.",
     posts: ["2026-05-29-youth-savings-mirae-vs-doyak-guide", "2026-07-20-youth-tomorrow-savings-account-guide", "2026-06-28-housing-subscription-account", "2026-06-25-isa-irp-pension-savings-comparison"],
     guides: ["youth-support-guide"],
-    tools: ["youth-savings-account"],
+    tools: [{ slug: "youth-savings-account", label: "청년내일저축계좌 계산기" }],
   },
   {
     slug: "transit-fare",
@@ -43,7 +43,7 @@ export const TOPICS: Topic[] = [
     intro:
       "교통비 지원은 '정액 무제한'과 '쓴 만큼 환급' 두 갈래입니다. 어느 쪽이 유리한지는 오직 한 달에 몇 번 타느냐로 갈리는데, 그 분기점이 40회와 50회 사이에 있습니다. 아래 글들은 지하철 1,550원 기준으로 횟수별 실부담을 직접 계산한 것입니다.",
     posts: ["2026-04-07-climatecompanioncard", "2026-05-08-k-pass-transit-daytrip-guide", "2026-07-12-k-pass-benefit-guide"],
-    tools: ["k-pass-refund"],
+    tools: [{ slug: "k-pass-refund", label: "K-패스 환급 계산기" }],
   },
   {
     slug: "energy-bill",
@@ -54,7 +54,7 @@ export const TOPICS: Topic[] = [
     intro:
       "전기요금을 낮추는 제도는 세 종류가 따로 굴러갑니다. 요금에서 미리 빼 주는 것(복지할인), 바우처로 차감하는 것(에너지바우처), 아낀 만큼 돌려주는 것(에너지캐시백)입니다. 서로 배타적이지 않아서 같이 신청할 수 있는데, 신청 창구가 달라 하나만 하고 끝내는 경우가 많습니다.",
     posts: ["2026-05-29-energy-voucher-cooling-support", "2026-07-08-electricity-welfare-discount", "2026-07-08-energy-cashback-guide", "2026-06-01-summer-family-benefit-roadmap", "2026-05-19-heat-shelter-guide"],
-    tools: ["electricity-bill"],
+    tools: [{ slug: "electricity-bill", label: "전기요금 계산기" }],
   },
   {
     slug: "basic-livelihood",
@@ -65,7 +65,7 @@ export const TOPICS: Topic[] = [
     intro:
       "기초생활보장은 하나의 제도가 아니라 급여별로 문턱이 다릅니다. 같은 소득인정액이라도 생계급여는 중위 32%, 주거급여는 48%가 기준선이라 생계급여에서 떨어져도 주거급여는 되는 구간이 있습니다. 아래 글들은 그 경계선을 소득인정액 계산으로 하나씩 짚은 것입니다.",
     posts: ["2026-07-04-livelihood-benefit-guide", "2026-07-04-housing-benefit-guide", "2026-06-28-emergency-welfare-support", "2026-05-31-medical-health-insurance-support", "2026-05-17-culture-voucher-nuri-card-guide", "2026-05-13-seoul-ansimsodeuk-guide"],
-    tools: ["median-income"],
+    tools: [{ slug: "median-income", label: "기준 중위소득 계산기" }],
   },
   {
     slug: "youth-housing",
@@ -76,7 +76,7 @@ export const TOPICS: Topic[] = [
     intro:
       "청년 주거 지원은 '현금을 주는 것', '싸게 빌려주는 것', '집을 배정하는 것' 세 갈래입니다. 셋은 자격 기준이 다르고 동시에 쓸 수 있는 조합도 정해져 있어서, 지원금부터 알아보다 정작 문턱이 낮은 대출을 놓치는 일이 잦습니다.",
     posts: ["2026-04-30-youth-rent-support", "2026-05-18-youth-housing-support-guide", "2026-04-10-monthly-rent-guarantee", "2026-06-26-jeonse-wolse-buy-comparison"],
-    tools: ["rent-conversion"],
+    tools: [{ slug: "rent-conversion", label: "전월세 전환 계산기" }],
   },
   {
     slug: "mortgage-limit",
@@ -88,7 +88,7 @@ export const TOPICS: Topic[] = [
       "집을 살 때 실제로 빌릴 수 있는 금액은 집값(LTV)·소득(DTI)·전체 빚(DSR) 셋 중 가장 낮은 값으로 정해집니다. 여기에 스트레스 금리가 얹히면 같은 소득이라도 한도가 또 줄어듭니다. 아래 글들은 그 계산을 연소득 5,000만 원 기준으로 끝까지 풀어 본 것입니다.",
     posts: ["2026-07-05-policy-mortgage-loan", "2026-07-05-ltv-dti-dsr-guide", "2026-06-28-stress-dsr-loan-limit-2026", "2026-06-28-fixed-vs-variable-mortgage-rate", "2026-06-30-mortgage-refinance-switch"],
     guides: ["first-home-purchase"],
-    tools: ["loan"],
+    tools: [{ slug: "loan", label: "대출 이자 계산기" }],
   },
   {
     slug: "national-pension",
@@ -111,7 +111,7 @@ export const TOPICS: Topic[] = [
       "퇴직연금은 회사가 책임지는 구간(DB)과 내가 운용하는 구간(DC·IRP)이 나뉘고, 받는 방법에 따라 세금이 달라집니다. 여기에 회사가 부담금을 제때 넣지 않으면 연 10~20%의 지연이자가 붙는데, 이건 웬만한 운용수익률보다 높습니다.",
     posts: ["2026-07-23-retirement-pension-default-option", "2026-07-30-retirement-pension-unpaid-contribution", "2026-06-29-retirement-pay-lump-vs-pension"],
     guides: ["retirement-pension", "retirement-pension-arrears"],
-    tools: ["retirement-pay"],
+    tools: [{ slug: "retirement-pay", label: "퇴직금 계산기" }],
   },
   {
     slug: "health-insurance",
@@ -123,7 +123,7 @@ export const TOPICS: Topic[] = [
       "건강보험료가 갑자기 뛰는 순간은 대부분 하나입니다 — 직장가입자에서 지역가입자로 넘어갈 때. 이때 소득뿐 아니라 재산에도 보험료가 붙기 때문에 소득이 없어도 고지서가 나옵니다. 임의계속가입과 피부양자 등재가 이 구간을 막아 주는 두 장치입니다.",
     posts: ["2026-07-13-regional-health-insurance-premium", "2026-07-13-health-insurance-dependent", "2026-05-08-retirement-health-insurance-benefits-guide", "2026-05-09-retirement-welfare-guide"],
     guides: ["health-insurance-saving"],
-    tools: ["insurance"],
+    tools: [{ slug: "insurance", label: "4대보험 계산기" }],
   },
   {
     slug: "work-child-tax-credit",
@@ -145,7 +145,7 @@ export const TOPICS: Topic[] = [
       "맞벌이 가구의 돌봄 공백은 한 제도로 메워지지 않습니다. 시간을 사는 것(아이돌봄서비스), 일하는 시간을 줄이는 것(육아기 단축), 현금을 받는 것(부모급여)을 겹쳐 써야 하는데 소득 유형 판정이 제도마다 다릅니다.",
     posts: ["2026-07-22-childcare-service-support", "2026-04-28-seoul-childcare-support", "2026-07-24-reduced-work-hours-childcare-pay", "2026-07-06-parental-allowance-guide", "2026-04-08-childcare-tuition-support"],
     guides: ["parenting-family-benefits"],
-    tools: ["childcare-service", "parental-leave-pay"],
+    tools: [{ slug: "childcare-service", label: "아이돌봄서비스 계산기" }, { slug: "parental-leave-pay", label: "육아휴직급여 계산기" }],
   },
   {
     slug: "birth-support",
@@ -168,7 +168,7 @@ export const TOPICS: Topic[] = [
       "일을 쉬는 동안 받을 수 있는 돈은 고용보험 가입 이력이 있느냐로 먼저 갈립니다. 있으면 실업급여, 없으면 국민취업지원제도입니다. 그리고 빨리 재취업하면 남은 급여의 절반을 주는 장치(조기재취업수당)가 따로 있습니다.",
     posts: ["2026-07-10-national-employment-support-program", "2026-07-10-early-reemployment-allowance", "2026-07-01-national-tomorrow-learning-card", "2026-05-08-metropolitan-4060-welfare-comparison"],
     guides: ["unemployment-benefit-guide"],
-    tools: ["unemployment-benefit"],
+    tools: [{ slug: "unemployment-benefit", label: "실업급여 계산기" }],
   },
   {
     slug: "year-end-tax",
@@ -180,7 +180,7 @@ export const TOPICS: Topic[] = [
       "연말정산 환급은 1월에 서류를 잘 내서 늘어나는 게 아니라, 1년 동안 어디에 어떻게 썼는지로 이미 정해집니다. 특히 카드 사용액은 총급여 25%를 넘긴 뒤부터만 공제되기 때문에 결제수단 비율이 환급을 가릅니다.",
     posts: ["2026-06-27-year-end-tax-settlement-guide", "2026-07-01-card-tax-deduction-strategy", "2026-06-27-net-salary-2026-guide", "2026-05-21-jongso-tax-filing-guide"],
     guides: ["comprehensive-income-tax-filing"],
-    tools: ["income-tax", "salary"],
+    tools: [{ slug: "income-tax", label: "종합소득세 계산기" }, { slug: "salary", label: "연봉 실수령액 계산기" }],
   },
   {
     slug: "property-tax",
@@ -203,7 +203,7 @@ export const TOPICS: Topic[] = [
       "찾아가지 않은 내 돈은 한 곳에 모여 있지 않습니다. 은행·보험·카드·세금이 각각 다른 창구에 흩어져 있고 시효도 3년에서 10년까지 제각각이라, 짧은 것부터 도는 순서가 중요합니다.",
     posts: ["2026-08-03-hidden-money-refund-deadline", "2026-08-05-dormant-deposit-hidden-insurance"],
     guides: ["hidden-money-checkup"],
-    tools: ["tax-refund-claim"],
+    tools: [{ slug: "tax-refund-claim", label: "경정청구 환급액 계산기" }],
   },
 ];
 

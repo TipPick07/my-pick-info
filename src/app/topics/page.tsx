@@ -26,7 +26,7 @@ export default function TopicsHubPage() {
       <main className="max-w-5xl mx-auto w-full px-4 py-12 space-y-10">
         <section className="text-center space-y-5 max-w-3xl mx-auto py-6">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-black uppercase tracking-widest rounded-full border border-cyan-200 bg-cyan-50 text-brand-dark">
-            \ud83d\udcda 주제별 모아보기
+            📚 주제별 모아보기
           </div>
           <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-[1.15]">
             주제별 모아보기
