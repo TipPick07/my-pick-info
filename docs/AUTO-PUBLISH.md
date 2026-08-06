@@ -104,6 +104,7 @@ npm run build                           # 빌드 성공(155+페이지)
 
 ### 12단계. 배포 검증
 - 푸시 후 GitHub Actions(`deploy.yml`)가 자동 빌드·배포한다(Cloudflare Pages).
+- ⚠️ **(2026-08-07 실측) 루틴의 푸시는 `on: push`를 발화시키지 못한다** — 앱 토큰 푸시라 워크플로 런이 생성되지 않았다. 따라서 **푸시 직후 `deploy.yml`을 `workflow_dispatch`로 직접 트리거한다**(GitHub MCP `actions_run_trigger` / ref=main). 트리거 후 약 2분이면 배포된다. 근본 대응은 운영자 판단 사항.
 - **새 글 라이브 URL**(`https://tip-pick.com/blog/<slug>/`)을 60초 간격으로 최대 15분 폴링 → HTTP 200 확인.
 - 15분 내 200 미확인 → 알림에 **"⚠️ 푸시됨·배포 미확인(Actions 확인 필요)"** 명시. prebuild `--quarantine`이
   새 글을 격리하면 배포는 성공해도 글이 없을 수 있다 — 그래서 이 단계는 생략 금지.
