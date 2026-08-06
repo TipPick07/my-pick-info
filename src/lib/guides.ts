@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "national-scholarship",
+    title: "국가장학금 신청 — 구간·성적·서류 한눈에 (2026)",
+    description:
+      "한 번 신청하면 I유형·II유형·다자녀·지역인재장학금이 함께 심사됩니다. 정작 탈락은 신청 뒤 두 단계 — 가구원 정보제공 동의와 서류 제출에서 납니다. 신청 4단계 동선과 구간 9·학점 12·점수 80이라는 세 관문, 이혼 가구·초과학기 같은 경계 사례까지 정리한 가이드.",
+    category: "청년·학자금",
+    emoji: "🎓",
+  },
+  {
     slug: "national-pension-survivor-benefits",
     title: "국민연금 유족급여 — 세 갈래 중 무엇을 받나 (2026)",
     description:

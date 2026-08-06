@@ -138,8 +138,16 @@ N22. [x] ✅8/6 https://tip-pick.com/guides/national-pension-survivor-benefits/ 
 47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(2일 이월, 최우선)
 48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(2일 이월)
 49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(2일 이월)
-N23. [ ] 8/7 신규 ① (B형 = 지원금 글)
-N24. [ ] 8/7 신규 ② (B형 = 계산기)
+N23. [ ] https://tip-pick.com/blog/2026-08-07-national-scholarship-second-round/ — 신규(지원금, 국가장학금 2차 신청)
+N24. [ ] https://tip-pick.com/guides/national-scholarship/ — 신규(가이드, 국가장학금 신청 동선)
+
+### D19 — 8/8 (토, 자동 발행일 = 신규 2 + 백로그 3) — 루틴이 발행 후 신규 URL을 채운다
+> 이월 없음(8/7 5건 배정 완료). 백로그 3건은 아래 '우선 재요청 후보'에서 앞에서부터 소진한다.
+50. [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — ⭐ 실측 1,454(88편 중 1위) · 8/7 국가장학금 글에서 역링크 신설 반영분
+51. [ ] https://tip-pick.com/blog/2026-05-08-k-pass-transit-daytrip-guide/ — 기후동행카드 250
+52. [ ] https://tip-pick.com/blog/2026-07-04-livelihood-benefit-guide/ — 기초생활수급자 33.4
+N25. [ ] 8/8 신규 ① (루틴 발행분)
+N26. [ ] 8/8 신규 ② (짝 — 없으면 백로그 1건 추가)
 
 ### 우선 재요청 후보 (키워드 실측 근거, 2026-08-06 신설)
 - ⭐ [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — **실측 1,454(기준어의 14.5배, 87편 중 1위)**. 8/1에 1회 요청했으나 사이트 최대 자산이므로 보강 후 재요청 1순위.

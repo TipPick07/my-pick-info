@@ -49,7 +49,11 @@
 - [실업급여 계산기 2026](https://tip-pick.com/tools/unemployment-benefit/)
 - [청년내일저축계좌 계산기 — 정부지원금 만기 수령액](https://tip-pick.com/tools/youth-savings-account/)
 
-## 심층 가이드 (22편)
+## 심층 가이드 (23편)
+
+### 국가장학금 신청 — 구간·성적·서류 한눈에 (2026)
+https://tip-pick.com/guides/national-scholarship/
+한 번 신청하면 I유형·II유형·다자녀·지역인재장학금이 함께 심사됩니다. 정작 탈락은 신청 뒤 두 단계 — 가구원 정보제공 동의와 서류 제출에서 납니다. 신청 4단계 동선과 구간 9·학점 12·점수 80이라는 세 관문, 이혼 가구·초과학기 같은 경계 사례까지 정리한 가이드.
 
 ### 국민연금 유족급여 — 세 갈래 중 무엇을 받나 (2026)
 https://tip-pick.com/guides/national-pension-survivor-benefits/
@@ -140,7 +144,11 @@ https://tip-pick.com/guides/youth-support-guide/
 청년미래적금·청년 월세 지원·국민취업지원까지, 흩어진 청년 정책을 목돈·주거·취업 세 갈래로 묶은 에버그린 가이드.
 
 
-## 전체 글 (87편)
+## 전체 글 (88편)
+
+### 국가장학금 1~3구간 600만 원, 2차 신청 조건
+https://tip-pick.com/blog/2026-08-07-national-scholarship-second-round/ · 2026-08-07 · benefit
+국가장학금 2학기 2차 신청 8월 12일~9월 9일. 구간별 연 600·440·360·100만 원과 실부담 등록금을 계산했습니다.
 
 ### 국민연금 반환일시금 시효 5년, 10년 되는 경우
 https://tip-pick.com/blog/2026-08-06-unclaimed-national-pension/ · 2026-08-06 · 경제
