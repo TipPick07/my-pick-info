@@ -246,7 +246,7 @@ HERO(배지 + H1 + 도입 + 요약박스 3개)
   기존 수정은 `open(path, encoding="utf-8", newline="").read()` → 문자열 치환 → 같은 방식 저장.
   기존 파일이 깨졌다면 `git show HEAD:<경로>`로 원본을 받아 복구.
 - `.md` 파일은 Write로 생성해도 안전.
-- 커밋·푸시는 **운영자 지시 시에만**(자동 금지). 빌드는 운영자 PC/CI(`npm run build`).
+- 커밋·푸시는 **운영자 지시 시에만**(자동 금지) — 유일 예외: 일일 자동 발행 루틴(`docs/AUTO-PUBLISH.md`, AGENTS.md 5). 빌드는 운영자 PC/CI(`npm run build`).
 - 검증: `npx tsc --noEmit`(EXIT 0) — `.next/dev` stale 에러는 `tsc 2>&1 | grep -v '^.next/'`로 src만 보거나 `rm -rf .next` 후 재실행 / `node scripts/validate-content.js`(게이트 통과) / 계산기 node 검산 / 내부링크 대상 파일 존재 확인.
 - 카테고리 노출 스위치는 `src/config/categories.ts`의 `APPROVAL_MODE`(현재 true: 경제·지원금·계산기만 공개, 핫이슈·나들이·꿀팁 숨김).
 - **SEO 필수(2026-07-06 전수 보정 완료 상태 유지)**: 새 페이지(page.tsx)에는 `alternates: { canonical: "/<경로>/" }`를 반드시 넣는다. 내부 링크(본문·컴포넌트)는 항상 **trailing slash**(`/tools/salary/`처럼) — no-slash는 크롤러에 308 홉을 만든다. 외부 링크는 https만.
