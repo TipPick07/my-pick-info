@@ -16,7 +16,6 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import matter from "gray-matter";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const BASE_KEYWORD = "실업급여"; // §1-8 고정 기준어 — 배치 간 비교의 축. 바꾸면 기존 실측 대장과 비교 불가.
@@ -124,7 +123,10 @@ async function cmdMeasure(csv) {
 }
 
 // ---------- dedup: 기존 콘텐츠 전수 대조 (오프라인) ----------
-function loadCorpus() {
+async function loadCorpus() {
+  // gray-matter는 지연 로드 — news·measure가 node_modules 없이도 돌게 한다(클라우드 새 세션 대비).
+  // dedup 시점에 없으면 exit 2 → SOP §5 폴백(grep 전수)으로 전환된다.
+  const { default: matter } = await import("gray-matter");
   const items = [];
   const postsDir = join(ROOT, "src", "content", "posts");
   for (const f of readdirSync(postsDir).filter((f) => f.endsWith(".md"))) {
@@ -164,9 +166,9 @@ function loadCorpus() {
   return items;
 }
 
-function cmdDedup(query, top) {
+async function cmdDedup(query, top) {
   if (!query.trim()) throw new Error('질의어 없음 — dedup "키워드 또는 주제 문구" 형식');
-  const corpus = loadCorpus();
+  const corpus = await loadCorpus();
   const nq = norm(query);
   const tokens = query.split(/[\s·,/+]+/).map((s) => s.trim()).filter((t) => t.length >= 2);
   const hits = [];
@@ -207,7 +209,7 @@ try {
   let out;
   if (cmd === "news") out = await cmdNews(Number(a1) || 3);
   else if (cmd === "measure") out = await cmdMeasure(a1 || "");
-  else if (cmd === "dedup") out = cmdDedup(a1 || "", Number(a2) || 10);
+  else if (cmd === "dedup") out = await cmdDedup(a1 || "", Number(a2) || 10);
   else {
     console.error("usage: select-topic.mjs news [days] | measure \"kw1,kw2\" | dedup \"질의어\" [top]");
     process.exit(1);

@@ -28,6 +28,7 @@
 
 ### 1단계. 준비
 - `git pull`로 main 최신화. 충돌·비정상 상태면 → 스킵(CONFLICT).
+- 의존성: `node_modules` 없으면 `npm ci` 먼저(클라우드 새 세션은 항상 없음 — 9단계 tsc·빌드에 필요).
 - `docs/HANDOVER.md` §7·§9 최근 로그 + `docs/WRITING-GUIDE.md`(특히 §1-6·§1-7·§1-8·§1-8-2·§1-8-3·§1-9)를 읽는다.
 - 환경 확인: node·python·git + `NAVER_CLIENT_ID/SECRET`(환경변수 또는 `.env.local`). API 불능이면 §5 폴백.
 
