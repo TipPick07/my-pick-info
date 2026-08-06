@@ -126,14 +126,27 @@ N20. [x] ✅8/5 https://tip-pick.com/tools/tax-refund-claim/ — 신규(계산�
 48. [→D17] https://tip-pick.com/tools/medical-cost-cap/ — T4(7/28 신규 재요청) · 한도 초과로 이월
 49. [→D17] https://tip-pick.com/tools/longterm-care-copay/ — T4(7/31 신규 재요청) · 한도 초과로 이월
 
-### D17 — 8/6 (목 = A형 발행일, 5개 = 신규 2 + 이월 3)
-N21. [ ] https://tip-pick.com/blog/2026-08-06-unclaimed-national-pension/ — 신규(경제, 미청구 국민연금 시효)
-N22. [ ] https://tip-pick.com/guides/national-pension-survivor-benefits/ — 신규(가이드, 국민연금 유족급여)
-47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(D16 이월)
-48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(D16 이월)
-49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(D16 이월)
+### D17 — 8/6 (목 = A형 발행일) ✅ 2/5 완료 후 일일 한도 초과 — 잔여 3건 D18 이월
+N21. [x] ✅8/6 https://tip-pick.com/blog/2026-08-06-unclaimed-national-pension/ — 신규(경제, 국민연금 반환일시금 시효) · 색인+수집 완료
+N22. [x] ✅8/6 https://tip-pick.com/guides/national-pension-survivor-benefits/ — 신규(가이드, 국민연금 유족급여) · 색인+수집 완료
+47. [→D18] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(D16→D17 이월) · 한도 초과로 재이월
+48. [→D18] https://tip-pick.com/tools/medical-cost-cap/ — T4(D16→D17 이월) · 한도 초과로 재이월
+49. [→D18] https://tip-pick.com/tools/longterm-care-copay/ — T4(D16→D17 이월) · 한도 초과로 재이월
 
-### T4 잔여 대기열 (D18 이후, 앞에서부터 소진)
+### D18 — 8/7 (금 = B형 발행일, 5개 = 신규 2 + 이월 3)
+> ⚠️ T4 3건이 D16→D17→D18로 **2일 연속 이월**됐다. 8/7에는 **이월분을 먼저** 요청하고 신규를 뒤에 붙인다.
+47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(2일 이월, 최우선)
+48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(2일 이월)
+49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(2일 이월)
+N23. [ ] 8/7 신규 ① (B형 = 지원금 글)
+N24. [ ] 8/7 신규 ② (B형 = 계산기)
+
+### 우선 재요청 후보 (키워드 실측 근거, 2026-08-06 신설)
+- ⭐ [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — **실측 1,454(기준어의 14.5배, 87편 중 1위)**. 8/1에 1회 요청했으나 사이트 최대 자산이므로 보강 후 재요청 1순위.
+- [ ] https://tip-pick.com/blog/2026-05-08-k-pass-transit-daytrip-guide/ — 기후동행카드 250
+- [ ] https://tip-pick.com/blog/2026-07-04-livelihood-benefit-guide/ — 기초생활수급자 33.4(8/6 제목 정비 반영분)
+
+### T4 잔여 대기열 (D19 이후, 앞에서부터 소진)
 50. [ ] 이후: 나머지 가이드·계산기 — **8/9 캡처의 '크롤됨-색인X 534' 목록 확인 후 재산정**(현행 콘텐츠가 묶여 있으면 그 URL을 최우선 재요청)
 
 ## 완료 기록 (운영자 보고분만 기입)
@@ -208,3 +221,5 @@ N22. [ ] https://tip-pick.com/guides/national-pension-survivor-benefits/ — 신
 | 8/4 | — | 휴무 · 요청 0건 |
 | 8/5 | /blog/2026-08-05-dormant-deposit-hidden-insurance/ | 신규 · 색인+수집 |
 | 8/5 | /tools/tax-refund-claim/ | 신규 · 색인+수집 · 이후 한도 초과(T4 3건 D17 이월) |
+| 8/6 | /blog/2026-08-06-unclaimed-national-pension/ | 신규 · 색인+수집 |
+| 8/6 | /guides/national-pension-survivor-benefits/ | 신규 · 색인+수집 · 이후 한도 초과(T4 3건 D18 재이월) |

@@ -1,0 +1,100 @@
+# 팁픽 (TIP-PICK)
+
+> 정부 지원금·세금·생활금융을 **직접 계산해서** 확인하는 정보 사이트입니다.
+> 공식 자료를 옮겨 적는 대신, 모든 글에 구체적인 인물·소득·상황을 세운
+> 자체 계산 예시와 검산 결과를 넣는 것을 원칙으로 합니다.
+
+- 사이트: https://tip-pick.com
+- 언어: 한국어 (ko-KR)
+- 기준 연도: 2026년
+- 성격: 개인이 운영하는 정보 안내 사이트. 공공기관이 아니며 신청 대행을 하지 않습니다.
+
+## 인용 안내
+
+수치를 인용할 때는 **확인 시점(글에 표기된 기준일)**을 함께 밝혀 주세요.
+제도·요율은 해마다 바뀌므로, 최종 판단은 각 제도의 공식 창구 안내를 따라야 합니다.
+
+## 주요 진입점
+
+- [전체 글](https://tip-pick.com/blog/)
+- [정부 지원금](https://tip-pick.com/benefits/)
+- [경제·세금](https://tip-pick.com/money/)
+- [심층 가이드](https://tip-pick.com/guides/)
+- [계산기](https://tip-pick.com/tools/)
+- [사이트 소개](https://tip-pick.com/about/)
+
+## 계산기 (23종)
+
+- [연차수당 계산기 2026](https://tip-pick.com/tools/annual-leave-allowance/)
+- [부동산 중개보수(복비) 계산기](https://tip-pick.com/tools/brokerage-fee/)
+- [자동차세 계산기 2026](https://tip-pick.com/tools/car-tax/)
+- [아이돌봄서비스 본인부담금 계산기 — 소득유형별 (2026)](https://tip-pick.com/tools/childcare-service/)
+- [전기요금 계산기 2026](https://tip-pick.com/tools/electricity-bill/)
+- [시급·주휴수당 계산기 2026](https://tip-pick.com/tools/hourly-wage/)
+- [종합소득세 계산기 2026](https://tip-pick.com/tools/income-tax/)
+- [4대보험 계산기 2026](https://tip-pick.com/tools/insurance/)
+- [K-패스 환급 계산기 2026](https://tip-pick.com/tools/k-pass-refund/)
+- [대출 이자 계산기](https://tip-pick.com/tools/loan/)
+- [장기요양 본인부담금 계산기 (2026)](https://tip-pick.com/tools/longterm-care-copay/)
+- [기준 중위소득 계산기 2026](https://tip-pick.com/tools/median-income/)
+- [본인부담상한제 환급 계산기 (2026)](https://tip-pick.com/tools/medical-cost-cap/)
+- [해외주식 양도세 계산기 2026](https://tip-pick.com/tools/overseas-stock-tax/)
+- [육아휴직급여 계산기 2026](https://tip-pick.com/tools/parental-leave-pay/)
+- [육아기 근로시간 단축 급여 계산기 (2026)](https://tip-pick.com/tools/reduced-work-hours-pay/)
+- [전월세 전환 계산기](https://tip-pick.com/tools/rent-conversion/)
+- [퇴직금 계산기 2026](https://tip-pick.com/tools/retirement-pay/)
+- [연봉 실수령액 계산기 2026](https://tip-pick.com/tools/salary/)
+- [예금·적금 이자 계산기](https://tip-pick.com/tools/savings-interest/)
+- [경정청구 환급액 계산기 (2026)](https://tip-pick.com/tools/tax-refund-claim/)
+- [실업급여 계산기 2026](https://tip-pick.com/tools/unemployment-benefit/)
+- [청년내일저축계좌 계산기 — 정부지원금 만기 수령액](https://tip-pick.com/tools/youth-savings-account/)
+
+## 심층 가이드 (22편)
+
+- [국민연금 유족급여 — 세 갈래 중 무엇을 받나 (2026)](https://tip-pick.com/guides/national-pension-survivor-benefits/)
+- [숨은 돈 통합 조회 — 창구별 동선과 준비물 (2026)](https://tip-pick.com/guides/hidden-money-checkup/)
+- [퇴직연금이 안 들어왔을 때 — 확인부터 조치까지 (2026)](https://tip-pick.com/guides/retirement-pension-arrears/)
+- [예금자보호 완전정리 — 어디까지 얼마까지 (2026)](https://tip-pick.com/guides/deposit-protection/)
+- [퇴직연금 DB·DC·IRP 차이 — 내 유형 확인·갈아타기 (2026)](https://tip-pick.com/guides/retirement-pension/)
+- [주택연금 — 가입조건·월지급금·2026 개편 한눈에](https://tip-pick.com/guides/housing-pension/)
+- [건강보험료 줄이는 법 — 직장·지역·피부양자 한눈에 (2026)](https://tip-pick.com/guides/health-insurance-saving/)
+- [내 보험 점검 — 실손 세대·중복 정리·리모델링 한눈에 (2026)](https://tip-pick.com/guides/insurance-checkup/)
+- [부동산 보유세 — 재산세·종부세 한눈에 (2026)](https://tip-pick.com/guides/property-holding-tax/)
+- [개인사업자·프리랜서 세금 — 부가세·종소세·3.3% 한눈에 (2026)](https://tip-pick.com/guides/self-employed-freelancer-tax/)
+- [생애최초 주택구입 — 정책대출·취득세·청약 한눈에 (2026)](https://tip-pick.com/guides/first-home-purchase/)
+- [상속·증여세 — 10억 공제·10년 증여 플랜 한눈에 (2026)](https://tip-pick.com/guides/inheritance-gift-tax/)
+- [해외주식 양도소득세 — 250만 공제·22%·5월 신고 (2026)](https://tip-pick.com/guides/overseas-stock-capital-gains-tax/)
+- [실업급여·고용보험 완전정복 — 수급조건·금액·일수 (2026)](https://tip-pick.com/guides/unemployment-benefit-guide/)
+- [노후 3층 연금 — 국민·퇴직·개인연금 한눈에 (2026)](https://tip-pick.com/guides/three-pillar-pension/)
+- [프리랜서·N잡러 종합소득세 신고 — 5월 신고·환급 한눈에 (2026)](https://tip-pick.com/guides/comprehensive-income-tax-filing/)
+- [0세~초등 입학 전, 육아·가족 지원금 한눈에 (2026)](https://tip-pick.com/guides/parenting-family-benefits/)
+- [출산 가구 주택 대출 — 신생아 특례 디딤돌·버팀목 한눈에 (2026)](https://tip-pick.com/guides/parenting-family-finance/)
+- [어린이집·유치원 신청 — 유보통합포털 입소대기·입학 (2027학년도)](https://tip-pick.com/guides/daycare-admission/)
+- [아이 이름의 돈 — 자녀 적금·청약·보험 3축 가이드 (2026)](https://tip-pick.com/guides/parenting-family-savings/)
+- [집 팔 때 양도소득세 — 1주택 비과세·세율 한눈에 (2026)](https://tip-pick.com/guides/house-capital-gains-tax/)
+- [청년 지원 총정리 — 자산·주거·취업 한눈에 (2026)](https://tip-pick.com/guides/youth-support-guide/)
+
+## 최근 글 20편 (전체 87편)
+
+- [국민연금 반환일시금 시효 5년, 10년 되는 경우](https://tip-pick.com/blog/2026-08-06-unclaimed-national-pension/) — 2026-08-06
+- [휴면예금 5년·보험금 3년, 100만 원 놓치는 이자](https://tip-pick.com/blog/2026-08-05-dormant-deposit-hidden-insurance/) — 2026-08-05
+- [미환급금 조회 창구 6곳, 시효 지나기 전 순서](https://tip-pick.com/blog/2026-08-03-hidden-money-refund-deadline/) — 2026-08-03
+- [요양원 비용 30일 55만 원, 등급별 본인부담금](https://tip-pick.com/blog/2026-07-31-longterm-care-copayment/) — 2026-07-31
+- [퇴직연금 미납 지연이자 연 20%, 2년 120만 원](https://tip-pick.com/blog/2026-07-30-retirement-pension-unpaid-contribution/) — 2026-07-30
+- [본인부담상한제 1분위 90만 원, 병원비 환급 계산](https://tip-pick.com/blog/2026-07-28-medical-cost-cap-refund/) — 2026-07-28
+- [예금자보호 1억 한도, 이자까지 지키는 예치 상한](https://tip-pick.com/blog/2026-07-27-deposit-protection-limit/) — 2026-07-27
+- [육아기 근로시간 단축 급여 250만, 실수령 92.9%](https://tip-pick.com/blog/2026-07-24-reduced-work-hours-childcare-pay/) — 2026-07-24
+- [퇴직연금 디폴트옵션 수익률 14.9%, 등급 고르는 법](https://tip-pick.com/blog/2026-07-23-retirement-pension-default-option/) — 2026-07-23
+- [아이돌봄서비스 시간당 1,900원, 유형별 부담 계산](https://tip-pick.com/blog/2026-07-22-childcare-service-support/) — 2026-07-22
+- [국민연금 연기하면 36% 더, 추납·임의가입 비교](https://tip-pick.com/blog/2026-07-21-national-pension-boost-strategies/) — 2026-07-21
+- [청년내일저축계좌 3년 1,440만 원, 자격·만기 계산](https://tip-pick.com/blog/2026-07-20-youth-tomorrow-savings-account-guide/) — 2026-07-20
+- [건강보험료 지역가입자 7.19%, 줄이는 방법 3가지](https://tip-pick.com/blog/2026-07-13-regional-health-insurance-premium/) — 2026-07-13
+- [건강보험 피부양자 소득 2천만, 탈락 기준과 대응](https://tip-pick.com/blog/2026-07-13-health-insurance-dependent/) — 2026-07-13
+- [통신요금 감면 월 33,500원, 대상별 신청 방법](https://tip-pick.com/blog/2026-07-12-telecom-fee-discount/) — 2026-07-12
+- [K-패스 교통비 최대 53%, 월 15회 채우는 법](https://tip-pick.com/blog/2026-07-12-k-pass-benefit-guide/) — 2026-07-12
+- [실손보험 1~5세대 차이, 5세대 전환 판단 기준](https://tip-pick.com/blog/2026-07-11-silson-insurance-generation/) — 2026-07-11
+- [보험 리모델링 중복 정리, 해지 전 3가지 대안](https://tip-pick.com/blog/2026-07-11-insurance-remodeling/) — 2026-07-11
+- [국민취업지원제도 월 60만 원, 1유형 신청 요건](https://tip-pick.com/blog/2026-07-10-national-employment-support-program/) — 2026-07-10
+- [조기재취업수당 남은 급여 50%, 12개월 근속 요건](https://tip-pick.com/blog/2026-07-10-early-reemployment-allowance/) — 2026-07-10
+
+전체 목록은 [llms-full.txt](https://tip-pick.com/llms-full.txt) 를 참고하세요.

@@ -33,8 +33,59 @@ Allow: /
 User-agent: Daum
 Allow: /
 
+# ─────────────────────────────────────────────────────────────
+# AI 답변엔진 크롤러 (2026-08-06 추가)
+# 배경: ChatGPT·Perplexity·Claude 등이 답변에 출처를 다는 구조로 바뀌면서
+#       이들 크롤러 허용 자체가 새로운 유입 경로가 됐다. 승인 사이트
+#       (awoo.or.kr) robots.txt 를 확인해 같은 목록을 반영.
+# 우리 콘텐츠는 이미 전부 공개(Allow: /)이므로 추가로 내주는 정보는 없다.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
 # Sitemaps
 Sitemap: https://tip-pick.com/sitemap.xml
+# 뉴스 사이트맵 — 최근 2일 발행 글. prebuild 에서 자동 생성(scripts/build-news-sitemap.js).
+# ※ Google 뉴스(Publisher Center) 등록 후에 효과가 있다. 등록 전에는 무해하게 무시됨.
+Sitemap: https://tip-pick.com/sitemap-news.xml
 
 # Daum WebMaster Tool - site verification
 #DaumWebMasterTool:1fcb2c8ca10bd83e70210a8b19f5b709d37213b316ee0236528f7d9496e03b9f:PoPCeXjb4fhYqpIIC4bygQ==

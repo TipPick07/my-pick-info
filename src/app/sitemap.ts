@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import { execFileSync } from 'child_process';
 import { GUIDES } from '@/lib/guides';
+import { TOPICS } from '@/lib/topics';
 import { visibleCategories, isCategoryLive, isPostCategoryLive } from '@/config/categories';
 import { getSortedPostsData } from '@/lib/posts';
 
@@ -110,7 +111,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 1. 기본 정적 경로 (trailingSlash: true 설정에 맞춰 trailing slash 포함)
   //    승인 모드에선 숨김 카테고리(/hot·/tips)가 visibleCategories에서 자동 제외됨.
   const basePaths = [
-    '/', '/benefits/', '/blog/', '/guides/',
+    '/', '/benefits/', '/blog/', '/guides/', '/topics/',
     '/tools/', '/tools/salary/', '/tools/loan/',
     '/tools/income-tax/', '/tools/insurance/',
     '/tools/retirement-pay/', '/tools/hourly-wage/', '/tools/car-tax/', '/tools/savings-interest/', '/tools/rent-conversion/', '/tools/brokerage-fee/', '/tools/annual-leave-allowance/', '/tools/overseas-stock-tax/', '/tools/median-income/', '/tools/k-pass-refund/', '/tools/parental-leave-pay/', '/tools/electricity-bill/', '/tools/unemployment-benefit/', '/tools/youth-savings-account/', '/tools/childcare-service/', '/tools/reduced-work-hours-pay/', '/tools/medical-cost-cap/', '/tools/longterm-care-copay/', '/tools/tax-refund-claim/',
@@ -131,6 +132,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: newest([routeDate(route), HUB_FEED[route] ?? null], BUILD_TIME),
     changeFrequency: (route in HUB_FEED ? 'daily' : 'monthly') as 'daily' | 'monthly',
     priority: route === '/' ? 1 : 0.8,
+  }));
+
+  // 1-b. 토픽 허브 상세 (TOPICS 매니페스트 = SSOT, 2026-08-06 신설)
+  //      lastmod 는 그 토픽이 묶은 글 중 가장 최근 것 — 글이 갱신되면 허브도 갱신된다.
+  const topicRoutes = TOPICS.map((t) => ({
+    url: `${baseUrl}/topics/${t.slug}/`,
+    lastModified: newest(
+      t.posts.map((s) => {
+        const p = posts.find((x) => x.slug === s);
+        return p ? postDate(p.slug, p.date) : null;
+      }),
+      BUILD_TIME,
+    ),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
   }));
 
   // 1-c. 가이드 상세 페이지 (GUIDES 매니페스트 = SSOT)
@@ -169,5 +185,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...guideRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes];
+  return [...staticRoutes, ...topicRoutes, ...guideRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes];
 }

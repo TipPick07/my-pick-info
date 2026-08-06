@@ -16,6 +16,7 @@ export default function Header() {
   const navLinks = [
     ...cats.filter((c) => c.key !== "tools").map((c) => ({ href: c.href, label: c.label })),
     { href: "/guides/", label: "가이드" },
+    { href: "/topics/", label: "주제별" },
     ...(tools ? [{ href: tools.href, label: tools.label }] : []),
   ];
 
