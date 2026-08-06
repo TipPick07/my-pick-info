@@ -21,6 +21,14 @@ export interface Guide {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "national-pension-survivor-benefits",
+    title: "국민연금 유족급여 — 세 갈래 중 무엇을 받나 (2026)",
+    description:
+      "가입자가 사망하면 유족연금·반환일시금·사망일시금 중 하나로 갈립니다. 갈림길을 만드는 건 대부분 가입기간 10년 — 지급률이 40%와 60%로 갈리죠. 요건과 유족 순위, 중복급여 조정, 재혼·자녀 성년 같은 상황별 변화를 정리한 가이드.",
+    category: "노후·연금",
+    emoji: "🕊️",
+  },
+  {
     slug: "hidden-money-checkup",
     title: "숨은 돈 통합 조회 — 창구별 동선과 준비물 (2026)",
     description:

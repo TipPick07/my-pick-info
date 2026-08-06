@@ -126,8 +126,9 @@ N20. [x] ✅8/5 https://tip-pick.com/tools/tax-refund-claim/ — 신규(계산�
 48. [→D17] https://tip-pick.com/tools/medical-cost-cap/ — T4(7/28 신규 재요청) · 한도 초과로 이월
 49. [→D17] https://tip-pick.com/tools/longterm-care-copay/ — T4(7/31 신규 재요청) · 한도 초과로 이월
 
-### D17 — 8/6 (목, 5개)
-> 발행하면(A형 차례) 신규 2 + 이월 3. 발행이 없으면 이월 3 + T4 2건 추가.
+### D17 — 8/6 (목 = A형 발행일, 5개 = 신규 2 + 이월 3)
+N21. [ ] https://tip-pick.com/blog/2026-08-06-unclaimed-national-pension/ — 신규(경제, 미청구 국민연금 시효)
+N22. [ ] https://tip-pick.com/guides/national-pension-survivor-benefits/ — 신규(가이드, 국민연금 유족급여)
 47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(D16 이월)
 48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(D16 이월)
 49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(D16 이월)
