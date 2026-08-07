@@ -83,6 +83,10 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://tip-pick.com/sitemap.xml
+# RSS 피드 — 전체 글 최신순. prebuild 에서 자동 생성(scripts/build-rss.js).
+# (Sitemap: 지시어가 아니라 참고용 주석 — 실제 자동발견은 각 페이지 head 의 link 태그가 담당)
+# Feed: https://tip-pick.com/rss.xml
+
 # 뉴스 사이트맵 — 최근 2일 발행 글. prebuild 에서 자동 생성(scripts/build-news-sitemap.js).
 # ※ Google 뉴스(Publisher Center) 등록 후에 효과가 있다. 등록 전에는 무해하게 무시됨.
 Sitemap: https://tip-pick.com/sitemap-news.xml

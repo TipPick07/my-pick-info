@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>팁픽 (TIP-PICK)</title>
+    <link>https://tip-pick.com/</link>
+    <description>정부 지원금·세금·생활금융을 직접 계산해서 확인하는 정보 사이트. 모든 글에 자체 계산 예시를 넣습니다.</description>
+    <language>ko-KR</language>
+    <lastBuildDate>Fri, 07 Aug 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://tip-pick.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>국가장학금 1~3구간 600만 원, 2차 신청 조건</title>
+      <link>https://tip-pick.com/blog/2026-08-07-national-scholarship-second-round/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-08-07-national-scholarship-second-round/</guid>
+      <description>국가장학금 2학기 2차 신청 8월 12일~9월 9일. 구간별 연 600·440·360·100만 원과 실부담 등록금을 계산했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 07 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>국민연금 반환일시금 시효 5년, 10년 되는 경우</title>
+      <link>https://tip-pick.com/blog/2026-08-06-unclaimed-national-pension/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-08-06-unclaimed-national-pension/</guid>
+      <description>국민연금 반환일시금 청구 시효는 원칙 5년, 지급연령 도달 사유만 10년. 낸 보험료에 붙는 이자와 일시금·연금 갈림길을 계산했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>휴면예금 5년·보험금 3년, 100만 원 놓치는 이자</title>
+      <link>https://tip-pick.com/blog/2026-08-05-dormant-deposit-hidden-insurance/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-08-05-dormant-deposit-hidden-insurance/</guid>
+      <description>휴면예금 전환 기준은 예금 5년·보험 3년. 원금은 사라지지 않지만 100만 원을 5년 두면 15만 9천 원을 놓칩니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>미환급금 조회 창구 6곳, 시효 지나기 전 순서</title>
+      <link>https://tip-pick.com/blog/2026-08-03-hidden-money-refund-deadline/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-08-03-hidden-money-refund-deadline/</guid>
+      <description>미환급금 조회 창구 6곳과 시효 정리 — 2020년 귀속 경정청구는 이미 만료. 월세·의료비 5년 소급 환급액을 계산했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Mon, 03 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>요양원 비용 30일 55만 원, 등급별 본인부담금</title>
+      <link>https://tip-pick.com/blog/2026-07-31-longterm-care-copayment/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-31-longterm-care-copayment/</guid>
+      <description>요양원 비용은 1등급 30일 55만 8,420원, 집에서 받으면 37만 6,935원. 2026년 장기요양 본인부담금을 등급별로 계산했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 31 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>퇴직연금 미납 지연이자 연 20%, 2년 120만 원</title>
+      <link>https://tip-pick.com/blog/2026-07-30-retirement-pension-unpaid-contribution/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-30-retirement-pension-unpaid-contribution/</guid>
+      <description>DC형 퇴직연금 미납 시 지연이자는 재직 중 연 10%, 퇴직 14일 후부터 연 20%. 연봉 4,800만 원 2년 미납이면 이자만 120만 원입니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>본인부담상한제 1분위 90만 원, 병원비 환급 계산</title>
+      <link>https://tip-pick.com/blog/2026-07-28-medical-cost-cap-refund/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-28-medical-cost-cap-refund/</guid>
+      <description>본인부담상한제 2026 — 상한액 1분위 90만·10분위 843만 원. 초과분은 공단 부담, 분위별 환급액을 계산으로 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Tue, 28 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>예금자보호 1억 한도, 이자까지 지키는 예치 상한</title>
+      <link>https://tip-pick.com/blog/2026-07-27-deposit-protection-limit/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-27-deposit-protection-limit/</guid>
+      <description>예금자보호 한도 1억원 — 금리 3.5%면 원금 9,661만 원이 안전선. 별도 한도 3종과 금융사별 보호 주체 차이를 계산으로 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>육아기 근로시간 단축 급여 250만, 실수령 92.9%</title>
+      <link>https://tip-pick.com/blog/2026-07-24-reduced-work-hours-childcare-pay/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-24-reduced-work-hours-childcare-pay/</guid>
+      <description>육아기 근로시간 단축 급여 2026 — 최초 10시간분 통상임금 100%(상한 250만). 주 10시간 줄여도 실수령 92.9% 유지되는 계산.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>퇴직연금 디폴트옵션 수익률 14.9%, 등급 고르는 법</title>
+      <link>https://tip-pick.com/blog/2026-07-23-retirement-pension-default-option/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-23-retirement-pension-default-option/</guid>
+      <description>디폴트옵션 등급별 수익률 — 초저위험 2.6%·고위험 14.9%(2025). 연 400만 원 30년이면 등급 따라 2억 3,500만 원 벌어지는 차이 계산.</description>
+      <category>경제·세금</category>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>아이돌봄서비스 시간당 1,900원, 유형별 부담 계산</title>
+      <link>https://tip-pick.com/blog/2026-07-22-childcare-service-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-22-childcare-service-support/</guid>
+      <description>아이돌봄서비스 2026 — 시간당 12,790원 중 정부가 최대 85% 지원. 가~마형 유형별 본인부담과 250% 확대를 계산으로 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>국민연금 연기하면 36% 더, 추납·임의가입 비교</title>
+      <link>https://tip-pick.com/blog/2026-07-21-national-pension-boost-strategies/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-21-national-pension-boost-strategies/</guid>
+      <description>국민연금 수령액 늘리는 3가지 — 추납·연기연금(연 7.2%, 최대 36%)·임의가입. 연기 손익분기 약 82세 직접 계산.</description>
+      <category>경제·세금</category>
+      <pubDate>Tue, 21 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>청년내일저축계좌 3년 1,440만 원, 자격·만기 계산</title>
+      <link>https://tip-pick.com/blog/2026-07-20-youth-tomorrow-savings-account-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-20-youth-tomorrow-savings-account-guide/</guid>
+      <description>청년내일저축계좌 2026 — 월 10만 저축에 정부 30만 매칭, 3년 1,440만 원. 자격·소득·재산 요건과 만기 수령액 직접 계산.</description>
+      <category>정부 지원금</category>
+      <pubDate>Mon, 20 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>건강보험료 지역가입자 7.19%, 줄이는 방법 3가지</title>
+      <link>https://tip-pick.com/blog/2026-07-13-regional-health-insurance-premium/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-13-regional-health-insurance-premium/</guid>
+      <description>2026년 지역가입자 건강보험료 — 소득 7.19% 정률(연금은 50% 반영), 재산은 1억 공제 후 점수제, 자동차 부과 폐지. 산정 구조와 줄이는 법 정리.</description>
+      <category>경제·세금</category>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>건강보험 피부양자 소득 2천만, 탈락 기준과 대응</title>
+      <link>https://tip-pick.com/blog/2026-07-13-health-insurance-dependent/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-13-health-insurance-dependent/</guid>
+      <description>2026년 건강보험 피부양자 — 연소득 2,000만 이하·재산 과표 5.4억(소득 1천만 이하면 9억) 이하·사업소득 0원. 유지 조건과 탈락 대응 정리.</description>
+      <category>경제·세금</category>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>통신요금 감면 월 33,500원, 대상별 신청 방법</title>
+      <link>https://tip-pick.com/blog/2026-07-12-telecom-fee-discount/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-12-telecom-fee-discount/</guid>
+      <description>통신요금 감면 — 기초수급자 최대 33,500원, 차상위 21,500원, 장애인 35%, 기초연금 어르신 50%. 대상별 금액과 신청법을 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>K-패스 교통비 최대 53%, 월 15회 채우는 법</title>
+      <link>https://tip-pick.com/blog/2026-07-12-k-pass-benefit-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-12-k-pass-benefit-guide/</guid>
+      <description>K-패스 — 월 15회 이상 이용 시 대중교통비 20~53.3% 환급. 유형별 환급률과 카드 발급·신청 순서를 2026년 기준으로 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>실손보험 1~5세대 차이, 5세대 전환 판단 기준</title>
+      <link>https://tip-pick.com/blog/2026-07-11-silson-insurance-generation/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-11-silson-insurance-generation/</guid>
+      <description>실손보험 1~5세대 차이 — 세대별 자기부담금·보험료와 5세대 개편 내용, 유지·전환 판단 기준을 2026년 기준으로 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Sat, 11 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>보험 리모델링 중복 정리, 해지 전 3가지 대안</title>
+      <link>https://tip-pick.com/blog/2026-07-11-insurance-remodeling/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-11-insurance-remodeling/</guid>
+      <description>보험 리모델링 — 내보험찾아줌 조회, 중복 담보 정리, 해지 전 납입유예·감액완납 대안까지 손해 없이 정리하는 순서를 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Sat, 11 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>국민취업지원제도 월 60만 원, 1유형 신청 요건</title>
+      <link>https://tip-pick.com/blog/2026-07-10-national-employment-support-program/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-10-national-employment-support-program/</guid>
+      <description>2026년 국민취업지원제도 — 1유형 구직촉진수당 월 60만 원(부양가족 최대 100만), 취업성공수당 최대 150만 원. 요건·신청 방법 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>조기재취업수당 남은 급여 50%, 12개월 근속 요건</title>
+      <link>https://tip-pick.com/blog/2026-07-10-early-reemployment-allowance/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-10-early-reemployment-allowance/</guid>
+      <description>2026년 조기재취업수당 — 소정급여일수 절반 이상 남기고 재취업 후 12개월 근속하면 남은 구직급여의 50% 일시 지급. 요건·계산·신청 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>재산세 7월·9월 절반씩, 6월 1일 소유자 기준</title>
+      <link>https://tip-pick.com/blog/2026-07-09-property-tax-payment-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-09-property-tax-payment-guide/</guid>
+      <description>2026년 재산세 — 6월 1일 소유자 기준, 7월·9월 절반씩 납부. 계산 구조와 1주택 특례(공정시장가액비율 43~45%), 분납·카드 납부까지 정리.</description>
+      <category>경제·세금</category>
+      <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>종부세 기준 9억·1주택 12억, 부부 명의 계산</title>
+      <link>https://tip-pick.com/blog/2026-07-09-comprehensive-real-estate-tax/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-09-comprehensive-real-estate-tax/</guid>
+      <description>2026년 종합부동산세 — 인별 공시가격 9억(1주택 12억) 초과분만 과세. 세율 0.5~2.7%, 고령·장기 공제 80%, 부부 공동명의 선택까지 정리.</description>
+      <category>경제·세금</category>
+      <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>에너지캐시백 kWh당 120원, 신청하고 받는 순서</title>
+      <link>https://tip-pick.com/blog/2026-07-08-energy-cashback-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-08-energy-cashback-guide/</guid>
+      <description>2026년 한전 주택용 에너지캐시백 — 1%만 절감해도 kWh당 최대 120원, 여름 평일 저녁 절감은 500원. 신청 방법·지급 기준 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Wed, 08 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>전기요금 복지할인 월 2만 원, 대상별 감면 신청</title>
+      <link>https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-08-electricity-welfare-discount/</guid>
+      <description>2026년 전기요금 복지할인 — 기초수급·장애인 월 최대 16,000원(여름철 2만 원), 다자녀·출산가구 30%. 대상별 금액·신청 방법 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Wed, 08 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>부가가치세 신고 1월·7월, 매입세액 공제 계산</title>
+      <link>https://tip-pick.com/blog/2026-07-07-vat-filing-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-07-vat-filing-guide/</guid>
+      <description>부가가치세 신고 — 일반과세자 1월·7월, 간이과세자 1월. 매출·매입세액 계산, 예정고지, 카드 발행 세액공제까지 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Tue, 07 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>간이과세 일반과세 기준 1억 400만, 유리한 유형</title>
+      <link>https://tip-pick.com/blog/2026-07-07-simplified-vs-general-taxpayer/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-07-simplified-vs-general-taxpayer/</guid>
+      <description>간이과세 vs 일반과세 — 기준 연 매출 1억 400만 원, 부가가치율 계산, 환급·세금계산서 차이까지. 내 사업에 유리한 유형 선택법.</description>
+      <category>경제·세금</category>
+      <pubDate>Tue, 07 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>부모급여 0세 월 100만 원, 60일 이내 신청 소급</title>
+      <link>https://tip-pick.com/blog/2026-07-06-parental-allowance-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-06-parental-allowance-guide/</guid>
+      <description>2026년 부모급여 — 만 0세 월 100만 원, 1세 월 50만 원. 아동수당 중복, 생후 60일 이내 신청·소급 지급까지 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Mon, 06 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>첫만남이용권 첫째 200만 원, 둘째 300만 신청법</title>
+      <link>https://tip-pick.com/blog/2026-07-06-birth-support-benefits/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-06-birth-support-benefits/</guid>
+      <description>2026년 첫만남이용권 — 첫째 200만 원, 둘째 이상 300만 원. 국민행복카드 사용처·임신 진료비 바우처·신청 방법을 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Mon, 06 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>디딤돌대출·보금자리론 2종, 소득·집값 한도 비교</title>
+      <link>https://tip-pick.com/blog/2026-07-05-policy-mortgage-loan/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-05-policy-mortgage-loan/</guid>
+      <description>디딤돌·보금자리론 등 내집마련 정책대출과 시중 주담대를 소득·주택가격·한도·금리로 비교. 신생아 특례까지 2026년 기준으로 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Sun, 05 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>LTV·DTI·DSR 3가지, 내 대출 한도 정하는 기준</title>
+      <link>https://tip-pick.com/blog/2026-07-05-ltv-dti-dsr-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-05-ltv-dti-dsr-guide/</guid>
+      <description>LTV·DTI·DSR의 차이와 2026년 주택담보대출 한도를 정리. 생애최초 LTV 80%, 스트레스 DSR 3단계까지 쉽게 설명합니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Sun, 05 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>기초생활수급자 생계급여 중위 32%, 소득인정액 계산</title>
+      <link>https://tip-pick.com/blog/2026-07-04-livelihood-benefit-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-04-livelihood-benefit-guide/</guid>
+      <description>2026년 생계급여 — 소득인정액 기준 중위소득 32% 이하면 부족분을 현금 지원. 선정기준액·부양의무자 폐지·신청 방법을 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sat, 04 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>주거급여 서울 1인 월 40만 원, 중위 48% 기준</title>
+      <link>https://tip-pick.com/blog/2026-07-04-housing-benefit-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-04-housing-benefit-guide/</guid>
+      <description>2026년 주거급여 — 중위소득 48% 이하면 임차가구는 월세, 자가는 수선비 지원. 급지별 기준임대료 전체 표와 서울 1인 월세 40만 원 계산 예시.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sat, 04 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>증여세 면제한도 배우자 6억, 자녀 5천만 활용법</title>
+      <link>https://tip-pick.com/blog/2026-07-03-gift-tax-exemption-strategy/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-03-gift-tax-exemption-strategy/</guid>
+      <description>증여세 면제한도 — 배우자 6억·자녀 5천만·미성년 2천만, 혼인·출산 1억 추가 공제와 10년 합산 규정을 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Fri, 03 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>자녀 주식계좌 증여 2천만 원, 홈택스 신고 순서</title>
+      <link>https://tip-pick.com/blog/2026-07-03-child-stock-account-gift/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-03-child-stock-account-gift/</guid>
+      <description>자녀 주식계좌 증여 — 미성년 2천만원 비과세 한도, 상장주식 평가 방법, 홈택스 신고 절차를 실전 순서로 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Fri, 03 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>주식 세금 해외 250만 원 공제, 양도·배당 계산</title>
+      <link>https://tip-pick.com/blog/2026-07-02-stock-tax-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-02-stock-tax-guide/</guid>
+      <description>주식 세금 — 양도소득세·배당소득세·증권거래세와 해외주식 250만원 공제, 절세법을 쉽게 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Thu, 02 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>ETF 세금 3유형 차이, 국내·해외 절세 계좌 선택</title>
+      <link>https://tip-pick.com/blog/2026-07-02-etf-tax-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-02-etf-tax-guide/</guid>
+      <description>ETF 세금 — 국내주식형·기타·해외상장 3유형별 과세 차이와 절세계좌 활용법을 2026년 기준으로 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Thu, 02 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>국민내일배움카드 5년 500만 원, 발급 대상·자부담</title>
+      <link>https://tip-pick.com/blog/2026-07-01-national-tomorrow-learning-card/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-01-national-tomorrow-learning-card/</guid>
+      <description>2026 국민내일배움카드 — 5년간 300만~500만 원 직업훈련비 국비 지원. 발급 대상·제외자·자부담률·고용24 신청 방법까지 한눈에 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>신용카드 소득공제 총급여 25%, 체크카드 황금비율</title>
+      <link>https://tip-pick.com/blog/2026-07-01-card-tax-deduction-strategy/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-01-card-tax-deduction-strategy/</guid>
+      <description>신용카드 소득공제 — 총급여 25% 문턱, 신용·체크 황금비율, 자녀 수 한도 확대까지 전략을 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>자동차보험료 다이렉트 비교, 할인 특약 5가지</title>
+      <link>https://tip-pick.com/blog/2026-07-01-car-insurance-saving-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-07-01-car-insurance-saving-guide/</guid>
+      <description>자동차보험료 아끼는 법 — 다이렉트 비교, 마일리지·블랙박스 할인 특약, 운전자 범위·자기부담금 조정 정리.</description>
+      <category>경제·세금</category>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>대환대출 갈아타기 3종, 중도상환수수료 따지기</title>
+      <link>https://tip-pick.com/blog/2026-06-30-mortgage-refinance-switch/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-30-mortgage-refinance-switch/</guid>
+      <description>대환대출(대출 갈아타기) 완전정리. 주담대·전세·신용대출 온라인 갈아타기 조건, 중도상환수수료 개편, DSR 주의점을 2026년 기준으로 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Tue, 30 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>전세보증보험 3곳 비교, 전세사기 막는 순서</title>
+      <link>https://tip-pick.com/blog/2026-06-30-jeonse-deposit-protection-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-30-jeonse-deposit-protection-guide/</guid>
+      <description>전세보증금 지키는 법. 대항력·우선변제권·전세보증금 반환보증(HUG·HF·SGI)·전세사기 예방 체크리스트를 2026년 기준으로 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Tue, 30 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>퇴직금 일시금 vs IRP 연금, 퇴직소득세 비교</title>
+      <link>https://tip-pick.com/blog/2026-06-29-retirement-pay-lump-vs-pension/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-29-retirement-pay-lump-vs-pension/</guid>
+      <description>퇴직금을 일시금으로 받을지 IRP·연금으로 받을지에 따라 세금이 달라집니다. 퇴직소득세 감면·연금소득세까지 2026년 기준으로 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Mon, 29 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>파킹통장·CMA 예금자보호 1억, 비상금 넣을 곳</title>
+      <link>https://tip-pick.com/blog/2026-06-29-parking-account-cma-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-29-parking-account-cma-guide/</guid>
+      <description>수시입출금하며 이자도 받는 파킹통장·CMA 비교. 금리 수준, 예금자보호 차이, 비상금 굴리는 법을 2026년 기준으로 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Mon, 29 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>스트레스 DSR 3단계, 내 대출 한도 얼마나 주나</title>
+      <link>https://tip-pick.com/blog/2026-06-28-stress-dsr-loan-limit-2026/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-28-stress-dsr-loan-limit-2026/</guid>
+      <description>스트레스 DSR 3단계 — 대출 한도가 줄어드는 이유, 단계별 스트레스 금리, 수도권·지방 차이를 쉽게 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>청약통장 월 25만 원 개편, 1순위 되는 조건</title>
+      <link>https://tip-pick.com/blog/2026-06-28-housing-subscription-account/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-28-housing-subscription-account/</guid>
+      <description>주택청약종합저축 — 월 25만원 개편, 국민·민영 1순위 조건, 청년주택드림청약통장까지 한눈에 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>주택담보대출 금리 고정 vs 변동, 고르는 기준</title>
+      <link>https://tip-pick.com/blog/2026-06-28-fixed-vs-variable-mortgage-rate/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-28-fixed-vs-variable-mortgage-rate/</guid>
+      <description>고정금리 vs 변동금리 — 혼합형·주기형 차이와 금리 상황, 내게 맞는 선택 기준을 쉽게 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>긴급복지지원 4인 월 199만 원, 위기사유 판정</title>
+      <link>https://tip-pick.com/blog/2026-06-28-emergency-welfare-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-28-emergency-welfare-support/</guid>
+      <description>긴급복지지원 — 위기사유 발생 시 생계비(4인 월 최대 199만원)·의료비 지원. 폐업 4인 가구 판정 사례와 129 신청법 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>신용점수 1%p 이자 차이, 올리는 방법 5가지</title>
+      <link>https://tip-pick.com/blog/2026-06-28-credit-score-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-28-credit-score-guide/</guid>
+      <description>신용점수(KCB·NICE) 올리는 법 — 금리 1%p 차이의 이자 계산 예시, 연체 관리, 카드 사용, 비금융정보 가점, 무료 조회까지 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>기초연금 월 349,360원, 만 65세 소득 기준</title>
+      <link>https://tip-pick.com/blog/2026-06-28-basic-pension-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-28-basic-pension-guide/</guid>
+      <description>2026년 기초연금 — 만 65세 이상, 단독 소득인정액 247만 원 이하면 월 최대 349,360원. 근로소득 150만 사례로 계산 과정까지 풀었습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>연말정산 총급여 4,800만 원, 환급 늘리는 공제</title>
+      <link>https://tip-pick.com/blog/2026-06-27-year-end-tax-settlement-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-27-year-end-tax-settlement-guide/</guid>
+      <description>연말정산 환급 가이드. 총급여 4,800만 직장인 계산 예시로 카드·연금저축 공제 효과를 비교하고, 월세·의료비·맞벌이 몰아주기 전략까지 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Sat, 27 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>연봉 실수령액 4대보험 공제, 구간별 월급 계산</title>
+      <link>https://tip-pick.com/blog/2026-06-27-net-salary-2026-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-27-net-salary-2026-guide/</guid>
+      <description>연봉 실수령액 — 4대보험·소득세 공제 구조, 연봉 구간별 실수령액 표, 실수령액 높이는 방법을 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Sat, 27 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>전세 월세 매매 5년 총비용, 3억 기준 계산 비교</title>
+      <link>https://tip-pick.com/blog/2026-06-26-jeonse-wolse-buy-comparison/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-26-jeonse-wolse-buy-comparison/</guid>
+      <description>전세(보증금 3억)·월세(80만 원)·매매(4억) 5년 총비용을 연 4% 가정으로 직접 계산 비교. 초기비용·리스크·선택 체크리스트까지 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Fri, 26 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>연금저축·IRP 세액공제 900만 원, 채우는 순서</title>
+      <link>https://tip-pick.com/blog/2026-06-25-isa-irp-pension-savings-comparison/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-25-isa-irp-pension-savings-comparison/</guid>
+      <description>ISA·연금저축·IRP 절세계좌 3종 비교. 연 900만원 세액공제로 돌려받는 금액 계산과 비과세 한도, 계좌 채우는 순서까지 정리했습니다.</description>
+      <category>경제·세금</category>
+      <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>자립준비청년 자립수당 월 50만 원, 5년 총액 계산</title>
+      <link>https://tip-pick.com/blog/2026-06-03-seoul-yongsan-youth-independence-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-03-seoul-yongsan-youth-independence-support/</guid>
+      <description>자립준비청년 지원 — 자립수당 월 50만 원×5년, 자립정착금(서울 2,000만), 대학생활안정자금 200만. 5년 총액 계산과 신청 순서.</description>
+      <category>정부 지원금</category>
+      <pubDate>Wed, 03 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>장애인 출산지원금 태아당 120만 원, 신청 방법</title>
+      <link>https://tip-pick.com/blog/2026-06-01-yongsan-disabled-family-birth-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-01-yongsan-disabled-family-birth-support/</guid>
+      <description>장애인가정 출산지원금 — 여성장애인 출산비용 태아당 120만 원(소득 무관), 유산·사산 포함. 지자체 추가 지원과 첫해 총액 계산 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>에너지바우처·전기할인 여름 4종, 신청 순서</title>
+      <link>https://tip-pick.com/blog/2026-06-01-summer-family-benefit-roadmap/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-01-summer-family-benefit-roadmap/</guid>
+      <description>여름철 지원금 로드맵 — 에너지바우처·전기요금 복지할인·방학 아동급식·무더위쉼터를 월별로 정리. 3인 가구 여름 지원액 계산 포함.</description>
+      <category>정부 지원금</category>
+      <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>출산지원금 3층 구조, 첫해 받는 총액 계산</title>
+      <link>https://tip-pick.com/blog/2026-06-01-parenting-benefit-region-compare/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-01-parenting-benefit-region-compare/</guid>
+      <description>출산·육아 지원금 3층 구조(국가+광역+시군구) — 부모급여·첫만남·아동수당(만 9세 확대) 총액 계산과 내 동네 혜택 확인법.</description>
+      <category>정부 지원금</category>
+      <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>지역화폐 캐시백 10%, 충전 인센티브 받는 법</title>
+      <link>https://tip-pick.com/blog/2026-06-01-icheon-local-currency-cashback/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-06-01-icheon-local-currency-cashback/</guid>
+      <description>이천사랑 지역화폐 — 충전 인센티브 10%, 작은가게 캐시백 10%, 배달특급 20%. 월 생활비 기준 절약 계산과 이용법 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>의료급여 1·2종 본인부담, 입원비 500만 원 차이</title>
+      <link>https://tip-pick.com/blog/2026-05-31-medical-health-insurance-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-31-medical-health-insurance-support/</guid>
+      <description>의료급여 1·2종, 차상위 본인부담 경감, 재난적 의료비 — 2026년 부양비 폐지 반영. 입원비 500만 원 기준 부담 차이 계산 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>청년미래적금 3년 2,127만 원, 청년도약계좌 비교</title>
+      <link>https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/</guid>
+      <description>청년미래적금 vs 청년도약계좌 — 3년 2,127만 vs 5년 3,443만 직접 계산 비교. 우대형 12% 조건, 모집 일정, 갈아타기 규정 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 29 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>에너지바우처 4인 70만 원, 냉방비 신청 자격</title>
+      <link>https://tip-pick.com/blog/2026-05-29-energy-voucher-cooling-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-29-energy-voucher-cooling-support/</guid>
+      <description>2026 에너지바우처 — 1인 295,200원~4인 이상 701,300원, 계절 구분 없이 통합 사용. 신청 자격 두 조건과 냉방비 차감 계산 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 29 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>종합소득세 신고 5월 기한, 기한 후·환급 계산</title>
+      <link>https://tip-pick.com/blog/2026-05-21-jongso-tax-filing-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-21-jongso-tax-filing-guide/</guid>
+      <description>종합소득세 신고 — 매년 5월 정기, 기한 후 신고 가산세 감면, 3.3% 환급 직접 계산, 절세 공제 총정리. 계산기로 바로 확인.</description>
+      <category>정부 지원금</category>
+      <pubDate>Thu, 21 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>무더위쉼터 위치 찾기, 폭염특보 때 운영시간</title>
+      <link>https://tip-pick.com/blog/2026-05-19-heat-shelter-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-19-heat-shelter-guide/</guid>
+      <description>무더위쉼터 — 신청 없이 누구나 무료. 안전디딤돌 앱으로 위치 찾는 법, 유형별 운영시간, 폭염특보·중대경보 기준까지 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>행복주택 vs 청년전세임대, 월 임대료 계산 비교</title>
+      <link>https://tip-pick.com/blog/2026-05-18-youth-housing-support-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-18-youth-housing-support-guide/</guid>
+      <description>행복주택 vs 청년전세임대 — 자격·임대료·거주기간 비교와 월 임대료 직접 계산. 내 상황에 맞는 청년 주거 지원 고르는 법.</description>
+      <category>정부 지원금</category>
+      <pubDate>Mon, 18 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>경기도 청년 지원금 5종, 2년 580만 원 조합</title>
+      <link>https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-17-gyeonggi-youth-support-guide/</guid>
+      <description>경기도 청년 지원금 5종 비교 — 기본소득 연 100만, 복지포인트 120만, 노동자 통장 580만. 중복 규정과 2년 총액 계산까지 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>문화누리카드 연 16만 원, 사용처·잔액 확인 방법</title>
+      <link>https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-17-culture-voucher-nuri-card-guide/</guid>
+      <description>문화누리카드 2026 — 연 15만+생애주기 1만 원 추가, 자동재충전 조건과 제외 사유, 사용처, 가족 합산 활용법까지 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>디딤돌소득(안심소득) 중위 85%, 지금 받을 수 있나</title>
+      <link>https://tip-pick.com/blog/2026-05-13-seoul-ansimsodeuk-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-13-seoul-ansimsodeuk-guide/</guid>
+      <description>서울 디딤돌소득(옛 안심소득) — 중위소득 85% 부족분의 절반을 채우는 구조. 시범 지급 종료 후 현황과 지금 신청 가능한 대안 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Wed, 13 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>근로장려금 자녀장려금 630만 원, 같이 받는 법</title>
+      <link>https://tip-pick.com/blog/2026-05-10-earned-income-child-tax-credit-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-10-earned-income-child-tax-credit-guide/</guid>
+      <description>근로장려금+자녀장려금 동시 수령 — 가구 유형별 최대액과 산식, 기한 후 5% 감액, 재산 기준까지 계산 예시로 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sun, 10 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>건강보험료 은퇴 후 2배, 노인일자리까지 챙기는 법</title>
+      <link>https://tip-pick.com/blog/2026-05-09-retirement-welfare-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-09-retirement-welfare-guide/</guid>
+      <description>은퇴 후 건강보험료가 갑자기 오르는 이유와 낮추는 방법, 노인 일자리 신청법까지 2026년 최신 기준으로 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sat, 09 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>서울·경기 복지 지원 5종, 거주자만 받는 혜택</title>
+      <link>https://tip-pick.com/blog/2026-05-09-metropolitan-exclusive-benefits/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-09-metropolitan-exclusive-benefits/</guid>
+      <description>전국 어디서나 받는 국가 지원금 말고, 서울·경기 거주자만 받을 수 있는 독자 복지 제도를 한 곳에 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sat, 09 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>지원금 신청 기한 3가지 유형, 놓치지 않는 확인법</title>
+      <link>https://tip-pick.com/blog/2026-05-09-may-deadline-benefits-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-09-may-deadline-benefits-guide/</guid>
+      <description>신청 기한이 있는 지원금 모음 — 정기신청형·공고형 지원금을 놓치지 않고 챙기는 확인 방법을 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sat, 09 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>가족돌봄청년 자기돌봄비 월 40만 원, 신청 조건</title>
+      <link>https://tip-pick.com/blog/2026-05-08-seoul-family-care-youth-self-care-benefit/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-08-seoul-family-care-youth-self-care-benefit/</guid>
+      <description>서울 가족돌봄 청년 자기돌봄비 — 월 30만(고부담 40만)×최대 6개월. 2026년 모집 기준, 고부담형 조건, 다음 공고 대비 준비 서류 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 08 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>건강보험료 퇴직 후 2~3배, 임의계속가입 2년 절약</title>
+      <link>https://tip-pick.com/blog/2026-05-08-retirement-health-insurance-benefits-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-08-retirement-health-insurance-benefits-guide/</guid>
+      <description>퇴직 후 건보료가 갑자기 2~3배 오른다? 임의계속가입 제도와 피부양자 전략으로 최대 2년 아끼는 법, 지원금 탈락 시 이의신청까지 총정리합니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 08 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>중장년 일자리 지원 3종, 50플러스 신청 조건</title>
+      <link>https://tip-pick.com/blog/2026-05-08-metropolitan-4060-welfare-comparison/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-08-metropolitan-4060-welfare-comparison/</guid>
+      <description>서울 50플러스·인천 고령사회대응센터·경기 베이비부머 지원 중 내 지역 혜택이 가장 많은 곳은? 지자체별 중장년 복지 정책을 한눈에 비교합니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 08 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>K-패스·기후동행카드 3종, 나들이 교통비 계산</title>
+      <link>https://tip-pick.com/blog/2026-05-08-k-pass-transit-daytrip-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-08-k-pass-transit-daytrip-guide/</guid>
+      <description>K-패스·기후동행카드·인천e음카드 중 내게 맞는 카드는? 수도권 나들이 코스별 교통비 시뮬레이션으로 가장 유리한 조합을 찾아드립니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 08 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>근로장려금 최대 330만 원, 소득·재산 요건 확인</title>
+      <link>https://tip-pick.com/blog/2026-05-07-national-earned-income-tax-credit-application/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-07-national-earned-income-tax-credit-application/</guid>
+      <description>근로장려금 — 저소득 근로 가구에 최대 330만원, 매년 5월 정기신청. 소득·재산 요건과 신청 방법을 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Thu, 07 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>자녀장려금 1명당 100만 원, 5월 신청 방법</title>
+      <link>https://tip-pick.com/blog/2026-05-05-national-child-benefit-application/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-05-national-child-benefit-application/</guid>
+      <description>자녀장려금 — 자녀 1명당 최대 100만원, 매년 5월 정기신청. 대상 조건과 홈택스 신청 방법, 지급일을 정리했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Tue, 05 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>청년 지원금 수도권 3종, 내게 맞는 것 고르기</title>
+      <link>https://tip-pick.com/blog/2026-05-03-seoul-metropolitan-youth-support-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-05-03-seoul-metropolitan-youth-support-guide/</guid>
+      <description>서울 청년수당, 경기 청년기본소득, 청년월세까지 — 수도권 청년 지원금을 한곳에 모아 비교했습니다.</description>
+      <category>정부 지원금</category>
+      <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>청년월세 지원 월 20만 원, 24개월 신청 조건</title>
+      <link>https://tip-pick.com/blog/2026-04-30-youth-rent-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-04-30-youth-rent-support/</guid>
+      <description>청년월세 지원 2026 — 월 20만 원×최장 24개월, 총 480만 원. 상시 신청 전환·청약통장 요건 폐지, 청년·원가구 소득 기준과 서울시 지원 비교 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>배우자 출산휴가 급여 120만 원, 자영업자 신청법</title>
+      <link>https://tip-pick.com/blog/2026-04-29-seoul-selfemployed-paternity-leave-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-04-29-seoul-selfemployed-paternity-leave-support/</guid>
+      <description>서울 1인 자영업자·프리랜서 배우자 출산휴가급여 2026 — 15일 최대 120만 원(일 8만). 임산부 출산급여 240만 원, 신청 기한·방법 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>아이돌봄 조부모 수당 월 30만 원, 신청 조건</title>
+      <link>https://tip-pick.com/blog/2026-04-28-seoul-childcare-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-04-28-seoul-childcare-support/</guid>
+      <description>서울형 아이돌봄비 2026 — 조부모 돌봄 월 30만 원(최대 60만), 민간형 시간당 7,500원. 24~36개월·중위 150%·월 40시간 조건 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>국민연금 보험료 지원 50%, 지역가입자 신청 조건</title>
+      <link>https://tip-pick.com/blog/2026-04-22-low-income-local-pension-guide/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-04-22-low-income-local-pension-guide/</guid>
+      <description>국민연금 지역가입자 보험료 지원 2026 — 50%·월 최대 37,950원, 생애 12개월. 납부재개 요건 폐지로 대상 확대, 지원액 계산과 신청법 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Wed, 22 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>장애인연금 월 439,700원, 부부 감액 계산</title>
+      <link>https://tip-pick.com/blog/2026-04-20-disability-pension-additional-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-04-20-disability-pension-additional-support/</guid>
+      <description>장애인연금 2026 — 기초 349,700원+부가 최대 9만 원 = 월 439,700원. 선정기준액 140만·부부 감액 계산, 65세 기초연금 전환 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Mon, 20 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>주거안정 월세대출 월 60만 원, 연 1.3% 조건</title>
+      <link>https://tip-pick.com/blog/2026-04-10-monthly-rent-guarantee/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-04-10-monthly-rent-guarantee/</guid>
+      <description>주거안정 월세대출 2026 — 월 최대 60만 원, 우대형 연 1.3%·일반형 1.8%. 총 1,440만 원 이자 계산과 청년월세지원 비교 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Fri, 10 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>경기도 청년기본소득 분기 25만 원, 만 24세 신청</title>
+      <link>https://tip-pick.com/blog/2026-04-08-gyeonggi-youth-basic-income/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-04-08-gyeonggi-youth-basic-income/</guid>
+      <description>경기도 청년기본소득 2026 — 만 24세 분기 25만 원, 총 4분기 100만 원. 출생일별 신청 시점 계산, 성남·고양 제외, 잡아바 신청법 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>유치원 비용 지원 월 28만 원, 4·5세 무상 조건</title>
+      <link>https://tip-pick.com/blog/2026-04-08-childcare-tuition-support/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-04-08-childcare-tuition-support/</guid>
+      <description>누리과정 유아학비 2026 — 사립 월 28만+방과후 7만, 4·5세는 무상교육비 11만 추가(자동). 나이·기관별 지원액과 보육료 전환 신청 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>기후동행카드 월 62,000원, 40회 타야 본전</title>
+      <link>https://tip-pick.com/blog/2026-04-07-climatecompanioncard/</link>
+      <guid isPermaLink="true">https://tip-pick.com/blog/2026-04-07-climatecompanioncard/</guid>
+      <description>기후동행카드 2026 — 월 62,000원(청년 55,000원) 서울 무제한. 손익분기 월 40회·K-패스 비교 50회 기준, 7월 플러스 개편까지 정리.</description>
+      <category>정부 지원금</category>
+      <pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

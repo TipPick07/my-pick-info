@@ -133,21 +133,21 @@ N22. [x] ✅8/6 https://tip-pick.com/guides/national-pension-survivor-benefits/ 
 48. [→D18] https://tip-pick.com/tools/medical-cost-cap/ — T4(D16→D17 이월) · 한도 초과로 재이월
 49. [→D18] https://tip-pick.com/tools/longterm-care-copay/ — T4(D16→D17 이월) · 한도 초과로 재이월
 
-### D18 — 8/7 (금 = B형 발행일, 5개 = 신규 2 + 이월 3)
-> ⚠️ T4 3건이 D16→D17→D18로 **2일 연속 이월**됐다. 8/7에는 **이월분을 먼저** 요청하고 신규를 뒤에 붙인다.
-47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(2일 이월, 최우선)
-48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(2일 이월)
-49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(2일 이월)
-N23. [ ] https://tip-pick.com/blog/2026-08-07-national-scholarship-second-round/ — 신규(지원금, 국가장학금 2차 신청)
-N24. [ ] https://tip-pick.com/guides/national-scholarship/ — 신규(가이드, 국가장학금 신청 동선)
+### D18 — 8/7 (금 = 자동 발행일) ✅ 2/5 완료 후 일일 한도 초과 — 잔여 3건 D19 재이월
+> 계획은 '이월분 먼저'였으나, 신규 2건이 **마감 있는 시의성 주제**(국가장학금 2차, 9/9 마감)라 신규를 앞에 두는 것으로 당일 변경.
+N23. [x] ✅8/7 https://tip-pick.com/blog/2026-08-07-national-scholarship-second-round/ — 신규(지원금, 국가장학금 2차 신청) · 색인+수집 완료
+N24. [x] ✅8/7 https://tip-pick.com/guides/national-scholarship/ — 신규(가이드, 국가장학금 신청 동선) · 색인+수집 완료
+47. [→D19] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(D16→D17→D18) · 한도 초과로 **3일 연속 이월**
+48. [→D19] https://tip-pick.com/tools/medical-cost-cap/ — T4(D16→D17→D18) · 3일 연속 이월
+49. [→D19] https://tip-pick.com/tools/longterm-care-copay/ — T4(D16→D17→D18) · 3일 연속 이월
 
-### D19 — 8/8 (토, 자동 발행일 = 신규 2 + 백로그 3) — 루틴이 발행 후 신규 URL을 채운다
-> 이월 없음(8/7 5건 배정 완료). 백로그 3건은 아래 '우선 재요청 후보'에서 앞에서부터 소진한다.
-50. [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — ⭐ 실측 1,454(88편 중 1위) · 8/7 국가장학금 글에서 역링크 신설 반영분
-51. [ ] https://tip-pick.com/blog/2026-05-08-k-pass-transit-daytrip-guide/ — 기후동행카드 250
-52. [ ] https://tip-pick.com/blog/2026-07-04-livelihood-benefit-guide/ — 기초생활수급자 33.4
+### D19 — 8/8 (토, 자동 발행일 = 이월 3 + 신규 2)
+> ⚠️ **T4 3건이 3일 연속 밀렸다.** 신규를 앞에 두면 계속 잘리므로, 8/8은 **이월분 3건을 먼저 요청**하고 신규를 뒤에 붙인다. 신규가 또 시의성 주제면 그때 다시 판단.
+47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(3일 이월, 최우선)
+48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(3일 이월)
+49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(3일 이월)
 N25. [ ] 8/8 신규 ① (루틴 발행분)
-N26. [ ] 8/8 신규 ② (짝 — 없으면 백로그 1건 추가)
+N26. [ ] 8/8 신규 ② (짝 — 없으면 아래 '우선 재요청 후보'에서 1건)
 
 ### 우선 재요청 후보 (키워드 실측 근거, 2026-08-06 신설)
 - ⭐ [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — **실측 1,454(기준어의 14.5배, 87편 중 1위)**. 8/1에 1회 요청했으나 사이트 최대 자산이므로 보강 후 재요청 1순위.
@@ -231,3 +231,5 @@ N26. [ ] 8/8 신규 ② (짝 — 없으면 백로그 1건 추가)
 | 8/5 | /tools/tax-refund-claim/ | 신규 · 색인+수집 · 이후 한도 초과(T4 3건 D17 이월) |
 | 8/6 | /blog/2026-08-06-unclaimed-national-pension/ | 신규 · 색인+수집 |
 | 8/6 | /guides/national-pension-survivor-benefits/ | 신규 · 색인+수집 · 이후 한도 초과(T4 3건 D18 재이월) |
+| 8/7 | /blog/2026-08-07-national-scholarship-second-round/ | 신규(자동 발행) · 색인+수집 |
+| 8/7 | /guides/national-scholarship/ | 신규(자동 발행) · 색인+수집 · 이후 한도 초과(T4 3건 D19 재이월, 3일 연속) |

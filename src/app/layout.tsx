@@ -57,6 +57,15 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        {/* RSS 자동발견 — 모든 페이지 head 에 노출.
+            metadata.alternates 로 넣으면 페이지별 canonical 선언에 덮여 사라지므로
+            루트 <head> 에 직접 둔다. 피드는 prebuild(scripts/build-rss.js)가 생성. */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="팁픽 (TIP-PICK) — 전체 글"
+          href="https://tip-pick.com/rss.xml"
+        />
         {/* Google AdSense */}
         <script
           async
