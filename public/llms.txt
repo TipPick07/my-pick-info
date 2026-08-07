@@ -75,8 +75,9 @@
 - [집 팔 때 양도소득세 — 1주택 비과세·세율 한눈에 (2026)](https://tip-pick.com/guides/house-capital-gains-tax/)
 - [청년 지원 총정리 — 자산·주거·취업 한눈에 (2026)](https://tip-pick.com/guides/youth-support-guide/)
 
-## 최근 글 20편 (전체 88편)
+## 최근 글 20편 (전체 89편)
 
+- [2027년 최저임금 1만700원, 월급 환산과 실수령 계산](https://tip-pick.com/blog/2026-08-08-minimum-wage-2027-monthly-pay/) — 2026-08-08
 - [국가장학금 1~3구간 600만 원, 2차 신청 조건](https://tip-pick.com/blog/2026-08-07-national-scholarship-second-round/) — 2026-08-07
 - [국민연금 반환일시금 시효 5년, 10년 되는 경우](https://tip-pick.com/blog/2026-08-06-unclaimed-national-pension/) — 2026-08-06
 - [휴면예금 5년·보험금 3년, 100만 원 놓치는 이자](https://tip-pick.com/blog/2026-08-05-dormant-deposit-hidden-insurance/) — 2026-08-05
@@ -96,6 +97,5 @@
 - [K-패스 교통비 최대 53%, 월 15회 채우는 법](https://tip-pick.com/blog/2026-07-12-k-pass-benefit-guide/) — 2026-07-12
 - [실손보험 1~5세대 차이, 5세대 전환 판단 기준](https://tip-pick.com/blog/2026-07-11-silson-insurance-generation/) — 2026-07-11
 - [보험 리모델링 중복 정리, 해지 전 3가지 대안](https://tip-pick.com/blog/2026-07-11-insurance-remodeling/) — 2026-07-11
-- [국민취업지원제도 월 60만 원, 1유형 신청 요건](https://tip-pick.com/blog/2026-07-10-national-employment-support-program/) — 2026-07-10
 
 전체 목록은 [llms-full.txt](https://tip-pick.com/llms-full.txt) 를 참고하세요.

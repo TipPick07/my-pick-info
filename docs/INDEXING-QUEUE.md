@@ -143,11 +143,12 @@ N24. [x] ✅8/7 https://tip-pick.com/guides/national-scholarship/ — 신규(가
 
 ### D19 — 8/8 (토, 자동 발행일 = 이월 3 + 신규 2)
 > ⚠️ **T4 3건이 3일 연속 밀렸다.** 신규를 앞에 두면 계속 잘리므로, 8/8은 **이월분 3건을 먼저 요청**하고 신규를 뒤에 붙인다. 신규가 또 시의성 주제면 그때 다시 판단.
+> ✅ 확정(8/8 루틴): 발행분이 **글 1편뿐(짝 없음)**이라 이월 3 + 신규 1 + 우선 재요청 1 = 5건으로 채웠다. 이월분을 앞에 둔다.
 47. [ ] https://tip-pick.com/guides/retirement-pension-arrears/ — T4(3일 이월, 최우선)
 48. [ ] https://tip-pick.com/tools/medical-cost-cap/ — T4(3일 이월)
 49. [ ] https://tip-pick.com/tools/longterm-care-copay/ — T4(3일 이월)
-N25. [ ] 8/8 신규 ① (루틴 발행분)
-N26. [ ] 8/8 신규 ② (짝 — 없으면 아래 '우선 재요청 후보'에서 1건)
+N25. [ ] https://tip-pick.com/blog/2026-08-08-minimum-wage-2027-monthly-pay/ — 신규(경제, 2027년 최저임금 월급 환산) · 루틴 발행분
+50. [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — ⭐ 우선 재요청 후보 1순위(실측 1,454, 89편 중 1위) · 짝 없는 날의 대체 슬롯
 
 ### 우선 재요청 후보 (키워드 실측 근거, 2026-08-06 신설)
 - ⭐ [ ] https://tip-pick.com/blog/2026-05-29-youth-savings-mirae-vs-doyak-guide/ — **실측 1,454(기준어의 14.5배, 87편 중 1위)**. 8/1에 1회 요청했으나 사이트 최대 자산이므로 보강 후 재요청 1순위.

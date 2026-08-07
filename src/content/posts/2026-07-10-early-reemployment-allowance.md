@@ -80,6 +80,7 @@ link: "https://www.work24.go.kr"
 - 내 실업급여 예상액부터 → **[실업급여 계산기](/tools/unemployment-benefit/)**
 - 수급 조건·기간 전체 그림 → **[실업급여·고용보험 가이드](/guides/unemployment-benefit-guide/)**
 - 실업급여 대상이 아니라면 → **[국민취업지원제도 (월 60만 원)](/blog/2026-07-10-national-employment-support-program/)**
+- 하한액을 정하는 기준선이 궁금하다면 → **[2027년 최저임금 1만700원과 월급 환산](/blog/2026-08-08-minimum-wage-2027-monthly-pay/)**
 - 정부 지원금 전체 → **[정부 지원금](/benefits/)**
 
 > 본 글은 2026년 기준 고용노동부·고용보험 자료를 정리한 것입니다. 지급 요건과 제외 사유는 개별 사례에 따라 판단이 달라질 수 있으므로, 재취업 전후에 고용24(work24.go.kr)와 관할 고용센터(☎1350)에서 내 사례를 꼭 확인하시기 바랍니다.
