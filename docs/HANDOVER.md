@@ -134,6 +134,15 @@ officialCurationNote: "..."   # ⭐ 에디터 한마디(선택)
 - **규칙 개정**: AGENTS.md 5에 예외 신설(자동 루틴 한정, 게이트 전부 통과 발행 커밋만 main 푸시 — **대화형 세션 미적용**) + CLAUDE.md·WRITING-GUIDE §4 동일 참조 + HANDOVER §7 자동 전환·A/B 폐지 반영. 배포는 기존 `deploy.yml`(main 푸시→Actions→Cloudflare) 그대로, 루틴이 발행 후 라이브 URL 200 폴링으로 확인.
 - **등록·검증 완료(당일 밤~8/7 자정 무렵)**: 클라우드 루틴 등록(Opus 5 · cron `0 22 * * 0-5` UTC = 월~토 07:05 KST) 후 **스모크 테스트 4회로 전 구간 실측 검증** — ① NAVER 키 환경변수 주입 ✅ ② git push ✅(Claude GitHub 앱을 `my-pick-info` 한정 설치 후 해결 — 미설치가 403 원인이었음) ③ 공식 출처 WebFetch(korea.kr) ✅ ④ 직접 API 호출은 클라우드 샌드박스 egress가 차단(403, 네트워크 '전체' 설정과 무관) → **실측·뉴스는 PlayMCP NaverSearch MCP 폴백(§5)이 정식 동선**(datalab으로 청년미래적금/실업급여 13.4배 재현 확인) ⑤ 알림 발송 ✅. 첫 정규 실행 = **2026-08-07(금) 07:05**.
 
+### 2026-08-07 (2) — RSS 피드 신설(전체 글 88건) + 전 페이지 자동발견 링크 · 색인 18일차
+- **RSS**: `scripts/build-rss.js` → `public/rss.xml`(prebuild 연결). **전체 글을 최신순으로, 개수 제한 없이** 담는다(현재 88건). 숨김 카테고리(hot·tips·festival) 제외, 가이드·계산기는 발행일 개념이 없어 제외. 같은 날짜면 슬러그 역순 안정 정렬(빌드마다 순서가 흔들리지 않게).
+  - 라우트 핸들러가 아니라 **빌드 스크립트**로 만든 이유: `output: "export"` 정적 내보내기이고, `sitemap-news.xml`·`llms.txt`와 동작 경로를 하나로 통일하기 위함.
+- **⚠️ 자동발견 링크는 `metadata.alternates`로 넣지 않았다.** 자식 페이지가 `alternates: { canonical }`을 선언하면 **부모의 alternates가 통째로 대체**돼 링크가 사라진다(우리는 거의 모든 페이지가 canonical을 쓴다). 루트 `layout.tsx`의 `<head>`에 직접 넣어 페이지별 metadata와 무관하게 항상 남도록 했다.
+- **검증(로컬)**: 게이트 통과 · tsc 0 · 빌드 172페이지 · XML 파싱 OK · item 88 · 최신순 정렬 True · guid 중복 0 · **HTML 172개 전부에 RSS 링크(누락 0)**.
+- **검증(라이브, 배포 3분 후)**: `https://tip-pick.com/rss.xml` HTTP 200 · `Content-Type: application/xml` · 53KB · item 88 · 정렬 True · 홈/blog/topics/guides/tools/상세 6종 head 링크 전부 확인 · 첫 항목 URL 200.
+- **서치콘솔 제출용 피드 URL**: `https://tip-pick.com/rss.xml` (사이트맵 제출란에 사이트맵과 **별도로** 추가)
+- **색인 18일차(8/7)**: 신규 2건(국가장학금 글·가이드) 색인+수집 완료 후 한도 초과. T4 3건은 **D19로 3일 연속 재이월** → 8/8은 이월분을 먼저 요청하도록 큐 순서 변경.
+
 ### 2026-08-06 (4) — ⭐⭐ 애드센스 승인 사이트(awoo.or.kr) 벤치마크 → 키워드·구조 전면 개편
 - **배경(운영자 지시)**: "이 사이트가 애드센스 받은 지원금 사이트다. 키워드·주제선정·전체 구조 전부 확인해서 보완할 것을 브리핑하고 반영해라."
 - **확인 범위**: 홈·`/issues/`·`/subsidies/`·`/guide/`·`/quick/`·`sitemap-index.xml`·`sitemap-0.xml`·`sitemap-news.xml`·`robots.txt`·`llms.txt` + 실제 글 1편 본문 구조.
