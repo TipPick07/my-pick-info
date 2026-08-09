@@ -83,9 +83,9 @@ export default async function BlogPostPage({ params }: PostPageProps) {
     : ['⬇ 아래에서 자세히'];
 
   // 다음 단계 CTA (카테고리별)
-  const ctaPrimary = isFestival
-    ? { href: '/festivals/', label: '🎪 전국 나들이 전체 보기' }
-    : isOfficial
+  // 2026-08-09: /festivals/ 허브 삭제 → 축제 글 CTA도 지원금 허브로 흡수.
+  //   (축제 글은 현재 0편이라 이 분기는 비활성이지만, 되살아나도 404가 나지 않게 둔다.)
+  const ctaPrimary = isOfficial
     ? { href: '/benefits/', label: '💰 전체 지원금 한눈에 보기' }
     : { href: owningCat?.href ?? '/money/', label: `${owningCat?.emoji ?? '💰'} ${owningCat?.label ?? '돈이 되는 경제'} 더 보기` };
   const ctaSecondary = { href: '/tools/', label: '🧮 실생활 계산기 써보기' };

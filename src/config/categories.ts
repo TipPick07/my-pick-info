@@ -64,6 +64,11 @@ export const CATEGORIES: Category[] = [
     postCategories: ['핫이슈', 'hot', 'issue'],
   },
   {
+    // ⚠️ 2026-08-09: /festivals/ 목록과 축제 상세 라우트를 삭제했다(빈 목록·껍데기 정리).
+    //    이 항목은 **festival 카테고리 글을 계속 숨기기 위해서만** 남아 있다
+    //    (지우면 isPostCategoryLive가 '주인 없는 카테고리 = 노출 허용'으로 뒤집힌다).
+    //    🔴 liveInApproval을 true로 바꾸기 전에 반드시 src/app/festivals/page.tsx를 먼저 복구할 것.
+    //       지금 그냥 켜면 메뉴·사이트맵이 존재하지 않는 경로를 가리킨다.
     key: 'festivals',
     label: '나들이·핫플',
     href: '/festivals/',

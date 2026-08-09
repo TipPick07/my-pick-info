@@ -157,25 +157,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // 2. JSON 데이터에서 동적 경로 (축제, 혜택) — 크롤 시대 잔재. 현재 둘 다 0건.
-  const dataPath = path.join(process.cwd(), 'public/data/pick-info.json');
-  const fileContents = fs.readFileSync(dataPath, 'utf8');
-  const data = JSON.parse(fileContents);
-  const dataDate = gitDateOf('public/data/pick-info.json') ?? BUILD_TIME;
-
-  const festivalRoutes = (isCategoryLive('festivals') ? data.festivals : []).map((f: any) => ({
-    url: `${baseUrl}/festival/${f.id}/`,
-    lastModified: dataDate,
-    changeFrequency: 'weekly' as const,
-    priority: 0.6,
-  }));
-
-  const benefitRoutes = data.benefits.map((b: any) => ({
-    url: `${baseUrl}/benefit/${b.id}/`,
-    lastModified: dataDate,
-    changeFrequency: 'weekly' as const,
-    priority: 0.6,
-  }));
+  // 2. (2026-08-09 삭제) 크롤 시대의 /festival/[id]·/benefit/[id] 동적 경로.
+  //    pick-info.json의 festivals·benefits가 0건이 된 뒤로 두 라우트는
+  //    generateStaticParams 폴백이 만든 껍데기(/festival/placeholder/ 등)만 남아
+  //    크롤 대상이 됐다. 라우트 자체를 제거했으므로 사이트맵 항목도 함께 삭제한다.
+  //    되살릴 때는 라우트·사이트맵 블록을 같이 복구할 것.
 
   // 3. 블로그 동적 경로 (승인 모드면 숨김 카테고리 글 제외)
   const blogRoutes = posts.map((bp) => ({
@@ -185,5 +171,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...topicRoutes, ...guideRoutes, ...festivalRoutes, ...benefitRoutes, ...blogRoutes];
+  return [...staticRoutes, ...topicRoutes, ...guideRoutes, ...blogRoutes];
 }

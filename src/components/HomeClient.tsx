@@ -102,20 +102,9 @@ const FALLBACK_IMG = '/images/blogs/korea-welfare-benefit-322.png';
 const KAKAO_OPENCHAT_URL = "https://open.kakao.com/o/gdb5gJsi"; // 카카오 오픈채팅: 팁픽 | 정부 지원금·경제·생활정보
 
 export default function HomeClient({ data, posts, todayUpdates, bannerConfig }: { data: Data, posts: PostData[], todayUpdates?: TodayUpdates, bannerConfig?: { isActive: boolean; imageUrl: string; linkUrl: string } }) {
-  const [filter, setFilter] = useState("전체");
-
   // KST 기준 오늘 날짜
   const todayKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
   todayKST.setHours(0, 0, 0, 0);
-
-  // ── 탐색(브라우즈)용 — 지역/카테고리 필터 적용 ──
-  const filteredFestivals = sortFestivals(
-    (filter === "전체" ? data.festivals : data.festivals.filter(f => f.region === filter))
-      .filter((f: Festival) => !isFestivalExpired(f.date, todayKST)),
-    todayKST
-  );
-
-  const regions = ["전체", "서울", "인천", "경기"];
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-cyan-100">
@@ -231,68 +220,6 @@ export default function HomeClient({ data, posts, todayUpdates, bannerConfig }: 
         </section>
 
         {/* ── 탐색: 지역 필터 + 축제 (전국 나들이 카테고리 공개 시에만 노출) ── */}
-        {isCategoryLive("festivals") && (
-        <div className="space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white rounded-[1.75rem] border border-slate-100 shadow-sm px-6 py-5">
-            <div className="flex items-center gap-2.5">
-              <span className="text-lg font-black text-slate-900">📍 지역별 축제</span>
-              <span className="text-xs font-bold text-brand-dark bg-cyan-50 px-2.5 py-1 rounded-full">
-                {filter === "전체" ? "전체 지역" : filter}
-              </span>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              {regions.map((r) => (
-                <button
-                  key={r}
-                  onClick={() => setFilter(r)}
-                  className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${filter === r ? "text-white scale-105" : "bg-slate-50 text-slate-600 border border-slate-200/70 hover:bg-slate-100"}`}
-                  style={filter === r ? {
-                    background: "linear-gradient(to right, #00CCFF, #33FF99)",
-                    boxShadow: "0 4px 18px rgba(0,204,255,0.32)"
-                  } : {}}
-                >
-                  {r}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <section className="space-y-6">
-            <SectionHeading title="주목할 만한 축제/행사" accentColor="#00CCFF" moreHref="/festivals/" />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
-              {filteredFestivals.slice(0, 6).map((f) => (
-                <Link key={f.id} href={`/festival/${f.id}/`} className="group cursor-pointer">
-                  <div className="relative aspect-[16/9] overflow-hidden rounded-[1.75rem] mb-3 bg-slate-100">
-                    <img
-                      src={f.image || FALLBACK_IMG}
-                      alt={f.title}
-                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                      onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG; }}
-                    />
-                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-brand-dark shadow-sm">
-                      {f.region}
-                    </div>
-                    <div className="absolute bottom-3 right-3 bg-neon-blue px-3 py-1 rounded-full text-xs font-black text-white shadow-sm">
-                      {f.tag}
-                    </div>
-                  </div>
-                  <h4 className="text-lg font-black text-slate-900 transition-colors mb-1 group-hover:text-brand-dark">
-                    {f.title}
-                  </h4>
-                  <p className="text-slate-500 font-bold text-sm flex items-center gap-1">
-                    📅 {f.date}
-                  </p>
-                </Link>
-              ))}
-              {filteredFestivals.length === 0 && (
-                <div className="md:col-span-3 py-16 text-center text-slate-400 font-medium bg-slate-50 rounded-[1.75rem] border-2 border-dashed border-slate-200">
-                  해당 지역의 예정된 행사가 없습니다.
-                </div>
-              )}
-            </div>
-          </section>
-        </div>
-        )}
 
         {/* ── 최신 글 (경제·지원금 통합 피드, 카테고리 배지로 구분) ── */}
         <section className="space-y-6 pt-2">
