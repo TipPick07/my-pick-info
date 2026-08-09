@@ -143,7 +143,7 @@ export const TOPICS: Topic[] = [
       "아이돌봄서비스 시간당 부담, 육아기 근로시간 단축 급여, 부모급여·유아학비까지 유형별로 계산했습니다.",
     intro:
       "맞벌이 가구의 돌봄 공백은 한 제도로 메워지지 않습니다. 시간을 사는 것(아이돌봄서비스), 일하는 시간을 줄이는 것(육아기 단축), 현금을 받는 것(부모급여)을 겹쳐 써야 하는데 소득 유형 판정이 제도마다 다릅니다.",
-    posts: ["2026-07-22-childcare-service-support", "2026-04-28-seoul-childcare-support", "2026-07-24-reduced-work-hours-childcare-pay", "2026-07-06-parental-allowance-guide", "2026-04-08-childcare-tuition-support"],
+    posts: ["2026-08-10-short-term-parental-leave", "2026-07-22-childcare-service-support", "2026-04-28-seoul-childcare-support", "2026-07-24-reduced-work-hours-childcare-pay", "2026-07-06-parental-allowance-guide", "2026-04-08-childcare-tuition-support"],
     guides: ["parenting-family-benefits"],
     tools: [{ slug: "childcare-service", label: "아이돌봄서비스 계산기" }, { slug: "parental-leave-pay", label: "육아휴직급여 계산기" }],
   },

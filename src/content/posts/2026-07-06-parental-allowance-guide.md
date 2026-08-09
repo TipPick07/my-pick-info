@@ -87,6 +87,7 @@ link: "https://www.bokjiro.go.kr"
 - 육아휴직 급여가 궁금하다면 → **[육아휴직급여 계산기](/tools/parental-leave-pay/)**
 - 등·하원 돌봄 공백을 메우려면 → **[아이돌봄서비스 본인부담](/blog/2026-07-22-childcare-service-support/)**
 - 복직 후 근무시간을 줄인다면 → **[육아기 근로시간 단축 급여](/blog/2026-07-24-reduced-work-hours-childcare-pay/)**
+- 방학·아이 입원처럼 며칠만 비울 때 → **[단기 육아휴직 1주 조건과 급여](/blog/2026-08-10-short-term-parental-leave/)**
 - 지역·시기별 육아 지원 한눈에 → **[출산·육아 지원금 지역별 비교](/blog/2026-06-01-parenting-benefit-region-compare/)**
 - 아동수당만 따로 → **[아동수당 신청 방법](/blog/2026-05-05-national-child-benefit-application/)**
 - 정부 지원금 전체 → **[정부 지원금](/benefits/)**
