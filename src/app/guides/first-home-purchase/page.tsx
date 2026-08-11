@@ -34,13 +34,13 @@ const SRC_FUND = "https://enhuf.molit.go.kr";
 const SRC_APPLY = "https://www.applyhome.co.kr";
 
 const OG_TITLE =
-  "생애최초 주택구입 — 정책대출·취득세·청약 (2026)";
+  "생애최초 취득세 200만 원 감면, 집 살 때 대출 순서";
 const OG_DESC =
   "처음 집 살 때 3대 혜택 — 디딤돌·보금자리론, 생애최초 LTV 80%, 취득세 최대 200만원 감면·청약 특공까지 순서대로 정리했습니다.";
 
 export const metadata: Metadata = {
   title:
-    "생애최초 주택구입 — 정책대출·취득세·청약 (2026) | 팁픽",
+    "생애최초 취득세 200만 원 감면, 집 살 때 대출 순서 | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {

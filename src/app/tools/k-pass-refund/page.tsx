@@ -8,15 +8,15 @@ const SITE = "https://tip-pick.com";
 const PATH = "/tools/k-pass-refund/";
 
 export const metadata: Metadata = {
-  title: "K-패스 환급 계산기 2026 | 유형별 교통비 환급액 | 팁픽",
+  title: "K-패스 환급률 20~53.3%, 월 교통비 환급액 계산 | 팁픽",
   description:
-    "월 대중교통비와 유형(일반 20%·청년 30%·다자녀 30~50%·저소득 53.3%)만 넣으면 K-패스 월·연 환급액을 바로 계산합니다. 2026년 기본 환급률 기준 참고용.",
+    "K-패스 환급률은 유형별로 일반 20%·청년 30%·다자녀 30~50%·저소득 53.3%. 월 대중교통비만 넣으면 월·연 환급액을 바로 계산합니다. 2026년 기본 환급률 기준 참고용.",
   alternates: { canonical: `${SITE}${PATH}` },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: `${SITE}${PATH}`,
-    title: "K-패스 환급 계산기 2026 | 유형별 교통비 환급액 | 팁픽",
+    title: "K-패스 환급률 20~53.3%, 월 교통비 환급액 계산 | 팁픽",
     description:
       "월 교통비 × 유형별 환급률(20~53.3%)로 K-패스 월·연 환급액을 바로 계산. 2026년 기준 참고용.",
     images: [`${SITE}/og-image-v2.png`],

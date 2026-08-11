@@ -8,7 +8,7 @@ const SITE = "https://tip-pick.com";
 const PATH = "/tools/childcare-service/";
 
 export const metadata: Metadata = {
-  title: "아이돌봄서비스 본인부담금 계산기 — 소득유형별 (2026) | 팁픽",
+  title: "아이돌봄서비스 시간당 12,790원, 본인부담금 계산 | 팁픽",
   description:
     "아이돌봄서비스 월 본인부담금을 바로 계산합니다. 소득유형(가~마형)·아이 나이·이용 시간을 고르면 2026년 단가(시간당 12,790원) 기준 정부지원액과 내 부담금을 나눠 보여 드립니다.",
   alternates: { canonical: `${SITE}${PATH}` },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${SITE}${PATH}`,
-    title: "아이돌봄서비스 본인부담금 계산기 — 소득유형별 (2026) | 팁픽",
+    title: "아이돌봄서비스 시간당 12,790원, 본인부담금 계산 | 팁픽",
     description:
       "아이돌봄서비스 월 본인부담금 계산 — 소득유형·나이·이용시간 기준 정부지원액 분해.",
     images: [`${SITE}/og-image-v2.png`],

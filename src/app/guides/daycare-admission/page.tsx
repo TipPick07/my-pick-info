@@ -28,13 +28,13 @@ const SRC_BENEFITS = "/guides/parenting-family-benefits/"; // 비용(보육료·
 // 절대 URL로 지정 → layout의 metadataBase 유무와 무관하게 og:image가 안전하게 해석됨
 const OG_IMAGE = `${SITE}/images/og/daycare-admission.png`;
 const OG_TITLE =
-  "어린이집·유치원 신청 — 유보통합포털 입소·입학 (2027)";
+  "유보통합포털 2027 입학, 어린이집 입소 대기 신청";
 const OG_DESC =
   "어린이집은 점수제·연중 대기, 유치원은 11월 추첨. 2024년 통합된 유보통합포털 한 곳에서 입소대기·입학을 어떻게 신청하는지 한눈에 정리했습니다.";
 
 export const metadata: Metadata = {
   title:
-    "어린이집·유치원 신청 — 유보통합포털 입소·입학 (2027) | 팁픽",
+    "유보통합포털 2027 입학, 어린이집 입소 대기 신청 | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {

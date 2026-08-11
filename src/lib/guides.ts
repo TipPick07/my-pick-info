@@ -94,7 +94,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "property-holding-tax",
-    title: "부동산 보유세 — 재산세·종부세 한눈에 (2026)",
+    title: "보유세 재산세 7월·9월, 종부세 12월 납부 순서",
     description:
       "집 가진 해마다 내는 세금 두 층 — 모두가 내는 재산세(7월·9월, 1주택 특례 43~45%)와 공시 9억(1주택 12억) 초과만 내는 종부세(12월). 계산 구조와 보유세 달력을 한 표로 정리한 가이드.",
     category: "부동산·세금",
@@ -102,7 +102,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "self-employed-freelancer-tax",
-    title: "개인사업자·프리랜서 세금 — 부가세·종소세·3.3% 한눈에 (2026)",
+    title: "개인사업자 세금달력 1·5·7월, 프리랜서 3.3% 환급",
     description:
       "사업자 세금은 달력이 반 — 1월·7월 부가세, 5월 종합소득세, 프리랜서 3.3% 환급까지. 일반·간이·프리랜서 유형별로 언제 무엇을 신고하는지 한 표로 정리한 가이드.",
     category: "사업자·세금",
@@ -110,7 +110,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "first-home-purchase",
-    title: "생애최초 주택구입 — 정책대출·취득세·청약 한눈에 (2026)",
+    title: "생애최초 취득세 200만 원 감면, 집 살 때 대출 순서",
     description:
       "처음 집 살 때 챙길 3대 혜택 — 디딤돌·보금자리론 정책대출, 생애최초 LTV 80%, 취득세 최대 200만원 감면과 청약 특별공급까지 순서대로 정리한 가이드.",
     category: "내집마련",
@@ -126,7 +126,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "overseas-stock-capital-gains-tax",
-    title: "해외주식 양도소득세 — 250만 공제·22%·5월 신고 (2026)",
+    title: "해외주식 양도세 250만 원 공제, 5월 신고 순서",
     description:
       "미국·중국 등 해외주식은 소액이라도 이익 250만원 넘으면 다음 해 5월 직접 신고. 22% 세율·손익통산 절세·계산기까지 묶은 에버그린 가이드.",
     category: "투자·세금",
@@ -176,7 +176,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "daycare-admission",
-    title: "어린이집·유치원 신청 — 유보통합포털 입소대기·입학 (2027학년도)",
+    title: "유보통합포털 2027 입학, 어린이집 입소 대기 신청",
     description:
       "어린이집은 점수제·연중 대기, 유치원은 11월 추첨. 통합된 유보통합포털 한 곳에서 입소대기·입학을 어떻게 신청하는지 한 표로 정리한 가이드.",
     category: "임신·출산·육아",

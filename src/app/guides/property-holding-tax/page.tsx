@@ -39,12 +39,12 @@ const SRC_HOMETAX = "https://hometax.go.kr"; // 홈택스 — 종부세 간이�
 const SRC_NTS_RATE = "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2354&cntntsId=7736"; // 종부세 세율
 const SRC_REALTY = "https://www.realtyprice.kr"; // 부동산공시가격알리미
 
-const OG_TITLE = "부동산 보유세 — 재산세·종부세 총정리 (2026)";
+const OG_TITLE = "보유세 재산세 7월·9월, 종부세 12월 납부 순서";
 const OG_DESC =
-  "모두가 내는 재산세(7월·9월)와 공시 9억(1주택 12억) 초과만 내는 종부세(12월) — 계산 구조·1주택 혜택·보유세 달력을 한 표로 정리.";
+  "보유세는 모두가 내는 재산세(7월 16~31일·9월 16~30일)와 공시 9억(1주택 12억) 초과만 내는 종부세(12월 1~15일)로 나뉩니다. 계산 구조·1주택 혜택·납부 달력을 한 표로 정리.";
 
 export const metadata: Metadata = {
-  title: "부동산 보유세 — 재산세·종부세 총정리 (2026) | 팁픽",
+  title: "보유세 재산세 7월·9월, 종부세 12월 납부 순서 | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {

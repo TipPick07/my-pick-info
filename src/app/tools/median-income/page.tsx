@@ -8,7 +8,7 @@ const SITE = "https://tip-pick.com";
 const PATH = "/tools/median-income/";
 
 export const metadata: Metadata = {
-  title: "기준 중위소득 계산기 2026 | 생계·의료·주거·교육급여 자격선 | 팁픽",
+  title: "기준 중위소득 2026 생계급여 32%, 자격선 계산 | 팁픽",
   description:
     "가구원수만 넣으면 2026년 기준 중위소득과 생계급여(32%)·의료(40%)·주거(48%)·교육급여(50%) 선정기준을 바로 확인. 기초생활보장 자격 판정용 참고 계산기.",
   alternates: { canonical: `${SITE}${PATH}` },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${SITE}${PATH}`,
-    title: "기준 중위소득 계산기 2026 | 생계·의료·주거·교육급여 자격선 | 팁픽",
+    title: "기준 중위소득 2026 생계급여 32%, 자격선 계산 | 팁픽",
     description:
       "가구원수로 2026 기준 중위소득과 4대 급여(생계·의료·주거·교육) 선정기준을 바로 확인. 기초생활보장 자격 참고용.",
     images: [`${SITE}/og-image-v2.png`],

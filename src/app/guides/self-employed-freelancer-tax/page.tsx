@@ -43,12 +43,12 @@ const SRC_MONEY = "/money/";
 const SRC_NTS = "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2273&cntntsId=7694"; // 국세청 부가세 신고납부기한
 const SRC_HOMETAX = "https://hometax.go.kr";
 
-const OG_TITLE = "개인사업자·프리랜서 세금 — 부가세·종소세·3.3% 한눈에 (2026)";
+const OG_TITLE = "개인사업자 세금달력 1·5·7월, 프리랜서 3.3% 환급";
 const OG_DESC =
   "사업자 세금은 달력이 반입니다. 1월·7월 부가세, 5월 종합소득세, 프리랜서 3.3% 환급까지 — 유형별로 언제 무엇을 신고하는지 한 표로 정리한 가이드.";
 
 export const metadata: Metadata = {
-  title: "개인사업자·프리랜서 세금 — 부가세·종소세·3.3% 한눈에 (2026) | 팁픽",
+  title: "개인사업자 세금달력 1·5·7월, 프리랜서 3.3% 환급 | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {

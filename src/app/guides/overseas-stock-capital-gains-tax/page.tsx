@@ -33,13 +33,13 @@ const SRC_NTS = "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=8800
 const SRC_HOMETAX = "https://hometax.go.kr";
 
 const OG_TITLE =
-  "해외주식 양도소득세 — 이익 250만 원 넘으면 5월에 신고·22% (2026)";
+  "해외주식 양도세 250만 원 공제, 5월 신고 순서";
 const OG_DESC =
   "미국·중국 등 해외주식은 소액이라도 이익 250만 원을 넘으면 다음 해 5월에 직접 신고. 과세 요건·22% 세율·손익통산 절세까지 한 표로 정리한 가이드.";
 
 export const metadata: Metadata = {
   title:
-    "해외주식 양도소득세 — 250만 공제·22% 세율·5월 신고 한눈에 (2026) | 팁픽",
+    "해외주식 양도세 250만 원 공제, 5월 신고 순서 | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
