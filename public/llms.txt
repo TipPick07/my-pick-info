@@ -75,8 +75,9 @@
 - [집 팔 때 양도소득세 — 1주택 비과세·세율 한눈에 (2026)](https://tip-pick.com/guides/house-capital-gains-tax/)
 - [청년 지원 총정리 — 자산·주거·취업 한눈에 (2026)](https://tip-pick.com/guides/youth-support-guide/)
 
-## 최근 글 20편 (전체 91편)
+## 최근 글 20편 (전체 92편)
 
+- [농식품바우처 월 4만~18만 원, 대상과 신청 순서](https://tip-pick.com/blog/2026-08-13-food-voucher-2026/) — 2026-08-13
 - [청년문화예술패스 최대 20만 원, 11월 30일까지 신청](https://tip-pick.com/blog/2026-08-11-youth-culture-arts-pass/) — 2026-08-11
 - [단기 육아휴직 1주, 만 8세 이하 조건과 급여](https://tip-pick.com/blog/2026-08-10-short-term-parental-leave/) — 2026-08-10
 - [2027년 최저임금 1만700원, 월급 환산과 실수령 계산](https://tip-pick.com/blog/2026-08-08-minimum-wage-2027-monthly-pay/) — 2026-08-08
@@ -96,6 +97,5 @@
 - [건강보험료 지역가입자 7.19%, 줄이는 방법 3가지](https://tip-pick.com/blog/2026-07-13-regional-health-insurance-premium/) — 2026-07-13
 - [건강보험 피부양자 소득 2천만, 탈락 기준과 대응](https://tip-pick.com/blog/2026-07-13-health-insurance-dependent/) — 2026-07-13
 - [통신요금 감면 월 33,500원, 대상별 신청 방법](https://tip-pick.com/blog/2026-07-12-telecom-fee-discount/) — 2026-07-12
-- [K-패스 교통비 최대 53%, 월 15회 채우는 법](https://tip-pick.com/blog/2026-07-12-k-pass-benefit-guide/) — 2026-07-12
 
 전체 목록은 [llms-full.txt](https://tip-pick.com/llms-full.txt) 를 참고하세요.
