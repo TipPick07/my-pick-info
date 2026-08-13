@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
+    <loc>https://tip-pick.com/blog/2026-08-14-high-oil-price-relief-fund-balance/</loc>
+    <news:news>
+      <news:publication>
+        <news:name>팁픽</news:name>
+        <news:language>ko</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-14T00:00:00.000Z</news:publication_date>
+      <news:title>고유가 피해지원금 8월 31일, 잔액 소멸 전 확인 순서</news:title>
+    </news:news>
+  </url>
+  <url>
     <loc>https://tip-pick.com/blog/2026-08-13-food-voucher-2026/</loc>
     <news:news>
       <news:publication>
@@ -10,17 +21,6 @@
       </news:publication>
       <news:publication_date>2026-08-13T00:00:00.000Z</news:publication_date>
       <news:title>농식품바우처 월 4만~18만 원, 대상과 신청 순서</news:title>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://tip-pick.com/blog/2026-08-11-youth-culture-arts-pass/</loc>
-    <news:news>
-      <news:publication>
-        <news:name>팁픽</news:name>
-        <news:language>ko</news:language>
-      </news:publication>
-      <news:publication_date>2026-08-11T00:00:00.000Z</news:publication_date>
-      <news:title>청년문화예술패스 최대 20만 원, 11월 30일까지 신청</news:title>
     </news:news>
   </url>
 </urlset>
