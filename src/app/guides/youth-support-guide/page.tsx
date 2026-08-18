@@ -37,12 +37,12 @@ const SRC_YOUTH = "https://www.youth.go.kr"; // 온통청년
 const SRC_WORK = "https://www.work24.go.kr"; // 국민취업지원
 const SRC_BOKJIRO = "https://www.bokjiro.go.kr"; // 청년 월세 신청
 
-const OG_TITLE = "청년 지원 총정리 — 자산·주거·취업 한눈에 (2026)";
+const OG_TITLE = "청년 지원금 월세 480만 원, 목돈·주거·취업 신청 순서";
 const OG_DESC =
   "청년미래적금·청년 월세 지원·국민취업지원까지, 흩어진 청년 정책을 목돈·주거·취업 세 갈래로 묶어 정리한 에버그린 가이드.";
 
 export const metadata: Metadata = {
-  title: "청년 지원 총정리 — 자산·주거·취업 한눈에 (2026) | 팁픽",
+  title: "청년 지원금 월세 480만 원, 목돈·주거·취업 신청 순서 | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: { type: "article", url: `${SITE}${PATH}`, title: OG_TITLE, description: OG_DESC, images: [`${SITE}/og-image-v2.png`] },

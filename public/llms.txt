@@ -47,15 +47,15 @@
 - [예금·적금 이자 계산기](https://tip-pick.com/tools/savings-interest/)
 - [경정청구 환급액 계산기 (2026)](https://tip-pick.com/tools/tax-refund-claim/)
 - [실업급여 계산기 2026](https://tip-pick.com/tools/unemployment-benefit/)
-- [청년내일저축계좌 계산기 — 정부지원금 만기 수령액](https://tip-pick.com/tools/youth-savings-account/)
+- [청년내일저축계좌 만기 1,440만 원, 원금·지원금 계산](https://tip-pick.com/tools/youth-savings-account/)
 
 ## 심층 가이드 (23편)
 
-- [국가장학금 신청 — 구간·성적·서류 한눈에 (2026)](https://tip-pick.com/guides/national-scholarship/)
+- [국가장학금 신청 4단계, 가구원 동의·서류 확인](https://tip-pick.com/guides/national-scholarship/)
 - [국민연금 유족급여 — 세 갈래 중 무엇을 받나 (2026)](https://tip-pick.com/guides/national-pension-survivor-benefits/)
-- [숨은 돈 통합 조회 — 창구별 동선과 준비물 (2026)](https://tip-pick.com/guides/hidden-money-checkup/)
+- [숨은 돈 찾기 창구 6곳, 시효 지나기 전 조회 순서](https://tip-pick.com/guides/hidden-money-checkup/)
 - [퇴직연금이 안 들어왔을 때 — 확인부터 조치까지 (2026)](https://tip-pick.com/guides/retirement-pension-arrears/)
-- [예금자보호 완전정리 — 어디까지 얼마까지 (2026)](https://tip-pick.com/guides/deposit-protection/)
+- [예금자보호 한도 1억 원, 이자까지 넣은 안전선 계산](https://tip-pick.com/guides/deposit-protection/)
 - [퇴직연금 DB·DC·IRP 차이 — 내 유형 확인·갈아타기 (2026)](https://tip-pick.com/guides/retirement-pension/)
 - [주택연금 — 가입조건·월지급금·2026 개편 한눈에](https://tip-pick.com/guides/housing-pension/)
 - [건강보험료 줄이는 법 — 직장·지역·피부양자 한눈에 (2026)](https://tip-pick.com/guides/health-insurance-saving/)
@@ -73,7 +73,7 @@
 - [유보통합포털 2027 입학, 어린이집 입소 대기 신청](https://tip-pick.com/guides/daycare-admission/)
 - [아이 이름의 돈 — 자녀 적금·청약·보험 3축 가이드 (2026)](https://tip-pick.com/guides/parenting-family-savings/)
 - [집 팔 때 양도소득세 — 1주택 비과세·세율 한눈에 (2026)](https://tip-pick.com/guides/house-capital-gains-tax/)
-- [청년 지원 총정리 — 자산·주거·취업 한눈에 (2026)](https://tip-pick.com/guides/youth-support-guide/)
+- [청년 지원금 월세 480만 원, 목돈·주거·취업 신청 순서](https://tip-pick.com/guides/youth-support-guide/)
 
 ## 최근 글 20편 (전체 94편)
 

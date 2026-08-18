@@ -42,12 +42,12 @@ const SRC_MONEY = "/money/";
 // 공식 출처
 const SRC_KDIC = "https://www.kdic.or.kr"; // 예금보험공사(보호대상·모의계산기)
 
-const OG_TITLE = "예금자보호 완전정리 — 어디까지 얼마까지 (2026)";
+const OG_TITLE = "예금자보호 한도 1억 원, 이자까지 넣은 안전선 계산";
 const OG_DESC =
   "보호 한도 1억원은 원금+이자 합계 — 보호·비보호 상품 구분, 별도 한도 3종, 금액대별 예치 설계를 계산으로 정리한 가이드.";
 
 export const metadata: Metadata = {
-  title: "예금자보호 완전정리 — 어디까지 얼마까지 (2026) | 팁픽",
+  title: "예금자보호 한도 1억 원, 이자까지 넣은 안전선 계산 | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {

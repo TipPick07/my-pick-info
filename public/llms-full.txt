@@ -47,11 +47,11 @@
 - [예금·적금 이자 계산기](https://tip-pick.com/tools/savings-interest/)
 - [경정청구 환급액 계산기 (2026)](https://tip-pick.com/tools/tax-refund-claim/)
 - [실업급여 계산기 2026](https://tip-pick.com/tools/unemployment-benefit/)
-- [청년내일저축계좌 계산기 — 정부지원금 만기 수령액](https://tip-pick.com/tools/youth-savings-account/)
+- [청년내일저축계좌 만기 1,440만 원, 원금·지원금 계산](https://tip-pick.com/tools/youth-savings-account/)
 
 ## 심층 가이드 (23편)
 
-### 국가장학금 신청 — 구간·성적·서류 한눈에 (2026)
+### 국가장학금 신청 4단계, 가구원 동의·서류 확인
 https://tip-pick.com/guides/national-scholarship/
 한 번 신청하면 I유형·II유형·다자녀·지역인재장학금이 함께 심사됩니다. 정작 탈락은 신청 뒤 두 단계 — 가구원 정보제공 동의와 서류 제출에서 납니다. 신청 4단계 동선과 구간 9·학점 12·점수 80이라는 세 관문, 이혼 가구·초과학기 같은 경계 사례까지 정리한 가이드.
 
@@ -59,7 +59,7 @@ https://tip-pick.com/guides/national-scholarship/
 https://tip-pick.com/guides/national-pension-survivor-benefits/
 가입자가 사망하면 유족연금·반환일시금·사망일시금 중 하나로 갈립니다. 갈림길을 만드는 건 대부분 가입기간 10년 — 지급률이 40%와 60%로 갈리죠. 요건과 유족 순위, 중복급여 조정, 재혼·자녀 성년 같은 상황별 변화를 정리한 가이드.
 
-### 숨은 돈 통합 조회 — 창구별 동선과 준비물 (2026)
+### 숨은 돈 찾기 창구 6곳, 시효 지나기 전 조회 순서
 https://tip-pick.com/guides/hidden-money-checkup/
 미환급금·휴면예금·숨은 보험금·카드포인트는 한 사이트에서 다 되지 않습니다. 여섯 창구를 30분에 도는 순서(시효가 짧은 보험 3년부터, 금액이 큰 세금은 경정청구까지), 창구별 준비물과 화면에서 막히는 지점을 정리한 가이드.
 
@@ -67,7 +67,7 @@ https://tip-pick.com/guides/hidden-money-checkup/
 https://tip-pick.com/guides/retirement-pension-arrears/
 DC형 부담금이 밀리면 재직 중에도 연 10%, 퇴직 14일 후부터는 연 20%의 지연이자가 붙습니다. 금융회사 계정에서 미납을 확인하는 법, 다투지 않고 기록을 남기는 법, 진정·고소·민사·대지급금이 각각 무엇을 요구하는 절차인지 순서대로 정리한 가이드.
 
-### 예금자보호 완전정리 — 어디까지 얼마까지 (2026)
+### 예금자보호 한도 1억 원, 이자까지 넣은 안전선 계산
 https://tip-pick.com/guides/deposit-protection/
 보호 한도 1억원은 원금이 아니라 원금+이자 합계 — 연 3.5%면 원금 9,661만 원이 안전선. 보호·비보호 상품 구분, 같은 금융사에서도 따로 세는 별도 한도 3종, 5,000만~5억 원 금액대별 예치 설계까지 직접 계산한 가이드.
 
@@ -139,7 +139,7 @@ https://tip-pick.com/guides/parenting-family-savings/
 https://tip-pick.com/guides/house-capital-gains-tax/
 1세대 1주택은 2년 보유(조정지역 취득은 2년 거주)·양도가액 12억까지 비과세. 장기보유특별공제 최대 80%, 다주택 중과 부활(2026.5)까지 한 표로 정리한 가이드.
 
-### 청년 지원 총정리 — 자산·주거·취업 한눈에 (2026)
+### 청년 지원금 월세 480만 원, 목돈·주거·취업 신청 순서
 https://tip-pick.com/guides/youth-support-guide/
 청년미래적금·청년 월세 지원·국민취업지원까지, 흩어진 청년 정책을 목돈·주거·취업 세 갈래로 묶은 에버그린 가이드.
 

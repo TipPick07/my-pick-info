@@ -46,12 +46,12 @@ const SRC_PAYINFO = "https://www.payinfo.or.kr"; // 어카운트인포
 const SRC_FINE = "https://fine.fss.or.kr"; // 금감원 파인
 const SRC_GOV = "https://www.gov.kr/portal/rcvfvrSvc/main"; // 보조금24
 
-const OG_TITLE = "숨은 돈 통합 조회 — 창구별 동선과 준비물 (2026)";
+const OG_TITLE = "숨은 돈 찾기 창구 6곳, 시효 지나기 전 조회 순서";
 const OG_DESC =
   "미환급금·휴면예금·숨은 보험금·카드포인트를 30분에 도는 순서 — 창구별 접속 경로, 인증 준비물, 화면에서 막히는 지점을 정리한 가이드.";
 
 export const metadata: Metadata = {
-  title: "숨은 돈 통합 조회 가이드 — 창구별 동선과 준비물 | 팁픽",
+  title: "숨은 돈 찾기 창구 6곳, 시효 지나기 전 조회 순서 | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {

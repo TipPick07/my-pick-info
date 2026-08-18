@@ -44,12 +44,12 @@ const SRC_BENEFITS = "/benefits/";
 const SRC_KOSAF = "https://www.kosaf.go.kr"; // 한국장학재단
 const SRC_GOV = "https://www.gov.kr/portal/service/serviceInfo/SD0000004508"; // 정부24 I유형
 
-const OG_TITLE = "국가장학금 신청 — 구간·성적·서류 한눈에 (2026)";
+const OG_TITLE = "국가장학금 신청 4단계, 가구원 동의·서류 확인";
 const OG_DESC =
   "한 번 신청하면 I유형·II유형·다자녀·지역인재가 함께 심사됩니다. 신청 4단계 동선과 가구원 동의, 서류 제출, 구간·성적 기준에서 실제로 걸리는 지점을 정리한 가이드.";
 
 export const metadata: Metadata = {
-  title: "국가장학금 신청 가이드 — 구간·성적·서류 한눈에 | 팁픽",
+  title: "국가장학금 신청 4단계, 가구원 동의·서류 확인 | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
