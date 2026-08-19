@@ -23,7 +23,7 @@
 - [계산기](https://tip-pick.com/tools/)
 - [사이트 소개](https://tip-pick.com/about/)
 
-## 계산기 (23종)
+## 계산기 (24종)
 
 - [연차수당 계산기 2026](https://tip-pick.com/tools/annual-leave-allowance/)
 - [부동산 중개보수(복비) 계산기](https://tip-pick.com/tools/brokerage-fee/)
@@ -47,6 +47,7 @@
 - [예금·적금 이자 계산기](https://tip-pick.com/tools/savings-interest/)
 - [경정청구 환급액 계산기 (2026)](https://tip-pick.com/tools/tax-refund-claim/)
 - [실업급여 계산기 2026](https://tip-pick.com/tools/unemployment-benefit/)
+- [대지급금 계산기](https://tip-pick.com/tools/wage-guarantee/)
 - [청년내일저축계좌 만기 1,440만 원, 원금·지원금 계산](https://tip-pick.com/tools/youth-savings-account/)
 
 ## 심층 가이드 (23편)
@@ -144,7 +145,11 @@ https://tip-pick.com/guides/youth-support-guide/
 청년미래적금·청년 월세 지원·국민취업지원까지, 흩어진 청년 정책을 목돈·주거·취업 세 갈래로 묶은 에버그린 가이드.
 
 
-## 전체 글 (94편)
+## 전체 글 (95편)
+
+### 임금체불 신고, 대지급금 6개월분 받는 순서
+https://tip-pick.com/blog/2026-08-20-wage-arrears-guarantee-payment/ · 2026-08-20 · benefit
+임금체불 신고 후 받는 대지급금이 2026년 8월 20일부터 최종 6개월분·최대 3,150만 원으로 늘었습니다. 연령별 상한과 청구 순서를 계산으로 정리했습니다.
 
 ### 평생교육이용권 35만 원, 신청 자격과 사용처 확인
 https://tip-pick.com/blog/2026-08-18-lifelong-education-voucher/ · 2026-08-18 · benefit

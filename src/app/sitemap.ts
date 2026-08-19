@@ -114,7 +114,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/', '/benefits/', '/blog/', '/guides/', '/topics/',
     '/tools/', '/tools/salary/', '/tools/loan/',
     '/tools/income-tax/', '/tools/insurance/',
-    '/tools/retirement-pay/', '/tools/hourly-wage/', '/tools/car-tax/', '/tools/savings-interest/', '/tools/rent-conversion/', '/tools/brokerage-fee/', '/tools/annual-leave-allowance/', '/tools/overseas-stock-tax/', '/tools/median-income/', '/tools/k-pass-refund/', '/tools/parental-leave-pay/', '/tools/electricity-bill/', '/tools/unemployment-benefit/', '/tools/youth-savings-account/', '/tools/childcare-service/', '/tools/reduced-work-hours-pay/', '/tools/medical-cost-cap/', '/tools/longterm-care-copay/', '/tools/tax-refund-claim/',
+    '/tools/retirement-pay/', '/tools/hourly-wage/', '/tools/car-tax/', '/tools/savings-interest/', '/tools/rent-conversion/', '/tools/brokerage-fee/', '/tools/annual-leave-allowance/', '/tools/overseas-stock-tax/', '/tools/median-income/', '/tools/k-pass-refund/', '/tools/parental-leave-pay/', '/tools/electricity-bill/', '/tools/unemployment-benefit/', '/tools/youth-savings-account/', '/tools/childcare-service/', '/tools/reduced-work-hours-pay/', '/tools/medical-cost-cap/', '/tools/longterm-care-copay/', '/tools/tax-refund-claim/', '/tools/wage-guarantee/',
   ];
   const categoryPaths = visibleCategories().map((c) => c.href);
 

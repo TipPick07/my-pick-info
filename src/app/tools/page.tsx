@@ -21,6 +21,14 @@ interface Tool {
 
 const TOOLS: Tool[] = [
   {
+    href: "/tools/wage-guarantee/",
+    emoji: "⚖️",
+    title: "대지급금 계산기",
+    desc: "체불임금을 국가가 대신 주는 금액, 연령별 상한 적용",
+    accent: "#B45309",
+    ready: true,
+  },
+  {
     href: "/tools/salary/",
     emoji: "💸",
     title: "연봉 실수령액 계산기",
