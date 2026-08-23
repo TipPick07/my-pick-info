@@ -2,25 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
-    <loc>https://tip-pick.com/blog/2026-08-21-single-parent-family-benefit/</loc>
+    <loc>https://tip-pick.com/blog/2026-08-24-veterans-affiliated-hospital-discount/</loc>
     <news:news>
       <news:publication>
         <news:name>팁픽</news:name>
         <news:language>ko</news:language>
       </news:publication>
-      <news:publication_date>2026-08-21T00:00:00.000Z</news:publication_date>
-      <news:title>한부모가정지원금 월 23만 원, 중위소득 65% 자격 계산</news:title>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://tip-pick.com/blog/2026-08-20-wage-arrears-guarantee-payment/</loc>
-    <news:news>
-      <news:publication>
-        <news:name>팁픽</news:name>
-        <news:language>ko</news:language>
-      </news:publication>
-      <news:publication_date>2026-08-20T00:00:00.000Z</news:publication_date>
-      <news:title>임금체불 신고, 대지급금 6개월분 받는 순서</news:title>
+      <news:publication_date>2026-08-24T00:00:00.000Z</news:publication_date>
+      <news:title>국가유공자 위탁병원 감면 60%, 이용 연령 확인 순서</news:title>
     </news:news>
   </url>
 </urlset>
