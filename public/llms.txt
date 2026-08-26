@@ -76,8 +76,9 @@
 - [집 팔 때 양도소득세 — 1주택 비과세·세율 한눈에 (2026)](https://tip-pick.com/guides/house-capital-gains-tax/)
 - [청년 지원금 월세 480만 원, 목돈·주거·취업 신청 순서](https://tip-pick.com/guides/youth-support-guide/)
 
-## 최근 글 20편 (전체 98편)
+## 최근 글 20편 (전체 99편)
 
+- [장애인활동지원 본인부담 상한 21만 원, 구간별 계산](https://tip-pick.com/blog/2026-08-27-disability-activity-support/) — 2026-08-27
 - [청년일자리도약장려금 720만 원, 근속 6개월부터 신청](https://tip-pick.com/blog/2026-08-25-youth-job-leap-incentive/) — 2026-08-25
 - [국가유공자 위탁병원 감면 60%, 이용 연령 확인 순서](https://tip-pick.com/blog/2026-08-24-veterans-affiliated-hospital-discount/) — 2026-08-24
 - [한부모가정지원금 월 23만 원, 중위소득 65% 자격 계산](https://tip-pick.com/blog/2026-08-21-single-parent-family-benefit/) — 2026-08-21
@@ -97,6 +98,5 @@
 - [본인부담상한제 1분위 90만 원, 병원비 환급 계산](https://tip-pick.com/blog/2026-07-28-medical-cost-cap-refund/) — 2026-07-28
 - [예금자보호 1억 한도, 이자까지 지키는 예치 상한](https://tip-pick.com/blog/2026-07-27-deposit-protection-limit/) — 2026-07-27
 - [육아기 근로시간 단축 급여 250만, 실수령 92.9%](https://tip-pick.com/blog/2026-07-24-reduced-work-hours-childcare-pay/) — 2026-07-24
-- [퇴직연금 디폴트옵션 수익률 14.9%, 등급 고르는 법](https://tip-pick.com/blog/2026-07-23-retirement-pension-default-option/) — 2026-07-23
 
 전체 목록은 [llms-full.txt](https://tip-pick.com/llms-full.txt) 를 참고하세요.
