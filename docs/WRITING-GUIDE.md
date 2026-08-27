@@ -288,7 +288,7 @@ open(p, "wb").write(s.encode("utf-8"))   # 줄바꿈 변환이 일어나지 않�
 
 ## 6. 현재 콘텐츠 현황 (2026-07-13)
 
-- **블로그 글 99편** (benefit 63 · 경제 36 — 8/27 장애인활동지원 본인부담금 추가) — 전 글 SEO 규격 통일(제목≤35자·설명≤90자·에버그린·내부 루프·게이트 경고 0) + 7/20 §1-7 전면 적용. **신규 글도 이 규격 필수.**
+- **블로그 글 100편** (benefit 64 · 경제 36 — 8/28 두루누리 사회보험료 지원 추가) — 전 글 SEO 규격 통일(제목≤35자·설명≤90자·에버그린·내부 루프·게이트 경고 0) + 7/20 §1-7 전면 적용. **신규 글도 이 규격 필수.**
 - **가이드 23편**: `national-scholarship`, `national-pension-survivor-benefits`, `hidden-money-checkup`, `retirement-pension-arrears`, `deposit-protection`, `retirement-pension`, `housing-pension`, `health-insurance-saving`, `insurance-checkup`, `property-holding-tax`, `self-employed-freelancer-tax`, `first-home-purchase`, `inheritance-gift-tax`, `overseas-stock-capital-gains-tax`, `unemployment-benefit-guide`, `three-pillar-pension`, `comprehensive-income-tax-filing`, `parenting-family-benefits`, `parenting-family-finance`, `parenting-family-savings`, `daycare-admission`, `house-capital-gains-tax`, `youth-support-guide`
 - **계산기 24종**: 대지급금(`wage-guarantee`), 경정청구 환급액(`tax-refund-claim`), 장기요양 본인부담금(`longterm-care-copay`), 연봉 실수령액(`salary`), 대출 이자(`loan`), 종합소득세(`income-tax`), 4대보험(`insurance`), 퇴직금(`retirement-pay`), 시급·주휴수당(`hourly-wage`), 자동차세(`car-tax`), 예금·적금 이자(`savings-interest`), 전월세 전환(`rent-conversion`), 부동산 중개보수(`brokerage-fee`), 연차수당(`annual-leave-allowance`), 해외주식 양도세(`overseas-stock-tax`), 기준 중위소득(`median-income`), 육아휴직급여(`parental-leave-pay`), 전기요금(`electricity-bill`), 실업급여(`unemployment-benefit`), K-패스 환급(`k-pass-refund`), 청년내일저축계좌 만기(`youth-savings-account`), 아이돌봄서비스 본인부담(`childcare-service`), 육아기 근로시간 단축 급여(`reduced-work-hours-pay`), 본인부담상한제 환급(`medical-cost-cap`)
 
