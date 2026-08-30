@@ -2,25 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
-    <loc>https://tip-pick.com/blog/2026-08-28-durunuri-social-insurance-support/</loc>
+    <loc>https://tip-pick.com/blog/2026-08-31-child-welcome-benefit-reform/</loc>
     <news:news>
       <news:publication>
         <news:name>팁픽</news:name>
         <news:language>ko</news:language>
       </news:publication>
-      <news:publication_date>2026-08-28T00:00:00.000Z</news:publication_date>
-      <news:title>두루누리 사회보험료 80% 지원, 자격 확인 순서</news:title>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://tip-pick.com/blog/2026-08-27-disability-activity-support/</loc>
-    <news:news>
-      <news:publication>
-        <news:name>팁픽</news:name>
-        <news:language>ko</news:language>
-      </news:publication>
-      <news:publication_date>2026-08-27T00:00:00.000Z</news:publication_date>
-      <news:title>장애인활동지원 본인부담 상한 21만 원, 구간별 계산</news:title>
+      <news:publication_date>2026-08-31T00:00:00.000Z</news:publication_date>
+      <news:title>아이맞이지원금 1,000만 원 정부안, 출생일 기준 계산</news:title>
     </news:news>
   </url>
 </urlset>

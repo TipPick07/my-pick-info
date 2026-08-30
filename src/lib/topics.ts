@@ -155,7 +155,7 @@ export const TOPICS: Topic[] = [
       "첫만남이용권 첫째 200만·둘째 300만 원, 지역별 3층 구조, 자영업자 배우자 출산급여까지 총액을 계산했습니다.",
     intro:
       "출산 지원은 국가가 전국 공통으로 주는 1층 위에 광역시도(2층)와 시군구(3층)가 얹히는 구조입니다. 1층만 챙기고 3층을 모르는 경우가 많은데, 차이가 가장 큰 곳이 바로 3층입니다.",
-    posts: ["2026-07-06-birth-support-benefits", "2026-06-01-parenting-benefit-region-compare", "2026-04-29-seoul-selfemployed-paternity-leave-support", "2026-06-01-yongsan-disabled-family-birth-support"],
+    posts: ["2026-08-31-child-welcome-benefit-reform", "2026-07-06-birth-support-benefits", "2026-06-01-parenting-benefit-region-compare", "2026-04-29-seoul-selfemployed-paternity-leave-support", "2026-06-01-yongsan-disabled-family-birth-support"],
     guides: ["parenting-family-finance"],
   },
   {

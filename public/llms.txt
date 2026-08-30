@@ -76,8 +76,9 @@
 - [집 팔 때 양도소득세 — 1주택 비과세·세율 한눈에 (2026)](https://tip-pick.com/guides/house-capital-gains-tax/)
 - [청년 지원금 월세 480만 원, 목돈·주거·취업 신청 순서](https://tip-pick.com/guides/youth-support-guide/)
 
-## 최근 글 20편 (전체 100편)
+## 최근 글 20편 (전체 101편)
 
+- [아이맞이지원금 1,000만 원 정부안, 출생일 기준 계산](https://tip-pick.com/blog/2026-08-31-child-welcome-benefit-reform/) — 2026-08-31
 - [두루누리 사회보험료 80% 지원, 자격 확인 순서](https://tip-pick.com/blog/2026-08-28-durunuri-social-insurance-support/) — 2026-08-28
 - [장애인활동지원 본인부담 상한 21만 원, 구간별 계산](https://tip-pick.com/blog/2026-08-27-disability-activity-support/) — 2026-08-27
 - [청년일자리도약장려금 720만 원, 근속 6개월부터 신청](https://tip-pick.com/blog/2026-08-25-youth-job-leap-incentive/) — 2026-08-25
@@ -97,6 +98,5 @@
 - [요양원 비용 30일 55만 원, 등급별 본인부담금](https://tip-pick.com/blog/2026-07-31-longterm-care-copayment/) — 2026-07-31
 - [퇴직연금 미납 지연이자 연 20%, 2년 120만 원](https://tip-pick.com/blog/2026-07-30-retirement-pension-unpaid-contribution/) — 2026-07-30
 - [본인부담상한제 1분위 90만 원, 병원비 환급 계산](https://tip-pick.com/blog/2026-07-28-medical-cost-cap-refund/) — 2026-07-28
-- [예금자보호 1억 한도, 이자까지 지키는 예치 상한](https://tip-pick.com/blog/2026-07-27-deposit-protection-limit/) — 2026-07-27
 
 전체 목록은 [llms-full.txt](https://tip-pick.com/llms-full.txt) 를 참고하세요.
