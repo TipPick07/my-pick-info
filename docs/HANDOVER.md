@@ -128,6 +128,15 @@ officialCurationNote: "..."   # ⭐ 에디터 한마디(선택)
 
 ## 9. 작업 로그 (최신이 위)
 
+### 2026-09-01 (3) — 제휴 스위치를 광고 네트워크에서 분리 (프로덕션 노출 실제로 뚫림)
+
+- **운영자 요청**: "원격으로 접속해서 광고 나오게 처리해줘". → **원격 접속은 필요 없었다.** 배포 구조를 확인하니 빌드가 **Cloudflare가 아니라 GitHub Actions**에서 돈다(`.github/workflows/deploy.yml`, main 푸시 트리거 → `npx wrangler pages deploy out`). 즉 Cloudflare 대시보드에 넣을 값이 아니었다.
+- **🔴 그런데 그냥 켜면 안 되는 걸 발견했다**: `NEXT_PUBLIC_ADS_ENABLED`는 쿠팡 제휴만 켜는 게 아니라 **`AdFit`(카카오)도 켠다.** AdFit은 **`Footer`에 있어 전 페이지**에 깔리는데 ⓐ 단위 코드가 플레이스홀더(`DAN-QfBmTx8He16AouXv`, 주석에 "나중에 실제 광고 코드로 교체") ⓑ **MONETIZATION-ROADMAP §4가 "애드핏은 지금 당장 붙이지 않는다"로 이미 결론**을 냈다(pension-pick 애드센스 심사 결과가 먼저). 제휴 켜자고 승인도 안 받은 광고 네트워크를 같이 켤 수는 없다.
+- **또 하나**: 그 플래그는 **CI에 존재하지 않는다.** deploy.yml의 빌드 스텝에 `env:` 블록이 없고 `.env.local`은 gitignore다. 그대로 뒀으면 프로덕션에서 제휴가 영영 안 나왔다.
+- **해법 — 플래그 분리**: `src/config/affiliate.ts`가 `NEXT_PUBLIC_AFFILIATE_ENABLED`를 쓰고 **기본값 on**(`!== "false"`). 쿠팡 파트너스 계정과 실제 링크가 이미 있으므로 기본 on이 맞고, 끌 때만 명시한다. **GitHub Secrets·Cloudflare 대시보드 어느 쪽도 건드릴 필요가 없다.** AdFit·애드센스는 기존 `NEXT_PUBLIC_ADS_ENABLED`에 그대로 묶여 계속 꺼진 상태.
+- **CI 조건 실측(`.env.local`을 치우고 빌드 = GitHub Actions와 동일)**: 쿠팡 제휴 3개 페이지 링크 2개씩·고지·`rel` **정상 노출** / **AdFit 0페이지** / **애드센스 유닛 0페이지** / 금융CPA·여행배너 0페이지.
+- 참고 — 애드센스 유닛(`AdBanner`)은 `NEXT_PUBLIC_ADSENSE_ID`로 따로 게이트돼 있어 CI에서 자동으로 꺼진다(단, `layout.tsx:72`의 애드센스 **스크립트 태그 자체는 하드코딩**이라 항상 로드된다 — 별건).
+- **검증**: `tsc --noEmit` EXIT 0 · `npm run build` EXIT 0(일반/CI조건 양쪽) · 게이트 위반 0(101편) · 경고 0.
 ### 2026-09-01 (2) — 쿠팡 파트너스 **가동**. 실제 링크 6개 배치 + 기존 결함 3건 수정
 
 - **전제가 바뀌었다**: 처음엔 "계정이 없으니 링크 자리를 비워 두고 인프라만 깐다"로 진행했는데, 운영자가 **`.env.local`에 이미 파트너스 정보가 다 있다**고 알려줬다 — `NEXT_PUBLIC_COUPANG_PARTNER_ID`(AF6155387) + `COUPANG_ACCESS_KEY`/`COUPANG_SECRET_KEY`(Open API). **egress도 열려 있었다**(그동안 문서에 "egress 차단"으로 적혀 있었으나 이 세션에선 `api-gateway.coupang.com` 200 응답).

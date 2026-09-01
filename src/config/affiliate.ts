@@ -107,16 +107,33 @@ const SLOTS: Record<string, AffiliateSlot> = {
   },
 };
 
-/** 사이트 전체 광고 마스터 스위치 — 기존 AffiliateBanner와 같은 플래그를 쓴다. */
-export const ADS_ENABLED = process.env.NEXT_PUBLIC_ADS_ENABLED === "true";
+/**
+ * 제휴 노출 스위치 — 🔴 광고 네트워크 스위치와 일부러 분리했다.
+ *
+ * NEXT_PUBLIC_ADS_ENABLED 를 같이 쓰면 안 되는 이유:
+ *   그 플래그는 AdFit(카카오)도 켠다. AdFit은 Footer에 있어 전 페이지에 깔리는데,
+ *   단위 코드가 아직 플레이스홀더이고 MONETIZATION-ROADMAP §4는
+ *   "애드핏은 지금 당장 붙이지 않는다"로 결론이 나 있다.
+ *   제휴를 켜자고 승인도 안 받은 광고 네트워크를 같이 켤 수는 없다.
+ *
+ * 기본값이 on 인 이유:
+ *   배포 빌드는 GitHub Actions에서 돈다(.github/workflows/deploy.yml).
+ *   거기엔 .env.local 이 없으므로, 기본값이 off 면 어떤 설정을 하지 않는 한
+ *   프로덕션에서 영영 안 나온다. 쿠팡 파트너스 계정과 실제 링크가 이미 있으므로
+ *   기본 on 으로 두고, 끌 때만 명시한다.
+ *
+ * 끄는 법: 환경변수 NEXT_PUBLIC_AFFILIATE_ENABLED=false (또는 이 줄을 false 로).
+ */
+export const AFFILIATE_ENABLED =
+  process.env.NEXT_PUBLIC_AFFILIATE_ENABLED !== "false";
 
 /**
  * 링크가 실제로 들어간 상품만 남긴다.
  * 하나도 없으면 null → AffiliateBox가 아무것도 그리지 않는다(fail-closed).
- * 마스터 스위치가 꺼져 있으면 링크가 있어도 null.
+ * 제휴 스위치가 꺼져 있으면 링크가 있어도 null.
  */
 export function getAffiliateSlot(key: string): AffiliateSlot | null {
-  if (!ADS_ENABLED) return null;
+  if (!AFFILIATE_ENABLED) return null;
   const slot = SLOTS[key];
   if (!slot) return null;
   const live = slot.products.filter((p) => p.url.trim().length > 0);
