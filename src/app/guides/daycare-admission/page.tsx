@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AffiliateBox from "@/components/AffiliateBox";
 
 /**
  * 거래형 하위 가이드 — 어린이집·유치원 신청(유보통합포털 입소대기·입학) 가이드
@@ -28,13 +29,13 @@ const SRC_BENEFITS = "/guides/parenting-family-benefits/"; // 비용(보육료·
 // 절대 URL로 지정 → layout의 metadataBase 유무와 무관하게 og:image가 안전하게 해석됨
 const OG_IMAGE = `${SITE}/images/og/daycare-admission.png`;
 const OG_TITLE =
-  "유보통합포털 2027 입학, 어린이집 입소 대기 신청";
+  "유보통합포털 자녀등록, 어린이집·유치원 입소 순위 확인";
 const OG_DESC =
-  "어린이집은 점수제·연중 대기, 유치원은 11월 추첨. 2024년 통합된 유보통합포털 한 곳에서 입소대기·입학을 어떻게 신청하는지 한눈에 정리했습니다.";
+  "유보통합포털 자녀등록을 마쳐야 신청이 열립니다. 어린이집은 1순위 100점 점수제 대기순번, 유치원은 순위 없이 희망순 무작위 추첨입니다.";
 
 export const metadata: Metadata = {
   title:
-    "유보통합포털 2027 입학, 어린이집 입소 대기 신청 | 팁픽",
+    "유보통합포털 자녀등록, 어린이집·유치원 입소 순위 확인 | 팁픽",
   description: OG_DESC,
   alternates: { canonical: `${SITE}${PATH}` },
   openGraph: {
@@ -86,6 +87,62 @@ const COMPARE = [
     axis: "결과 확인",
     daycare: "대기순번 실시간 조회",
     kinder: "추첨 결과 발표(11월)",
+  },
+];
+
+// 유보통합포털 자녀등록 — 모든 신청의 첫 관문 (DepthCard)
+const REGISTER = [
+  {
+    k: "1. 회원가입",
+    v: "유보통합포털(enter.childinfo.go.kr)에 가입합니다. 기존 아이사랑포털 회원이라면 추가 가입 없이 쓰던 아이디·비밀번호로 그대로 로그인됩니다.",
+  },
+  {
+    k: "2. 자녀등록",
+    v: "포털에 아이를 등록합니다. 이 단계를 마친 뒤에야 입소대기 신청 화면이 열리므로, 자녀등록은 준비 단계가 아니라 신청의 첫 관문입니다.",
+    accent: true,
+  },
+  {
+    k: "3. 어린이집 검색·선택",
+    v: "지역·유형으로 어린이집을 찾아 고릅니다. 동시에 대기를 걸 수 있는 곳은 미재원 아동 3개소, 재원 아동 2개소입니다.",
+  },
+  {
+    k: "4. 입소대기 신청",
+    v: "선택한 어린이집에 입소대기를 신청하면 대기순번이 잡힙니다. 순번은 마이페이지에서 수시로 확인할 수 있고, 앞 순번이 취소되면 올라갑니다.",
+  },
+  {
+    k: "유치원도 같은 계정",
+    v: "유치원 입학은 같은 계정으로 이용하되 별도 동의가 필요합니다. 어린이집 대기와 유치원 입학을 함께 신청해도 됩니다.",
+  },
+];
+
+// 입소 순위가 있는 쪽과 없는 쪽 — 검색에서 가장 많이 헷갈리는 지점
+const RANK_COMPARE = [
+  {
+    axis: "순위가 있나",
+    daycare: "있다 — 입소 우선순위 점수제",
+    kinder: "없다 — 무작위 추첨",
+    accent: true,
+  },
+  {
+    axis: "무엇으로 갈리나",
+    daycare: "1순위 항목당 100점(다자녀·맞벌이 각 200점, 둘 다면 300점) / 2순위 항목당 50점",
+    kinder: "희망순(1·2·3지망) 무작위 추첨 + 우선모집 자격",
+  },
+  {
+    axis: "같으면 어떻게",
+    daycare: "동순위 경합은 입소대기 신청 순서로 결정",
+    kinder: "동점 개념 없음 — 추첨으로 한 번에 결정",
+  },
+  {
+    axis: "일찍 넣으면",
+    daycare: "유리하다 — 동순위에서 앞선다",
+    kinder: "무관하다 — 선착순이 아니다",
+    accent: true,
+  },
+  {
+    axis: "순번 확인",
+    daycare: "마이페이지에서 대기순번 실시간 조회",
+    kinder: "순번 없음 — 추첨 결과 발표(통상 11월)",
   },
 ];
 
@@ -163,6 +220,14 @@ const FAQS = [
   {
     q: "지금 신청하나요, 따로 시기가 있나요?",
     a: "어린이집은 연중 상시 대기 신청이 가능하고, 유치원은 연 1회(통상 11월)입니다. 2027학년도 유치원 일정은 2026년 10~11월 공고를 확인하세요.",
+  },
+  {
+    q: "유보통합포털 자녀등록을 안 하면 신청이 안 되나요?",
+    a: "네. 자녀등록을 마친 뒤에야 입소대기 신청 화면이 열립니다. 회원가입만 해 둔 상태에서는 어린이집을 골라도 신청이 진행되지 않으니, 가입 직후 자녀등록까지 끝내 두세요.",
+  },
+  {
+    q: "유치원도 어린이집처럼 입소 순위나 대기순번이 있나요?",
+    a: "아니요. 순위와 대기순번은 어린이집에만 있습니다. 유치원은 희망순 무작위 추첨이라 순번이라는 개념 자체가 없고, 우선모집 자격이 있는지만 갈립니다. 유치원 입소 순위를 찾고 계셨다면 확인할 것은 순번이 아니라 우선모집 대상 여부와 모집요강 일정입니다.",
   },
 ];
 
@@ -266,8 +331,8 @@ export default function DaycareAdmissionGuide() {
               2027학년도 기준 · 유보통합포털
             </div>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl">
-              어린이집·유치원 신청, 유보통합포털 한 곳에서
-              <br className="hidden sm:block" /> — 입소대기·입학 완벽 가이드 (2027학년도 기준)
+              유보통합포털 자녀등록, 어린이집·유치원
+              <br className="hidden sm:block" /> 입소 순위 확인 (2027학년도 기준)
             </h1>
             <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
               부모가 가장 헷갈리는 지점은 이것입니다 — 어린이집과 유치원은 이제 같은 포털에서
@@ -376,6 +441,21 @@ export default function DaycareAdmissionGuide() {
             </div>
           </section>
 
+          {/* 1-b. 유보통합포털 자녀등록 — 모든 신청의 첫 관문 (질문형 H2 · §1-8-3) */}
+          <section>
+            <SectionTitle
+              kicker="신청 전 첫 단계"
+              title="유보통합포털 자녀등록은 어떻게 하나요?"
+            />
+            <DepthCard
+              tone="indigo"
+              badge="가입 → 자녀등록 → 신청"
+              title="자녀등록을 마쳐야 신청 화면이 열린다"
+              sub="유보통합포털 enter.childinfo.go.kr · 2024.11 통합"
+              rows={REGISTER}
+            />
+          </section>
+
           {/* 2. 어린이집 깊이 */}
           <section>
             <SectionTitle
@@ -404,6 +484,66 @@ export default function DaycareAdmissionGuide() {
               sub="유보통합포털 · 처음학교로 모집요강"
               rows={KINDER}
             />
+          </section>
+
+          {/* 3-b. 입소 순위 — 어린이집엔 있고 유치원엔 없다 (질문형 H2 · §1-8-3) */}
+          <section>
+            <SectionTitle
+              kicker="가장 많이 헷갈리는 것"
+              title="유치원 입소 순위는 어떻게 정해지나요?"
+            />
+            <p className="mb-6 text-base leading-relaxed text-slate-600">
+              결론부터 말하면{" "}
+              <strong className="font-semibold text-slate-900">
+                유치원에는 입소 순위가 없습니다.
+              </strong>{" "}
+              순위와 대기순번은 어린이집에만 있는 제도이고, 유치원은 희망순 무작위 추첨으로
+              한 번에 결정됩니다. 그래서 유치원은 일찍 넣어도 유리해지지 않고, 어린이집은
+              같은 순위끼리 경합할 때 신청 순서로 갈립니다. 두 제도를 같은 기준으로 준비하면
+              한쪽은 반드시 헛수고가 됩니다.
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+              <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-600">
+                    <th className="px-4 py-3 font-semibold">구분</th>
+                    <th className="px-4 py-3 font-semibold text-indigo-700">
+                      어린이집 (순위 있음)
+                    </th>
+                    <th className="px-4 py-3 font-semibold text-slate-800">
+                      유치원 (순위 없음)
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {RANK_COMPARE.map((r) => (
+                    <tr key={r.axis} className="align-top">
+                      <td className="px-4 py-3 font-semibold text-slate-700">
+                        {r.axis}
+                      </td>
+                      <td
+                        className={`px-4 py-3 ${
+                          r.accent
+                            ? "font-medium text-indigo-700"
+                            : "text-slate-600"
+                        }`}
+                      >
+                        {r.daycare}
+                      </td>
+                      <td
+                        className={`px-4 py-3 ${
+                          r.accent
+                            ? "font-medium text-indigo-700"
+                            : "text-slate-600"
+                        }`}
+                      >
+                        {r.kinder}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </section>
 
           {/* 3.5 자체 계산 예시 — 입소 점수 비교 */}
@@ -527,6 +667,9 @@ export default function DaycareAdmissionGuide() {
               ))}
             </div>
           </section>
+
+          {/* 6-b. 제휴 슬롯 — 링크 미설정 시 아무것도 렌더되지 않는다(fail-closed) */}
+          <AffiliateBox slot="daycare-admission" />
 
           {/* 7. 관련 가이드 (짧게 · 풀섹션 아님) */}
           <section>
