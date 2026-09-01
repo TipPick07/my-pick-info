@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChildcareServiceCalculator from "@/components/ChildcareServiceCalculator";
+import AffiliateBox from "@/components/AffiliateBox";
 
 const SITE = "https://tip-pick.com";
 const PATH = "/tools/childcare-service/";
@@ -65,6 +66,9 @@ export default function ChildcareServiceToolPage() {
               한도를 넘긴 시간은 지원 없이 전액 본인부담으로 이용할 수 있습니다.
             </p>
           </section>
+
+          {/* 제휴 슬롯 — 링크 미설정 시 아무것도 렌더되지 않는다(fail-closed) */}
+          <AffiliateBox slot="childcare-service" />
 
           <p className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-sm text-slate-500">
             ※ 본 계산기는 2026년 시간제 기본형 단가 기준의{" "}

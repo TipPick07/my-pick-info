@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ParentalLeavePayCalculator from "@/components/ParentalLeavePayCalculator";
+import AffiliateBox from "@/components/AffiliateBox";
 
 const SITE = "https://tip-pick.com";
 const PATH = "/tools/parental-leave-pay/";
@@ -90,6 +91,9 @@ export default function ParentalLeavePayToolPage() {
               페이지에서 볼 수 있습니다.
             </p>
           </section>
+
+          {/* 제휴 슬롯 — 링크 미설정·마스터 스위치 off 면 아무것도 렌더되지 않는다 */}
+          <AffiliateBox slot="parental-leave-pay" />
 
           <p className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-sm text-slate-500">
             ※ 본 계산기는 통상임금 기반의{" "}

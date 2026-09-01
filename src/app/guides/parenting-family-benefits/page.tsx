@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AffiliateBox from "@/components/AffiliateBox";
 
 /**
  * 돈 pillar 1편 — 0세~초등 입학 전 수도권 육아·가족 지원금 에버그린 가이드
@@ -469,7 +470,9 @@ export default function ParentingFamilyBenefitsGuide() {
           </section>
 
           {/* 4. 금융 고리 자리 — 이번 편은 자리/문구 틀만 (실제 제휴 링크는 다음 단계) */}
-          {/* TODO(제휴): 아래 카드 하단 또는 이 자리 직후에 <AffiliateBanner /> 삽입 예정. 맥락 기반 + 고지 유지. */}
+          {/* 제휴 슬롯 — 맥락 기반 + 대가성 고지 포함(AffiliateBox가 강제).
+              링크 미설정·마스터 스위치 off 면 아무것도 렌더되지 않는다. */}
+          <AffiliateBox slot="parenting-family-benefits" />
           <section>
             <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6">
               <p className="text-xs font-bold uppercase tracking-widest text-indigo-600">
