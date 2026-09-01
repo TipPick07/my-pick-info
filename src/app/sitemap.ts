@@ -64,9 +64,12 @@ function gitDateOf(relPath: string): Date | null {
 }
 
 /** 가이드 page.tsx 안의 `const UPDATED = "YYYY-MM-DD"` 파싱(폴백용). */
-function updatedConstOf(relPath: string): Date | null {
+function updatedConstOf(slug: string): Date | null {
   try {
-    const src = fs.readFileSync(path.join(process.cwd(), relPath), 'utf8');
+    // 경로를 'src/app/guides' 하위로 정적 고정 — process.cwd()에 변수를 통째로
+    // 이어 붙이면 Turbopack이 프로젝트 전체를 트레이싱한다(NFT 경고).
+    const file = path.join(process.cwd(), 'src', 'app', 'guides', slug, 'page.tsx');
+    const src = fs.readFileSync(file, 'utf8');
     const m = src.match(/const UPDATED = "(\d{4}-\d{2}-\d{2})"/);
     if (!m) return null;
     const d = new Date(`${m[1]}T00:00:00Z`);
@@ -97,7 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   };
   const guideDate = (slug: string): Date => {
     const rel = `src/app/guides/${slug}/page.tsx`;
-    return gitDateOf(rel) ?? updatedConstOf(rel) ?? BUILD_TIME;
+    return gitDateOf(rel) ?? updatedConstOf(slug) ?? BUILD_TIME;
   };
   /** 정적 라우트('/tools/salary/' 등) → 그 라우트의 page.tsx 커밋 시각. */
   const routeDate = (route: string): Date | null => {
