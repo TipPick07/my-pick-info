@@ -8,7 +8,7 @@ const SITE = "https://tip-pick.com";
 const PATH = "/tools/reduced-work-hours-pay/";
 
 export const metadata: Metadata = {
-  title: "육아기 근로시간 단축 급여 계산기 (2026) | 팁픽",
+  title: "육아기 근로시간 단축 급여 250만 원, 남는 월급 계산 | 팁픽",
   description:
     "근무 시간을 줄이면 월급이 얼마나 남는지 바로 계산합니다. 통상임금과 줄이는 시간을 넣으면 2026년 기준(최초 10시간분 상한 250만 원) 회사 급여와 고용보험 단축급여를 나눠 보여 드립니다.",
   alternates: { canonical: `${SITE}${PATH}` },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${SITE}${PATH}`,
-    title: "육아기 근로시간 단축 급여 계산기 (2026) | 팁픽",
+    title: "육아기 근로시간 단축 급여 250만 원, 남는 월급 계산 | 팁픽",
     description:
       "통상임금·단축 시간으로 계산하는 육아기 근로시간 단축 급여와 월 실수령액.",
     images: [`${SITE}/og-image-v2.png`],

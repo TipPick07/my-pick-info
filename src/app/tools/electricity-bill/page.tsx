@@ -8,7 +8,7 @@ const SITE = "https://tip-pick.com";
 const PATH = "/tools/electricity-bill/";
 
 export const metadata: Metadata = {
-  title: "전기요금 계산기 2026 | 주택용 누진제·여름 요금 바로 확인 | 팁픽",
+  title: "전기요금 계산기 7·8월 누진제, 월 사용량으로 확인 | 팁픽",
   description:
     "월 사용량(kWh)만 넣으면 2026년 주택용 누진제 전기요금을 바로 계산. 하계(7~8월) 완화 구간·기후환경요금·부가세·전력기금까지 반영한 예상 청구액 확인.",
   alternates: { canonical: `${SITE}${PATH}` },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${SITE}${PATH}`,
-    title: "전기요금 계산기 2026 | 주택용 누진제·여름 요금 바로 확인 | 팁픽",
+    title: "전기요금 계산기 7·8월 누진제, 월 사용량으로 확인 | 팁픽",
     description:
       "사용량(kWh)으로 2026 주택용 누진제 전기요금 예상 청구액을 바로 확인. 하계 완화 구간·부가세·전력기금 반영.",
     images: [`${SITE}/og-image-v2.png`],
